@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | MedQuiz Practice</title>
+    <!-- Main dashboard styles -->
+    <link rel="stylesheet" href="2style.css">
+    <!-- Department specific styles (loaded dynamically) -->
+    <link id="pharmacy-css" rel="stylesheet" href="pharmacy/pharmacy.css" disabled>
+    <link id="year2-css" rel="stylesheet" href="year2/year2.css" disabled>
+    <link id="session1-css" rel="stylesheet" href="session1/session1.css" disabled>
+</head>
+<body>
+    <!-- Protection Overlay -->
+    <div id="protection-overlay" class="protection-overlay" style="display:none;">
+        <div class="protection-modal">
+            <h3>🔒 Access Required</h3>
+            <p>You need to register first to access the dashboard.</p>
+            <div class="login-form">
+                <input type="email" id="login-email" placeholder="Enter your registered email" class="login-input">
+                <input type="text" id="login-code" placeholder="Enter your access code" class="login-input">
+                <button onclick="attemptLogin()" class="btn login-btn">Login</button>
+                <button onclick="redirectToRegistration()" class="btn secondary-btn">New Registration</button>
+            </div>
+            <div class="security-notice">
+                <p><strong>Don't have an access code?</strong></p>
+                <p>1. Join: <a href="https://t.me/yerotechno" target="_blank">https://t.me/yerotechno</a></p>
+                <p>2. Contact admin: <strong>@Goodlife61</strong> on Telegram</p>
+                <p>3. Complete payment to get your unique code</p>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <span><strong>MedQuiz</strong></span>
+        <img src="989.jpg" alt="MedQuiz Logo" class="logo">
+        <div class="header-content">
+            <div class="header-subtitle">
+                <span id="welcome-message">Master Medical Sciences Through Practice</span>
+            </div>
+        </div>
+        <button id="logout-btn" class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- User Welcome Section -->
+        <div id="user-welcome" class="user-welcome">
+            <div class="welcome-card">
+                <h3>Welcome, <span id="user-name">User</span>!</h3>
+                <p>Department: <span id="user-department">-</span> | Year: <span id="user-year">-</span></p>
+                <p>University: <span id="user-university">-</span></p>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Departments</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">144</div>
+                <div class="stat-label">Quiz Parts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2000+</div>
+                <div class="stat-label">Questions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Year Levels</div>
+            </div>
+        </div>
+
+        <!-- Departments -->
+        <div class="category-title">
+            <span>🏥</span> Medical Departments
+        </div>
+
+        <div class="department-grid">
+            <!-- Medicine -->
+            <div class="department-card coming-soon">
+                <div class="department-icon">🏥</div>
+                <h3>Medicine</h3>
+                <p>MBBS/BSc Medicine exam preparation</p>
+                <div class="status-badge coming-soon">Coming Soon</div>
+            </div>
+
+            <!-- Pharmacy -->
+            <a href="pharmacy/pharmacy.html" class="department-card" onclick="loadPharmacyStyles()">
+                <div class="department-icon">💊</div>
+                <h3>Pharmacy</h3>
+                <p>Pharmaceutical sciences and clinical pharmacy practice</p>
+                <div class="status-badge available">Available</div>
+            </a>
+
+            <!-- Nursing -->
+            <div class="department-card coming-soon">
+                <div class="department-icon">🩺</div>
+                <h3>Nursing</h3>
+                <p>National nursing exams and patient care</p>
+                <div class="status-badge coming-soon">Coming Soon</div>
+            </div>
+
+            <!-- Medical Laboratory -->
+            <div class="department-card coming-soon">
+                <div class="department-icon">🧬</div>
+                <h3>Medical Laboratory</h3>
+                <p>Lab diagnosis and clinical chemistry</p>
+                <div class="status-badge coming-soon">Coming Soon</div>
+            </div>
+
+            <!-- Health Officer -->
+            <div class="department-card coming-soon">
+                <div class="department-icon">🩺</div>
+                <h3>Health Officer</h3>
+                <p>HO clinical practice and public health exams</p>
+                <div class="status-badge coming-soon">Coming Soon</div>
+            </div>
+
+            <!-- Midwifery -->
+            <div class="department-card coming-soon">
+                <div class="department-icon">🤰</div>
+                <h3>Midwifery</h3>
+                <p>Maternal and child health care exam preparation</p>
+                <div class="status-badge coming-soon">Coming Soon</div>
+            </div>
+
+            <!-- Physiotherapy -->
+            <div class="department-card coming-soon">
+                <div class="department-icon">🦵</div>
+                <h3>Physiotherapy</h3>
+                <p>Physical therapy and rehabilitation exam preparation</p>
+                <div class="status-badge coming-soon">Coming Soon</div>
+            </div>
+
+            <!-- Radiology -->
+            <div class="department-card coming-soon">
+                <div class="department-icon">🩻</div>
+                <h3>Radiology</h3>
+                <p>Medical imaging and radiology exams</p>
+                <div class="status-badge coming-soon">Coming Soon</div>
+            </div>
+
+            <!-- Nutrition -->
+            <div class="department-card coming-soon">
+                <div class="department-icon">🥗</div>
+                <h3>Nutrition</h3>
+                <p>Clinical nutrition and dietetics exam preparation</p>
+                <div class="status-badge coming-soon">Coming Soon</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Information</h4>
+                <p><strong>Telegram:</strong> <a href="https://t.me/yerotechno" target="_blank">@yerotechno</a></p>
+                <p><strong>Admin:</strong> <a href="mailto:Medqiuz@gmail.com">Email MedQuiz</a><br>
+                <a href="https://t.me/Goodlife61" target="_blank">@Goodlife61</a></p>
+                <p><strong>Phone:</strong> +251953341632</p>
+            </div>
+            <div class="footer-section">
+                <h4>About MedQuiz</h4>
+                <p>Your trusted platform for medical education and exam preparation.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 MedQuiz | Practice Smart, Succeed Fast
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script src="dashboard.js>"
+    <script>
+        // Development mode: bypass protection overlay
+        const DEVELOPMENT_MODE = true;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (DEVELOPMENT_MODE) {
+                document.getElementById('protection-overlay').style.display = 'none';
+                console.log('Development mode ON: overlay disabled');
+            } else {
+                // normal auth check from auth.js
+            }
+
+            // Ensure all department styles are disabled initially
+            disableDepartmentStyles();
+        });
+
+        function disableDepartmentStyles() {
+            const pharmacyCSS = document.getElementById('pharmacy-css');
+            const year2CSS = document.getElementById('year2-css');
+            const session1CSS = document.getElementById('session1-css');
+
+            if (pharmacyCSS) pharmacyCSS.disabled = true;
+            if (year2CSS) year2CSS.disabled = true;
+            if (session1CSS) session1CSS.disabled = true;
+        }
+
+
+        // Enable Pharmacy CSS when user clicks Pharmacy link
+        function loadPharmacyStyles() {
+            const pharmacyCSS = document.getElementById('pharmacy-css');
+            if (pharmacyCSS) pharmacyCSS.disabled = false;
+            console.log('Pharmacy styles enabled');
+        }
+
+        // Logout function
+        function logout() {
+            // clear localStorage/session and reload
+            localStorage.clear();
+            window.location.reload();
+        }
+    </script>
+</body>
+  </html>
