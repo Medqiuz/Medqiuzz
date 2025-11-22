@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathology | Pharmacy Year 2 | MedQuiz</title>
+    <link rel="stylesheet" href="6style.css">
+</head>
+<body>
+    <!-- Protection overlay -->
+    <div id="protection-overlay" class="protection-overlay" style="display:none;">
+        <div class="protection-modal">
+            <h3>🔒 Access Required</h3>
+            <p>Please login to access this content</p>
+            <button onclick="window.location.href='../../dashboard.html'" class="btn btn-primary">Go to Dashboard</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <span>Pathology</span>
+            <div class="header-subtitle">Pharmacy → Year 2 → Session 1</div>
+        </div>
+        <button onclick="goBackToSession1()" class="logout-btn">Back to Session 1</button>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="dashboard-container">
+        <div class="breadcrumb">
+            <a href="../../dashboard.html">Dashboard</a>
+            <span class="separator">></span>
+            <a href="../pharmacy.html">Pharmacy</a>
+            <span class="separator">></span>
+            <a href="../year2.html">Year 2</a>
+            <span class="separator">></span>
+            <a href="../session1.html">Session 1</a>
+            <span class="separator">></span>
+            <span>Pathology</span>
+        </div>
+
+        <!-- Overview -->
+        <div class="department-overview">
+            <div class="overview-card">
+                <h2>🩸 Pathology</h2>
+                <p>Study of disease processes, cellular changes, and mechanisms underlying medical conditions. Covers general pathology principles and systemic pathology applications.</p>
+                <div class="subject-stats">
+                    <div class="stat">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Parts</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">200</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Complete</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parts -->
+        <div class="category-title">
+            <span>📚</span> Course Parts
+        </div>
+
+        <div class="parts-grid">
+            <a href="part1.html" class="part-card">
+                <div class="part-header">
+                    <h4>Part 1: Foundations of Disease & Cellular Injury</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Pathology basics, cellular injury, necrosis, apoptosis, and reversible cell changes</p>
+                <div class="part-info">
+                    <span>🔬 40 Questions</span>
+                    <span>⏱️ 50 minutes</span>
+                </div>
+            </a>
+
+            <a href="part2.html" class="part-card">
+                <div class="part-header">
+                    <h4>Part 2: Inflammation & Tissue Repair</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Acute and chronic inflammation, chemical mediators, wound healing, and fracture repair</p>
+                <div class="part-info">
+                    <span>🔬 40 Questions</span>
+                    <span>⏱️ 50 minutes</span>
+                </div>
+            </a>
+
+            <a href="part3.html" class="part-card">
+                <div class="part-header">
+                    <h4>Part 3: Hemodynamic Disorders & Thrombosis</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Edema, hyperemia, congestion, hemorrhage, thrombosis, embolism, and shock</p>
+                <div class="part-info">
+                    <span>🔬 40 Questions</span>
+                    <span>⏱️ 50 minutes</span>
+                </div>
+            </a>
+
+            <a href="part4.html" class="part-card">
+                <div class="part-header">
+                    <h4>Part 4: Genetic & Immunological Diseases</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Mendelian disorders, chromosomal abnormalities, hypersensitivity, and autoimmune diseases</p>
+                <div class="part-info">
+                    <span>🔬 40 Questions</span>
+                    <span>⏱️ 50 minutes</span>
+                </div>
+            </a>
+
+            <a href="part5.html" class="part-card">
+                <div class="part-header">
+                    <h4>Part 5: Systemic Pathology & Adaptive Processes</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Cellular adaptations, systemic effects of inflammation, and comprehensive pathology review</p>
+                <div class="part-info">
+                    <span>🔬 40 Questions</span>
+                    <span>⏱️ 50 minutes</span>
+                </div>
+            </a>
+            <a href="part6.html" class="part-card">
+    <div class="part-header">
+        <h4>Part 6: Overview, Guide & Reference</h4>
+        <div class="part-badge">Available</div>
+    </div>
+    <p>Summary of key pathology concepts, structured study guide, and reference materials for revision.</p>
+    <div class="part-info">
+        <span>🔬 0 Questions</span>
+        <span>📘 Study Materials</span>
+    </div>
+</a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Include auth.js first -->
+    <script src="../../auth.js"></script>
+    <!-- Include your general script -->
+    <script src="../../script.js"></script>
+    <script>
+        // Show protection overlay if not authenticated
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.authSystem || !window.authSystem.isAuthenticated()) {
+                document.getElementById('protection-overlay').style.display = 'flex';
+            } else {
+                document.getElementById('protection-overlay').style.display = 'none';
+            }
+        });
+
+        function goBackToSession1() {
+            window.location.href = '../session1.html';
+        }
+    </script>
+</body>
+</html>
