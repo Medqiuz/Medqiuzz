@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry of Natural Products | Pharmacy Year 2 | MedQuiz</title>
+    <style>
+    /* ================================
+   GLOBAL SETTINGS
+================================ */
+:root {
+    --primary: #0066d4;
+    --primary-dark: #004fa8;
+    --accent: #8b3dff;
+    --light-bg: #f5f7fb;
+    --card-bg: #ffffff;
+    --text-dark: #333;
+    --text-light: #555;
+    --border: #e0e6f0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+body {
+    background: var(--light-bg);
+    color: var(--text-dark);
+    line-height: 1.5;
+    padding-bottom: 50px;
+}
+
+/* ================================
+   PROTECTION OVERLAY
+================================ */
+.protection-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.protection-modal {
+    background: var(--card-bg);
+    padding: 30px;
+    width: 90%;
+    max-width: 360px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    margin-top: 15px;
+    font-size: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+/* ================================
+   HEADER
+================================ */
+.dashboard-header {
+    background: var(--primary);
+    color: white;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content span {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    opacity: .85;
+    margin-top: 3px;
+}
+
+.logout-btn {
+    background: white;
+    color: var(--primary);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.logout-btn:hover {
+    background: #dfefff;
+}
+
+/* ================================
+   CONTAINER
+================================ */
+.dashboard-container {
+    width: 95%;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 25px;
+}
+
+/* ================================
+   BREADCRUMB
+================================ */
+.breadcrumb {
+    background: var(--card-bg);
+    padding: 12px 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.separator {
+    margin: 0 7px;
+    color: var(--text-light);
+}
+
+/* ================================
+   OVERVIEW CARD
+================================ */
+.department-overview .overview-card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+}
+
+.overview-card h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.subject-stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.stat {
+    background: var(--light-bg);
+    padding: 15px;
+    border-radius: 12px;
+    flex: 1;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-dark);
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+/* ================================
+   CATEGORY TITLE
+================================ */
+.category-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ================================
+   PARTS GRID
+================================ */
+.parts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.part-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text-dark);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: .3s;
+}
+
+.part-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+}
+
+.part-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.part-badge {
+    background: var(--primary);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.part-info {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* ================================
+   RESPONSIVE BEHAVIOR
+================================ */
+@media (max-width: 768px) {
+    .header-content span {
+        font-size: 20px;
+    }
+
+    .subject-stats {
+        flex-direction: column;
+    }
+
+    .part-info {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+</style>
+</head>
+<body>
+    <!-- Protection overlay -->
+    <div id="protection-overlay" class="protection-overlay" style="display:none;">
+        <div class="protection-modal">
+            <h3>🔒 Access Required</h3>
+            <p>Please login to access this content</p>
+            <button onclick="window.location.href='../../dashboard.html'" class="btn btn-primary">Go to Dashboard</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <span>Chemistry of Natural Products</span>
+            <div class="header-subtitle">Pharmacy → Year 2 → Session 1</div>
+        </div>
+        <button onclick="goBackToSession1()" class="logout-btn">Back to Session 1</button>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="dashboard-container">
+        <div class="breadcrumb">
+            <a href="../../dashboard.html">Dashboard</a>
+            <span class="separator">></span>
+            <a href="../pharmacy.html">Pharmacy</a>
+            <span class="separator">></span>
+            <a href="../year2.html">Year 2</a>
+            <span class="separator">></span>
+            <a href="../session1.html">Session 1</a>
+            <span class="separator">></span>
+            <span>Chemistry of Natural Products</span>
+        </div>
+
+        <!-- Overview -->
+        <div class="department-overview">
+            <div class="overview-card">
+                <h2>🌿 Chemistry of Natural Products</h2>
+                <p>Explore the chemical compounds produced by living organisms with medicinal properties. Covers stereochemistry, carbohydrates, lipids, amino acids, proteins, terpenes, steroids, and heterocyclic compounds found in natural sources.</p>
+                <div class="subject-stats">
+                    <div class="stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Units</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">300+</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Complete</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Units Overview -->
+        <div class="category-title">
+            <span>📚</span> Course Units Overview
+        </div>
+
+        <div class="parts-grid">
+            <a href="units-overview.html" class="part-card">
+                <div class="part-header">
+                    <h4>Units 1-3: Core Concepts Overview</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Comprehensive review of Stereochemistry, Carbohydrates, and Lipids with integrated questions and reference materials</p>
+                <div class="part-info">
+                    <span>🌿 100+ Questions</span>
+                    <span>⏱️ 90 minutes</span>
+                </div>
+            </a>
+
+            <a href="units-questions.html" class="part-card">
+                <div class="part-header">
+                    <h4>Questions: Units 1-3</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Mixed questions covering Stereochemistry, Carbohydrates, and Lipids with detailed explanations</p>
+                <div class="part-info">
+                    <span>🌿 120 Questions</span>
+                    <span>⏱️ 120 minutes</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Individual Units -->
+        <div class="category-title">
+            <span>📖</span> Individual Units
+        </div>
+
+        <div class="parts-grid">
+            <a href="unit1.html" class="part-card">
+                <div class="part-header">
+                    <h4>Unit 1: Stereochemistry</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Isomerism, conformation, configuration, chirality, enantiomers, diastereomers, and optical activity</p>
+                <div class="part-info">
+                    <span>🌿 40 Questions</span>
+                    <span>⏱️ 45 minutes</span>
+                </div>
+            </a>
+
+            <a href="unit2.html" class="part-card">
+                <div class="part-header">
+                    <h4>Unit 2: Carbohydrates</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Classification, reactions, cyclic structures, monosaccharides, disaccharides, and polysaccharides</p>
+                <div class="part-info">
+                    <span>🌿 40 Questions</span>
+                    <span>⏱️ 45 minutes</span>
+                </div>
+            </a>
+
+            <a href="unit3.html" class="part-card">
+                <div class="part-header">
+                    <h4>Unit 3: Lipids</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Fats, oils, waxes, reactions, analytical values, and lipid metabolism</p>
+                <div class="part-info">
+                    <span>🌿 40 Questions</span>
+                    <span>⏱️ 45 minutes</span>
+                </div>
+            </a>
+
+            <a href="unit4.html" class="part-card">
+                <div class="part-header">
+                    <h4>Unit 4: Amino Acids & Proteins</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Structure, nomenclature, physical and chemical properties, peptide synthesis</p>
+                <div class="part-info">
+                    <span>🌿 40 Questions</span>
+                    <span>⏱️ 45 minutes</span>
+                </div>
+            </a>
+
+            <a href="unit5.html" class="part-card">
+                <div class="part-header">
+                    <h4>Unit 5: Terpenes</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Introduction, properties, isolation, isoprene rule, classification, and pharmaceutical significance</p>
+                <div class="part-info">
+                    <span>🌿 40 Questions</span>
+                    <span>⏱️ 45 minutes</span>
+                </div>
+            </a>
+
+            <a href="unit6.html" class="part-card">
+                <div class="part-header">
+                    <h4>Unit 6: Steroids</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Introduction, sources, pharmaceutical significance, chemistry, nomenclature, and sterols</p>
+                <div class="part-info">
+                    <span>🌿 40 Questions</span>
+                    <span>⏱️ 45 minutes</span>
+                </div>
+            </a>
+
+            <a href="unit7.html" class="part-card">
+                <div class="part-header">
+                    <h4>Unit 7: Purines & Nucleic Acids</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Introduction, uric acid, purine derivatives, xanthine bases, and nucleic acid chemistry</p>
+                <div class="part-info">
+                    <span>🌿 40 Questions</span>
+                    <span>⏱️ 45 minutes</span>
+                </div>
+            </a>
+
+            <a href="unit8.html" class="part-card">
+                <div class="part-header">
+                    <h4>Unit 8: Heterocyclic Compounds</h4>
+                    <div class="part-badge">Available</div>
+                </div>
+                <p>Introduction, classification, nomenclature, physical and chemical properties, pharmaceutical significance</p>
+                <div class="part-info">
+                    <span>🌿 40 Questions</span>
+                    <span>⏱️ 45 minutes</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Include auth.js first -->
+    <script src="../../auth.js"></script>
+    <!-- Include your general script -->
+    <script src="../../script.js"></script>
+    <script>
+        // Show protection overlay if not authenticated
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.authSystem || !window.authSystem.isAuthenticated()) {
+                document.getElementById('protection-overlay').style.display = 'flex';
+            } else {
+                document.getElementById('protection-overlay').style.display = 'none';
+            }
+        });
+
+        function goBackToSession1() {
+            window.location.href = '../session1.html';
+        }
+    </script>
+</body>
+</html>
