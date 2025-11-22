@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmaceutical Calculations Quiz - Part 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>💊 Pharmaceutical Calculations Quiz</h1>
+            <div class="subtitle">Part 1: Basic Concepts & Measurements (Questions 1-40)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const pharmaQuestions = [
+            {
+                question: "1. Which of the following best defines 'accuracy' in pharmaceutical measurements?",
+                options: [
+                    "Closeness of measured value to true value",
+                    "Consistency of repeated measurements",
+                    "Smallest division of an instrument",
+                    "Difference between two measurements"
+                ],
+                correct: 0,
+                explanation: "Accuracy indicates how near a measurement is to the actual or accepted standard."
+            },
+            {
+                question: "2. Significant figures in a measurement reflect:",
+                options: [
+                    "Precision and reliability of the measurement",
+                    "Only the estimated digit",
+                    "The error in measurement",
+                    "The type of instrument used"
+                ],
+                correct: 0,
+                explanation: "Significant figures include all certain digits plus one estimated digit."
+            },
+            {
+                question: "3. A balance has a sensitivity of 0.1 mg. What does this mean?",
+                options: [
+                    "It can detect a minimum weight change of 0.1 mg",
+                    "It measures only in grams",
+                    "It can weigh up to 100 mg",
+                    "It has 0.1% error"
+                ],
+                correct: 0,
+                explanation: "Sensitivity is the smallest mass change the balance can detect."
+            },
+            {
+                question: "4. If a solution has a density of 1.2 g/mL, what is its specific gravity?",
+                options: [
+                    "1.2",
+                    "0.8",
+                    "1.0",
+                    "1.5"
+                ],
+                correct: 0,
+                explanation: "Specific gravity = density of substance / density of water (1 g/mL at 4°C)."
+            },
+            {
+                question: "5. Aliquot method is used for:",
+                options: [
+                    "Accurately weighing small quantities by dilution",
+                    "Measuring large volumes directly",
+                    "Calculating percentage solutions",
+                    "Determining specific gravity"
+                ],
+                correct: 0,
+                explanation: "Ensures precise measurement of very small amounts by first making a larger measurable solution."
+            },
+            {
+                question: "6. Convert 0.5% w/v solution to mg/mL:",
+                options: [
+                    "5 mg/mL",
+                    "0.5 mg/mL",
+                    "50 mg/mL",
+                    "500 mg/mL"
+                ],
+                correct: 0,
+                explanation: "0.5% w/v = 0.5 g/100 mL = 5 mg/mL."
+            },
+            {
+                question: "7. What is 1 ppm in mg/L for an aqueous solution?",
+                options: [
+                    "1 mg/L",
+                    "10 mg/L",
+                    "0.1 mg/L",
+                    "100 mg/L"
+                ],
+                correct: 0,
+                explanation: "In water, 1 ppm equals 1 mg per liter."
+            },
+            {
+                question: "8. A pediatric patient weighing 15 kg requires a drug dose of 10 mg/kg/day. The total daily dose is:",
+                options: [
+                    "150 mg",
+                    "10 mg",
+                    "25 mg",
+                    "100 mg"
+                ],
+                correct: 0,
+                explanation: "Dose = 10 mg × 15 kg = 150 mg/day."
+            },
+            {
+                question: "9. To prepare 200 mL of 2% w/v solution, how much drug is required?",
+                options: [
+                    "4 g",
+                    "2 g",
+                    "0.4 g",
+                    "20 g"
+                ],
+                correct: 0,
+                explanation: "2% w/v = 2 g/100 mL → for 200 mL: 2 × 2 = 4 g."
+            },
+            {
+                question: "10. A liquid contains 50 mg/mL. To prepare 100 mL of 1:10 dilution, the final concentration is:",
+                options: [
+                    "5 mg/mL",
+                    "10 mg/mL",
+                    "0.5 mg/mL",
+                    "50 mg/mL"
+                ],
+                correct: 0,
+                explanation: "1:10 dilution reduces concentration 10-fold."
+            },
+            {
+                question: "11. Drug dosage based on body surface area (BSA) is preferred over body weight in:",
+                options: [
+                    "Chemotherapy drugs",
+                    "Antibiotics",
+                    "Analgesics",
+                    "Vitamins"
+                ],
+                correct: 0,
+                explanation: "BSA correlates better with metabolic mass and toxicity profile."
+            },
+            {
+                question: "12. The formula for calculating BSA using Mosteller method is:",
+                options: [
+                    "√(Height(cm) × Weight(kg)/3600)",
+                    "Weight(kg) × 70",
+                    "Height(cm)/Weight(kg)",
+                    "(Height + Weight)/2"
+                ],
+                correct: 0,
+                explanation: "Standard method for BSA estimation."
+            },
+            {
+                question: "13. In alligation alternate, to mix two solutions of different strengths, the proportion of each is calculated based on:",
+                options: [
+                    "Difference between each strength and the desired strength",
+                    "Sum of concentrations",
+                    "Average volume",
+                    "Equal volume always"
+                ],
+                correct: 0,
+                explanation: "Ensures target concentration is achieved."
+            },
+            {
+                question: "14. Specific gravity of a mixture is defined as:",
+                options: [
+                    "Total weight of mixture / total volume",
+                    "Volume of water displaced",
+                    "Mass per mole",
+                    "Density × 100"
+                ],
+                correct: 0,
+                explanation: "Represents density relative to water."
+            },
+            {
+                question: "15. Triturations are used for:",
+                options: [
+                    "Reducing particle size of solid drugs",
+                    "Dissolving drugs in water",
+                    "Preparing intravenous solutions",
+                    "Sterilization"
+                ],
+                correct: 0,
+                explanation: "Helps in uniform mixing and absorption."
+            },
+            {
+                question: "16. A drug solution is labeled 0.2% w/v. How many mg are in 50 mL?",
+                options: [
+                    "100 mg",
+                    "10 mg",
+                    "1 mg",
+                    "200 mg"
+                ],
+                correct: 0,
+                explanation: "0.2 g/100 mL = 2 mg/mL; 50 mL × 2 mg/mL = 100 mg."
+            },
+            {
+                question: "17. A patient requires 500 mg of drug. Available stock solution is 250 mg/5 mL. The volume to administer is:",
+                options: [
+                    "10 mL",
+                    "5 mL",
+                    "2 mL",
+                    "20 mL"
+                ],
+                correct: 0,
+                explanation: "(500 mg × 5 mL)/250 mg = 10 mL."
+            },
+            {
+                question: "18. If a drug requires 2 mg/kg and patient weighs 70 kg, the total dose is:",
+                options: [
+                    "140 mg",
+                    "70 mg",
+                    "100 mg",
+                    "200 mg"
+                ],
+                correct: 0,
+                explanation: "Dose = 2 × 70 = 140 mg."
+            },
+            {
+                question: "19. To prepare 500 mL of 0.1% w/v solution, how much drug is needed?",
+                options: [
+                    "0.5 g",
+                    "5 g",
+                    "50 mg",
+                    "1 g"
+                ],
+                correct: 0,
+                explanation: "0.1 g/100 mL → 0.5 g/500 mL."
+            },
+            {
+                question: "20. A 10 mL solution contains 50 mg of drug. Strength in mg/mL is:",
+                options: [
+                    "5 mg/mL",
+                    "0.5 mg/mL",
+                    "50 mg/mL",
+                    "10 mg/mL"
+                ],
+                correct: 0,
+                explanation: "50 mg / 10 mL = 5 mg/mL."
+            },
+            {
+                question: "21. A 2% w/v solution contains how many grams in 250 mL?",
+                options: [
+                    "5 g",
+                    "2 g",
+                    "4 g",
+                    "0.5 g"
+                ],
+                correct: 0,
+                explanation: "2 g per 100 mL → 250 mL: (2 × 250)/100 = 5 g."
+            },
+            {
+                question: "22. If 0.25 g of a drug is dissolved in 50 mL, the % w/v is:",
+                options: [
+                    "0.5%",
+                    "0.25%",
+                    "0.05%",
+                    "1%"
+                ],
+                correct: 0,
+                explanation: "(0.25 g / 50 mL) × 100 = 0.5%."
+            },
+            {
+                question: "23. Parts per million (ppm) is equivalent to:",
+                options: [
+                    "mg/L in water solutions",
+                    "mg/mL in water solutions",
+                    "g/L in water solutions",
+                    "g/mL in water solutions"
+                ],
+                correct: 0,
+                explanation: "Standard conversion in aqueous solutions."
+            },
+            {
+                question: "24. Specific volume is defined as:",
+                options: [
+                    "Reciprocal of density",
+                    "Mass per unit volume",
+                    "Volume per mole",
+                    "Weight of solute per solution"
+                ],
+                correct: 0,
+                explanation: "Specific volume = 1/density."
+            },
+            {
+                question: "25. Accuracy of a balance is expressed in:",
+                options: [
+                    "± error from true value",
+                    "mL",
+                    "kg only",
+                    "Percentage concentration"
+                ],
+                correct: 0,
+                explanation: "Shows closeness to true measurement."
+            },
+            {
+                question: "26. A 5 mg/mL solution is diluted to 1 mg/mL. The dilution factor is:",
+                options: [
+                    "5",
+                    "1",
+                    "0.2",
+                    "10"
+                ],
+                correct: 0,
+                explanation: "5 ÷ 1 = 5; stock solution diluted 5 times."
+            },
+            {
+                question: "27. The aliquot method is particularly useful for weighing:",
+                options: [
+                    "Very small quantities (<10 mg)",
+                    "Large quantities (>1 g)",
+                    "Volatile liquids",
+                    "Powders only"
+                ],
+                correct: 0,
+                explanation: "Ensures accuracy by making a measurable solution."
+            },
+            {
+                question: "28. For a patient weighing 60 kg, prescribed drug 15 mg/kg/day, the total daily dose is:",
+                options: [
+                    "900 mg",
+                    "150 mg",
+                    "600 mg",
+                    "90 mg"
+                ],
+                correct: 0,
+                explanation: "15 × 60 = 900 mg/day."
+            },
+            {
+                question: "29. To prepare 250 mL of 0.5% solution, required drug amount is:",
+                options: [
+                    "1.25 g",
+                    "0.5 g",
+                    "2.5 g",
+                    "5 g"
+                ],
+                correct: 0,
+                explanation: "0.5 g/100 mL → 250 mL: (0.5 × 250)/100 = 1.25 g."
+            },
+            {
+                question: "30. A mixture of 20% and 10% solutions is needed to make 100 mL of 15% solution. Volume of 20% solution is:",
+                options: [
+                    "50 mL",
+                    "25 mL",
+                    "75 mL",
+                    "40 mL"
+                ],
+                correct: 0,
+                explanation: "Using alligation method: (20−15)/(15−10) = 5/5 = 1:1 → 50 mL each."
+            },
+            {
+                question: "31. Drug dosage based on BSA uses formula:",
+                options: [
+                    "Dose = (BSA of patient / 1.73) × standard dose",
+                    "Dose = Weight × 10",
+                    "Dose = Height × 2",
+                    "Dose = BSA × weight"
+                ],
+                correct: 0,
+                explanation: "Adjusts adult dose for individual BSA."
+            },
+            {
+                question: "32. Specific gravity of alcohol is 0.8. 100 mL weighs:",
+                options: [
+                    "80 g",
+                    "100 g",
+                    "120 g",
+                    "200 g"
+                ],
+                correct: 0,
+                explanation: "100 mL × 0.8 g/mL = 80 g."
+            },
+            {
+                question: "33. Triturations are performed to:",
+                options: [
+                    "Reduce particle size",
+                    "Dissolve solid in liquid",
+                    "Sterilize drug",
+                    "Increase density"
+                ],
+                correct: 0,
+                explanation: "For better homogeneity and absorption."
+            },
+            {
+                question: "34. The formula for % w/v is:",
+                options: [
+                    "(Weight of solute in g / Volume of solution in mL) × 100",
+                    "(Weight / Weight) × 100",
+                    "(Volume / Volume) × 100",
+                    "Weight × Volume × 100"
+                ],
+                correct: 0,
+                explanation: "Standard percentage weight per volume."
+            },
+            {
+                question: "35. A solution has 2 mg/mL, patient requires 10 mg. Volume needed is:",
+                options: [
+                    "5 mL",
+                    "10 mL",
+                    "2 mL",
+                    "20 mL"
+                ],
+                correct: 0,
+                explanation: "10 mg ÷ 2 mg/mL = 5 mL."
+            },
+            {
+                question: "36. Alligation medial is used for:",
+                options: [
+                    "Calculating mean strength of mixture",
+                    "Calculating doses",
+                    "Measuring volume",
+                    "Preparing stock solution"
+                ],
+                correct: 0,
+                explanation: "Combines multiple solutions to find average concentration."
+            },
+            {
+                question: "37. To prepare 200 mL of 3% w/v solution, required amount of solute is:",
+                options: [
+                    "6 g",
+                    "3 g",
+                    "0.6 g",
+                    "2 g"
+                ],
+                correct: 0,
+                explanation: "3 g/100 mL → 200 mL: (3 × 200)/100 = 6 g."
+            },
+            {
+                question: "38. Drug dosage based on age is less accurate than dosage based on:",
+                options: [
+                    "Body weight or BSA",
+                    "Gender",
+                    "Blood type",
+                    "Height alone"
+                ],
+                correct: 0,
+                explanation: "Age-based dosing is approximate; weight/BSA gives individualized dosing."
+            },
+            {
+                question: "39. A 5 mL dropper delivers 0.05 mL per drop. How many drops for 1 mL?",
+                options: [
+                    "20",
+                    "50",
+                    "10",
+                    "100"
+                ],
+                correct: 0,
+                explanation: "1 ÷ 0.05 = 20 drops."
+            },
+            {
+                question: "40. The dilution factor needed to prepare 0.1% solution from 1% stock is:",
+                options: [
+                    "10",
+                    "1",
+                    "0.1",
+                    "5"
+                ],
+                correct: 0,
+                explanation: "Stock diluted 10 times to achieve target concentration."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(pharmaQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = pharmaQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${pharmaQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / pharmaQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = pharmaQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < pharmaQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            pharmaQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${pharmaQuestions.length}</strong> (${Math.round((score/pharmaQuestions.length)*100)}%)</p>
+                <p>${score === pharmaQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= pharmaQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaCalc Pro - Complete Pharmaceutical Calculations System</title>
+    <style>
+        :root {
+            --primary: #2c5aa0;
+            --secondary: #4CAF50;
+            --accent: #FF6B6B;
+            --warning: #ff9800;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #1e3d6f);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .main-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .tab:hover:not(.active) {
+            background-color: #e9ecef;
+        }
+        
+        .calculator-section {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .calculator-section.active {
+            display: block;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .input-row .input-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background-color: #1e3d6f;
+        }
+        
+        button.secondary {
+            background-color: var(--secondary);
+        }
+        
+        button.secondary:hover {
+            background-color: #3d8b40;
+        }
+        
+        button.warning {
+            background-color: var(--warning);
+        }
+        
+        button.warning:hover {
+            background-color: #e68900;
+        }
+        
+        .result-box {
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .explanation-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .formula-box {
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: monospace;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin: 15px 0 10px 0;
+        }
+        
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .reference-table th, .reference-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .reference-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .reference-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .search-box {
+            margin-bottom: 20px;
+        }
+        
+        .history-item {
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .input-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+          <a href="https://t.me/yerotechno"><h1 style="color:black; background-color:gray;">MedQuiz</h1></a>
+            <h2 class="main-title">PharmaCalc Pro</h2>
+            <p class="subtitle">Complete Pharmaceutical Calculations & Reference System</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <div class="tab active" data-target="dosage-calc">Dosage Calculations</div>
+            <div class="tab" data-target="iv-flow">IV Flow Rates</div>
+            <div class="tab" data-target="alligation">Alligation</div>
+            <div class="tab" data-target="dilution">Dilution & Concentration</div>
+            <div class="tab" data-target="bsa">BSA & IBW</div>
+            <div class="tab" data-target="pediatric">Pediatric Dosing</div>
+            <div class="tab" data-target="tpn">TPN Calculations</div>
+            <div class="tab" data-target="unit-converter">Unit Converter</div>
+            <div class="tab" data-target="references">Drug Codes & References</div>
+            <div class="tab" data-target="history">Calculation History</div>
+        </div>
+
+        <!-- DOSAGE CALCULATIONS SECTION -->
+        <section id="dosage-calc" class="calculator-section active">
+            <h2>Dosage Calculations</h2>
+            <p>Calculate the required volume or quantity based on desired dose and available concentration.</p>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="desired-dose">Desired Dose</label>
+                    <input type="number" id="desired-dose" placeholder="e.g., 500">
+                </div>
+                <div class="input-group">
+                    <label for="desired-dose-unit">Unit</label>
+                    <select id="desired-dose-unit">
+                        <option value="mg">mg</option>
+                        <option value="g">g</option>
+                        <option value="mcg">mcg</option>
+                        <option value="units">units</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="available-dose">Available Dose</label>
+                    <input type="number" id="available-dose" placeholder="e.g., 250">
+                </div>
+                <div class="input-group">
+                    <label for="available-dose-unit">Unit</label>
+                    <select id="available-dose-unit">
+                        <option value="mg">mg</option>
+                        <option value="g">g</option>
+                        <option value="mcg">mcg</option>
+                        <option value="units">units</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="available-volume">Available Volume/Quantity</label>
+                    <input type="number" id="available-volume" placeholder="e.g., 5">
+                </div>
+                <div class="input-group">
+                    <label for="available-volume-unit">Unit</label>
+                    <select id="available-volume-unit">
+                        <option value="mL">mL</option>
+                        <option value="capsules">capsules</option>
+                        <option value="tablets">tablets</option>
+                        <option value="g">g</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button onclick="calculateDosage()">Calculate Dosage</button>
+            <button class="secondary" onclick="clearDosageForm()">Clear Form</button>
+            
+            <div class="formula-box">
+                <strong>Formula:</strong> (Desired Dose ÷ Available Dose) × Available Volume = Quantity to Administer
+            </div>
+            
+            <div id="dosage-result" class="result-box" style="display: none;">
+                <!-- Results will appear here -->
+            </div>
+            
+            <div class="explanation-box">
+                <h3>Understanding Dosage Calculations</h3>
+                <p>Dosage calculations are fundamental in pharmacy practice to ensure patients receive the correct amount of medication.</p>
+                <p><strong>Key Points:</strong></p>
+                <ul>
+                    <li>Always verify units match before calculating</li>
+                    <li>Double-check calculations, especially with high-risk medications</li>
+                    <li>Consider patient factors like renal/hepatic function</li>
+                    <li>Verify the calculated dose falls within safe ranges</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- IV FLOW RATES SECTION -->
+        <section id="iv-flow" class="calculator-section">
+            <h2>IV Flow Rate Calculations</h2>
+            <p>Calculate infusion rates, drip rates, and administration times.</p>
+            
+            <div class="input-group">
+                <label>Calculation Type</label>
+                <select id="iv-calculation-type" onchange="toggleIVInputs()">
+                    <option value="rate">Flow Rate (mL/hr)</option>
+                    <option value="drops">Drip Rate (gtt/min)</option>
+                    <option value="time">Infusion Time</option>
+                </select>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="iv-volume">Total Volume (mL)</label>
+                    <input type="number" id="iv-volume" placeholder="e.g., 1000">
+                </div>
+            </div>
+            
+            <div class="input-row" id="iv-time-group">
+                <div class="input-group">
+                    <label for="iv-time">Infusion Time</label>
+                    <input type="number" id="iv-time" placeholder="e.g., 8">
+                </div>
+                <div class="input-group">
+                    <label for="iv-time-unit">Time Unit</label>
+                    <select id="iv-time-unit">
+                        <option value="hours">hours</option>
+                        <option value="minutes">minutes</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="input-row" id="iv-rate-group">
+                <div class="input-group">
+                    <label for="iv-rate">Flow Rate (mL/hr)</label>
+                    <input type="number" id="iv-rate" placeholder="e.g., 125">
+                </div>
+            </div>
+            
+            <div class="input-row" id="iv-drop-factor-group">
+                <div class="input-group">
+                    <label for="iv-drop-factor">Drop Factor (gtt/mL)</label>
+                    <input type="number" id="iv-drop-factor" placeholder="e.g., 20">
+                </div>
+                <div class="input-group">
+                    <label>Common Values</label>
+                    <div>
+                        <button type="button" class="secondary" onclick="setDropFactor(10)">10 gtt/mL</button>
+                        <button type="button" class="secondary" onclick="setDropFactor(15)">15 gtt/mL</button>
+                        <button type="button" class="secondary" onclick="setDropFactor(20)">20 gtt/mL</button>
+                        <button type="button" class="secondary" onclick="setDropFactor(60)">60 gtt/mL</button>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="calculateIVFlow()">Calculate</button>
+            <button class="secondary" onclick="clearIVForm()">Clear Form</button>
+            
+            <div id="iv-result" class="result-box" style="display: none;">
+                <!-- Results will appear here -->
+            </div>
+            
+            <div class="explanation-box">
+                <h3>IV Flow Rate Formulas</h3>
+                <p><strong>Flow Rate (mL/hr):</strong> Total Volume (mL) ÷ Infusion Time (hr)</p>
+                <p><strong>Drip Rate (gtt/min):</strong> [Total Volume (mL) × Drop Factor (gtt/mL)] ÷ Infusion Time (min)</p>
+                <p><strong>Infusion Time:</strong> Total Volume (mL) ÷ Flow Rate (mL/hr)</p>
+            </div>
+        </section>
+
+        <!-- ALLIGATION SECTION -->
+        <section id="alligation" class="calculator-section">
+            <h2>Alligation Calculations</h2>
+            <p>Calculate the proportions needed to mix solutions of different strengths to obtain a desired concentration.</p>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="alligation-high">Higher Concentration (%)</label>
+                    <input type="number" id="alligation-high" placeholder="e.g., 50">
+                </div>
+                <div class="input-group">
+                    <label for="alligation-low">Lower Concentration (%)</label>
+                    <input type="number" id="alligation-low" placeholder="e.g., 10">
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="alligation-desired">Desired Concentration (%)</label>
+                    <input type="number" id="alligation-desired" placeholder="e.g., 30">
+                </div>
+                <div class="input-group">
+                    <label for="alligation-total">Total Quantity Needed</label>
+                    <input type="number" id="alligation-total" placeholder="e.g., 1000">
+                    <select id="alligation-unit">
+                        <option value="mL">mL</option>
+                        <option value="g">g</option>
+                        <option value="L">L</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button onclick="calculateAlligation()">Calculate Alligation</button>
+            <button class="secondary" onclick="clearAlligationForm()">Clear Form</button>
+            
+            <div class="formula-box">
+                <strong>Alligation Method:</strong><br>
+                Parts of Higher Strength = Desired % - Lower %<br>
+                Parts of Lower Strength = Higher % - Desired %<br>
+                Total Parts = Parts of Higher + Parts of Lower
+            </div>
+            
+            <div id="alligation-result" class="result-box" style="display: none;">
+                <!-- Results will appear here -->
+            </div>
+        </section>
+
+        <!-- DILUTION & CONCENTRATION SECTION -->
+        <section id="dilution" class="calculator-section">
+            <h2>Dilution & Concentration Calculations</h2>
+            <p>Calculate dilution volumes or resulting concentrations using C1V1 = C2V2 formula.</p>
+            
+            <div class="input-group">
+                <label>Calculation Type</label>
+                <select id="dilution-type" onchange="toggleDilutionInputs()">
+                    <option value="final-concentration">Final Concentration</option>
+                    <option value="dilution-volume">Dilution Volume</option>
+                    <option value="stock-volume">Stock Volume Needed</option>
+                </select>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="dilution-c1">Initial Concentration (C1)</label>
+                    <input type="number" id="dilution-c1" placeholder="e.g., 100">
+                    <select id="dilution-c1-unit">
+                        <option value="mg/mL">mg/mL</option>
+                        <option value="percent">%</option>
+                        <option value="mcg/mL">mcg/mL</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="dilution-v1">Initial Volume (V1)</label>
+                    <input type="number" id="dilution-v1" placeholder="e.g., 10">
+                    <select id="dilution-v1-unit">
+                        <option value="mL">mL</option>
+                        <option value="L">L</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="dilution-c2">Final Concentration (C2)</label>
+                    <input type="number" id="dilution-c2" placeholder="e.g., 10">
+                    <select id="dilution-c2-unit">
+                        <option value="mg/mL">mg/mL</option>
+                        <option value="percent">%</option>
+                        <option value="mcg/mL">mcg/mL</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="dilution-v2">Final Volume (V2)</label>
+                    <input type="number" id="dilution-v2" placeholder="e.g., 100">
+                    <select id="dilution-v2-unit">
+                        <option value="mL">mL</option>
+                        <option value="L">L</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button onclick="calculateDilution()">Calculate</button>
+            <button class="secondary" onclick="clearDilutionForm()">Clear Form</button>
+            
+            <div class="formula-box">
+                <strong>Dilution Formula:</strong> C1 × V1 = C2 × V2
+            </div>
+            
+            <div id="dilution-result" class="result-box" style="display: none;">
+                <!-- Results will appear here -->
+            </div>
+        </section>
+
+        <!-- BSA & IBW SECTION -->
+        <section id="bsa" class="calculator-section">
+            <h2>Body Surface Area (BSA) & Ideal Body Weight (IBW)</h2>
+            
+            <div class="input-group">
+                <label>Calculation Type</label>
+                <select id="bsa-type" onchange="toggleBSAInputs()">
+                    <option value="bsa">Body Surface Area (BSA)</option>
+                    <option value="ibw">Ideal Body Weight (IBW)</option>
+                    <option value="both">Both BSA and IBW</option>
+                </select>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="patient-height">Height</label>
+                    <input type="number" id="patient-height" placeholder="e.g., 170">
+                </div>
+                <div class="input-group">
+                    <label for="height-unit">Unit</label>
+                    <select id="height-unit">
+                        <option value="cm">cm</option>
+                        <option value="inches">inches</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="patient-weight">Weight</label>
+                    <input type="number" id="patient-weight" placeholder="e.g., 70">
+                </div>
+                <div class="input-group">
+                    <label for="weight-unit">Unit</label>
+                    <select id="weight-unit">
+                        <option value="kg">kg</option>
+                        <option value="lbs">lbs</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="input-row" id="gender-group">
+                <div class="input-group">
+                    <label for="patient-gender">Gender</label>
+                    <select id="patient-gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button onclick="calculateBSAIBW()">Calculate</button>
+            <button class="secondary" onclick="clearBSAForm()">Clear Form</button>
+            
+            <div id="bsa-result" class="result-box" style="display: none;">
+                <!-- Results will appear here -->
+            </div>
+            
+            <div class="explanation-box">
+                <h3>Formulas Used</h3>
+                <p><strong>BSA (Mosteller):</strong> √[Height (cm) × Weight (kg) / 3600]</p>
+                <p><strong>IBW (Male):</strong> 50 kg + 2.3 kg per inch over 5 feet</p>
+                <p><strong>IBW (Female):</strong> 45.5 kg + 2.3 kg per inch over 5 feet</p>
+            </div>
+        </section>
+
+        <!-- PEDIATRIC DOSING SECTION -->
+        <section id="pediatric" class="calculator-section">
+            <h2>Pediatric Dosing Calculations</h2>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="child-weight">Child Weight</label>
+                    <input type="number" id="child-weight" placeholder="e.g., 25">
+                </div>
+                <div class="input-group">
+                    <label for="child-weight-unit">Unit</label>
+                    <select id="child-weight-unit">
+                        <option value="kg">kg</option>
+                        <option value="lbs">lbs</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="adult-dose">Adult Dose</label>
+                    <input type="number" id="adult-dose" placeholder="e.g., 500">
+                </div>
+                <div class="input-group">
+                    <label for="dose-unit">Unit</label>
+                    <select id="dose-unit">
+                        <option value="mg">mg</option>
+                        <option value="g">g</option>
+                        <option value="mcg">mcg</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="dosing-method">Dosing Method</label>
+                <select id="dosing-method">
+                    <option value="clark">Clark's Rule</option>
+                    <option value="young">Young's Rule</option>
+                    <option value="fried">Fried's Rule</option>
+                    <option value="bsa">Body Surface Area</option>
+                </select>
+            </div>
+            
+            <div class="input-row" id="child-age-group">
+                <div class="input-group">
+                    <label for="child-age">Child Age</label>
+                    <input type="number" id="child-age" placeholder="e.g., 6">
+                </div>
+                <div class="input-group">
+                    <label for="age-unit">Unit</label>
+                    <select id="age-unit">
+                        <option value="years">years</option>
+                        <option value="months">months</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button onclick="calculatePediatricDose()">Calculate Pediatric Dose</button>
+            <button class="secondary" onclick="clearPediatricForm()">Clear Form</button>
+            
+            <div id="pediatric-result" class="result-box" style="display: none;">
+                <!-- Results will appear here -->
+            </div>
+            
+            <div class="explanation-box">
+                <h3>Pediatric Dosing Rules</h3>
+                <p><strong>Clark's Rule:</strong> (Child's weight in lbs / 150) × Adult dose</p>
+                <p><strong>Young's Rule:</strong> [Child's age in years / (Child's age in years + 12)] × Adult dose</p>
+                <p><strong>Fried's Rule:</strong> (Child's age in months / 150) × Adult dose</p>
+                <p><strong>Body Surface Area:</strong> (Child's BSA / 1.73) × Adult dose</p>
+            </div>
+        </section>
+
+        <!-- TPN CALCULATIONS SECTION -->
+        <section id="tpn" class="calculator-section">
+            <h2>Total Parenteral Nutrition (TPN) Calculations</h2>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="tpn-volume">TPN Volume (mL)</label>
+                    <input type="number" id="tpn-volume" placeholder="e.g., 1000">
+                </div>
+                <div class="input-group">
+                    <label for="tpn-duration">Infusion Duration (hours)</label>
+                    <input type="number" id="tpn-duration" placeholder="e.g., 24">
+                </div>
+            </div>
+            
+            <h3>Macronutrients</h3>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="dextrose-percent">Dextrose Concentration (%)</label>
+                    <input type="number" id="dextrose-percent" placeholder="e.g., 10">
+                </div>
+                <div class="input-group">
+                    <label for="amino-percent">Amino Acids Concentration (%)</label>
+                    <input type="number" id="amino-percent" placeholder="e.g., 4">
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="lipid-volume">Lipid Volume (mL)</label>
+                    <input type="number" id="lipid-volume" placeholder="e.g., 250">
+                </div>
+                <div class="input-group">
+                    <label for="lipid-concentration">Lipid Concentration (%)</label>
+                    <input type="number" id="lipid-concentration" placeholder="e.g., 20">
+                </div>
+            </div>
+            
+            <h3>Electrolytes & Additives</h3>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="sodium-chloride">Sodium Chloride (mEq)</label>
+                    <input type="number" id="sodium-chloride" placeholder="e.g., 40">
+                </div>
+                <div class="input-group">
+                    <label for="potassium-chloride">Potassium Chloride (mEq)</label>
+                    <input type="number" id="potassium-chloride" placeholder="e.g., 30">
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="calcium-gluconate">Calcium Gluconate (mEq)</label>
+                    <input type="number" id="calcium-gluconate" placeholder="e.g., 10">
+                </div>
+                <div class="input-group">
+                    <label for="magnesium-sulfate">Magnesium Sulfate (mEq)</label>
+                    <input type="number" id="magnesium-sulfate" placeholder="e.g., 10">
+                </div>
+            </div>
+            
+            <button onclick="calculateTPN()">Calculate TPN</button>
+            <button class="secondary" onclick="clearTPNForm()">Clear Form</button>
+            
+            <div id="tpn-result" class="result-box" style="display: none;">
+                <!-- Results will appear here -->
+            </div>
+        </section>
+
+        <!-- UNIT CONVERTER SECTION -->
+        <section id="unit-converter" class="calculator-section">
+            <h2>Pharmacy Unit Converter</h2>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="convert-value">Value to Convert</label>
+                    <input type="number" id="convert-value" placeholder="e.g., 1000">
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="convert-from">Convert From</label>
+                    <select id="convert-from">
+                        <option value="mg">Milligrams (mg)</option>
+                        <option value="g">Grams (g)</option>
+                        <option value="mcg">Micrograms (mcg)</option>
+                        <option value="kg">Kilograms (kg)</option>
+                        <option value="lb">Pounds (lb)</option>
+                        <option value="oz">Ounces (oz)</option>
+                        <option value="mL">Milliliters (mL)</option>
+                        <option value="L">Liters (L)</option>
+                        <option value="tsp">Teaspoons (tsp)</option>
+                        <option value="tbsp">Tablespoons (tbsp)</option>
+                        <option value="floz">Fluid Ounces (fl oz)</option>
+                        <option value="cup">Cups</option>
+                        <option value="pt">Pints (pt)</option>
+                        <option value="qt">Quarts (qt)</option>
+                        <option value="gal">Gallons (gal)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="convert-to">Convert To</label>
+                    <select id="convert-to">
+                        <option value="mg">Milligrams (mg)</option>
+                        <option value="g">Grams (g)</option>
+                        <option value="mcg">Micrograms (mcg)</option>
+                        <option value="kg">Kilograms (kg)</option>
+                        <option value="lb">Pounds (lb)</option>
+                        <option value="oz">Ounces (oz)</option>
+                        <option value="mL">Milliliters (mL)</option>
+                        <option value="L">Liters (L)</option>
+                        <option value="tsp">Teaspoons (tsp)</option>
+                        <option value="tbsp">Tablespoons (tbsp)</option>
+                        <option value="floz">Fluid Ounces (fl oz)</option>
+                        <option value="cup">Cups</option>
+                        <option value="pt">Pints (pt)</option>
+                        <option value="qt">Quarts (qt)</option>
+                        <option value="gal">Gallons (gal)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button onclick="convertUnits()">Convert</button>
+            <button class="secondary" onclick="clearConverterForm()">Clear</button>
+            
+            <div id="converter-result" class="result-box" style="display: none;">
+                <!-- Results will appear here -->
+            </div>
+            
+            <div class="explanation-box">
+                <h3>Common Pharmacy Conversions</h3>
+                <ul>
+                    <li>1 g = 1000 mg</li>
+                    <li>1 mg = 1000 mcg</li>
+                    <li>1 kg = 2.2 lb</li>
+                    <li>1 oz = 28.35 g</li>
+                    <li>1 tsp = 5 mL</li>
+                    <li>1 tbsp = 15 mL</li>
+                    <li>1 fl oz = 29.57 mL</li>
+                    <li>1 cup = 240 mL</li>
+                    <li>1 pt = 473 mL</li>
+                    <li>1 qt = 946 mL</li>
+                    <li>1 gal = 3785 mL</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- DRUG CODES & REFERENCES SECTION -->
+        <section id="references" class="calculator-section">
+            <h2>Drug Codes & References</h2>
+            
+            <div class="search-box">
+                <input type="text" id="drug-search" placeholder="Search for drug names, NDC codes, or therapeutic classes...">
+                <button onclick="searchDrugs()">Search</button>
+                <button class="secondary" onclick="clearSearch()">Clear Search</button>
+            </div>
+            
+            <div class="reference-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Drug Name</th>
+                            <th>NDC Code</th>
+                            <th>Therapeutic Class</th>
+                            <th>Common Strengths</th>
+                            <th>Storage</th>
+                        </tr>
+                    </thead>
+                    <tbody id="drug-table-body">
+                        <!-- Drug data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="explanation-box">
+                <h3>Common Pharmacy Abbreviations</h3>
+                <ul>
+                    <li><strong>ac:</strong> before meals</li>
+                    <li><strong>pc:</strong> after meals</li>
+                    <li><strong>po:</strong> by mouth</li>
+                    <li><strong>prn:</strong> as needed</li>
+                    <li><strong>qd:</strong> once daily</li>
+                    <li><strong>bid:</strong> twice daily</li>
+                    <li><strong>tid:</strong> three times daily</li>
+                    <li><strong>qid:</strong> four times daily</li>
+                    <li><strong>q4h:</strong> every 4 hours</li>
+                    <li><strong>q6h:</strong> every 6 hours</li>
+                    <li><strong>q8h:</strong> every 8 hours</li>
+                    <li><strong>q12h:</strong> every 12 hours</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CALCULATION HISTORY SECTION -->
+        <section id="history" class="calculator-section">
+            <h2>Calculation History</h2>
+            <p>Review your previous calculations and results.</p>
+            
+            <button class="warning" onclick="clearHistory()">Clear All History</button>
+            
+            <div id="history-list">
+                <!-- Calculation history will appear here -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize drug database
+            initializeDrugDatabase();
+            
+            // Load calculation history
+            loadCalculationHistory();
+            
+            // Set up event listeners for tab navigation
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and sections
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.calculator-section').forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding section
+                    this.classList.add('active');
+                    const targetId = this.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+            
+            // Initialize form visibility
+            toggleIVInputs();
+            toggleDilutionInputs();
+            toggleBSAInputs();
+        });
+
+        // Drug database
+        let drugDatabase = [];
+
+        function initializeDrugDatabase() {
+            drugDatabase = [
+                { name: "Amoxicillin", ndc: "00173-0444-55", class: "Antibiotic", strengths: "250 mg, 500 mg", storage: "Room temperature" },
+                { name: "Lisinopril", ndc: "00093-7345-56", class: "ACE Inhibitor", strengths: "5 mg, 10 mg, 20 mg", storage: "Room temperature" },
+                { name: "Atorvastatin", ndc: "00781-1005-05", class: "Statin", strengths: "10 mg, 20 mg, 40 mg", storage: "Room temperature" },
+                { name: "Metformin", ndc: "65862-0583-88", class: "Antidiabetic", strengths: "500 mg, 850 mg, 1000 mg", storage: "Room temperature" },
+                { name: "Levothyroxine", ndc: "55289-0145-30", class: "Thyroid Hormone", strengths: "25 mcg, 50 mcg, 100 mcg", storage: "Room temperature" },
+                { name: "Albuterol", ndc: "0173-0389-00", class: "Bronchodilator", strengths: "90 mcg/inhalation", storage: "Room temperature" },
+                { name: "Omeprazole", ndc: "68382-0139-01", class: "PPI", strengths: "20 mg, 40 mg", storage: "Room temperature" },
+                { name: "Sertraline", ndc: "0781-5685-95", class: "SSRI", strengths: "25 mg, 50 mg, 100 mg", storage: "Room temperature" },
+                { name: "Insulin Glargine", ndc: "00088-2500-33", class: "Long-acting Insulin", strengths: "100 units/mL", storage: "Refrigerate" },
+                { name: "Warfarin", ndc: "00536-0105-25", class: "Anticoagulant", strengths: "1 mg, 2 mg, 5 mg", storage: "Room temperature" }
+            ];
+            
+            // Populate the drug table
+            populateDrugTable(drugDatabase);
+        }
+
+        function populateDrugTable(drugs) {
+            const tableBody = document.getElementById('drug-table-body');
+            tableBody.innerHTML = '';
+            
+            drugs.forEach(drug => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${drug.name}</td>
+                    <td>${drug.ndc}</td>
+                    <td>${drug.class}</td>
+                    <td>${drug.strengths}</td>
+                    <td>${drug.storage}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function searchDrugs() {
+            const searchTerm = document.getElementById('drug-search').value.toLowerCase();
+            
+            if (!searchTerm) {
+                populateDrugTable(drugDatabase);
+                return;
+            }
+            
+            const filteredDrugs = drugDatabase.filter(drug => 
+                drug.name.toLowerCase().includes(searchTerm) ||
+                drug.ndc.includes(searchTerm) ||
+                drug.class.toLowerCase().includes(searchTerm)
+            );
+            
+            populateDrugTable(filteredDrugs);
+        }
+
+        function clearSearch() {
+            document.getElementById('drug-search').value = '';
+            populateDrugTable(drugDatabase);
+        }
+
+        // Calculation History Functions
+        function saveToHistory(calculation) {
+            let history = JSON.parse(localStorage.getItem('pharmaCalcHistory')) || [];
+            history.unshift({
+                ...calculation,
+                timestamp: new Date().toLocaleString()
+            });
+            
+            // Keep only the last 50 calculations
+            if (history.length > 50) {
+                history = history.slice(0, 50);
+            }
+            
+            localStorage.setItem('pharmaCalcHistory', JSON.stringify(history));
+            loadCalculationHistory();
+        }
+
+        function loadCalculationHistory() {
+            const history = JSON.parse(localStorage.getItem('pharmaCalcHistory')) || [];
+            const historyList = document.getElementById('history-list');
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '<p>No calculation history yet.</p>';
+                return;
+            }
+            
+            historyList.innerHTML = '';
+            history.forEach(item => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <h3>${item.type} - ${item.timestamp}</h3>
+                    <p><strong>Input:</strong> ${item.input}</p>
+                    <p><strong>Result:</strong> ${item.result}</p>
+                `;
+                historyList.appendChild(historyItem);
+            });
+        }
+
+        function clearHistory() {
+            if (confirm('Are you sure you want to clear all calculation history?')) {
+                localStorage.removeItem('pharmaCalcHistory');
+                loadCalculationHistory();
+            }
+        }
+
+        // Dosage Calculation Functions
+        function calculateDosage() {
+            const desiredDose = parseFloat(document.getElementById('desired-dose').value);
+            const desiredUnit = document.getElementById('desired-dose-unit').value;
+            const availableDose = parseFloat(document.getElementById('available-dose').value);
+            const availableUnit = document.getElementById('available-dose-unit').value;
+            const availableVolume = parseFloat(document.getElementById('available-volume').value);
+            const volumeUnit = document.getElementById('available-volume-unit').value;
+            
+            if (!desiredDose || !availableDose || !availableVolume) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Convert units if necessary
+            const convertedDesiredDose = convertToMg(desiredDose, desiredUnit);
+            const convertedAvailableDose = convertToMg(availableDose, availableUnit);
+            
+            if (convertedDesiredDose === null || convertedAvailableDose === null) {
+                alert('Unit conversion not supported for these units. Please use matching units.');
+                return;
+            }
+            
+            const quantity = (convertedDesiredDose / convertedAvailableDose) * availableVolume;
+            
+            const resultBox = document.getElementById('dosage-result');
+            resultBox.innerHTML = `
+                <h3>Dosage Calculation Result</h3>
+                <p><strong>Quantity to Administer:</strong> ${quantity.toFixed(2)} ${volumeUnit}</p>
+                <p><strong>Calculation:</strong> (${desiredDose} ${desiredUnit} ÷ ${availableDose} ${availableUnit}) × ${availableVolume} ${volumeUnit} = ${quantity.toFixed(2)} ${volumeUnit}</p>
+                <p class="warning-box"><strong>Important:</strong> Always double-check your calculations and verify the dose is within safe ranges.</p>
+            `;
+            resultBox.style.display = 'block';
+            
+            // Save to history
+            saveToHistory({
+                type: 'Dosage Calculation',
+                input: `Desired: ${desiredDose} ${desiredUnit}, Available: ${availableDose} ${availableUnit}/${availableVolume} ${volumeUnit}`,
+                result: `${quantity.toFixed(2)} ${volumeUnit}`
+            });
+        }
+
+        function clearDosageForm() {
+            document.getElementById('desired-dose').value = '';
+            document.getElementById('available-dose').value = '';
+            document.getElementById('available-volume').value = '';
+            document.getElementById('dosage-result').style.display = 'none';
+        }
+
+        // IV Flow Rate Functions
+        function toggleIVInputs() {
+            const type = document.getElementById('iv-calculation-type').value;
+            document.getElementById('iv-time-group').style.display = type === 'rate' || type === 'drops' ? 'flex' : 'none';
+            document.getElementById('iv-rate-group').style.display = type === 'time' ? 'flex' : 'none';
+            document.getElementById('iv-drop-factor-group').style.display = type === 'drops' ? 'flex' : 'none';
+        }
+
+        function setDropFactor(factor) {
+            document.getElementById('iv-drop-factor').value = factor;
+        }
+
+        function calculateIVFlow() {
+            const type = document.getElementById('iv-calculation-type').value;
+            const volume = parseFloat(document.getElementById('iv-volume').value);
+            
+            if (!volume) {
+                alert('Please enter the total volume');
+                return;
+            }
+            
+            let resultHTML = '';
+            let inputDesc = '';
+            let resultDesc = '';
+            
+            if (type === 'rate') {
+                const time = parseFloat(document.getElementById('iv-time').value);
+                const timeUnit = document.getElementById('iv-time-unit').value;
+                
+                if (!time) {
+                    alert('Please enter the infusion time');
+                    return;
+                }
+                
+                const timeInHours = timeUnit === 'minutes' ? time / 60 : time;
+                const rate = volume / timeInHours;
+                
+                resultHTML = `
+                    <h3>Flow Rate Calculation</h3>
+                    <p><strong>Required Flow Rate:</strong> ${rate.toFixed(2)} mL/hr</p>
+                    <p><strong>Formula:</strong> ${volume} mL ÷ ${time} ${timeUnit === 'minutes' ? 'min' : 'hr'} = ${rate.toFixed(2)} mL/hr</p>
+                `;
+                
+                inputDesc = `Volume: ${volume} mL, Time: ${time} ${timeUnit}`;
+                resultDesc = `${rate.toFixed(2)} mL/hr`;
+            } else if (type === 'drops') {
+                const time = parseFloat(document.getElementById('iv-time').value);
+                const timeUnit = document.getElementById('iv-time-unit').value;
+                const dropFactor = parseFloat(document.getElementById('iv-drop-factor').value);
+                
+                if (!time || !dropFactor) {
+                    alert('Please enter both infusion time and drop factor');
+                    return;
+                }
+                
+                const timeInMinutes = timeUnit === 'hours' ? time * 60 : time;
+                const dropsPerMin = (volume * dropFactor) / timeInMinutes;
+                
+                resultHTML = `
+                    <h3>Drip Rate Calculation</h3>
+                    <p><strong>Required Drip Rate:</strong> ${dropsPerMin.toFixed(2)} gtt/min</p>
+                    <p><strong>Formula:</strong> (${volume} mL × ${dropFactor} gtt/mL) ÷ ${timeInMinutes} min = ${dropsPerMin.toFixed(2)} gtt/min</p>
+                `;
+                
+                inputDesc = `Volume: ${volume} mL, Time: ${time} ${timeUnit}, Drop Factor: ${dropFactor} gtt/mL`;
+                resultDesc = `${dropsPerMin.toFixed(2)} gtt/min`;
+            } else if (type === 'time') {
+                const rate = parseFloat(document.getElementById('iv-rate').value);
+                
+                if (!rate) {
+                    alert('Please enter the flow rate');
+                    return;
+                }
+                
+                const time = volume / rate;
+                
+                resultHTML = `
+                    <h3>Infusion Time Calculation</h3>
+                    <p><strong>Infusion Time:</strong> ${time.toFixed(2)} hours (${(time * 60).toFixed(2)} minutes)</p>
+                    <p><strong>Formula:</strong> ${volume} mL ÷ ${rate} mL/hr = ${time.toFixed(2)} hr</p>
+                `;
+                
+                inputDesc = `Volume: ${volume} mL, Rate: ${rate} mL/hr`;
+                resultDesc = `${time.toFixed(2)} hours`;
+            }
+            
+            const resultBox = document.getElementById('iv-result');
+            resultBox.innerHTML = resultHTML;
+            resultBox.style.display = 'block';
+            
+            // Save to history
+            saveToHistory({
+                type: 'IV Flow Rate',
+                input: inputDesc,
+                result: resultDesc
+            });
+        }
+
+        function clearIVForm() {
+            document.getElementById('iv-volume').value = '';
+            document.getElementById('iv-time').value = '';
+            document.getElementById('iv-rate').value = '';
+            document.getElementById('iv-drop-factor').value = '';
+            document.getElementById('iv-result').style.display = 'none';
+        }
+
+        // Alligation Functions
+        function calculateAlligation() {
+            const high = parseFloat(document.getElementById('alligation-high').value);
+            const low = parseFloat(document.getElementById('alligation-low').value);
+            const desired = parseFloat(document.getElementById('alligation-desired').value);
+            const total = parseFloat(document.getElementById('alligation-total').value);
+            const unit = document.getElementById('alligation-unit').value;
+            
+            if (!high || !low || !desired || !total) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (desired <= low || desired >= high) {
+                alert('Desired concentration must be between the higher and lower concentrations');
+                return;
+            }
+            
+            const partsHigh = desired - low;
+            const partsLow = high - desired;
+            const totalParts = partsHigh + partsLow;
+            
+            const amountHigh = (partsHigh / totalParts) * total;
+            const amountLow = (partsLow / totalParts) * total;
+            
+            const resultBox = document.getElementById('alligation-result');
+            resultBox.innerHTML = `
+                <h3>Alligation Calculation Result</h3>
+                <p><strong>Parts of Higher Concentration (${high}%):</strong> ${partsHigh}</p>
+                <p><strong>Parts of Lower Concentration (${low}%):</strong> ${partsLow}</p>
+                <p><strong>Total Parts:</strong> ${totalParts}</p>
+                <p><strong>Amount of Higher Concentration Needed:</strong> ${amountHigh.toFixed(2)} ${unit}</p>
+                <p><strong>Amount of Lower Concentration Needed:</strong> ${amountLow.toFixed(2)} ${unit}</p>
+                <p><strong>Verification:</strong> ${amountHigh.toFixed(2)} ${unit} + ${amountLow.toFixed(2)} ${unit} = ${total} ${unit}</p>
+            `;
+            resultBox.style.display = 'block';
+            
+            // Save to history
+            saveToHistory({
+                type: 'Alligation',
+                input: `High: ${high}%, Low: ${low}%, Desired: ${desired}%, Total: ${total} ${unit}`,
+                result: `High: ${amountHigh.toFixed(2)} ${unit}, Low: ${amountLow.toFixed(2)} ${unit}`
+            });
+        }
+
+        function clearAlligationForm() {
+            document.getElementById('alligation-high').value = '';
+            document.getElementById('alligation-low').value = '';
+            document.getElementById('alligation-desired').value = '';
+            document.getElementById('alligation-total').value = '';
+            document.getElementById('alligation-result').style.display = 'none';
+        }
+
+        // Dilution Functions
+        function toggleDilutionInputs() {
+            const type = document.getElementById('dilution-type').value;
+            
+            // Show/hide inputs based on calculation type
+            if (type === 'final-concentration') {
+                document.getElementById('dilution-c2').disabled = true;
+                document.getElementById('dilution-v2').disabled = false;
+            } else if (type === 'dilution-volume') {
+                document.getElementById('dilution-c2').disabled = false;
+                document.getElementById('dilution-v2').disabled = true;
+            } else if (type === 'stock-volume') {
+                document.getElementById('dilution-c2').disabled = false;
+                document.getElementById('dilution-v1').disabled = true;
+            }
+        }
+
+        function calculateDilution() {
+            const type = document.getElementById('dilution-type').value;
+            const c1 = parseFloat(document.getElementById('dilution-c1').value);
+            const v1 = parseFloat(document.getElementById('dilution-v1').value);
+            const c2 = parseFloat(document.getElementById('dilution-c2').value);
+            const v2 = parseFloat(document.getElementById('dilution-v2').value);
+            const c1Unit = document.getElementById('dilution-c1-unit').value;
+            const v1Unit = document.getElementById('dilution-v1-unit').value;
+            const c2Unit = document.getElementById('dilution-c2-unit').value;
+            const v2Unit = document.getElementById('dilution-v2-unit').value;
+            
+            let resultHTML = '';
+            let inputDesc = '';
+            let resultDesc = '';
+            
+            if (type === 'final-concentration') {
+                if (!c1 || !v1 || !v2) {
+                    alert('Please fill in C1, V1, and V2');
+                    return;
+                }
+                
+                const finalConcentration = (c1 * v1) / v2;
+                
+                resultHTML = `
+                    <h3>Final Concentration Calculation</h3>
+                    <p><strong>Final Concentration (C2):</strong> ${finalConcentration.toFixed(2)} ${c1Unit}</p>
+                    <p><strong>Formula:</strong> (${c1} ${c1Unit} × ${v1} ${v1Unit}) ÷ ${v2} ${v2Unit} = ${finalConcentration.toFixed(2)} ${c1Unit}</p>
+                `;
+                
+                inputDesc = `C1: ${c1} ${c1Unit}, V1: ${v1} ${v1Unit}, V2: ${v2} ${v2Unit}`;
+                resultDesc = `C2: ${finalConcentration.toFixed(2)} ${c1Unit}`;
+            } else if (type === 'dilution-volume') {
+                if (!c1 || !v1 || !c2) {
+                    alert('Please fill in C1, V1, and C2');
+                    return;
+                }
+                
+                const dilutionVolume = (c1 * v1) / c2;
+                
+                resultHTML = `
+                    <h3>Dilution Volume Calculation</h3>
+                    <p><strong>Final Volume (V2):</strong> ${dilutionVolume.toFixed(2)} ${v1Unit}</p>
+                    <p><strong>Diluent Volume to Add:</strong> ${(dilutionVolume - v1).toFixed(2)} ${v1Unit}</p>
+                    <p><strong>Formula:</strong> (${c1} ${c1Unit} × ${v1} ${v1Unit}) ÷ ${c2} ${c1Unit} = ${dilutionVolume.toFixed(2)} ${v1Unit}</p>
+                `;
+                
+                inputDesc = `C1: ${c1} ${c1Unit}, V1: ${v1} ${v1Unit}, C2: ${c2} ${c1Unit}`;
+                resultDesc = `V2: ${dilutionVolume.toFixed(2)} ${v1Unit}`;
+            } else if (type === 'stock-volume') {
+                if (!c1 || !c2 || !v2) {
+                    alert('Please fill in C1, C2, and V2');
+                    return;
+                }
+                
+                const stockVolume = (c2 * v2) / c1;
+                
+                resultHTML = `
+                    <h3>Stock Volume Calculation</h3>
+                    <p><strong>Stock Volume Needed (V1):</strong> ${stockVolume.toFixed(2)} ${v2Unit}</p>
+                    <p><strong>Formula:</strong> (${c2} ${c1Unit} × ${v2} ${v2Unit}) ÷ ${c1} ${c1Unit} = ${stockVolume.toFixed(2)} ${v2Unit}</p>
+                `;
+                
+                inputDesc = `C1: ${c1} ${c1Unit}, C2: ${c2} ${c1Unit}, V2: ${v2} ${v2Unit}`;
+                resultDesc = `V1: ${stockVolume.toFixed(2)} ${v2Unit}`;
+            }
+            
+            const resultBox = document.getElementById('dilution-result');
+            resultBox.innerHTML = resultHTML;
+            resultBox.style.display = 'block';
+            
+            // Save to history
+            saveToHistory({
+                type: 'Dilution/Concentration',
+                input: inputDesc,
+                result: resultDesc
+            });
+        }
+
+        function clearDilutionForm() {
+            document.getElementById('dilution-c1').value = '';
+            document.getElementById('dilution-v1').value = '';
+            document.getElementById('dilution-c2').value = '';
+            document.getElementById('dilution-v2').value = '';
+            document.getElementById('dilution-result').style.display = 'none';
+        }
+
+        // BSA & IBW Functions
+        function toggleBSAInputs() {
+            const type = document.getElementById('bsa-type').value;
+            document.getElementById('gender-group').style.display = type === 'ibw' || type === 'both' ? 'flex' : 'none';
+        }
+
+        function calculateBSAIBW() {
+            const type = document.getElementById('bsa-type').value;
+            let height = parseFloat(document.getElementById('patient-height').value);
+            let weight = parseFloat(document.getElementById('patient-weight').value);
+            const heightUnit = document.getElementById('height-unit').value;
+            const weightUnit = document.getElementById('weight-unit').value;
+            const gender = document.getElementById('patient-gender').value;
+            
+            if (!height || !weight) {
+                alert('Please enter both height and weight');
+                return;
+            }
+            
+            // Convert to metric if necessary
+            if (heightUnit === 'inches') {
+                height = height * 2.54; // Convert to cm
+            }
+            
+            if (weightUnit === 'lbs') {
+                weight = weight / 2.20462; // Convert to kg
+            }
+            
+            let resultHTML = '';
+            let inputDesc = '';
+            let resultDesc = '';
+            
+            if (type === 'bsa' || type === 'both') {
+                // Calculate BSA using Mosteller formula
+                const bsa = Math.sqrt((height * weight) / 3600);
+                
+                resultHTML += `
+                    <h3>Body Surface Area (BSA)</h3>
+                    <p><strong>BSA (Mosteller Formula):</strong> ${bsa.toFixed(4)} m²</p>
+                    <p><strong>Formula:</strong> √[(${height.toFixed(1)} cm × ${weight.toFixed(1)} kg) ÷ 3600] = ${bsa.toFixed(4)} m²</p>
+                `;
+                
+                if (type === 'bsa') {
+                    inputDesc = `Height: ${height} cm, Weight: ${weight} kg`;
+                    resultDesc = `BSA: ${bsa.toFixed(4)} m²`;
+                } else {
+                    inputDesc = `Height: ${height} cm, Weight: ${weight} kg, Gender: ${gender}`;
+                    resultDesc += `BSA: ${bsa.toFixed(4)} m²`;
+                }
+            }
+            
+            if (type === 'ibw' || type === 'both') {
+                // Calculate IBW
+                // Convert height to inches for IBW calculation
+                const heightInInches = height / 2.54;
+                const feet = Math.floor(heightInInches / 12);
+                const inches = heightInInches % 12;
+                
+                let ibw;
+                if (gender === 'male') {
+                    ibw = 50 + (2.3 * (inches - 60));
+                } else {
+                    ibw = 45.5 + (2.3 * (inches - 60));
+                }
+                
+                // If height is less than 5 feet, use a different calculation
+                if (heightInInches < 60) {
+                    ibw = gender === 'male' ? 50 : 45.5;
+                }
+                
+                const ibwLbs = ibw * 2.20462;
+                
+                resultHTML += `
+                    <h3>Ideal Body Weight (IBW)</h3>
+                    <p><strong>IBW:</strong> ${ibw.toFixed(2)} kg (${ibwLbs.toFixed(2)} lbs)</p>
+                    <p><strong>Formula:</strong> ${gender === 'male' ? '50 kg + 2.3 kg per inch over 5 feet' : '45.5 kg + 2.3 kg per inch over 5 feet'}</p>
+                `;
+                
+                if (type === 'ibw') {
+                    inputDesc = `Height: ${height} cm, Gender: ${gender}`;
+                    resultDesc = `IBW: ${ibw.toFixed(2)} kg`;
+                } else {
+                    resultDesc += `, IBW: ${ibw.toFixed(2)} kg`;
+                }
+            }
+            
+            const resultBox = document.getElementById('bsa-result');
+            resultBox.innerHTML = resultHTML;
+            resultBox.style.display = 'block';
+            
+            // Save to history
+            saveToHistory({
+                type: type === 'both' ? 'BSA & IBW' : type.toUpperCase(),
+                input: inputDesc,
+                result: resultDesc
+            });
+        }
+
+        function clearBSAForm() {
+            document.getElementById('patient-height').value = '';
+            document.getElementById('patient-weight').value = '';
+            document.getElementById('bsa-result').style.display = 'none';
+        }
+
+        // Pediatric Dosing Functions
+        function calculatePediatricDose() {
+            let weight = parseFloat(document.getElementById('child-weight').value);
+            const weightUnit = document.getElementById('child-weight-unit').value;
+            const adultDose = parseFloat(document.getElementById('adult-dose').value);
+            const doseUnit = document.getElementById('dose-unit').value;
+            const method = document.getElementById('dosing-method').value;
+            let age = parseFloat(document.getElementById('child-age').value);
+            const ageUnit = document.getElementById('age-unit').value;
+            
+            if (!weight || !adultDose) {
+                alert('Please enter both weight and adult dose');
+                return;
+            }
+            
+            if ((method === 'young' || method === 'fried') && !age) {
+                alert('Please enter the child\'s age for this method');
+                return;
+            }
+            
+            // Convert weight to lbs for Clark's rule if necessary
+            if (weightUnit === 'kg' && method === 'clark') {
+                weight = weight * 2.20462;
+            }
+            
+            let pediatricDose = 0;
+            let formula = '';
+            
+            switch(method) {
+                case 'clark':
+                    pediatricDose = (weight / 150) * adultDose;
+                    formula = `(${weight.toFixed(2)} lbs / 150) × ${adultDose} ${doseUnit} = ${pediatricDose.toFixed(2)} ${doseUnit}`;
+                    break;
+                case 'young':
+                    if (ageUnit === 'months') {
+                        age = age / 12;
+                    }
+                    pediatricDose = (age / (age + 12)) * adultDose;
+                    formula = `[${age} years / (${age} years + 12)] × ${adultDose} ${doseUnit} = ${pediatricDose.toFixed(2)} ${doseUnit}`;
+                    break;
+                case 'fried':
+                    if (ageUnit === 'years') {
+                        age = age * 12;
+                    }
+                    pediatricDose = (age / 150) * adultDose;
+                    formula = `(${age} months / 150) × ${adultDose} ${doseUnit} = ${pediatricDose.toFixed(2)} ${doseUnit}`;
+                    break;
+                case 'bsa':
+                    // For BSA method, we need to calculate BSA first
+                    // Using average values for demonstration
+                    const averageBSA = 0.7; // Average BSA for a child
+                    pediatricDose = (averageBSA / 1.73) * adultDose;
+                    formula = `(Child's BSA / 1.73) × ${adultDose} ${doseUnit} = ${pediatricDose.toFixed(2)} ${doseUnit} (using average BSA of ${averageBSA} m²)`;
+                    break;
+            }
+            
+            const resultBox = document.getElementById('pediatric-result');
+            resultBox.innerHTML = `
+                <h3>Pediatric Dose Calculation</h3>
+                <p><strong>Method:</strong> ${method.charAt(0).toUpperCase() + method.slice(1)}'s Rule</p>
+                <p><strong>Pediatric Dose:</strong> ${pediatricDose.toFixed(2)} ${doseUnit}</p>
+                <p><strong>Formula:</strong> ${formula}</p>
+                <p class="warning-box"><strong>Note:</strong> This is an estimate. Always verify with pediatric dosing references and consider the child's clinical condition.</p>
+            `;
+            resultBox.style.display = 'block';
+            
+            // Save to history
+            saveToHistory({
+                type: 'Pediatric Dosing',
+                input: `Weight: ${weight} ${weightUnit}, Adult Dose: ${adultDose} ${doseUnit}, Method: ${method}`,
+                result: `${pediatricDose.toFixed(2)} ${doseUnit}`
+            });
+        }
+
+        function clearPediatricForm() {
+            document.getElementById('child-weight').value = '';
+            document.getElementById('adult-dose').value = '';
+            document.getElementById('child-age').value = '';
+            document.getElementById('pediatric-result').style.display = 'none';
+        }
+
+        // TPN Calculation Functions
+        function calculateTPN() {
+            const volume = parseFloat(document.getElementById('tpn-volume').value);
+            const duration = parseFloat(document.getElementById('tpn-duration').value);
+            const dextrosePercent = parseFloat(document.getElementById('dextrose-percent').value);
+            const aminoPercent = parseFloat(document.getElementById('amino-percent').value);
+            const lipidVolume = parseFloat(document.getElementById('lipid-volume').value) || 0;
+            const lipidConcentration = parseFloat(document.getElementById('lipid-concentration').value) || 0;
+            const sodium = parseFloat(document.getElementById('sodium-chloride').value) || 0;
+            const potassium = parseFloat(document.getElementById('potassium-chloride').value) || 0;
+            const calcium = parseFloat(document.getElementById('calcium-gluconate').value) || 0;
+            const magnesium = parseFloat(document.getElementById('magnesium-sulfate').value) || 0;
+            
+            if (!volume || !duration || !dextrosePercent || !aminoPercent) {
+                alert('Please fill in volume, duration, dextrose %, and amino acids %');
+                return;
+            }
+            
+            // Calculate macronutrients
+            const dextroseGrams = (dextrosePercent / 100) * volume;
+            const aminoGrams = (aminoPercent / 100) * volume;
+            const lipidGrams = lipidVolume && lipidConcentration ? (lipidConcentration / 100) * lipidVolume : 0;
+            
+            // Calculate calories
+            const dextroseCalories = dextroseGrams * 3.4; // 3.4 kcal/g for dextrose
+            const aminoCalories = aminoGrams * 4; // 4 kcal/g for amino acids
+            const lipidCalories = lipidGrams * 10; // 10 kcal/g for lipids
+            const totalCalories = dextroseCalories + aminoCalories + lipidCalories;
+            
+            // Calculate non-protein calories
+            const nonProteinCalories = dextroseCalories + lipidCalories;
+            
+            // Calculate flow rate
+            const flowRate = volume / duration;
+            
+            const resultBox = document.getElementById('tpn-result');
+            resultBox.innerHTML = `
+                <h3>TPN Calculation Results</h3>
+                
+                <h4>Macronutrients</h4>
+                <p><strong>Dextrose:</strong> ${dextroseGrams.toFixed(2)} g (${dextrosePercent}% of ${volume} mL)</p>
+                <p><strong>Amino Acids:</strong> ${aminoGrams.toFixed(2)} g (${aminoPercent}% of ${volume} mL)</p>
+                <p><strong>Lipids:</strong> ${lipidGrams.toFixed(2)} g (${lipidVolume} mL of ${lipidConcentration}%)</p>
+                
+                <h4>Calories</h4>
+                <p><strong>Dextrose Calories:</strong> ${dextroseCalories.toFixed(2)} kcal</p>
+                <p><strong>Amino Acid Calories:</strong> ${aminoCalories.toFixed(2)} kcal</p>
+                <p><strong>Lipid Calories:</strong> ${lipidCalories.toFixed(2)} kcal</p>
+                <p><strong>Total Calories:</strong> ${totalCalories.toFixed(2)} kcal</p>
+                <p><strong>Non-Protein Calories:</strong> ${nonProteinCalories.toFixed(2)} kcal</p>
+                
+                <h4>Administration</h4>
+                <p><strong>Flow Rate:</strong> ${flowRate.toFixed(2)} mL/hr</p>
+                <p><strong>Infusion Duration:</strong> ${duration} hours</p>
+                
+                <h4>Electrolytes</h4>
+                <p><strong>Sodium Chloride:</strong> ${sodium} mEq</p>
+                <p><strong>Potassium Chloride:</strong> ${potassium} mEq</p>
+                <p><strong>Calcium Gluconate:</strong> ${calcium} mEq</p>
+                <p><strong>Magnesium Sulfate:</strong> ${magnesium} mEq</p>
+                
+                <p class="warning-box"><strong>Important:</strong> TPN formulations should be verified by a pharmacist and tailored to individual patient needs.</p>
+            `;
+            resultBox.style.display = 'block';
+            
+            // Save to history
+            saveToHistory({
+                type: 'TPN Calculation',
+                input: `Volume: ${volume} mL, Duration: ${duration} hr, Dextrose: ${dextrosePercent}%, Amino: ${aminoPercent}%`,
+                result: `Total Calories: ${totalCalories.toFixed(2)} kcal, Flow Rate: ${flowRate.toFixed(2)} mL/hr`
+            });
+        }
+
+        function clearTPNForm() {
+            document.getElementById('tpn-volume').value = '';
+            document.getElementById('tpn-duration').value = '';
+            document.getElementById('dextrose-percent').value = '';
+            document.getElementById('amino-percent').value = '';
+            document.getElementById('lipid-volume').value = '';
+            document.getElementById('lipid-concentration').value = '';
+            document.getElementById('sodium-chloride').value = '';
+            document.getElementById('potassium-chloride').value = '';
+            document.getElementById('calcium-gluconate').value = '';
+            document.getElementById('magnesium-sulfate').value = '';
+            document.getElementById('tpn-result').style.display = 'none';
+        }
+
+        // Unit Converter Functions
+        function convertUnits() {
+            const value = parseFloat(document.getElementById('convert-value').value);
+            const fromUnit = document.getElementById('convert-from').value;
+            const toUnit = document.getElementById('convert-to').value;
+            
+            if (!value) {
+                alert('Please enter a value to convert');
+                return;
+            }
+            
+            if (fromUnit === toUnit) {
+                alert('Please select different units to convert between');
+                return;
+            }
+            
+            // Convert to base unit first, then to target unit
+            const valueInBase = convertToBaseUnit(value, fromUnit);
+            const convertedValue = convertFromBaseUnit(valueInBase, toUnit);
+            
+            if (valueInBase === null || convertedValue === null) {
+                alert('Conversion between these units is not supported');
+                return;
+            }
+            
+            const resultBox = document.getElementById('converter-result');
+            resultBox.innerHTML = `
+                <h3>Unit Conversion Result</h3>
+                <p><strong>${value} ${fromUnit} = ${convertedValue.toFixed(6)} ${toUnit}</strong></p>
+            `;
+            resultBox.style.display = 'block';
+            
+            // Save to history
+            saveToHistory({
+                type: 'Unit Conversion',
+                input: `${value} ${fromUnit}`,
+                result: `${convertedValue.toFixed(6)} ${toUnit}`
+            });
+        }
+
+        function convertToBaseUnit(value, unit) {
+            const conversions = {
+                // Weight conversions (base unit: grams)
+                'mg': value / 1000,
+                'g': value,
+                'mcg': value / 1000000,
+                'kg': value * 1000,
+                'lb': value * 453.592,
+                'oz': value * 28.3495,
+                
+                // Volume conversions (base unit: milliliters)
+                'mL': value,
+                'L': value * 1000,
+                'tsp': value * 4.92892,
+                'tbsp': value * 14.7868,
+                'floz': value * 29.5735,
+                'cup': value * 236.588,
+                'pt': value * 473.176,
+                'qt': value * 946.353,
+                'gal': value * 3785.41
+            };
+            
+            return conversions[unit] !== undefined ? conversions[unit] : null;
+        }
+
+        function convertFromBaseUnit(value, unit) {
+            const conversions = {
+                // Weight conversions (base unit: grams)
+                'mg': value * 1000,
+                'g': value,
+                'mcg': value * 1000000,
+                'kg': value / 1000,
+                'lb': value / 453.592,
+                'oz': value / 28.3495,
+                
+                // Volume conversions (base unit: milliliters)
+                'mL': value,
+                'L': value / 1000,
+                'tsp': value / 4.92892,
+                'tbsp': value / 14.7868,
+                'floz': value / 29.5735,
+                'cup': value / 236.588,
+                'pt': value / 473.176,
+                'qt': value / 946.353,
+                'gal': value / 3785.41
+            };
+            
+            return conversions[unit] !== undefined ? conversions[unit] : null;
+        }
+
+        function convertToMg(value, unit) {
+            const conversions = {
+                'mg': value,
+                'g': value * 1000,
+                'mcg': value / 1000,
+                'units': value // Can't convert units to mg
+            };
+            
+            return conversions[unit] !== undefined ? conversions[unit] : null;
+        }
+
+        function clearConverterForm() {
+            document.getElementById('convert-value').value = '';
+            document.getElementById('converter-result').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

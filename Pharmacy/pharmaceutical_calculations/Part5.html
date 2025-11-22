@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 5: BSA & Specialized Dosing</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #0066d4;
+            --primary-dark: #004fa8;
+            --accent: #8b3dff;
+            --light-bg: #f5f7fb;
+            --card-bg: #ffffff;
+            --text-dark: #333;
+            --text-light: #555;
+            --border: #e0e6f0;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        }
+
+        body {
+            background: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .page-header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .breadcrumb span {
+            margin: 0 5px;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .question-number {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background-color: #f0f5ff;
+            border-color: var(--primary);
+        }
+
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: var(--primary);
+        }
+
+        .option.correct {
+            background-color: #e8f5e9;
+            border-color: var(--success);
+        }
+
+        .option.incorrect {
+            background-color: #ffebee;
+            border-color: var(--danger);
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--success);
+        }
+
+        .feedback.incorrect {
+            background-color: #ffebee;
+            border-left: 4px solid var(--danger);
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .explanation {
+            margin-top: 10px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        /* Results Card */
+        .results-card {
+            text-align: center;
+            display: none;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+
+        .results-details {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-number {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .result-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .correct-stat .result-number {
+            color: var(--success);
+        }
+
+        .incorrect-stat .result-number {
+            color: var(--danger);
+        }
+
+        /* Formula Cards */
+        .formula-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .formula-card {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: bold;
+            border: 1px dashed var(--primary);
+        }
+
+        /* Image Section */
+        .image-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .image-container {
+            max-width: 100%;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: var(--light-bg);
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--border);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 300px;
+            object-fit: contain;
+        }
+
+        .image-placeholder {
+            color: var(--text-light);
+            font-size: 16px;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .image-caption {
+            font-style: italic;
+            margin-top: 10px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Calculator Section */
+        .calculator {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid var(--border);
+        }
+
+        .calculator h3 {
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .calculator-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .calculator-input {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calculator-input label {
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .calculator-input input {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+        }
+
+        .calculator-result {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+
+        /* BSA Chart */
+        .bsa-chart {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .bsa-chart th,
+        .bsa-chart td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .bsa-chart th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .bsa-chart tr:nth-child(even) {
+            background: var(--light-bg);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .results-details {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .formula-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .calculator-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .bsa-chart {
+                font-size: 14px;
+            }
+            
+            .bsa-chart th,
+            .bsa-chart td {
+                padding: 8px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="page-header">
+            <h1>Part 5: BSA & Specialized Dosing</h1>
+            <div class="breadcrumb">
+                <a href="../../dashboard.html">Dashboard</a> <span>></span>
+                <a href="../pharmaceutical-calculations.html">Pharmaceutical Calculations</a> <span>></span>
+                <span>Part 5: BSA & Specialized Dosing</span>
+            </div>
+        </header>
+
+        <!-- Instructions -->
+        <section class="content-card">
+            <h2 class="card-title">📋 Instructions</h2>
+            <p>This section covers Body Surface Area (BSA) calculations, Mosteller method, chemotherapy dosing, and specialized patient population calculations. Answer each question by selecting the best option. After submitting your answer, you'll receive immediate feedback with an explanation.</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Total questions: 40 (Questions 161-200 from the document)</li>
+                <li>Options are shuffled each time you attempt a question</li>
+                <li>You'll see your progress as you complete questions</li>
+                <li>Review your results at the end of the quiz</li>
+            </ul>
+            
+            <div class="image-section">
+                <div class="image-container">
+                    <!-- Using a reliable image source -->
+                    <img src="https://images.unsplash.com/photo-1584467735871-8db9ac8e5e3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" 
+                         alt="Medical Calculations" 
+                         onerror="this.style.display='none'; document.getElementById('image-placeholder-1').style.display='block';">
+                    <div class="image-placeholder" id="image-placeholder-1" style="display: none;">
+                        🧮 BSA Calculation Concepts<br>
+                        <small>Body Surface Area is crucial for accurate dosing</small>
+                    </div>
+                </div>
+                <p class="image-caption">Body Surface Area (BSA) is a better indicator of metabolic mass than body weight</p>
+            </div>
+        </section>
+
+        <!-- Key Formulas -->
+        <section class="content-card">
+            <h2 class="card-title">🧮 Key Formulas</h2>
+            <div class="formula-cards">
+                <div class="formula-card">
+                    <h3>BSA (Mosteller)</h3>
+                    <div class="formula">BSA = √(H × W / 3600)</div>
+                    <p>Height in cm, Weight in kg, BSA in m²</p>
+                </div>
+                <div class="formula-card">
+                    <h3>BSA Dosing</h3>
+                    <div class="formula">Dose = (BSA / 1.73) × Adult Dose</div>
+                    <p>1.73 m² is average adult BSA</p>
+                </div>
+                <div class="formula-card">
+                    <h3>Chemotherapy Dosing</h3>
+                    <div class="formula">Dose = BSA × Dose/m²</div>
+                    <p>BSA in m², Dose in mg/m²</p>
+                </div>
+                <div class="formula-card">
+                    <h3>Pediatric Dosing</h3>
+                    <div class="formula">Dose = Weight × Dose/kg</div>
+                    <p>Weight in kg, Dose in mg/kg</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BSA Calculator -->
+        <section class="content-card">
+            <h2 class="card-title">🧮 BSA Calculator</h2>
+            <p>Use this calculator to practice BSA calculations using the Mosteller formula:</p>
+            
+            <div class="calculator">
+                <h3>Mosteller BSA Calculator</h3>
+                <div class="calculator-inputs">
+                    <div class="calculator-input">
+                        <label for="height">Height (cm):</label>
+                        <input type="number" id="height" placeholder="Enter height in cm">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="weight">Weight (kg):</label>
+                        <input type="number" id="weight" placeholder="Enter weight in kg">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="calculateBSA()">Calculate BSA</button>
+                <div class="calculator-result" id="bsa-result">
+                    BSA: <span id="bsa-value">0</span> m²
+                </div>
+            </div>
+            
+            <div class="image-section">
+                <div class="image-container">
+                    <!-- Using Unsplash for reliable images -->
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" 
+                         alt="Medical Measurement" 
+                         onerror="this.style.display='none'; document.getElementById('image-placeholder-2').style.display='block';">
+                    <div class="image-placeholder" id="image-placeholder-2" style="display: none;">
+                        📐 Measurement Tools<br>
+                        <small>Accurate measurements are essential for BSA calculations</small>
+                    </div>
+                </div>
+                <p class="image-caption">The Mosteller formula is the most commonly used method for BSA calculation</p>
+            </div>
+        </section>
+
+        <!-- BSA Reference Chart -->
+        <section class="content-card">
+            <h2 class="card-title">📊 BSA Reference Chart</h2>
+            <p>Common BSA values for different height and weight combinations:</p>
+            
+            <table class="bsa-chart">
+                <thead>
+                    <tr>
+                        <th>Height (cm)</th>
+                        <th>Weight (kg)</th>
+                        <th>BSA (m²)</th>
+                        <th>Typical Patient</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>150</td>
+                        <td>50</td>
+                        <td>1.44</td>
+                        <td>Small adult</td>
+                    </tr>
+                    <tr>
+                        <td>170</td>
+                        <td>70</td>
+                        <td>1.80</td>
+                        <td>Average adult</td>
+                    </tr>
+                    <tr>
+                        <td>180</td>
+                        <td>80</td>
+                        <td>1.99</td>
+                        <td>Large adult</td>
+                    </tr>
+                    <tr>
+                        <td>100</td>
+                        <td>15</td>
+                        <td>0.64</td>
+                        <td>Child (4-5 years)</td>
+                    </tr>
+                    <tr>
+                        <td>120</td>
+                        <td>25</td>
+                        <td>0.91</td>
+                        <td>Child (8-9 years)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Progress -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+            </div>
+            <div class="progress-text" id="progress-text">Question 1 of 40</div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="question-card" id="question-card">
+            <div class="question-number" id="question-number">Question 161</div>
+            <div class="question-text" id="question-text"></div>
+            <div class="options-container" id="options-container"></div>
+            <div class="feedback" id="feedback">
+                <div class="feedback-title" id="feedback-title"></div>
+                <div class="explanation" id="explanation"></div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-secondary" id="prev-btn" disabled>Previous</button>
+                <button class="btn btn-primary" id="next-btn">Next Question</button>
+            </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="content-card results-card" id="results-card">
+            <h2 class="card-title">📊 Quiz Results</h2>
+            <div class="score" id="final-score">0%</div>
+            <p>You've completed the BSA & Specialized Dosing quiz!</p>
+            
+            <div class="image-section">
+                <div class="image-container">
+                    <!-- Using another reliable image source -->
+                    <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" 
+                         alt="Medical Accuracy" 
+                         onerror="this.style.display='none'; document.getElementById('image-placeholder-3').style.display='block';">
+                    <div class="image-placeholder" id="image-placeholder-3" style="display: none;">
+                        ✅ Calculation Accuracy<br>
+                        <small>Precision in dosing ensures patient safety</small>
+                    </div>
+                </div>
+                <p class="image-caption">Accurate BSA calculations are critical for chemotherapy and specialized dosing</p>
+            </div>
+            
+            <div class="results-details">
+                <div class="result-stat correct-stat">
+                    <div class="result-number" id="correct-count">0</div>
+                    <div class="result-label">Correct Answers</div>
+                </div>
+                <div class="result-stat incorrect-stat">
+                    <div class="result-number" id="incorrect-count">0</div>
+                    <div class="result-label">Incorrect Answers</div>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button class="btn btn-secondary" id="restart-btn">Restart Quiz</button>
+                <a href="../pharmaceutical-calculations.html" class="btn btn-primary">Back to Main Page</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Questions data (161-200 from the document) - ALL 40 QUESTIONS
+        const questions = [
+            {
+                id: 161,
+                text: "A patient weighs 50 kg, needs 10 mg/kg/day. Total dose:",
+                options: [
+                    "500 mg",
+                    "50 mg",
+                    "100 mg",
+                    "250 mg"
+                ],
+                correct: 0,
+                explanation: "Dose = 50 kg × 10 mg/kg = 500 mg."
+            },
+            {
+                id: 162,
+                text: "To prepare 100 mL of 0.25% solution, solute needed:",
+                options: [
+                    "0.25 g",
+                    "2.5 g",
+                    "0.025 g",
+                    "1 g"
+                ],
+                correct: 0,
+                explanation: "0.25% w/v = 0.25 g per 100 mL."
+            },
+            {
+                id: 163,
+                text: "Volume of stock (20 mg/mL) to prepare 50 mL of 5 mg/mL solution:",
+                options: [
+                    "12.5 mL",
+                    "10 mL",
+                    "25 mL",
+                    "5 mL"
+                ],
+                correct: 0,
+                explanation: "Using C1V1 = C2V2: 20 mg/mL × V1 = 5 mg/mL × 50 mL → V1 = (5 × 50)/20 = 12.5 mL."
+            },
+            {
+                id: 164,
+                text: "To prepare 500 mL of 0.1% solution from 1% stock, volume of stock:",
+                options: [
+                    "50 mL",
+                    "5 mL",
+                    "100 mL",
+                    "10 mL"
+                ],
+                correct: 0,
+                explanation: "Using C1V1 = C2V2: 1% × V1 = 0.1% × 500 mL → V1 = (0.1 × 500)/1 = 50 mL."
+            },
+            {
+                id: 165,
+                text: "A 1:500 w/v solution contains:",
+                options: [
+                    "1 g solute in 500 mL solution",
+                    "1 g solute in 100 mL",
+                    "0.5 g solute in 100 mL",
+                    "5 g solute in 500 mL"
+                ],
+                correct: 0,
+                explanation: "A 1:500 w/v ratio means 1 gram of solute in 500 mL of solution."
+            },
+            {
+                id: 166,
+                text: "A child weighs 25 kg, needs 15 mg/kg/day. Total daily dose:",
+                options: [
+                    "375 mg",
+                    "250 mg",
+                    "150 mg",
+                    "500 mg"
+                ],
+                correct: 0,
+                explanation: "Dose = 25 kg × 15 mg/kg = 375 mg."
+            },
+            {
+                id: 167,
+                text: "A 0.8% w/v solution: solute in 200 mL:",
+                options: [
+                    "1.6 g",
+                    "0.16 g",
+                    "16 g",
+                    "0.8 g"
+                ],
+                correct: 0,
+                explanation: "0.8% w/v = 0.8 g/100 mL. For 200 mL: 0.8 × 200 / 100 = 1.6 g."
+            },
+            {
+                id: 168,
+                text: "Weight of 150 mL solution, SG 1.1:",
+                options: [
+                    "165 g",
+                    "150 g",
+                    "160 g",
+                    "170 g"
+                ],
+                correct: 0,
+                explanation: "Weight = Volume × SG = 150 mL × 1.1 g/mL = 165 g."
+            },
+            {
+                id: 169,
+                text: "A 2 mg/mL solution diluted to 0.5 mg/mL. Volume of stock for 50 mL final solution:",
+                options: [
+                    "12.5 mL",
+                    "10 mL",
+                    "20 mL",
+                    "5 mL"
+                ],
+                correct: 0,
+                explanation: "Using C1V1 = C2V2: 2 mg/mL × V1 = 0.5 mg/mL × 50 mL → V1 = (0.5 × 50)/2 = 12.5 mL."
+            },
+            {
+                id: 170,
+                text: "A patient requires 400 mg. Available 40 mg/mL. Volume to administer:",
+                options: [
+                    "10 mL",
+                    "5 mL",
+                    "20 mL",
+                    "8 mL"
+                ],
+                correct: 0,
+                explanation: "400 mg ÷ 40 mg/mL = 10 mL."
+            },
+            {
+                id: 171,
+                text: "Parts per million (ppm) is equal to:",
+                options: [
+                    "mg/L",
+                    "mg/mL",
+                    "μg/mL",
+                    "g/L"
+                ],
+                correct: 0,
+                explanation: "Parts per million (ppm) is equivalent to mg/L (milligrams per liter) in aqueous solutions."
+            },
+            {
+                id: 172,
+                text: "Parts per billion (ppb) is equal to:",
+                options: [
+                    "μg/L",
+                    "mg/L",
+                    "mg/mL",
+                    "g/L"
+                ],
+                correct: 0,
+                explanation: "Parts per billion (ppb) is equivalent to μg/L (micrograms per liter) in aqueous solutions."
+            },
+            {
+                id: 173,
+                text: "A 1% w/v solution: solute in 250 mL:",
+                options: [
+                    "2.5 g",
+                    "25 g",
+                    "0.25 g",
+                    "1 g"
+                ],
+                correct: 0,
+                explanation: "1% w/v = 1 g/100 mL. For 250 mL: 1 × 250 / 100 = 2.5 g."
+            },
+            {
+                id: 174,
+                text: "A 0.5% solution diluted to 0.1%. Dilution factor:",
+                options: [
+                    "5",
+                    "2",
+                    "0.2",
+                    "10"
+                ],
+                correct: 0,
+                explanation: "Dilution factor = 0.5% ÷ 0.1% = 5."
+            },
+            {
+                id: 175,
+                text: "Volume of stock 50 mg/mL to prepare 100 mL of 10 mg/mL solution:",
+                options: [
+                    "20 mL",
+                    "10 mL",
+                    "50 mL",
+                    "5 mL"
+                ],
+                correct: 0,
+                explanation: "Using C1V1 = C2V2: 50 mg/mL × V1 = 10 mg/mL × 100 mL → V1 = (10 × 100)/50 = 20 mL."
+            },
+            {
+                id: 176,
+                text: "To prepare 100 mL of 0.2% solution, solute required:",
+                options: [
+                    "0.2 g",
+                    "2 g",
+                    "0.02 g",
+                    "1 g"
+                ],
+                correct: 0,
+                explanation: "0.2% w/v = 0.2 g per 100 mL."
+            },
+            {
+                id: 177,
+                text: "Alligation alternate is used for:",
+                options: [
+                    "Determining volumes of solutions with different strengths to reach desired concentration",
+                    "Measuring weight",
+                    "Calculating age-based dose",
+                    "Determining SG"
+                ],
+                correct: 0,
+                explanation: "Alligation alternate is a pharmacy mixing technique used to determine volumes of solutions with different strengths needed to reach a desired concentration."
+            },
+            {
+                id: 178,
+                text: "Alligation medial is used for:",
+                options: [
+                    "Calculating mean concentration of mixture",
+                    "Weight calculation",
+                    "BSA calculation",
+                    "Age-based calculation"
+                ],
+                correct: 0,
+                explanation: "Alligation medial is used to calculate the mean concentration of a mixture of different solutions."
+            },
+            {
+                id: 179,
+                text: "A 0.05% w/v solution in 500 mL requires:",
+                options: [
+                    "0.25 g",
+                    "2.5 g",
+                    "0.025 g",
+                    "5 g"
+                ],
+                correct: 0,
+                explanation: "0.05% w/v = 0.05 g/100 mL. For 500 mL: 0.05 × 500 / 100 = 0.25 g."
+            },
+            {
+                id: 180,
+                text: "Weight of 200 mL solution, SG 1.2:",
+                options: [
+                    "240 g",
+                    "200 g",
+                    "220 g",
+                    "260 g"
+                ],
+                correct: 0,
+                explanation: "Weight = Volume × SG = 200 mL × 1.2 g/mL = 240 g."
+            },
+            {
+                id: 181,
+                text: "A patient requires 750 mg. Available: 50 mg/mL. Volume to administer:",
+                options: [
+                    "15 mL",
+                    "10 mL",
+                    "20 mL",
+                    "12 mL"
+                ],
+                correct: 0,
+                explanation: "750 mg ÷ 50 mg/mL = 15 mL."
+            },
+            {
+                id: 182,
+                text: "A 2% solution diluted to 0.5%. Dilution factor:",
+                options: [
+                    "4",
+                    "2",
+                    "0.25",
+                    "5"
+                ],
+                correct: 0,
+                explanation: "Dilution factor = 2% ÷ 0.5% = 4."
+            },
+            {
+                id: 183,
+                text: "To prepare 100 mL of 0.8% solution, solute required:",
+                options: [
+                    "0.8 g",
+                    "8 g",
+                    "0.08 g",
+                    "1 g"
+                ],
+                correct: 0,
+                explanation: "0.8% w/v = 0.8 g per 100 mL."
+            },
+            {
+                id: 184,
+                text: "A patient weighs 60 kg, needs 10 mg/kg/day. Total dose:",
+                options: [
+                    "600 mg",
+                    "500 mg",
+                    "100 mg",
+                    "50 mg"
+                ],
+                correct: 0,
+                explanation: "Dose = 60 kg × 10 mg/kg = 600 mg."
+            },
+            {
+                id: 185,
+                text: "A 10 mg/mL solution, how many mL for 200 mg:",
+                options: [
+                    "20 mL",
+                    "10 mL",
+                    "25 mL",
+                    "15 mL"
+                ],
+                correct: 0,
+                explanation: "200 mg ÷ 10 mg/mL = 20 mL."
+            },
+            {
+                id: 186,
+                text: "To prepare 50 mL of 5% w/v solution, solute required:",
+                options: [
+                    "2.5 g",
+                    "0.25 g",
+                    "5 g",
+                    "1 g"
+                ],
+                correct: 0,
+                explanation: "5% w/v = 5 g/100 mL. For 50 mL: 5 × 50 / 100 = 2.5 g."
+            },
+            {
+                id: 187,
+                text: "Dilution factor for 0.2% from 1% solution:",
+                options: [
+                    "5",
+                    "2",
+                    "0.2",
+                    "10"
+                ],
+                correct: 0,
+                explanation: "Dilution factor = 1% ÷ 0.2% = 5."
+            },
+            {
+                id: 188,
+                text: "Weight of 150 mL solution, SG 1.05:",
+                options: [
+                    "157.5 g",
+                    "150 g",
+                    "155 g",
+                    "160 g"
+                ],
+                correct: 0,
+                explanation: "Weight = Volume × SG = 150 mL × 1.05 g/mL = 157.5 g."
+            },
+            {
+                id: 189,
+                text: "A 0.1% solution in 250 mL requires solute:",
+                options: [
+                    "0.25 g",
+                    "0.025 g",
+                    "2.5 g",
+                    "0.1 g"
+                ],
+                correct: 0,
+                explanation: "0.1% w/v = 0.1 g/100 mL. For 250 mL: 0.1 × 250 / 100 = 0.25 g."
+            },
+            {
+                id: 190,
+                text: "A patient requires 900 mg. Available: 100 mg/5 mL. Volume to administer:",
+                options: [
+                    "45 mL",
+                    "50 mL",
+                    "40 mL",
+                    "30 mL"
+                ],
+                correct: 0,
+                explanation: "100 mg/5 mL = 20 mg/mL. Volume = 900 mg ÷ 20 mg/mL = 45 mL."
+            },
+            {
+                id: 191,
+                text: "C1V1 = C2V2 is used for:",
+                options: [
+                    "Dilution calculations",
+                    "BSA-based dosing",
+                    "Age-based dosing",
+                    "SG measurement"
+                ],
+                correct: 0,
+                explanation: "C1V1 = C2V2 is the fundamental formula for dilution calculations in pharmacy."
+            },
+            {
+                id: 192,
+                text: "A 0.5% solution diluted to 0.1%. Dilution factor:",
+                options: [
+                    "5",
+                    "2",
+                    "0.2",
+                    "10"
+                ],
+                correct: 0,
+                explanation: "Dilution factor = 0.5% ÷ 0.1% = 5."
+            },
+            {
+                id: 193,
+                text: "Parts per million (ppm) is equal to:",
+                options: [
+                    "mg/L",
+                    "μg/L",
+                    "mg/mL",
+                    "g/L"
+                ],
+                correct: 0,
+                explanation: "Parts per million (ppm) is equivalent to mg/L (milligrams per liter) in dilute aqueous solutions."
+            },
+            {
+                id: 194,
+                text: "Parts per billion (ppb) is equal to:",
+                options: [
+                    "μg/L",
+                    "mg/L",
+                    "mg/mL",
+                    "g/L"
+                ],
+                correct: 0,
+                explanation: "Parts per billion (ppb) is equivalent to μg/L (micrograms per liter) in aqueous solutions."
+            },
+            {
+                id: 195,
+                text: "A 1:1000 solution contains:",
+                options: [
+                    "1 g solute in 1000 mL solution",
+                    "10 g solute in 1000 mL",
+                    "1 g in 100 mL",
+                    "0.1 g in 100 mL"
+                ],
+                correct: 0,
+                explanation: "A 1:1000 w/v ratio means 1 gram of solute in 1000 mL of solution."
+            },
+            {
+                id: 196,
+                text: "A 2% solution: mg/mL:",
+                options: [
+                    "20 mg/mL",
+                    "2 mg/mL",
+                    "200 mg/mL",
+                    "0.2 mg/mL"
+                ],
+                correct: 0,
+                explanation: "2% w/v = 2 g/100 mL = 2000 mg/100 mL = 20 mg/mL."
+            },
+            {
+                id: 197,
+                text: "A child weighs 18 kg, needs 15 mg/kg/day. Total dose:",
+                options: [
+                    "270 mg",
+                    "180 mg",
+                    "150 mg",
+                    "300 mg"
+                ],
+                correct: 0,
+                explanation: "Dose = 18 kg × 15 mg/kg = 270 mg."
+            },
+            {
+                id: 198,
+                text: "To prepare 100 mL of 0.2% w/v solution from 2% stock, volume of stock required:",
+                options: [
+                    "10 mL",
+                    "20 mL",
+                    "5 mL",
+                    "50 mL"
+                ],
+                correct: 0,
+                explanation: "Using C1V1 = C2V2: 2% × V1 = 0.2% × 100 mL → V1 = (0.2 × 100)/2 = 10 mL."
+            },
+            {
+                id: 199,
+                text: "A 0.1% solution in 500 mL requires solute:",
+                options: [
+                    "0.5 g",
+                    "0.05 g",
+                    "5 g",
+                    "0.25 g"
+                ],
+                correct: 0,
+                explanation: "0.1% w/v = 0.1 g/100 mL. For 500 mL: 0.1 × 500 / 100 = 0.5 g."
+            },
+            {
+                id: 200,
+                text: "A 5 mg/mL solution diluted to 1 mg/mL. Volume of stock for 50 mL:",
+                options: [
+                    "10 mL",
+                    "5 mL",
+                    "50 mL",
+                    "20 mL"
+                ],
+                correct: 0,
+                explanation: "Using C1V1 = C2V2: 5 mg/mL × V1 = 1 mg/mL × 50 mL → V1 = (1 × 50)/5 = 10 mL."
+            }
+        ];
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+
+        // DOM elements
+        const questionNumberEl = document.getElementById('question-number');
+        const questionTextEl = document.getElementById('question-text');
+        const optionsContainerEl = document.getElementById('options-container');
+        const feedbackEl = document.getElementById('feedback');
+        const feedbackTitleEl = document.getElementById('feedback-title');
+        const explanationEl = document.getElementById('explanation');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const questionCard = document.getElementById('question-card');
+        const resultsCard = document.getElementById('results-card');
+        const finalScoreEl = document.getElementById('final-score');
+        const correctCountEl = document.getElementById('correct-count');
+        const incorrectCountEl = document.getElementById('incorrect-count');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Initialize quiz
+        function initQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers.fill(null);
+            correctAnswers = 0;
+            incorrectAnswers = 0;
+            updateProgress();
+            showQuestion();
+            questionCard.style.display = 'block';
+            resultsCard.style.display = 'none';
+        }
+
+        // Show current question
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            questionNumberEl.textContent = `Question ${currentQuestionIndex + 1}`;
+            questionTextEl.textContent = question.text;
+            
+            // Clear previous options
+            optionsContainerEl.innerHTML = '';
+            
+            // Shuffle options but keep track of correct answer
+            const shuffledOptions = shuffleOptions([...question.options], question.correct);
+            
+            // Create option elements
+            shuffledOptions.forEach((option, index) => {
+                const optionEl = document.createElement('div');
+                optionEl.className = 'option';
+                optionEl.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+                optionEl.dataset.index = index;
+                optionEl.addEventListener('click', () => selectOption(optionEl, index, shuffledOptions, question.correct));
+                optionsContainerEl.appendChild(optionEl);
+            });
+            
+            // Reset feedback
+            feedbackEl.style.display = 'none';
+            feedbackEl.className = 'feedback';
+            
+            // Update navigation buttons
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 'Finish Quiz' : 'Next Question';
+            
+            // If user already answered this question, show their selection
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const options = optionsContainerEl.querySelectorAll('.option');
+                options[userAnswers[currentQuestionIndex]].classList.add('selected');
+                
+                // Show feedback if already answered
+                showFeedback(userAnswers[currentQuestionIndex], shuffledOptions, question.correct);
+            }
+        }
+
+        // Shuffle options while keeping track of correct answer
+        function shuffleOptions(options, correctIndex) {
+            const correctAnswer = options[correctIndex];
+            
+            // Fisher-Yates shuffle
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+                
+                // Update correct index if it was swapped
+                if (i === correctIndex) correctIndex = j;
+                else if (j === correctIndex) correctIndex = i;
+            }
+            
+            // Store the new correct index
+            questions[currentQuestionIndex].currentCorrectIndex = correctIndex;
+            
+            return options;
+        }
+
+        // Handle option selection
+        function selectOption(optionEl, selectedIndex, shuffledOptions, originalCorrectIndex) {
+            // Clear previous selections
+            const options = optionsContainerEl.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            optionEl.classList.add('selected');
+            
+            // Store user's answer
+            userAnswers[currentQuestionIndex] = selectedIndex;
+            
+            // Show feedback
+            showFeedback(selectedIndex, shuffledOptions, questions[currentQuestionIndex].currentCorrectIndex);
+        }
+
+        // Show feedback for selected option
+        function showFeedback(selectedIndex, shuffledOptions, correctIndex) {
+            const question = questions[currentQuestionIndex];
+            const options = optionsContainerEl.querySelectorAll('.option');
+            
+            // Mark correct and incorrect options
+            options[correctIndex].classList.add('correct');
+            if (selectedIndex !== correctIndex) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            // Show feedback
+            feedbackEl.style.display = 'block';
+            if (selectedIndex === correctIndex) {
+                feedbackEl.classList.add('correct');
+                feedbackTitleEl.textContent = 'Correct!';
+            } else {
+                feedbackEl.classList.add('incorrect');
+                feedbackTitleEl.textContent = 'Incorrect';
+            }
+            
+            explanationEl.textContent = question.explanation;
+            
+            // Update score counters
+            updateScore();
+        }
+
+        // Update score counters
+        function updateScore() {
+            correctAnswers = userAnswers.filter((answer, index) => 
+                answer !== null && answer === questions[index].currentCorrectIndex
+            ).length;
+            
+            incorrectAnswers = userAnswers.filter((answer, index) => 
+                answer !== null && answer !== questions[index].currentCorrectIndex
+            ).length;
+        }
+
+        // Update progress bar and text
+        function updateProgress() {
+            const answeredCount = userAnswers.filter(answer => answer !== null).length;
+            const progress = (answeredCount / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length} (${answeredCount} answered)`;
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                updateProgress();
+            } else {
+                // Show results
+                showResults();
+            }
+        }
+
+        // Navigate to previous question
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+                updateProgress();
+            }
+        }
+
+        // Show quiz results
+        function showResults() {
+            questionCard.style.display = 'none';
+            resultsCard.style.display = 'block';
+            
+            const score = (correctAnswers / questions.length) * 100;
+            finalScoreEl.textContent = `${score.toFixed(1)}%`;
+            correctCountEl.textContent = correctAnswers;
+            incorrectCountEl.textContent = incorrectAnswers;
+        }
+
+        // BSA Calculator Function
+        function calculateBSA() {
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            
+            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+                alert('Please enter valid height and weight values');
+                return;
+            }
+            
+            // Mosteller formula: BSA (m²) = √[height (cm) × weight (kg) / 3600]
+            const bsa = Math.sqrt((height * weight) / 3600);
+            
+            document.getElementById('bsa-value').textContent = bsa.toFixed(4);
+            document.getElementById('bsa-result').style.display = 'block';
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', initQuiz);
+
+        // Initialize the quiz
+        initQuiz();
+    </script>
+</body>
+</html>

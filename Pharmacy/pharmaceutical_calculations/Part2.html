@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 2: Percentage & Concentration Calculations</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #0066d4;
+            --primary-dark: #004fa8;
+            --accent: #8b3dff;
+            --light-bg: #f5f7fb;
+            --card-bg: #ffffff;
+            --text-dark: #333;
+            --text-light: #555;
+            --border: #e0e6f0;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        }
+
+        body {
+            background: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .page-header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .breadcrumb span {
+            margin: 0 5px;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .question-number {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background-color: #f0f5ff;
+            border-color: var(--primary);
+        }
+
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: var(--primary);
+        }
+
+        .option.correct {
+            background-color: #e8f5e9;
+            border-color: var(--success);
+        }
+
+        .option.incorrect {
+            background-color: #ffebee;
+            border-color: var(--danger);
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--success);
+        }
+
+        .feedback.incorrect {
+            background-color: #ffebee;
+            border-left: 4px solid var(--danger);
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .explanation {
+            margin-top: 10px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        /* Results Card */
+        .results-card {
+            text-align: center;
+            display: none;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+
+        .results-details {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-number {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .result-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .correct-stat .result-number {
+            color: var(--success);
+        }
+
+        .incorrect-stat .result-number {
+            color: var(--danger);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .results-details {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="page-header">
+            <h1>Part 2: Percentage & Concentration Calculations</h1>
+            <div class="breadcrumb">
+                <a href="../../dashboard.html">Dashboard</a> <span>></span>
+                <a href="../pharmaceutical-calculations.html">Pharmaceutical Calculations</a> <span>></span>
+                <span>Part 2: Percentage & Concentration</span>
+            </div>
+        </header>
+
+        <!-- Instructions -->
+        <section class="content-card">
+            <h2 class="card-title">📋 Instructions</h2>
+            <p>This section covers percentage preparations, ratio strengths, and dilution calculations, with immediate feedback after each answer.</p>
+        </section>
+
+        <!-- Progress -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+            </div>
+            <div class="progress-text" id="progress-text">Question 1 of 40</div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="question-card" id="question-card">
+            <div class="question-number" id="question-number">Question 41</div>
+            <div class="question-text" id="question-text"></div>
+            <div class="options-container" id="options-container"></div>
+            <div class="feedback" id="feedback">
+                <div class="feedback-title" id="feedback-title"></div>
+                <div class="explanation" id="explanation"></div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-secondary" id="prev-btn" disabled>Previous</button>
+                <button class="btn btn-primary" id="next-btn">Next Question</button>
+            </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="content-card results-card" id="results-card">
+            <h2 class="card-title">📊 Quiz Results</h2>
+            <div class="score" id="final-score">0%</div>
+            <p>You've completed the Percentage & Concentration Calculations quiz!</p>
+            
+            <div class="results-details">
+                <div class="result-stat correct-stat">
+                    <div class="result-number" id="correct-count">0</div>
+                    <div class="result-label">Correct Answers</div>
+                </div>
+                <div class="result-stat incorrect-stat">
+                    <div class="result-number" id="incorrect-count">0</div>
+                    <div class="result-label">Incorrect Answers</div>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button class="btn btn-secondary" id="restart-btn">Restart Quiz</button>
+                <a href="../pharmaceutical-calculations.html" class="btn btn-primary">Back to Main Page</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Questions data (41-80 from the document)
+        const questions = [
+            {
+                id: 41,
+                text: "A 1:5 w/v solution means:",
+                options: [
+                    "1 g solute in 5 mL solution",
+                    "5 g solute in 100 mL solution",
+                    "1 g solute in 100 mL solution",
+                    "1 g solute in 50 mL solution"
+                ],
+                correct: 0,
+                explanation: "A 1:5 w/v ratio means 1 gram of solute in 5 mL of solution. Ratio w/v represents grams of solute per mL of solution."
+            },
+            {
+                id: 42,
+                text: "A 0.25% w/v solution contains how many mg/mL?",
+                options: [
+                    "2.5 mg/mL",
+                    "25 mg/mL",
+                    "0.25 mg/mL",
+                    "0.025 mg/mL"
+                ],
+                correct: 0,
+                explanation: "0.25% w/v = 0.25 g/100 mL = 250 mg/100 mL = 2.5 mg/mL."
+            },
+            {
+                id: 43,
+                text: "If a drug requires 5 mg/kg/day for a 12 kg child, total daily dose is:",
+                options: [
+                    "60 mg",
+                    "120 mg",
+                    "24 mg",
+                    "50 mg"
+                ],
+                correct: 0,
+                explanation: "Dose = 5 mg/kg × 12 kg = 60 mg/day."
+            },
+            {
+                id: 44,
+                text: "To prepare 200 mL of 0.1% w/v solution, the drug amount needed is:",
+                options: [
+                    "0.2 g",
+                    "0.02 g",
+                    "2 g",
+                    "1 g"
+                ],
+                correct: 0,
+                explanation: "0.1% w/v = 0.1 g/100 mL. For 200 mL: (0.1 × 200)/100 = 0.2 g."
+            },
+            {
+                id: 45,
+                text: "A 10 mL dropper delivers 0.1 mL/drop. How many drops for 2 mL?",
+                options: [
+                    "20",
+                    "10",
+                    "5",
+                    "25"
+                ],
+                correct: 0,
+                explanation: "2 mL ÷ 0.1 mL/drop = 20 drops."
+            },
+            {
+                id: 46,
+                text: "A stock solution of 50 mg/mL is diluted to 10 mg/mL. Dilution factor is:",
+                options: [
+                    "5",
+                    "10",
+                    "0.2",
+                    "1"
+                ],
+                correct: 0,
+                explanation: "Dilution factor = initial concentration / final concentration = 50 mg/mL ÷ 10 mg/mL = 5."
+            },
+            {
+                id: 47,
+                text: "Drug dosage based on BSA is expressed in:",
+                options: [
+                    "mg/m²",
+                    "mg/kg",
+                    "mg/mL",
+                    "% w/v"
+                ],
+                correct: 0,
+                explanation: "BSA-based dosing accounts for body surface area and is expressed in mg per square meter (mg/m²)."
+            },
+            {
+                id: 48,
+                text: "Specific gravity of water is defined as:",
+                options: [
+                    "1",
+                    "0",
+                    "10",
+                    "0.1"
+                ],
+                correct: 0,
+                explanation: "Specific gravity is measured relative to water, which has a specific gravity of 1 at 4°C."
+            },
+            {
+                id: 49,
+                text: "The final concentration when mixing 40 mL of 10% solution with 60 mL of 20% solution is:",
+                options: [
+                    "16%",
+                    "15%",
+                    "12%",
+                    "10%"
+                ],
+                correct: 0,
+                explanation: "Total amount of solute = (40×10) + (60×20) = 400 + 1200 = 1600. Total volume = 100 mL. Concentration = 1600/100 = 16%."
+            },
+            {
+                id: 50,
+                text: "To prepare 100 mL of 0.5% solution from 2% stock, volume of stock required is:",
+                options: [
+                    "25 mL",
+                    "50 mL",
+                    "10 mL",
+                    "5 mL"
+                ],
+                correct: 0,
+                explanation: "Using C1V1 = C2V2: 2% × V1 = 0.5% × 100 mL → V1 = (0.5 × 100)/2 = 25 mL."
+            },
+            {
+                id: 51,
+                text: "Triturations are used to:",
+                options: [
+                    "Reduce particle size of solids",
+                    "Dissolve liquids",
+                    "Sterilize solutions",
+                    "Measure volume accurately"
+                ],
+                correct: 0,
+                explanation: "Triturations are used to reduce particle size of solid drugs, ensuring uniform mixture and absorption."
+            },
+            {
+                id: 52,
+                text: "A 1% w/v solution contains:",
+                options: [
+                    "1 g solute in 100 mL solution",
+                    "10 g solute in 100 mL solution",
+                    "1 g solute in 10 mL solution",
+                    "100 g solute in 100 mL solution"
+                ],
+                correct: 0,
+                explanation: "By definition, 1% w/v means 1 gram of solute in 100 mL of solution."
+            },
+            {
+                id: 53,
+                text: "A drug solution contains 200 mg in 20 mL. Concentration is:",
+                options: [
+                    "10 mg/mL",
+                    "5 mg/mL",
+                    "20 mg/mL",
+                    "2 mg/mL"
+                ],
+                correct: 0,
+                explanation: "Concentration = 200 mg / 20 mL = 10 mg/mL."
+            },
+            {
+                id: 54,
+                text: "The % w/v is calculated by:",
+                options: [
+                    "(Mass of solute / Volume of solution) × 100",
+                    "(Mass of solute / Mass of solution) × 100",
+                    "(Volume of solute / Volume of solution) × 100",
+                    "Volume × Mass ÷ 100"
+                ],
+                correct: 0,
+                explanation: "% w/v = (Mass of solute in g / Volume of solution in mL) × 100."
+            },
+            {
+                id: 55,
+                text: "A patient weighing 50 kg requires 8 mg/kg/day. Total daily dose is:",
+                options: [
+                    "400 mg",
+                    "50 mg",
+                    "8 mg",
+                    "500 mg"
+                ],
+                correct: 0,
+                explanation: "Dose = 50 kg × 8 mg/kg = 400 mg/day."
+            },
+            {
+                id: 56,
+                text: "A 2% solution is diluted to 0.5%. Dilution factor is:",
+                options: [
+                    "4",
+                    "2",
+                    "0.25",
+                    "8"
+                ],
+                correct: 0,
+                explanation: "Dilution factor = initial concentration / final concentration = 2% ÷ 0.5% = 4."
+            },
+            {
+                id: 57,
+                text: "Parts per million (ppm) is equal to:",
+                options: [
+                    "mg/L",
+                    "mg/mL",
+                    "g/L",
+                    "g/mL"
+                ],
+                correct: 0,
+                explanation: "In aqueous solutions, 1 ppm equals 1 mg per liter (mg/L)."
+            },
+            {
+                id: 58,
+                text: "Specific volume is:",
+                options: [
+                    "Reciprocal of density",
+                    "Density × volume",
+                    "Mass per mole",
+                    "Weight per solution"
+                ],
+                correct: 0,
+                explanation: "Specific volume is defined as the reciprocal of density (volume occupied per unit mass)."
+            },
+            {
+                id: 59,
+                text: "C1V1 = C2V2 is used for:",
+                options: [
+                    "Dilutions and concentration calculations",
+                    "Calculating age-based doses",
+                    "Calculating body surface area",
+                    "Weight conversions"
+                ],
+                correct: 0,
+                explanation: "C1V1 = C2V2 is the fundamental formula for dilution and concentration calculations."
+            },
+            {
+                id: 60,
+                text: "To prepare 250 mL of 5% solution, required amount of solute is:",
+                options: [
+                    "12.5 g",
+                    "5 g",
+                    "25 g",
+                    "2.5 g"
+                ],
+                correct: 0,
+                explanation: "5% w/v = 5 g/100 mL. For 250 mL: (5 × 250)/100 = 12.5 g."
+            },
+            {
+                id: 61,
+                text: "A 0.8% w/v solution contains how many grams of solute in 500 mL?",
+                options: [
+                    "4 g",
+                    "0.4 g",
+                    "8 g",
+                    "40 g"
+                ],
+                correct: 0,
+                explanation: "0.8% w/v = 0.8 g/100 mL. For 500 mL: (0.8 × 500)/100 = 4 g."
+            },
+            {
+                id: 62,
+                text: "A 20 mg/mL stock solution is diluted to 5 mg/mL. Volume of stock required to make 200 mL of diluted solution is:",
+                options: [
+                    "50 mL",
+                    "40 mL",
+                    "100 mL",
+                    "25 mL"
+                ],
+                correct: 0,
+                explanation: "Using C1V1 = C2V2: 20 mg/mL × V1 = 5 mg/mL × 200 mL → V1 = (5 × 200)/20 = 50 mL."
+            },
+            {
+                id: 63,
+                text: "Drug dosage based on BSA is calculated using formula:",
+                options: [
+                    "Dose = (BSA of patient / 1.73) × standard adult dose",
+                    "Dose = Weight × 10",
+                    "Dose = Height × 2",
+                    "Dose = Age × Weight"
+                ],
+                correct: 0,
+                explanation: "Standard formula for BSA-based dosing: Dose = (BSA of patient / 1.73) × standard adult dose."
+            },
+            {
+                id: 64,
+                text: "A solution contains 0.25 g in 50 mL. Strength in % w/v is:",
+                options: [
+                    "0.5%",
+                    "0.25%",
+                    "0.05%",
+                    "1%"
+                ],
+                correct: 0,
+                explanation: "% w/v = (0.25 g / 50 mL) × 100 = 0.5%."
+            },
+            {
+                id: 65,
+                text: "A 5 mL dropper delivers 0.05 mL per drop. Number of drops for 2 mL:",
+                options: [
+                    "40",
+                    "20",
+                    "50",
+                    "100"
+                ],
+                correct: 0,
+                explanation: "2 mL ÷ 0.05 mL/drop = 40 drops."
+            },
+            {
+                id: 66,
+                text: "To prepare 200 mL of 0.1% solution, the required drug amount is:",
+                options: [
+                    "0.2 g",
+                    "0.02 g",
+                    "2 g",
+                    "1 g"
+                ],
+                correct: 0,
+                explanation: "0.1% w/v = 0.1 g/100 mL. For 200 mL: 0.1 × 200 / 100 = 0.2 g."
+            },
+            {
+                id: 67,
+                text: "A patient weighing 60 kg requires 10 mg/kg/day. Total daily dose:",
+                options: [
+                    "600 mg",
+                    "60 mg",
+                    "6 mg",
+                    "100 mg"
+                ],
+                correct: 0,
+                explanation: "Dose = 60 kg × 10 mg/kg = 600 mg/day."
+            },
+            {
+                id: 68,
+                text: "The final concentration of a mixture of 30 mL of 10% solution and 70 mL of 20% solution is:",
+                options: [
+                    "17%",
+                    "15%",
+                    "18%",
+                    "20%"
+                ],
+                correct: 0,
+                explanation: "Total solute = (30×10) + (70×20) = 300 + 1400 = 1700. Total volume = 100 mL. Concentration = 1700/100 = 17%."
+            },
+            {
+                id: 69,
+                text: "The weight of 250 mL of solution with specific gravity 1.2 is:",
+                options: [
+                    "300 g",
+                    "250 g",
+                    "200 g",
+                    "100 g"
+                ],
+                correct: 0,
+                explanation: "Weight = volume × specific gravity = 250 mL × 1.2 g/mL = 300 g."
+            },
+            {
+                id: 70,
+                text: "To prepare 50 mL of 2% solution, amount of solute required is:",
+                options: [
+                    "1 g",
+                    "0.5 g",
+                    "2 g",
+                    "0.2 g"
+                ],
+                correct: 0,
+                explanation: "2% w/v = 2 g/100 mL. For 50 mL: (2 × 50)/100 = 1 g."
+            },
+            {
+                id: 71,
+                text: "Dilution factor needed to make 0.2% solution from 1% stock is:",
+                options: [
+                    "5",
+                    "1",
+                    "0.2",
+                    "10"
+                ],
+                correct: 0,
+                explanation: "Dilution factor = 1% ÷ 0.2% = 5."
+            },
+            {
+                id: 72,
+                text: "A 1:20 w/v solution contains:",
+                options: [
+                    "1 g solute in 20 mL solution",
+                    "20 g solute in 100 mL solution",
+                    "1 g solute in 100 mL solution",
+                    "100 g solute in 20 mL solution"
+                ],
+                correct: 0,
+                explanation: "A 1:20 w/v ratio means 1 gram of solute in 20 mL of solution."
+            },
+            {
+                id: 73,
+                text: "A child weighing 25 kg needs 15 mg/kg/day. Total daily dose:",
+                options: [
+                    "375 mg",
+                    "150 mg",
+                    "25 mg",
+                    "15 mg"
+                ],
+                correct: 0,
+                explanation: "Dose = 25 kg × 15 mg/kg = 375 mg/day."
+            },
+            {
+                id: 74,
+                text: "To prepare 100 mL of 0.05% solution, drug required:",
+                options: [
+                    "0.05 g",
+                    "0.5 g",
+                    "5 g",
+                    "0.005 g"
+                ],
+                correct: 0,
+                explanation: "0.05% w/v = 0.05 g per 100 mL."
+            },
+            {
+                id: 75,
+                text: "Alligation medial is used to:",
+                options: [
+                    "Calculate mean strength of mixture",
+                    "Measure body weight",
+                    "Convert units",
+                    "Determine specific gravity"
+                ],
+                correct: 0,
+                explanation: "Alligation medial is used to calculate the mean strength of a mixture of different concentrations."
+            },
+            {
+                id: 76,
+                text: "Alligation alternate is used for:",
+                options: [
+                    "Calculating volumes of components to achieve desired concentration",
+                    "Body surface area calculation",
+                    "Weight-based dosing",
+                    "Diluting solids"
+                ],
+                correct: 0,
+                explanation: "Alligation alternate is used to calculate the volumes of components needed to achieve a desired concentration."
+            },
+            {
+                id: 77,
+                text: "A 2% solution contains how many mg/mL?",
+                options: [
+                    "20 mg/mL",
+                    "2 mg/mL",
+                    "200 mg/mL",
+                    "0.2 mg/mL"
+                ],
+                correct: 0,
+                explanation: "2% w/v = 2 g/100 mL = 2000 mg/100 mL = 20 mg/mL."
+            },
+            {
+                id: 78,
+                text: "A drug solution contains 100 mg in 10 mL. How many mL for 250 mg?",
+                options: [
+                    "25 mL",
+                    "10 mL",
+                    "20 mL",
+                    "5 mL"
+                ],
+                correct: 0,
+                explanation: "Concentration = 100 mg/10 mL = 10 mg/mL. Volume for 250 mg = 250 mg ÷ 10 mg/mL = 25 mL."
+            },
+            {
+                id: 79,
+                text: "Specific gravity of a mixture is 0.9. Weight of 200 mL:",
+                options: [
+                    "180 g",
+                    "200 g",
+                    "90 g",
+                    "100 g"
+                ],
+                correct: 0,
+                explanation: "Weight = volume × specific gravity = 200 mL × 0.9 g/mL = 180 g."
+            },
+            {
+                id: 80,
+                text: "A 5 mg/mL solution is diluted to 1 mg/mL. Volume of stock to make 50 mL of 1 mg/mL solution:",
+                options: [
+                    "10 mL",
+                    "50 mL",
+                    "5 mL",
+                    "20 mL"
+                ],
+                correct: 0,
+                explanation: "Using C1V1 = C2V2: 5 mg/mL × V1 = 1 mg/mL × 50 mL → V1 = (1 × 50)/5 = 10 mL."
+            }
+        ];
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+
+        // DOM elements
+        const questionNumberEl = document.getElementById('question-number');
+        const questionTextEl = document.getElementById('question-text');
+        const optionsContainerEl = document.getElementById('options-container');
+        const feedbackEl = document.getElementById('feedback');
+        const feedbackTitleEl = document.getElementById('feedback-title');
+        const explanationEl = document.getElementById('explanation');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const questionCard = document.getElementById('question-card');
+        const resultsCard = document.getElementById('results-card');
+        const finalScoreEl = document.getElementById('final-score');
+        const correctCountEl = document.getElementById('correct-count');
+        const incorrectCountEl = document.getElementById('incorrect-count');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Initialize quiz
+        function initQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers.fill(null);
+            correctAnswers = 0;
+            incorrectAnswers = 0;
+            updateProgress();
+            showQuestion();
+            questionCard.style.display = 'block';
+            resultsCard.style.display = 'none';
+        }
+
+        // Show current question
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            questionNumberEl.textContent = `Question ${currentQuestionIndex + 1}`;
+            questionTextEl.textContent = question.text;
+            
+            // Clear previous options
+            optionsContainerEl.innerHTML = '';
+            
+            // Shuffle options but keep track of correct answer
+            const shuffledOptions = shuffleOptions([...question.options], question.correct);
+            
+            // Create option elements
+            shuffledOptions.forEach((option, index) => {
+                const optionEl = document.createElement('div');
+                optionEl.className = 'option';
+                optionEl.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+                optionEl.dataset.index = index;
+                optionEl.addEventListener('click', () => selectOption(optionEl, index, shuffledOptions, question.correct));
+                optionsContainerEl.appendChild(optionEl);
+            });
+            
+            // Reset feedback
+            feedbackEl.style.display = 'none';
+            feedbackEl.className = 'feedback';
+            
+            // Update navigation buttons
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 'Finish Quiz' : 'Next Question';
+            
+            // If user already answered this question, show their selection
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const options = optionsContainerEl.querySelectorAll('.option');
+                options[userAnswers[currentQuestionIndex]].classList.add('selected');
+                
+                // Show feedback if already answered
+                showFeedback(userAnswers[currentQuestionIndex], shuffledOptions, question.correct);
+            }
+        }
+
+        // Shuffle options while keeping track of correct answer
+        function shuffleOptions(options, correctIndex) {
+            const correctAnswer = options[correctIndex];
+            
+            // Fisher-Yates shuffle
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+                
+                // Update correct index if it was swapped
+                if (i === correctIndex) correctIndex = j;
+                else if (j === correctIndex) correctIndex = i;
+            }
+            
+            // Store the new correct index
+            questions[currentQuestionIndex].currentCorrectIndex = correctIndex;
+            
+            return options;
+        }
+
+        // Handle option selection
+        function selectOption(optionEl, selectedIndex, shuffledOptions, originalCorrectIndex) {
+            // Clear previous selections
+            const options = optionsContainerEl.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            optionEl.classList.add('selected');
+            
+            // Store user's answer
+            userAnswers[currentQuestionIndex] = selectedIndex;
+            
+            // Show feedback
+            showFeedback(selectedIndex, shuffledOptions, questions[currentQuestionIndex].currentCorrectIndex);
+        }
+
+        // Show feedback for selected option
+        function showFeedback(selectedIndex, shuffledOptions, correctIndex) {
+            const question = questions[currentQuestionIndex];
+            const options = optionsContainerEl.querySelectorAll('.option');
+            
+            // Mark correct and incorrect options
+            options[correctIndex].classList.add('correct');
+            if (selectedIndex !== correctIndex) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            // Show feedback
+            feedbackEl.style.display = 'block';
+            if (selectedIndex === correctIndex) {
+                feedbackEl.classList.add('correct');
+                feedbackTitleEl.textContent = 'Correct!';
+            } else {
+                feedbackEl.classList.add('incorrect');
+                feedbackTitleEl.textContent = 'Incorrect';
+            }
+            
+            explanationEl.textContent = question.explanation;
+            
+            // Update score counters
+            updateScore();
+        }
+
+        // Update score counters
+        function updateScore() {
+            correctAnswers = userAnswers.filter((answer, index) => 
+                answer !== null && answer === questions[index].currentCorrectIndex
+            ).length;
+            
+            incorrectAnswers = userAnswers.filter((answer, index) => 
+                answer !== null && answer !== questions[index].currentCorrectIndex
+            ).length;
+        }
+
+        // Update progress bar and text
+        function updateProgress() {
+            const answeredCount = userAnswers.filter(answer => answer !== null).length;
+            const progress = (answeredCount / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length} (${answeredCount} answered)`;
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                updateProgress();
+            } else {
+                // Show results
+                showResults();
+            }
+        }
+
+        // Navigate to previous question
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+                updateProgress();
+            }
+        }
+
+        // Show quiz results
+        function showResults() {
+            questionCard.style.display = 'none';
+            resultsCard.style.display = 'block';
+            
+            const score = (correctAnswers / questions.length) * 100;
+            finalScoreEl.textContent = `${score.toFixed(1)}%`;
+            correctCountEl.textContent = correctAnswers;
+            incorrectCountEl.textContent = incorrectAnswers;
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', initQuiz);
+
+        // Initialize the quiz
+        initQuiz();
+    </script>
+</body>
+</html>
