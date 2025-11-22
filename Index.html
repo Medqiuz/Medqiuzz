@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedPracticeHub - Registration</title>
+<style>
+  /* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #f5f6fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* Heading */
+.container h1 {
+    color: #1a6eb5;
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+
+.container p {
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Form Fields */
+form input[type="text"],
+form input[type="tel"],
+form input[type="email"],
+form select {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: all 0.2s ease-in-out;
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border-color: #1a6eb5;
+    box-shadow: 0 0 8px rgba(26, 110, 181, 0.3);
+}
+
+/* Button */
+button#register-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    background-color: #1a6eb5;
+    color: #fff;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+button#register-btn:hover {
+    background-color: #155a91;
+}
+
+/* Messages */
+.message {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Instructions */
+.instructions {
+    margin-top: 20px;
+    background-color: #eef3f9;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 0.95em;
+    color: #333;
+}
+
+.instructions h3 {
+    margin-bottom: 8px;
+    color: #1a6eb5;
+}
+
+.instructions a {
+    color: #1a6eb5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.instructions a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 30px 20px;
+    }
+    
+    form input[type="text"],
+    form input[type="tel"],
+    form input[type="email"],
+    form select,
+    button#register-btn {
+        font-size: 0.95em;
+    }
+}
+</style>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0a74da">
+<link rel="icon" sizes="192x192" href="icon-192.png">
+</head>
+<body>
+  
+    <div class="container">
+        <h1>MedPracticeHub</h1>
+        <p>Secure Registration - Medical Education Portal</p>
+
+        <form id="registration-form">
+            <input type="text" id="fullName" placeholder="Full Name" required>
+            <input type="tel" id="phone" placeholder="Phone Number" required>
+            <input type="text" id="university" placeholder="University" required>
+            
+            <select id="department" required>
+                <option value="" disabled selected>Select Department</option>
+                <option value="Medicine">Medicine</option>
+                <option value="Pharmacy">Pharmacy</option>
+                <option value="Nursing">Nursing</option>
+                <option value="Medical Laboratory">Medical Laboratory</option>
+                <option value="Public Health">Public Health</option>
+                <option value="Physiotherapy">Physiotherapy</option>
+                <option value="Radiology">Radiology</option>
+                <option value="Nutrition">Nutrition</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <select id="year" required>
+                <option value="" disabled selected>Select Year</option>
+                <option value="1">Year 1</option>
+                <option value="2">Year 2</option>
+                <option value="3">Year 3</option>
+                <option value="4">Year 4</option>
+                <option value="5">Year 5</option>
+                <option value="6">Year 6</option>
+                <option value="Postgraduate">Postgraduate</option>
+            </select>
+
+            <select id="section" required>
+                <option value="" disabled selected>Select Section</option>
+                <option value="A">Section A</option>
+                <option value="B">Section B</option>
+                <option value="C">Section C</option>
+            </select>
+
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="text" id="code" placeholder="Access Code" required>
+            
+            <button type="button" id="register-btn">Complete Registration</button>
+            <div id="message" class="message"></div>
+
+            <div id="code-instructions" class="instructions">
+                <h3>Don't have an access code?</h3>
+                <p>Complete the payment process on our Telegram channel:</p>
+                <ol>
+                    <li><a href="https://t.me/yerotechno" target="_blank">Join Telegram Channel</a></li>
+                    <li>Contact the admin: <strong>@Goodlife61</strong></li>
+                    <li>Receive your unique access code and return here</li>
+                </ol>
+            </div>
+        </form>
+    </div>
+   <script src="dashboard.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('register-btn');
+            const messageDiv = document.getElementById('message');
+            const codeInstructions = document.getElementById('code-instructions');
+
+            if (window.authSystem.isAuthenticated()) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            btn.addEventListener('click', handleRegistration);
+
+            async function handleRegistration() {
+                btn.disabled = true;
+                btn.textContent = 'Processing...';
+                messageDiv.style.display = 'none';
+                codeInstructions.style.display = 'none';
+
+                const fullName = document.getElementById('fullName').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const university = document.getElementById('university').value.trim();
+                const department = document.getElementById('department').value;
+                const year = document.getElementById('year').value;
+                const section = document.getElementById('section').value;
+                const email = document.getElementById('email').value.trim().toLowerCase();
+                const code = document.getElementById('code').value.trim().toUpperCase();
+
+                try {
+                    if (!fullName || !phone || !university || !department || !year || !section || !email || !code) {
+                        throw new Error('Please fill in all fields.');
+                    }
+
+                    const codeValidation = window.authSystem.validateAccessCode(code, email);
+                    if (!codeValidation.valid) {
+                        showMessage(codeValidation.message, 'error');
+                        codeInstructions.style.display = 'block';
+                        return;
+                    }
+
+                    const userData = {
+                        fullName,
+                        phone,
+                        university,
+                        department,
+                        year,
+                        section,
+                        email,
+                        code: codeValidation.codeEntry.code,
+                        registrationDate: new Date().toISOString()
+                    };
+
+                    window.authSystem.markCodeUsed(code, email);
+                    window.authSystem.createSession(userData);
+
+                    showMessage('✅ Registration successful! Redirecting...', 'success');
+
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+
+                } catch (err) {
+                    showMessage(err.message, 'error');
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Complete Registration';
+                }
+            }
+
+            function showMessage(msg, type) {
+                messageDiv.textContent = msg;
+                messageDiv.className = `message ${type}`;
+                messageDiv.style.display = 'block';
+            }
+        });
+    </script>
+    <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js')
+    .then(() => console.log('Service Worker Registered'))
+    .catch(err => console.log('SW registration failed:', err));
+}
+</script>
+</body>
+</html>
