@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parasitology Quiz - Part 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🦠 Parasitology Quiz</h1>
+            <div class="subtitle">Part 2: Diagnostic Methods & Treatment (Questions 41-80)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const parasitologyQuestions = [
+            {
+                question: "41. The 'Scotch tape test' is used to diagnose:",
+                options: [
+                    "Enterobius vermicularis (pinworm) infection",
+                    "Ascaris lumbricoides infection", 
+                    "Giardia lamblia infection",
+                    "Trichuris trichiura infection"
+                ],
+                correct: 0,
+                explanation: "The Scotch tape test involves applying transparent tape to the perianal region in the morning to collect Enterobius eggs for microscopic diagnosis."
+            },
+            {
+                question: "42. The Kato-Katz technique is used for:",
+                options: [
+                    "Quantifying helminth eggs in stool",
+                    "Detecting protozoan cysts in stool", 
+                    "Identifying blood parasites",
+                    "Culturing intestinal parasites"
+                ],
+                correct: 0,
+                explanation: "Kato-Katz is a quantitative method that uses glycerol-soaked cellophane to clear stool debris, allowing enumeration of helminth eggs for assessing infection intensity."
+            },
+            {
+                question: "43. The Baermann technique is used to detect:",
+                options: [
+                    "Strongyloides stercoralis larvae",
+                    "Giardia lamblia cysts", 
+                    "Entamoeba histolytica trophozoites",
+                    "Cryptosporidium oocysts"
+                ],
+                correct: 0,
+                explanation: "The Baermann funnel technique uses warm water to encourage larval migration from stool samples, particularly effective for detecting Strongyloides larvae."
+            },
+            {
+                question: "44. The 'string test' (Entero-Test) is used to diagnose:",
+                options: [
+                    "Giardia lamblia and Strongyloides stercoralis",
+                    "Entamoeba histolytica", 
+                    "Cryptosporidium parvum",
+                    "Trichomonas vaginalis"
+                ],
+                correct: 0,
+                explanation: "The string test involves swallowing a gelatin capsule with a string that collects duodenal contents, useful for diagnosing giardiasis and strongyloidiasis when stool exams are negative."
+            },
+            {
+                question: "45. The drug of choice for giardiasis is:",
+                options: [
+                    "Metronidazole or tinidazole",
+                    "Albendazole", 
+                    "Praziquantel",
+                    "Ivermectin"
+                ],
+                correct: 0,
+                explanation: "Metronidazole and tinidazole are nitroimidazole antibiotics effective against Giardia trophozoites, with tinidazole offering single-dose convenience."
+            },
+            {
+                question: "46. The treatment of choice for intestinal amoebiasis is:",
+                options: [
+                    "Metronidazole followed by a luminal agent",
+                    "Albendazole alone", 
+                    "Praziquantel",
+                    "Ivermectin"
+                ],
+                correct: 0,
+                explanation: "Metronidazole treats tissue-invasive forms, followed by a luminal agent like paromomycin or diloxanide furoate to eliminate intestinal cysts."
+            },
+            {
+                question: "47. The drug of choice for cryptosporidiosis in immunocompetent patients is:",
+                options: [
+                    "Nitazoxanide",
+                    "Metronidazole", 
+                    "Albendazole",
+                    "Praziquantel"
+                ],
+                correct: 0,
+                explanation: "Nitazoxanide is approved for cryptosporidiosis, though it's less effective in immunocompromised patients where immune reconstitution is crucial."
+            },
+            {
+                question: "48. The recommended treatment for uncomplicated malaria caused by P. falciparum is:",
+                options: [
+                    "Artemisinin-based combination therapy (ACT)",
+                    "Chloroquine alone", 
+                    "Primaquine alone",
+                    "Quinine monotherapy"
+                ],
+                correct: 0,
+                explanation: "ACT combines fast-acting artemisinin derivatives with longer-acting partner drugs to prevent resistance, recommended as first-line treatment for P. falciparum malaria."
+            },
+            {
+                question: "49. Primaquine is used in malaria treatment to:",
+                options: [
+                    "Eradicate hypnozoites in P. vivax and P. ovale",
+                    "Treat acute malaria attacks", 
+                    "Prevent mosquito transmission",
+                    "Treat cerebral malaria"
+                ],
+                correct: 0,
+                explanation: "Primaquine targets dormant liver stages (hypnozoites) of P. vivax and P. ovale, preventing relapses. G6PD testing is required before use due to hemolysis risk."
+            },
+            {
+                question: "50. The drug of choice for lymphatic filariasis is:",
+                options: [
+                    "Diethylcarbamazine (DEC)",
+                    "Ivermectin", 
+                    "Albendazole",
+                    "Praziquantel"
+                ],
+                correct: 0,
+                explanation: "DEC is the primary treatment for lymphatic filariasis, often combined with albendazole in mass drug administration programs to reduce microfilaremia."
+            },
+            {
+                question: "51. Ivermectin is the treatment of choice for:",
+                options: [
+                    "Strongyloidiasis and onchocerciasis",
+                    "Schistosomiasis", 
+                    "Intestinal amoebiasis",
+                    "Malaria"
+                ],
+                correct: 0,
+                explanation: "Ivermectin is highly effective against Strongyloides stercoralis and Onchocerca volvulus (river blindness), causing paralysis of nematodes."
+            },
+            {
+                question: "52. Praziquantel is effective against:",
+                options: [
+                    "Trematodes and cestodes",
+                    "Nematodes only", 
+                    "Protozoa only",
+                    "All parasites"
+                ],
+                correct: 0,
+                explanation: "Praziquantel increases permeability of trematode and cestode teguments to calcium, causing muscle contraction and paralysis. It's the drug of choice for schistosomiasis and most tapeworm infections."
+            },
+            {
+                question: "53. Albendazole is primarily used against:",
+                options: [
+                    "Nematodes and some cestodes",
+                    "Trematodes only", 
+                    "Protozoa only",
+                    "All helminths"
+                ],
+                correct: 0,
+                explanation: "Albendazole inhibits microtubule formation in nematodes and some cestodes, used for ascariasis, hookworm, trichuriasis, and hydatid disease."
+            },
+            {
+                question: "54. The drug of choice for neurocysticercosis is:",
+                options: [
+                    "Albendazole with corticosteroids",
+                    "Praziquantel alone", 
+                    "Ivermectin",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Albendazole is preferred for neurocysticercosis due to better CNS penetration, with corticosteroids to manage inflammatory responses to dying cysts."
+            },
+            {
+                question: "55. The treatment for Chagas disease in acute phase includes:",
+                options: [
+                    "Benznidazole or nifurtimox",
+                    "Amphotericin B", 
+                    "Pentamidine",
+                    "Sodium stibogluconate"
+                ],
+                correct: 0,
+                explanation: "Benznidazole and nifurtimox are trypanocidal drugs effective in acute Chagas disease, though less effective in chronic stages due to tissue damage."
+            },
+            {
+                question: "56. The drug of choice for visceral leishmaniasis is:",
+                options: [
+                    "Liposomal amphotericin B",
+                    "Metronidazole", 
+                    "Albendazole",
+                    "Praziquantel"
+                ],
+                correct: 0,
+                explanation: "Liposomal amphotericin B is first-line for visceral leishmaniasis due to high efficacy and reduced toxicity compared to conventional amphotericin B or pentavalent antimonials."
+            },
+            {
+                question: "57. The recommended treatment for toxoplasmosis in immunocompromised patients is:",
+                options: [
+                    "Pyrimethamine plus sulfadiazine",
+                    "Metronidazole alone", 
+                    "Albendazole",
+                    "Ivermectin"
+                ],
+                correct: 0,
+                explanation: "Pyrimethamine (a folate antagonist) combined with sulfadiazine is the standard treatment, with folinic acid to prevent bone marrow toxicity."
+            },
+            {
+                question: "58. The drug of choice for trichomoniasis is:",
+                options: [
+                    "Metronidazole or tinidazole",
+                    "Albendazole", 
+                    "Praziquantel",
+                    "Ivermectin"
+                ],
+                correct: 0,
+                explanation: "Metronidazole and tinidazole are nitroimidazoles effective against Trichomonas vaginalis, with treatment recommended for both partners to prevent reinfection."
+            },
+            {
+                question: "59. The KOH wet mount is used in parasitology to:",
+                options: [
+                    "Identify fungal elements and clear debris",
+                    "Detect helminth eggs", 
+                    "Identify protozoan trophozoites",
+                    "Concentrate parasites"
+                ],
+                correct: 0,
+                explanation: "Potassium hydroxide dissolves background material in clinical specimens, making fungal elements and some parasite structures more visible under microscopy."
+            },
+            {
+                question: "60. The formalin-ether concentration technique is used to:",
+                options: [
+                    "Concentrate parasites from stool samples",
+                    "Identify blood parasites", 
+                    "Culture intestinal protozoa",
+                    "Detect parasite antigens"
+                ],
+                correct: 0,
+                explanation: "This method uses formalin to preserve parasites and ether to remove debris, concentrating parasites in the sediment for improved microscopic detection."
+            },
+            {
+                question: "61. The Knott's concentration technique is used for:",
+                options: [
+                    "Detecting microfilariae in blood",
+                    "Concentrating stool parasites", 
+                    "Identifying intestinal protozoa",
+                    "Detecting malaria parasites"
+                ],
+                correct: 0,
+                explanation: "Knott's technique uses formalin to lyse RBCs and concentrate microfilariae from larger blood volumes, improving sensitivity for filarial diagnosis."
+            },
+            {
+                question: "62. The 'MIF' stain in parasitology stands for:",
+                options: [
+                    "Merthiolate-Iodine-Formalin",
+                    "Methylene-Iodine-Formalin", 
+                    "Merthiolate-India ink-Formalin",
+                    "Malachite-Iodine-Formalin"
+                ],
+                correct: 0,
+                explanation: "MIF is a preservative and staining solution that fixes parasites (formalin), stains glycogen (iodine), and kills bacteria (merthiolate) for stool examination."
+            },
+            {
+                question: "63. The drug of choice for cutaneous larva migrans is:",
+                options: [
+                    "Albendazole or ivermectin",
+                    "Praziquantel", 
+                    "Metronidazole",
+                    "Diethylcarbamazine"
+                ],
+                correct: 0,
+                explanation: "Albendazole or ivermectin are effective against the migrating larvae of animal hookworms (usually Ancylostoma braziliense) that cause creeping eruption."
+            },
+            {
+                question: "64. The treatment for loiasis is:",
+                options: [
+                    "Diethylcarbamazine",
+                    "Ivermectin", 
+                    "Albendazole",
+                    "Praziquantel"
+                ],
+                correct: 0,
+                explanation: "DEC is the treatment for Loa loa infection, though caution is needed in heavy microfilaremia due to risk of encephalopathy."
+            },
+            {
+                question: "65. The drug of choice for fascioliasis (liver fluke infection) is:",
+                options: [
+                    "Triclabendazole",
+                    "Praziquantel", 
+                    "Albendazole",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Triclabendazole is highly effective against Fasciola hepatica and F. gigantica, with activity against both adult and immature flukes."
+            },
+            {
+                question: "66. The recommended treatment for clonorchiasis and opisthorchiasis is:",
+                options: [
+                    "Praziquantel",
+                    "Albendazole", 
+                    "Ivermectin",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Praziquantel is effective against Chinese liver fluke (Clonorchis) and Southeast Asian liver fluke (Opisthorchis), with high cure rates."
+            },
+            {
+                question: "67. The drug of choice for paragonimiasis (lung fluke) is:",
+                options: [
+                    "Praziquantel",
+                    "Albendazole", 
+                    "Triclabendazole",
+                    "Ivermectin"
+                ],
+                correct: 0,
+                explanation: "Praziquantel is effective against Paragonimus species, though triclabendazole has shown efficacy in some cases."
+            },
+            {
+                question: "68. The treatment for diphyllobothriasis (fish tapeworm) is:",
+                options: [
+                    "Praziquantel or niclosamide",
+                    "Albendazole", 
+                    "Ivermectin",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Praziquantel is first-line for Diphyllobothrium latum infection, with niclosamide as an alternative. Vitamin B12 supplementation may be needed for anemia."
+            },
+            {
+                question: "69. The drug of choice for hymenolepiasis (dwarf tapeworm) is:",
+                options: [
+                    "Praziquantel",
+                    "Albendazole", 
+                    "Ivermectin",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Praziquantel is effective against Hymenolepis nana, with repeat treatment sometimes needed due to autoinfection potential."
+            },
+            {
+                question: "70. The recommended treatment for echinococcosis is:",
+                options: [
+                    "Albendazole with surgical intervention",
+                    "Praziquantel alone", 
+                    "Ivermectin",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Albendazole is used for medical treatment of hydatid disease, typically combined with PAIR (puncture, aspiration, injection, reaspiration) or surgery for cyst management."
+            },
+            {
+                question: "71. The drug of choice for cysticercosis (excluding CNS) is:",
+                options: [
+                    "Albendazole or praziquantel",
+                    "Ivermectin", 
+                    "Metronidazole",
+                    "Diethylcarbamazine"
+                ],
+                correct: 0,
+                explanation: "Albendazole or praziquantel are used for extra-neural cysticercosis, with albendazole preferred due to better tissue penetration."
+            },
+            {
+                question: "72. The treatment for dracunculiasis (guinea worm) is:",
+                options: [
+                    "No drug therapy - gradual extraction of worm",
+                    "Ivermectin", 
+                    "Albendazole",
+                    "Praziquantel"
+                ],
+                correct: 0,
+                explanation: "There is no effective drug treatment for Dracunculus medinensis. Management involves careful extraction of the worm over days to weeks to prevent breakage."
+            },
+            {
+                question: "73. The drug of choice for enterobiasis (pinworm) is:",
+                options: [
+                    "Albendazole or mebendazole",
+                    "Praziquantel", 
+                    "Ivermectin",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Albendazole or mebendazole are highly effective against Enterobius vermicularis, with repeat treatment in 2 weeks to address autoinfection."
+            },
+            {
+                question: "74. The recommended treatment for ascariasis is:",
+                options: [
+                    "Albendazole or mebendazole",
+                    "Praziquantel", 
+                    "Ivermectin",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Albendazole or mebendazole are effective against Ascaris lumbricoides, with high cure rates. Pyrantel pamoate is an alternative."
+            },
+            {
+                question: "75. The drug of choice for trichuriasis (whipworm) is:",
+                options: [
+                    "Albendazole or mebendazole",
+                    "Praziquantel", 
+                    "Ivermectin",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Albendazole or mebendazole are used for Trichuris trichiura, though multiple doses may be needed for heavy infections. Ivermectin is also effective."
+            },
+            {
+                question: "76. The treatment for hookworm infection is:",
+                options: [
+                    "Albendazole or mebendazole",
+                    "Praziquantel", 
+                    "Ivermectin",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Albendazole or mebendazole are effective against both Ancylostoma duodenale and Necator americanus. Iron supplementation is important for anemia."
+            },
+            {
+                question: "77. The drug of choice for strongyloidiasis is:",
+                options: [
+                    "Ivermectin",
+                    "Albendazole", 
+                    "Praziquantel",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Ivermectin is first-line for Strongyloides stercoralis, with higher cure rates than albendazole. Multiple doses may be needed for hyperinfection."
+            },
+            {
+                question: "78. The recommended treatment for trichinellosis is:",
+                options: [
+                    "Albendazole or mebendazole with corticosteroids",
+                    "Praziquantel", 
+                    "Ivermectin alone",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Albendazole or mebendazole kill adult worms and larvae, while corticosteroids manage inflammatory symptoms during larval migration."
+            },
+            {
+                question: "79. The drug of choice for African trypanosomiasis (sleeping sickness) varies by:",
+                options: [
+                    "Species and disease stage",
+                    "Patient age only", 
+                    "Geographic location only",
+                    "All of the above"
+                ],
+                correct: 0,
+                explanation: "Treatment depends on whether it's T.b. gambiense (chronic) or T.b. rhodesiense (acute), and whether CNS involvement is present (late stage)."
+            },
+            {
+                question: "80. The treatment for acanthamoeba keratitis includes:",
+                options: [
+                    "Biguanides and diamidines",
+                    "Albendazole", 
+                    "Praziquantel",
+                    "Metronidazole"
+                ],
+                correct: 0,
+                explanation: "Topical biguanides (polyhexamethylene biguanide or chlorhexidine) and diamidines (propamidine or hexamidine) are used for Acanthamoeba keratitis, often requiring prolonged treatment."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(parasitologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = parasitologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${parasitologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / parasitologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = parasitologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < parasitologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            parasitologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${parasitologyQuestions.length}</strong> (${Math.round((score/parasitologyQuestions.length)*100)}%)</p>
+                <p>${score === parasitologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= parasitologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

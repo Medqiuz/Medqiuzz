@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parasitology Quiz - Part 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🐛 Parasitology Quiz</h1>
+            <div class="subtitle">Part 1: Introduction & Protozoan Parasites (Questions 1-40)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const parasitologyQuestions = [
+            {
+                question: "1. Which of the following best defines a parasite?",
+                options: [
+                    "An organism that benefits at the expense of another living organism",
+                    "An organism that lives freely in the environment",
+                    "An organism that provides nutrients to its host",
+                    "An organism that reproduces independently of a host"
+                ],
+                correct: 0,
+                explanation: "Parasites obtain nutrients and shelter from the host, often causing harm."
+            },
+            {
+                question: "2. The source of parasitic infection can include:",
+                options: [
+                    "Contaminated food and water, vectors, and direct contact",
+                    "Only water",
+                    "Only person-to-person contact",
+                    "Airborne spores only"
+                ],
+                correct: 0,
+                explanation: "Parasites have multiple sources of infection."
+            },
+            {
+                question: "3. Which is an example of direct transmission of parasites?",
+                options: [
+                    "Fecal-oral ingestion of cysts",
+                    "Mosquito bite",
+                    "Contaminated water",
+                    "Intermediate host ingestion"
+                ],
+                correct: 0,
+                explanation: "No intermediate host is required; infection is direct."
+            },
+            {
+                question: "4. Which is an example of indirect transmission of parasites?",
+                options: [
+                    "Malaria via Anopheles mosquito",
+                    "Enterobius vermicularis via hand-to-mouth",
+                    "Giardia lamblia cysts ingestion directly from contaminated food",
+                    "Hookworm skin penetration"
+                ],
+                correct: 0,
+                explanation: "Requires an intermediate vector."
+            },
+            {
+                question: "5. The general life cycle of parasites can be classified as:",
+                options: [
+                    "Direct and indirect",
+                    "Simple only",
+                    "Complex only",
+                    "Independent of host"
+                ],
+                correct: 0,
+                explanation: "Direct: one host; Indirect: involves intermediate host(s)."
+            },
+            {
+                question: "6. Which of the following is a tissue roundworm?",
+                options: [
+                    "Wuchereria bancrofti",
+                    "Ascaris lumbricoides",
+                    "Enterobius vermicularis",
+                    "Trichuris trichiura"
+                ],
+                correct: 0,
+                explanation: "Infects lymphatic tissue rather than intestinal lumen."
+            },
+            {
+                question: "7. Ascaris lumbricoides belongs to which group?",
+                options: [
+                    "Intestinal roundworm",
+                    "Tissue roundworm",
+                    "Fluke",
+                    "Cestode"
+                ],
+                correct: 0,
+                explanation: "Large nematode causing ascariasis."
+            },
+            {
+                question: "8. Enterobius vermicularis causes:",
+                options: [
+                    "Enterobiasis (pinworm infection)",
+                    "Ascariasis",
+                    "Filariasis",
+                    "Trichinosis"
+                ],
+                correct: 0,
+                explanation: "Common in children; perianal itching is characteristic."
+            },
+            {
+                question: "9. Ancylostoma duodenale is a type of:",
+                options: [
+                    "Hookworm",
+                    "Pinworm",
+                    "Whipworm",
+                    "Filariid"
+                ],
+                correct: 0,
+                explanation: "Larvae penetrate skin and cause iron-deficiency anemia."
+            },
+            {
+                question: "10. Strongyloides stercoralis infection primarily occurs via:",
+                options: [
+                    "Skin penetration",
+                    "Ingestion of eggs",
+                    "Blood transfusion",
+                    "Respiratory droplets"
+                ],
+                correct: 0,
+                explanation: "Larvae enter through bare skin, migrate via blood-lungs-intestine."
+            },
+            {
+                question: "11. Trichinella spiralis primarily affects:",
+                options: [
+                    "Muscle tissue",
+                    "Intestinal lumen",
+                    "Blood vessels",
+                    "Liver"
+                ],
+                correct: 0,
+                explanation: "Causes trichinosis, often from undercooked pork."
+            },
+            {
+                question: "12. Onchocerca volvulus is transmitted by:",
+                options: [
+                    "Blackfly (Simulium species)",
+                    "Mosquito",
+                    "Tsetse fly",
+                    "Sandfly"
+                ],
+                correct: 0,
+                explanation: "Causes onchocerciasis (\"river blindness\")."
+            },
+            {
+                question: "13. Wuchereria bancrofti causes:",
+                options: [
+                    "Lymphatic filariasis",
+                    "Onchocerciasis",
+                    "Ascariasis",
+                    "Hookworm anemia"
+                ],
+                correct: 0,
+                explanation: "Leads to elephantiasis due to lymphatic obstruction."
+            },
+            {
+                question: "14. Taenia saginata is commonly acquired by consuming:",
+                options: [
+                    "Undercooked beef",
+                    "Undercooked pork",
+                    "Contaminated water",
+                    "Soil with eggs"
+                ],
+                correct: 0,
+                explanation: "Beef tapeworm; adult resides in human intestine."
+            },
+            {
+                question: "15. Taenia solium infection can result in:",
+                options: [
+                    "Neurocysticercosis if eggs are ingested",
+                    "Only intestinal infection",
+                    "Pulmonary disease",
+                    "Liver fluke infection"
+                ],
+                correct: 0,
+                explanation: "Larvae can invade CNS, causing seizures."
+            },
+            {
+                question: "16. Hymenolepis nana is classified as:",
+                options: [
+                    "Dwarf tapeworm",
+                    "Beef tapeworm",
+                    "Pork tapeworm",
+                    "Liver fluke"
+                ],
+                correct: 0,
+                explanation: "Smallest human tapeworm; direct life cycle possible."
+            },
+            {
+                question: "17. Echinococcus granulosus primarily causes:",
+                options: [
+                    "Hydatid disease",
+                    "Enterobiasis",
+                    "Trichinosis",
+                    "Filariasis"
+                ],
+                correct: 0,
+                explanation: "Forms cysts in liver, lungs, or other organs."
+            },
+            {
+                question: "18. Schistosoma mansoni is classified as a:",
+                options: [
+                    "Blood fluke",
+                    "Liver fluke",
+                    "Intestinal nematode",
+                    "Cestode"
+                ],
+                correct: 0,
+                explanation: "Causes intestinal schistosomiasis; eggs in stool."
+            },
+            {
+                question: "19. Schistosoma haematobium primarily causes:",
+                options: [
+                    "Urinary schistosomiasis",
+                    "Intestinal schistosomiasis",
+                    "Liver cirrhosis",
+                    "Lung disease"
+                ],
+                correct: 0,
+                explanation: "Eggs in urine; risk of bladder cancer."
+            },
+            {
+                question: "20. Giardia lamblia infection is mainly transmitted via:",
+                options: [
+                    "Fecal-oral route",
+                    "Mosquito bite",
+                    "Skin penetration",
+                    "Sexual contact only"
+                ],
+                correct: 0,
+                explanation: "Causes giardiasis; cysts survive in water."
+            },
+            {
+                question: "21. Trichomonas vaginalis primarily infects:",
+                options: [
+                    "Urogenital tract",
+                    "Gastrointestinal tract",
+                    "Blood",
+                    "Muscle tissue"
+                ],
+                correct: 0,
+                explanation: "Causes trichomoniasis, often sexually transmitted."
+            },
+            {
+                question: "22. The Leishmania parasite is transmitted by:",
+                options: [
+                    "Sandfly bite",
+                    "Mosquito bite",
+                    "Blackfly bite",
+                    "Tsetse fly bite"
+                ],
+                correct: 0,
+                explanation: "Causes cutaneous, mucocutaneous, or visceral leishmaniasis."
+            },
+            {
+                question: "23. Leishmania tropica mainly causes:",
+                options: [
+                    "Cutaneous leishmaniasis",
+                    "Visceral leishmaniasis",
+                    "Mucocutaneous leishmaniasis",
+                    "Blood infection"
+                ],
+                correct: 0,
+                explanation: "Skin ulcers at bite site."
+            },
+            {
+                question: "24. Leishmania donovani complex causes:",
+                options: [
+                    "Visceral leishmaniasis (kala-azar)",
+                    "Cutaneous leishmaniasis",
+                    "Blood fluke infection",
+                    "Neurocysticercosis"
+                ],
+                correct: 0,
+                explanation: "Affects liver, spleen, bone marrow."
+            },
+            {
+                question: "25. Trypanosoma brucei is transmitted by:",
+                options: [
+                    "Tsetse fly",
+                    "Sandfly",
+                    "Mosquito",
+                    "Blackfly"
+                ],
+                correct: 0,
+                explanation: "Causes African trypanosomiasis (sleeping sickness)."
+            },
+            {
+                question: "26. Trypanosoma brucei gambiense causes:",
+                options: [
+                    "Chronic African sleeping sickness",
+                    "Acute African sleeping sickness",
+                    "Chagas disease",
+                    "Leishmaniasis"
+                ],
+                correct: 0,
+                explanation: "West and Central Africa; slower disease progression."
+            },
+            {
+                question: "27. Trypanosoma brucei rhodesiense causes:",
+                options: [
+                    "Acute African sleeping sickness",
+                    "Chronic African sleeping sickness",
+                    "Chagas disease",
+                    "Giardiasis"
+                ],
+                correct: 0,
+                explanation: "East Africa; rapid progression."
+            },
+            {
+                question: "28. Plasmodium falciparum causes:",
+                options: [
+                    "Severe malaria",
+                    "Mild malaria only",
+                    "Only relapsing malaria",
+                    "Only dormant malaria"
+                ],
+                correct: 0,
+                explanation: "High parasitemia; cerebral malaria risk."
+            },
+            {
+                question: "29. Plasmodium vivax primarily causes:",
+                options: [
+                    "Relapsing malaria due to hypnozoites",
+                    "Severe malaria",
+                    "Only asymptomatic infection",
+                    "Gastrointestinal disease"
+                ],
+                correct: 0,
+                explanation: "Dormant liver stage causes relapses."
+            },
+            {
+                question: "30. Plasmodium malariae infection is associated with:",
+                options: [
+                    "Quartan fever (every 72 hours)",
+                    "Daily fever",
+                    "Irregular fever",
+                    "Only chronic asymptomatic infection"
+                ],
+                correct: 0,
+                explanation: "Milder malaria; chronic infections possible."
+            },
+            {
+                question: "31. Plasmodium ovale causes:",
+                options: [
+                    "Relapsing malaria similar to P. vivax",
+                    "Severe malaria like P. falciparum",
+                    "Only asymptomatic infection",
+                    "Chronic anemia without fever"
+                ],
+                correct: 0,
+                explanation: "Hypnozoite stage in liver."
+            },
+            {
+                question: "32. Drug resistance in malaria is most commonly seen with:",
+                options: [
+                    "P. falciparum",
+                    "P. vivax",
+                    "P. malariae",
+                    "P. ovale"
+                ],
+                correct: 0,
+                explanation: "Resistance to chloroquine, sulfadoxine-pyrimethamine, etc."
+            },
+            {
+                question: "33. Cryptosporidium is primarily transmitted via:",
+                options: [
+                    "Contaminated water",
+                    "Mosquito bite",
+                    "Sexual contact",
+                    "Skin penetration"
+                ],
+                correct: 0,
+                explanation: "Causes watery diarrhea; opportunistic in immunocompromised."
+            },
+            {
+                question: "34. Isospora belli infection typically affects:",
+                options: [
+                    "Small intestine",
+                    "Blood",
+                    "Liver",
+                    "Muscle tissue"
+                ],
+                correct: 0,
+                explanation: "Causes isosporiasis; diarrhea common."
+            },
+            {
+                question: "35. Sarcocystis spp. infection is acquired by:",
+                options: [
+                    "Ingestion of undercooked meat",
+                    "Mosquito bite",
+                    "Skin penetration",
+                    "Fecal-oral route only"
+                ],
+                correct: 0,
+                explanation: "Forms cysts in muscles."
+            },
+            {
+                question: "36. Toxoplasma gondii is transmitted through:",
+                options: [
+                    "Oocysts in cat feces and undercooked meat",
+                    "Mosquito bite",
+                    "Sandfly bite",
+                    "Contaminated water only"
+                ],
+                correct: 0,
+                explanation: "Causes toxoplasmosis; dangerous in pregnancy."
+            },
+            {
+                question: "37. Pneumocystis jirovecii primarily causes:",
+                options: [
+                    "Pneumonia in immunocompromised individuals",
+                    "Cutaneous lesions",
+                    "Gastrointestinal disease",
+                    "Urinary tract infection"
+                ],
+                correct: 0,
+                explanation: "Opportunistic fungus formerly classified as protozoan."
+            },
+            {
+                question: "38. The direct life cycle of a parasite involves:",
+                options: [
+                    "Only one host",
+                    "Two or more hosts",
+                    "Vector transmission only",
+                    "No host"
+                ],
+                correct: 0,
+                explanation: "Example: Enterobius vermicularis."
+            },
+            {
+                question: "39. The indirect life cycle of a parasite involves:",
+                options: [
+                    "Intermediate host and definitive host",
+                    "Only one host",
+                    "No host",
+                    "Vector not required"
+                ],
+                correct: 0,
+                explanation: "Example: Plasmodium spp., Taenia spp."
+            },
+            {
+                question: "40. Which parasite's life cycle involves a blackfly as the vector?",
+                options: [
+                    "Onchocerca volvulus",
+                    "Wuchereria bancrofti",
+                    "Giardia lamblia",
+                    "Enterobius vermicularis"
+                ],
+                correct: 0,
+                explanation: "Blackfly transmits microfilariae."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(parasitologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = parasitologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${parasitologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / parasitologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = parasitologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < parasitologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            parasitologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${parasitologyQuestions.length}</strong> (${Math.round((score/parasitologyQuestions.length)*100)}%)</p>
+                <p>${score === parasitologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= parasitologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

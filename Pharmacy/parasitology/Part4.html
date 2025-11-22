@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parasitology Quiz - Part 4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a5fb4 0%, #3584e4 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #1a5fb4;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            width: 100%;
+        }
+        
+        .progress {
+            height: 100%;
+            background: #1a5fb4;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .question-counter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #f0f7ff;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .timer {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a5fb4;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-card {
+            padding: 25px;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: #333;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .option-btn {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            background: white;
+            text-align: left;
+            font-size: 1rem;
+        }
+        
+        .option-btn:hover {
+            background: #f5f9ff;
+            border-color: #a0c0e0;
+        }
+        
+        .option-btn.correct {
+            background: #e6f7e6;
+            border-color: #28a745;
+        }
+        
+        .option-btn.wrong {
+            background: #ffe6e6;
+            border-color: #dc3545;
+        }
+        
+        .option-letter {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .option-btn.correct .option-letter {
+            background: #28a745;
+            color: white;
+        }
+        
+        .option-btn.wrong .option-letter {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .explanation {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            background: #e0eeff;
+            border-left: 5px solid #1a5fb4;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .nav-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .next-btn {
+            background: #1a5fb4;
+            color: white;
+        }
+        
+        .next-btn:hover {
+            background: #0d4a9c;
+        }
+        
+        .next-btn:disabled {
+            background: #a0c0e0;
+            cursor: not-allowed;
+        }
+        
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .prev-btn:hover {
+            background: #5a6268;
+        }
+        
+        .score-display {
+            padding: 30px;
+            text-align: center;
+            display: none;
+            background: #f8f9fa;
+        }
+        
+        .score-display h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #1a5fb4;
+        }
+        
+        .score-display p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🦠 Parasitology Quiz</h1>
+            <div class="subtitle">Part 4: Advanced Diagnostics & Emerging Topics (Questions 121-160)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter">
+            <div id="questionCounter">Question 1 of 40</div>
+            <div class="timer">Time: <span id="time">90</span>s</div>
+        </div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" id="prevBtn">← Previous</button>
+            <button class="nav-btn next-btn" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const parasitologyQuestions = [
+            {
+                question: "121. The 'modified acid-fast stain' is used to detect:",
+                options: [
+                    "Cryptosporidium, Cyclospora, and Isospora",
+                    "Plasmodium species", 
+                    "Leishmania amastigotes",
+                    "Trypanosoma cruzi"
+                ],
+                correct: 0,
+                explanation: "Modified acid-fast staining (Kinyoun or Ziehl-Neelsen) identifies coccidian parasites in stool, with Cryptosporidium staining red, Cyclospora variable, and Isospora consistently positive."
+            },
+            {
+                question: "122. The 'auramine-rhodamine stain' is used for:",
+                options: [
+                    "Fluorescent detection of Cryptosporidium oocysts",
+                    "Detection of malaria parasites", 
+                    "Identification of microfilariae",
+                    "Staining of helminth eggs"
+                ],
+                correct: 0,
+                explanation: "Auramine-rhodamine fluorescent stain allows rapid screening for Cryptosporidium oocysts, which appear as bright apple-green oval structures against dark background."
+            },
+            {
+                question: "123. The 'antigen capture ELISA' is particularly useful for diagnosing:",
+                options: [
+                    "Cryptosporidiosis and giardiasis",
+                    "Malaria", 
+                    "Schistosomiasis",
+                    "All parasitic infections"
+                ],
+                correct: 0,
+                explanation: "Commercial antigen detection ELISAs are available for Cryptosporidium and Giardia, providing good sensitivity and specificity without requiring intact organisms in stool."
+            },
+            {
+                question: "124. The 'PCR technique' for malaria detection is especially valuable for:",
+                options: [
+                    "Species identification in mixed infections and low parasitemia",
+                    "Rapid diagnosis in field settings", 
+                    "Detecting drug resistance",
+                    "All of the above"
+                ],
+                correct: 0,
+                explanation: "PCR is highly sensitive for detecting low-level parasitemia, identifying species in mixed infections, and can be adapted for resistance marker detection, though it's not rapid."
+            },
+            {
+                question: "125. The 'loop-mediated isothermal amplification (LAMP)' is advantageous for:",
+                options: [
+                    "Field-appropriate molecular diagnosis of malaria",
+                    "High-throughput screening", 
+                    "Whole genome sequencing",
+                    "Antibody detection"
+                ],
+                correct: 0,
+                explanation: "LAMP provides rapid, sensitive molecular detection with minimal equipment, making it suitable for field use in malaria diagnosis and other parasitic diseases."
+            },
+            {
+                question: "126. The 'direct fluorescent antibody (DFA) test' is considered gold standard for:",
+                options: [
+                    "Giardia lamblia and Cryptosporidium detection",
+                    "Malaria diagnosis", 
+                    "Toxoplasma gondii detection",
+                    "Leishmania diagnosis"
+                ],
+                correct: 0,
+                explanation: "DFA using monoclonal antibodies against Giardia cysts and Cryptosporidium oocysts provides excellent sensitivity and specificity, though it requires fluorescence microscopy."
+            },
+            {
+                question: "127. The 'serological tests' for toxoplasmosis typically detect:",
+                options: [
+                    "IgG and IgM antibodies against T. gondii",
+                    "Circulating antigens", 
+                    "DNA in blood",
+                    "Tissue cysts"
+                ],
+                correct: 0,
+                explanation: "Serology detects IgG (indicating past infection) and IgM (suggesting recent infection), crucial for diagnosing acute infection, especially in pregnancy."
+            },
+            {
+                question: "128. The 'Sabin-Feldman dye test' for toxoplasmosis is based on:",
+                options: [
+                    "Antibody-mediated prevention of parasite staining",
+                    "Antigen detection in serum", 
+                    "DNA amplification",
+                    "Culture isolation"
+                ],
+                correct: 0,
+                explanation: "The dye test measures antibodies that prevent methylene blue staining of live tachyzoites, considered a reference method but rarely used due to biosafety concerns."
+            },
+            {
+                question: "129. The 'avidity testing' in toxoplasmosis serology helps to:",
+                options: [
+                    "Distinguish recent from past infection",
+                    "Detect congenital infection", 
+                    "Identify the parasite genotype",
+                    "Monitor treatment response"
+                ],
+                correct: 0,
+                explanation: "Low antibody avidity suggests recent infection (within 3-4 months), while high avidity indicates infection occurred at least 4-5 months earlier."
+            },
+            {
+                question: "130. The 'ICT (immunochromatographic test)' for malaria detects:",
+                options: [
+                    "Plasmodium antigens (HRP-2, pLDH, aldolase)",
+                    "Plasmodium antibodies", 
+                    "Parasite DNA",
+                    "Hemozoin pigment"
+                ],
+                correct: 0,
+                explanation: "Rapid diagnostic tests (RDTs) detect P. falciparum-specific HRP-2, pan-malarial pLDH or aldolase, providing rapid diagnosis without microscopy."
+            },
+            {
+                question: "131. The 'quantitative buffy coat (QBC)' technique is used for:",
+                options: [
+                    "Malaria diagnosis using fluorescent staining",
+                    "Microfilaria detection", 
+                    "Trypanosome concentration",
+                    "All of the above"
+                ],
+                correct: 0,
+                explanation: "QBC uses acridine orange staining and centrifugation to concentrate parasites in a buffy coat layer, visible under fluorescence for malaria and other blood parasites."
+            },
+            {
+                question: "132. The 'microhematocrit centrifugation technique' is used for:",
+                options: [
+                    "Detecting trypanosomes and microfilariae",
+                    "Malaria diagnosis", 
+                    "Leishmania detection",
+                    "Babesia diagnosis"
+                ],
+                correct: 0,
+                explanation: "Microhematocrit centrifugation concentrates motile trypanosomes and microfilariae at the plasma-buffy coat interface, enhancing detection sensitivity."
+            },
+            {
+                question: "133. The 'xenodiagnosis' for Chagas disease involves:",
+                options: [
+                    "Using uninfected triatomine bugs to detect T. cruzi",
+                    "Testing for cross-reactive antibodies", 
+                    "Molecular detection in blood",
+                    "Culture from clinical samples"
+                ],
+                correct: 0,
+                explanation: "Clean laboratory-reared triatomine bugs are fed on patients, then examined weeks later for T. cruzi infection, a sensitive method but time-consuming."
+            },
+            {
+                question: "134. The 'microculture method' is particularly useful for:",
+                options: [
+                    "Leishmania species isolation and typing",
+                    "Plasmodium culture", 
+                    "Toxoplasma gondii isolation",
+                    "Giardia culture"
+                ],
+                correct: 0,
+                explanation: "Microculture in Novy-MacNeal-Nicolle (NNN) or Schneider's media allows isolation of Leishmania from clinical samples for species identification."
+            },
+            {
+                question: "135. The 'hamster inoculation' is used in diagnosis of:",
+                options: [
+                    "Visceral leishmaniasis when other methods fail",
+                    "Malaria", 
+                    "Toxoplasmosis",
+                    "Schistosomiasis"
+                ],
+                correct: 0,
+                explanation: "Hamsters are highly susceptible to Leishmania and can be inoculated with clinical material when microscopy and culture are negative, though rarely used clinically."
+            },
+            {
+                question: "136. The 'mouse inoculation' is diagnostic for:",
+                options: [
+                    "T. gondii and T. cruzi",
+                    "Plasmodium species", 
+                    "Intestinal protozoa",
+                    "Filarial worms"
+                ],
+                correct: 0,
+                explanation: "Mouse inoculation can detect T. gondii (from various tissues) and T. cruzi (from blood), though largely replaced by molecular methods."
+            },
+            {
+                question: "137. The 'ELISA for schistosome circulating cathodic antigen (CCA)' detects:",
+                options: [
+                    "Active Schistosoma mansoni infection",
+                    "Past infection only", 
+                    "All Schistosoma species equally",
+                    "Antibody response"
+                ],
+                correct: 0,
+                explanation: "CCA detection indicates active S. mansoni infection, with urine dipstick versions available for field use, though sensitivity varies with infection intensity."
+            },
+            {
+                question: "138. The 'circumoval precipitin test (COPT)' is used for:",
+                options: [
+                    "Schistosomiasis serology",
+                    "Malaria diagnosis", 
+                    "Toxocariasis",
+                    "Filariasis"
+                ],
+                correct: 0,
+                explanation: "COPT detects antibodies that form precipitates around schistosome eggs, a specific but technically demanding method rarely used now."
+            },
+            {
+                question: "139. The 'fast-ELISA' using Schistosoma mansoni adult microsomal antigen (MAMA) is:",
+                options: [
+                    "A sensitive screening test for schistosomiasis",
+                    "Specific for acute infection", 
+                    "Useful for species differentiation",
+                    "A rapid field test"
+                ],
+                correct: 0,
+                explanation: "MAMA-ELISA has high sensitivity for schistosome antibodies but cannot distinguish active from past infection or different Schistosoma species."
+            },
+            {
+                question: "140. The 'Western blot' for cysticercosis is considered:",
+                options: [
+                    "Highly specific using lentil lectin-purified glycoproteins",
+                    "Highly sensitive but non-specific", 
+                    "Useful for acute diagnosis only",
+                    "Obsolete with newer tests"
+                ],
+                correct: 0,
+                explanation: "The CDC/EVA Western blot using lentil lectin-purified T. solium glycoproteins is highly specific for neurocysticercosis, though sensitivity varies with cyst location and viability."
+            },
+            {
+                question: "141. The 'enzyme-linked immunoelectrotransfer blot (EITB)' is the gold standard for:",
+                options: [
+                    "Cysticercosis serology",
+                    "Malaria diagnosis", 
+                    "Toxoplasmosis",
+                    "Leishmaniasis"
+                ],
+                correct: 0,
+                explanation: "EITB detects antibodies against 7 specific T. solium glycoprotein bands, providing excellent specificity for cysticercosis diagnosis."
+            },
+            {
+                question: "142. The 'complement fixation test' for parasitic diseases has been largely replaced by:",
+                options: [
+                    "ELISA and other immunoassays",
+                    "PCR methods", 
+                    "Microscopy",
+                    "Culture techniques"
+                ],
+                correct: 0,
+                explanation: "Complement fixation was used for several parasitic diseases but has poor sensitivity, technical complexity, and has been superseded by ELISA and other methods."
+            },
+            {
+                question: "143. The 'indirect hemagglutination assay (IHA)' is still used for:",
+                options: [
+                    "Amoebiasis serology in some settings",
+                    "Malaria diagnosis", 
+                    "All parasitic diseases",
+                    "No current applications"
+                ],
+                correct: 0,
+                explanation: "IHA detects antibodies against E. histolytica and remains in use in some laboratories, though ELISA and antigen detection are generally preferred."
+            },
+            {
+                question: "144. The 'latex agglutination test' is available for:",
+                options: [
+                    "Cryptosporidium antigen detection",
+                    "Malaria diagnosis", 
+                    "Microfilariae detection",
+                    "All intestinal parasites"
+                ],
+                correct: 0,
+                explanation: "Latex agglutination tests detect Cryptosporidium antigens in stool, providing rapid results though with lower sensitivity than ELISA or DFA."
+            },
+            {
+                question: "145. The 'dot-ELISA' format is particularly useful for:",
+                options: [
+                    "Field applications with visual reading",
+                    "High-throughput automation", 
+                    "Quantitative measurements",
+                    "Western blot confirmation"
+                ],
+                correct: 0,
+                explanation: "Dot-ELISA on nitrocellulose membranes allows visual interpretation without instrumentation, making it suitable for field use in resource-limited settings."
+            },
+            {
+                question: "146. The 'flow cytometry' application in parasitology includes:",
+                options: [
+                    "Malaria parasite counting and drug susceptibility",
+                    "Helminth egg counting", 
+                    "Protozoan culture",
+                    "All of the above"
+                ],
+                correct: 0,
+                explanation: "Flow cytometry can enumerate parasitized RBCs, assess parasite viability, and test drug susceptibility, though not widely used in routine diagnosis."
+            },
+            {
+                question: "147. The 'mass spectrometry' technique MALDI-TOF is used for:",
+                options: [
+                    "Rapid identification of cultured parasites",
+                    "Direct parasite detection in clinical samples", 
+                    "Antibody profiling",
+                    "Drug level monitoring"
+                ],
+                correct: 0,
+                explanation: "MALDI-TOF generates unique protein spectra that can identify cultured parasites to species level, increasingly used in reference laboratories."
+            },
+            {
+                question: "148. The 'next-generation sequencing (NGS)' in parasitology is particularly valuable for:",
+                options: [
+                    "Detecting mixed infections and novel pathogens",
+                    "Routine diagnosis", 
+                    "Point-of-care testing",
+                    "Antibody detection"
+                ],
+                correct: 0,
+                explanation: "NGS can identify multiple parasites simultaneously, detect unexpected pathogens, and characterize parasite populations, though cost and complexity limit routine use."
+            },
+            {
+                question: "149. The 'CRISPR-based diagnostics' for malaria aim to provide:",
+                options: [
+                    "Highly sensitive and specific field-deployable tests",
+                    "Whole genome sequencing", 
+                    "Drug resistance profiling",
+                    "Vaccine development"
+                ],
+                correct: 0,
+                explanation: "CRISPR-Cas systems like SHERLOCK and DETECTR offer ultrasensitive, specific nucleic acid detection that could revolutionize field diagnosis of malaria and other parasitic diseases."
+            },
+            {
+                question: "150. The 'multiplex PCR' for intestinal parasites typically detects:",
+                options: [
+                    "Multiple protozoa simultaneously (Giardia, Cryptosporidium, Entamoeba)",
+                    "All helminths and protozoa", 
+                    "Only helminths",
+                    "Only blood parasites"
+                ],
+                correct: 0,
+                explanation: "Commercial multiplex PCR panels can detect common intestinal protozoa in a single reaction, offering high sensitivity and specificity compared to microscopy."
+            },
+            {
+                question: "151. The 'real-time PCR' with melting curve analysis allows:",
+                options: [
+                    "Species differentiation based on melting temperatures",
+                    "Only quantification of parasite load", 
+                    "Antigen detection",
+                    "Antibody measurement"
+                ],
+                correct: 0,
+                explanation: "Different DNA sequences melt at different temperatures, allowing differentiation of closely related parasite species in the same reaction tube."
+            },
+            {
+                question: "152. The 'LAMP (loop-mediated isothermal amplification)' method is particularly advantageous because it:",
+                options: [
+                    "Works at constant temperature with visual results",
+                    "Requires sophisticated thermocyclers", 
+                    "Needs DNA purification",
+                    "Is less sensitive than PCR"
+                ],
+                correct: 0,
+                explanation: "LAMP uses 4-6 primers and Bst polymerase for isothermal amplification, often with colorimetric or turbidity endpoints visible to the naked eye."
+            },
+            {
+                question: "153. The 'recombinase polymerase amplification (RPA)' is another isothermal method that:",
+                options: [
+                    "Works at 37-42°C in under 20 minutes",
+                    "Requires high temperatures like PCR", 
+                    "Is less specific than LAMP",
+                    "Cannot be used with clinical samples"
+                ],
+                correct: 0,
+                explanation: "RPA uses recombinase enzymes to facilitate primer binding at low temperatures, offering rapid amplification suitable for point-of-care devices."
+            },
+            {
+                question: "154. The 'microarray technology' in parasitology is used for:",
+                options: [
+                    "Simultaneous detection of multiple parasite targets",
+                    "Single parasite detection only", 
+                    "Antibody production",
+                    "Drug screening"
+                ],
+                correct: 0,
+                explanation: "DNA microarrays with numerous probes can detect multiple parasites and resistance markers in a single assay, though mostly used in research."
+            },
+            {
+                question: "155. The 'whole genome sequencing' of parasites has revolutionized:",
+                options: [
+                    "Understanding parasite biology and drug resistance",
+                    "Routine diagnosis", 
+                    "Microscopy techniques",
+                    "Serological testing"
+                ],
+                correct: 0,
+                explanation: "Parasite genomes reveal potential drug targets, virulence factors, resistance mechanisms, and evolutionary relationships, transforming parasitology research."
+            },
+            {
+                question: "156. The 'proteomic approaches' in parasitology involve:",
+                options: [
+                    "Studying parasite proteins for diagnostics and vaccines",
+                    "Only DNA analysis", 
+                    "Microscopy enhancement",
+                    "Drug synthesis"
+                ],
+                correct: 0,
+                explanation: "Proteomics identifies parasite proteins expressed during infection, useful for developing new diagnostics, understanding pathogenesis, and vaccine candidate discovery."
+            },
+            {
+                question: "157. The 'metabolomic studies' of parasites focus on:",
+                options: [
+                    "Small molecule metabolites for understanding biology and drugs",
+                    "DNA sequences only", 
+                    "Antibody responses",
+                    "Microscopic structure"
+                ],
+                correct: 0,
+                explanation: "Metabolomics analyzes the complete set of small molecules, revealing parasite metabolic pathways that can be targeted for new therapeutics."
+            },
+            {
+                question: "158. The 'glycomic analysis' of parasites is important because:",
+                options: [
+                    "Surface glycoproteins are key to host-parasite interactions",
+                    "DNA is more important", 
+                    "Proteins are irrelevant",
+                    "Only lipids matter"
+                ],
+                correct: 0,
+                explanation: "Parasite surface glycoproteins mediate host cell invasion, immune evasion, and are potential targets for vaccines and diagnostics."
+            },
+            {
+                question: "159. The 'organoid cultures' are advancing parasitology by:",
+                options: [
+                    "Providing human-relevant models for parasite studies",
+                    "Replacing animal models completely", 
+                    "Eliminating need for clinical samples",
+                    "Making microscopy obsolete"
+                ],
+                correct: 0,
+                explanation: "Organoids derived from human stem cells better mimic human tissues than cell lines, enabling study of parasite development, host responses, and drug testing."
+            },
+            {
+                question: "160. The 'single-cell RNA sequencing' in parasitology allows:",
+                options: [
+                    "Understanding heterogeneous parasite and host cell populations",
+                    "Only bulk analysis of samples", 
+                    "Antigen detection",
+                    "Routine diagnosis"
+                ],
+                correct: 0,
+                explanation: "scRNA-seq reveals transcriptional heterogeneity within parasite populations and host cells during infection, uncovering new biological insights at unprecedented resolution."
+            }
+        ];
+
+        // Quiz state variables
+        let currentQuestion = 0;
+        let userAnswers = new Array(parasitologyQuestions.length).fill(null);
+        let score = 0;
+        let timeLeft = 90;
+        let timer;
+        let shuffledQuestions = [];
+
+        // DOM elements
+        const questionText = document.getElementById('questionText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const explanation = document.getElementById('explanation');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const questionCounter = document.getElementById('questionCounter');
+        const progress = document.getElementById('progress');
+        const timeElement = document.getElementById('time');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+
+        // Initialize the quiz
+        function initQuiz() {
+            // Shuffle questions
+            shuffledQuestions = [...parasitologyQuestions].sort(() => Math.random() - 0.5);
+            
+            // Reset state
+            currentQuestion = 0;
+            userAnswers = new Array(shuffledQuestions.length).fill(null);
+            score = 0;
+            timeLeft = 90;
+            
+            // Hide results, show quiz
+            scoreDisplay.style.display = 'none';
+            
+            // Load first question
+            loadQuestion();
+        }
+
+        // Load a question
+        function loadQuestion() {
+            // Reset timer
+            clearInterval(timer);
+            timeLeft = 90;
+            timeElement.textContent = timeLeft;
+            
+            // Get current question
+            const question = shuffledQuestions[currentQuestion];
+            
+            // Display question
+            questionText.textContent = question.question;
+            
+            // Clear previous options and feedback
+            optionsContainer.innerHTML = '';
+            explanation.classList.remove('show');
+            nextBtn.disabled = true;
+            
+            // Shuffle options while keeping track of correct answer
+            const shuffledOptions = [...question.options];
+            const correctAnswerText = shuffledOptions[question.correct];
+            
+            // Shuffle options
+            for (let i = shuffledOptions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+            }
+            
+            // Find new correct index
+            const newCorrectIndex = shuffledOptions.indexOf(correctAnswerText);
+            
+            // Create option elements
+            shuffledOptions.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.innerHTML = `<span class="option-letter">${String.fromCharCode(65 + index)}</span> ${option}`;
+                
+                // Add selected class if this option was previously selected
+                if (userAnswers[currentQuestion] === index) {
+                    if (index === newCorrectIndex) {
+                        button.classList.add('correct');
+                    } else {
+                        button.classList.add('wrong');
+                    }
+                }
+                
+                button.onclick = () => selectOption(index, newCorrectIndex);
+                optionsContainer.appendChild(button);
+            });
+            
+            // Update progress and counter
+            questionCounter.textContent = `Question ${currentQuestion + 1} of ${shuffledQuestions.length}`;
+            progress.style.width = `${((currentQuestion + 1) / shuffledQuestions.length) * 100}%`;
+            
+            // Update navigation buttons
+            prevBtn.style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            nextBtn.disabled = userAnswers[currentQuestion] === null;
+            
+            // Show explanation if answer was already selected
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            }
+            
+            // Start timer
+            startTimer();
+        }
+
+        // Start timer for current question
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                timeElement.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    handleTimeUp();
+                }
+            }, 1000);
+        }
+
+        // Handle when time is up
+        function handleTimeUp() {
+            // Disable all options
+            const options = document.querySelectorAll('.option-btn');
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Show feedback
+            explanation.textContent = "Time's up! You didn't select an answer.";
+            explanation.classList.add('show');
+            nextBtn.disabled = false;
+        }
+
+        // Handle option selection
+        function selectOption(selectedIndex, correctIndex) {
+            // Clear timer
+            clearInterval(timer);
+            
+            // Disable all options
+            const options = document.querySelectorAll('.option-btn');
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Get current question
+            const question = shuffledQuestions[currentQuestion];
+            
+            // Check if answer is correct
+            const isCorrect = selectedIndex === correctIndex;
+            
+            // Add appropriate class to selected option
+            options[selectedIndex].classList.add(isCorrect ? 'correct' : 'wrong');
+            
+            // Show correct answer
+            options[correctIndex].classList.add('correct');
+            
+            // Store user answer
+            userAnswers[currentQuestion] = selectedIndex;
+            
+            // Update score if correct
+            if (isCorrect) {
+                score++;
+            }
+            
+            // Show explanation
+            explanation.textContent = question.explanation;
+            explanation.classList.add('show');
+            
+            // Enable next button
+            nextBtn.disabled = false;
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestion < shuffledQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        // Navigate to previous question
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        // Calculate and display final score
+        function calculateScore() {
+            const percentage = Math.round((score / shuffledQuestions.length) * 100);
+            
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${shuffledQuestions.length}</strong> (${percentage}%)</p>
+                <p>${score === shuffledQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= shuffledQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+                <button class="nav-btn" onclick="initQuiz()" style="margin-top: 20px;">Restart Quiz</button>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', previousQuestion);
+
+        // Initialize the quiz when the page loads
+        window.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>

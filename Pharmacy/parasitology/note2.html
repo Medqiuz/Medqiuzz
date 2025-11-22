@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Parasitology: Protozoa and Cestodes</title>
+<style>
+  /* ===== RESET & BASE STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #2c3e50;
+    --primary-light: #34495e;
+    --primary-dark: #1a252f;
+    --secondary: #3498db;
+    --secondary-light: #5dade2;
+    --accent: #e74c3c;
+    --accent-light: #ec7063;
+    --success: #27ae60;
+    --warning: #f39c12;
+    --danger: #e74c3c;
+    --info: #3498db;
+    --text-dark: #2c3e50;
+    --text-medium: #34495e;
+    --text-light: #7f8c8d;
+    --bg-light: #f8f9fa;
+    --bg-white: #ffffff;
+    --border-light: #e9ecef;
+    --shadow: rgba(0, 0, 0, 0.08);
+    --shadow-dark: rgba(0, 0, 0, 0.15);
+    --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    --gradient-secondary: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.7;
+    font-size: 16px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.8em;
+    color: var(--primary);
+}
+
+h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    font-size: 2.2rem;
+    margin-top: 2em;
+    padding-bottom: 0.7em;
+    border-bottom: 3px solid var(--border-light);
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--gradient-primary);
+}
+
+h3 {
+    font-size: 1.8rem;
+    color: var(--primary-light);
+    margin-top: 1.8em;
+}
+
+h4 {
+    font-size: 1.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.8em;
+}
+
+h5 {
+    font-size: 1.2rem;
+    color: var(--text-medium);
+    margin-bottom: 0.6em;
+}
+
+h6 {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 0.5em;
+}
+
+p {
+    margin-bottom: 1.5em;
+    font-size: 1.05rem;
+}
+
+a {
+    color: var(--secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary);
+}
+
+/* ===== LAYOUT ===== */
+.main-wrapper {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+    align-items: start;
+    margin: 30px 0;
+}
+
+@media (max-width: 968px) {
+    .main-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .topics-nav {
+        position: static !important;
+        margin-bottom: 20px;
+    }
+}
+
+/* ===== HEADER STYLES ===== */
+.page-header {
+    text-align: center;
+    margin: 40px 0 30px;
+    padding: 50px 30px;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(44, 62, 80, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,70 Q25,30 50,70 T100,30 L100,100 L0,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+    background-size: cover;
+}
+
+.page-header h1 {
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 0.5em;
+    position: relative;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-size: 1.3rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+/* ===== NAVIGATION STYLES ===== */
+.topics-nav {
+    background: var(--bg-white);
+    border-radius: 15px;
+    padding: 25px 20px;
+    box-shadow: 0 5px 20px var(--shadow);
+    position: sticky;
+    top: 30px;
+    z-index: 100;
+    border: 1px solid var(--border-light);
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 20px;
+    background: transparent;
+    color: var(--text-medium);
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    font-size: 1rem;
+}
+
+.nav-link:hover {
+    background: linear-gradient(135deg, #e3f2fd, #f0f4ff);
+    color: var(--primary);
+    transform: translateX(8px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
+    text-decoration: none;
+}
+
+.nav-link.active {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: 0 6px 15px rgba(44, 62, 80, 0.3);
+    border-color: var(--primary-dark);
+}
+
+/* ===== CONTENT AREA STYLES ===== */
+.content-area {
+    min-height: 800px;
+}
+
+.content-section {
+    background: var(--bg-white);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 5px 20px var(--shadow);
+    border: 1px solid var(--border-light);
+    margin-bottom: 30px;
+    display: none;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.content-section.active {
+    display: block;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== DEFINITION BOXES ===== */
+.definition-box {
+    background: linear-gradient(135deg, #e3f2fd, #f0f4ff);
+    border-left: 5px solid var(--info);
+    padding: 28px;
+    margin: 35px 0;
+    border-radius: 0 12px 12px 0;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.1);
+    position: relative;
+}
+
+.definition-box::before {
+    content: '💡';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--info);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.definition-box p {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-medium);
+}
+
+/* ===== LISTS ===== */
+.content-list {
+    padding-left: 30px;
+    margin: 25px 0;
+}
+
+.content-list li {
+    margin-bottom: 12px;
+    line-height: 1.7;
+    padding-left: 10px;
+    position: relative;
+}
+
+.content-list li::before {
+    content: '•';
+    color: var(--secondary);
+    font-weight: bold;
+    position: absolute;
+    left: -15px;
+}
+
+.content-list strong {
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+.content-list ol {
+    list-style-type: decimal;
+    padding-left: 25px;
+}
+
+.content-list ol li {
+    margin-bottom: 10px;
+}
+
+/* ===== KEY POINTS ===== */
+.key-points {
+    background: linear-gradient(135deg, #fff3e0, #fff9e6);
+    border-radius: 12px;
+    padding: 32px;
+    margin: 35px 0;
+    border-left: 5px solid var(--warning);
+    box-shadow: 0 5px 15px rgba(243, 156, 18, 0.1);
+    position: relative;
+}
+
+.key-points::before {
+    content: '⭐';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--warning);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(243, 156, 18, 0.3);
+}
+
+.key-points h4 {
+    color: var(--primary-dark);
+    margin-bottom: 22px;
+    font-size: 1.3rem;
+}
+
+.key-points h5, .key-points h6 {
+    color: var(--primary);
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.key-points ul, .key-points ol {
+    padding-left: 25px;
+}
+
+.key-points li {
+    margin-bottom: 14px;
+    line-height: 1.7;
+    color: var(--text-medium);
+}
+
+/* ===== PROCESS STEPS ===== */
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin: 35px 0;
+}
+
+.step-card {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 5px 15px var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-secondary);
+}
+
+.step-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 12px;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 3px 8px rgba(44, 62, 80, 0.3);
+}
+
+.step-card h4 {
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.step-card p {
+    color: var(--text-medium);
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* ===== TABLES ===== */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 35px 0;
+    box-shadow: 0 5px 15px var(--shadow);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-white);
+}
+
+.comparison-table th, .comparison-table td {
+    border: 1px solid var(--border-light);
+    padding: 20px 18px;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.comparison-table th {
+    background: var(--gradient-primary);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    border-color: var(--primary-dark);
+}
+
+.comparison-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.comparison-table tr:hover {
+    background-color: #e3f2fd;
+    transition: background-color 0.3s ease;
+}
+
+.comparison-table td {
+    color: var(--text-medium);
+}
+
+/* ===== REFERENCE BOXES ===== */
+.reference-box {
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+    border: 1px solid var(--success);
+    border-radius: 12px;
+    padding: 30px;
+    margin: 40px 0;
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.1);
+    position: relative;
+}
+
+.reference-box::before {
+    content: '📚';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--success);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+.reference-box h4 {
+    color: #2e7d32;
+    margin-bottom: 22px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.reference-box a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 14px;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--secondary);
+}
+
+.reference-box a:hover {
+    background: white;
+    text-decoration: none;
+    transform: translateX(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-left-color: var(--primary);
+}
+
+/* ===== FOOTER STYLES ===== */
+.page-footer {
+    text-align: center;
+    margin-top: 70px;
+    padding: 35px 30px;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    border-top: 1px solid var(--border-light);
+    background: var(--bg-white);
+    border-radius: 15px;
+    box-shadow: 0 -2px 10px var(--shadow);
+}
+
+.page-footer p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    h1 {
+        font-size: 2.3rem;
+    }
+    
+    h2 {
+        font-size: 1.9rem;
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+    
+    .page-header {
+        padding: 35px 20px;
+        margin: 25px 0;
+    }
+    
+    .page-header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.15rem;
+    }
+    
+    .content-section {
+        padding: 28px;
+    }
+    
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+    
+    .definition-box, .key-points, .reference-box {
+        padding: 24px;
+        margin: 28px 0;
+    }
+    
+    .definition-box::before,
+    .key-points::before,
+    .reference-box::before {
+        display: none;
+    }
+    
+    .comparison-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.7rem;
+    }
+    
+    .page-header {
+        padding: 25px 15px;
+    }
+    
+    .page-header h1 {
+        font-size: 2.1rem;
+    }
+    
+    .content-section {
+        padding: 22px;
+    }
+    
+    .nav-link {
+        padding: 14px 16px;
+        font-size: 0.95rem;
+    }
+    
+    .step-card {
+        padding: 22px;
+    }
+    
+    .comparison-table th, 
+    .comparison-table td {
+        padding: 12px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+    .topics-nav, .page-footer {
+        display: none;
+    }
+    
+    .content-section {
+        display: block !important;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+    }
+    
+    a {
+        color: var(--text-dark) !important;
+        text-decoration: underline !important;
+    }
+    
+    .page-header {
+        background: white !important;
+        color: var(--text-dark) !important;
+        box-shadow: none !important;
+    }
+    
+    .page-header h1 {
+        color: var(--text-dark) !important;
+    }
+    
+    .step-card, .definition-box, .key-points, .reference-box {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+    
+    .step-card::before,
+    .definition-box::before,
+    .key-points::before,
+    .reference-box::before {
+        display: none;
+    }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --primary: #000000;
+        --primary-light: #333333;
+        --primary-dark: #000000;
+        --secondary: #0000ff;
+        --text-dark: #000000;
+        --text-medium: #333333;
+        --border-light: #000000;
+    }
+    
+    .step-card, .definition-box, .key-points, .reference-box {
+        border: 2px solid var(--primary);
+    }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary: #ecf0f1;
+        --primary-light: #bdc3c7;
+        --primary-dark: #ffffff;
+        --secondary: #3498db;
+        --text-dark: #ecf0f1;
+        --text-medium: #bdc3c7;
+        --text-light: #95a5a6;
+        --bg-light: #2c3e50;
+        --bg-white: #34495e;
+        --border-light: #4a5f7a;
+    }
+    
+    body {
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+    }
+    
+    .page-header {
+        background: linear-gradient(135deg, #34495e, #2c3e50);
+    }
+    
+    .topics-nav, .content-section, .page-footer {
+        background: var(--bg-white);
+    }
+    
+    .definition-box {
+        background: linear-gradient(135deg, #4a5f7a, #3a4f6a);
+    }
+    
+    .key-points {
+        background: linear-gradient(135deg, #5d4e3a, #4c3e2e);
+    }
+    
+    .reference-box {
+        background: linear-gradient(135deg, #3a5c3a, #2c4a2c);
+    }
+    
+    .step-card {
+        background: linear-gradient(135deg, #3a4f6a, #2c3e50);
+    }
+    
+    .comparison-table tr:nth-child(even) {
+        background-color: #3a4f6a;
+    }
+    
+    .comparison-table tr:hover {
+        background-color: #4a5f7a;
+    }
+}
+</style>
+    <div class="container">
+        <header class="page-header">
+            <h1>Medical Parasitology Guide</h1>revised by
+            <h1>MedQuiz</h1>
+            <p class="subtitle">Comprehensive overview of Protozoa and Cestodes with clinical correlations</p>
+        </header>
+
+        <nav class="topics-nav">
+            <ul class="nav-list">
+                <li><a href="#protozoa-intro" class="nav-link active">Introduction to Protozoa</a></li>
+                <li><a href="#amoeba" class="nav-link">Pathogenic Amoeba</a></li>
+                <li><a href="#flagellates" class="nav-link">Flagellates</a></li>
+                <li><a href="#cestodes" class="nav-link">Cestodes (Tapeworms)</a></li>
+                <li><a href="#clinical" class="nav-link">Clinical Management</a></li>
+            </ul>
+        </nav>
+
+        <main class="content-area">
+            <!-- Introduction to Protozoa Section -->
+            <section id="protozoa-intro" class="content-section active">
+                <h2>Introduction to Protozoa</h2>
+                
+                <div class="definition-box">
+                    <p><strong>Protozoa</strong> are single-celled eukaryotic organisms that vary in size from 1-150μm. They are classified based on their locomotive structures and play significant roles in human diseases worldwide.</p>
+                </div>
+                
+                <h3>Taxonomy of Medically Important Protozoa</h3>
+                <ul class="content-list">
+                    <li><strong>Sarcodina (Amoeba)</strong> - Move by means of pseudopodia</li>
+                    <li><strong>Mastigophora (Flagellates)</strong> - Move by means of flagella</li>
+                    <li><strong>Ciliophora (Ciliates)</strong> - Move by means of cilia</li>
+                    <li><strong>Sporozoa (Apicomplexa)</strong> - Non-motile adult forms</li>
+                </ul>
+                
+                <h3>General Characteristics of Protozoa</h3>
+                <p>Protozoa exhibit diverse biological features:</p>
+                <ul class="content-list">
+                    <li>Unicellular eukaryotic organization</li>
+                    <li>Most are microscopic in size</li>
+                    <li>Exhibit various forms of locomotion (pseudopodia, flagella, cilia)</li>
+                    <li>Complex life cycles often involving multiple hosts</li>
+                    <li>Can exist in trophozoite (active, feeding) and cyst (dormant, resistant) forms</li>
+                    <li>Reproduce asexually by binary fission, multiple fission, or budding</li>
+                </ul>
+            </section>
+
+            <!-- Pathogenic Amoeba Section -->
+            <section id="amoeba" class="content-section">
+                <h2>Pathogenic Amoeba</h2>
+                
+                <h3>Classification of Amoeba</h3>
+                <div class="key-points">
+                    <h4>Pathogenic Amoeba</h4>
+                    <ul>
+                        <li><strong>Entamoeba histolytica</strong> - Causes amoebic dysentery and liver abscess</li>
+                    </ul>
+                    
+                    <h4>Non-pathogenic Amoeba</h4>
+                    <ul>
+                        <li><strong>Oral cavity:</strong> E. gingivalis</li>
+                        <li><strong>Intestinal:</strong> E. coli, E. dispar, E. hartmanni, E. polecki, Iodamoeba buetschlii, Endolimax nana</li>
+                    </ul>
+                    
+                    <h4>Free-living Pathogenic Amoeba</h4>
+                    <ul>
+                        <li><strong>Naegleria species</strong> - Causes Primary Amebic Meningoencephalitis (PAM)</li>
+                        <li><strong>Acanthamoeba species</strong> - Causes Granulomatous Amebic Encephalitis (GAE) and Keratitis</li>
+                        <li><strong>Balamuthia mandrillaris</strong> - Causes Granulomatous Amebic Encephalitis (GAE)</li>
+                    </ul>
+                </div>
+                
+                <h3>Entamoeba histolytica</h3>
+                <div class="definition-box">
+                    <p><strong>Entamoeba histolytica</strong> is the causative agent of amoebic dysentery and extraintestinal amoebiasis. It has a worldwide distribution but is more prevalent in tropical regions with poor sanitation.</p>
+                </div>
+                
+                <h4>Epidemiology</h4>
+                <ul class="content-list">
+                    <li><strong>Geographical distribution:</strong> Cosmopolitan, more common in developing countries</li>
+                    <li><strong>Worldwide incidence:</strong> 0.2-50% in tropical regions</li>
+                    <li><strong>Global burden:</strong> 500 million people infected worldwide, 100,000 deaths annually</li>
+                    <li><strong>Ranking:</strong> Third most common cause of death from parasitic diseases</li>
+                    <li><strong>In Ethiopia:</strong> Amoebic dysentery is one of the most commonly reported infections</li>
+                </ul>
+                
+                <h4>Morphology and Life Cycle</h4>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <h4><span class="step-number">1</span> Trophozoite</h4>
+                        <p>Motile, actively feeding, multiplying form (12-60μm). Susceptible to destruction outside the host. Found in diarrheic stools and tissues.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><span class="step-number">2</span> Cyst</h4>
+                        <p>Non-motile, dormant form (10-20μm). Protected by a distinct cyst wall. Infective stage. Resistant to environmental stresses.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><span class="step-number">3</span> Transmission</h4>
+                        <p>Ingestion of mature tetranucleated cysts from contaminated hands, food, or water. Cysts survive in environment up to 55°C, normal chlorine concentration, and gastric acid.</p>
+                    </div>
+                </div>
+                
+                <h4>Life Cycle Details</h4>
+                <ol class="content-list">
+                    <li>Ingestion of mature tetranucleated cysts</li>
+                    <li>Excystation in small intestine releases metacystic trophozoites</li>
+                    <li>Trophozoites migrate to large intestine</li>
+                    <li>Trophozoites feed, grow, and multiply by binary fission</li>
+                    <li>Encystation occurs as parasites move toward colon</li>
+                    <li>Cysts passed in feces complete the cycle</li>
+                </ol>
+                
+                <h4>Pathogenesis and Clinical Manifestations</h4>
+                <div class="key-points">
+                    <h4>Non-invasive Infection</h4>
+                    <p>Trophozoites colonize, adhere to mucus layer, and ingest bacteria and cellular debris. Usually asymptomatic or exhibits mild abdominal discomfort, non-dysenteric diarrhea, and cramps.</p>
+                    
+                    <h4>Invasive Infection</h4>
+                    <p>Trophozoites invade tissues by:</p>
+                    <ul>
+                        <li>Penetration of mucus layer</li>
+                        <li>Contact-dependent killing of epithelial cells</li>
+                        <li>Breakdown of extracellular matrix</li>
+                        <li>Contact-dependent killing of leukocytes</li>
+                        <li>Necrosis of mucosa leading to ulcers and dysentery</li>
+                    </ul>
+                </div>
+                
+                <h4>Virulence Factors</h4>
+                <ul class="content-list">
+                    <li><strong>Amoebic Lectin antigen</strong> - Mediates adherence to host cells</li>
+                    <li><strong>Cysteine proteinases</strong> - Degrade extracellular matrix</li>
+                    <li><strong>Amoebapore</strong> - Creates pores in target cell membranes</li>
+                </ul>
+                
+                <h4>Extraintestinal Amoebiasis</h4>
+                <p>Trophozoites can be carried to the liver via portal circulation, forming abscesses (usually in the right lobe).</p>
+                <ul class="content-list">
+                    <li><strong>Amoebic liver abscess:</strong> 30-50% of patients show pneumonic involvement</li>
+                    <li><strong>Pulmonary amoebiasis:</strong> Rupture of liver abscess through diaphragm causing fever, cough, dyspnea, pain</li>
+                    <li><strong>Cutaneous amoebiasis:</strong> Direct invasion of skin</li>
+                </ul>
+                
+                <h4>Clinical Manifestations</h4>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <h4>Intestinal Symptoms</h4>
+                        <p><strong>Non-dysenteric:</strong> Diarrhea, cramps, flatulence, nausea</p>
+                        <p><strong>Dysenteric:</strong> Blood/mucus in stools, cramps/pain, tenesmus</p>
+                        <p><strong>Ameboma:</strong> Palpable mass, obstruction</p>
+                    </div>
+                    <div class="step-card">
+                        <h4>Liver Symptoms</h4>
+                        <p>Symptoms similar to hepatitis: fever, right upper quadrant pain, hepatomegaly, elevated liver enzymes</p>
+                    </div>
+                </div>
+                
+                <h4>Laboratory Diagnosis</h4>
+                <ul class="content-list">
+                    <li><strong>Microscopic examination:</strong> Trophozoites in fresh diarrheic stool, cysts in formed stool</li>
+                    <li><strong>Immunodiagnosis:</strong> Antigen detection, antibody detection</li>
+                    <li><strong>Molecular techniques:</strong> PCR for specific identification</li>
+                    <li><strong>Culture:</strong> Specialized media for isolation</li>
+                </ul>
+                
+                <h4>Treatment</h4>
+                <div class="key-points">
+                    <h4>Asymptomatic Carriers</h4>
+                    <p>Luminal amoebicides only:</p>
+                    <ul>
+                        <li>Iodoquinol</li>
+                        <li>Paromomycin</li>
+                        <li>Diloxanide furoate</li>
+                    </ul>
+                    
+                    <h4>Symptomatic Disease</h4>
+                    <p>Intestinal colitis or extraintestinal disease (liver abscess):</p>
+                    <ul>
+                        <li>Metronidazole plus luminal agent</li>
+                        <li>Tinidazole plus luminal agent</li>
+                        <li>Drainage if liver abscess is large or non-responsive</li>
+                    </ul>
+                </div>
+                
+                <h4>Prevention and Control</h4>
+                <ul class="content-list">
+                    <li>Safe drinking water (boil or filter)</li>
+                    <li>Proper sanitation and waste disposal</li>
+                    <li>Handwashing and food hygiene</li>
+                    <li>Treat carriers to prevent spread</li>
+                    <li>Health education about fecal-oral transmission</li>
+                </ul>
+                
+                <h3>Free-Living Pathogenic Amoeba</h3>
+                <div class="definition-box">
+                    <p><strong>Free-living amoeba</strong> are found in soil and water that can cause opportunistic human infections. They include Naegleria fowleri, Acanthamoeba species, and Balamuthia mandrillaris.</p>
+                </div>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Organism</th>
+                            <th>Disease</th>
+                            <th>Transmission</th>
+                            <th>Clinical Features</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Naegleria fowleri</td>
+                            <td>Primary Amebic Meningoencephalitis (PAM)</td>
+                            <td>Water enters nasal passages → olfactory nerve → brain</td>
+                            <td>Rapidly fatal meningoencephalitis</td>
+                        </tr>
+                        <tr>
+                            <td>Acanthamoeba spp.</td>
+                            <td>Granulomatous Amebic Encephalitis (GAE), Keratitis</td>
+                            <td>Skin lesions, respiratory tract, contaminated contact lenses</td>
+                            <td>Chronic CNS infection, eye pain, vision loss</td>
+                        </tr>
+                        <tr>
+                            <td>Balamuthia mandrillaris</td>
+                            <td>Granulomatous Amebic Encephalitis (GAE)</td>
+                            <td>Skin lesions, respiratory tract</td>
+                            <td>Chronic CNS infection</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4>Life Cycle of Free-Living Amoeba</h4>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <h4>Naegleria fowleri</h4>
+                        <p><strong>Three forms:</strong> Cyst → Trophozoite → Flagellate</p>
+                        <p><strong>Infective stage:</strong> Trophozoite (enters via nasal passages)</p>
+                        <p><strong>Migration:</strong> Nasal mucosa → Olfactory nerve → Brain → PAM</p>
+                        <p><strong>No cyst stage in human tissue</strong></p>
+                    </div>
+                    <div class="step-card">
+                        <h4>Acanthamoeba & Balamuthia</h4>
+                        <p><strong>Two forms:</strong> Cyst ↔ Trophozoite</p>
+                        <p><strong>Entry:</strong> Skin lesions, respiratory tract, or cornea</p>
+                        <p><strong>Spread:</strong> Hematogenous spread → CNS (GAE)</p>
+                        <p><strong>Both cysts and trophozoites found in tissues</strong></p>
+                    </div>
+                </div>
+                
+                <h4>Diagnosis and Treatment</h4>
+                <ul class="content-list">
+                    <li><strong>Diagnosis:</strong> Microscopy (motile trophozoites in CSF/tissue), culture on non-nutrient agar, PCR or immunofluorescence</li>
+                    <li><strong>Treatment:</strong> Combination therapy including amphotericin B, miltefosine, azoles</li>
+                    <li><strong>Prevention:</strong> Avoid warm freshwater (esp. nasal contact), use sterile lens solutions, proper chlorination of pools</li>
+                </ul>
+            </section>
+
+            <!-- Flagellates Section -->
+            <section id="flagellates" class="content-section">
+                <h2>Flagellates</h2>
+                
+                <div class="definition-box">
+                    <p><strong>Flagellates</strong> are protozoa that move by means of flagella. They reproduce by simple binary fission and include both pathogenic and non-pathogenic species.</p>
+                </div>
+                
+                <h3>Classification of Flagellates</h3>
+                <div class="key-points">
+                    <h4>Intestinal Flagellates</h4>
+                    <ul>
+                        <li>Giardia lamblia</li>
+                        <li>Dientamoeba fragilis</li>
+                        <li>Chilomastix mesnili</li>
+                        <li>Enteromonas hominis</li>
+                        <li>Retortamonas intestinalis</li>
+                        <li>Trichomonas hominis</li>
+                    </ul>
+                    
+                    <h4>Genital Flagellates</h4>
+                    <ul>
+                        <li>Trichomonas vaginalis</li>
+                    </ul>
+                    
+                    <h4>Blood and Tissue Flagellates</h4>
+                    <ul>
+                        <li>Leishmania species</li>
+                        <li>Trypanosoma species</li>
+                    </ul>
+                </div>
+                
+                <h3>Giardia lamblia</h3>
+                <div class="definition-box">
+                    <p><strong>Giardia lamblia</strong> causes Giardiasis (traveler's diarrhea). It inhabits the duodenum and upper small intestine and is common in contaminated water and food with worldwide distribution, especially in children.</p>
+                </div>
+                
+                <h4>Epidemiology</h4>
+                <ul class="content-list">
+                    <li><strong>Geographic distribution:</strong> Worldwide, higher prevalence in developing countries</li>
+                    <li><strong>High-risk groups:</strong> Young, malnourished children</li>
+                    <li><strong>In Ethiopia:</strong> Countrywide survey showed 8.9% prevalence among school children and 3.1% in residents</li>
+                    <li><strong>Habitat:</strong> Upper parts of small intestine, mainly duodenum and jejunum</li>
+                </ul>
+                
+                <h4>Morphology</h4>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <h4>Trophozoite</h4>
+                        <p>Pear-shaped, 10–20 μm. Contains 2 nuclei ("owl's eyes"), 4 pairs of flagella. Has ventral sucking disc for intestinal attachment.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4>Cyst</h4>
+                        <p>Oval, 8–12 μm. Contains 4 nuclei, thick wall. Infective stage. Survives in cool, moist conditions and in food/water stored at 4-6°C for long periods.</p>
+                    </div>
+                </div>
+                
+                <h4>Transmission and Life Cycle</h4>
+                <ul class="content-list">
+                    <li><strong>Transmission:</strong> Ingestion of fecally contaminated food or water with cysts. Person-to-person transmission through fecal-oral routes.</li>
+                    <li><strong>Cyst resistance:</strong> Resistant to normal chlorine concentrations. Susceptible to desiccation, direct sunlight, and boiling for at least 1 minute.</li>
+                    <li><strong>Life cycle:</strong> 
+                        <ol>
+                            <li>Infection by ingestion of tetranucleated cysts</li>
+                            <li>Excystation in duodenum releases trophozoites</li>
+                            <li>Trophozoites attach to microvilli surface of epithelium</li>
+                            <li>Divide by binary fission</li>
+                            <li>Encystation occurs as parasites transit toward colon</li>
+                            <li>Cysts excreted in stool are resistant stage responsible for spreading infection</li>
+                        </ol>
+                    </li>
+                </ul>
+                
+                <h4>Pathogenesis and Clinical Features</h4>
+                <div class="key-points">
+                    <h4>Pathogenesis</h4>
+                    <ul>
+                        <li>Attachment to mucosa via ventral sucking disc and adhesins</li>
+                        <li>Damage to villi leading to malabsorption</li>
+                        <li>Fat malabsorption (steatorrhea)</li>
+                        <li>Lactose intolerance</li>
+                        <li>No tissue invasion, so no blood in stool</li>
+                    </ul>
+                    
+                    <h4>Symptoms</h4>
+                    <ul>
+                        <li>Watery, greasy, foul-smelling diarrhea</li>
+                        <li>Bloating, gas, abdominal cramps</li>
+                        <li>Weight loss, fatigue</li>
+                        <li>Chronic cases: malabsorption, vitamin deficiencies</li>
+                    </ul>
+                </div>
+                
+                <h4>Diagnosis and Treatment</h4>
+                <ul class="content-list">
+                    <li><strong>Diagnosis:</strong> Microscopy (stool examination for trophozoites and cysts), immunodiagnosis, molecular diagnosis</li>
+                    <li><strong>Treatment:</strong> Metronidazole or Tinidazole</li>
+                    <li><strong>Prevention:</strong> Improving sanitation and hygiene, safe water supply, latrine construction, treatment of infected individuals, health education</li>
+                </ul>
+                
+                <h3>Trichomonas vaginalis</h3>
+                <div class="definition-box">
+                    <p><strong>Trichomonas vaginalis</strong> causes Trichomoniasis, a sexually transmitted infection. It inhabits the vagina, urethra, and prostate and has no cyst stage.</p>
+                </div>
+                
+                <h4>Morphology and Life Cycle</h4>
+                <ul class="content-list">
+                    <li><strong>Only trophozoite exists</strong> (infective and diagnostic form)</li>
+                    <li>Pear-shaped, 10–20 μm</li>
+                    <li>4 anterior flagella and 1 undulating membrane</li>
+                    <li>Motility: Jerky (on-spot), non-directional in fresh specimen</li>
+                    <li><strong>Life cycle:</strong> Transmitted during sexual intercourse, multiplies by binary fission in vagina or urethra, dies rapidly outside host</li>
+                </ul>
+                
+                <h4>Clinical Features</h4>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <h4>Females</h4>
+                        <p>Vaginal itching, burning, dysuria and dyspareunia. Frothy, yellow-green discharge. "Strawberry cervix" (punctate hemorrhages).</p>
+                    </div>
+                    <div class="step-card">
+                        <h4>Males</h4>
+                        <p>Often asymptomatic. Urethritis, prostatitis, mild irritation.</p>
+                    </div>
+                </div>
+                
+                <h4>Diagnosis and Treatment</h4>
+                <ul class="content-list">
+                    <li><strong>Diagnosis:</strong> Wet mount (motile trophozoites), culture, antigen detection, or PCR</li>
+                    <li><strong>Treatment:</strong> Metronidazole or Tinidazole. Treat both partners simultaneously.</li>
+                    <li><strong>Prevention:</strong> Safe sexual practices, treat all sexual partners, health education and screening programs</li>
+                </ul>
+                
+                <h3>Blood and Tissue Flagellates</h3>
+                
+                <h4>Leishmania Species</h4>
+                <div class="definition-box">
+                    <p><strong>Leishmania species</strong> cause Leishmaniasis, a vector-borne disease transmitted by female sandflies (Phlebotomus). They exist as amastigotes (in mammalian host) and promastigotes (in sand fly gut).</p>
+                </div>
+                
+                <h5>Types of Leishmaniasis</h5>
+                <div class="key-points">
+                    <h6>Visceral Leishmaniasis (Kala-azar)</h6>
+                    <ul>
+                        <li><strong>Causative agents:</strong> L. donovani, L. infantum, L. chagasi</li>
+                        <li><strong>Target organs:</strong> Reticuloendothelial system (liver, spleen, bone marrow)</li>
+                        <li><strong>Clinical features:</strong> Irregular fever, chills, night sweats, progressive hepatosplenomegaly, pancytopenia, anemia, darkening of skin ("Kala-azar" = black fever)</li>
+                        <li><strong>Complications:</strong> Death from secondary infections or bleeding if untreated</li>
+                    </ul>
+                    
+                    <h6>Cutaneous Leishmaniasis</h6>
+                    <ul>
+                        <li><strong>Causative agents:</strong> L. tropica, L. major, L. mexicana</li>
+                        <li><strong>Clinical features:</strong> Localized skin lesion at bite site, starts as papule → ulcer with raised indurated edges, painless, may heal spontaneously with depressed scar</li>
+                        <li><strong>Common names:</strong> "Oriental sore", "Delhi boil", "Baghdad boil"</li>
+                    </ul>
+                    
+                    <h6>Mucocutaneous Leishmaniasis</h6>
+                    <ul>
+                        <li><strong>Causative agents:</strong> L. braziliensis, L. panamensis, L. guyanensis</li>
+                        <li><strong>Clinical features:</strong> Begins as cutaneous ulcer → spreads to mucous membranes (nose, mouth, pharynx), causes ulceration, destruction, and disfigurement</li>
+                        <li><strong>Complications:</strong> Airway obstruction, difficulty eating/speaking</li>
+                    </ul>
+                </div>
+                
+                <h5>Life Cycle of Leishmania</h5>
+                <ol class="content-list">
+                    <li>Sandfly injects promastigotes into human skin</li>
+                    <li>Promastigotes enter macrophages → transform into amastigotes</li>
+                    <li>In VL: amastigotes carried through blood circulation, invade and multiply in macrophages of spleen, liver, bone marrow, lymph glands</li>
+                    <li>In CL/MCL: amastigotes multiply in skin macrophages (histiocytes)</li>
+                    <li>Amastigotes multiply → spread to liver, spleen, bone marrow</li>
+                    <li>Sandfly ingests amastigotes → develop back into promastigotes</li>
+                </ol>
+                
+                <h5>Diagnosis and Treatment</h5>
+                <ul class="content-list">
+                    <li><strong>Diagnosis:</strong> Amastigotes in smears/biopsy, rK39 antigen test, ELISA, or PCR</li>
+                    <li><strong>Treatment:</strong> Liposomal Amphotericin B (Visceral), Miltefosine or Sodium stibogluconate (alternatives)</li>
+                    <li><strong>Prevention:</strong> Control of sandfly vector, insecticide-treated bed nets, early detection and treatment, health education</li>
+                </ul>
+                
+                <h4>Trypanosoma Species</h4>
+                <div class="definition-box">
+                    <p><strong>Trypanosoma species</strong> are causative agents of trypanosomiasis. Human forms include African Trypanosomiasis (Sleeping sickness) and American Trypanosomiasis (Chagas disease).</p>
+                </div>
+                
+                <h5>African Trypanosomiasis (Sleeping Sickness)</h5>
+                <ul class="content-list">
+                    <li><strong>Causative agents:</strong> T. b. gambiense (West & Central Africa, chronic form), T. b. rhodesiense (East Africa, acute form)</li>
+                    <li><strong>In Ethiopia:</strong> T. b. rhodesiense in Gambela, South Omo, Bench-Maji, and Wolega areas</li>
+                    <li><strong>Transmission:</strong> Bite of infected tsetse fly</li>
+                    <li><strong>Reservoir:</strong> Humans (T. b. gambiense), wild/game animals (T. b. rhodesiense)</li>
+                </ul>
+                
+                <h6>Morphology and Life Cycle</h6>
+                <ul class="content-list">
+                    <li><strong>Form in humans:</strong> Trypomastigote only</li>
+                    <li><strong>Forms in tsetse fly:</strong> Procyclic trypomastigote (midgut), epimastigote (salivary glands), metacyclic trypomastigote (infective stage)</li>
+                    <li><strong>Life cycle:</strong>
+                        <ol>
+                            <li>Tsetse fly bites infected human → ingests trypomastigotes</li>
+                            <li>In fly's midgut → develop into epimastigotes</li>
+                            <li>Move to salivary glands → transform into metacyclic trypomastigotes (infective stage)</li>
+                            <li>Fly bites another person → injects metacyclic trypomastigotes</li>
+                            <li>In human → multiply as trypomastigotes in blood, lymph, and CSF</li>
+                        </ol>
+                    </li>
+                </ul>
+                
+                <h6>Clinical Features</h6>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <h4>Early Stage (Hemolymphatic)</h4>
+                        <p>Intermittent fever, headache, malaise & weakness, myalgia/arthralgia, posterior cervical lymphadenopathy (Winterbottom sign), chancre at bite site, hepatosplenomegaly</p>
+                    </div>
+                    <div class="step-card">
+                        <h4>Late Stage (Neurological/CNS)</h4>
+                        <p>Sleep disturbances, daytime somnolence, nighttime insomnia, behavioral changes, irritability, confusion, tremors, ataxia, endocrine dysfunction, coma and death if untreated</p>
+                    </div>
+                </div>
+                
+                <h6>Diagnosis and Treatment</h6>
+                <ul class="content-list">
+                    <li><strong>Diagnosis:</strong> Microscopy (trypomastigotes in blood, lymph node aspirate, or CSF), serological tests (CATT), CSF analysis</li>
+                    <li><strong>Treatment:</strong> Early stage: Suramin (T. b. rhodesiense), Pentamidine (T. b. gambiense). Late stage (CNS): Melarsoprol, Eflornithine</li>
+                    <li><strong>Prevention:</strong> Vector control (insecticide spraying, tsetse fly traps), personal protection, screening & treatment, surveillance programs</li>
+                </ul>
+                
+                <h5>American Trypanosomiasis (Chagas Disease)</h5>
+                <div class="key-points">
+                    <p><strong>Reading Assignment:</strong> Please review the specific details of American Trypanosomiasis (Chagas Disease) including causative agent (Trypanosoma cruzi), transmission by triatomine bugs, clinical manifestations, diagnosis, and treatment.</p>
+                </div>
+            </section>
+
+            <!-- Cestodes Section -->
+            <section id="cestodes" class="content-section">
+                <h2>Cestodes (Tapeworms)</h2>
+                
+                <div class="definition-box">
+                    <p><strong>Cestodes</strong> are segmented, tape-like worms that are hermaphroditic (monoecious). They range in size from few mm to several meters and obtain nutrients by absorption through their body surface.</p>
+                </div>
+                
+                <h3>General Morphology</h3>
+                <ul class="content-list">
+                    <li><strong>Head (scolex)</strong> - Attachment organ with suckers and sometimes hooks</li>
+                    <li><strong>Neck</strong> - Growth region</li>
+                    <li><strong>Strobila</strong> - Collection of proglottids (segments)</li>
+                    <li>Every mature segment contains both male and female sex organs</li>
+                </ul>
+                
+                <h3>Classification of Medically Important Cestodes</h3>
+                <div class="key-points">
+                    <h4>Human Infection with Adult Cestodes (Intestinal)</h4>
+                    <ul>
+                        <li>Taenia saginata (Beef tapeworm)</li>
+                        <li>Taenia solium (Pork tapeworm)</li>
+                        <li>Hymenolepis nana (Dwarf tapeworm)</li>
+                    </ul>
+                    
+                    <h4>Human Infection with Larval Cestodes (Tissue)</h4>
+                    <ul>
+                        <li>Echinococcus granulosus (Hydatid tapeworm)</li>
+                    </ul>
+                </div>
+                
+                <h3>Taenia saginata (Beef Tapeworm)</h3>
+                
+                <h4>Epidemiology and Morphology</h4>
+                <ul class="content-list">
+                    <li><strong>Disease:</strong> Taeniasis</li>
+                    <li><strong>Geographical distribution:</strong> Worldwide, very common in Ethiopia</li>
+                    <li><strong>Habitat:</strong> Adult in small intestine of human (4-12 m long), larvae in muscular tissues of cattle</li>
+                    <li><strong>Adult worm:</strong> 4–10 meters long</li>
+                    <li><strong>Scolex:</strong> 4 suckers, no hooks</li>
+                    <li><strong>Proglottids:</strong> Mature (contain reproductive organs), gravid (filled with branched uterus with 15–30 lateral branches)</li>
+                    <li><strong>Larval form:</strong> Cysticercus bovis (in bovine musculature)</li>
+                </ul>
+                
+                <h4>Transmission and Life Cycle</h4>
+                <ol class="content-list">
+                    <li>Humans are definitive host (DH), cattle are intermediate host (IH)</li>
+                    <li>Infective form for humans: Cysticercus bovis</li>
+                    <li>Infection: Consumption of raw or undercooked beef containing cysticerci</li>
+                    <li>In small intestine: Strobilization starts & adult worm forms</li>
+                    <li>Eggs produced in gravid segments</li>
+                    <li>Eggs or gravid proglottids passed in human feces → contaminate soil/vegetation</li>
+                    <li>Cattle ingest eggs while grazing</li>
+                    <li>Eggshell ruptures releasing oncospheres → penetrate intestinal wall → migrate to muscles → develop into Cysticercus bovis</li>
+                    <li>Cycle continues when humans eat undercooked beef</li>
+                </ol>
+                
+                <h4>Clinical Features and Diagnosis</h4>
+                <ul class="content-list">
+                    <li><strong>Clinical features:</strong> Usually asymptomatic, mild abdominal discomfort, nausea, weakness, weight loss, passage of proglottids, occasionally appendicitis or cholangitis</li>
+                    <li><strong>Diagnosis:</strong> Detection of eggs (microscopy), demonstration of proglottids in feces</li>
+                    <li><strong>Treatment:</strong> Praziquantel (5–10 mg/kg once), Niclosamide, Albendazole</li>
+                    <li><strong>Prevention:</strong> Avoid raw/undercooked meat, proper sewage disposal, treating infected persons, health education</li>
+                </ul>
+                
+                <h3>Taenia solium (Pork Tapeworm)</h3>
+                
+                <h4>Epidemiology and Morphology</h4>
+                <ul class="content-list">
+                    <li><strong>Disease:</strong> Taeniasis and Cysticercosis</li>
+                    <li><strong>Geographic Distribution:</strong> Worldwide, especially where humans live in close contact with pigs</li>
+                    <li><strong>Global burden:</strong> About 2.7 million people worldwide have cysticercosis</li>
+                    <li><strong>Hosts:</strong> Definitive host: Humans (adult worm), Intermediate host: Pigs (larval form, Cysticercus cellulosae), Accidental intermediate host: Humans (in cysticercosis)</li>
+                    <li><strong>Adult worm:</strong> 2–3 meters long</li>
+                    <li><strong>Scolex:</strong> 4 suckers, rostellum with double row of hooks</li>
+                    <li><strong>Proglottids:</strong> Gravid uterus has 7–13 lateral branches</li>
+                </ul>
+                
+                <h4>Life Cycle</h4>
+                <div class="key-points">
+                    <h5>Taeniasis (Intestinal Infection)</h5>
+                    <ol>
+                        <li>Gravid proglottids or eggs passed in human feces</li>
+                        <li>Pigs ingest eggs or gravid proglottis</li>
+                        <li>Oncospheres hatch → penetrate intestinal wall → enter bloodstream</li>
+                        <li>Reach muscles, brain, eye, subcutaneous tissue → develop into Cysticercus cellulosae</li>
+                        <li>Humans ingest undercooked pork containing cysticerci</li>
+                        <li>In human intestine → scolex evaginates → attaches to intestinal mucosa → grows into adult tapeworm</li>
+                    </ol>
+                    
+                    <h5>Cysticercosis (Tissue Infection)</h5>
+                    <ol>
+                        <li>Humans ingest T. solium eggs (contaminated food/water or autoinfection)</li>
+                        <li>Oncospheres hatch in small intestine → penetrate intestinal mucosa</li>
+                        <li>Enter bloodstream/lymphatics → spread throughout body</li>
+                        <li>In tissues (brain, eye, muscles, subcutaneous tissue) → develop into cysticerci within 2–3 months</li>
+                        <li>Humans are dead-end accidental intermediate hosts</li>
+                    </ol>
+                </div>
+                
+                <h4>Clinical Features</h4>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <h4>Intestinal Taeniasis</h4>
+                        <p>Often asymptomatic. May cause abdominal pain, nausea, diarrhea, weight loss, sensation of movement (passing segments in stool).</p>
+                    </div>
+                    <div class="step-card">
+                        <h4>Cysticercosis</h4>
+                        <p><strong>Neurocysticercosis (most common):</strong> Seizures, headaches, hydrocephalus</p>
+                        <p><strong>Ocular cysticercosis:</strong> Visual loss</p>
+                        <p><strong>Other:</strong> Subcutaneous nodules, myalgia</p>
+                    </div>
+                </div>
+                
+                <h4>Diagnosis and Treatment</h4>
+                <ul class="content-list">
+                    <li><strong>Diagnosis:</strong> 
+                        <ul>
+                            <li>Intestinal taeniasis: Detection of eggs or proglottids in feces</li>
+                            <li>Cysticercosis: Imaging (CT/MRI for neurocysticercosis), serology (ELISA, EITB), biopsy of subcutaneous nodules</li>
+                        </ul>
+                    </li>
+                    <li><strong>Treatment:</strong>
+                        <ul>
+                            <li>Taeniasis: Praziquantel or Niclosamide</li>
+                            <li>Cysticercosis: Albendazole or Praziquantel + Corticosteroids, surgery for ocular or CNS cysts</li>
+                        </ul>
+                    </li>
+                    <li><strong>Prevention:</strong> Cook pork thoroughly, meat inspection, good sanitation, treat infected individuals, health education</li>
+                </ul>
+                
+                <h3>Hymenolepis nana (Dwarf Tapeworm)</h3>
+                
+                <h4>Epidemiology and Morphology</h4>
+                <ul class="content-list">
+                    <li><strong>Disease:</strong> Hymenolepiasis</li>
+                    <li><strong>Distribution:</strong> Worldwide, more common in children</li>
+                    <li><strong>Size:</strong> Very small; adult 15–40 mm long, 1 mm wide (smallest tapeworm infecting humans)</li>
+                    <li><strong>Scolex:</strong> 4 suckers, rostellum with 1–4 rows of hooks</li>
+                    <li><strong>Proglottids:</strong> Each contains male and female reproductive organs</li>
+                    <li><strong>Hosts:</strong> Definitive host: Humans (especially children), occasionally rodents. Intermediate host: Optional (fleas or beetles)</li>
+                    <li><strong>Unique feature:</strong> Can complete life cycle in a single host</li>
+                </ul>
+                
+                <h4>Life Cycle</h4>
+                <ol class="content-list">
+                    <li>Embryonated eggs passed in feces → immediately infective</li>
+                    <li>Ingestion by humans (contaminated hands, food, or water)</li>
+                    <li>In intestine → oncosphere released → penetrates intestinal villi</li>
+                    <li>Develops into cysticercoid larva inside villi (4–5 days)</li>
+                    <li>Larva returns to intestinal lumen → matures into adult worm in 10–14 days</li>
+                    <li>Eggs released → autoinfection may occur (internal or external)</li>
+                </ol>
+                
+                <h4>Clinical Features and Management</h4>
+                <ul class="content-list">
+                    <li><strong>Clinical features:</strong> Most often asymptomatic. Heavy infections: weakness, headaches, anorexia, abdominal pain, diarrhea</li>
+                    <li><strong>Diagnosis:</strong> Finding eggs in feces</li>
+                    <li><strong>Treatment:</strong> Praziquantel (single dose 25 mg/kg) - acts against both adult and larval forms, Niclosamide</li>
+                    <li><strong>Prevention:</strong> Proper hand hygiene, avoid contaminated food and water, rodent and insect control, treat all infected individuals in close contact</li>
+                </ul>
+                
+                <h3>Echinococcus granulosus (Hydatid Tapeworm)</h3>
+                
+                <h4>Epidemiology and Morphology</h4>
+                <ul class="content-list">
+                    <li><strong>Disease:</strong> Hydatid disease or Hydatidosis</li>
+                    <li><strong>In Ethiopia:</strong> Common in pastoral people in South and South-East</li>
+                    <li><strong>Size:</strong> Smallest of all tapeworms (adult), largest larval stage (Hydatid cyst)</li>
+                    <li><strong>Hosts:</strong> Definitive host: Dogs and other canines (adult worms in intestine), Intermediate host: Sheep, cattle, pigs, humans (accidental) - harbor larval stage (hydatid cyst)</li>
+                    <li><strong>Habitat:</strong> Adult in small intestine of carnivores (dog, fox), hydatid cyst/larvae in different body parts (liver, lung, kidney, brain, etc) of human and herbivorous animals (sheep)</li>
+                    <li><strong>Hydatid cyst:</strong> Fluid-filled with double-layered covering, growth rate 1 to 5 cm per year</li>
+                </ul>
+                
+                <h4>Life Cycle</h4>
+                <ol class="content-list">
+                    <li>Adult worm in dog intestine → releases eggs in feces</li>
+                    <li>Intermediate host (sheep/human) ingests eggs from contaminated food, water, or direct contact with dogs</li>
+                    <li>Oncosphere hatches in intestine → penetrates mucosa → enters blood</li>
+                    <li>Migrates to liver (most common) or lungs, brain, other organs → develops into hydatid cyst</li>
+                    <li>Cyst enlarges slowly (months–years)</li>
+                    <li>Dog infected by eating organs of infected intermediate host containing cysts</li>
+                    <li>Protoscolices evaginate after ingestion</li>
+                    <li>Protoscolices attach to dog intestine → mature into adult worms</li>
+                    <li>Humans: Dead-end intermediate host (no further transmission)</li>
+                </ol>
+                
+                <h4>Clinical Features</h4>
+                <ul class="content-list">
+                    <li>Often asymptomatic for years until cysts enlarge</li>
+                    <li><strong>Liver (70%):</strong> Hepatomegaly, abdominal pain, jaundice</li>
+                    <li><strong>Lungs (20%):</strong> Cough, chest pain, hemoptysis</li>
+                    <li><strong>Other sites:</strong> Brain (intracranial pressure, epilepsy), kidney (renal dysfunction), bones (erosion, pathological fractures)</li>
+                    <li><strong>Cyst rupture:</strong> Fever, urticaria, eosinophilia, anaphylactic shock, secondary cyst dissemination</li>
+                </ul>
+                
+                <h4>Diagnosis and Treatment</h4>
+                <ul class="content-list">
+                    <li><strong>Diagnosis:</strong> Serology (ELISA for antibody detection), examination of cystic fluid (brood capsules and protoscolices), imaging (X-ray, CT scan, ultrasound)</li>
+                    <li><strong>Treatment:</strong>
+                        <ul>
+                            <li>Surgery (main treatment)</li>
+                            <li>Albendazole or Mebendazole for smaller cysts or after surgery</li>
+                            <li>PAIR (Puncture-Aspiration-Injection-Reaspiration): Minimally invasive procedure under ultrasonographic guidance</li>
+                        </ul>
+                    </li>
+                    <li><strong>Hydatid Cyst Rupture Emergency:</strong> IM Epinephrine + supportive care (oxygen, IV fluids, corticosteroids, antihistamines) for anaphylaxis. After stabilization: Albendazole therapy, surgery or PAIR</li>
+                    <li><strong>Prevention:</strong> Proper personal hygiene, handwashing after handling dogs, periodic deworming of pet dogs, preventing dogs access to butchering sites or offals of infected animals</li>
+                </ul>
+            </section>
+
+            <!-- Clinical Management Section -->
+            <section id="clinical" class="content-section">
+                <h2>Clinical Management</h2>
+                
+                <h3>Diagnostic Approaches in Parasitology</h3>
+                
+                <h4>Microscopic Examination</h4>
+                <ul class="content-list">
+                    <li><strong>Direct wet mounts:</strong> For motile trophozoites in fresh specimens</li>
+                    <li><strong>Stained smears:</strong> Permanent stains (trichrome, iron-hematoxylin) for detailed morphology</li>
+                    <li><strong>Concentration techniques:</strong> Formal-ether sedimentation, flotation methods for detecting low numbers of parasites</li>
+                </ul>
+                
+                <h4>Immunological Methods</h4>
+                <ul class="content-list">
+                    <li><strong>Antigen detection:</strong> ELISA, rapid immunochromatographic tests</li>
+                    <li><strong>Antibody detection:</strong> Serological tests for tissue-invasive parasites</li>
+                    <li><strong>Molecular methods:</strong> PCR for species identification and detection</li>
+                </ul>
+                
+                <h4>Imaging Techniques</h4>
+                <ul class="content-list">
+                    <li><strong>Ultrasound:</strong> For hepatic amoebic abscess, hydatid cysts</li>
+                    <li><strong>CT/MRI:</strong> For neurocysticercosis, cerebral amoebiasis</li>
+                    <li><strong>X-ray:</strong> For pulmonary involvement, calcified cysts</li>
+                </ul>
+                
+                <h3>Treatment Guidelines</h3>
+                
+                <h4>Antiprotozoal Drugs</h4>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Drug</th>
+                            <th>Target Parasites</th>
+                            <th>Mechanism of Action</th>
+                            <th>Common Side Effects</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Metronidazole</td>
+                            <td>Entamoeba, Giardia, Trichomonas</td>
+                            <td>Forms toxic metabolites that damage DNA</td>
+                            <td>Nausea, metallic taste, disulfiram-like reaction with alcohol</td>
+                        </tr>
+                        <tr>
+                            <td>Tinidazole</td>
+                            <td>Entamoeba, Giardia, Trichomonas</td>
+                            <td>Similar to metronidazole with longer half-life</td>
+                            <td>Similar to metronidazole but better tolerated</td>
+                        </tr>
+                        <tr>
+                            <td>Chloroquine</td>
+                            <td>Extraintestinal amoebiasis</td>
+                            <td>Concentrates in liver, toxic to trophozoites</td>
+                            <td>Pruritus, gastrointestinal upset, retinal toxicity with long-term use</td>
+                        </tr>
+                        <tr>
+                            <td>Miltefosine</td>
+                            <td>Leishmania, free-living amoeba</td>
+                            <td>Disrupts cell membrane and mitochondrial function</td>
+                            <td>Gastrointestinal disturbances, renal toxicity</td>
+                        </tr>
+                        <tr>
+                            <td>Amphotericin B</td>
+                            <td>Leishmania, free-living amoeba</td>
+                            <td>Binds to ergosterol in cell membrane</td>
+                            <td>Nephrotoxicity, infusion reactions, electrolyte disturbances</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4>Antihelminthic Drugs</h4>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Drug</th>
+                            <th>Target Parasites</th>
+                            <th>Mechanism of Action</th>
+                            <th>Common Side Effects</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Praziquantel</td>
+                            <td>Taenia, Hymenolepis, Schistosoma</td>
+                            <td>Increases membrane permeability to calcium</td>
+                            <td>Abdominal pain, dizziness, headache</td>
+                        </tr>
+                        <tr>
+                            <td>Albendazole</td>
+                            <td>Taenia, Echinococcus, Hymenolepis</td>
+                            <td>Inhibits microtubule polymerization</td>
+                            <td>Abdominal pain, elevated liver enzymes, bone marrow suppression</td>
+                        </tr>
+                        <tr>
+                            <td>Niclosamide</td>
+                            <td>Taenia, Hymenolepis</td>
+                            <td>Inhibits oxidative phosphorylation</td>
+                            <td>Nausea, abdominal discomfort</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Prevention and Control Strategies</h3>
+                
+                <h4>General Principles</h4>
+                <ul class="content-list">
+                    <li><strong>Sanitation:</strong> Proper waste disposal, sewage treatment</li>
+                    <li><strong>Water safety:</strong> Filtration, boiling, chemical treatment</li>
+                    <li><strong>Food hygiene:</strong> Proper cooking, washing fruits and vegetables</li>
+                    <li><strong>Personal protection:</strong> Insect repellents, bed nets, protective clothing</li>
+                    <li><strong>Vector control:</strong> Insecticide spraying, environmental management</li>
+                    <li><strong>Health education:</strong> Community awareness about transmission and prevention</li>
+                </ul>
+                
+                <h4>Specific Control Measures</h4>
+                <div class="key-points">
+                    <h5>For Fecal-Orally Transmitted Parasites</h5>
+                    <ul>
+                        <li>Handwashing with soap and water</li>
+                        <li>Safe disposal of human feces</li>
+                        <li>Protection of water sources from contamination</li>
+                        <li>Food safety practices</li>
+                    </ul>
+                    
+                    <h5>For Vector-Borne Parasites</h5>
+                    <ul>
+                        <li>Use of insecticide-treated bed nets</li>
+                        <li>Indoor residual spraying</li>
+                        <li>Environmental management to reduce breeding sites</li>
+                        <li>Personal protection measures</li>
+                    </ul>
+                    
+                    <h5>For Zoonotic Parasites</h5>
+                    <ul>
+                        <li>Veterinary public health measures</li>
+                        <li>Proper cooking of meat</li>
+                        <li>Control of reservoir hosts</li>
+                        <li>Prevention of animal access to human food and water</li>
+                    </ul>
+                </div>
+                
+                <h3>Public Health Importance</h3>
+                
+                <h4>Global Burden of Parasitic Diseases</h4>
+                <ul class="content-list">
+                    <li>Parasitic diseases affect billions of people worldwide</li>
+                    <li>Disproportionately impact tropical regions and impoverished communities</li>
+                    <li>Major causes of morbidity and mortality, particularly in children</li>
+                    <li>Significant economic impact due to healthcare costs and lost productivity</li>
+                </ul>
+                
+                <h4>Integrated Control Approaches</h4>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <h4>Surveillance</h4>
+                        <p>Regular monitoring of disease incidence and prevalence. Identification of high-risk populations and areas. Tracking of control program effectiveness.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4>Case Management</h4>
+                        <p>Early diagnosis and appropriate treatment. Follow-up to ensure cure and prevent complications. Management of severe and complicated cases.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4>Preventive Interventions</h4>
+                        <p>Mass drug administration in endemic areas. Vector control measures. Environmental sanitation improvements. Health education and community mobilization.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="page-footer">
+            <p>Medical Parasitology Guide &copy; 2023 | Based on lecture materials: Protozoa and Cestodes</p>
+            <p>This educational resource is for academic purposes only. Consult healthcare professionals for medical advice and treatment.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const targetId = this.getAttribute('href');
+                    document.querySelector(targetId).classList.add('active');
+                    
+                    // Scroll to the top of the section
+                    window.scrollTo({
+                        top: document.querySelector(targetId).offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Set the first section as active by default
+            if (window.location.hash) {
+                const targetSection = document.querySelector(window.location.hash);
+                if (targetSection) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    
+                    document.querySelector(`a[href="${window.location.hash}"]`).classList.add('active');
+                    targetSection.classList.add('active');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

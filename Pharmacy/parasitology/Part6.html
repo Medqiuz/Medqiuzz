@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parasitology Part 6 | Summary & References | MedQuiz</title>
+  <style>
+    :root {
+      --primary: #0077cc;
+      --primary-dark: #005fa3;
+      --secondary: #6a11cb;
+      --light-bg: #f9fafc;
+      --card-bg: #ffffff;
+      --text-dark: #333;
+      --text-light: #555;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--primary);
+      color: #fff;
+      padding: 15px 25px;
+      border-radius: 0 0 15px 15px;
+    }
+
+    .dashboard-header .header-content span {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .logout-btn {
+      background-color: #fff;
+      color: var(--primary);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+      background-color: var(--primary-dark);
+      color: #fff;
+    }
+
+    .breadcrumb {
+      padding: 15px 25px;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb a {
+      text-decoration: none;
+      color: var(--primary);
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      padding: 20px;
+      margin: 20px;
+      border-radius: 15px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: var(--primary-dark);
+    }
+
+    .image-box {
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .image-box img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    iframe {
+      width: 100%;
+      height: 315px;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    .tips-box {
+      background: #e8f4ff;
+      border-left: 5px solid var(--primary);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .reference-box {
+      background: #f1ecff;
+      border-left: 5px solid var(--secondary);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="dashboard-header">
+    <div class="header-content">
+      <span>Parasitology</span>
+      <div class="header-subtitle">Part 6 — Summary & References</div>
+    </div>
+    <button onclick="goBack()" class="logout-btn">Back</button>
+  </header>
+
+  <div class="breadcrumb">
+    <a href="../../dashboard.html">Dashboard</a> &gt;
+    <a href="../pharmacy.html">Pharmacy</a> &gt;
+    <a href="../year2.html">Year 2</a> &gt;
+    <a href="../session1.html">Session 1</a> &gt;
+    Part 6
+  </div>
+
+  <div class="section-card">
+    <h2>🧬 High‑Yield Parasitology Summary</h2>
+    <p>Part 6 reviews the most important parasitology topics for exams: classification, life cycles, hosts, and clinical relevance.</p>
+
+    <h3>📌 Protozoa</h3>
+    <ul>
+      <li><strong>Plasmodium spp</strong> – malaria: sporozoite → liver → RBCs (merozoite) → gametocyte → mosquito</li>
+      <li><strong>Entamoeba histolytica</strong> – causes amoebic dysentery, trophozoite and cyst forms</li>
+      <li><strong>Leishmania donovani</strong> – kala-azar; visceral involvement</li>
+      <li><strong>Toxoplasma gondii</strong> – tissue cysts (bradyzoites), tachyzoites, oocysts</li>
+    </ul>
+
+    <h3>📌 Helminths</h3>
+    <ul>
+      <li><strong>Ascaris lumbricoides</strong> – migrates via lungs → GI tract</li>
+      <li><strong>Hookworm</strong> – causes iron-deficiency anemia by feeding on intestinal mucosa</li>
+      <li><strong>Schistosoma</strong> – blood flukes; different species cause urinary or intestinal schistosomiasis</li>
+      <li><strong>Enterobius vermicularis</strong> – pinworm; perianal itching, eggs laid outside host</li>
+    </ul>
+
+    <h3>📌 Arthropods / Vectors</h3>
+    <ul>
+      <li><strong>Anopheles mosquito</strong> – vector for malaria (Plasmodium)</li>
+      <li><strong>Sandfly</strong> – transmits Leishmania species</li>
+    </ul>
+
+    <div class="image-box">
+      <!-- Use real parasitology images from Wikimedia Commons -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Schistosoma_life_cycle_diagram.png" alt="Schistosoma Life Cycle">
+      <p><em>Schistosoma life cycle (Wikimedia Commons)</em></p>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <h2>🎥 Recommended Videos</h2>
+
+    <!-- Malaria life cycle video -->
+    0  
+    <iframe src="https://www.youtube.com/embed/ByfdvMOrwhs" allowfullscreen></iframe>
+    <p><strong>Biological Cycle of Malaria</strong> – detailed, animated life cycle of Plasmodium. 1</p>
+
+    <!-- Protozoa classification video -->
+    <iframe src="https://www.youtube.com/embed/XS5nIPe1df8" allowfullscreen></iframe>
+    <p><strong>Protozoa Life Cycle & Classification</strong> – covers protozoan parasite groups. 2</p>
+  </div>
+
+  <div class="section-card">
+    <h2>📝 Exam Tips & Study Strategy</h2>
+    <div class="tips-box">
+      <ul>
+        <li>Focus on <strong>infective vs diagnostic stages</strong> for each parasite.</li>
+        <li>Draw life cycle diagrams repeatedly — they are heavily tested.</li>
+        <li>Use mnemonic devices to remember vectors and hosts.</li>
+        <li>Link clinical symptoms to life cycle stages (e.g., malaria fever cycles).</li>
+        <li>Use flashcards for parasite species, life cycles, and pathology.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <h2>📚 References & Further Reading</h2>
+    <div class="reference-box">
+      <ul>
+        <li><a href="https://www.cdc.gov/parasites" target="_blank">CDC Parasites – Parasites A–Z</a></li>
+        <li><a href="https://www.who.int/malaria" target="_blank">WHO – Malaria</a></li>
+        <li><a href="https://vetmed.uodiyala.edu.iq/wp-content/uploads/2023/02/nemaatoda-%D9%85%D8%AD%D8%A7%D8%B6%D8%B1%D8%A7%D8%AA-%D8%A7%D9%84%D8%A7%D8%B3%D8%B7%D9%88%D8%A7%D9%86%D9%8A%D8%A7%D8%AA.pdf" target="_blank">Parasitology PDF Notes</a> 3</li>
+        <li><a href="https://parasitesandvectors.biomedcentral.com/articles/10.1186/s13071-020-04445-z" target="_blank">Life‑Cycle of Toxoplasma gondii (animation + review)</a> 4</li>
+        <li><a href="https://commons.wikimedia.org/wiki/Category:Parasitology" target="_blank">Wikimedia Commons – Parasitology Images</a> 5</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+
+</body>
+</html>
