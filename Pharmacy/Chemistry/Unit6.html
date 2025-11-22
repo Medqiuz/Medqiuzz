@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 6: Steroids | Chemistry of Natural Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #9c27b0;
+            --primary-dark: #7b1fa2;
+            --secondary: #673ab7;
+            --accent: #e91e63;
+            --light: #f3e5f5;
+            --dark: #4a148c;
+            --success: #4caf50;
+            --danger: #f44336;
+            --warning: #ff9800;
+            --info: #2196f3;
+            --card-bg: #ffffff;
+            --border: #e1bee7;
+            --text: #4a148c;
+            --text-light: #7e57c2;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 25px 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+        }
+
+        .header-content h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            z-index: 1;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d81b60;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(233, 30, 99, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary);
+        }
+
+        .separator {
+            margin: 0 10px;
+            color: var(--text-light);
+        }
+
+        /* Overview Card */
+        .overview-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overview-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .overview-card h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .overview-card p {
+            color: var(--text);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 15px;
+            border-radius: var(--radius);
+            flex: 1;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .stat:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quiz-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .quiz-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .quiz-content {
+            padding: 30px;
+        }
+
+        /* Question Styles */
+        .question-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question-container {
+            background: #fafafa;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--info);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-container:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .question-text {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .options-container {
+            margin-left: 10px;
+        }
+
+        .option {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .option:hover {
+            background: rgba(156, 39, 176, 0.05);
+        }
+
+        .option input {
+            margin-right: 12px;
+            margin-top: 5px;
+            accent-color: var(--primary);
+        }
+
+        .option label {
+            cursor: pointer;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .short-answer {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .short-answer:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+            background: white;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .correct {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid var(--success);
+            color: #2e7d32;
+        }
+
+        .incorrect {
+            background: rgba(244, 67, 54, 0.1);
+            border: 1px solid var(--danger);
+            color: #c62828;
+        }
+
+        /* Results Section */
+        .results {
+            margin-top: 40px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .score-container {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .score-text {
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        .results-details {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .results-section {
+            margin-bottom: 30px;
+        }
+
+        .results-section h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question-result {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .question-result.correct {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--success);
+        }
+
+        .question-result.incorrect {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid var(--danger);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .stats {
+                flex-direction: column;
+            }
+            
+            .quiz-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .quiz-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .breadcrumb {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .separator {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+            
+            .overview-card h2 {
+                font-size: 1.5rem;
+            }
+            
+            .quiz-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-capsules"></i> Unit 6: Steroids</h1>
+                <p>Chemistry of Natural Products | Pharmacy Year 2</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Back to Course
+                </button>
+                <button class="btn btn-primary" id="start-quiz">
+                    <i class="fas fa-play"></i> Start Quiz
+                </button>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="../../dashboard.html">Dashboard</a>
+            <span class="separator">/</span>
+            <a href="../pharmacy.html">Pharmacy</a>
+            <span class="separator">/</span>
+            <a href="../year2.html">Year 2</a>
+            <span class="separator">/</span>
+            <a href="../session1.html">Session 1</a>
+            <span class="separator">/</span>
+            <a href="natural-products.html">Chemistry of Natural Products</a>
+            <span class="separator">/</span>
+            <span>Unit 6: Steroids</span>
+        </div>
+
+        <!-- Overview Card -->
+        <div class="overview-card">
+            <h2><i class="fas fa-info-circle"></i> Unit Overview</h2>
+            <p>This unit covers the introduction, sources for steroids, significance of steroids in pharmacy, chemistry and nomenclature of steroids, and sterols. Steroids are a class of lipids with a specific molecular structure containing four rings of carbon atoms. They play important roles as hormones, signaling molecules, and structural components of cell membranes.</p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">40</div>
+                    <div class="stat-label">Questions</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">45</div>
+                    <div class="stat-label">Minutes</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Sections</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <div class="quiz-title">
+                    <i class="fas fa-tasks"></i> Steroids Quiz
+                </div>
+                <div class="quiz-controls">
+                    <select id="feedback-mode" class="btn btn-secondary">
+                        <option value="immediate">Immediate Feedback</option>
+                        <option value="end">Feedback at End</option>
+                    </select>
+                    <button id="reset-quiz" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </div>
+
+            <div class="quiz-content" id="quiz-content">
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="quiz-progress" style="width: 0%"></div>
+                    </div>
+                    <div style="text-align: center; margin-top: 5px; color: var(--text-light); font-size: 0.9rem;">
+                        <span id="progress-text">0% Complete</span>
+                    </div>
+                </div>
+
+                <!-- True/False Questions -->
+                <div class="question-section">
+                    <div class="section-title">
+                        <i class="fas fa-check-circle"></i> True/False Questions (10)
+                    </div>
+                    <div id="tf-questions">
+                        <!-- True/False questions will be inserted here by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Multiple Choice Questions -->
+                <div class="question-section">
+                    <div class="section-title">
+                        <i class="fas fa-list-ol"></i> Multiple Choice Questions (20)
+                    </div>
+                    <div id="mcq-questions">
+                        <!-- MCQs will be inserted here by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Short Answer Questions -->
+                <div class="question-section">
+                    <div class="section-title">
+                        <i class="fas fa-edit"></i> Short Answer Questions (10)
+                    </div>
+                    <div id="short-answer-questions">
+                        <!-- Short answer questions will be inserted here by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div style="text-align: center; margin-top: 30px;">
+                    <button id="submit-quiz" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Submit Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results" id="results">
+            <div class="score-container">
+                <div class="score" id="score-value">0/40</div>
+                <div class="score-text" id="score-text">Your Quiz Score</div>
+            </div>
+            
+            <div class="results-details">
+                <div class="results-section">
+                    <h3><i class="fas fa-check-circle"></i> True/False Questions</h3>
+                    <div id="tf-results">
+                        <!-- TF results will be inserted here -->
+                    </div>
+                </div>
+                
+                <div class="results-section">
+                    <h3><i class="fas fa-list-ol"></i> Multiple Choice Questions</h3>
+                    <div id="mcq-results">
+                        <!-- MCQ results will be inserted here -->
+                    </div>
+                </div>
+                
+                <div class="results-section">
+                    <h3><i class="fas fa-edit"></i> Short Answer Questions</h3>
+                    <div id="short-answer-results">
+                        <!-- Short answer results will be inserted here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="review-quiz" class="btn btn-primary">
+                    <i class="fas fa-eye"></i> Review Quiz
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz questions data for Unit 6: Steroids
+        const quizData = {
+            trueFalse: [
+                {
+                    question: "Steroids are lipids with a structure based on a fused four-ring system.",
+                    answer: true,
+                    explanation: "Correct! All steroids have the characteristic cyclopentanoperhydrophenanthrene ring system."
+                },
+                {
+                    question: "Cholesterol is a type of steroid hormone.",
+                    answer: false,
+                    explanation: "Incorrect! Cholesterol is a steroid alcohol (sterol) that serves as a precursor for steroid hormones, but it is not itself a hormone."
+                },
+                {
+                    question: "All steroids are derived from cholesterol in the body.",
+                    answer: true,
+                    explanation: "Correct! Cholesterol serves as the precursor for all steroid hormones synthesized in the body."
+                },
+                {
+                    question: "Steroid hormones are water-soluble and can easily dissolve in blood.",
+                    answer: false,
+                    explanation: "Incorrect! Steroid hormones are lipid-soluble and require carrier proteins for transport in the blood."
+                },
+                {
+                    question: "The adrenal cortex produces both glucocorticoids and mineralocorticoids.",
+                    answer: true,
+                    explanation: "Correct! The adrenal cortex produces glucocorticoids (like cortisol) and mineralocorticoids (like aldosterone)."
+                },
+                {
+                    question: "Estrogen and testosterone are examples of steroid hormones.",
+                    answer: true,
+                    explanation: "Correct! Both estrogen and testosterone are steroid hormones derived from cholesterol."
+                },
+                {
+                    question: "All steroids have the same biological activity.",
+                    answer: false,
+                    explanation: "Incorrect! Different steroids have different biological activities based on their specific structures and target tissues."
+                },
+                {
+                    question: "Vitamin D is classified as a steroid.",
+                    answer: true,
+                    explanation: "Correct! Vitamin D is a secosteroid, which is a type of steroid with a broken ring."
+                },
+                {
+                    question: "Bile acids are steroids that help in digestion.",
+                    answer: true,
+                    explanation: "Correct! Bile acids are steroid derivatives that emulsify fats during digestion."
+                },
+                {
+                    question: "Steroids can be synthesized only in animal organisms.",
+                    answer: false,
+                    explanation: "Incorrect! While animals are common sources, some plants and fungi also produce steroids."
+                }
+            ],
+            multipleChoice: [
+                {
+                    question: "Which of the following is a common steroid nucleus?",
+                    options: ["Cyclopentanoperhydrophenanthrene", "Benzene", "Naphthalene", "Anthracene"],
+                    answer: "Cyclopentanoperhydrophenanthrene",
+                    explanation: "Correct! All steroids share the cyclopentanoperhydrophenanthrene ring system."
+                },
+                {
+                    question: "What is the parent compound of all steroids?",
+                    options: ["Cholesterol", "Lanosterol", "Testosterone", "Estradiol"],
+                    answer: "Lanosterol",
+                    explanation: "Correct! Lanosterol is the parent compound from which all steroids are derived in biosynthesis."
+                },
+                {
+                    question: "Which steroid hormone is primarily produced in the adrenal cortex?",
+                    options: ["Estrogen", "Testosterone", "Cortisol", "Progesterone"],
+                    answer: "Cortisol",
+                    explanation: "Correct! Cortisol is a glucocorticoid produced in the adrenal cortex."
+                },
+                {
+                    question: "Which of the following is NOT a steroid hormone?",
+                    options: ["Cortisol", "Aldosterone", "Estradiol", "Thyroxine"],
+                    answer: "Thyroxine",
+                    explanation: "Correct! Thyroxine is an iodine-containing amino acid derivative, not a steroid hormone."
+                },
+                {
+                    question: "Which of the following is a bile acid derived from cholesterol?",
+                    options: ["Testosterone", "Cholic acid", "Cortisol", "Estradiol"],
+                    answer: "Cholic acid",
+                    explanation: "Correct! Cholic acid is a primary bile acid synthesized from cholesterol in the liver."
+                },
+                {
+                    question: "Which of the following is a function of cholesterol in the body?",
+                    options: ["Precursor for steroid hormones", "Component of cell membranes", "Precursor for bile acids", "All of the above"],
+                    answer: "All of the above",
+                    explanation: "Correct! Cholesterol serves multiple functions including as a precursor for steroid hormones and bile acids, and as a component of cell membranes."
+                },
+                {
+                    question: "Which of the following is a synthetic steroid used as an anti-inflammatory drug?",
+                    options: ["Cortisol", "Prednisone", "Estradiol", "Testosterone"],
+                    answer: "Prednisone",
+                    explanation: "Correct! Prednisone is a synthetic corticosteroid used as an anti-inflammatory and immunosuppressant."
+                },
+                {
+                    question: "What is the primary source of cholesterol in the human body?",
+                    options: ["Dietary intake", "Liver synthesis", "Both dietary intake and liver synthesis", "Adrenal gland synthesis"],
+                    answer: "Both dietary intake and liver synthesis",
+                    explanation: "Correct! Cholesterol comes from both dietary sources and endogenous synthesis primarily in the liver."
+                },
+                {
+                    question: "Which steroid hormone regulates sodium and potassium balance?",
+                    options: ["Cortisol", "Aldosterone", "Estrogen", "Testosterone"],
+                    answer: "Aldosterone",
+                    explanation: "Correct! Aldosterone is a mineralocorticoid that regulates sodium and potassium balance in the body."
+                },
+                {
+                    question: "What is the basic structural unit of steroids?",
+                    options: ["Isoprene", "Glucose", "Amino acids", "Fatty acids"],
+                    answer: "Isoprene",
+                    explanation: "Correct! Steroids are derived from isoprene units, similar to terpenes."
+                },
+                {
+                    question: "Which of the following is a female sex hormone?",
+                    options: ["Testosterone", "Estrogen", "Cortisol", "Aldosterone"],
+                    answer: "Estrogen",
+                    explanation: "Correct! Estrogen is the primary female sex hormone."
+                },
+                {
+                    question: "What is the function of corticosteroid drugs?",
+                    options: ["Reduce inflammation", "Increase blood pressure", "Stimulate growth", "All of the above"],
+                    answer: "Reduce inflammation",
+                    explanation: "Correct! Corticosteroids are primarily used for their anti-inflammatory and immunosuppressive effects."
+                },
+                {
+                    question: "Which organ is primarily responsible for cholesterol synthesis?",
+                    options: ["Liver", "Kidney", "Pancreas", "Heart"],
+                    answer: "Liver",
+                    explanation: "Correct! The liver is the primary site of cholesterol synthesis in the body."
+                },
+                {
+                    question: "What is the chemical formula of cholesterol?",
+                    options: ["C27H46O", "C19H28O2", "C21H30O2", "C18H24O2"],
+                    answer: "C27H46O",
+                    explanation: "Correct! Cholesterol has the molecular formula C27H46O."
+                },
+                {
+                    question: "Which steroid is important for calcium metabolism?",
+                    options: ["Vitamin D", "Cortisol", "Testosterone", "Estrogen"],
+                    answer: "Vitamin D",
+                    explanation: "Correct! Vitamin D (a secosteroid) regulates calcium and phosphate metabolism."
+                },
+                {
+                    question: "What is the primary function of testosterone?",
+                    options: ["Development of male characteristics", "Regulation of metabolism", "Stress response", "Electrolyte balance"],
+                    answer: "Development of male characteristics",
+                    explanation: "Correct! Testosterone is the primary male sex hormone responsible for the development of male reproductive tissues and secondary sexual characteristics."
+                },
+                {
+                    question: "Which of the following is a plant steroid?",
+                    options: ["Phytosterol", "Cholesterol", "Cortisol", "Estradiol"],
+                    answer: "Phytosterol",
+                    explanation: "Correct! Phytosterols are plant-derived steroids structurally similar to cholesterol."
+                },
+                {
+                    question: "What is the role of steroid hormones in the body?",
+                    options: ["Gene regulation", "Rapid signal transduction", "Enzyme activation", "All of the above"],
+                    answer: "Gene regulation",
+                    explanation: "Correct! Steroid hormones primarily act by regulating gene expression."
+                },
+                {
+                    question: "Which steroid is commonly known as the 'stress hormone'?",
+                    options: ["Cortisol", "Adrenaline", "Testosterone", "Estrogen"],
+                    answer: "Cortisol",
+                    explanation: "Correct! Cortisol is often called the 'stress hormone' because it's released in response to stress."
+                },
+                {
+                    question: "What is the main structural difference between cholesterol and steroid hormones?",
+                    options: ["Number of carbon atoms", "Side chain modifications", "Ring structure", "All of the above"],
+                    answer: "Side chain modifications",
+                    explanation: "Correct! The main structural differences between cholesterol and steroid hormones involve modifications to the side chain."
+                }
+            ],
+            shortAnswer: [
+                {
+                    question: "Name the four-ring system that forms the basic structure of all steroids.",
+                    answer: "Cyclopentanoperhydrophenanthrene",
+                    explanation: "Correct! All steroids share the cyclopentanoperhydrophenanthrene ring system."
+                },
+                {
+                    question: "Name the steroid that serves as a precursor for all other steroid hormones.",
+                    answer: "Cholesterol",
+                    explanation: "Correct! Cholesterol is the precursor for all steroid hormones in the body."
+                },
+                {
+                    question: "What is the term for plant-derived steroids?",
+                    answer: "Phytosterols",
+                    explanation: "Correct! Phytosterols are plant-derived steroids structurally similar to cholesterol."
+                },
+                {
+                    question: "Name the steroid hormone that regulates sodium and potassium balance.",
+                    answer: "Aldosterone",
+                    explanation: "Correct! Aldosterone is a mineralocorticoid that regulates sodium and potassium balance in the body."
+                },
+                {
+                    question: "What is the primary female sex hormone?",
+                    answer: "Estrogen",
+                    explanation: "Correct! Estrogen is the primary female sex hormone."
+                },
+                {
+                    question: "Name the steroid commonly known as the 'stress hormone'.",
+                    answer: "Cortisol",
+                    explanation: "Correct! Cortisol is often called the 'stress hormone' because it's released in response to stress."
+                },
+                {
+                    question: "What is the primary male sex hormone?",
+                    answer: "Testosterone",
+                    explanation: "Correct! Testosterone is the primary male sex hormone."
+                },
+                {
+                    question: "Name the vitamin that is classified as a steroid.",
+                    answer: "Vitamin D",
+                    explanation: "Correct! Vitamin D is a secosteroid, which is a type of steroid with a broken ring."
+                },
+                {
+                    question: "What is the term for steroids that reduce inflammation?",
+                    answer: "Corticosteroids",
+                    explanation: "Correct! Corticosteroids are steroids that have anti-inflammatory effects."
+                },
+                {
+                    question: "Name the organ that is primarily responsible for cholesterol synthesis.",
+                    answer: "Liver",
+                    explanation: "Correct! The liver is the primary site of cholesterol synthesis in the body."
+                }
+            ]
+        };
+
+        // DOM elements
+        const startQuizBtn = document.getElementById('start-quiz');
+        const submitQuizBtn = document.getElementById('submit-quiz');
+        const resetQuizBtn = document.getElementById('reset-quiz');
+        const reviewQuizBtn = document.getElementById('review-quiz');
+        const feedbackModeSelect = document.getElementById('feedback-mode');
+        const quizContent = document.getElementById('quiz-content');
+        const results = document.getElementById('results');
+        const scoreValue = document.getElementById('score-value');
+        const scoreText = document.getElementById('score-text');
+        const progressBar = document.getElementById('quiz-progress');
+        const progressText = document.getElementById('progress-text');
+        const tfQuestionsContainer = document.getElementById('tf-questions');
+        const mcqQuestionsContainer = document.getElementById('mcq-questions');
+        const shortAnswerQuestionsContainer = document.getElementById('short-answer-questions');
+        const tfResultsContainer = document.getElementById('tf-results');
+        const mcqResultsContainer = document.getElementById('mcq-results');
+        const shortAnswerResultsContainer = document.getElementById('short-answer-results');
+
+        // State variables
+        let userAnswers = {
+            trueFalse: [],
+            multipleChoice: [],
+            shortAnswer: []
+        };
+
+        let answeredQuestions = 0;
+        const totalQuestions = quizData.trueFalse.length + quizData.multipleChoice.length + quizData.shortAnswer.length;
+
+        // Store shuffled questions for results
+        let currentTF = [];
+        let currentMCQ = [];
+        let currentShortAnswer = [];
+
+        // Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Shuffle options within a question
+        function shuffleOptions(question) {
+            if (!question.options) return question;
+            
+            // Store the correct answer
+            const correctAnswer = question.answer;
+            
+            // Create an array of objects with option text and whether it's correct
+            const optionsWithStatus = question.options.map(option => ({
+                text: option,
+                isCorrect: option === correctAnswer
+            }));
+            
+            // Shuffle the options
+            const shuffledOptions = shuffleArray([...optionsWithStatus]);
+            
+            // Find the new index of the correct answer
+            const newCorrectIndex = shuffledOptions.findIndex(option => option.isCorrect);
+            
+            // Update the question with shuffled options and new correct answer index
+            return {
+                ...question,
+                options: shuffledOptions.map(option => option.text),
+                answer: shuffledOptions[newCorrectIndex].text
+            };
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = (answeredQuestions / totalQuestions) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `${Math.round(progress)}% Complete`;
+        }
+
+        // Initialize the quiz
+        function initializeQuiz() {
+            // Reset user answers and progress
+            userAnswers = {
+                trueFalse: Array(quizData.trueFalse.length).fill(null),
+                multipleChoice: Array(quizData.multipleChoice.length).fill(null),
+                shortAnswer: Array(quizData.shortAnswer.length).fill(null)
+            };
+            
+            answeredQuestions = 0;
+            updateProgress();
+
+            // Hide results and show quiz content
+            results.style.display = 'none';
+            quizContent.style.display = 'block';
+
+            // Shuffle questions and options
+            currentTF = shuffleArray([...quizData.trueFalse]);
+            currentMCQ = shuffleArray([...quizData.multipleChoice]).map(shuffleOptions);
+            currentShortAnswer = shuffleArray([...quizData.shortAnswer]);
+
+            // Render True/False questions
+            tfQuestionsContainer.innerHTML = '';
+            currentTF.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question-container';
+                questionElement.innerHTML = `
+                    <div class="question-number"><i class="fas fa-question-circle"></i> True/False Question ${index + 1}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-container">
+                        <div class="option">
+                            <input type="radio" id="tf-${index}-true" name="tf-${index}" value="true">
+                            <label for="tf-${index}-true">True</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="tf-${index}-false" name="tf-${index}" value="false">
+                            <label for="tf-${index}-false">False</label>
+                        </div>
+                    </div>
+                    <div class="feedback" id="tf-feedback-${index}"></div>
+                `;
+                tfQuestionsContainer.appendChild(questionElement);
+
+                // Add event listeners for immediate feedback if selected
+                const inputs = questionElement.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        userAnswers.trueFalse[index] = e.target.value === 'true';
+                        answeredQuestions++;
+                        updateProgress();
+                        if (feedbackModeSelect.value === 'immediate') {
+                            showFeedback('tf', index, q.answer, q.explanation);
+                        }
+                    });
+                });
+            });
+
+            // Render Multiple Choice questions
+            mcqQuestionsContainer.innerHTML = '';
+            currentMCQ.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question-container';
+                
+                let optionsHTML = '';
+                q.options.forEach((option, optIndex) => {
+                    const optionLetter = String.fromCharCode(65 + optIndex); // A, B, C, D
+                    optionsHTML += `
+                        <div class="option">
+                            <input type="radio" id="mcq-${index}-${optIndex}" name="mcq-${index}" value="${option}">
+                            <label for="mcq-${index}-${optIndex}">${optionLetter}. ${option}</label>
+                        </div>
+                    `;
+                });
+
+                questionElement.innerHTML = `
+                    <div class="question-number"><i class="fas fa-question-circle"></i> Multiple Choice Question ${index + 1}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-container">
+                        ${optionsHTML}
+                    </div>
+                    <div class="feedback" id="mcq-feedback-${index}"></div>
+                `;
+                mcqQuestionsContainer.appendChild(questionElement);
+
+                // Add event listeners for immediate feedback if selected
+                const inputs = questionElement.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        userAnswers.multipleChoice[index] = e.target.value;
+                        answeredQuestions++;
+                        updateProgress();
+                        if (feedbackModeSelect.value === 'immediate') {
+                            showFeedback('mcq', index, q.answer, q.explanation);
+                        }
+                    });
+                });
+            });
+
+            // Render Short Answer questions
+            shortAnswerQuestionsContainer.innerHTML = '';
+            currentShortAnswer.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question-container';
+                questionElement.innerHTML = `
+                    <div class="question-number"><i class="fas fa-question-circle"></i> Short Answer Question ${index + 1}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-container">
+                        <input type="text" class="short-answer" id="short-answer-${index}" placeholder="Type your answer here">
+                    </div>
+                    <div class="feedback" id="short-answer-feedback-${index}"></div>
+                `;
+                shortAnswerQuestionsContainer.appendChild(questionElement);
+
+                // Add event listener for immediate feedback if selected
+                const input = questionElement.querySelector('input');
+                input.addEventListener('input', (e) => {
+                    userAnswers.shortAnswer[index] = e.target.value.trim().toLowerCase();
+                    if (userAnswers.shortAnswer[index] && userAnswers.shortAnswer[index].length > 0) {
+                        answeredQuestions++;
+                        updateProgress();
+                    }
+                    
+                    if (feedbackModeSelect.value === 'immediate') {
+                        showFeedback('short-answer', index, q.answer.toLowerCase(), q.explanation);
+                    }
+                });
+            });
+        }
+
+        // Show feedback for a question
+        function showFeedback(type, index, correctAnswer, explanation) {
+            const feedbackElement = document.getElementById(`${type}-feedback-${index}`);
+            const userAnswer = userAnswers[type === 'tf' ? 'trueFalse' : 
+                                          type === 'mcq' ? 'multipleChoice' : 
+                                          'shortAnswer'][index];
+            
+            if (userAnswer === null || userAnswer === undefined) return;
+            
+            let isCorrect = false;
+            
+            if (type === 'tf') {
+                isCorrect = userAnswer === correctAnswer;
+            } else if (type === 'mcq') {
+                isCorrect = userAnswer === correctAnswer;
+            } else if (type === 'short-answer') {
+                // For short answers, we'll do a simple string comparison
+                isCorrect = userAnswer === correctAnswer.toLowerCase();
+            }
+            
+            feedbackElement.innerHTML = isCorrect 
+                ? `<i class="fas fa-check-circle" style="color: #4caf50; margin-right: 8px;"></i> <strong>Correct!</strong> ${explanation}` 
+                : `<i class="fas fa-times-circle" style="color: #f44336; margin-right: 8px;"></i> <strong>Incorrect.</strong> The correct answer is: ${correctAnswer}. ${explanation}`;
+            
+            feedbackElement.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackElement.style.display = 'block';
+        }
+
+        // Calculate and display results
+        function calculateResults() {
+            let score = 0;
+            let total = 0;
+            
+            // Calculate True/False results
+            tfResultsContainer.innerHTML = '';
+            currentTF.forEach((q, index) => {
+                total++;
+                const userAnswer = userAnswers.trueFalse[index];
+                const isCorrect = userAnswer === q.answer;
+                
+                if (isCorrect) score++;
+                
+                const resultElement = document.createElement('div');
+                resultElement.className = `question-result ${isCorrect ? 'correct' : 'incorrect'}`;
+                resultElement.innerHTML = `
+                    <div><strong>Question ${index + 1}:</strong> ${q.question}</div>
+                    <div>Your answer: ${userAnswer === null ? 'Not answered' : (userAnswer ? 'True' : 'False')}</div>
+                    <div>Correct answer: ${q.answer ? 'True' : 'False'}</div>
+                    <div>${q.explanation}</div>
+                `;
+                tfResultsContainer.appendChild(resultElement);
+            });
+            
+            // Calculate Multiple Choice results
+            mcqResultsContainer.innerHTML = '';
+            currentMCQ.forEach((q, index) => {
+                total++;
+                const userAnswer = userAnswers.multipleChoice[index];
+                const isCorrect = userAnswer === q.answer;
+                
+                if (isCorrect) score++;
+                
+                const resultElement = document.createElement('div');
+                resultElement.className = `question-result ${isCorrect ? 'correct' : 'incorrect'}`;
+                resultElement.innerHTML = `
+                    <div><strong>Question ${index + 1}:</strong> ${q.question}</div>
+                    <div>Your answer: ${userAnswer || 'Not answered'}</div>
+                    <div>Correct answer: ${q.answer}</div>
+                    <div>${q.explanation}</div>
+                `;
+                mcqResultsContainer.appendChild(resultElement);
+            });
+            
+            // Calculate Short Answer results
+            shortAnswerResultsContainer.innerHTML = '';
+            currentShortAnswer.forEach((q, index) => {
+                total++;
+                const userAnswer = userAnswers.shortAnswer[index];
+                // For short answers, we'll do a simple string comparison
+                const isCorrect = userAnswer && userAnswer === q.answer.toLowerCase();
+                
+                if (isCorrect) score++;
+                
+                const resultElement = document.createElement('div');
+                resultElement.className = `question-result ${isCorrect ? 'correct' : 'incorrect'}`;
+                resultElement.innerHTML = `
+                    <div><strong>Question ${index + 1}:</strong> ${q.question}</div>
+                    <div>Your answer: ${userAnswer || 'Not answered'}</div>
+                    <div>Correct answer: ${q.answer}</div>
+                    <div>${q.explanation}</div>
+                `;
+                shortAnswerResultsContainer.appendChild(resultElement);
+            });
+            
+            // Update score display
+            scoreValue.textContent = `${score}/${total}`;
+            
+            // Set score text based on performance
+            const percentage = (score / total) * 100;
+            if (percentage >= 90) {
+                scoreText.textContent = "Excellent! You've mastered this unit!";
+            } else if (percentage >= 80) {
+                scoreText.textContent = "Great job! You have a solid understanding.";
+            } else if (percentage >= 70) {
+                scoreText.textContent = "Good work! Review the questions you missed.";
+            } else if (percentage >= 60) {
+                scoreText.textContent = "You passed! Consider reviewing the material.";
+            } else {
+                scoreText.textContent = "Keep studying! Review the unit material and try again.";
+            }
+            
+            // Show results section and hide quiz content
+            results.style.display = 'block';
+            quizContent.style.display = 'none';
+            
+            // If feedback mode is set to "end", show all feedback in results
+            if (feedbackModeSelect.value === 'end') {
+                showAllFeedback();
+            }
+        }
+
+        // Show all feedback for end mode
+        function showAllFeedback() {
+            // Show feedback for True/False questions
+            currentTF.forEach((q, index) => {
+                showFeedback('tf', index, q.answer, q.explanation);
+            });
+            
+            // Show feedback for Multiple Choice questions
+            currentMCQ.forEach((q, index) => {
+                showFeedback('mcq', index, q.answer, q.explanation);
+            });
+            
+            // Show feedback for Short Answer questions
+            currentShortAnswer.forEach((q, index) => {
+                showFeedback('short-answer', index, q.answer.toLowerCase(), q.explanation);
+            });
+        }
+
+        // Go back to course page
+        function goBack() {
+            window.location.href = 'natural-products.html';
+        }
+
+        // Event listeners
+        startQuizBtn.addEventListener('click', () => {
+            initializeQuiz();
+            startQuizBtn.disabled = true;
+            startQuizBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Restart Quiz';
+        });
+
+        submitQuizBtn.addEventListener('click', () => {
+            calculateResults();
+        });
+
+        resetQuizBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset the quiz? All your answers will be lost.')) {
+                initializeQuiz();
+            }
+        });
+
+        reviewQuizBtn.addEventListener('click', () => {
+            results.style.display = 'none';
+            quizContent.style.display = 'block';
+        });
+
+        // Initialize the quiz when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enable submit button from the start
+            submitQuizBtn.disabled = false;
+        });
+    </script>
+</body>
+</html>

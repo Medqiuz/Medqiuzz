@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Products Chemistry Quiz - Chapters 1-3</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        .settings {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .settings label {
+            margin-right: 15px;
+            font-weight: 500;
+        }
+        .settings select {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            margin-right: 20px;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .btn-primary {
+            background-color: #2ecc71;
+        }
+        .btn-primary:hover {
+            background-color: #27ae60;
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+        }
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        .quiz-section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        .question-container {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            background-color: white;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .question-text {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .options-container {
+            margin-left: 20px;
+        }
+        .option {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .option input {
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        .short-answer {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .correct {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .results {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        .score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .results-details {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .results-section {
+            margin-bottom: 25px;
+        }
+        .results-section h3 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .question-result {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .question-result.correct {
+            background-color: #d4edda;
+        }
+        .question-result.incorrect {
+            background-color: #f8d7da;
+        }
+        .hidden {
+            display: none;
+        }
+        .structure-img {
+            max-width: 200px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: white;
+        }
+        .submit-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        @media (max-width: 768px) {
+            .settings {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .settings > div {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Natural Products Chemistry Quiz</h1>
+            <p class="subtitle">Chapters 1-3: Stereochemistry, Carbohydrates, and Lipids</p>
+            <p>Course: Phar 2081 | Instructor: Tadesse B. (PhD)</p>
+        </header>
+
+        <div class="settings">
+            <div>
+                <label for="feedback-mode">Feedback Mode:</label>
+                <select id="feedback-mode">
+                    <option value="immediate">Immediate Feedback</option>
+                    <option value="end">Feedback at End</option>
+                </select>
+            </div>
+            <div>
+                <button id="start-quiz" class="btn btn-primary">Start Quiz</button>
+                <button id="reset-quiz" class="btn btn-danger">Reset Quiz</button>
+            </div>
+        </div>
+
+        <div id="quiz-content" class="hidden">
+            <!-- True/False Questions -->
+            <div class="quiz-section">
+                <div class="section-title">True/False Questions (10)</div>
+                <div id="tf-questions">
+                    <!-- True/False questions will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Multiple Choice Questions -->
+            <div class="quiz-section">
+                <div class="section-title">Multiple Choice Questions (50)</div>
+                <div id="mcq-questions">
+                    <!-- MCQs will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Short Answer Questions -->
+            <div class="quiz-section">
+                <div class="section-title">Short Answer Questions (10)</div>
+                <div id="short-answer-questions">
+                    <!-- Short answer questions will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="submit-container">
+                <button id="submit-quiz" class="btn btn-primary" disabled>Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results" class="results">
+            <h2>Quiz Results</h2>
+            <div class="score">Your Score: <span id="score-value">0</span>/<span id="total-questions">0</span></div>
+            <div class="results-details">
+                <div class="results-section">
+                    <h3>True/False Questions</h3>
+                    <div id="tf-results">
+                        <!-- TF results will be inserted here -->
+                    </div>
+                </div>
+                <div class="results-section">
+                    <h3>Multiple Choice Questions</h3>
+                    <div id="mcq-results">
+                        <!-- MCQ results will be inserted here -->
+                    </div>
+                </div>
+                <div class="results-section">
+                    <h3>Short Answer Questions</h3>
+                    <div id="short-answer-results">
+                        <!-- Short answer results will be inserted here -->
+                    </div>
+                </div>
+            </div>
+            <button id="review-quiz" class="btn btn-primary">Review Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // Quiz questions data
+        const quizData = {
+            trueFalse: [
+                {
+                    question: "Stereochemistry is the study of the three-dimensional arrangement of atoms in molecules.",
+                    answer: true,
+                    explanation: "Correct! Stereochemistry deals with the spatial arrangement of atoms and how this affects the properties and reactions of molecules."
+                },
+                {
+                    question: "Enantiomers have identical physical properties except for their interaction with plane-polarized light.",
+                    answer: true,
+                    explanation: "Correct! Enantiomers have identical physical properties like melting point, boiling point, and solubility, but they rotate plane-polarized light in opposite directions."
+                },
+                {
+                    question: "A chiral molecule must contain at least one carbon atom.",
+                    answer: false,
+                    explanation: "Incorrect! While carbon is the most common chiral center, chirality can exist in molecules with other atoms like phosphorus, sulfur, or nitrogen as chiral centers."
+                },
+                {
+                    question: "Diastereomers are mirror images of each other.",
+                    answer: false,
+                    explanation: "Incorrect! Diastereomers are stereoisomers that are not mirror images of each other. Enantiomers are mirror images."
+                },
+                {
+                    question: "A molecule with two chiral centers always has four stereoisomers.",
+                    answer: false,
+                    explanation: "Incorrect! While the maximum number is 2^n (where n is the number of chiral centers), some molecules may have meso forms that reduce the total number of stereoisomers."
+                },
+                {
+                    question: "Monosaccharides are the simplest form of carbohydrates and cannot be hydrolyzed into smaller units.",
+                    answer: true,
+                    explanation: "Correct! Monosaccharides are the basic building blocks of carbohydrates and cannot be broken down into simpler sugars by hydrolysis."
+                },
+                {
+                    question: "All carbohydrates have the general formula Cn(H2O)n.",
+                    answer: false,
+                    explanation: "Incorrect! While many carbohydrates follow this formula, some do not. For example, deoxy sugars like deoxyribose have a different formula."
+                },
+                {
+                    question: "Lipids are defined by their solubility in nonpolar solvents rather than by a common structural feature.",
+                    answer: true,
+                    explanation: "Correct! Lipids are a diverse group of compounds defined by their solubility in nonpolar solvents, not by a specific chemical structure."
+                },
+                {
+                    question: "Saturated fats have higher melting points than unsaturated fats.",
+                    answer: true,
+                    explanation: "Correct! Saturated fats have straight chains that pack tightly, leading to higher melting points, while unsaturated fats have kinks that prevent tight packing."
+                },
+                {
+                    question: "Trans fats occur naturally in many foods and are always beneficial for health.",
+                    answer: false,
+                    explanation: "Incorrect! While some trans fats occur naturally in small amounts, most are artificially produced through hydrogenation and are associated with negative health effects."
+                }
+            ],
+            multipleChoice: [
+                {
+                    question: "Which of the following is NOT a type of isomerism?",
+                    options: ["Structural isomerism", "Stereoisomerism", "Conformational isomerism", "Atomic isomerism"],
+                    answer: "Atomic isomerism",
+                    explanation: "Correct! Atomic isomerism is not a recognized type of isomerism. The main types are structural and stereoisomerism, with conformational isomerism being a subtype of stereoisomerism."
+                },
+                {
+                    question: "What is the maximum number of stereoisomers possible for a molecule with three chiral centers?",
+                    options: ["4", "6", "8", "10"],
+                    answer: "8",
+                    explanation: "Correct! The maximum number of stereoisomers is 2^n, where n is the number of chiral centers. For three chiral centers, 2^3 = 8."
+                },
+                {
+                    question: "Which system is used to designate the configuration of enantiomers based on atomic priority?",
+                    options: ["D/L system", "R/S system", "Alpha/Beta system", "Cis/Trans system"],
+                    answer: "R/S system",
+                    explanation: "Correct! The R/S system (Cahn-Ingold-Prelog system) is used to designate configuration based on atomic priority rules."
+                },
+                {
+                    question: "What term describes a mixture containing equal amounts of two enantiomers?",
+                    options: ["Meso mixture", "Diastereomeric mixture", "Racemic mixture", "Chiral mixture"],
+                    answer: "Racemic mixture",
+                    explanation: "Correct! A racemic mixture contains equal amounts of two enantiomers and is optically inactive."
+                },
+                {
+                    question: "Which of the following is an example of a constitutional isomer?",
+                    options: ["cis-2-butene and trans-2-butene", "D-glucose and L-glucose", "Ethanol and dimethyl ether", "R-lactic acid and S-lactic acid"],
+                    answer: "Ethanol and dimethyl ether",
+                    explanation: "Correct! Ethanol (CH3CH2OH) and dimethyl ether (CH3OCH3) have the same molecular formula (C2H6O) but different connectivity, making them constitutional isomers."
+                },
+                {
+                    question: "What is the specific rotation of a racemic mixture?",
+                    options: ["+", "-", "0", "It varies"],
+                    answer: "0",
+                    explanation: "Correct! A racemic mixture contains equal amounts of two enantiomers that rotate plane-polarized light in opposite directions, resulting in no net rotation (0°)."
+                },
+                {
+                    question: "Which of the following is NOT a carbohydrate?",
+                    options: ["Glucose", "Fructose", "Sucrose", "Cholesterol"],
+                    answer: "Cholesterol",
+                    explanation: "Correct! Cholesterol is a steroid lipid, not a carbohydrate."
+                },
+                {
+                    question: "What type of carbohydrate is sucrose?",
+                    options: ["Monosaccharide", "Disaccharide", "Oligosaccharide", "Polysaccharide"],
+                    answer: "Disaccharide",
+                    explanation: "Correct! Sucrose is a disaccharide composed of glucose and fructose."
+                },
+                {
+                    question: "Which monosaccharide is known as fruit sugar?",
+                    options: ["Glucose", "Fructose", "Galactose", "Ribose"],
+                    answer: "Fructose",
+                    explanation: "Correct! Fructose is commonly called fruit sugar and is found in many fruits and honey."
+                },
+                {
+                    question: "What is the primary function of carbohydrates in living organisms?",
+                    options: ["Energy storage", "Structural support", "Cell recognition", "All of the above"],
+                    answer: "All of the above",
+                    explanation: "Correct! Carbohydrates serve multiple functions including energy storage (glycogen, starch), structural support (cellulose, chitin), and cell recognition (glycoproteins)."
+                },
+                {
+                    question: "Which of the following is a reducing sugar?",
+                    options: ["Sucrose", "Lactose", "Trehalose", "All of the above"],
+                    answer: "Lactose",
+                    explanation: "Correct! Lactose is a reducing sugar because it has a free anomeric carbon that can reduce certain compounds. Sucrose is not a reducing sugar."
+                },
+                {
+                    question: "What type of lipid is cholesterol?",
+                    options: ["Fatty acid", "Phospholipid", "Steroid", "Wax"],
+                    answer: "Steroid",
+                    explanation: "Correct! Cholesterol is a steroid lipid with a characteristic four-ring structure."
+                },
+                {
+                    question: "Which fatty acid is typically liquid at room temperature?",
+                    options: ["Stearic acid", "Palmitic acid", "Oleic acid", "All of the above"],
+                    answer: "Oleic acid",
+                    explanation: "Correct! Oleic acid is an unsaturated fatty acid (monounsaturated) and is typically liquid at room temperature, while stearic and palmitic acids are saturated and solid."
+                },
+                {
+                    question: "What process converts oils to fats?",
+                    options: ["Saponification", "Hydrogenation", "Esterification", "Oxidation"],
+                    answer: "Hydrogenation",
+                    explanation: "Correct! Hydrogenation adds hydrogen to unsaturated bonds in oils, converting them to more saturated fats with higher melting points."
+                },
+                {
+                    question: "Which lipid is a major component of cell membranes?",
+                    options: ["Triglycerides", "Phospholipids", "Waxes", "Steroids"],
+                    answer: "Phospholipids",
+                    explanation: "Correct! Phospholipids are the major structural components of cell membranes, forming the lipid bilayer."
+                },
+                {
+                    question: "What is the iodine value used to measure?",
+                    options: ["Acidity of fats", "Degree of unsaturation", "Saponification number", "Peroxide value"],
+                    answer: "Degree of unsaturation",
+                    explanation: "Correct! The iodine value measures the degree of unsaturation in fats and oils by determining the amount of iodine that can be absorbed."
+                },
+                {
+                    question: "Which of the following is NOT a function of lipids?",
+                    options: ["Energy storage", "Insulation", "Enzyme catalysis", "Cell signaling"],
+                    answer: "Enzyme catalysis",
+                    explanation: "Correct! While lipids have many functions including energy storage, insulation, and cell signaling, they do not typically function as enzymes (which are usually proteins)."
+                },
+                {
+                    question: "What is the main difference between fats and oils?",
+                    options: ["Chemical structure", "Source (animal vs plant)", "Physical state at room temperature", "All of the above"],
+                    answer: "Physical state at room temperature",
+                    explanation: "Correct! The main difference is physical state: fats are solid at room temperature, while oils are liquid. Both can come from animal or plant sources."
+                },
+                {
+                    question: "Which vitamin is fat-soluble?",
+                    options: ["Vitamin C", "Vitamin B1", "Vitamin D", "Vitamin B12"],
+                    answer: "Vitamin D",
+                    explanation: "Correct! Vitamin D is fat-soluble, along with vitamins A, E, and K. Vitamin C and B vitamins are water-soluble."
+                },
+                {
+                    question: "What is saponification?",
+                    options: ["Hydrolysis of esters", "Oxidation of fatty acids", "Hydrogenation of oils", "Formation of soaps from fats"],
+                    answer: "Formation of soaps from fats",
+                    explanation: "Correct! Saponification is the process of making soap by hydrolyzing fats with a strong base like NaOH."
+                },
+                {
+                    question: "Which of the following is a chiral molecule?",
+                    options: ["Methane", "Ethane", "Chloroform", "Bromochlorofluoromethane"],
+                    answer: "Bromochlorofluoromethane",
+                    explanation: "Correct! Bromochlorofluoromethane has four different substituents on the carbon atom, making it chiral."
+                },
+                {
+                    question: "What is the relationship between D-glucose and L-glucose?",
+                    options: ["Constitutional isomers", "Diastereomers", "Enantiomers", "Identical molecules"],
+                    answer: "Enantiomers",
+                    explanation: "Correct! D-glucose and L-glucose are mirror images of each other and are therefore enantiomers."
+                },
+                {
+                    question: "Which of the following statements about enantiomers is correct?",
+                    options: ["They have different melting points", "They have different boiling points", "They rotate plane-polarized light equally but in opposite directions", "They have different molecular formulas"],
+                    answer: "They rotate plane-polarized light equally but in opposite directions",
+                    explanation: "Correct! Enantiomers have identical physical properties except for their interaction with plane-polarized light, which they rotate equally but in opposite directions."
+                },
+                {
+                    question: "What is the term for a carbon atom with four different substituents?",
+                    options: ["Chiral center", "Achiral center", "Meso carbon", "Racemic carbon"],
+                    answer: "Chiral center",
+                    explanation: "Correct! A carbon atom with four different substituents is called a chiral center or stereocenter."
+                },
+                {
+                    question: "Which of the following carbohydrates is a pentose?",
+                    options: ["Glucose", "Fructose", "Ribose", "Galactose"],
+                    answer: "Ribose",
+                    explanation: "Correct! Ribose is a pentose sugar with 5 carbon atoms, while glucose, fructose, and galactose are hexoses with 6 carbon atoms."
+                },
+                {
+                    question: "What is the storage polysaccharide in animals?",
+                    options: ["Starch", "Cellulose", "Glycogen", "Chitin"],
+                    answer: "Glycogen",
+                    explanation: "Correct! Glycogen is the storage polysaccharide in animals, stored primarily in the liver and muscles."
+                },
+                {
+                    question: "Which of the following is a saturated fatty acid?",
+                    options: ["Oleic acid", "Linoleic acid", "Stearic acid", "Linolenic acid"],
+                    answer: "Stearic acid",
+                    explanation: "Correct! Stearic acid is a saturated fatty acid with no double bonds, while the others are unsaturated."
+                },
+                {
+                    question: "What is the primary component of beeswax?",
+                    options: ["Triacylglycerols", "Phospholipids", "Steroids", "Esters of long-chain alcohols and acids"],
+                    answer: "Esters of long-chain alcohols and acids",
+                    explanation: "Correct! Beeswax is composed mainly of esters of long-chain alcohols and fatty acids."
+                },
+                {
+                    question: "Which of the following is a characteristic of phospholipids?",
+                    options: ["They are hydrophobic", "They are hydrophilic", "They are amphipathic", "They are nonpolar"],
+                    answer: "They are amphipathic",
+                    explanation: "Correct! Phospholipids are amphipathic molecules, meaning they have both hydrophilic (phosphate head) and hydrophobic (fatty acid tails) regions."
+                },
+                {
+                    question: "What is the product of complete hydrogenation of a polyunsaturated fat?",
+                    options: ["A saturated fat", "A monounsaturated fat", "A trans fat", "A polymer"],
+                    answer: "A saturated fat",
+                    explanation: "Correct! Complete hydrogenation adds hydrogen to all double bonds, converting a polyunsaturated fat to a saturated fat."
+                },
+                {
+                    question: "Which of the following is a function of cholesterol in the body?",
+                    options: ["Precursor for steroid hormones", "Component of cell membranes", "Precursor for bile acids", "All of the above"],
+                    answer: "All of the above",
+                    explanation: "Correct! Cholesterol serves multiple functions including as a precursor for steroid hormones and bile acids, and as a component of cell membranes."
+                },
+                {
+                    question: "What is the term for the interconversion between alpha and beta anomers of glucose?",
+                    options: ["Epimerization", "Mutarotation", "Racemization", "Tautomerization"],
+                    answer: "Mutarotation",
+                    explanation: "Correct! Mutarotation is the interconversion between alpha and beta anomers of a sugar in solution."
+                },
+                {
+                    question: "Which of the following is a test for unsaturation in fats and oils?",
+                    options: ["Benedict's test", "Iodine test", "Biuret test", "Fehling's test"],
+                    answer: "Iodine test",
+                    explanation: "Correct! The iodine test measures the degree of unsaturation in fats and oils by determining how much iodine they can absorb."
+                },
+                {
+                    question: "What is the term for a lipid that contains a carbohydrate group?",
+                    options: ["Glycolipid", "Phospholipid", "Sphingolipid", "Steroid"],
+                    answer: "Glycolipid",
+                    explanation: "Correct! Glycolipids are lipids that contain a carbohydrate group, often found in cell membranes."
+                },
+                {
+                    question: "Which of the following is a disaccharide?",
+                    options: ["Glucose", "Fructose", "Maltose", "Starch"],
+                    answer: "Maltose",
+                    explanation: "Correct! Maltose is a disaccharide composed of two glucose units, while glucose and fructose are monosaccharides, and starch is a polysaccharide."
+                },
+                {
+                    question: "What is the term for the process of breaking down fats into fatty acids and glycerol?",
+                    options: ["Hydrogenation", "Saponification", "Lipolysis", "Esterification"],
+                    answer: "Lipolysis",
+                    explanation: "Correct! Lipolysis is the process of breaking down fats (triglycerides) into fatty acids and glycerol."
+                },
+                {
+                    question: "Which of the following is a characteristic of trans fats?",
+                    options: ["They have a bent structure", "They are naturally abundant in plants", "They have higher melting points than cis fats", "They are healthier than saturated fats"],
+                    answer: "They have higher melting points than cis fats",
+                    explanation: "Correct! Trans fats have a straighter structure than cis fats, allowing them to pack more tightly and have higher melting points."
+                },
+                {
+                    question: "What is the term for a molecule that is superimposable on its mirror image?",
+                    options: ["Chiral", "Achiral", "Meso", "Racemic"],
+                    answer: "Achiral",
+                    explanation: "Correct! Achiral molecules are superimposable on their mirror images, while chiral molecules are not."
+                },
+                {
+                    question: "Which of the following is a function of waxes in plants?",
+                    options: ["Energy storage", "Waterproofing", "Cell signaling", "Enzyme catalysis"],
+                    answer: "Waterproofing",
+                    explanation: "Correct! Waxes in plants provide a waterproof coating on leaves and fruits to prevent water loss."
+                },
+                {
+                    question: "What is the term for the number of milligrams of KOH required to saponify 1g of fat?",
+                    options: ["Iodine value", "Saponification number", "Acid value", "Peroxide value"],
+                    answer: "Saponification number",
+                    explanation: "Correct! The saponification number indicates the average molecular weight of the fatty acids in a fat or oil."
+                },
+                {
+                    question: "Which of the following is a ketose sugar?",
+                    options: ["Glucose", "Galactose", "Fructose", "Ribose"],
+                    answer: "Fructose",
+                    explanation: "Correct! Fructose is a ketose sugar, meaning it has a ketone functional group, while the others are aldose sugars with aldehyde groups."
+                },
+                {
+                    question: "What is the term for a lipid that contains a phosphate group?",
+                    options: ["Glycolipid", "Phospholipid", "Steroid", "Wax"],
+                    answer: "Phospholipid",
+                    explanation: "Correct! Phospholipids contain a phosphate group and are major components of cell membranes."
+                },
+                {
+                    question: "Which of the following is a function of terpenes in plants?",
+                    options: ["Energy storage", "Structural support", "Defense against herbivores", "All of the above"],
+                    answer: "Defense against herbivores",
+                    explanation: "Correct! Terpenes often serve as defense compounds in plants, deterring herbivores with their strong odors or tastes."
+                },
+                {
+                    question: "What is the term for the breakdown of glucose to pyruvate?",
+                    options: ["Glycolysis", "Gluconeogenesis", "Glycogenolysis", "Glycosylation"],
+                    answer: "Glycolysis",
+                    explanation: "Correct! Glycolysis is the metabolic pathway that breaks down glucose to pyruvate."
+                },
+                {
+                    question: "Which of the following is a characteristic of cellulose?",
+                    options: ["It is a storage polysaccharide in plants", "It is composed of alpha-glucose units", "It is digestible by humans", "It has beta-1,4-glycosidic linkages"],
+                    answer: "It has beta-1,4-glycosidic linkages",
+                    explanation: "Correct! Cellulose has beta-1,4-glycosidic linkages, which humans cannot digest, unlike starch which has alpha-1,4-linkages."
+                },
+                {
+                    question: "What is the term for the process of adding a carbohydrate to a protein?",
+                    options: ["Glycolysis", "Glycogenolysis", "Glycosylation", "Gluconeogenesis"],
+                    answer: "Glycosylation",
+                    explanation: "Correct! Glycosylation is the process of adding carbohydrate groups to proteins to form glycoproteins."
+                },
+                {
+                    question: "Which of the following is a function of lipoproteins?",
+                    options: ["Transport of lipids in the blood", "Energy storage", "Cell membrane structure", "Enzyme catalysis"],
+                    answer: "Transport of lipids in the blood",
+                    explanation: "Correct! Lipoproteins transport lipids (such as cholesterol and triglycerides) in the bloodstream."
+                },
+                {
+                    question: "What is the term for a lipid that contains a sphingosine backbone?",
+                    options: ["Phospholipid", "Glycolipid", "Sphingolipid", "Steroid"],
+                    answer: "Sphingolipid",
+                    explanation: "Correct! Sphingolipids contain a sphingosine backbone and are important components of cell membranes, particularly in nerve tissue."
+                }
+            ],
+            shortAnswer: [
+                {
+                    question: "Name the type of isomerism shown by compounds that have the same molecular formula but different connectivity.",
+                    answer: "Constitutional isomerism",
+                    explanation: "Correct! Constitutional isomers (also called structural isomers) have the same molecular formula but differ in the connectivity of atoms."
+                },
+                {
+                    question: "What is the term for stereoisomers that are not mirror images of each other?",
+                    answer: "Diastereomers",
+                    explanation: "Correct! Diastereomers are stereoisomers that are not mirror images of each other."
+                },
+                {
+                    question: "Name the instrument used to measure the rotation of plane-polarized light by chiral compounds.",
+                    answer: "Polarimeter",
+                    explanation: "Correct! A polarimeter is used to measure the angle of rotation of plane-polarized light by optically active compounds."
+                },
+                {
+                    question: "What is the specific name for carbohydrates that cannot be hydrolyzed into simpler sugars?",
+                    answer: "Monosaccharides",
+                    explanation: "Correct! Monosaccharides are the simplest carbohydrates and cannot be hydrolyzed into smaller carbohydrate units."
+                },
+                {
+                    question: "Name the disaccharide composed of glucose and galactose.",
+                    answer: "Lactose",
+                    explanation: "Correct! Lactose is a disaccharide composed of glucose and galactose, commonly found in milk."
+                },
+                {
+                    question: "What is the storage polysaccharide in plants?",
+                    answer: "Starch",
+                    explanation: "Correct! Starch is the main storage polysaccharide in plants, composed of amylose and amylopectin."
+                },
+                {
+                    question: "Name the process by which unsaturated fats are converted to saturated fats.",
+                    answer: "Hydrogenation",
+                    explanation: "Correct! Hydrogenation adds hydrogen to the double bonds in unsaturated fats, converting them to saturated fats."
+                },
+                {
+                    question: "What is the term for the hydrolysis of fats with a base to produce soap?",
+                    answer: "Saponification",
+                    explanation: "Correct! Saponification is the alkaline hydrolysis of fats and oils to produce soap and glycerol."
+                },
+                {
+                    question: "Name the lipid that is a major component of cell membranes.",
+                    answer: "Phospholipids",
+                    explanation: "Correct! Phospholipids are the major structural components of cell membranes, forming the lipid bilayer."
+                },
+                {
+                    question: "What is the term for a fatty acid with no double bonds?",
+                    answer: "Saturated fatty acid",
+                    explanation: "Correct! Saturated fatty acids have no double bonds between carbon atoms in their hydrocarbon chains."
+                }
+            ]
+        };
+
+        // DOM elements
+        const startQuizBtn = document.getElementById('start-quiz');
+        const submitQuizBtn = document.getElementById('submit-quiz');
+        const resetQuizBtn = document.getElementById('reset-quiz');
+        const reviewQuizBtn = document.getElementById('review-quiz');
+        const feedbackModeSelect = document.getElementById('feedback-mode');
+        const quizContent = document.getElementById('quiz-content');
+        const results = document.getElementById('results');
+        const scoreValue = document.getElementById('score-value');
+        const totalQuestions = document.getElementById('total-questions');
+        const tfQuestionsContainer = document.getElementById('tf-questions');
+        const mcqQuestionsContainer = document.getElementById('mcq-questions');
+        const shortAnswerQuestionsContainer = document.getElementById('short-answer-questions');
+        const tfResultsContainer = document.getElementById('tf-results');
+        const mcqResultsContainer = document.getElementById('mcq-results');
+        const shortAnswerResultsContainer = document.getElementById('short-answer-results');
+
+        // State variables
+        let userAnswers = {
+            trueFalse: [],
+            multipleChoice: [],
+            shortAnswer: []
+        };
+
+        // Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Shuffle options within a question
+        function shuffleOptions(question) {
+            if (!question.options) return question;
+            
+            // Store the correct answer
+            const correctAnswer = question.answer;
+            
+            // Create an array of objects with option text and whether it's correct
+            const optionsWithStatus = question.options.map(option => ({
+                text: option,
+                isCorrect: option === correctAnswer
+            }));
+            
+            // Shuffle the options
+            const shuffledOptions = shuffleArray([...optionsWithStatus]);
+            
+            // Find the new index of the correct answer
+            const newCorrectIndex = shuffledOptions.findIndex(option => option.isCorrect);
+            
+            // Update the question with shuffled options and new correct answer index
+            return {
+                ...question,
+                options: shuffledOptions.map(option => option.text),
+                answer: shuffledOptions[newCorrectIndex].text
+            };
+        }
+
+        // Initialize the quiz
+        function initializeQuiz() {
+            // Reset user answers
+            userAnswers = {
+                trueFalse: Array(quizData.trueFalse.length).fill(null),
+                multipleChoice: Array(quizData.multipleChoice.length).fill(null),
+                shortAnswer: Array(quizData.shortAnswer.length).fill(null)
+            };
+
+            // Shuffle questions and options
+            const shuffledTF = shuffleArray([...quizData.trueFalse]);
+            const shuffledMCQ = shuffleArray([...quizData.multipleChoice]).map(shuffleOptions);
+            const shuffledShortAnswer = shuffleArray([...quizData.shortAnswer]);
+
+            // Render True/False questions
+            tfQuestionsContainer.innerHTML = '';
+            shuffledTF.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question-container';
+                questionElement.innerHTML = `
+                    <div class="question-number">True/False Question ${index + 1}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-container">
+                        <div class="option">
+                            <input type="radio" id="tf-${index}-true" name="tf-${index}" value="true">
+                            <label for="tf-${index}-true">True</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="tf-${index}-false" name="tf-${index}" value="false">
+                            <label for="tf-${index}-false">False</label>
+                        </div>
+                    </div>
+                    <div class="feedback" id="tf-feedback-${index}"></div>
+                `;
+                tfQuestionsContainer.appendChild(questionElement);
+
+                // Add event listeners for immediate feedback if selected
+                const inputs = questionElement.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        userAnswers.trueFalse[index] = e.target.value === 'true';
+                        if (feedbackModeSelect.value === 'immediate') {
+                            showFeedback('tf', index, q.answer, q.explanation);
+                        }
+                    });
+                });
+            });
+
+            // Render Multiple Choice questions
+            mcqQuestionsContainer.innerHTML = '';
+            shuffledMCQ.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question-container';
+                
+                let optionsHTML = '';
+                q.options.forEach((option, optIndex) => {
+                    const optionLetter = String.fromCharCode(65 + optIndex); // A, B, C, D
+                    optionsHTML += `
+                        <div class="option">
+                            <input type="radio" id="mcq-${index}-${optIndex}" name="mcq-${index}" value="${option}">
+                            <label for="mcq-${index}-${optIndex}">${optionLetter}. ${option}</label>
+                        </div>
+                    `;
+                });
+
+                questionElement.innerHTML = `
+                    <div class="question-number">Multiple Choice Question ${index + 1}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-container">
+                        ${optionsHTML}
+                    </div>
+                    <div class="feedback" id="mcq-feedback-${index}"></div>
+                `;
+                mcqQuestionsContainer.appendChild(questionElement);
+
+                // Add event listeners for immediate feedback if selected
+                const inputs = questionElement.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        userAnswers.multipleChoice[index] = e.target.value;
+                        if (feedbackModeSelect.value === 'immediate') {
+                            showFeedback('mcq', index, q.answer, q.explanation);
+                        }
+                    });
+                });
+            });
+
+            // Render Short Answer questions
+            shortAnswerQuestionsContainer.innerHTML = '';
+            shuffledShortAnswer.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question-container';
+                questionElement.innerHTML = `
+                    <div class="question-number">Short Answer Question ${index + 1}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-container">
+                        <input type="text" class="short-answer" id="short-answer-${index}" placeholder="Type your answer here">
+                    </div>
+                    <div class="feedback" id="short-answer-feedback-${index}"></div>
+                `;
+                shortAnswerQuestionsContainer.appendChild(questionElement);
+
+                // Add event listener for immediate feedback if selected
+                const input = questionElement.querySelector('input');
+                input.addEventListener('input', (e) => {
+                    userAnswers.shortAnswer[index] = e.target.value.trim().toLowerCase();
+                    if (feedbackModeSelect.value === 'immediate') {
+                        showFeedback('short-answer', index, q.answer.toLowerCase(), q.explanation);
+                    }
+                });
+            });
+
+            // Enable submit button
+            submitQuizBtn.disabled = false;
+        }
+
+        // Show feedback for a question
+        function showFeedback(type, index, correctAnswer, explanation) {
+            const feedbackElement = document.getElementById(`${type}-feedback-${index}`);
+            const userAnswer = userAnswers[type === 'tf' ? 'trueFalse' : 
+                                          type === 'mcq' ? 'multipleChoice' : 
+                                          'shortAnswer'][index];
+            
+            if (userAnswer === null || userAnswer === undefined) return;
+            
+            let isCorrect = false;
+            
+            if (type === 'tf') {
+                isCorrect = userAnswer === correctAnswer;
+            } else if (type === 'mcq') {
+                isCorrect = userAnswer === correctAnswer;
+            } else if (type === 'short-answer') {
+                // For short answers, we'll do a simple string comparison
+                isCorrect = userAnswer === correctAnswer.toLowerCase();
+            }
+            
+            feedbackElement.textContent = isCorrect 
+                ? `Correct! ${explanation}` 
+                : `Incorrect. The correct answer is: ${correctAnswer}. ${explanation}`;
+            
+            feedbackElement.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackElement.style.display = 'block';
+        }
+
+        // Calculate and display results
+        function calculateResults() {
+            let score = 0;
+            let total = 0;
+            
+            // Calculate True/False results
+            tfResultsContainer.innerHTML = '';
+            quizData.trueFalse.forEach((q, index) => {
+                total++;
+                const userAnswer = userAnswers.trueFalse[index];
+                const isCorrect = userAnswer === q.answer;
+                
+                if (isCorrect) score++;
+                
+                const resultElement = document.createElement('div');
+                resultElement.className = `question-result ${isCorrect ? 'correct' : 'incorrect'}`;
+                resultElement.innerHTML = `
+                    <div><strong>Question ${index + 1}:</strong> ${q.question}</div>
+                    <div>Your answer: ${userAnswer === null ? 'Not answered' : (userAnswer ? 'True' : 'False')}</div>
+                    <div>Correct answer: ${q.answer ? 'True' : 'False'}</div>
+                    <div>${q.explanation}</div>
+                `;
+                tfResultsContainer.appendChild(resultElement);
+            });
+            
+            // Calculate Multiple Choice results
+            mcqResultsContainer.innerHTML = '';
+            quizData.multipleChoice.forEach((q, index) => {
+                total++;
+                const userAnswer = userAnswers.multipleChoice[index];
+                const isCorrect = userAnswer === q.answer;
+                
+                if (isCorrect) score++;
+                
+                const resultElement = document.createElement('div');
+                resultElement.className = `question-result ${isCorrect ? 'correct' : 'incorrect'}`;
+                resultElement.innerHTML = `
+                    <div><strong>Question ${index + 1}:</strong> ${q.question}</div>
+                    <div>Your answer: ${userAnswer || 'Not answered'}</div>
+                    <div>Correct answer: ${q.answer}</div>
+                    <div>${q.explanation}</div>
+                `;
+                mcqResultsContainer.appendChild(resultElement);
+            });
+            
+            // Calculate Short Answer results
+            shortAnswerResultsContainer.innerHTML = '';
+            quizData.shortAnswer.forEach((q, index) => {
+                total++;
+                const userAnswer = userAnswers.shortAnswer[index];
+                // For short answers, we'll do a simple string comparison
+                const isCorrect = userAnswer && userAnswer === q.answer.toLowerCase();
+                
+                if (isCorrect) score++;
+                
+                const resultElement = document.createElement('div');
+                resultElement.className = `question-result ${isCorrect ? 'correct' : 'incorrect'}`;
+                resultElement.innerHTML = `
+                    <div><strong>Question ${index + 1}:</strong> ${q.question}</div>
+                    <div>Your answer: ${userAnswer || 'Not answered'}</div>
+                    <div>Correct answer: ${q.answer}</div>
+                    <div>${q.explanation}</div>
+                `;
+                shortAnswerResultsContainer.appendChild(resultElement);
+            });
+            
+            // Update score display
+            scoreValue.textContent = score;
+            totalQuestions.textContent = total;
+            
+            // Show results section
+            results.style.display = 'block';
+            quizContent.style.display = 'none';
+        }
+
+        // Event listeners
+        startQuizBtn.addEventListener('click', () => {
+            quizContent.classList.remove('hidden');
+            initializeQuiz();
+        });
+
+        submitQuizBtn.addEventListener('click', () => {
+            calculateResults();
+        });
+
+        resetQuizBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset the quiz? All your answers will be lost.')) {
+                quizContent.classList.add('hidden');
+                results.style.display = 'none';
+                userAnswers = {
+                    trueFalse: [],
+                    multipleChoice: [],
+                    shortAnswer: []
+                };
+                submitQuizBtn.disabled = true;
+            }
+        });
+
+        reviewQuizBtn.addEventListener('click', () => {
+            results.style.display = 'none';
+            quizContent.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
