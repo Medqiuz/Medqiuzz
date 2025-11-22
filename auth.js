@@ -1,0 +1,179 @@
+class AuthSystem {
+    constructor() {
+        this.codeMap = {
+            "T6E3P9": "G8K1B4", "C2R7D5": "N4A9M3", "B1L5Q8": "F7T2H6", "V3K9W2": "D8S4P1",
+"K5M8C1": "A7L3T9", "S9H4G2": "R1P8J5", "D7Q3E6": "V4M2N8", "F8T1A4": "C3W7L9",
+"J2P6V8": "K9D5Q1", "L4C8M7": "T3G9R2", "A8W5B3": "H4N1K7", "E9S2F6": "M1Q7P4",
+"P1G7R9": "Z2H8D5", "R5V3J8": "B6L9C2", "N7A1T4": "F3K6W8", "G4U9S1": "Y7B5E3",
+"U6D1H9": "S8Q4M2", "Q3F9K5": "T1N4A6", "O5S2L7": "W9R3G1", "Y8B4W6": "X2M5T7",
+"X3K7Z1": "P4E8V6", "W1N6Q4": "R9C5H2", "M2D9F7": "J3T8B5", "C7H3P5": "A6L2S9",
+"T2A9G4": "E1K7Q3", "H6W2B8": "D5S9M1", "L8Q5R2": "V1F3N7", "F4C1M6": "K2G8U9",
+"B9T4J1": "S6P7X3", "D1R8E3": "G2H5V9", "V7P6L3": "N5W1C8", "J4M2F9": "Q6U8A7",
+"E3S7K1": "T4B6R8", "A5N3P9": "H9G1W4", "G1V5T8": "M6D7Q2", "R8L1W7": "C9F2K4",
+"N3P8H6": "J8X2G4", "K1S4B7": "Y3Q9M5", "S2C6M4": "F1A8L7", "H9T3D2": "W6G4P8",
+"M5F7Q1": "B4N9E6", "P7W3L5": "Z6K1C4", "C8A2V9": "D3R7T1", "L6E4G2": "X5M8S3",
+"U5Q1H7": "R7T9D3", "W4B8K2": "J6C1M9", "T9M5R2": "V2S8N4", "F2G7A6": "P8L3W9",
+"Z1D6X8": "A3V7K5", "Y5L2U9": "H7E9G3", "J9K4N2": "C1F8Q6", "Q2W9P5": "M8R4S1",
+"G3S1C7": "D9H2T6", "B6U5F1": "K4M3W8", "R9N4J7": "E2P6L5", "O8D3H1": "N6K7A4",
+"X8C7M5": "L1Q3V9", "S4G2E8": "F9T5B6", "H3A5W1": "U7R2D9", "V1P6K8": "T8J9G2",
+"D5M8L4": "G1S3C9", "E7Q6B1": "H2F4P8", "A4N7R3": "W5U8K6", "K9T2J6": "Z3L5M1",
+"P6F1A7": "B8W4H2", "C5V3S9": "R4G8D1", "L2H9M8": "J1T6Q4", "F7K2N1": "E6P3W9",
+"W2B9C6": "Q1M7J5", "U9D4G3": "S3N8L2", "Y7S6X1": "T2A4V5", "M1R5P8": "K8H3F2",
+"Z4T3W6": "G6C2M7", "R2J8K4": "H5L1S3", "X9N1F4": "O3P6V8", "T7G5E1": "D6B4Q9",
+"B2L8D7": "P5U3A9", "C1S5H4": "M7Q8W2", "H8E1R6": "F2K9T3", "A3J4V9": "Y9N6G1",
+"G7Q2C5": "X1D8P4", "E9M3K7": "L5H2R1", "W8F1T5": "S6C4B7", "U3P7L8": "J9R2D6",
+"D4V6M2": "C8T9K1", "N1A3G6": "F4W2H8", "J5U9S3": "R8E6M1", "P2K7B9": "V3L4Q5",
+"X7C5G8": "A2H4F9", "T1R3W9": "M4S8P2", "K6N2D5": "E3Q7C8", "Y4P1J6": "Z8F2L7",
+"L3B7Q4": "G5D1A8", "R6M8H5": "W9T2K3", "S8K4F1": "J2C9V6", "H1W6E3": "P4N7M9",
+"V5T7C1": "D3G8S4", "F9Q4L2": "K1M6B8", "A7P5R8": "X6H9J3", "O4S2M9": "N2W8E5",
+"Z5G8K2": "T3C1V7", "W7M4Q9": "B6D2L1", "M8R6J4": "Y1S3H7", "C9U2B5": "E4F7P6",
+"L1T8A6": "H9R4G2", "F3S9W1": "D2C6K7", "J8B2L5": "P6Q1M4", "R3N5E8": "G7V9T2",
+"S1H4P7": "K5W2C9", "H7F6D3": "U8A9Q1", "Q4C8M6": "W1J5R7", "T9A3K8": "X3B7G6",
+"N6L4S2": "C7R1P8", "P1V7J3": "F5T9W4", "G8E3H9": "Z2M5K6", "B4Q9D6": "Y6S8L3",
+"U2M9F5": "J4N8C1", "E8G5R1": "H3P7V9", "D1K8W3": "M6L2T5", "W9S4C7": "A5F1X8",
+"K3P6Q2": "S7G4N8", "T5J8A1": "C9M2R6", "F6L7B4": "E1D3H9", "X2H1G5": "R9W8J7",
+"M4C9E7": "Q6T3F1", "A9D6R8": "L3S7K4", "V8B1W9": "P7H5C2", "Y3F4J6": "N5A2U8",
+"G2K5M8": "D8V1S3", "R7H2E6": "C4P9L5", "Z1W3U7": "J6F8Q2", "B8S6T2": "W5M3N9",
+"H5N7L3": "F2C1A9", "J3G8R4": "T4D9E6", "C6V2Q1": "X7L8P5", "P5M1K9": "S8H3W7",
+"N9T4G1": "E6K3J8", "U7A8D4": "W2R5C6", "X4P8S3": "H1M7F9", "M2B6L1": "K9V4Q8",
+"D8R2F4": "P3C7H5", "E5W7M3": "R1S6J2", "A4K1U9": "N8L2G5", "Y2G9B7": "F3T4W6",
+"L7Q3J2": "V6H5M8", "C5S4A7": "J9N1R6", "F8D1K5": "G7P3T9", "H2M6W8": "B1E7Q4",
+"S9L8C3": "T6F1P7", "J1R7E5": "M3V8A2", "K4B9H1": "Z7C5W3", "U6P5D2": "Q8G4N1",
+"W3T9F6": "C1L4J7", "P8H2G3": "Y9S6K5", "N7A5V4": "E2M9R8", "D3K1B8": "H4Q6W2",
+"X6D7M1": "G8W4C2", "R5F3U9": "L2T1P6", "B9N2S5": "A6E4Q7", "Z8J4H2": "F1V7M3",
+"G1P7K6": "D5S9L4", "T2U4W8": "K3H8B1", "H9C5R3": "W6M2J4", "M1E8Q7": "P9F6T2",
+"F7L9B3": "C6V1G8", "S4A6N2": "R3P5Y9", "J8T3H4": "X2G7M5", "Y1W6E9": "N4D8K7",
+"X3B7Q9": "BXF102", "L9C4P2": "MZT441", "Q8V1D5": "PLO923", "S7N2H4": "WRA311",
+"F5T9K8": "QNE552", "A1J6V3": "TRX204", "P6M3W7": "HJD772", "B4R8Y1": "LKP609",
+"Z2E9T6": "FGD833", "C7H5N2": "JQW521", "R3V8F1": "VXR178", "T1K4X9": "NME602",
+"Y9P2C6": "BQC915", "D5L7G3": "SFD745", "K8W1A4": "XJP333", "M2Q6Z7": "GHR512",
+"J9S5B2": "PMQ241", "E3V7F6": "ZNT990", "H1X4D8": "RTL682", "W7A3K2": "FHX557",
+"N6C9T1": "DRM203", "V4G1S8": "QTV889", "U2J8P5": "ZLO775", "P9F3W6": "NKH142",
+"R8M6J1": "GTX712", " F2Q7K4": "BJR614", "L5C1T9": "VDS502", "A8R6M3": "PLW882",
+"X1N4G7": "SKV410", "Y7H2B5": "MGF954", "J4T9S1": "QJN660", "D9V3A6": "XHL521",
+"K6P8E2": "HMR908", "S3G1W9": "LTC732", "Z8B5R4": "PSF663", "C1M7X6": "RDG214",
+"F4D9K1": "ZTA406", "N3J6H8": "KLV777", "W1T5C4": "JPF995", "H8P2G7": "SXR910",
+"Q5L7N2": "GBH668", "M4X9A1": "NLQ233", "E2V6R5": "CJP790", "P7C3Y9": "TRX900",
+"V9M1Q4": "WDS118", "U5H8F2": "MNP481", "T2A7B6": "RBV377", "L1G9P5": "KZJ551",
+"R6D4W3": "HQC994", "X8J2T1": "FMW314", "B3N7K9": "ZQR222", "A6P1V4": "QGM671",
+"Y4E8S2": "XTS840", "C9W3F6": "HLR219", "Z7L6M5": "CDJ790", "S2K1G8": "TRF608",
+"J5B9X4": "NQP324", "D3T7R1": "VBF906", "F8S6W2": "ZXC128", "K2N4A7": "MHJ844",
+"W9P5D3": "STQ617", "M7H1J6": "PRL552", "E4V8C1": "BGX734", "U3L2T8": "KPN933",
+"Q1R9F5": "WLT216", "H6X3Y7": "JQZ752", "P8F2M4": "SRT698", "N5C4G1": "DLW505",
+"A3J7K8": "XPV901", "V1M9N2": "GMQ662", "R7B6W4": "BTD402", "X2E5T7": "PLN826",
+"F1H8A3": "ZRX411", "T6S3P9": "QSF830", "L8D2X5": "CJM294", "Y1F9K7": "HVQ662",
+"B6V4G2": "MKP503", "C8M1R9": "STX841", "S4W7J1": "DRQ983", "Z3K6P5": "WJV529",
+"D1A8N4": "LHR668", "J7T3E6": "QZN278", "H9G5C2": "FPC901", "E6P1M8": "BDR610",
+"K3S7V4": "CMX379", "M9W2F1": "ZHP113", "U1R8B6": "TSF690", "W5L4Q3": "PQR780",
+"Q9C2D7": "HLT543", "P2N5X9": "VZP402", "R4J1A8": "GWF600", "V7F6E3": "XKM954",
+"T3B9H5": "SRM810", "L2X8W7": "PRC226", "Y6T1C4": "KFG720", "X5E3M8": "BDL601",
+"A9V7P2": "WMR443", "B1G6T9": "JNV559", "F3H2S6": "RKC744", "C4P9D1": "QHL138",
+"Z1W8F4": "GNP600", "S9M1K3": "TXZ752", "J2D4Q6": "HWS819", "E8R7B1": "ZPF120",
+"N4K3A7": "CRX654", "W6C8M2": "LMJ482", "H2F9X5": "SVT711", "T8J1G4": "PWD399",
+"M6L2P9": "BRT524", "U9V3S1": "QXJ884", "R1G5N7": "XFW667", "P3H4K8": "DTL920",
+"Q6B9W1": "LNC103", "K1X3M7": "SVR329", "D7T5J2": "HPK885", "A2M8C6": "FTA672",
+"Y8S3P4": "WRF438", "F7N6E1": "QLJ991", "L4C2H9": "ZWB522", "C5J7A3": "BXS210",
+"X9F1D6": "NPQ884", "S1K8W5": "MRD779", "G3P2X7": "VFG412", "N8B4R1": "KQZ100",
+"Z5M9T2": "JRT595", "E1H3F8": "GFD801", "J8W5C9": "SZQ214", "K7R2G1": "PTM692",
+"A4T9P5": "LQF332", "M3L6W8": "XHZ943", "P1Q7A4": "CBJ881", "D9C5V2": "MST402",
+"R8S4G7": "HNV630", "B2T1X9": "JTX922", "Y3W8F6": "KZS561", "L5H7C8": "QLM744",
+"F2A9R1": "DPT510", "S6X3N5": "WSR818", "W7G1M4": "FRK902", "H4P8T3": "VBQ664",
+"U2M9E6": "ZMG590", "C6L1B7": "PLS210", "T9D3J5": "WXH780", "N7F5Q1": "KDP911",
+"J1C4S8": "GQX572", "A3X6H2": "NVK644", "V4P9F7": "STR882", "E5R1W3": "HJL304",
+"K8G2C9": "XJP558", "P6A7D4": "BLQ661", "Y9M1T8": "ZWF911", "R3V4E6": "QRT228",
+"W5S8N2": "MNF703", "G1B7P4": "VCX119", "X2C9A6": "DHL450", "Z7H3F1": "PKW834",
+"F6P1M7": "JXZ553", "B8G4T2": "GRS709", "L9Q2W5": "MTF932", "D3N8X1": "SHQ311",
+"E7V6K4": "ZBG620", "T5C1A8": "QPM774", "U4X9J2": "HWR589", "M1D7R6": "XFS430",
+"Y2K3P9": "CRV992", "S8E1M4": "BLD103", "C1J4W7": "NQZ656", "A6N5B3": "WXF319",
+"J9F2S8": "TRQ801", "Q4H6G2": "MZR707", "P8T9C5": "SJM589", "H2V7A1": "DGF622",
+"V3M5K7": "KLP995", "R1X8D3": "GVH508", "W4L9F2": "XTQ744", "E6P3S9": "HZL678",
+"N9B1W4": "JMS120", "T2C8M7": "FQP319", "X5Q7K1": "SWD640", "K4H2R9": "PTX522",
+"U7A5G3": "XZR902", "C3V9P8": "HQL710"
+            // Add your full code list
+        };
+
+        this.codes = this.loadCodes();
+    }
+
+    loadCodes() {
+        const saved = localStorage.getItem('medquiz_used_codes');
+        let codes = Object.keys(this.codeMap).map(key => ({
+            code: key,
+            realCode: this.codeMap[key],
+            email: null,
+            used: false,
+            usedAt: null
+        }));
+
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                codes.forEach(c => {
+                    const savedC = parsed.find(s => s.code === c.code);
+                    if (savedC) {
+                        c.email = savedC.email;
+                        c.used = savedC.used;
+                        c.usedAt = savedC.usedAt;
+                    }
+                });
+            } catch (e) { console.error(e); }
+        }
+        return codes;
+    }
+
+    saveCodes() {
+        try {
+            localStorage.setItem('medquiz_used_codes', JSON.stringify(this.codes));
+        } catch (e) { console.error(e); }
+    }
+
+    validateAccessCode(code, email) {
+        const userCode = code.toUpperCase().trim();
+        const userEmail = email.toLowerCase().trim();
+        const entry = this.codes.find(c => c.code === userCode);
+
+        if (!entry) return { valid: false, message: '❌ Invalid access code!' };
+
+        if (entry.used && entry.email !== userEmail) {
+            return { valid: false, message: '❌ This code has already been used by another email!' };
+        }
+
+        return { valid: true, message: '✅ Code is valid.', codeEntry: entry };
+    }
+
+    markCodeUsed(code, email) {
+        const userCode = code.toUpperCase().trim();
+        const userEmail = email.toLowerCase().trim();
+        const entry = this.codes.find(c => c.code === userCode);
+        if (entry && !entry.used) {
+            entry.used = true;
+            entry.email = userEmail;
+            entry.usedAt = new Date().toISOString();
+            this.saveCodes();
+        }
+    }
+
+    createSession(userData) {
+        localStorage.setItem('medquiz_user', JSON.stringify(userData));
+        localStorage.setItem('medquiz_session_time', Date.now().toString());
+    }
+
+    isAuthenticated() {
+        return !!localStorage.getItem('medquiz_user');
+    }
+
+    getCurrentUser() {
+        const user = localStorage.getItem('medquiz_user');
+        return user ? JSON.parse(user) : null;
+    }
+
+    logout() {
+        localStorage.removeItem('medquiz_user');
+        localStorage.removeItem('medquiz_session_time');
+        window.location.href = 'index.html';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    window.authSystem = new AuthSystem();
+});
