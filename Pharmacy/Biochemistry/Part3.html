@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biochemistry Quiz - Part 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🧪 Biochemistry Quiz</h1>
+            <div class="subtitle">Part 3: Metabolic Pathways & Enzymes (Questions 81-120)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const biochemistryQuestions = [
+            {
+                question: "81. Transamination is reversible and requires:",
+                options: ["Pyridoxal phosphate (Vitamin B6)","ATP","NAD⁺","FAD"],
+                correct: 0,
+                explanation: "Cofactor for aminotransferases."
+            },
+            {
+                question: "82. ALT catalyzes:",
+                options: ["Alanine + α-Ketoglutarate → Pyruvate + Glutamate","Aspartate + α-Ketoglutarate → Oxaloacetate + Glutamate","Glutamate → NH₄⁺","Phenylalanine → Tyrosine"],
+                correct: 0,
+                explanation: "Key step in amino acid catabolism."
+            },
+            {
+                question: "83. AST catalyzes:",
+                options: ["Aspartate + α-Ketoglutarate → Oxaloacetate + Glutamate","Alanine + α-Ketoglutarate → Pyruvate + Glutamate","Glutamate → NH₄⁺","Phenylalanine → Tyrosine"],
+                correct: 0,
+                explanation: "Facilitates nitrogen transfer."
+            },
+            {
+                question: "84. Oxidative deamination generates:",
+                options: ["NH₄⁺ and α-Ketoglutarate","Urea","Alanine","Glucose"],
+                correct: 0,
+                explanation: "Catalyzed by Glutamate Dehydrogenase."
+            },
+            {
+                question: "85. Glutamine transports ammonia to:",
+                options: ["Liver and kidney","Brain","Muscle","Heart"],
+                correct: 0,
+                explanation: "Safely carries nitrogen for detoxification."
+            },
+            {
+                question: "86. Alanine transports nitrogen from:",
+                options: ["Muscle to liver","Liver to muscle","Kidney to brain","Heart to liver"],
+                correct: 0,
+                explanation: "Part of the glucose-alanine cycle."
+            },
+            {
+                question: "87. Ammonia is toxic to:",
+                options: ["CNS","Liver","Kidney","Muscle"],
+                correct: 0,
+                explanation: "High levels cause encephalopathy."
+            },
+            {
+                question: "88. Urea cycle requires which organ?",
+                options: ["Liver","Kidney","Muscle","Brain"],
+                correct: 0,
+                explanation: "Detoxifies ammonia into urea."
+            },
+            {
+                question: "89. The first enzyme of urea cycle is:",
+                options: ["Carbamoyl phosphate synthetase I","Ornithine transcarbamylase","Arginase","Argininosuccinate lyase"],
+                correct: 0,
+                explanation: "Converts ammonia and bicarbonate to carbamoyl phosphate."
+            },
+            {
+                question: "90. Carbamoyl phosphate combines with ornithine via:",
+                options: ["Ornithine transcarbamylase","Arginase","AST","ALT"],
+                correct: 0,
+                explanation: "Forms citrulline."
+            },
+            {
+                question: "91. Argininosuccinate is cleaved by:",
+                options: ["Argininosuccinate lyase","Arginase","AST","ALT"],
+                correct: 0,
+                explanation: "Produces arginine and fumarate."
+            },
+            {
+                question: "92. Final step of urea cycle:",
+                options: ["Arginase converts arginine → urea + ornithine","AST converts amino acids","ALT converts amino acids","Glutamate dehydrogenase produces ammonia"],
+                correct: 0,
+                explanation: "Completes nitrogen excretion."
+            },
+            {
+                question: "93. Tryptophan → Serotonin occurs via:",
+                options: ["Hydroxylation and decarboxylation","Transamination","Deamination","Oxidation"],
+                correct: 0,
+                explanation: "Requires Tryptophan hydroxylase."
+            },
+            {
+                question: "94. Tyrosine → Dopamine → Norepinephrine → Epinephrine requires:",
+                options: ["Tyrosine hydroxylase and other enzymes","AST","ALT","Glutamate dehydrogenase"],
+                correct: 0,
+                explanation: "Catecholamine biosynthesis pathway."
+            },
+            {
+                question: "95. Histidine → Histamine requires:",
+                options: ["Histidine decarboxylase","Tyrosine hydroxylase","Tryptophan hydroxylase","AST"],
+                correct: 0,
+                explanation: "Produces histamine in immune response."
+            },
+            {
+                question: "96. Glutamate → GABA requires:",
+                options: ["Glutamate decarboxylase","Tyrosine hydroxylase","AST","ALT"],
+                correct: 0,
+                explanation: "Key inhibitory neurotransmitter in CNS."
+            },
+            {
+                question: "97. Creatine phosphate stores energy in:",
+                options: ["Muscle","Liver","Kidney","Brain"],
+                correct: 0,
+                explanation: "Rapid ATP regeneration during contraction."
+            },
+            {
+                question: "98. Glutathione is a tripeptide of:",
+                options: ["Glutamate, Cysteine, Glycine","Glycine, Alanine, Serine","Glutamate, Lysine, Tyrosine","Cysteine, Alanine, Tyrosine"],
+                correct: 0,
+                explanation: "Maintains cellular redox balance."
+            },
+            {
+                question: "99. PKU is inherited as:",
+                options: ["Autosomal recessive","Autosomal dominant","X-linked","Mitochondrial"],
+                correct: 0,
+                explanation: "Requires both defective alleles."
+            },
+            {
+                question: "100. PKU treatment includes:",
+                options: ["Phenylalanine-restricted diet","Tyrosine supplementation","Both A and B","None"],
+                correct: 2,
+                explanation: "Prevents phenylalanine accumulation and provides tyrosine."
+            },
+            {
+                question: "101. Homocystinuria can lead to:",
+                options: ["Thromboembolism","Intellectual disability","Skeletal abnormalities","All of the above"],
+                correct: 3,
+                explanation: "Due to cystathionine beta-synthase deficiency."
+            },
+            {
+                question: "102. MSUD clinical features include:",
+                options: ["Sweet-smelling urine","Neurological deficits","Lethargy","All of the above"],
+                correct: 3,
+                explanation: "Due to branched-chain amino acid accumulation."
+            },
+            {
+                question: "103. Excess amino acid carbon skeletons are used for:",
+                options: ["Energy (TCA intermediates, ketone bodies, glucose)","DNA","Lipid only","RNA"],
+                correct: 0,
+                explanation: "Amino acids are glucogenic or ketogenic."
+            },
+            {
+                question: "104. Glutamate dehydrogenase requires:",
+                options: ["NAD⁺ or NADP⁺","ATP","FAD","CoA"],
+                correct: 0,
+                explanation: "Catalyzes oxidative deamination."
+            },
+            {
+                question: "105. Amino acids with branched-chain side chains include:",
+                options: ["Leucine, Isoleucine, Valine","Alanine, Glycine, Serine","Phenylalanine, Tyrosine","Glutamine, Asparagine"],
+                correct: 0,
+                explanation: "Catabolized via branched-chain ketoacid pathway."
+            },
+            {
+                question: "106. Glutamine synthetase converts:",
+                options: ["Glutamate + NH₄⁺ → Glutamine","Glutamate → α-Ketoglutarate + NH₄⁺","Alanine → Pyruvate","Aspartate → Oxaloacetate"],
+                correct: 0,
+                explanation: "Detoxifies ammonia in tissues."
+            },
+            {
+                question: "107. Glutaminase converts:",
+                options: ["Glutamine → Glutamate + NH₄⁺","Glutamate → GABA","Alanine → Pyruvate","Aspartate → Oxaloacetate"],
+                correct: 0,
+                explanation: "Releases ammonia in liver/kidney."
+            },
+            {
+                question: "108. Urea cycle intermediate citrulline combines with:",
+                options: ["Aspartate → Argininosuccinate","Glutamate → α-Ketoglutarate","Alanine → Pyruvate","Glutamine → Glutamate"],
+                correct: 0,
+                explanation: "Provides second nitrogen for urea."
+            },
+            {
+                question: "109. Argininosuccinate lyase deficiency causes:",
+                options: ["Hyperammonemia","Hypoglycemia","Hyperuricemia","Lactic acidosis"],
+                correct: 0,
+                explanation: "Accumulation of argininosuccinate."
+            },
+            {
+                question: "110. Arginase deficiency leads to:",
+                options: ["Mild hyperammonemia and arginine accumulation","Severe PKU","MSUD","Homocystinuria"],
+                correct: 0,
+                explanation: "Final step of urea cycle affected."
+            },
+            {
+                question: "111. Branched-chain amino acids are primarily metabolized in:",
+                options: ["Muscle","Liver","Kidney","Brain"],
+                correct: 0,
+                explanation: "Liver has low branched-chain aminotransferase activity."
+            },
+            {
+                question: "112. Glutathione exists in:",
+                options: ["Reduced (GSH) and oxidized (GSSG) forms","Only reduced","Only oxidized","None"],
+                correct: 0,
+                explanation: "Maintains redox homeostasis."
+            },
+            {
+                question: "113. Maple Syrup Urine Disease (MSUD) is caused by a defect in:",
+                options: ["Branched-chain α-ketoacid dehydrogenase","Phenylalanine hydroxylase","Tyrosine hydroxylase","Glutamate dehydrogenase"],
+                correct: 0,
+                explanation: "Accumulation of leucine, isoleucine, and valine."
+            },
+            {
+                question: "114. Main symptom of MSUD:",
+                options: ["Sweet-smelling urine","Jaundice","Hypoglycemia","Anemia"],
+                correct: 0,
+                explanation: "Caused by branched-chain ketoacid accumulation."
+            },
+            {
+                question: "115. Homocystinuria results from defect in:",
+                options: ["Cystathionine β-synthase","Phenylalanine hydroxylase","Tyrosine hydroxylase","ALT"],
+                correct: 0,
+                explanation: "Leads to high homocysteine levels, thromboembolism risk."
+            },
+            {
+                question: "116. PKU results from defect in:",
+                options: ["Phenylalanine hydroxylase","Tyrosine hydroxylase","Glutamate dehydrogenase","Branched-chain α-ketoacid dehydrogenase"],
+                correct: 0,
+                explanation: "Causes intellectual disability if untreated."
+            },
+            {
+                question: "117. PKU treatment includes:",
+                options: ["Low phenylalanine diet and tyrosine supplementation","High protein diet","Branched-chain amino acid restriction","None"],
+                correct: 0,
+                explanation: "Prevents toxic accumulation and provides tyrosine."
+            },
+            {
+                question: "118. Positive nitrogen balance occurs during:",
+                options: ["Growth, pregnancy, recovery","Malnutrition","Starvation","Illness"],
+                correct: 0,
+                explanation: "Nitrogen intake exceeds loss."
+            },
+            {
+                question: "119. Negative nitrogen balance occurs during:",
+                options: ["Malnutrition, wasting, illness","Growth","Pregnancy","Recovery"],
+                correct: 0,
+                explanation: "Nitrogen loss exceeds intake."
+            },
+            {
+                question: "120. Transamination reactions require:",
+                options: ["Pyridoxal phosphate (Vitamin B6)","NAD⁺","FAD","ATP"],
+                correct: 0,
+                explanation: "Cofactor for aminotransferases."
+            }
+        ];
+
+        // Shuffle options for each question while keeping correct answer
+        biochemistryQuestions.forEach(q => {
+            const correctOption = q.options[q.correct];
+            for (let i = q.options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
+            }
+            q.correct = q.options.indexOf(correctOption);
+        });
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(biochemistryQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = biochemistryQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${biochemistryQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / biochemistryQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = biochemistryQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < biochemistryQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            biochemistryQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) score++;
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${biochemistryQuestions.length}</strong> (${Math.round((score/biochemistryQuestions.length)*100)}%)</p>
+                <p>${score === biochemistryQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= biochemistryQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+                <button onclick="restartQuiz()">Restart Quiz</button>
+                <button onclick="window.close()">Exit</button>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = new Array(biochemistryQuestions.length).fill(null);
+            scoreDisplay.style.display = 'none';
+            loadQuestion();
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
