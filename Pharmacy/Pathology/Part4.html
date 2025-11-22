@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathology Quiz - Part 4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🧬 Pathology Quiz</h1>
+            <div class="subtitle">Part 4: General Pathology (Questions 121-160)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const pathologyQuestions = [
+            {
+                question: "121. Type II hypersensitivity is mediated by:",
+                options: [
+                    "Antibodies binding cell surface antigens",
+                    "Immune complexes",
+                    "T cells",
+                    "Complement only"
+                ],
+                correct: 0,
+                explanation: "Cytotoxic response."
+            },
+            {
+                question: "122. Type III hypersensitivity involves:",
+                options: [
+                    "Immune complexes",
+                    "IgE",
+                    "T cells",
+                    "Necrosis only"
+                ],
+                correct: 0,
+                explanation: "Example: SLE, serum sickness."
+            },
+            {
+                question: "123. Type IV hypersensitivity involves:",
+                options: [
+                    "T cells",
+                    "IgE",
+                    "Antibodies",
+                    "Complement"
+                ],
+                correct: 0,
+                explanation: "Delayed reaction."
+            },
+            {
+                question: "124. Autoimmune disease results from:",
+                options: [
+                    "Loss of tolerance",
+                    "Trauma",
+                    "Infection only",
+                    "Nutrition"
+                ],
+                correct: 0,
+                explanation: "Immune system attacks self-antigens."
+            },
+            {
+                question: "125. Immunodeficiency may be:",
+                options: [
+                    "Primary (genetic)",
+                    "Secondary (acquired)",
+                    "Both",
+                    "Neither"
+                ],
+                correct: 2,
+                explanation: "Primary (e.g., SCID), secondary (e.g., HIV)."
+            },
+            {
+                question: "126. Acute inflammation is characterized by:",
+                options: [
+                    "Rapid onset",
+                    "Neutrophil infiltration",
+                    "Vasodilation",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Rapid protective response."
+            },
+            {
+                question: "127. Chronic inflammation features include:",
+                options: [
+                    "Mononuclear cells",
+                    "Tissue destruction",
+                    "Fibrosis",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Long-term inflammation leads to repair attempts."
+            },
+            {
+                question: "128. Granulomatous inflammation is seen in:",
+                options: [
+                    "TB",
+                    "Fungal infections",
+                    "Sarcoidosis",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Characterized by epithelioid macrophages and giant cells."
+            },
+            {
+                question: "129. Wound healing requires:",
+                options: [
+                    "Growth factors",
+                    "Cytokines",
+                    "Extracellular matrix",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Coordinates repair and tissue regeneration."
+            },
+            {
+                question: "130. Hemostasis involves:",
+                options: [
+                    "Vasoconstriction",
+                    "Platelet plug formation",
+                    "Coagulation",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Stops bleeding effectively."
+            },
+            {
+                question: "131. Shock results in:",
+                options: [
+                    "Decreased perfusion",
+                    "Hypoxia",
+                    "Organ dysfunction",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Can be hypovolemic, cardiogenic, or septic."
+            },
+            {
+                question: "132. DIC is characterized by:",
+                options: [
+                    "Microthrombi",
+                    "Consumption of clotting factors",
+                    "Bleeding",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Pathologic coagulation disorder."
+            },
+            {
+                question: "133. Necrosis vs. apoptosis:",
+                options: [
+                    "Necrosis triggers inflammation; apoptosis does not",
+                    "Necrosis is programmed; apoptosis is accidental",
+                    "Both are identical",
+                    "None"
+                ],
+                correct: 0,
+                explanation: "Key differentiator."
+            },
+            {
+                question: "134. Reversible cell injury includes:",
+                options: [
+                    "Cell swelling",
+                    "Fatty change",
+                    "Both A and B",
+                    "Necrosis"
+                ],
+                correct: 2,
+                explanation: "Cells can recover if stress is removed."
+            },
+            {
+                question: "135. Irreversible cell injury results in:",
+                options: [
+                    "Necrosis",
+                    "Apoptosis",
+                    "Both",
+                    "Neither"
+                ],
+                correct: 0,
+                explanation: "Leads to inflammation and tissue damage."
+            },
+            {
+                question: "136. Fat necrosis is:",
+                options: [
+                    "Trauma-induced fat damage",
+                    "Pancreatic enzyme-mediated",
+                    "Both A and B",
+                    "Neither"
+                ],
+                correct: 2,
+                explanation: "Leads to saponification of fat."
+            },
+            {
+                question: "137. Coagulative necrosis is typical of:",
+                options: [
+                    "Myocardial infarct",
+                    "Brain infarct",
+                    "Fat tissue",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Protein denaturation preserves tissue architecture."
+            },
+            {
+                question: "138. Liquefactive necrosis is typical of:",
+                options: [
+                    "Brain infarct",
+                    "Myocardial infarct",
+                    "Tuberculosis",
+                    "Fat necrosis"
+                ],
+                correct: 0,
+                explanation: "Enzymatic digestion → liquid lesion."
+            },
+            {
+                question: "139. Caseous necrosis is seen in:",
+                options: [
+                    "TB",
+                    "Myocardial infarct",
+                    "Fat necrosis",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Cheese-like appearance in granulomas."
+            },
+            {
+                question: "140. Dystrophic calcification occurs in:",
+                options: [
+                    "Necrotic tissues",
+                    "Normal tissues",
+                    "Bones only",
+                    "Cartilage only"
+                ],
+                correct: 0,
+                explanation: "Calcium deposits despite normal serum levels."
+            },
+            {
+                question: "141. Metastatic calcification occurs due to:",
+                options: [
+                    "Hypercalcemia",
+                    "Tissue necrosis",
+                    "Infection",
+                    "Trauma"
+                ],
+                correct: 0,
+                explanation: "Calcium deposits in normal tissues."
+            },
+            {
+                question: "142. Hypertrophy is:",
+                options: [
+                    "Increase in cell size",
+                    "Increase in cell number",
+                    "Decrease in cell size",
+                    "Necrosis"
+                ],
+                correct: 0,
+                explanation: "Example: cardiac hypertrophy."
+            },
+            {
+                question: "143. Hyperplasia is:",
+                options: [
+                    "Increase in cell number",
+                    "Increase in cell size",
+                    "Apoptosis",
+                    "Necrosis"
+                ],
+                correct: 0,
+                explanation: "Physiologic or pathologic."
+            },
+            {
+                question: "144. Atrophy is:",
+                options: [
+                    "Decrease in cell size/function",
+                    "Increase in cell size",
+                    "Necrosis",
+                    "Fibrosis"
+                ],
+                correct: 0,
+                explanation: "Example: disuse muscle wasting."
+            },
+            {
+                question: "145. Metaplasia is:",
+                options: [
+                    "Replacement of one cell type with another",
+                    "Necrosis",
+                    "Apoptosis",
+                    "Hypertrophy"
+                ],
+                correct: 0,
+                explanation: "Adaptive, reversible."
+            },
+            {
+                question: "146. Type I hypersensitivity:",
+                options: [
+                    "IgE-mediated",
+                    "IgG-mediated",
+                    "T cell-mediated",
+                    "Complement-mediated"
+                ],
+                correct: 0,
+                explanation: "Immediate allergic reactions."
+            },
+            {
+                question: "147. Type II hypersensitivity:",
+                options: [
+                    "Antibody-mediated",
+                    "Immune complex-mediated",
+                    "T cell-mediated",
+                    "Delayed"
+                ],
+                correct: 0,
+                explanation: "Cytotoxic response."
+            },
+            {
+                question: "148. Type III hypersensitivity is caused by:",
+                options: [
+                    "Immune complex deposition",
+                    "IgE-mediated reaction",
+                    "T cell-mediated reaction",
+                    "Direct cytotoxicity"
+                ],
+                correct: 0,
+                explanation: "Examples include SLE and serum sickness."
+            },
+            {
+                question: "149. Type IV hypersensitivity involves:",
+                options: [
+                    "T cell-mediated delayed reaction",
+                    "IgE-mediated response",
+                    "Antibody-mediated cytotoxicity",
+                    "Complement activation"
+                ],
+                correct: 0,
+                explanation: "Seen in contact dermatitis and tuberculin reaction."
+            },
+            {
+                question: "150. Loss of immunologic tolerance leads to:",
+                options: [
+                    "Autoimmune disease",
+                    "Infection",
+                    "Trauma",
+                    "Allergy"
+                ],
+                correct: 0,
+                explanation: "Self-antigens are recognized as foreign."
+            },
+            {
+                question: "151. Primary immunodeficiency is:",
+                options: [
+                    "Congenital",
+                    "Acquired",
+                    "Infection-induced",
+                    "Nutritional"
+                ],
+                correct: 0,
+                explanation: "Examples: SCID, Bruton's agammaglobulinemia."
+            },
+            {
+                question: "152. Secondary immunodeficiency is:",
+                options: [
+                    "Acquired later in life",
+                    "Genetic",
+                    "Congenital",
+                    "None of the above"
+                ],
+                correct: 0,
+                explanation: "Example: HIV infection or malnutrition."
+            },
+            {
+                question: "153. Acute inflammation involves:",
+                options: [
+                    "Rapid onset",
+                    "Short duration",
+                    "Neutrophil predominance",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Hallmarks of acute inflammation."
+            },
+            {
+                question: "154. Chronic inflammation is characterized by:",
+                options: [
+                    "Lymphocytes and macrophages",
+                    "Tissue destruction",
+                    "Attempted repair (fibrosis)",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Persistent injury and repair define chronic inflammation."
+            },
+            {
+                question: "155. Granulomatous inflammation is seen in:",
+                options: [
+                    "TB",
+                    "Sarcoidosis",
+                    "Certain fungal infections",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Characterized by epithelioid cells and giant cells."
+            },
+            {
+                question: "156. Chemical mediators of inflammation include:",
+                options: [
+                    "Histamine",
+                    "Prostaglandins",
+                    "Cytokines",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "They regulate vasodilation, permeability, and leukocyte recruitment."
+            },
+            {
+                question: "157. Fever in acute inflammation is mediated by:",
+                options: [
+                    "IL-1 and TNF-alpha",
+                    "Histamine",
+                    "Platelets",
+                    "Collagen"
+                ],
+                correct: 0,
+                explanation: "Act on hypothalamus to increase body temperature."
+            },
+            {
+                question: "158. Edema occurs due to:",
+                options: [
+                    "Increased hydrostatic pressure",
+                    "Decreased oncotic pressure",
+                    "Lymphatic obstruction",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Multiple mechanisms lead to fluid accumulation."
+            },
+            {
+                question: "159. Hyperemia is:",
+                options: [
+                    "Active increase in blood flow",
+                    "Passive congestion",
+                    "Edema",
+                    "Necrosis"
+                ],
+                correct: 0,
+                explanation: "Seen in inflammation or exercise."
+            },
+            {
+                question: "160. Congestion is:",
+                options: [
+                    "Passive accumulation of blood",
+                    "Active hyperemia",
+                    "Necrosis",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Due to impaired venous outflow."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(pathologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = pathologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${pathologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / pathologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = pathologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < pathologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            pathologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${pathologyQuestions.length}</strong> (${Math.round((score/pathologyQuestions.length)*100)}%)</p>
+                <p>${score === pathologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= pathologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

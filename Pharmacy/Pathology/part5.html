@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathology Quiz - Part 5</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🧬 Pathology Quiz</h1>
+            <div class="subtitle">Part 5: General Pathology (Questions 161-200)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const pathologyQuestions = [
+            {
+                question: "161. Hemorrhage can result from:",
+                options: [
+                    "Trauma",
+                    "Vessel wall damage",
+                    "Coagulation disorders",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Multiple pathological mechanisms can lead to bleeding."
+            },
+            {
+                question: "162. Thrombosis occurs in:",
+                options: [
+                    "Living vessels",
+                    "Dead vessels",
+                    "Only arteries",
+                    "Only veins"
+                ],
+                correct: 0,
+                explanation: "Pathologic clot formation differs from postmortem coagulation."
+            },
+            {
+                question: "163. Embolism is:",
+                options: [
+                    "Formation of a thrombus",
+                    "Migration of intravascular material",
+                    "Vasodilation",
+                    "Fibrosis"
+                ],
+                correct: 1,
+                explanation: "Emboli can be thrombus, fat, air, etc."
+            },
+            {
+                question: "164. Shock results from:",
+                options: [
+                    "Inadequate tissue perfusion",
+                    "Excessive perfusion",
+                    "Necrosis",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Leads to hypoxia and organ failure."
+            },
+            {
+                question: "165. Disseminated Intravascular Coagulation (DIC) is characterized by:",
+                options: [
+                    "Widespread microthrombi",
+                    "Consumption of platelets and clotting factors",
+                    "Bleeding tendency",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Systemic activation of coagulation leading to bleeding and clotting."
+            },
+            {
+                question: "166. Necrosis triggers:",
+                options: [
+                    "Inflammation",
+                    "Apoptosis",
+                    "Hypertrophy",
+                    "Metaplasia"
+                ],
+                correct: 0,
+                explanation: "Necrotic cells release intracellular contents → inflammatory response."
+            },
+            {
+                question: "167. Apoptosis features:",
+                options: [
+                    "Cell shrinkage",
+                    "Chromatin condensation",
+                    "Apoptotic body formation",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Programmed cell death without inflammation."
+            },
+            {
+                question: "168. Hypertrophy example:",
+                options: [
+                    "Cardiac enlargement due to hypertension",
+                    "Fat necrosis",
+                    "Apoptosis",
+                    "Necrosis"
+                ],
+                correct: 0,
+                explanation: "Cells increase in size due to increased workload."
+            },
+            {
+                question: "169. Hyperplasia example:",
+                options: [
+                    "Endometrial proliferation during pregnancy",
+                    "Necrosis",
+                    "Apoptosis",
+                    "Atrophy"
+                ],
+                correct: 0,
+                explanation: "Hormonal stimulation increases cell number."
+            },
+            {
+                question: "170. Atrophy example:",
+                options: [
+                    "Muscle wasting due to disuse",
+                    "Necrosis",
+                    "Apoptosis",
+                    "Fibrosis"
+                ],
+                correct: 0,
+                explanation: "Decrease in cell size or function."
+            },
+            {
+                question: "171. Metaplasia example:",
+                options: [
+                    "Squamous metaplasia in smoker's bronchus",
+                    "Necrosis",
+                    "Apoptosis",
+                    "Fibrosis"
+                ],
+                correct: 0,
+                explanation: "Adaptive replacement of cell type."
+            },
+            {
+                question: "172. Dystrophic calcification occurs in:",
+                options: [
+                    "Necrotic tissues",
+                    "Normal tissues",
+                    "Bones",
+                    "Cartilage"
+                ],
+                correct: 0,
+                explanation: "Calcium deposits despite normal serum calcium."
+            },
+            {
+                question: "173. Metastatic calcification occurs due to:",
+                options: [
+                    "Hypercalcemia",
+                    "Tissue necrosis",
+                    "Trauma",
+                    "Infection"
+                ],
+                correct: 0,
+                explanation: "Calcium deposits in normal tissues."
+            },
+            {
+                question: "174. Fatty change (steatosis) is:",
+                options: [
+                    "Reversible",
+                    "Irreversible",
+                    "Necrotic",
+                    "Apoptotic"
+                ],
+                correct: 0,
+                explanation: "Accumulation of triglycerides in cells."
+            },
+            {
+                question: "175. Coagulative necrosis is typical of:",
+                options: [
+                    "Myocardial infarction",
+                    "Brain infarction",
+                    "Fat necrosis",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Protein denaturation preserves tissue architecture."
+            },
+            {
+                question: "176. Liquefactive necrosis is seen in:",
+                options: [
+                    "Brain infarct",
+                    "Myocardial infarct",
+                    "Fat necrosis",
+                    "TB"
+                ],
+                correct: 0,
+                explanation: "Enzymatic digestion → liquefied lesion."
+            },
+            {
+                question: "177. Caseous necrosis is characteristic of:",
+                options: [
+                    "Tuberculosis",
+                    "Myocardial infarct",
+                    "Fat necrosis",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Cheese-like granulomatous appearance."
+            },
+            {
+                question: "178. Type I hypersensitivity is mediated by:",
+                options: [
+                    "IgE",
+                    "IgG",
+                    "T cells",
+                    "Complement"
+                ],
+                correct: 0,
+                explanation: "Immediate allergic reaction."
+            },
+            {
+                question: "179. Type II hypersensitivity involves:",
+                options: [
+                    "Antibody-mediated cytotoxicity",
+                    "T cell-mediated reaction",
+                    "Immune complex deposition",
+                    "IgE-mediated reaction"
+                ],
+                correct: 0,
+                explanation: "IgG/IgM binds to cell surface antigens."
+            },
+            {
+                question: "180. Type III hypersensitivity involves:",
+                options: [
+                    "Immune complex deposition",
+                    "IgE-mediated allergy",
+                    "T cell-mediated response",
+                    "Necrosis"
+                ],
+                correct: 0,
+                explanation: "Causes vasculitis and glomerulonephritis."
+            },
+            {
+                question: "181. Type IV hypersensitivity is:",
+                options: [
+                    "T cell-mediated delayed reaction",
+                    "IgE-mediated",
+                    "Antibody-mediated",
+                    "Complement-mediated"
+                ],
+                correct: 0,
+                explanation: "Seen in contact dermatitis and tuberculin reaction."
+            },
+            {
+                question: "182. Autoimmune disease occurs due to:",
+                options: [
+                    "Loss of immunologic tolerance",
+                    "Infection",
+                    "Trauma",
+                    "Allergy"
+                ],
+                correct: 0,
+                explanation: "Immune system attacks self-antigens."
+            },
+            {
+                question: "183. Primary immunodeficiency is:",
+                options: [
+                    "Congenital",
+                    "Acquired",
+                    "Infection-induced",
+                    "Nutritional"
+                ],
+                correct: 0,
+                explanation: "Examples: SCID, Bruton's agammaglobulinemia."
+            },
+            {
+                question: "184. Secondary immunodeficiency is:",
+                options: [
+                    "Acquired later in life",
+                    "Genetic",
+                    "Congenital",
+                    "None"
+                ],
+                correct: 0,
+                explanation: "Example: HIV infection, malnutrition."
+            },
+            {
+                question: "185. Chronic inflammation is characterized by:",
+                options: [
+                    "Mononuclear cell infiltration",
+                    "T tissue destruction",
+                    "Attempted repair (fibrosis)",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Persistent injury with repair."
+            },
+            {
+                question: "186. Granulomatous inflammation is seen in:",
+                options: [
+                    "TB",
+                    "Fungal infections",
+                    "Sarcoidosis",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Macrophage-dominated response."
+            },
+            {
+                question: "187. Wound healing requires:",
+                options: [
+                    "Growth factors",
+                    "Cytokines",
+                    "Extracellular matrix proteins",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Coordinate repair and regeneration."
+            },
+            {
+                question: "188. Hemostasis involves:",
+                options: [
+                    "Vasoconstriction",
+                    "Platelet plug formation",
+                    "Coagulation cascade",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Stops bleeding through multiple mechanisms."
+            },
+            {
+                question: "189. Shock leads to:",
+                options: [
+                    "Hypoperfusion",
+                    "Hypoxia",
+                    "Organ dysfunction",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Causes include hypovolemic, cardiogenic, septic shock."
+            },
+            {
+                question: "190. DIC features include:",
+                options: [
+                    "Microthrombi",
+                    "Bleeding due to consumption of clotting factors",
+                    "Multiorgan failure",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Systemic coagulation disorder."
+            },
+            {
+                question: "191. Necrosis differs from apoptosis because:",
+                options: [
+                    "Necrosis triggers inflammation",
+                    "Apoptosis is non-inflammatory",
+                    "Necrosis is accidental; apoptosis is programmed",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Key differences between cell death types."
+            },
+            {
+                question: "192. Fat necrosis is caused by:",
+                options: [
+                    "Trauma",
+                    "Pancreatic enzyme action",
+                    "Both A and B",
+                    "Neither"
+                ],
+                correct: 2,
+                explanation: "Leads to saponification of fat."
+            },
+            {
+                question: "193. Coagulative necrosis is typical in:",
+                options: [
+                    "Myocardial infarction",
+                    "Brain infarction",
+                    "Fat tissue",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Protein denaturation preserves tissue architecture."
+            },
+            {
+                question: "194. Liquefactive necrosis is typical in:",
+                options: [
+                    "Brain infarction",
+                    "Myocardial infarction",
+                    "Fat necrosis",
+                    "Tuberculosis"
+                ],
+                correct: 0,
+                explanation: "Rapid enzymatic digestion → liquid lesion."
+            },
+            {
+                question: "195. Caseous necrosis is characteristic of:",
+                options: [
+                    "Tuberculosis",
+                    "Myocardial infarction",
+                    "Fat necrosis",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Cheese-like necrotic tissue."
+            },
+            {
+                question: "196. Dystrophic calcification occurs in:",
+                options: [
+                    "Necrotic tissues with normal calcium",
+                    "Hypercalcemia",
+                    "Normal tissues",
+                    "Bones only"
+                ],
+                correct: 0,
+                explanation: "Deposits in damaged tissues."
+            },
+            {
+                question: "197. Metastatic calcification occurs due to:",
+                options: [
+                    "Hypercalcemia",
+                    "Necrosis",
+                    "Trauma",
+                    "Infection"
+                ],
+                correct: 0,
+                explanation: "Calcium deposits in otherwise normal tissues."
+            },
+            {
+                question: "198. The primary site of dietary protein digestion is:",
+                options: [
+                    "Stomach and small intestine",
+                    "Mouth",
+                    "Liver",
+                    "Large intestine"
+                ],
+                correct: 0,
+                explanation: "Pepsin in stomach and pancreatic enzymes in small intestine."
+            },
+            {
+                question: "199. Endopeptidases cleave:",
+                options: [
+                    "Internal peptide bonds",
+                    "Terminal amino acids",
+                    "DNA",
+                    "Lipids"
+                ],
+                correct: 0,
+                explanation: "Examples include pepsin, trypsin, chymotrypsin."
+            },
+            {
+                question: "200. Exopeptidases cleave:",
+                options: [
+                    "Terminal amino acids",
+                    "Internal peptide bonds",
+                    "Lipids",
+                    "DNA"
+                ],
+                correct: 0,
+                explanation: "Aminopeptidase removes N-terminal, carboxypeptidase removes C-terminal."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(pathologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = pathologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${pathologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / pathologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = pathologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < pathologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            pathologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${pathologyQuestions.length}</strong> (${Math.round((score/pathologyQuestions.length)*100)}%)</p>
+                <p>${score === pathologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= pathologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

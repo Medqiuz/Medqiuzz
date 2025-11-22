@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathology Quiz - Part 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🧬 Pathology Quiz</h1>
+            <div class="subtitle">Part 2: General Pathology (Questions 41-80)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const pathologyQuestions = [
+            {
+                question: "41. DIC is characterized by:",
+                options: [
+                    "Widespread microthrombi",
+                    "Consumption of platelets and clotting factors",
+                    "Bleeding tendency",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "DIC is a consumptive coagulopathy with both clotting and bleeding."
+            },
+            {
+                question: "42. Hyperemia is:",
+                options: [
+                    "Passive congestion",
+                    "Active increase in blood flow",
+                    "Edema",
+                    "Necrosis"
+                ],
+                correct: 1,
+                explanation: "Occurs in inflammation or exercise."
+            },
+            {
+                question: "43. Congestion refers to:",
+                options: [
+                    "Increased arterial flow",
+                    "Impaired venous outflow",
+                    "Necrosis",
+                    "Apoptosis"
+                ],
+                correct: 1,
+                explanation: "Can be acute or chronic."
+            },
+            {
+                question: "44. Necrosis elicits:",
+                options: [
+                    "Inflammation",
+                    "Fibrosis",
+                    "Apoptosis",
+                    "Hypertrophy"
+                ],
+                correct: 0,
+                explanation: "Necrotic cells release intracellular contents → inflammatory response."
+            },
+            {
+                question: "45. Apoptosis is characterized by:",
+                options: [
+                    "Cell shrinkage",
+                    "Chromatin condensation",
+                    "Formation of apoptotic bodies",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Apoptosis is energy-dependent and non-inflammatory."
+            },
+            {
+                question: "46. Hypertrophy is:",
+                options: [
+                    "Increase in cell number",
+                    "Increase in cell size",
+                    "Decrease in cell size",
+                    "Cell death"
+                ],
+                correct: 1,
+                explanation: "Example: cardiac hypertrophy due to pressure overload."
+            },
+            {
+                question: "47. Hyperplasia is:",
+                options: [
+                    "Increase in cell size",
+                    "Increase in cell number",
+                    "Cell death",
+                    "Fibrosis"
+                ],
+                correct: 1,
+                explanation: "Can be physiologic (hormonal) or pathologic."
+            },
+            {
+                question: "48. Atrophy is:",
+                options: [
+                    "Increase in size or number of cells",
+                    "Decrease in size or function of cells",
+                    "Necrosis",
+                    "Inflammation"
+                ],
+                correct: 1,
+                explanation: "Can result from disuse, ischemia, or denervation."
+            },
+            {
+                question: "49. Metaplasia is:",
+                options: [
+                    "Reversible change of one differentiated cell type to another",
+                    "Necrosis",
+                    "Atrophy",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Example: squamous metaplasia of bronchial epithelium in smokers."
+            },
+            {
+                question: "50. Genetic diseases can be:",
+                options: [
+                    "Mendelian disorders",
+                    "Chromosomal disorders",
+                    "Multifactorial disorders",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Genetic diseases include single gene, chromosomal, or combined genetic/environmental causes."
+            },
+            {
+                question: "51. Type I hypersensitivity is mediated by:",
+                options: [
+                    "IgE antibodies",
+                    "IgG antibodies",
+                    "T cells",
+                    "Complement"
+                ],
+                correct: 0,
+                explanation: "Immediate hypersensitivity → allergy, anaphylaxis."
+            },
+            {
+                question: "52. Type II hypersensitivity involves:",
+                options: [
+                    "Immune complexes",
+                    "Antibody-mediated cell damage",
+                    "T cell-mediated reactions",
+                    "Delayed hypersensitivity"
+                ],
+                correct: 1,
+                explanation: "IgG or IgM antibodies bind to cell surface antigens → cytotoxicity."
+            },
+            {
+                question: "53. Type III hypersensitivity is:",
+                options: [
+                    "Immune complex-mediated",
+                    "IgE-mediated",
+                    "T cell-mediated",
+                    "Complement-independent"
+                ],
+                correct: 0,
+                explanation: "Examples: SLE, serum sickness."
+            },
+            {
+                question: "54. Type IV hypersensitivity is:",
+                options: [
+                    "Delayed, T cell-mediated",
+                    "IgE-mediated",
+                    "Antibody-mediated",
+                    "Immune complex-mediated"
+                ],
+                correct: 0,
+                explanation: "Examples: contact dermatitis, tuberculin reaction."
+            },
+            {
+                question: "55. Autoimmune diseases result from:",
+                options: [
+                    "Loss of tolerance",
+                    "Excessive infections",
+                    "Trauma",
+                    "Nutritional deficiency"
+                ],
+                correct: 0,
+                explanation: "Self-antigens are attacked, causing tissue injury."
+            },
+            {
+                question: "56. Immunodeficiency diseases can be:",
+                options: [
+                    "Primary (genetic)",
+                    "Secondary (acquired)",
+                    "Both A and B",
+                    "None"
+                ],
+                correct: 2,
+                explanation: "Congenital or acquired (e.g., HIV)."
+            },
+            {
+                question: "57. Systemic effects of acute inflammation include:",
+                options: [
+                    "Fever",
+                    "Leukocytosis",
+                    "Increased acute-phase proteins",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Mediated by cytokines such as IL-1, TNF-alpha."
+            },
+            {
+                question: "58. Wound healing is regulated by:",
+                options: [
+                    "Growth factors",
+                    "Cytokines",
+                    "Extracellular matrix proteins",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "These factors control cell migration, proliferation, and differentiation."
+            },
+            {
+                question: "59. Fracture healing involves:",
+                options: [
+                    "Hematoma formation",
+                    "Callus formation",
+                    "Remodeling",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Sequential process: inflammation → repair → remodeling."
+            },
+            {
+                question: "60. Hemostasis involves:",
+                options: [
+                    "Vasoconstriction",
+                    "Platelet plug formation",
+                    "Coagulation cascade",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Stops bleeding through vessel, platelet, and clotting factor mechanisms."
+            },
+            {
+                question: "61. Disseminated Intravascular Coagulation (DIC) is associated with:",
+                options: [
+                    "Sepsis",
+                    "Obstetric complications",
+                    "Malignancies",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Systemic activation of coagulation → microthrombi and bleeding."
+            },
+            {
+                question: "62. Necrosis triggers:",
+                options: [
+                    "Inflammation",
+                    "Fibrosis",
+                    "Hypertrophy",
+                    "Metaplasia"
+                ],
+                correct: 0,
+                explanation: "Necrotic cells release intracellular contents → inflammatory response."
+            },
+            {
+                question: "63. Apoptosis differs from necrosis in that it:",
+                options: [
+                    "Is energy-dependent",
+                    "Does not elicit inflammation",
+                    "Forms apoptotic bodies",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Programmed cell death without inflammation."
+            },
+            {
+                question: "64. Chronic inflammation may result in:",
+                options: [
+                    "Fibrosis",
+                    "Tissue destruction",
+                    "Angiogenesis",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Chronic inflammation involves ongoing injury and repair processes."
+            },
+            {
+                question: "65. Hemodynamic disorders include:",
+                options: [
+                    "Edema",
+                    "Hyperemia/congestion",
+                    "Hemorrhage",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Disorders of blood flow or fluid balance."
+            },
+            {
+                question: "66. Hyperemia occurs due to:",
+                options: [
+                    "Arteriolar dilation",
+                    "Venous obstruction",
+                    "Lymphatic blockage",
+                    "Platelet aggregation"
+                ],
+                correct: 0,
+                explanation: "Active increase in blood flow."
+            },
+            {
+                question: "67. Congestion is due to:",
+                options: [
+                    "Arteriolar dilation",
+                    "Impaired venous outflow",
+                    "Fibrosis",
+                    "Necrosis"
+                ],
+                correct: 1,
+                explanation: "Passive accumulation of blood."
+            },
+            {
+                question: "68. Thrombosis may result in:",
+                options: [
+                    "Infarction",
+                    "Embolism",
+                    "Both A and B",
+                    "Neither"
+                ],
+                correct: 2,
+                explanation: "Thrombus can obstruct vessels locally or embolize."
+            },
+            {
+                question: "69. Emboli can be:",
+                options: [
+                    "Thrombotic",
+                    "Fat",
+                    "Air",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Emboli types vary depending on origin."
+            },
+            {
+                question: "70. Shock is defined as:",
+                options: [
+                    "Increased tissue perfusion",
+                    "Reduced tissue perfusion",
+                    "Necrosis",
+                    "Apoptosis"
+                ],
+                correct: 1,
+                explanation: "Leads to hypoxia and organ failure."
+            },
+            {
+                question: "71. Mendelian disorders are caused by:",
+                options: [
+                    "Single gene mutation",
+                    "Chromosomal defects",
+                    "Environmental factors",
+                    "Nutritional deficiency"
+                ],
+                correct: 0,
+                explanation: "Follow classical inheritance patterns."
+            },
+            {
+                question: "72. Chromosomal disorders may result in:",
+                options: [
+                    "Trisomy or monosomy",
+                    "Translocations or deletions",
+                    "Both A and B",
+                    "Single gene mutations"
+                ],
+                correct: 2,
+                explanation: "Abnormal chromosome number or structure causes disease."
+            },
+            {
+                question: "73. Multifactorial disorders are caused by:",
+                options: [
+                    "Only genes",
+                    "Only environment",
+                    "Genes + environment",
+                    "Infectious agents"
+                ],
+                correct: 2,
+                explanation: "Examples: diabetes, hypertension."
+            },
+            {
+                question: "74. Type I hypersensitivity is mediated by:",
+                options: [
+                    "IgE",
+                    "IgG",
+                    "T cells",
+                    "Complement"
+                ],
+                correct: 0,
+                explanation: "Immediate hypersensitivity: allergy, anaphylaxis."
+            },
+            {
+                question: "75. Type IV hypersensitivity is:",
+                options: [
+                    "Delayed, T cell-mediated",
+                    "IgE-mediated",
+                    "Antibody-mediated",
+                    "Immune complex-mediated"
+                ],
+                correct: 0,
+                explanation: "Examples: contact dermatitis, tuberculin reaction."
+            },
+            {
+                question: "76. The primary purpose of studying General Pathology is to:",
+                options: [
+                    "Replace clinical medicine",
+                    "Understand basic mechanisms of disease",
+                    "Study only systemic diseases",
+                    "Learn surgical techniques"
+                ],
+                correct: 1,
+                explanation: "General pathology provides a foundation for systemic pathology and clinical medicine."
+            },
+            {
+                question: "77. Morphologic changes in disease include:",
+                options: [
+                    "Biochemical changes",
+                    "Structural alterations in cells and tissues",
+                    "Fever and malaise",
+                    "Genetic mutations only"
+                ],
+                correct: 1,
+                explanation: "These are visible under microscope or gross examination."
+            },
+            {
+                question: "78. Clinical death refers to:",
+                options: [
+                    "Permanent cessation of all body functions",
+                    "Cessation of heartbeat and respiration",
+                    "Irreversible brain damage",
+                    "Loss of consciousness only"
+                ],
+                correct: 1,
+                explanation: "Clinical death may be reversible if resuscitated."
+            },
+            {
+                question: "79. Biologic death refers to:",
+                options: [
+                    "Temporary organ shutdown",
+                    "Irreversible cessation of vital functions",
+                    "Loss of reflexes",
+                    "Cessation of inflammation"
+                ],
+                correct: 1,
+                explanation: "Brain and organ death define biologic death."
+            },
+            {
+                question: "80. Types of cell death include:",
+                options: [
+                    "Necrosis",
+                    "Apoptosis",
+                    "Autophagy",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Necrosis is accidental; apoptosis is programmed; autophagy is self-digestion."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(pathologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = pathologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                // Check if this option was previously selected
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${pathologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / pathologyQuestions.length) * 100}%`;
+            
+            // Update navigation buttons
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            // Show explanation if answer was selected
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = pathologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < pathologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            pathologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${pathologyQuestions.length}</strong> (${Math.round((score/pathologyQuestions.length)*100)}%)</p>
+                <p>${score === pathologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= pathologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        // Initialize the quiz
+        loadQuestion();
+    </script>
+</body>
+</html>

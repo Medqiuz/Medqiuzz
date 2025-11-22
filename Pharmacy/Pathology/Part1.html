@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathology Quiz - Part 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🧬 Pathology Quiz</h1>
+            <div class="subtitle">Part 1: General Pathology (Questions 1-40)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const pathologyQuestions = [
+            {
+                question: "1. Which of the following best describes the study of pathology?",
+                options: [
+                    "Study of normal body structures",
+                    "Study of diseases and their mechanisms",
+                    "Study of pharmacology",
+                    "Study of physiology"
+                ],
+                correct: 1,
+                explanation: "Pathology focuses on understanding disease causes, mechanisms, morphologic changes, and clinical consequences."
+            },
+            {
+                question: "2. What is the term for the cause of a disease?",
+                options: [
+                    "Pathogenesis",
+                    "Etiology",
+                    "Morphology",
+                    "Prognosis"
+                ],
+                correct: 1,
+                explanation: "Etiology refers to the underlying cause, such as genetic, infectious, or nutritional factors."
+            },
+            {
+                question: "3. Which of the following is an example of a morphologic change in disease?",
+                options: [
+                    "Fever",
+                    "Necrosis of tissue",
+                    "Genetic mutation",
+                    "Inflammation"
+                ],
+                correct: 1,
+                explanation: "Morphologic changes are structural alterations in cells or tissues due to disease."
+            },
+            {
+                question: "4. Acute inflammation is primarily characterized by:",
+                options: [
+                    "Lymphocyte infiltration",
+                    "Neutrophil accumulation",
+                    "Fibrosis",
+                    "Granuloma formation"
+                ],
+                correct: 1,
+                explanation: "Acute inflammation is rapid and predominantly involves neutrophils."
+            },
+            {
+                question: "5. Which of the following is a reversible cellular change?",
+                options: [
+                    "Necrosis",
+                    "Apoptosis",
+                    "Fatty change (steatosis)",
+                    "Gangrene"
+                ],
+                correct: 2,
+                explanation: "Reversible changes allow the cell to recover if the stimulus is removed."
+            },
+            {
+                question: "6. What is the difference between apoptosis and necrosis?",
+                options: [
+                    "Apoptosis is uncontrolled; necrosis is programmed",
+                    "Apoptosis is energy-dependent and programmed; necrosis is accidental cell death",
+                    "Both are identical processes",
+                    "Necrosis occurs only in immune cells"
+                ],
+                correct: 1,
+                explanation: "Apoptosis is physiological or pathological programmed cell death."
+            },
+            {
+                question: "7. Pathologic calcification can occur in:",
+                options: [
+                    "Necrotic tissue only",
+                    "Normal tissues only",
+                    "Both necrotic and abnormal tissues",
+                    "Only bone tissue"
+                ],
+                correct: 2,
+                explanation: "Dystrophic (necrotic tissue) and metastatic (from hypercalcemia) calcification occur."
+            },
+            {
+                question: "8. Which of the following is a chemical mediator of acute inflammation?",
+                options: [
+                    "Fibroblast growth factor",
+                    "Histamine",
+                    "Keratin",
+                    "Elastin"
+                ],
+                correct: 1,
+                explanation: "Histamine increases vascular permeability and vasodilation during inflammation."
+            },
+            {
+                question: "9. Chronic inflammation is characterized by:",
+                options: [
+                    "Neutrophilic infiltration",
+                    "Mononuclear cell infiltration (macrophages, lymphocytes)",
+                    "Immediate tissue swelling",
+                    "Rapid onset"
+                ],
+                correct: 1,
+                explanation: "Chronic inflammation develops slowly and persists with tissue destruction and repair."
+            },
+            {
+                question: "10. Which stage of healing involves fibroblast proliferation and collagen deposition?",
+                options: [
+                    "Hemostasis",
+                    "Inflammatory phase",
+                    "Proliferative phase",
+                    "Remodeling phase"
+                ],
+                correct: 2,
+                explanation: "Fibroblasts synthesize collagen to form granulation tissue."
+            },
+            {
+                question: "11. Fracture healing begins with:",
+                options: [
+                    "Primary intention",
+                    "Hematoma formation",
+                    "Remodeling",
+                    "Fibrosis"
+                ],
+                correct: 1,
+                explanation: "Blood clot forms immediately at fracture site → inflammation and repair."
+            },
+            {
+                question: "12. Edema is caused by:",
+                options: [
+                    "Increased hydrostatic pressure",
+                    "Decreased plasma oncotic pressure",
+                    "Lymphatic obstruction",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Multiple mechanisms can lead to fluid accumulation in tissues."
+            },
+            {
+                question: "13. Hyperemia differs from congestion in that:",
+                options: [
+                    "Hyperemia is passive; congestion is active",
+                    "Hyperemia is active (increased blood flow); congestion is passive (impaired outflow)",
+                    "Both are identical",
+                    "Only congestion causes inflammation"
+                ],
+                correct: 1,
+                explanation: "Hyperemia occurs during exercise or inflammation; congestion is due to venous obstruction."
+            },
+            {
+                question: "14. Thrombosis is defined as:",
+                options: [
+                    "Clot formation in a living vessel",
+                    "Clot formation after death",
+                    "Normal blood coagulation",
+                    "Inflammation of blood vessels"
+                ],
+                correct: 0,
+                explanation: "Pathologic thrombosis differs from postmortem clotting."
+            },
+            {
+                question: "15. Embolism refers to:",
+                options: [
+                    "Formation of a thrombus",
+                    "Migration of intravascular material to a distant site",
+                    "Passive congestion",
+                    "Edema"
+                ],
+                correct: 1,
+                explanation: "Emboli can be thrombi, fat, air, or other material."
+            },
+            {
+                question: "16. Mendelian disorders are caused by:",
+                options: [
+                    "Single gene mutations",
+                    "Chromosomal abnormalities",
+                    "Environmental factors only",
+                    "Nutritional deficiencies"
+                ],
+                correct: 0,
+                explanation: "These follow classical inheritance patterns (dominant, recessive)."
+            },
+            {
+                question: "17. Chromosomal disorders can result from:",
+                options: [
+                    "Numerical abnormalities (trisomy, monosomy)",
+                    "Structural abnormalities (deletions, translocations)",
+                    "Both A and B",
+                    "Single nucleotide mutations"
+                ],
+                correct: 2,
+                explanation: "Chromosome number or structure changes lead to genetic syndromes."
+            },
+            {
+                question: "18. Multifactorial disorders are caused by:",
+                options: [
+                    "Only genetic factors",
+                    "Only environmental factors",
+                    "Combination of genetic and environmental factors",
+                    "Infectious agents"
+                ],
+                correct: 2,
+                explanation: "Examples: diabetes, hypertension, and cleft lip/palate."
+            },
+            {
+                question: "19. Hypersensitivity reactions include:",
+                options: [
+                    "Type I (IgE-mediated)",
+                    "Type II (antibody-mediated)",
+                    "Type III (immune complex-mediated)",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "There are four main types of hypersensitivity reactions (Type I-IV)."
+            },
+            {
+                question: "20. Immunologic tolerance refers to:",
+                options: [
+                    "Immune system attacking self-antigens",
+                    "Immune system failing to react to self-antigens",
+                    "Overactive immune response",
+                    "Allergic reaction"
+                ],
+                correct: 1,
+                explanation: "Tolerance prevents autoimmunity."
+            },
+            {
+                question: "21. Autoimmune diseases result from:",
+                options: [
+                    "Loss of immunologic tolerance",
+                    "Infectious agents only",
+                    "Nutritional deficiency",
+                    "Genetic mutations exclusively"
+                ],
+                correct: 0,
+                explanation: "Self-antigens are recognized as foreign → immune-mediated tissue damage."
+            },
+            {
+                question: "22. Immunodeficiency diseases can be:",
+                options: [
+                    "Primary (genetic)",
+                    "Secondary (acquired, e.g., HIV infection)",
+                    "Both A and B",
+                    "Caused by acute infection only"
+                ],
+                correct: 2,
+                explanation: "Immunodeficiency can be inherited (congenital) or acquired later in life."
+            },
+            {
+                question: "23. Which of the following is a systemic effect of acute inflammation?",
+                options: [
+                    "Fever",
+                    "Leukocytosis",
+                    "Increased acute-phase proteins",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Mediated by cytokines such as IL-1, TNF-alpha, leading to systemic manifestations."
+            },
+            {
+                question: "24. Chemical mediators of inflammation include:",
+                options: [
+                    "Histamine and serotonin",
+                    "Prostaglandins and leukotrienes",
+                    "Cytokines",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "These mediators regulate vasodilation, permeability, and leukocyte recruitment."
+            },
+            {
+                question: "25. Necrosis is typically associated with:",
+                options: [
+                    "Apoptotic body formation",
+                    "Inflammatory response",
+                    "Cellular shrinkage",
+                    "Energy-dependent programmed cell death"
+                ],
+                correct: 1,
+                explanation: "Necrosis leads to cell swelling, rupture, and inflammation; apoptosis is programmed and non-inflammatory."
+            },
+            {
+                question: "26. Reversible cell injury is characterized by:",
+                options: [
+                    "Nuclear pyknosis",
+                    "Cell swelling and fatty change",
+                    "Membrane rupture",
+                    "Inflammation"
+                ],
+                correct: 1,
+                explanation: "Cells can recover if the injurious stimulus is removed."
+            },
+            {
+                question: "27. Types of cellular adaptation include:",
+                options: [
+                    "Hypertrophy, hyperplasia, atrophy, metaplasia",
+                    "Necrosis and apoptosis",
+                    "Fibrosis and scarring",
+                    "Inflammation"
+                ],
+                correct: 0,
+                explanation: "Cells adapt structurally or functionally to stress."
+            },
+            {
+                question: "28. Liquefactive necrosis is most commonly seen in:",
+                options: [
+                    "Brain infarcts",
+                    "Myocardial infarcts",
+                    "Tuberculosis",
+                    "Fatty tissue"
+                ],
+                correct: 0,
+                explanation: "Neutrophil enzymes digest tissue → liquid lesion."
+            },
+            {
+                question: "29. Caseous necrosis is characteristic of:",
+                options: [
+                    "Tuberculosis",
+                    "Myocardial infarction",
+                    "Gangrene",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Cheese-like appearance; granulomatous inflammation."
+            },
+            {
+                question: "30. Coagulative necrosis is typical of:",
+                options: [
+                    "Myocardial infarction",
+                    "Brain infarction",
+                    "Fat necrosis",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Cell outlines preserved initially; proteins denature."
+            },
+            {
+                question: "31. Fat necrosis occurs in:",
+                options: [
+                    "Pancreas or trauma to fat",
+                    "Liver",
+                    "Heart",
+                    "Kidney"
+                ],
+                correct: 0,
+                explanation: "Enzymes like lipase digest fat → saponification."
+            },
+            {
+                question: "32. Acute inflammation is characterized by:",
+                options: [
+                    "Vasodilation, increased permeability, neutrophil infiltration",
+                    "Monocyte infiltration",
+                    "Fibrosis",
+                    "Granuloma formation"
+                ],
+                correct: 0,
+                explanation: "Hallmarks of the acute response."
+            },
+            {
+                question: "33. Chronic inflammation features:",
+                options: [
+                    "Mononuclear cell infiltration",
+                    "Tissue destruction",
+                    "Repair attempts (fibrosis)",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Chronic inflammation involves ongoing injury and repair."
+            },
+            {
+                question: "34. Chemical mediators of inflammation are derived from:",
+                options: [
+                    "Plasma",
+                    "Cells",
+                    "Both plasma and cells",
+                    "Extracellular matrix only"
+                ],
+                correct: 2,
+                explanation: "Example: histamine (cells), complement (plasma)."
+            },
+            {
+                question: "35. Histamine causes:",
+                options: [
+                    "Vasoconstriction",
+                    "Vasodilation and increased permeability",
+                    "Fever",
+                    "Fibrosis"
+                ],
+                correct: 1,
+                explanation: "Released by mast cells and basophils."
+            },
+            {
+                question: "36. Cytokines in inflammation include:",
+                options: [
+                    "TNF-alpha",
+                    "IL-1",
+                    "IL-6",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Coordinate local and systemic responses."
+            },
+            {
+                question: "37. Edema results from:",
+                options: [
+                    "Increased hydrostatic pressure",
+                    "Reduced oncotic pressure",
+                    "Lymphatic obstruction",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Multiple mechanisms lead to fluid accumulation."
+            },
+            {
+                question: "38. Hemorrhage can result from:",
+                options: [
+                    "Trauma",
+                    "Vessel wall damage",
+                    "Coagulation disorders",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Causes include mechanical injury and pathological processes."
+            },
+            {
+                question: "39. Types of thrombi include:",
+                options: [
+                    "Arterial and venous thrombi",
+                    "Mural thrombi",
+                    "Vegetations",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Thrombi can form in arteries, veins, heart chambers, or valves."
+            },
+            {
+                question: "40. Shock can result from:",
+                options: [
+                    "Cardiogenic causes",
+                    "Hypovolemic causes",
+                    "Septic causes",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Shock is inadequate tissue perfusion from multiple mechanisms."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(pathologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = pathologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                // Check if this option was previously selected
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${pathologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / pathologyQuestions.length) * 100}%`;
+            
+            // Update navigation buttons
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            // Show explanation if answer was selected
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = pathologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < pathologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            pathologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${pathologyQuestions.length}</strong> (${Math.round((score/pathologyQuestions.length)*100)}%)</p>
+                <p>${score === pathologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= pathologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        // Initialize the quiz
+        loadQuestion();
+    </script>
+</body>
+</html> 

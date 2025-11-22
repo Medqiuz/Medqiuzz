@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathology Quiz - Part 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🧬 Pathology Quiz</h1>
+            <div class="subtitle">Part 3: General Pathology (Questions 81-120)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const pathologyQuestions = [
+            {
+                question: "81. Chemical mediators of acute inflammation originate from:",
+                options: [
+                    "Plasma",
+                    "Cells",
+                    "Both plasma and cells",
+                    "Extracellular matrix"
+                ],
+                correct: 2,
+                explanation: "Examples: complement (plasma), histamine (cells)."
+            },
+            {
+                question: "82. Neutrophils are the predominant cells in:",
+                options: [
+                    "Chronic inflammation",
+                    "Acute inflammation",
+                    "Fibrosis",
+                    "Apoptosis"
+                ],
+                correct: 1,
+                explanation: "Neutrophils are first responders to tissue injury."
+            },
+            {
+                question: "83. Macrophages predominate in:",
+                options: [
+                    "Acute inflammation",
+                    "Chronic inflammation",
+                    "Hemostasis",
+                    "Apoptosis"
+                ],
+                correct: 1,
+                explanation: "Macrophages drive tissue repair and fibrosis."
+            },
+            {
+                question: "84. Fever during acute inflammation is mediated by:",
+                options: [
+                    "TNF-alpha, IL-1",
+                    "Histamine",
+                    "Platelets",
+                    "Collagen"
+                ],
+                correct: 0,
+                explanation: "These cytokines act on the hypothalamus to increase body temperature."
+            },
+            {
+                question: "85. Granulomatous inflammation is a feature of:",
+                options: [
+                    "Chronic inflammation",
+                    "Acute inflammation",
+                    "Necrosis only",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Characterized by epithelioid macrophages and giant cells."
+            },
+            {
+                question: "86. Hypertrophy occurs in response to:",
+                options: [
+                    "Increased functional demand",
+                    "Hormonal stimulation",
+                    "Both A and B",
+                    "Necrosis"
+                ],
+                correct: 2,
+                explanation: "Example: cardiac hypertrophy in hypertension or pregnancy-related organ enlargement."
+            },
+            {
+                question: "87. Hyperplasia may be:",
+                options: [
+                    "Physiologic (hormonal)",
+                    "Pathologic (excessive growth)",
+                    "Both A and B",
+                    "Necrotic"
+                ],
+                correct: 2,
+                explanation: "Physiologic: endometrial proliferation; Pathologic: BPH."
+            },
+            {
+                question: "88. Apoptosis is characterized by:",
+                options: [
+                    "Cell swelling",
+                    "Chromatin condensation and apoptotic bodies",
+                    "Inflammation",
+                    "Tissue necrosis"
+                ],
+                correct: 1,
+                explanation: "Programmed cell death without inflammation."
+            },
+            {
+                question: "89. Dystrophic calcification occurs in:",
+                options: [
+                    "Necrotic tissues with normal serum calcium",
+                    "Hypercalcemia",
+                    "Normal tissues only",
+                    "Bone only"
+                ],
+                correct: 0,
+                explanation: "Calcium deposits in damaged tissues."
+            },
+            {
+                question: "90. Metastatic calcification occurs due to:",
+                options: [
+                    "Hypercalcemia",
+                    "Tissue necrosis",
+                    "Infection",
+                    "Fibrosis"
+                ],
+                correct: 0,
+                explanation: "Calcium deposits in normal tissues due to elevated serum calcium."
+            },
+            {
+                question: "91. Edema can result from:",
+                options: [
+                    "Increased hydrostatic pressure",
+                    "Reduced oncotic pressure",
+                    "Lymphatic obstruction",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Multiple mechanisms lead to fluid accumulation in tissues."
+            },
+            {
+                question: "92. Congestion is:",
+                options: [
+                    "Active hyperemia",
+                    "Passive accumulation of blood due to impaired outflow",
+                    "Edema",
+                    "Necrosis"
+                ],
+                correct: 1,
+                explanation: "Can be acute or chronic."
+            },
+            {
+                question: "93. Thrombosis occurs in:",
+                options: [
+                    "Living vessels",
+                    "Dead vessels",
+                    "Only veins",
+                    "Only arteries"
+                ],
+                correct: 0,
+                explanation: "Pathologic clot formation differs from postmortem coagulation."
+            },
+            {
+                question: "94. Embolism refers to:",
+                options: [
+                    "Thrombus formation",
+                    "Dislodged intravascular material",
+                    "Edema",
+                    "Inflammation"
+                ],
+                correct: 1,
+                explanation: "Can cause infarction in distant organs."
+            },
+            {
+                question: "95. Shock is defined as:",
+                options: [
+                    "Decreased tissue perfusion",
+                    "Increased cardiac output",
+                    "Necrosis",
+                    "Edema"
+                ],
+                correct: 0,
+                explanation: "Leads to hypoxia and organ dysfunction."
+            },
+            {
+                question: "96. DIC is characterized by:",
+                options: [
+                    "Microthrombi formation",
+                    "Consumption of clotting factors",
+                    "Bleeding tendency",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Systemic activation of coagulation with simultaneous bleeding."
+            },
+            {
+                question: "97. Primary genetic diseases are:",
+                options: [
+                    "Mendelian disorders",
+                    "Chromosomal disorders",
+                    "Multifactorial disorders",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Includes single gene, chromosomal, and combined disorders."
+            },
+            {
+                question: "98. Type I hypersensitivity is:",
+                options: [
+                    "IgE-mediated",
+                    "IgG-mediated",
+                    "T cell-mediated",
+                    "Complement-mediated"
+                ],
+                correct: 0,
+                explanation: "Immediate allergic reactions like anaphylaxis."
+            },
+            {
+                question: "99. Type II hypersensitivity is:",
+                options: [
+                    "Antibody-mediated",
+                    "Immune complex-mediated",
+                    "T cell-mediated",
+                    "Delayed hypersensitivity"
+                ],
+                correct: 0,
+                explanation: "IgG or IgM binds to cell surface → cytotoxicity."
+            },
+            {
+                question: "100. Type III hypersensitivity is:",
+                options: [
+                    "Immune complex-mediated",
+                    "IgE-mediated",
+                    "T cell-mediated",
+                    "Antibody-dependent"
+                ],
+                correct: 0,
+                explanation: "Causes vasculitis and glomerulonephritis."
+            },
+            {
+                question: "101. Type IV hypersensitivity is:",
+                options: [
+                    "T cell-mediated delayed",
+                    "IgE-mediated",
+                    "Antibody-mediated",
+                    "Complement-mediated"
+                ],
+                correct: 0,
+                explanation: "Example: contact dermatitis."
+            },
+            {
+                question: "102. Autoimmune diseases result from:",
+                options: [
+                    "Loss of immunologic tolerance",
+                    "Infection only",
+                    "Trauma",
+                    "Nutritional deficiency"
+                ],
+                correct: 0,
+                explanation: "Self-antigens are attacked."
+            },
+            {
+                question: "103. Immunodeficiency can be:",
+                options: [
+                    "Primary",
+                    "Secondary",
+                    "Both A and B",
+                    "None"
+                ],
+                correct: 2,
+                explanation: "Primary (genetic), secondary (HIV, malnutrition)."
+            },
+            {
+                question: "104. Acute inflammation features include:",
+                options: [
+                    "Neutrophilic infiltration",
+                    "Vasodilation",
+                    "Increased vascular permeability",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Hallmarks of acute inflammation."
+            },
+            {
+                question: "105. Chronic inflammation features include:",
+                options: [
+                    "Mononuclear cell infiltration",
+                    "Tissue destruction",
+                    "Attempted repair (fibrosis)",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Chronic process involves ongoing injury and repair."
+            },
+            {
+                question: "106. Fibroblast proliferation occurs during:",
+                options: [
+                    "Hemostasis",
+                    "Proliferative phase of healing",
+                    "Remodeling phase",
+                    "Necrosis"
+                ],
+                correct: 1,
+                explanation: "Fibroblasts deposit collagen for granulation tissue."
+            },
+            {
+                question: "107. Wound healing can be:",
+                options: [
+                    "Primary intention",
+                    "Secondary intention",
+                    "Both A and B",
+                    "Neither"
+                ],
+                correct: 2,
+                explanation: "Primary: clean wound edges; Secondary: large tissue loss."
+            },
+            {
+                question: "108. Fracture healing phases include:",
+                options: [
+                    "Hematoma formation",
+                    "Callus formation",
+                    "Remodeling",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Sequential process: inflammation → repair → remodeling."
+            },
+            {
+                question: "109. Hemostasis steps include:",
+                options: [
+                    "Vasoconstriction",
+                    "Platelet plug formation",
+                    "Coagulation cascade",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Stops bleeding via coordinated mechanisms."
+            },
+            {
+                question: "110. Necrosis triggers:",
+                options: [
+                    "Inflammation",
+                    "Fibrosis",
+                    "Apoptosis",
+                    "Hypertrophy"
+                ],
+                correct: 0,
+                explanation: "Necrotic cells release contents → inflammatory response."
+            },
+            {
+                question: "111. Apoptosis features include:",
+                options: [
+                    "Cell shrinkage",
+                    "Chromatin condensation",
+                    "Formation of apoptotic bodies",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Non-inflammatory programmed cell death."
+            },
+            {
+                question: "112. Fatty change (steatosis) is:",
+                options: [
+                    "Reversible",
+                    "Irreversible",
+                    "Necrotic",
+                    "Apoptotic"
+                ],
+                correct: 0,
+                explanation: "Accumulation of triglycerides in cells."
+            },
+            {
+                question: "113. Hypertrophy example:",
+                options: [
+                    "Cardiac enlargement due to hypertension",
+                    "Fat necrosis",
+                    "Necrosis",
+                    "Apoptosis"
+                ],
+                correct: 0,
+                explanation: "Increased workload → larger cells."
+            },
+            {
+                question: "114. Hyperplasia example:",
+                options: [
+                    "Endometrial proliferation in pregnancy",
+                    "Necrosis",
+                    "Apoptosis",
+                    "Atrophy"
+                ],
+                correct: 0,
+                explanation: "Hormone-driven increase in cell number."
+            },
+            {
+                question: "115. Atrophy example:",
+                options: [
+                    "Muscle wasting due to disuse",
+                    "Necrosis",
+                    "Fat necrosis",
+                    "Fibrosis"
+                ],
+                correct: 0,
+                explanation: "Decrease in cell size or function."
+            },
+            {
+                question: "116. Metaplasia example:",
+                options: [
+                    "Squamous metaplasia in smoker's bronchus",
+                    "Necrosis",
+                    "Apoptosis",
+                    "Fibrosis"
+                ],
+                correct: 0,
+                explanation: "Adaptive replacement of one cell type by another."
+            },
+            {
+                question: "117. Dystrophic calcification occurs in:",
+                options: [
+                    "Damaged tissues",
+                    "Normal tissues",
+                    "Bones only",
+                    "Cartilage only"
+                ],
+                correct: 0,
+                explanation: "Calcium deposits in necrotic tissue despite normal serum calcium."
+            },
+            {
+                question: "118. Metastatic calcification occurs due to:",
+                options: [
+                    "Hypercalcemia",
+                    "Tissue necrosis",
+                    "Infection",
+                    "Trauma"
+                ],
+                correct: 0,
+                explanation: "Calcium deposits in normal tissues."
+            },
+            {
+                question: "119. Genetic disorders include:",
+                options: [
+                    "Mendelian",
+                    "Chromosomal",
+                    "Multifactorial",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Single gene, chromosomal, or gene+environment."
+            },
+            {
+                question: "120. Type I hypersensitivity is mediated by:",
+                options: [
+                    "IgE",
+                    "IgG",
+                    "T cells",
+                    "Complement"
+                ],
+                correct: 0,
+                explanation: "Immediate allergy, anaphylaxis."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(pathologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = pathologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                // Check if this option was previously selected
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${pathologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / pathologyQuestions.length) * 100}%`;
+            
+            // Update navigation buttons
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            // Show explanation if answer was selected
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = pathologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < pathologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            pathologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${pathologyQuestions.length}</strong> (${Math.round((score/pathologyQuestions.length)*100)}%)</p>
+                <p>${score === pathologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= pathologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        // Initialize the quiz
+        loadQuestion();
+    </script>
+</body>
+</html>
