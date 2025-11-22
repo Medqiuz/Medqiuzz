@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Biochemistry Guide</title>
+<style>
+  /* ===== RESET & BASE STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #1a2980;
+    --primary-light: #4a69bd;
+    --primary-dark: #0c2461;
+    --secondary: #26d0ce;
+    --secondary-light: #7bedff;
+    --accent: #ff6b6b;
+    --text-dark: #2c3e50;
+    --text-medium: #34495e;
+    --text-light: #7f8c8d;
+    --bg-light: #f8f9fa;
+    --bg-white: #ffffff;
+    --border-light: #e9ecef;
+    --shadow: rgba(0, 0, 0, 0.08);
+    --shadow-dark: rgba(0, 0, 0, 0.12);
+    --success: #27ae60;
+    --warning: #f39c12;
+    --danger: #e74c3c;
+    --info: #3498db;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+    color: var(--text-dark);
+    line-height: 1.7;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== LAYOUT ===== */
+.main-wrapper {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+    align-items: start;
+    margin: 30px 0;
+}
+
+@media (max-width: 968px) {
+    .main-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .topics-nav {
+        position: static !important;
+    }
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.8em;
+    color: var(--primary);
+}
+
+h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5em;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+h2 {
+    font-size: 2.2rem;
+    margin-top: 2em;
+    padding-bottom: 0.7em;
+    border-bottom: 3px solid var(--border-light);
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+h3 {
+    font-size: 1.8rem;
+    color: var(--primary-light);
+    margin-top: 1.8em;
+}
+
+h4 {
+    font-size: 1.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.8em;
+}
+
+p {
+    margin-bottom: 1.5em;
+    font-size: 1.05rem;
+}
+
+a {
+    color: var(--primary-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* ===== HEADER STYLES ===== */
+.page-header {
+    text-align: center;
+    margin: 40px 0 30px;
+    padding: 50px 30px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(26, 41, 128, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,70 Q25,30 50,70 T100,30 L100,100 L0,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+    background-size: cover;
+}
+
+.page-header h1 {
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 0.5em;
+    position: relative;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    -webkit-text-fill-color: white;
+    background: none;
+}
+
+.subtitle {
+    font-size: 1.3rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+/* ===== NAVIGATION STYLES ===== */
+.topics-nav {
+    background: var(--bg-white);
+    border-radius: 15px;
+    padding: 25px 20px;
+    box-shadow: 0 5px 20px var(--shadow);
+    position: sticky;
+    top: 30px;
+    z-index: 100;
+    border: 1px solid var(--border-light);
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 20px;
+    background: transparent;
+    color: var(--text-medium);
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    font-size: 1rem;
+}
+
+.nav-link:hover {
+    background: linear-gradient(135deg, #e3f2fd, #f0f4ff);
+    color: var(--primary);
+    transform: translateX(8px);
+    box-shadow: 0 4px 12px rgba(74, 105, 189, 0.15);
+    text-decoration: none;
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    box-shadow: 0 6px 15px rgba(26, 41, 128, 0.3);
+    border-color: var(--primary-dark);
+}
+
+.nav-link i {
+    font-size: 1.3rem;
+    width: 24px;
+    text-align: center;
+}
+
+/* ===== CONTENT AREA STYLES ===== */
+.content-area {
+    min-height: 800px;
+}
+
+.content-section {
+    background: var(--bg-white);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 5px 20px var(--shadow);
+    border: 1px solid var(--border-light);
+    margin-bottom: 30px;
+    display: none;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.content-section.active {
+    display: block;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== DEFINITION BOXES ===== */
+.definition-box {
+    background: linear-gradient(135deg, #e3f2fd, #f0f4ff);
+    border-left: 5px solid var(--info);
+    padding: 28px;
+    margin: 35px 0;
+    border-radius: 0 12px 12px 0;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.1);
+    position: relative;
+}
+
+.definition-box::before {
+    content: '💡';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--info);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.definition-box p {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-medium);
+}
+
+/* ===== LISTS ===== */
+.content-list {
+    padding-left: 30px;
+    margin: 25px 0;
+}
+
+.content-list li {
+    margin-bottom: 12px;
+    line-height: 1.7;
+    padding-left: 10px;
+    position: relative;
+}
+
+.content-list li::before {
+    content: '•';
+    color: var(--primary-light);
+    font-weight: bold;
+    position: absolute;
+    left: -15px;
+}
+
+.content-list strong {
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+/* ===== IMAGE CONTAINERS ===== */
+.image-container {
+    text-align: center;
+    margin: 40px 0;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 25px;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    box-shadow: 0 5px 15px var(--shadow);
+    position: relative;
+}
+
+.image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 12px 12px 0 0;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-light);
+}
+
+.image-container img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.image-caption {
+    font-style: italic;
+    margin-top: 18px;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* ===== PROCESS STEPS ===== */
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin: 35px 0;
+}
+
+.step-card {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 5px 15px var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-light), var(--secondary));
+}
+
+.step-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 12px;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 3px 8px rgba(26, 41, 128, 0.3);
+}
+
+.step-card h4 {
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.step-card p {
+    color: var(--text-medium);
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* ===== TABLES ===== */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 35px 0;
+    box-shadow: 0 5px 15px var(--shadow);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-white);
+}
+
+.comparison-table th, .comparison-table td {
+    border: 1px solid var(--border-light);
+    padding: 20px 18px;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.comparison-table th {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    border-color: var(--primary-dark);
+}
+
+.comparison-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.comparison-table tr:hover {
+    background-color: #e3f2fd;
+    transition: background-color 0.3s ease;
+}
+
+.comparison-table td {
+    color: var(--text-medium);
+}
+
+/* ===== KEY POINTS ===== */
+.key-points {
+    background: linear-gradient(135deg, #fff3e0, #fff9e6);
+    border-radius: 12px;
+    padding: 32px;
+    margin: 35px 0;
+    border-left: 5px solid var(--warning);
+    box-shadow: 0 5px 15px rgba(243, 156, 18, 0.1);
+    position: relative;
+}
+
+.key-points::before {
+    content: '⭐';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--warning);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(243, 156, 18, 0.3);
+}
+
+.key-points h4 {
+    color: var(--primary-dark);
+    margin-bottom: 22px;
+    font-size: 1.3rem;
+}
+
+.key-points ul, .key-points ol {
+    padding-left: 25px;
+}
+
+.key-points li {
+    margin-bottom: 14px;
+    line-height: 1.7;
+    color: var(--text-medium);
+}
+
+/* ===== REFERENCE BOXES ===== */
+.reference-box {
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+    border: 1px solid var(--success);
+    border-radius: 12px;
+    padding: 30px;
+    margin: 40px 0;
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.1);
+    position: relative;
+}
+
+.reference-box::before {
+    content: '📚';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--success);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+.reference-box h4 {
+    color: #2e7d32;
+    margin-bottom: 22px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.reference-box a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 14px;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--primary-light);
+}
+
+.reference-box a:hover {
+    background: white;
+    text-decoration: none;
+    transform: translateX(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-left-color: var(--primary);
+}
+
+/* ===== FOOTER STYLES ===== */
+.page-footer {
+    text-align: center;
+    margin-top: 70px;
+    padding: 35px 30px;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    border-top: 1px solid var(--border-light);
+    background: var(--bg-white);
+    border-radius: 15px;
+    box-shadow: 0 -2px 10px var(--shadow);
+}
+
+.page-footer p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    h1 {
+        font-size: 2.3rem;
+    }
+    
+    h2 {
+        font-size: 1.9rem;
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+    
+    .page-header {
+        padding: 35px 20px;
+        margin: 25px 0;
+    }
+    
+    .page-header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.15rem;
+    }
+    
+    .content-section {
+        padding: 28px;
+    }
+    
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+    
+    .definition-box, .key-points, .reference-box {
+        padding: 24px;
+        margin: 28px 0;
+    }
+    
+    .definition-box::before,
+    .key-points::before,
+    .reference-box::before {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.7rem;
+    }
+    
+    .page-header {
+        padding: 25px 15px;
+    }
+    
+    .page-header h1 {
+        font-size: 2.1rem;
+    }
+    
+    .content-section {
+        padding: 22px;
+    }
+    
+    .nav-link {
+        padding: 14px 16px;
+        font-size: 0.95rem;
+    }
+    
+    .step-card {
+        padding: 22px;
+    }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+    .topics-nav, .page-footer {
+        display: none;
+    }
+    
+    .content-section {
+        display: block !important;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+    }
+    
+    a {
+        color: var(--text-dark) !important;
+        text-decoration: underline !important;
+    }
+    
+    .page-header {
+        background: white !important;
+        color: var(--text-dark) !important;
+        box-shadow: none !important;
+    }
+    
+    .page-header h1 {
+        color: var(--text-dark) !important;
+        -webkit-text-fill-color: var(--text-dark) !important;
+    }
+    
+    .step-card, .definition-box, .key-points, .reference-box {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>Comprehensive Biochemistry Guide</h1>
+            <p class="subtitle">Detailed exploration of DNA Structure & Replication, Protein Metabolism, and Porphyrin Metabolism with clinical correlations</p>
+        </header>
+        
+        <nav class="topics-nav">
+            <ul class="nav-list">
+                <li><a href="#dna-intro" class="nav-link active"><i class="fas fa-dna"></i> DNA Structure & Replication</a></li>
+                <li><a href="#protein-metabolism" class="nav-link"><i class="fas fa-atom"></i> Protein Metabolism</a></li>
+                <li><a href="#porphyrin-metabolism" class="nav-link"><i class="fas fa-star-of-life"></i> Porphyrin Metabolism</a></li>
+                <li><a href="#clinical-correlations" class="nav-link"><i class="fas fa-stethoscope"></i> Clinical Correlations</a></li>
+                <li><a href="#references" class="nav-link"><i class="fas fa-book"></i> References & Resources</a></li>
+            </ul>
+        </nav>
+        
+        <main class="content-area">
+            <!-- DNA Structure & Replication Section -->
+            <section id="dna-intro" class="content-section active">
+                <h2>DNA Structure & Replication</h2>
+                
+                <div class="definition-box">
+                    <p><strong>DNA (Deoxyribonucleic Acid)</strong> is a macromolecule composed of nucleotides that stores and transmits genetic information in living organisms. It consists of two strands arranged in a double helix structure, with complementary base pairing (A-T and G-C) allowing for accurate replication.</p>
+                </div>
+                
+                <h3>Nucleotide Composition</h3>
+                <p>DNA is a polymer of nucleotides, each consisting of three components:</p>
+                <ul class="content-list">
+                    <li><strong>Nitrogenous base</strong> - Purines (adenine, guanine) or pyrimidines (cytosine, thymine)</li>
+                    <li><strong>Pentose sugar</strong> - Deoxyribose (lacks oxygen at 2' carbon compared to ribose)</li>
+                    <li><strong>Phosphate group</strong> - Esterified to the 5' carbon of the sugar</li>
+                </ul>
+                
+                <div class="image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/DNA_Structure%2BKey%2BLabelled.pn_NoBB.png/640px-DNA_Structure%2BKey%2BLabelled.pn_NoBB.png" alt="DNA Structure">
+                    <p class="image-caption">Double helix structure of DNA with labeled components showing base pairing and antiparallel strands</p>
+                </div>
+                
+                <h3>DNA Replication Process</h3>
+                <p>DNA replication is a semi-conservative process where each strand of the original DNA serves as a template for the synthesis of a new complementary strand, resulting in two DNA molecules each with one original and one new strand.</p>
+                
+                <div class="process-steps">
+                    <div class="step-card">
+                        <h4><span class="step-number">1</span> Initiation</h4>
+                        <p>Begins at specific origin sites (oriC in prokaryotes, multiple origins in eukaryotes) with the help of initiator proteins (DnaA in E. coli). The DNA double helix is unwound by helicase enzymes, creating replication bubbles with replication forks at each end.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><span class="step-number">2</span> Primer Synthesis</h4>
+                        <p>RNA primers are synthesized by primase to provide starting points for DNA synthesis. These short RNA sequences (5-10 nucleotides) are complementary to the template DNA and provide a free 3'-OH group for DNA polymerase to begin synthesis.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><span class="step-number">3</span> Elongation</h4>
+                        <p>DNA polymerase adds nucleotides in the 5' to 3' direction using the template strand. The leading strand is synthesized continuously, while the lagging strand is synthesized discontinuously in short fragments called Okazaki fragments.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><span class="step-number">4</span> Proofreading & Repair</h4>
+                        <p>DNA polymerase has 3'→5' exonuclease activity that corrects errors during synthesis. Mismatch repair systems further enhance replication fidelity, reducing errors to approximately one per billion nucleotides.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><span class="step-number">5</span> Ligation</h4>
+                        <p>DNA ligase joins Okazaki fragments on the lagging strand by catalyzing the formation of phosphodiester bonds. In eukaryotes, telomerase maintains chromosome ends (telomeres) to prevent shortening with each replication cycle.</p>
+                    </div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Dna_replication_split.svg/640px-Dna_replication_split.svg.png" alt="DNA Replication">
+                    <p class="image-caption">DNA replication process showing leading and lagging strands with key enzymes involved</p>
+                </div>
+                
+                <h3>Key Enzymes in DNA Replication</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Enzyme</th>
+                            <th>Function</th>
+                            <th>Significance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>DNA Helicase</td>
+                            <td>Unwinds DNA double helix</td>
+                            <td>Creates replication fork by breaking hydrogen bonds</td>
+                        </tr>
+                        <tr>
+                            <td>DNA Polymerase</td>
+                            <td>Adds nucleotides to growing DNA chain</td>
+                            <td>Primary synthesis enzyme with proofreading capability</td>
+                        </tr>
+                        <tr>
+                            <td>Primase</td>
+                            <td>Synthesizes RNA primers</td>
+                            <td>Provides starting point for DNA polymerase</td>
+                        </tr>
+                        <tr>
+                            <td>DNA Ligase</td>
+                            <td>Joins DNA fragments</td>
+                            <td>Seals nicks in DNA backbone, connects Okazaki fragments</td>
+                        </tr>
+                        <tr>
+                            <td>Topoisomerase</td>
+                            <td>Relieves supercoiling</td>
+                            <td>Prevents DNA tangling during unwinding</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>DNA Structure Details</h3>
+                <p>The DNA double helix has several important structural features:</p>
+                <ul class="content-list">
+                    <li><strong>Antiparallel strands:</strong> The two strands run in opposite directions (5'→3' and 3'→5')</li>
+                    <li><strong>Complementary base pairing:</strong> Adenine pairs with thymine (2 hydrogen bonds), guanine pairs with cytosine (3 hydrogen bonds)</li>
+                    <li><strong>Major and minor grooves:</strong> Provide binding sites for proteins that regulate gene expression</li>
+                    <li><strong>Supercoiling:</strong> DNA can be twisted upon itself to compact its structure, regulated by topoisomerases</li>
+                </ul>
+                
+                <div class="key-points">
+                    <h4>Central Dogma of Molecular Biology</h4>
+                    <p>The flow of genetic information follows: DNA → RNA → Protein. This includes:</p>
+                    <ul>
+                        <li><strong>Replication:</strong> DNA → DNA (copying genetic information)</li>
+                        <li><strong>Transcription:</strong> DNA → RNA (synthesis of RNA from DNA template)</li>
+                        <li><strong>Translation:</strong> RNA → Protein (synthesis of proteins from mRNA code)</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Protein Metabolism Section -->
+            <section id="protein-metabolism" class="content-section">
+                <h2>Protein Metabolism</h2>
+                
+                <div class="definition-box">
+                    <p><strong>Protein Metabolism</strong> encompasses all biochemical processes involved in the synthesis (anabolism) and breakdown (catabolism) of proteins and amino acids in living organisms. This includes digestion, absorption, transport, synthesis, and degradation of proteins, as well as the metabolic fate of amino acids.</p>
+                </div>
+                
+                <h3>Protein Digestion and Absorption</h3>
+                <p>Proteins are broken down into amino acids through enzymatic digestion in a multi-step process:</p>
+                
+                <div class="process-steps">
+                    <div class="step-card">
+                        <h4><span class="step-number">1</span> Stomach</h4>
+                        <p><strong>Pepsin</strong> (activated from pepsinogen by HCl) begins protein digestion by hydrolyzing peptide bonds involving aromatic amino acids. Gastric acidity denatures proteins, making them more accessible to enzymatic cleavage.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><span class="step-number">2</span> Small Intestine</h4>
+                        <p>Pancreatic enzymes (<strong>trypsin, chymotrypsin, elastase, carboxypeptidases</strong>) continue digestion. Trypsin activates other proteases in a cascade. Brush border enzymes (aminopeptidases, dipeptidases) complete digestion to free amino acids.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><span class="step-number">3</span> Absorption</h4>
+                        <p>Amino acids are absorbed via specific transporters in enterocytes. Different carrier systems exist for neutral, basic, acidic, and imino acids. Absorption is primarily active and energy-dependent using sodium-coupled symport mechanisms.</p>
+                    </div>
+                </div>
+                
+                <h3>Amino Acid Catabolism</h3>
+                <p>Amino acids undergo catabolism in three distinct stages:</p>
+                
+                <div class="key-points">
+                    <h4>Three Stages of Amino Acid Catabolism</h4>
+                    <ol>
+                        <li><strong>Removal of amino group</strong> via transamination or deamination</li>
+                        <li><strong>Catabolism of carbon skeleton</strong> to metabolic intermediates (pyruvate, acetyl-CoA, TCA cycle intermediates)</li>
+                        <li><strong>Ammonia disposal</strong> through the urea cycle</li>
+                    </ol>
+                </div>
+                
+                <h4>Transamination</h4>
+                <p>Transamination reactions transfer α-amino groups from amino acids to α-ketoglutarate, forming glutamate and the corresponding α-keto acid. These reactions are catalyzed by aminotransferases (transaminases) and require pyridoxal phosphate (vitamin B6) as a cofactor.</p>
+                
+                <h4>Urea Cycle</h4>
+                <p>The urea cycle converts toxic ammonia to less toxic urea for excretion. It occurs primarily in the liver and involves five enzymatic steps, with two occurring in mitochondria and three in the cytosol.</p>
+                
+                <div class="image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Urea_cycle.svg/640px-Urea_cycle.svg.png" alt="Urea Cycle">
+                    <p class="image-caption">Urea cycle for ammonia detoxification showing mitochondrial and cytosolic components</p>
+                </div>
+                
+                <h3>Protein Turnover and Degradation</h3>
+                <p>Proteins are continuously synthesized and degraded through two main pathways:</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Pathway</th>
+                            <th>Mechanism</th>
+                            <th>Function</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ubiquitin-Proteasome</td>
+                            <td>Targeted proteins marked by ubiquitin and degraded by 26S proteasome</td>
+                            <td>Selective degradation of short-lived and regulatory proteins</td>
+                        </tr>
+                        <tr>
+                            <td>Lysosomal Degradation</td>
+                            <td>Bulk degradation via autophagy and endocytosis</td>
+                            <td>Non-selective degradation, organelle turnover, extracellular protein uptake</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Nitrogen Balance</h3>
+                <p>Nitrogen balance reflects the relationship between nitrogen intake (dietary protein) and nitrogen loss (urine, feces, skin):</p>
+                <ul class="content-list">
+                    <li><strong>Positive nitrogen balance:</strong> Intake > excretion (growth, pregnancy, recovery)</li>
+                    <li><strong>Negative nitrogen balance:</strong> Excretion > intake (starvation, trauma, illness)</li>
+                    <li><strong>Nitrogen equilibrium:</strong> Intake = excretion (healthy adults)</li>
+                </ul>
+                
+                <h3>Amino Acid Pool and Metabolic Fates</h3>
+                <p>The amino acid pool consists of amino acids from dietary protein and tissue protein breakdown. These amino acids can be used for:</p>
+                <ul class="content-list">
+                    <li>Synthesis of new proteins</li>
+                    <li>Production of specialized nitrogen-containing compounds (creatine, neurotransmitters, nucleotides)</li>
+                    <li>Energy production through oxidation</li>
+                    <li>Gluconeogenesis (glucogenic amino acids)</li>
+                    <li>Ketone body production (ketogenic amino acids)</li>
+                </ul>
+            </section>
+            
+            <!-- Porphyrin Metabolism Section -->
+            <section id="porphyrin-metabolism" class="content-section">
+                <h2>Porphyrin Metabolism</h2>
+                
+                <div class="definition-box">
+                    <p><strong>Porphyrins</strong> are cyclic compounds formed from four pyrrole rings that readily bind metal ions. <strong>Heme</strong>, the most important metalloporphyrin in humans, consists of protoporphyrin IX coordinated with ferrous iron (Fe²⁺). Heme serves as a prosthetic group in hemoglobin, myoglobin, cytochromes, catalase, and other hemoproteins.</p>
+                </div>
+                
+                <h3>Heme Biosynthesis</h3>
+                <p>Heme synthesis is an eight-step pathway that occurs partly in mitochondria and partly in the cytosol. The process is highly regulated and varies between tissues, with the liver and bone marrow being the primary sites.</p>
+                
+                <div class="process-steps">
+                    <div class="step-card">
+                        <h4><span class="step-number">1</span> ALA Formation</h4>
+                        <p>Glycine and succinyl-CoA condense to form δ-aminolevulinic acid (ALA), catalyzed by ALA synthase (ALAS). This is the rate-limiting step in the pathway, with ALAS1 regulated by heme feedback inhibition.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><span class="step-number">2</span> Porphobilinogen Formation</h4>
+                        <p>Two molecules of ALA condense to form porphobilinogen (PBG), catalyzed by ALA dehydratase. This enzyme is highly sensitive to inhibition by heavy metals like lead.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><span class="step-number">3</span> Uroporphyrinogen Formation</h4>
+                        <p>Four PBG molecules condense to form hydroxymethylbilane, which is then cyclized to uroporphyrinogen III. Deficiencies in these steps cause acute intermittent porphyria and congenital erythropoietic porphyria.</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><span class="step-number">4</span> Heme Formation</h4>
+                        <p>After several decarboxylation and oxidation steps, protoporphyrin IX is formed. Ferrochelatase then inserts ferrous iron into the protoporphyrin ring to form heme.</p>
+                    </div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Heme_synthesis_pathway.png/640px-Heme_synthesis_pathway.png" alt="Heme Synthesis">
+                    <p class="image-caption">Complete heme biosynthesis pathway showing mitochondrial and cytosolic steps</p>
+                </div>
+                
+                <h3>Heme Degradation</h3>
+                <p>After approximately 120 days in circulation, senescent erythrocytes are phagocytosed by macrophages in the spleen, liver, and bone marrow, leading to heme degradation:</p>
+                
+                <div class="key-points">
+                    <h4>Steps of Heme Degradation</h4>
+                    <ol>
+                        <li><strong>Biliverdin formation:</strong> Heme oxygenase cleaves the porphyrin ring, producing biliverdin, carbon monoxide (CO), and releasing iron.</li>
+                        <li><strong>Bilirubin formation:</strong> Biliverdin reductase converts green biliverdin to orange-red bilirubin.</li>
+                        <li><strong>Conjugation:</strong> In the liver, bilirubin is conjugated with glucuronic acid to form water-soluble bilirubin diglucuronide.</li>
+                        <li><strong>Excretion:</strong> Conjugated bilirubin is excreted in bile and converted by gut bacteria to urobilinogen and stercobilin, which gives feces its brown color.</li>
+                    </ol>
+                </div>
+                
+                <h3>Types of Porphyrins</h3>
+                <p>Different porphyrins vary in their side chains:</p>
+                <ul class="content-list">
+                    <li><strong>Uroporphyrin:</strong> Contains acetate and propionate side chains</li>
+                    <li><strong>Coproporphyrin:</strong> Contains methyl and propionate groups</li>
+                    <li><strong>Protoporphyrin IX:</strong> Contains vinyl, methyl, and propionate groups (precursor to heme)</li>
+                </ul>
+                
+                <h3>Regulation of Heme Synthesis</h3>
+                <p>Heme synthesis is tightly regulated through multiple mechanisms:</p>
+                <ul class="content-list">
+                    <li><strong>Feedback inhibition:</strong> Heme inhibits ALAS1 transcription and enzyme activity</li>
+                    <li><strong>Iron regulation:</strong> ALAS2 (erythroid-specific) is regulated by iron availability</li>
+                    <li><strong>Enzyme induction:</strong> Certain drugs and chemicals can induce cytochrome P450 enzymes, increasing heme demand</li>
+                </ul>
+            </section>
+            
+            <!-- Clinical Correlations Section -->
+            <section id="clinical-correlations" class="content-section">
+                <h2>Clinical Correlations</h2>
+                
+                <h3>Inborn Errors of Amino Acid Metabolism</h3>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Disorder</th>
+                            <th>Deficient Enzyme</th>
+                            <th>Accumulated Metabolites</th>
+                            <th>Clinical Features</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Phenylketonuria (PKU)</td>
+                            <td>Phenylalanine hydroxylase</td>
+                            <td>Phenylalanine, phenylketones</td>
+                            <td>Mental retardation, musty odor, hypopigmentation</td>
+                        </tr>
+                        <tr>
+                            <td>Alkaptonuria</td>
+                            <td>Homogentisate dioxygenase</td>
+                            <td>Homogentisic acid</td>
+                            <td>Dark urine, ochronosis (pigmented cartilage), arthritis</td>
+                        </tr>
+                        <tr>
+                            <td>Maple Syrup Urine Disease</td>
+                            <td>Branched-chain α-keto acid dehydrogenase</td>
+                            <td>Branched-chain amino acids and ketoacids</td>
+                            <td>Maple syrup odor in urine, neurological deterioration, ketoacidosis</td>
+                        </tr>
+                        <tr>
+                            <td>Homocystinuria</td>
+                            <td>Cystathionine β-synthase</td>
+                            <td>Homocysteine, methionine</td>
+                            <td>Marfanoid habitus, ectopia lentis, thromboembolism, intellectual disability</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Porphyrias</h3>
+                <p>Porphyrias are metabolic disorders resulting from deficiencies in heme biosynthesis enzymes, leading to accumulation of porphyrins and their precursors. They are classified based on their primary symptoms:</p>
+                
+                <div class="key-points">
+                    <h4>Major Types of Porphyrias</h4>
+                    <ul>
+                        <li><strong>Acute Intermittent Porphyria (AIP):</strong> Deficiency of hydroxymethylbilane synthase; presents with neurovisceral attacks, abdominal pain, and psychiatric symptoms.</li>
+                        <li><strong>Porphyria Cutanea Tarda (PCT):</strong> Deficiency of uroporphyrinogen decarboxylase; most common porphyria; presents with photosensitivity, skin fragility, and hyperpigmentation.</li>
+                        <li><strong>Erythropoietic Protoporphyria (EPP):</strong> Deficiency of ferrochelatase; presents with immediate painful photosensitivity and potential liver complications.</li>
+                        <li><strong>Congenital Erythropoietic Porphyria (CEP):</strong> Deficiency of uroporphyrinogen III synthase; severe photosensitivity with mutilating skin lesions and reddish-brown teeth.</li>
+                    </ul>
+                </div>
+                
+                <h3>DNA Repair Disorders</h3>
+                <p>Defects in DNA repair mechanisms can lead to various genetic disorders characterized by genomic instability and increased cancer risk:</p>
+                
+                <div class="key-points">
+                    <ul>
+                        <li><strong>Xeroderma Pigmentosum:</strong> Defect in nucleotide excision repair; extreme sensitivity to UV light, high skin cancer risk.</li>
+                        <li><strong>Ataxia Telangiectasia:</strong> Defect in response to DNA double-strand breaks; cerebellar ataxia, telangiectasias, immunodeficiency.</li>
+                        <li><strong>Fanconi Anemia:</strong> Defect in interstrand crosslink repair; bone marrow failure, congenital abnormalities, cancer predisposition.</li>
+                    </ul>
+                </div>
+                
+                <h3>Protein Metabolism Disorders</h3>
+                <p>Various disorders can affect protein metabolism beyond amino acid metabolism:</p>
+                <ul class="content-list">
+                    <li><strong>Protein-energy malnutrition:</strong> Kwashiorkor (protein deficiency) and marasmus (total calorie deficiency)</li>
+                    <li><strong>Urea cycle disorders:</strong> Various enzyme deficiencies leading to hyperammonemia and neurological symptoms</li>
+                    <li><strong>Protein-losing enteropathies:</strong> Conditions causing excessive protein loss through the gastrointestinal tract</li>
+                </ul>
+            </section>
+            
+            <!-- References & Resources Section -->
+            <section id="references" class="content-section">
+                <h2>References & Resources</h2>
+                
+                <div class="reference-box">
+                    <h4>DNA Structure & Replication</h4>
+                    <a href="https://www.nature.com/scitable/topicpage/dna-replication-and-checkpoint-control-in-eukaryotes-14423334/" target="_blank">Nature: DNA Replication and Checkpoint Control</a>
+                    <a href="https://www.khanacademy.org/science/ap-biology/gene-expression-and-regulation/replication/a/molecular-mechanism-of-dna-replication" target="_blank">Khan Academy: Molecular Mechanism of DNA Replication</a>
+                    <a href="https://www.ncbi.nlm.nih.gov/books/NBK9940/" target="_blank">NCBI: DNA Replication</a>
+                </div>
+                
+                <div class="reference-box">
+                    <h4>Protein Metabolism</h4>
+                    <a href="https://www.ncbi.nlm.nih.gov/books/NBK22459/" target="_blank">NCBI: Protein Metabolism</a>
+                    <a href="https://www.khanacademy.org/test-prep/mcat/biomolecules/amino-acids-and-proteins1/v/overview-of-protein-metabolism" target="_blank">Khan Academy: Overview of Protein Metabolism</a>
+                    <a href="https://www.ncbi.nlm.nih.gov/books/NBK557845/" target="_blank">NCBI: Urea Cycle</a>
+                </div>
+                
+                <div class="reference-box">
+                    <h4>Porphyrin Metabolism</h4>
+                    <a href="https://www.ncbi.nlm.nih.gov/books/NBK22238/" target="_blank">NCBI: Heme Biosynthesis</a>
+                    <a href="https://rarediseases.info.nih.gov/diseases/7383/porphyria" target="_blank">NIH: Porphyria Information</a>
+                    <a href="https://www.ncbi.nlm.nih.gov/books/NBK138199/" target="_blank">NCBI: Bilirubin Metabolism</a>
+                </div>
+                
+                <div class="reference-box">
+                    <h4>Clinical Correlations</h4>
+                    <a href="https://www.ncbi.nlm.nih.gov/books/NBK3153/" target="_blank">NCBI: Inborn Errors of Metabolism</a>
+                    <a href="https://www.omim.org/" target="_blank">Online Mendelian Inheritance in Man (OMIM)</a>
+                    <a href="https://www.genome.gov/For-Health-Professionals/Provider-Genomics-Education-Resources/Healthcare-Education" target="_blank">NIH Genomic Education Resources</a>
+                </div>
+                
+                <h3>Recommended Textbooks</h3>
+                <ul class="content-list">
+                    <li>Lehninger Principles of Biochemistry (Nelson & Cox)</li>
+                    <li>Harper's Illustrated Biochemistry (Murray et al.)</li>
+                    <li>Stryer's Biochemistry (Berg et al.)</li>
+                    <li>Medical Biochemistry (Baynes & Dominiczak)</li>
+                </ul>
+                
+                <h3>Scientific Journals</h3>
+                <ul class="content-list">
+                    <li>Journal of Biological Chemistry</li>
+                    <li>Biochemistry</li>
+                    <li>Molecular Cell</li>
+                    <li>Nature Structural & Molecular Biology</li>
+                </ul>
+            </section>
+        </main>
+        
+        <footer class="page-footer">
+            <p>Comprehensive Biochemistry Guide &copy; 2023 | Based on PowerPoint presentations: DNA, Protein Metabolism, and Porphyrin Metabolism</p>
+            <p>This educational resource is for academic purposes only. Consult healthcare professionals for medical advice.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const targetId = this.getAttribute('href');
+                    document.querySelector(targetId).classList.add('active');
+                    
+                    // Scroll to the top of the section
+                    window.scrollTo({
+                        top: document.querySelector(targetId).offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Set the first section as active by default
+            if (window.location.hash) {
+                const targetSection = document.querySelector(window.location.hash);
+                if (targetSection) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    
+                    document.querySelector(`a[href="${window.location.hash}"]`).classList.add('active');
+                    targetSection.classList.add('active');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
