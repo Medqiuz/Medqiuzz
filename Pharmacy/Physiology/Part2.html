@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physiology Quiz - Part 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🧬 Physiology Quiz</h1>
+            <div class="subtitle">Part 2: Cardiovascular, Respiratory & Renal Physiology (Questions 41-80)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const physiologyQuestions = [
+            {
+                question: "41. The cardiac output is calculated as:",
+                options: [
+                    "Heart rate × Stroke volume",
+                    "Blood pressure × Total peripheral resistance", 
+                    "End diastolic volume - End systolic volume",
+                    "Preload × Afterload"
+                ],
+                correct: 0,
+                explanation: "Cardiac output (CO) = Heart rate (HR) × Stroke volume (SV). Normal CO is about 5 L/min at rest."
+            },
+            {
+                question: "42. The Frank-Starling mechanism states that:",
+                options: [
+                    "Stroke volume increases with increased preload",
+                    "Heart rate increases with exercise", 
+                    "Blood pressure regulates cardiac output",
+                    "Afterload determines heart rate"
+                ],
+                correct: 0,
+                explanation: "The Frank-Starling law states that the stroke volume of the heart increases in response to an increase in the volume of blood filling the heart (preload)."
+            },
+            {
+                question: "43. The pacemaker of the heart is the:",
+                options: [
+                    "Sinoatrial (SA) node",
+                    "Atrioventricular (AV) node", 
+                    "Bundle of His",
+                    "Purkinje fibers"
+                ],
+                correct: 0,
+                explanation: "The SA node generates the electrical impulses that initiate heartbeats, typically at 60-100 beats/min, making it the natural pacemaker."
+            },
+            {
+                question: "44. The PR interval on ECG represents:",
+                options: [
+                    "Atrial depolarization and conduction through AV node",
+                    "Ventricular depolarization", 
+                    "Ventricular repolarization",
+                    "Atrial repolarization"
+                ],
+                correct: 0,
+                explanation: "The PR interval (0.12-0.20 sec) represents the time from atrial depolarization to the start of ventricular depolarization, including conduction through the AV node."
+            },
+            {
+                question: "45. The QRS complex corresponds to:",
+                options: [
+                    "Ventricular depolarization",
+                    "Atrial depolarization", 
+                    "Ventricular repolarization",
+                    "Atrial repolarization"
+                ],
+                correct: 0,
+                explanation: "The QRS complex represents ventricular depolarization and normally lasts less than 0.12 seconds."
+            },
+            {
+                question: "46. Mean arterial pressure (MAP) is calculated as:",
+                options: [
+                    "Diastolic BP + 1/3 (Systolic BP - Diastolic BP)",
+                    "Systolic BP + Diastolic BP / 2", 
+                    "Cardiac output × Heart rate",
+                    "Stroke volume × Total peripheral resistance"
+                ],
+                correct: 0,
+                explanation: "MAP = Diastolic BP + 1/3 (Systolic BP - Diastolic BP). It represents the average pressure driving blood into tissues throughout the cardiac cycle."
+            },
+            {
+                question: "47. The baroreceptor reflex helps regulate:",
+                options: [
+                    "Blood pressure",
+                    "Respiratory rate", 
+                    "Body temperature",
+                    "Blood glucose"
+                ],
+                correct: 0,
+                explanation: "Baroreceptors in the carotid sinus and aortic arch detect changes in blood pressure and trigger autonomic adjustments to maintain stable blood pressure."
+            },
+            {
+                question: "48. The Valsalva maneuver causes:",
+                options: [
+                    "Decreased venous return and increased intrathoracic pressure",
+                    "Increased cardiac output and blood pressure", 
+                    "Decreased heart rate and vasodilation",
+                    "Increased respiratory rate and tidal volume"
+                ],
+                correct: 0,
+                explanation: "The Valsalva maneuver (forced expiration against closed glottis) increases intrathoracic pressure, decreasing venous return and cardiac output."
+            },
+            {
+                question: "49. The Fick principle is used to calculate:",
+                options: [
+                    "Cardiac output",
+                    "Blood pressure", 
+                    "Oxygen consumption",
+                    "Ventilation rate"
+                ],
+                correct: 0,
+                explanation: "The Fick principle states that cardiac output equals oxygen consumption divided by the arteriovenous oxygen difference."
+            },
+            {
+                question: "50. The most important factor determining blood flow through a vessel is:",
+                options: [
+                    "Vessel radius",
+                    "Blood viscosity", 
+                    "Vessel length",
+                    "Pressure difference"
+                ],
+                correct: 0,
+                explanation: "According to Poiseuille's law, blood flow is proportional to the fourth power of the radius, making vessel radius the most important determinant."
+            },
+            {
+                question: "51. Tidal volume is:",
+                options: [
+                    "Volume of air inhaled or exhaled during normal breathing",
+                    "Maximum volume that can be inhaled after normal inspiration", 
+                    "Volume remaining in lungs after maximum expiration",
+                    "Maximum volume that can be exhaled after normal expiration"
+                ],
+                correct: 0,
+                explanation: "Tidal volume is the volume of air moved into or out of the lungs during normal quiet breathing, typically about 500 mL in adults."
+            },
+            {
+                question: "52. Vital capacity includes:",
+                options: [
+                    "Tidal volume + Inspiratory reserve volume + Expiratory reserve volume",
+                    "Residual volume + Expiratory reserve volume", 
+                    "Total lung capacity - Residual volume",
+                    "Both A and C"
+                ],
+                correct: 3,
+                explanation: "Vital capacity = Tidal volume + Inspiratory reserve volume + Expiratory reserve volume = Total lung capacity - Residual volume."
+            },
+            {
+                question: "53. The majority of CO₂ is transported in blood as:",
+                options: [
+                    "Bicarbonate ions (HCO₃⁻)",
+                    "Dissolved CO₂ in plasma", 
+                    "Carbamino compounds with hemoglobin",
+                    "Carbonic acid"
+                ],
+                correct: 0,
+                explanation: "About 70% of CO₂ is transported as bicarbonate ions formed by the carbonic anhydrase reaction in red blood cells."
+            },
+            {
+                question: "54. The Haldane effect refers to:",
+                options: [
+                    "Enhanced CO₂ transport when hemoglobin is deoxygenated",
+                    "Enhanced O₂ binding when CO₂ is high", 
+                    "Decreased O₂ affinity with increased temperature",
+                    "Increased CO₂ solubility at high pressures"
+                ],
+                correct: 0,
+                explanation: "The Haldane effect describes how deoxygenated hemoglobin can carry more CO₂ than oxygenated hemoglobin, facilitating CO₂ transport from tissues."
+            },
+            {
+                question: "55. The Bohr effect describes:",
+                options: [
+                    "Decreased O₂ affinity of hemoglobin with increased CO₂ and decreased pH",
+                    "Increased O₂ affinity with increased CO₂", 
+                    "CO₂ transport as bicarbonate",
+                    "O₂ diffusion across alveolar membrane"
+                ],
+                correct: 0,
+                explanation: "The Bohr effect: increased CO₂ and decreased pH (as in tissues) decrease hemoglobin's affinity for O₂, promoting O₂ unloading where needed."
+            },
+            {
+                question: "56. The most important chemical regulator of ventilation is:",
+                options: [
+                    "Arterial PCO₂",
+                    "Arterial PO₂", 
+                    "Arterial pH",
+                    "Blood bicarbonate"
+                ],
+                correct: 0,
+                explanation: "Arterial PCO₂ is the most potent chemical regulator of ventilation; small increases strongly stimulate breathing via central chemoreceptors."
+            },
+            {
+                question: "57. Surfactant in the lungs:",
+                options: [
+                    "Reduces surface tension and prevents alveolar collapse",
+                    "Increases gas diffusion rate", 
+                    "Protects against infection",
+                    "Regulates blood flow"
+                ],
+                correct: 0,
+                explanation: "Pulmonary surfactant, produced by type II alveolar cells, reduces surface tension, preventing alveolar collapse and decreasing work of breathing."
+            },
+            {
+                question: "58. Compliance of the lungs refers to:",
+                options: [
+                    "Change in lung volume per unit change in pressure",
+                    "Resistance to airflow", 
+                    "Elastic recoil of lung tissue",
+                    "Surface tension in alveoli"
+                ],
+                correct: 0,
+                explanation: "Compliance = ΔVolume/ΔPressure. High compliance means lungs expand easily; low compliance means stiff lungs requiring more pressure to expand."
+            },
+            {
+                question: "59. The glomerular filtration rate (GFR) is approximately:",
+                options: [
+                    "125 mL/min",
+                    "500 mL/min", 
+                    "1000 mL/min",
+                    "50 mL/min"
+                ],
+                correct: 0,
+                explanation: "Normal GFR is about 125 mL/min (180 L/day), with about 99% of filtrate reabsorbed, leaving 1-2 L urine output daily."
+            },
+            {
+                question: "60. The juxtaglomerular apparatus includes:",
+                options: [
+                    "Macula densa and juxtaglomerular cells",
+                    "Podocytes and mesangial cells", 
+                    "Proximal and distal tubules",
+                    "Collecting ducts and vasa recta"
+                ],
+                correct: 0,
+                explanation: "The juxtaglomerular apparatus consists of macula densa cells (in distal tubule) and juxtaglomerular cells (in afferent arteriole) that regulate GFR and renin release."
+            },
+            {
+                question: "61. The countercurrent multiplier system is located in the:",
+                options: [
+                    "Loop of Henle",
+                    "Proximal convoluted tubule", 
+                    "Distal convoluted tubule",
+                    "Collecting duct"
+                ],
+                correct: 0,
+                explanation: "The countercurrent multiplier in the loop of Henle creates a hyperosmotic medullary interstitium, enabling urine concentration."
+            },
+            {
+                question: "62. Aldosterone acts primarily on the:",
+                options: [
+                    "Distal convoluted tubule and collecting duct",
+                    "Proximal convoluted tubule", 
+                    "Loop of Henle",
+                    "Glomerulus"
+                ],
+                correct: 0,
+                explanation: "Aldosterone stimulates sodium reabsorption and potassium secretion in the distal convoluted tubule and collecting duct, regulated by the renin-angiotensin system."
+            },
+            {
+                question: "63. Antidiuretic hormone (ADH) increases water reabsorption in the:",
+                options: [
+                    "Collecting duct",
+                    "Proximal tubule", 
+                    "Loop of Henle",
+                    "Distal tubule"
+                ],
+                correct: 0,
+                explanation: "ADH (vasopressin) increases water permeability of the collecting duct by inserting aquaporin-2 channels, promoting water reabsorption and concentrated urine."
+            },
+            {
+                question: "64. The renal threshold for glucose is approximately:",
+                options: [
+                    "180-200 mg/dL",
+                    "100 mg/dL", 
+                    "250 mg/dL",
+                    "300 mg/dL"
+                ],
+                correct: 0,
+                explanation: "When plasma glucose exceeds ~180-200 mg/dL, the glucose transport maximum is exceeded, and glucosuria occurs (as in diabetes mellitus)."
+            },
+            {
+                question: "65. The main buffer in the urine is:",
+                options: [
+                    "Phosphate buffer system",
+                    "Bicarbonate buffer system", 
+                    "Protein buffer system",
+                    "Hemoglobin buffer"
+                ],
+                correct: 0,
+                explanation: "The phosphate buffer system (HPO₄²⁻/H₂PO₄⁻) is the main urinary buffer, with pKa of 6.8, ideal for buffering urine pH (4.5-8.0)."
+            },
+            {
+                question: "66. The V/Q ratio is highest in the:",
+                options: [
+                    "Apex of the lung",
+                    "Base of the lung", 
+                    "Middle lobe",
+                    "Equal throughout lung"
+                ],
+                correct: 0,
+                explanation: "The ventilation/perfusion (V/Q) ratio is higher at the lung apex due to gravity effects on blood flow, with more ventilation relative to perfusion."
+            },
+            {
+                question: "67. Physiological dead space includes:",
+                options: [
+                    "Anatomical dead space + Alveolar dead space",
+                    "Only anatomical dead space", 
+                    "Only alveolar dead space",
+                    "Conducting airways only"
+                ],
+                correct: 0,
+                explanation: "Physiological dead space = anatomical dead space (conducting airways) + alveolar dead space (ventilated but unperfused alveoli)."
+            },
+            {
+                question: "68. The most common type of hypoxia is:",
+                options: [
+                    "Hypoxic hypoxia",
+                    "Anemic hypoxia", 
+                    "Circulatory hypoxia",
+                    "Histotoxic hypoxia"
+                ],
+                correct: 0,
+                explanation: "Hypoxic hypoxia (low arterial PO₂) is most common, caused by high altitude, hypoventilation, or ventilation-perfusion mismatch."
+            },
+            {
+                question: "69. The carotid bodies are sensitive to:",
+                options: [
+                    "Decreased PO₂, increased PCO₂, and decreased pH",
+                    "Only decreased PO₂", 
+                    "Only increased PCO₂",
+                    "Only decreased pH"
+                ],
+                correct: 0,
+                explanation: "Carotid bodies (peripheral chemoreceptors) respond to decreased PO₂, increased PCO₂, and decreased pH, stimulating increased ventilation."
+            },
+            {
+                question: "70. The central chemoreceptors are primarily sensitive to:",
+                options: [
+                    "CO₂-induced changes in CSF pH",
+                    "Arterial PO₂", 
+                    "Arterial pH directly",
+                    "Blood bicarbonate levels"
+                ],
+                correct: 0,
+                explanation: "Central chemoreceptors in the medulla respond to CO₂-induced changes in cerebrospinal fluid pH, as CO₂ crosses blood-brain barrier and forms carbonic acid."
+            },
+            {
+                question: "71. The Hering-Breuer reflex prevents:",
+                options: [
+                    "Overinflation of the lungs",
+                    "Underinflation of the lungs", 
+                    "Rapid breathing",
+                    "Shallow breathing"
+                ],
+                correct: 0,
+                explanation: "The Hering-Breuer inflation reflex is triggered by stretch receptors in bronchi/bronchioles, inhibiting inspiration to prevent overinflation."
+            },
+            {
+                question: "72. The normal A-a gradient (alveolar-arterial O₂ difference) is:",
+                options: [
+                    "5-15 mmHg",
+                    "20-30 mmHg", 
+                    "35-45 mmHg",
+                    "50-60 mmHg"
+                ],
+                correct: 0,
+                explanation: "Normal A-a gradient is 5-15 mmHg, increasing with age. Elevated gradient indicates impaired gas exchange (diffusion defect, V/Q mismatch, shunt)."
+            },
+            {
+                question: "73. The primary driving force for fluid filtration in capillaries is:",
+                options: [
+                    "Capillary hydrostatic pressure",
+                    "Plasma oncotic pressure", 
+                    "Interstitial hydrostatic pressure",
+                    "Interstitial oncotic pressure"
+                ],
+                correct: 0,
+                explanation: "Capillary hydrostatic pressure (favoring filtration) is opposed by plasma oncotic pressure (favoring absorption), according to Starling forces."
+            },
+            {
+                question: "74. The renin-angiotensin-aldosterone system (RAAS) is activated by:",
+                options: [
+                    "Decreased renal perfusion pressure",
+                    "Increased blood pressure", 
+                    "Increased plasma sodium",
+                    "Decreased angiotensin II"
+                ],
+                correct: 0,
+                explanation: "RAAS activates when renal perfusion decreases, stimulating renin release from juxtaglomerular cells, ultimately increasing blood pressure and sodium retention."
+            },
+            {
+                question: "75. Atrial natriuretic peptide (ANP) causes:",
+                options: [
+                    "Increased sodium excretion and vasodilation",
+                    "Sodium retention and vasoconstriction", 
+                    "Water retention only",
+                    "Potassium retention"
+                ],
+                correct: 0,
+                explanation: "ANP, released from atrial myocytes in response to stretch, promotes natriuresis, diuresis, and vasodilation, opposing RAAS effects."
+            },
+            {
+                question: "76. The normal pH of arterial blood is:",
+                options: [
+                    "7.35-7.45",
+                    "7.25-7.35", 
+                    "7.45-7.55",
+                    "7.15-7.25"
+                ],
+                correct: 0,
+                explanation: "Normal arterial blood pH is 7.35-7.45, tightly regulated by buffer systems, respiratory compensation, and renal compensation."
+            },
+            {
+                question: "77. Metabolic acidosis is characterized by:",
+                options: [
+                    "Decreased pH and decreased HCO₃⁻",
+                    "Decreased pH and increased HCO₃⁻", 
+                    "Increased pH and decreased HCO₃⁻",
+                    "Increased pH and increased HCO₃⁻"
+                ],
+                correct: 0,
+                explanation: "Metabolic acidosis: primary decrease in HCO₃⁻ with compensatory decrease in PCO₂. Causes include lactic acidosis, ketoacidosis, renal failure."
+            },
+            {
+                question: "78. Respiratory alkalosis is characterized by:",
+                options: [
+                    "Increased pH and decreased PCO₂",
+                    "Decreased pH and increased PCO₂", 
+                    "Increased pH and increased PCO₂",
+                    "Decreased pH and decreased PCO₂"
+                ],
+                correct: 0,
+                explanation: "Respiratory alkalosis: primary decrease in PCO₂ (hyperventilation) with compensatory decrease in HCO₃⁻. Causes include anxiety, high altitude, fever."
+            },
+            {
+                question: "79. The anion gap is calculated as:",
+                options: [
+                    "Na⁺ - (Cl⁻ + HCO₃⁻)",
+                    "K⁺ + Na⁺ - Cl⁻", 
+                    "Cl⁻ + HCO₃⁻ - Na⁺",
+                    "Na⁺ + K⁺ - (Cl⁻ + HCO₃⁻)"
+                ],
+                correct: 0,
+                explanation: "Anion gap = Na⁺ - (Cl⁻ + HCO₃⁻), normally 8-12 mEq/L. Increased gap suggests accumulation of unmeasured anions (lactate, ketones)."
+            },
+            {
+                question: "80. The most important intracellular buffer is:",
+                options: [
+                    "Protein buffer system",
+                    "Bicarbonate buffer system", 
+                    "Phosphate buffer system",
+                    "Hemoglobin buffer"
+                ],
+                correct: 0,
+                explanation: "Proteins are the main intracellular buffers due to their abundance and the presence of ionizable groups (especially histidine residues) with pKa near physiological pH."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(physiologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = physiologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${physiologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / physiologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = physiologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < physiologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            physiologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${physiologyQuestions.length}</strong> (${Math.round((score/physiologyQuestions.length)*100)}%)</p>
+                <p>${score === physiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= physiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

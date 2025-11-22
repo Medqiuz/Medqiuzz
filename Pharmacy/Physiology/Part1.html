@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physiology Quiz - Part 1</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #2c3e50, #3498db, #1abc9c);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .quiz-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 15px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 2.2rem;
+        }
+        
+        .subtitle {
+            color: #3498db;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #2c3e50, #3498db);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .question-counter {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        .question-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #2c3e50;
+        }
+        
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: #2c3e50;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option-btn {
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+        
+        .option-btn:hover {
+            background-color: #f0f0f0;
+            border-color: #2c3e50;
+        }
+        
+        .option-btn.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .option-btn.wrong {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .explanation {
+            background-color: #e8f4f8;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #3498db;
+            display: none;
+        }
+        
+        .explanation.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .nav-btn {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: #1a252f;
+        }
+        
+        .nav-btn:disabled {
+            background-color: #a0a0a0;
+            cursor: not-allowed;
+        }
+        
+        .score-display {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f4f8;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🧬 Physiology Quiz</h1>
+            <div class="subtitle">Part 1: General Physiology, Cell Physiology & Neurophysiology (Questions 1-40)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const physiologyQuestions = [
+            {
+                question: "1. Homeostasis refers to:",
+                options: [
+                    "Maintenance of a stable internal environment",
+                    "Breakdown of complex molecules", 
+                    "Production of energy in cells",
+                    "Response to external stimuli"
+                ],
+                correct: 0,
+                explanation: "Homeostasis is the body's ability to maintain relatively stable internal conditions despite external changes, involving multiple regulatory mechanisms like negative feedback loops."
+            },
+            {
+                question: "2. The Na⁺/K⁺ ATPase pump:",
+                options: [
+                    "Moves 3 Na⁺ out and 2 K⁺ into the cell",
+                    "Moves 2 Na⁺ out and 3 K⁺ into the cell", 
+                    "Moves equal amounts of Na⁺ and K⁺",
+                    "Only moves Na⁺ out of the cell"
+                ],
+                correct: 0,
+                explanation: "The Na⁺/K⁺ ATPase is an electrogenic pump that transports 3 Na⁺ ions out and 2 K⁺ ions into the cell per ATP hydrolyzed, maintaining resting membrane potential."
+            },
+            {
+                question: "3. The resting membrane potential of a typical neuron is approximately:",
+                options: [
+                    "-70 mV",
+                    "+40 mV", 
+                    "0 mV",
+                    "-90 mV"
+                ],
+                correct: 0,
+                explanation: "The resting membrane potential of neurons is typically around -70 mV, maintained by the Na⁺/K⁺ ATPase pump and selective membrane permeability to K⁺."
+            },
+            {
+                question: "4. Which ion has the highest permeability in a resting neuron?",
+                options: [
+                    "Potassium (K⁺)",
+                    "Sodium (Na⁺)", 
+                    "Chloride (Cl⁻)",
+                    "Calcium (Ca²⁺)"
+                ],
+                correct: 0,
+                explanation: "At rest, neuronal membranes are most permeable to K⁺ due to many open potassium channels, which contributes significantly to the resting membrane potential."
+            },
+            {
+                question: "5. An action potential is characterized by:",
+                options: [
+                    "All-or-none principle and refractory periods",
+                    "Graded responses and summation", 
+                    "Decreased membrane permeability",
+                    "Only depolarization phase"
+                ],
+                correct: 0,
+                explanation: "Action potentials follow the all-or-none principle (either fire completely or not at all) and have absolute and relative refractory periods that limit firing frequency."
+            },
+            {
+                question: "6. During the depolarization phase of an action potential:",
+                options: [
+                    "Voltage-gated Na⁺ channels open rapidly",
+                    "Voltage-gated K⁺ channels open rapidly", 
+                    "Na⁺/K⁺ ATPase activity increases",
+                    "Membrane permeability to K⁺ increases"
+                ],
+                correct: 0,
+                explanation: "Depolarization occurs when voltage-gated Na⁺ channels open in response to threshold stimulus, allowing Na⁺ influx that further depolarizes the membrane."
+            },
+            {
+                question: "7. The absolute refractory period occurs because:",
+                options: [
+                    "Voltage-gated Na⁺ channels are inactivated",
+                    "Voltage-gated K⁺ channels are closed", 
+                    "Na⁺/K⁺ ATPase is inhibited",
+                    "Membrane is hyperpolarized"
+                ],
+                correct: 0,
+                explanation: "During the absolute refractory period, voltage-gated Na⁺ channels are inactivated and cannot be reopened, preventing another action potential regardless of stimulus strength."
+            },
+            {
+                question: "8. Saltatory conduction refers to:",
+                options: [
+                    "Rapid impulse propagation along myelinated axons",
+                    "Slow continuous conduction in unmyelinated fibers", 
+                    "Neurotransmitter release at synapses",
+                    "Muscle contraction mechanism"
+                ],
+                correct: 0,
+                explanation: "Saltatory conduction occurs in myelinated axons where action potentials 'jump' between nodes of Ranvier, significantly increasing conduction velocity."
+            },
+            {
+                question: "9. The neurotransmitter at the neuromuscular junction is:",
+                options: [
+                    "Acetylcholine",
+                    "Norepinephrine", 
+                    "Dopamine",
+                    "GABA"
+                ],
+                correct: 0,
+                explanation: "Acetylcholine is the neurotransmitter released by motor neurons at the neuromuscular junction, binding to nicotinic receptors on skeletal muscle fibers."
+            },
+            {
+                question: "10. An excitatory postsynaptic potential (EPSP):",
+                options: [
+                    "Depolarizes the postsynaptic membrane",
+                    "Hyperpolarizes the postsynaptic membrane", 
+                    "Has no effect on membrane potential",
+                    "Always triggers an action potential"
+                ],
+                correct: 0,
+                explanation: "EPSPs are graded depolarizations that bring the membrane potential closer to threshold, increasing the likelihood of action potential generation."
+            },
+            {
+                question: "11. The blood-brain barrier is formed primarily by:",
+                options: [
+                    "Tight junctions between endothelial cells",
+                    "Gap junctions between neurons", 
+                    "Schwann cell membranes",
+                    "Astrocyte foot processes"
+                ],
+                correct: 0,
+                explanation: "The blood-brain barrier consists of tight junctions between cerebral capillary endothelial cells, supported by astrocyte foot processes, restricting passage of substances from blood to brain."
+            },
+            {
+                question: "12. Cerebrospinal fluid is produced by:",
+                options: [
+                    "Choroid plexuses in the ventricles",
+                    "Arachnoid granulations", 
+                    "Ependymal cells alone",
+                    " Cerebral capillaries"
+                ],
+                correct: 0,
+                explanation: "CSF is produced primarily by the choroid plexuses in the lateral, third, and fourth ventricles through filtration and secretion processes."
+            },
+            {
+                question: "13. The limbic system is primarily involved in:",
+                options: [
+                    "Emotion and memory",
+                    "Motor coordination", 
+                    "Visual processing",
+                    "Language comprehension"
+                ],
+                correct: 0,
+                explanation: "The limbic system (including hippocampus, amygdala, hypothalamus) regulates emotions, memory formation, and various autonomic functions."
+            },
+            {
+                question: "14. Broca's area is responsible for:",
+                options: [
+                    "Motor aspects of speech production",
+                    "Language comprehension", 
+                    "Auditory processing",
+                    "Visual recognition"
+                ],
+                correct: 0,
+                explanation: "Broca's area in the inferior frontal gyrus controls motor aspects of speech production; damage results in expressive aphasia with intact comprehension."
+            },
+            {
+                question: "15. Wernicke's area is involved in:",
+                options: [
+                    "Language comprehension",
+                    "Speech production", 
+                    "Motor coordination",
+                    "Sensory integration"
+                ],
+                correct: 0,
+                explanation: "Wernicke's area in the superior temporal gyrus is crucial for language comprehension; damage causes receptive aphasia with fluent but meaningless speech."
+            },
+            {
+                question: "16. The autonomic nervous system controls:",
+                options: [
+                    "Involuntary functions of visceral organs",
+                    "Voluntary skeletal muscle movements", 
+                    "Conscious thought processes",
+                    "Sensory perception only"
+                ],
+                correct: 0,
+                explanation: "The autonomic nervous system regulates involuntary bodily functions including heart rate, digestion, respiration, and glandular secretion through sympathetic and parasympathetic divisions."
+            },
+            {
+                question: "17. The sympathetic nervous system is characterized by:",
+                options: [
+                    "Fight-or-flight response",
+                    "Rest-and-digest activities", 
+                    "Voluntary muscle control",
+                    "Sensory processing"
+                ],
+                correct: 0,
+                explanation: "The sympathetic nervous system prepares the body for emergency situations through fight-or-flight responses, increasing heart rate, blood pressure, and metabolic rate."
+            },
+            {
+                question: "18. The parasympathetic nervous system:",
+                options: [
+                    "Conserves energy and promotes digestion",
+                    "Increases heart rate and blood pressure", 
+                    "Dilates bronchioles",
+                    "Stimulates sweat glands"
+                ],
+                correct: 0,
+                explanation: "The parasympathetic nervous system promotes rest-and-digest activities, slowing heart rate, stimulating digestion, and conserving energy."
+            },
+            {
+                question: "19. Norepinephrine is the primary neurotransmitter in:",
+                options: [
+                    "Most postganglionic sympathetic neurons",
+                    "Preganglionic autonomic neurons", 
+                    "Neuromuscular junctions",
+                    "Central nervous system only"
+                ],
+                correct: 0,
+                explanation: "Norepinephrine is released by most postganglionic sympathetic neurons, acting on adrenergic receptors in target organs to mediate sympathetic responses."
+            },
+            {
+                question: "20. The stretch reflex is an example of:",
+                options: [
+                    "Monosynaptic reflex",
+                    "Polysynaptic reflex", 
+                    "Conditioned reflex",
+                    "Voluntary movement"
+                ],
+                correct: 0,
+                explanation: "The stretch reflex (like knee jerk) is monosynaptic, involving direct connection between sensory afferent and motor efferent neurons in the spinal cord."
+            },
+            {
+                question: "21. Golgi tendon organs protect against:",
+                options: [
+                    "Excessive muscle tension",
+                    "Muscle stretching", 
+                    "Joint damage",
+                    "Tendon relaxation"
+                ],
+                correct: 0,
+                explanation: "Golgi tendon organs detect excessive muscle tension and initiate inhibitory reflexes that cause muscle relaxation, preventing damage from overload."
+            },
+            {
+                question: "22. Muscle spindles detect:",
+                options: [
+                    "Muscle length changes",
+                    "Muscle tension", 
+                    "Joint position",
+                    "Pain stimuli"
+                ],
+                correct: 0,
+                explanation: "Muscle spindles are proprioceptors that detect changes in muscle length and rate of length change, involved in stretch reflexes and proprioception."
+            },
+            {
+                question: "23. The blood-CSF barrier is formed by:",
+                options: [
+                    "Choroid plexus epithelial cells",
+                    "Brain capillary endothelial cells", 
+                    "Astrocyte foot processes",
+                    "Ependymal cells"
+                ],
+                correct: 0,
+                explanation: "The blood-CSF barrier consists of tight junctions between choroid plexus epithelial cells, controlling composition of cerebrospinal fluid."
+            },
+            {
+                question: "24. The blood-aqueous barrier in the eye is formed by:",
+                options: [
+                    "Non-pigmented epithelium of ciliary body",
+                    "Corneal endothelial cells", 
+                    "Retinal pigment epithelium",
+                    "Lens epithelial cells"
+                ],
+                correct: 0,
+                explanation: "The blood-aqueous barrier is formed by tight junctions between non-pigmented epithelial cells of the ciliary body, regulating aqueous humor composition."
+            },
+            {
+                question: "25. The most abundant cation in intracellular fluid is:",
+                options: [
+                    "Potassium (K⁺)",
+                    "Sodium (Na⁺)", 
+                    "Calcium (Ca²⁺)",
+                    "Magnesium (Mg²⁺)"
+                ],
+                correct: 0,
+                explanation: "Potassium is the predominant intracellular cation, with concentrations around 140-150 mEq/L inside cells versus 3.5-5.0 mEq/L in extracellular fluid."
+            },
+            {
+                question: "26. The most abundant cation in extracellular fluid is:",
+                options: [
+                    "Sodium (Na⁺)",
+                    "Potassium (K⁺)", 
+                    "Calcium (Ca²⁺)",
+                    "Magnesium (Mg²⁺)"
+                ],
+                correct: 0,
+                explanation: "Sodium is the major extracellular cation, with concentrations around 135-145 mEq/L in extracellular fluid versus 10-15 mEq/L inside cells."
+            },
+            {
+                question: "27. Osmolarity refers to:",
+                options: [
+                    "Total solute concentration per liter of solution",
+                    "Solute concentration per kg of solvent", 
+                    "Only electrolyte concentration",
+                    "Only non-electrolyte concentration"
+                ],
+                correct: 0,
+                explanation: "Osmolarity is the total concentration of osmotically active particles per liter of solution, expressed as osmoles/liter (Osm/L)."
+            },
+            {
+                question: "28. Tonicity describes:",
+                options: [
+                    "Effect of solution on cell volume",
+                    "Total solute concentration", 
+                    "Electrical charge of solutes",
+                    "pH of a solution"
+                ],
+                correct: 0,
+                explanation: "Tonicity refers to how a solution affects cell volume, depending on the concentration of non-penetrating solutes relative to intracellular fluid."
+            },
+            {
+                question: "29. In a hypotonic solution, a red blood cell will:",
+                options: [
+                    "Swell and possibly hemolyze",
+                    "Shrink and crenate", 
+                    "Maintain normal volume",
+                    "Become more rigid"
+                ],
+                correct: 0,
+                explanation: "In hypotonic solutions (lower solute concentration than intracellular fluid), water enters cells by osmosis, causing swelling and potential hemolysis."
+            },
+            {
+                question: "30. Facilitated diffusion:",
+                options: [
+                    "Requires carrier proteins but no energy",
+                    "Requires ATP hydrolysis", 
+                    "Moves substances against concentration gradient",
+                    "Only occurs in neurons"
+                ],
+                correct: 0,
+                explanation: "Facilitated diffusion uses carrier proteins or channels to move substances down their concentration gradient without energy expenditure."
+            },
+            {
+                question: "31. Primary active transport:",
+                options: [
+                    "Directly uses ATP for energy",
+                    "Uses energy from another concentration gradient", 
+                    "Occurs only through channels",
+                    "Is always coupled to diffusion"
+                ],
+                correct: 0,
+                explanation: "Primary active transport directly hydrolyzes ATP to move substances against their concentration gradient, as seen in Na⁺/K⁺ ATPase and Ca²⁺ ATPase pumps."
+            },
+            {
+                question: "32. Secondary active transport:",
+                options: [
+                    "Uses energy from an ion gradient",
+                    "Directly hydrolyzes ATP", 
+                    "Only moves one substance at a time",
+                    "Does not require membrane proteins"
+                ],
+                correct: 0,
+                explanation: "Secondary active transport uses the energy stored in an ion gradient (usually Na⁺) established by primary active transport to move other substances."
+            },
+            {
+                question: "33. The Nernst equation calculates:",
+                options: [
+                    "Equilibrium potential for an ion",
+                    "Resting membrane potential", 
+                    "Action potential threshold",
+                    "Membrane capacitance"
+                ],
+                correct: 0,
+                explanation: "The Nernst equation calculates the equilibrium potential for a specific ion based on its concentration gradient across the membrane."
+            },
+            {
+                question: "34. The Goldman-Hodgkin-Katz equation:",
+                options: [
+                    "Predicts membrane potential considering multiple ions",
+                    "Calculates single ion equilibrium potential", 
+                    "Measures membrane resistance",
+                    "Determines action potential duration"
+                ],
+                correct: 0,
+                explanation: "The Goldman-Hodgkin-Katz equation predicts membrane potential based on the concentrations and permeabilities of all major ions (K⁺, Na⁺, Cl⁻)."
+            },
+            {
+                question: "35. Myelin in the central nervous system is produced by:",
+                options: [
+                    "Oligodendrocytes",
+                    "Schwann cells", 
+                    "Astrocytes",
+                    "Microglia"
+                ],
+                correct: 0,
+                explanation: "Oligodendrocytes form myelin sheaths around multiple axons in the CNS, while Schwann cells myelinate peripheral nerves (one cell per axon segment)."
+            },
+            {
+                question: "36. The nodes of Ranvier are:",
+                options: [
+                    "Gaps in myelin sheath with high Na⁺ channel density",
+                    "Areas of continuous myelin", 
+                    "Synaptic connections",
+                    "Cell bodies of neurons"
+                ],
+                correct: 0,
+                explanation: "Nodes of Ranvier are periodic gaps in the myelin sheath where voltage-gated Na⁺ channels are concentrated, enabling saltatory conduction."
+            },
+            {
+                question: "37. Temporal summation occurs when:",
+                options: [
+                    "Multiple signals from one neuron arrive in rapid succession",
+                    "Signals from different neurons arrive simultaneously", 
+                    "Inhibitory signals cancel excitatory signals",
+                    "Action potentials travel in opposite directions"
+                ],
+                correct: 0,
+                explanation: "Temporal summation involves multiple postsynaptic potentials from the same presynaptic neuron occurring close together in time, potentially reaching threshold."
+            },
+            {
+                question: "38. Spatial summation involves:",
+                options: [
+                    "Multiple inputs from different locations arriving simultaneously",
+                    "Repeated signals from one source", 
+                    "Inhibition of excitatory inputs",
+                    "Action potential propagation"
+                ],
+                correct: 0,
+                explanation: "Spatial summation occurs when postsynaptic potentials from multiple different presynaptic neurons combine at the same time to reach threshold."
+            },
+            {
+                question: "39. The absolute refractory period ensures:",
+                options: [
+                    "Action potentials propagate in one direction",
+                    "Action potentials can summate", 
+                    "Membrane potential remains constant",
+                    "Neurotransmitter is recycled"
+                ],
+                correct: 0,
+                explanation: "The absolute refractory period prevents backward propagation of action potentials and limits maximum firing frequency, ensuring unidirectional conduction."
+            },
+            {
+                question: "40. The relative refractory period occurs when:",
+                options: [
+                    "Some Na⁺ channels have recovered but K⁺ channels are still open",
+                    "All Na⁺ channels are inactivated", 
+                    "Membrane is at resting potential",
+                    "Action potential is at peak"
+                ],
+                correct: 0,
+                explanation: "During the relative refractory period, some Na⁺ channels have recovered but K⁺ channels remain open, requiring stronger stimuli to generate action potentials."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(physiologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = physiologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${physiologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / physiologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = physiologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < physiologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            physiologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${physiologyQuestions.length}</strong> (${Math.round((score/physiologyQuestions.length)*100)}%)</p>
+                <p>${score === physiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= physiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

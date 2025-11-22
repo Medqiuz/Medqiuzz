@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physiology Quiz - Part 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🧬 Physiology Quiz</h1>
+            <div class="subtitle">Part 3: Gastrointestinal, Endocrine & Neurophysiology (Questions 81-120)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const physiologyQuestions = [
+            {
+                question: "81. The enteric nervous system is located in the:",
+                options: [
+                    "Wall of the gastrointestinal tract",
+                    "Brainstem", 
+                    "Spinal cord",
+                    "Autonomic ganglia"
+                ],
+                correct: 0,
+                explanation: "The enteric nervous system is embedded in the wall of the GI tract and can function independently, though it's modulated by autonomic input."
+            },
+            {
+                question: "82. Gastrin is primarily secreted by:",
+                options: [
+                    "G cells in the stomach antrum",
+                    "Parietal cells in the stomach", 
+                    "Chief cells in the stomach",
+                    "Enteroendocrine cells in the duodenum"
+                ],
+                correct: 0,
+                explanation: "Gastrin is secreted by G cells in the gastric antrum and stimulates gastric acid secretion and mucosal growth."
+            },
+            {
+                question: "83. The main function of intrinsic factor is:",
+                options: [
+                    "Vitamin B12 absorption",
+                    "Protein digestion", 
+                    "Fat emulsification",
+                    "Carbohydrate digestion"
+                ],
+                correct: 0,
+                explanation: "Intrinsic factor, secreted by parietal cells, binds to vitamin B12 and enables its absorption in the ileum."
+            },
+            {
+                question: "84. Cholecystokinin (CCK) is released in response to:",
+                options: [
+                    "Fatty acids and amino acids in the duodenum",
+                    "Carbohydrates in the stomach", 
+                    "Low pH in the duodenum",
+                    "Gastric distension"
+                ],
+                correct: 0,
+                explanation: "CCK is secreted by I cells in the duodenum in response to fatty acids and amino acids, stimulating gallbladder contraction and pancreatic enzyme secretion."
+            },
+            {
+                question: "85. The migrating motor complex (MMC) occurs during:",
+                options: [
+                    "Fasting state",
+                    "After meal ingestion", 
+                    "During sleep only",
+                    "During exercise"
+                ],
+                correct: 0,
+                explanation: "The MMC is a cyclic motility pattern during fasting that clears residual food and secretions from the GI tract between meals."
+            },
+            {
+                question: "86. Iron is primarily absorbed in the:",
+                options: [
+                    "Duodenum and proximal jejunum",
+                    "Stomach", 
+                    "Ileum",
+                    "Colon"
+                ],
+                correct: 0,
+                explanation: "Iron absorption occurs mainly in the duodenum and proximal jejunum, enhanced by acidic environment and vitamin C."
+            },
+            {
+                question: "87. Bile salts are reabsorbed primarily in the:",
+                options: [
+                    "Terminal ileum",
+                    "Jejunum", 
+                    "Duodenum",
+                    "Colon"
+                ],
+                correct: 0,
+                explanation: "Bile salts undergo enterohepatic circulation and are actively reabsorbed in the terminal ileum, returning to the liver via portal circulation."
+            },
+            {
+                question: "88. The hormone that stimulates insulin release is:",
+                options: [
+                    "Glucagon-like peptide-1 (GLP-1)",
+                    "Somatostatin", 
+                    "Epinephrine",
+                    "Growth hormone"
+                ],
+                correct: 0,
+                explanation: "GLP-1, released from intestinal L cells after meals, enhances glucose-dependent insulin secretion (incretin effect)."
+            },
+            {
+                question: "89. Vitamin D is activated by hydroxylation in the:",
+                options: [
+                    "Liver and kidney",
+                    "Skin only", 
+                    "Intestine",
+                    "Bone"
+                ],
+                correct: 0,
+                explanation: "Vitamin D undergoes 25-hydroxylation in the liver and 1α-hydroxylation in the kidney to form active calcitriol (1,25-dihydroxyvitamin D)."
+            },
+            {
+                question: "90. The primary function of the colon is:",
+                options: [
+                    "Water and electrolyte absorption",
+                    "Nutrient absorption", 
+                    "Protein digestion",
+                    "Fat emulsification"
+                ],
+                correct: 0,
+                explanation: "The colon absorbs water and electrolytes, forming solid feces, and houses beneficial bacteria that produce vitamins (K, B12) and short-chain fatty acids."
+            },
+            {
+                question: "91. The hypothalamic-pituitary axis controls secretion of:",
+                options: [
+                    "Anterior pituitary hormones",
+                    "Posterior pituitary hormones", 
+                    "Thyroid hormones directly",
+                    "Adrenal medulla hormones"
+                ],
+                correct: 0,
+                explanation: "The hypothalamus secretes releasing hormones that stimulate anterior pituitary hormone secretion via the hypothalamic-pituitary portal system."
+            },
+            {
+                question: "92. Thyroid-stimulating hormone (TSH) stimulates:",
+                options: [
+                    "Thyroid hormone synthesis and release",
+                    "Adrenal cortisol release", 
+                    "Growth hormone secretion",
+                    "Insulin secretion"
+                ],
+                correct: 0,
+                explanation: "TSH from the anterior pituitary stimulates thyroid follicular cells to produce and secrete thyroxine (T4) and triiodothyronine (T3)."
+            },
+            {
+                question: "93. Cortisol secretion follows a:",
+                options: [
+                    "Diurnal rhythm with peak in morning",
+                    "Constant rate throughout day", 
+                    "Random pattern",
+                    "Peak during sleep"
+                ],
+                correct: 0,
+                explanation: "Cortisol secretion follows a circadian rhythm, highest in early morning and lowest around midnight, regulated by ACTH from the pituitary."
+            },
+            {
+                question: "94. The primary effect of parathyroid hormone (PTH) is to:",
+                options: [
+                    "Increase blood calcium levels",
+                    "Decrease blood calcium", 
+                    "Increase blood phosphate",
+                    "Decrease bone resorption"
+                ],
+                correct: 0,
+                explanation: "PTH increases blood calcium by stimulating bone resorption, renal calcium reabsorption, and activating vitamin D for intestinal calcium absorption."
+            },
+            {
+                question: "95. Insulin increases glucose uptake in:",
+                options: [
+                    "Muscle and adipose tissue",
+                    "Brain tissue", 
+                    "Liver cells",
+                    "Red blood cells"
+                ],
+                correct: 0,
+                explanation: "Insulin stimulates GLUT4 translocation to cell membranes in muscle and fat tissue, increasing glucose uptake. Brain uses GLUT1/3 (insulin-independent)."
+            },
+            {
+                question: "96. Glucagon primarily acts on the:",
+                options: [
+                    "Liver to increase glycogenolysis and gluconeogenesis",
+                    "Muscle to increase glucose uptake", 
+                    "Adipose tissue to increase lipogenesis",
+                    "Pancreas to inhibit insulin"
+                ],
+                correct: 0,
+                explanation: "Glucagon stimulates hepatic glycogenolysis and gluconeogenesis, increasing blood glucose during fasting or hypoglycemia."
+            },
+            {
+                question: "97. The hormone that regulates sodium reabsorption in the kidney is:",
+                options: [
+                    "Aldosterone",
+                    "Antidiuretic hormone", 
+                    "Atrial natriuretic peptide",
+                    "Cortisol"
+                ],
+                correct: 0,
+                explanation: "Aldosterone acts on renal collecting ducts to increase sodium reabsorption and potassium excretion, regulated by the renin-angiotensin system."
+            },
+            {
+                question: "98. Growth hormone secretion is stimulated by:",
+                options: [
+                    "Growth hormone-releasing hormone (GHRH)",
+                    "Somatostatin", 
+                    "Insulin",
+                    "Thyroid hormone"
+                ],
+                correct: 0,
+                explanation: "GHRH from hypothalamus stimulates GH release from anterior pituitary, promoting growth and metabolic effects."
+            },
+            {
+                question: "99. The resting membrane potential of neurons is primarily determined by:",
+                options: [
+                    "Potassium permeability",
+                    "Sodium permeability", 
+                    "Calcium permeability",
+                    "Chloride permeability"
+                ],
+                correct: 0,
+                explanation: "The resting membrane potential (-70 mV) is close to the potassium equilibrium potential due to high potassium permeability through leak channels."
+            },
+            {
+                question: "100. The all-or-none principle applies to:",
+                options: [
+                    "Action potentials",
+                    "Graded potentials", 
+                    "Synaptic potentials",
+                    "Receptor potentials"
+                ],
+                correct: 0,
+                explanation: "Action potentials either occur fully or not at all, once the threshold is reached, regardless of stimulus strength (all-or-none principle)."
+            },
+            {
+                question: "101. Saltatory conduction occurs in:",
+                options: [
+                    "Myelinated axons",
+                    "Unmyelinated axons", 
+                    "Dendrites",
+                    "Cell bodies"
+                ],
+                correct: 0,
+                explanation: "Saltatory conduction in myelinated axons allows action potentials to 'jump' between nodes of Ranvier, increasing conduction velocity."
+            },
+            {
+                question: "102. The neurotransmitter at the neuromuscular junction is:",
+                options: [
+                    "Acetylcholine",
+                    "Norepinephrine", 
+                    "Dopamine",
+                    "GABA"
+                ],
+                correct: 0,
+                explanation: "Acetylcholine is released from motor neuron terminals, binds to nicotinic receptors on muscle fibers, and triggers muscle contraction."
+            },
+            {
+                question: "103. The blood-brain barrier is formed by:",
+                options: [
+                    "Tight junctions between endothelial cells",
+                    "Astrocyte foot processes", 
+                    "Neuronal membranes",
+                    "Microglial cells"
+                ],
+                correct: 0,
+                explanation: "The blood-brain barrier consists of tight junctions between cerebral capillary endothelial cells, limiting passage of substances from blood to brain."
+            },
+            {
+                question: "104. The primary inhibitory neurotransmitter in the CNS is:",
+                options: [
+                    "GABA (gamma-aminobutyric acid)",
+                    "Glutamate", 
+                    "Dopamine",
+                    "Serotonin"
+                ],
+                correct: 0,
+                explanation: "GABA is the main inhibitory neurotransmitter, opening chloride channels and hyperpolarizing neurons, reducing excitability."
+            },
+            {
+                question: "105. The primary excitatory neurotransmitter in the CNS is:",
+                options: [
+                    "Glutamate",
+                    "GABA", 
+                    "Glycine",
+                    "Acetylcholine"
+                ],
+                correct: 0,
+                explanation: "Glutamate is the main excitatory neurotransmitter, acting on AMPA, NMDA, and kainate receptors to depolarize neurons."
+            },
+            {
+                question: "106. The neurotransmitter deficient in Parkinson's disease is:",
+                options: [
+                    "Dopamine",
+                    "Acetylcholine", 
+                    "Serotonin",
+                    "Norepinephrine"
+                ],
+                correct: 0,
+                explanation: "Parkinson's disease involves degeneration of dopaminergic neurons in substantia nigra, leading to movement disorders."
+            },
+            {
+                question: "107. The stretch reflex involves:",
+                options: [
+                    "Muscle spindle afferents and alpha motor neurons",
+                    "Golgi tendon organs and gamma motor neurons", 
+                    "Pain receptors and interneurons",
+                    "Joint receptors and beta motor neurons"
+                ],
+                correct: 0,
+                explanation: "The stretch reflex (monosynaptic) uses muscle spindle afferents (Ia fibers) that directly excite alpha motor neurons, causing muscle contraction."
+            },
+            {
+                question: "108. The Golgi tendon reflex protects against:",
+                options: [
+                    "Excessive muscle tension",
+                    "Muscle stretching", 
+                    "Joint damage",
+                    "Tendon rupture"
+                ],
+                correct: 0,
+                explanation: "Golgi tendon organs detect muscle tension and trigger inhibitory interneurons that inhibit alpha motor neurons, preventing excessive force."
+            },
+            {
+                question: "109. The visual acuity is highest at the:",
+                options: [
+                    "Fovea centralis",
+                    "Optic disc", 
+                    "Peripheral retina",
+                    "Macula lutea"
+                ],
+                correct: 0,
+                explanation: "The fovea has the highest visual acuity due to high cone density, minimal convergence, and direct light pathway to photoreceptors."
+            },
+            {
+                question: "110. Rods are specialized for:",
+                options: [
+                    "Dim light vision",
+                    "Color vision", 
+                    "High acuity vision",
+                    "Central vision"
+                ],
+                correct: 0,
+                explanation: "Rods are highly sensitive photoreceptors for scotopic (dim light) vision, but provide poor acuity and no color discrimination."
+            },
+            {
+                question: "111. Cones are specialized for:",
+                options: [
+                    "Color vision and high acuity",
+                    "Dim light vision", 
+                    "Motion detection",
+                    "Peripheral vision"
+                ],
+                correct: 0,
+                explanation: "Cones provide photopic (bright light) vision with high acuity and color discrimination through three types with different pigment sensitivities."
+            },
+            {
+                question: "112. Sound wave transduction occurs in the:",
+                options: [
+                    "Organ of Corti",
+                    "Tympanic membrane", 
+                    "Ossicles",
+                    "Cochlear nerve"
+                ],
+                correct: 0,
+                explanation: "The organ of Corti in the cochlea contains hair cells that transduce sound vibrations into neural signals via stereocilia deflection."
+            },
+            {
+                question: "113. High frequency sounds are detected at the:",
+                options: [
+                    "Base of the cochlea",
+                    "Apex of the cochlea", 
+                    "Middle of the cochlea",
+                    "Throughout cochlea"
+                ],
+                correct: 0,
+                explanation: "The cochlea is tonotopically organized: high frequencies at the base, low frequencies at the apex, due to basilar membrane stiffness gradient."
+            },
+            {
+                question: "114. The vestibular system detects:",
+                options: [
+                    "Head position and movement",
+                    "Sound frequency", 
+                    "Visual stimuli",
+                    "Taste sensations"
+                ],
+                correct: 0,
+                explanation: "The vestibular apparatus (semicircular canals, utricle, saccule) detects angular and linear acceleration, maintaining balance and spatial orientation."
+            },
+            {
+                question: "115. The neurotransmitter released by taste bud cells is:",
+                options: [
+                    "ATP",
+                    "Acetylcholine", 
+                    "Serotonin",
+                    "Glutamate"
+                ],
+                correct: 0,
+                explanation: "Taste receptor cells release ATP that activates afferent nerve fibers, transmitting taste information to the brain."
+            },
+            {
+                question: "116. Sweet taste is detected by:",
+                options: [
+                    "G-protein coupled receptors (T1R2/T1R3)",
+                    "Ion channels", 
+                    "Voltage-gated channels",
+                    "Mechanoreceptors"
+                ],
+                correct: 0,
+                explanation: "Sweet taste involves T1R2/T1R3 G-protein coupled receptors that activate second messenger systems, ultimately depolarizing taste cells."
+            },
+            {
+                question: "117. Olfactory receptor cells are:",
+                options: [
+                    "Bipolar neurons with cilia in olfactory epithelium",
+                    "Support cells in nasal mucosa", 
+                    "Modified epithelial cells",
+                    "Glial cells"
+                ],
+                correct: 0,
+                explanation: "Olfactory receptor neurons are bipolar neurons with cilia containing odorant receptors; they are unique in being continuously regenerated."
+            },
+            {
+                question: "118. The primary motor cortex is located in the:",
+                options: [
+                    "Precentral gyrus",
+                    "Postcentral gyrus", 
+                    "Prefrontal cortex",
+                    "Temporal lobe"
+                ],
+                correct: 0,
+                explanation: "The primary motor cortex in precentral gyrus contains the motor homunculus and initiates voluntary movements via corticospinal tracts."
+            },
+            {
+                question: "119. The primary somatosensory cortex is located in the:",
+                options: [
+                    "Postcentral gyrus",
+                    "Precentral gyrus", 
+                    "Parietal lobe",
+                    "Occipital lobe"
+                ],
+                correct: 0,
+                explanation: "The primary somatosensory cortex in postcentral gyrus processes tactile, proprioceptive, and nociceptive information with somatotopic organization."
+            },
+            {
+                question: "120. Broca's area is involved in:",
+                options: [
+                    "Motor aspects of speech production",
+                    "Language comprehension", 
+                    "Auditory processing",
+                    "Visual recognition"
+                ],
+                correct: 0,
+                explanation: "Broca's area in the inferior frontal gyrus controls speech production, and damage causes expressive aphasia (difficulty speaking but comprehension intact)."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(physiologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = physiologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${physiologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / physiologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = physiologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < physiologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            physiologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${physiologyQuestions.length}</strong> (${Math.round((score/physiologyQuestions.length)*100)}%)</p>
+                <p>${score === physiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= physiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

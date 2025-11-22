@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physiology Quiz - Part 5</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🧬 Physiology Quiz</h1>
+            <div class="subtitle">Part 5: Cardiovascular & Respiratory Physiology (Questions 161-200)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const physiologyQuestions = [
+            {
+                question: "161. The primary function of the cardiovascular system is:",
+                options: [
+                    "Transport of oxygen, nutrients, and waste products",
+                    "Production of hormones", 
+                    "Digestion of food",
+                    "Gas exchange in lungs"
+                ],
+                correct: 0,
+                explanation: "The cardiovascular system circulates blood to deliver oxygen and nutrients to tissues while removing waste products like carbon dioxide."
+            },
+            {
+                question: "162. The cardiac cycle consists of:",
+                options: [
+                    "Systole and diastole",
+                    "Only ventricular contraction", 
+                    "Only atrial contraction",
+                    "Ventricular filling and emptying"
+                ],
+                correct: 0,
+                explanation: "The cardiac cycle includes systole (contraction) and diastole (relaxation) phases for both atria and ventricles."
+            },
+            {
+                question: "163. The pacemaker of the heart is the:",
+                options: [
+                    "Sinoatrial (SA) node",
+                    "Atrioventricular (AV) node", 
+                    "Bundle of His",
+                    "Purkinje fibers"
+                ],
+                correct: 0,
+                explanation: "The SA node generates the electrical impulse that initiates each heartbeat, setting the heart's natural rhythm."
+            },
+            {
+                question: "164. The QRS complex on an ECG represents:",
+                options: [
+                    "Ventricular depolarization",
+                    "Atrial depolarization", 
+                    "Ventricular repolarization",
+                    "Atrial repolarization"
+                ],
+                correct: 0,
+                explanation: "The QRS complex corresponds to the rapid depolarization of the right and left ventricles."
+            },
+            {
+                question: "165. Cardiac output is calculated as:",
+                options: [
+                    "Heart rate × Stroke volume",
+                    "Blood pressure × Heart rate", 
+                    "Stroke volume × Systemic vascular resistance",
+                    "End-diastolic volume - End-systolic volume"
+                ],
+                correct: 0,
+                explanation: "Cardiac output (CO) = Heart rate (HR) × Stroke volume (SV), representing the volume of blood pumped by the heart per minute."
+            },
+            {
+                question: "166. The Frank-Starling mechanism states that:",
+                options: [
+                    "Stroke volume increases with increased ventricular filling",
+                    "Heart rate increases with exercise", 
+                    "Blood pressure regulates cardiac output",
+                    "Ventricular contraction strength is constant"
+                ],
+                correct: 0,
+                explanation: "The Frank-Starling law describes how the heart pumps out the blood returned to it, with increased preload leading to increased stroke volume."
+            },
+            {
+                question: "167. Mean arterial pressure (MAP) is calculated as:",
+                options: [
+                    "Diastolic pressure + 1/3 (Systolic - Diastolic)",
+                    "Systolic pressure - Diastolic pressure", 
+                    "(Systolic + Diastolic) / 2",
+                    "Cardiac output × Heart rate"
+                ],
+                correct: 0,
+                explanation: "MAP = Diastolic BP + 1/3 (Systolic BP - Diastolic BP), representing the average pressure in the arteries during one cardiac cycle."
+            },
+            {
+                question: "168. Baroreceptors are primarily located in the:",
+                options: [
+                    "Carotid sinus and aortic arch",
+                    "Medulla oblongata", 
+                    "Heart chambers",
+                    "Pulmonary arteries"
+                ],
+                correct: 0,
+                explanation: "Baroreceptors in the carotid sinus and aortic arch detect changes in blood pressure and trigger reflex adjustments to maintain homeostasis."
+            },
+            {
+                question: "169. The primary function of the respiratory system is:",
+                options: [
+                    "Gas exchange between air and blood",
+                    "Sound production", 
+                    "pH regulation only",
+                    "Hormone production"
+                ],
+                correct: 0,
+                explanation: "The respiratory system's main function is oxygenation of blood and elimination of carbon dioxide, though it also contributes to pH balance and vocalization."
+            },
+            {
+                question: "170. Boyle's law explains:",
+                options: [
+                    "The relationship between pressure and volume in gases",
+                    "Gas diffusion in alveoli", 
+                    "Oxygen binding to hemoglobin",
+                    "Carbon dioxide transport"
+                ],
+                correct: 0,
+                explanation: "Boyle's law (P ∝ 1/V) explains how changes in thoracic volume create pressure gradients that drive ventilation."
+            },
+            {
+                question: "171. The most important muscle of inspiration is the:",
+                options: [
+                    "Diaphragm",
+                    "External intercostals", 
+                    "Sternocleidomastoid",
+                    "Scalene muscles"
+                ],
+                correct: 0,
+                explanation: "The diaphragm accounts for about 75% of the air movement during quiet breathing by contracting to increase thoracic volume."
+            },
+            {
+                question: "172. Tidal volume is:",
+                options: [
+                    "The volume of air inhaled or exhaled during normal breathing",
+                    "The maximum volume that can be inhaled after normal inspiration", 
+                    "The volume remaining in lungs after maximum expiration",
+                    "The total lung capacity"
+                ],
+                correct: 0,
+                explanation: "Tidal volume is typically 500 mL in adults and represents the air moved during normal, quiet breathing."
+            },
+            {
+                question: "173. Surfactant in the alveoli:",
+                options: [
+                    "Reduces surface tension and prevents alveolar collapse",
+                    "Increases gas diffusion", 
+                    "Traps foreign particles",
+                    "Produces mucus"
+                ],
+                correct: 0,
+                explanation: "Pulmonary surfactant, produced by type II alveolar cells, decreases surface tension, making lung expansion easier and preventing atelectasis."
+            },
+            {
+                question: "174. The majority of oxygen in blood is transported:",
+                options: [
+                    "Bound to hemoglobin as oxyhemoglobin",
+                    "Dissolved in plasma", 
+                    "As bicarbonate ions",
+                    "Bound to plasma proteins"
+                ],
+                correct: 0,
+                explanation: "About 98% of oxygen is carried bound to hemoglobin in red blood cells, while only 2% is dissolved in plasma."
+            },
+            {
+                question: "175. The oxygen-hemoglobin dissociation curve:",
+                options: [
+                    "Shows the relationship between oxygen saturation and partial pressure",
+                    "Depicts carbon dioxide transport", 
+                    "Illustrates lung compliance",
+                    "Shows ventilation-perfusion matching"
+                ],
+                correct: 0,
+                explanation: "This sigmoid-shaped curve demonstrates how hemoglobin saturation changes with PO2, facilitating oxygen loading in lungs and unloading in tissues."
+            },
+            {
+                question: "176. A right shift in the oxygen-hemoglobin curve indicates:",
+                options: [
+                    "Decreased hemoglobin affinity for oxygen",
+                    "Increased hemoglobin affinity for oxygen", 
+                    "No change in oxygen binding",
+                    "Complete oxygen saturation"
+                ],
+                correct: 0,
+                explanation: "A right shift (Bohr effect) occurs with increased temperature, CO2, H+, or 2,3-DPG, facilitating oxygen unloading in tissues."
+            },
+            {
+                question: "177. The majority of carbon dioxide is transported in blood as:",
+                options: [
+                    "Bicarbonate ions (HCO3-)",
+                    "Dissolved CO2", 
+                    "Carbamino compounds",
+                    "Carbon monoxide"
+                ],
+                correct: 0,
+                explanation: "About 70% of CO2 is transported as bicarbonate ions, 23% as carbamino compounds with hemoglobin, and 7% dissolved in plasma."
+            },
+            {
+                question: "178. The primary center for respiratory control is located in the:",
+                options: [
+                    "Medulla oblongata",
+                    "Pons", 
+                    "Cerebral cortex",
+                    "Hypothalamus"
+                ],
+                correct: 0,
+                explanation: "The medullary respiratory center contains the dorsal respiratory group (inspiration) and ventral respiratory group (expiration)."
+            },
+            {
+                question: "179. Chemoreceptors that monitor blood gases are located in the:",
+                options: [
+                    "Carotid and aortic bodies and medulla",
+                    "Lungs only", 
+                    "Heart chambers",
+                    "Pulmonary arteries"
+                ],
+                correct: 0,
+                explanation: "Peripheral chemoreceptors (carotid and aortic bodies) detect changes in PO2, PCO2, and pH, while central chemoreceptors in the medulla primarily respond to CO2 changes."
+            },
+            {
+                question: "180. The Hering-Breuer reflex:",
+                options: [
+                    "Prevents overinflation of the lungs",
+                    "Increases respiratory rate during exercise", 
+                    "Regulates blood pressure",
+                    "Controls heart rate"
+                ],
+                correct: 0,
+                explanation: "Stretch receptors in the bronchi and bronchioles initiate this reflex to inhibit inspiration when lungs are adequately inflated."
+            },
+            {
+                question: "181. The primary determinant of peripheral vascular resistance is:",
+                options: [
+                    "Arteriolar diameter",
+                    "Blood viscosity", 
+                    "Vessel length",
+                    "Heart rate"
+                ],
+                correct: 0,
+                explanation: "According to Poiseuille's law, resistance is inversely proportional to the fourth power of the radius, making arteriolar diameter the most important factor."
+            },
+            {
+                question: "182. The Valsalva maneuver:",
+                options: [
+                    "Increases intrathoracic pressure and affects venous return",
+                    "Decreases heart rate", 
+                    "Increases lung compliance",
+                    "Enhances gas exchange"
+                ],
+                correct: 0,
+                explanation: "Forced expiration against a closed glottis increases intrathoracic pressure, reducing venous return and initially increasing then decreasing blood pressure."
+            },
+            {
+                question: "183. The coronary arteries fill primarily during:",
+                options: [
+                    "Diastole",
+                    "Systole", 
+                    "Both systole and diastole equally",
+                    "Atrial contraction"
+                ],
+                correct: 0,
+                explanation: "Coronary blood flow occurs mainly during diastole when the heart muscle is relaxed and not compressing the coronary vessels."
+            },
+            {
+                question: "184. The most important factor regulating cerebral blood flow is:",
+                options: [
+                    "Arterial PCO2",
+                    "Arterial PO2", 
+                    "Systemic blood pressure",
+                    "Neural control"
+                ],
+                correct: 0,
+                explanation: "Cerebral blood flow is exquisitely sensitive to PCO2, with hypercapnia causing vasodilation and hypocapnia causing vasoconstriction."
+            },
+            {
+                question: "185. The renin-angiotensin-aldosterone system (RAAS) is activated by:",
+                options: [
+                    "Decreased renal perfusion",
+                    "Increased blood pressure", 
+                    "Hypernatremia",
+                    "Respiratory alkalosis"
+                ],
+                correct: 0,
+                explanation: "RAAS is triggered by low renal perfusion pressure, sympathetic stimulation, or low sodium delivery to the macula densa, ultimately increasing blood pressure."
+            },
+            {
+                question: "186. The primary function of the pulmonary circulation is:",
+                options: [
+                    "Gas exchange",
+                    "Nutrient delivery to lung tissue", 
+                    "Hormone transport",
+                    "Immune function"
+                ],
+                correct: 0,
+                explanation: "The pulmonary circulation brings deoxygenated blood to the alveoli for oxygenation and CO2 elimination, with much lower pressure than systemic circulation."
+            },
+            {
+                question: "187. Ventilation-perfusion (V/Q) matching refers to:",
+                options: [
+                    "The relationship between alveolar ventilation and pulmonary blood flow",
+                    "Heart rate and stroke volume coordination", 
+                    "Oxygen and carbon dioxide exchange",
+                    "Systemic and pulmonary circulation balance"
+                ],
+                correct: 0,
+                explanation: "Optimal gas exchange requires matching of ventilation (V) and perfusion (Q), with a normal V/Q ratio of approximately 0.8."
+            },
+            {
+                question: "188. Hypoxic pulmonary vasoconstriction:",
+                options: [
+                    "Diverts blood from poorly ventilated alveoli",
+                    "Increases blood flow to hypoxic areas", 
+                    "Decreases pulmonary artery pressure",
+                    "Enhances oxygen diffusion"
+                ],
+                correct: 0,
+                explanation: "This unique response of pulmonary vessels constricts in response to alveolar hypoxia, redirecting blood to better-ventilated areas for more efficient gas exchange."
+            },
+            {
+                question: "189. The Fick principle states that:",
+                options: [
+                    "Oxygen consumption equals blood flow times arteriovenous oxygen difference",
+                    "Cardiac output equals heart rate times stroke volume", 
+                    "Blood flow is proportional to pressure gradient and inversely proportional to resistance",
+                    "Gas diffusion is proportional to surface area and concentration gradient"
+                ],
+                correct: 0,
+                explanation: "The Fick principle: VO2 = CO × (CaO2 - CvO2), allowing calculation of cardiac output from oxygen consumption and arteriovenous oxygen difference."
+            },
+            {
+                question: "190. The most important factor in determining tissue oxygen delivery is:",
+                options: [
+                    "Cardiac output",
+                    "Hemoglobin concentration", 
+                    "Arterial oxygen saturation",
+                    "Blood pH"
+                ],
+                correct: 0,
+                explanation: "While all factors contribute, cardiac output has the greatest impact on oxygen delivery (DO2 = CO × CaO2 × 10)."
+            },
+            {
+                question: "191. The primary determinant of lung compliance is:",
+                options: [
+                    "Elastic recoil of lung tissue and surface tension",
+                    "Chest wall mobility", 
+                    "Respiratory muscle strength",
+                    "Airway resistance"
+                ],
+                correct: 0,
+                explanation: "Lung compliance depends on the elastic fibers in lung tissue and the surface tension at the air-liquid interface in alveoli."
+            },
+            {
+                question: "192. Forced expiratory volume in 1 second (FEV1) is used to assess:",
+                options: [
+                    "Airway obstruction",
+                    "Lung compliance", 
+                    "Gas exchange efficiency",
+                    "Respiratory muscle strength"
+                ],
+                correct: 0,
+                explanation: "FEV1 measures the volume of air forcefully exhaled in the first second and is reduced in obstructive lung diseases like asthma and COPD."
+            },
+            {
+                question: "193. The chloride shift refers to:",
+                options: [
+                    "Exchange of chloride for bicarbonate in red blood cells",
+                    "Sodium-chloride cotransport in kidneys", 
+                    "Chloride secretion in sweat glands",
+                    "Chloride movement in neurons"
+                ],
+                correct: 0,
+                explanation: "The chloride shift maintains electrical neutrality when bicarbonate leaves red blood cells during CO2 transport, with chloride ions moving into the cells."
+            },
+            {
+                question: "194. The primary stimulus for increased ventilation during exercise is:",
+                options: [
+                    "Neurogenic mechanisms and proprioceptors",
+                    "Decreased PO2", 
+                    "Increased PCO2",
+                    "Lactic acid production"
+                ],
+                correct: 0,
+                explanation: "During moderate exercise, ventilation increases primarily due to neural signals from the motor cortex and proprioceptors, not chemical changes in blood gases."
+            },
+            {
+                question: "195. The most important buffer in blood is:",
+                options: [
+                    "Bicarbonate buffer system",
+                    "Hemoglobin", 
+                    "Phosphate buffer",
+                    "Plasma proteins"
+                ],
+                correct: 0,
+                explanation: "The bicarbonate buffer system (H2CO3/HCO3-) is the most important extracellular buffer due to its high concentration and the ability to excrete CO2 through respiration."
+            },
+            {
+                question: "196. The diving reflex includes:",
+                options: [
+                    "Bradycardia, peripheral vasoconstriction, and blood shift",
+                    "Tachycardia and increased cardiac output", 
+                    "Hyperventilation and vasodilation",
+                    "Increased metabolism and oxygen consumption"
+                ],
+                correct: 0,
+                explanation: "The mammalian diving reflex conserves oxygen during submersion through bradycardia, peripheral vasoconstriction, and blood redistribution to vital organs."
+            },
+            {
+                question: "197. The primary function of the lymphatic system in circulation is:",
+                options: [
+                    "Return of interstitial fluid to the bloodstream",
+                    "Oxygen transport", 
+                    "Hormone distribution",
+                    "Immune cell production only"
+                ],
+                correct: 0,
+                explanation: "The lymphatic system returns filtered fluid and proteins from tissues to the venous system, maintaining fluid balance and preventing edema."
+            },
+            {
+                question: "198. Starling's forces govern:",
+                options: [
+                    "Fluid movement across capillary walls",
+                    "Cardiac muscle contraction", 
+                    "Ventilation-perfusion matching",
+                    "Gas diffusion in alveoli"
+                ],
+                correct: 0,
+                explanation: "Starling's equation describes how hydrostatic and oncotic pressures determine net fluid movement between capillaries and tissues."
+            },
+            {
+                question: "199. The most important factor in venous return is:",
+                options: [
+                    "Skeletal muscle pump",
+                    "Respiratory pump", 
+                    "Venous valves",
+                    "Gravity"
+                ],
+                correct: 0,
+                explanation: "The skeletal muscle pump, assisted by venous valves, is the primary mechanism promoting venous return, especially during exercise."
+            },
+            {
+                question: "200. The primary determinant of pulse pressure is:",
+                options: [
+                    "Stroke volume and arterial compliance",
+                    "Heart rate", 
+                    "Peripheral resistance",
+                    "Blood viscosity"
+                ],
+                correct: 0,
+                explanation: "Pulse pressure (systolic - diastolic) is mainly determined by stroke volume and the compliance of the large arteries."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(physiologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = physiologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${physiologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / physiologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = physiologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < physiologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            physiologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${physiologyQuestions.length}</strong> (${Math.round((score/physiologyQuestions.length)*100)}%)</p>
+                <p>${score === physiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= physiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
