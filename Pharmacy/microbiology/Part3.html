@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microbiology Quiz - Part 3</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .quiz-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #1a2a6c;
+            padding-bottom: 15px;
+        }
+        
+        .header h1 {
+            color: #1a2a6c;
+            margin-bottom: 5px;
+            font-size: 2.2rem;
+        }
+        
+        .subtitle {
+            color: #b21f1f;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .question-counter {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1a2a6c;
+            font-size: 1.1rem;
+        }
+        
+        .question-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #1a2a6c;
+        }
+        
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: #2c3e50;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option-btn {
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+        
+        .option-btn:hover {
+            background-color: #f0f0f0;
+            border-color: #1a2a6c;
+        }
+        
+        .option-btn.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .option-btn.wrong {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .explanation {
+            background-color: #e8f4f8;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #1a2a6c;
+            display: none;
+        }
+        
+        .explanation.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .nav-btn {
+            background-color: #1a2a6c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: #0d1b4d;
+        }
+        
+        .nav-btn:disabled {
+            background-color: #a0a0a0;
+            cursor: not-allowed;
+        }
+        
+        .score-display {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f4f8;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🦠 Microbiology Quiz</h1>
+            <div class="subtitle">Part 3: Streptococci & Other Gram-Positive Cocci (Questions 81-120)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const microbiologyQuestions = [
+            {
+                question: "81. Streptococcus pyogenes (Group A) is characterized by:",
+                options: [
+                    "Beta-hemolysis on blood agar and sensitivity to bacitracin",
+                    "Alpha-hemolysis and optochin resistance", 
+                    "Gamma-hemolysis and bile solubility",
+                    "Beta-hemolysis and resistance to bacitracin"
+                ],
+                correct: 0,
+                explanation: "S. pyogenes shows complete hemolysis (beta-hemolysis) and is typically sensitive to bacitracin, helping differentiate it from other beta-hemolytic streptococci."
+            },
+            {
+                question: "82. The M protein of Streptococcus pyogenes:",
+                options: [
+                    "Protects against phagocytosis and is a major virulence factor",
+                    "Is a toxin that causes erythrogenic rash", 
+                    "Functions as a hemolysin",
+                    "Acts as an enzyme that breaks down blood clots"
+                ],
+                correct: 0,
+                explanation: "M protein inhibits complement deposition and phagocytosis, making it a key virulence factor. Antibodies to M protein provide type-specific immunity."
+            },
+            {
+                question: "83. Acute rheumatic fever is a complication of:",
+                options: [
+                    "Streptococcus pyogenes pharyngitis",
+                    "Staphylococcus aureus skin infection", 
+                    "Streptococcus pneumoniae pneumonia",
+                    "Enterococcus faecalis urinary tract infection"
+                ],
+                correct: 0,
+                explanation: "Rheumatic fever follows untreated Group A streptococcal pharyngitis due to molecular mimicry between bacterial antigens and human heart tissue."
+            },
+            {
+                question: "84. Post-streptococcal glomerulonephritis is caused by:",
+                options: [
+                    "Immune complex deposition in glomeruli",
+                    "Direct bacterial invasion of kidneys", 
+                    "Toxin-mediated damage to renal tubules",
+                    "Autoantibodies against glomerular basement membrane"
+                ],
+                correct: 0,
+                explanation: "Antigen-antibody complexes deposit in glomeruli, activating complement and causing inflammation, typically after skin or throat infections with nephritogenic strains."
+            },
+            {
+                question: "85. The Dick test was historically used to detect:",
+                options: [
+                    "Susceptibility to scarlet fever",
+                    "Immunity to diphtheria", 
+                    "Tuberculosis infection",
+                    "Syphilis antibodies"
+                ],
+                correct: 0,
+                explanation: "The Dick test involved intradermal injection of erythrogenic toxin to determine susceptibility to scarlet fever caused by toxin-producing S. pyogenes strains."
+            },
+            {
+                question: "86. Streptococcus agalactiae (Group B) is an important cause of:",
+                options: [
+                    "Neonatal sepsis and meningitis",
+                    "Community-acquired pneumonia in adults", 
+                    "Food poisoning outbreaks",
+                    "Surgical site infections"
+                ],
+                correct: 0,
+                explanation: "Group B streptococcus colonizes the maternal genital tract and can cause severe infections in newborns, including sepsis, meningitis, and pneumonia."
+            },
+            {
+                question: "87. The CAMP test is used to identify:",
+                options: [
+                    "Streptococcus agalactiae (Group B)",
+                    "Streptococcus pyogenes (Group A)", 
+                    "Streptococcus pneumoniae",
+                    "Enterococcus faecalis"
+                ],
+                correct: 0,
+                explanation: "Group B streptococci produce CAMP factor that enhances the hemolysis of Staphylococcus aureus, creating an arrowhead-shaped zone of hemolysis."
+            },
+            {
+                question: "88. Streptococcus pneumoniae is characterized by:",
+                options: [
+                    "Alpha-hemolysis and bile solubility",
+                    "Beta-hemolysis and bacitracin sensitivity", 
+                    "Gamma-hemolysis and optochin resistance",
+                    "Beta-hemolysis and CAMP positivity"
+                ],
+                correct: 0,
+                explanation: "S. pneumoniae shows partial hemolysis (alpha-hemolysis) and is bile-soluble, distinguishing it from viridans streptococci which are bile-resistant."
+            },
+            {
+                question: "89. The Quellung reaction demonstrates:",
+                options: [
+                    "Capsular swelling of Streptococcus pneumoniae",
+                    "Coagulase production by Staphylococcus aureus", 
+                    "Flagellar motility in bacteria",
+                    "Spore formation in Bacillus species"
+                ],
+                correct: 0,
+                explanation: "When specific anticapsular antibody binds to the pneumococcal capsule, it appears swollen under the microscope - a positive Quellung reaction used for serotyping."
+            },
+            {
+                question: "90. Optochin susceptibility helps differentiate:",
+                options: [
+                    "Streptococcus pneumoniae from viridans streptococci",
+                    "Staphylococcus aureus from Staphylococcus epidermidis", 
+                    "Group A from Group B streptococci",
+                    "E. coli from Klebsiella pneumoniae"
+                ],
+                correct: 0,
+                explanation: "S. pneumoniae is optochin-sensitive (inhibition zone >14mm), while viridans streptococci are resistant, helping distinguish these alpha-hemolytic organisms."
+            },
+            {
+                question: "91. The most common cause of community-acquired pneumonia in adults is:",
+                options: [
+                    "Streptococcus pneumoniae",
+                    "Staphylococcus aureus", 
+                    "Klebsiella pneumoniae",
+                    "Mycoplasma pneumoniae"
+                ],
+                correct: 0,
+                explanation: "S. pneumoniae accounts for approximately 50% of community-acquired bacterial pneumonia cases, especially in the elderly and those with underlying conditions."
+            },
+            {
+                question: "92. Viridans streptococci are commonly associated with:",
+                options: [
+                    "Subacute bacterial endocarditis",
+                    "Urinary tract infections", 
+                    "Skin and soft tissue infections",
+                    "Gastroenteritis"
+                ],
+                correct: 0,
+                explanation: "Viridans streptococci, normal oral flora, can enter the bloodstream during dental procedures and adhere to damaged heart valves, causing subacute bacterial endocarditis."
+            },
+            {
+                question: "93. Streptococcus mutans is primarily associated with:",
+                options: [
+                    "Dental caries",
+                    "Pharyngitis", 
+                    "Pneumonia",
+                    "Meningitis"
+                ],
+                correct: 0,
+                explanation: "S. mutans metabolizes sucrose to produce glucan, enabling adherence to teeth and contributing significantly to dental plaque formation and cavities."
+            },
+            {
+                question: "94. Enterococcus species are characterized by:",
+                options: [
+                    "Growth in 6.5% NaCl and bile esculin hydrolysis",
+                    "Beta-hemolysis and bacitracin sensitivity", 
+                    "Alpha-hemolysis and optochin sensitivity",
+                    "Catalase production and coagulase positivity"
+                ],
+                correct: 0,
+                explanation: "Enterococci can grow in high salt concentrations (6.5% NaCl) and hydrolyze esculin in bile, distinguishing them from streptococci."
+            },
+            {
+                question: "95. Vancomycin-resistant Enterococcus (VRE) is most commonly:",
+                options: [
+                    "Enterococcus faecium",
+                    "Enterococcus faecalis", 
+                    "Enterococcus gallinarum",
+                    "Enterococcus casseliflavus"
+                ],
+                correct: 0,
+                explanation: "E. faecium shows higher rates of vancomycin resistance compared to E. faecalis, with VanA and VanB being the most clinically significant resistance types."
+            },
+            {
+                question: "96. Which streptococcal species requires pyridoxal for growth?",
+                options: [
+                    "Streptococcus pneumoniae",
+                    "Streptococcus pyogenes", 
+                    "Enterococcus faecalis",
+                    "Streptococcus agalactiae"
+                ],
+                correct: 0,
+                explanation: "S. pneumoniae requires pyridoxal (vitamin B6) as a growth factor, which can be used in laboratory identification."
+            },
+            {
+                question: "97. The ASO (Anti-Streptolysin O) test detects antibodies against:",
+                options: [
+                    "Streptococcus pyogenes",
+                    "Staphylococcus aureus", 
+                    "Streptococcus pneumoniae",
+                    "Mycobacterium tuberculosis"
+                ],
+                correct: 0,
+                explanation: "ASO titer measures antibodies against streptolysin O, an oxygen-labile hemolysin produced by S. pyogenes, useful in diagnosing recent streptococcal infections."
+            },
+            {
+                question: "98. Which complication is associated with Streptococcus pyogenes but not Streptococcus agalactiae?",
+                options: [
+                    "Acute rheumatic fever",
+                    "Neonatal sepsis", 
+                    "Postpartum endometritis",
+                    "Urinary tract infections"
+                ],
+                correct: 0,
+                explanation: "Rheumatic fever specifically follows S. pyogenes infections due to antigenic mimicry, while S. agalactiae is more associated with neonatal and perinatal infections."
+            },
+            {
+                question: "99. Which test differentiates Group A from Group B streptococci?",
+                options: [
+                    "Bacitracin susceptibility",
+                    "Bile solubility", 
+                    "Optochin susceptibility",
+                    "Coagulase test"
+                ],
+                correct: 0,
+                explanation: "Group A streptococci (S. pyogenes) are typically bacitracin-sensitive, while Group B (S. agalactiae) are resistant, providing a useful screening test."
+            },
+            {
+                question: "100. The 'viridans' group of streptococci gets its name from:",
+                options: [
+                    "Green discoloration on blood agar (alpha-hemolysis)",
+                    "Production of a green pigment", 
+                    "Association with vegetation on heart valves",
+                    "Their virulence factors"
+                ],
+                correct: 0,
+                explanation: "Viridans streptococci produce partial hemolysis on blood agar, resulting in a greenish discoloration around colonies, hence the name 'viridans' (from Latin 'viridis' meaning green)."
+            },
+            {
+                question: "101. Which streptococcal species is most commonly associated with dental abscesses?",
+                options: [
+                    "Streptococcus anginosus group",
+                    "Streptococcus pyogenes", 
+                    "Streptococcus agalactiae",
+                    "Streptococcus pneumoniae"
+                ],
+                correct: 0,
+                explanation: "The S. anginosus group (formerly S. milleri) is commonly isolated from dental abscesses and other purulent infections, despite being part of normal oral flora."
+            },
+            {
+                question: "102. Penicillin remains the drug of choice for:",
+                options: [
+                    "Streptococcus pyogenes infections",
+                    "Methicillin-resistant Staphylococcus aureus", 
+                    "Enterococcus faecium infections",
+                    "Mycoplasma pneumoniae infections"
+                ],
+                correct: 0,
+                explanation: "S. pyogenes remains uniformly susceptible to penicillin, making it the preferred treatment for streptococcal pharyngitis and other infections, preventing rheumatic fever."
+            },
+            {
+                question: "103. Which characteristic is unique to Streptococcus pneumoniae?",
+                options: [
+                    "Bile solubility",
+                    "Catalase production", 
+                    "Coagulase production",
+                    "Growth in 6.5% NaCl"
+                ],
+                correct: 0,
+                explanation: "Bile or sodium deoxycholate dissolves S. pneumoniae by activating autolytic enzymes, a property not shared by viridans streptococci."
+            },
+            {
+                question: "104. Scarlet fever is caused by:",
+                options: [
+                    "Erythrogenic toxin-producing Streptococcus pyogenes",
+                    "Toxic shock syndrome toxin-producing Staphylococcus aureus", 
+                    "Panton-Valentine leukocidin-producing Staphylococcus aureus",
+                    "Pyocyanin-producing Pseudomonas aeruginosa"
+                ],
+                correct: 0,
+                explanation: "Scarlet fever results from infection with S. pyogenes strains that produce erythrogenic (pyrogenic) toxins, causing the characteristic rash and strawberry tongue."
+            },
+            {
+                question: "105. Which streptococcal species is a common cause of bovine mastitis?",
+                options: [
+                    "Streptococcus agalactiae",
+                    "Streptococcus pyogenes", 
+                    "Streptococcus pneumoniae",
+                    "Enterococcus faecalis"
+                ],
+                correct: 0,
+                explanation: "S. agalactiae was historically an important cause of bovine mastitis, though human and bovine strains are typically distinct."
+            },
+            {
+                question: "106. The Lancefield classification of streptococci is based on:",
+                options: [
+                    "Cell wall carbohydrate antigens",
+                    "Hemolytic patterns on blood agar", 
+                    "Genetic sequencing",
+                    "Biochemical reactions"
+                ],
+                correct: 0,
+                explanation: "Rebecca Lancefield developed a serological classification system based on cell wall carbohydrate antigens (A, B, C, etc.), which remains clinically useful."
+            },
+            {
+                question: "107. Which streptococcal species is pyrrolidonyl arylamidase (PYR) positive?",
+                options: [
+                    "Streptococcus pyogenes and Enterococcus faecalis",
+                    "Streptococcus pneumoniae and Streptococcus agalactiae", 
+                    "All viridans streptococci",
+                    "Only Group B streptococci"
+                ],
+                correct: 0,
+                explanation: "PYR positivity helps identify S. pyogenes (Group A) and enterococci, providing a rapid screening test in clinical microbiology."
+            },
+            {
+                question: "108. Erysipelas is typically caused by:",
+                options: [
+                    "Streptococcus pyogenes",
+                    "Staphylococcus aureus", 
+                    "Pseudomonas aeruginosa",
+                    "Clostridium perfringens"
+                ],
+                correct: 0,
+                explanation: "Erysipelas is a superficial cellulitis with well-demarcated borders, usually caused by S. pyogenes entering through breaks in the skin."
+            },
+            {
+                question: "109. Which antibiotic should be avoided in streptococcal pharyngitis treatment?",
+                options: [
+                    "Sulfonamides",
+                    "Penicillin", 
+                    "Amoxicillin",
+                    "Cephalexin"
+                ],
+                correct: 0,
+                explanation: "Sulfonamides are bacteriostatic and do not eradicate streptococci from the pharynx, failing to prevent rheumatic fever, unlike bactericidal antibiotics like penicillin."
+            },
+            {
+                question: "110. Streptococcus bovis group is associated with:",
+                options: [
+                    "Colorectal cancer and endocarditis",
+                    "Neonatal meningitis", 
+                    "Dental caries",
+                    "Pneumonia in the elderly"
+                ],
+                correct: 0,
+                explanation: "S. bovis bacteremia is strongly associated with colorectal neoplasms, and it's also a cause of endocarditis, particularly in older adults."
+            },
+            {
+                question: "111. Which streptococcal species produces hyaluronidase?",
+                options: [
+                    "Streptococcus pyogenes",
+                    "Streptococcus pneumoniae", 
+                    "Streptococcus agalactiae",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Many streptococcal species produce hyaluronidase, which breaks down hyaluronic acid in connective tissue, facilitating spread of infection."
+            },
+            {
+                question: "112. The drug of choice for enterococcal endocarditis is:",
+                options: [
+                    "Ampicillin plus gentamicin",
+                    "Penicillin alone", 
+                    "Vancomycin alone",
+                    "Ceftriaxone"
+                ],
+                correct: 0,
+                explanation: "Combination therapy with a cell wall-active agent (ampicillin or vancomycin) plus an aminoglycoside (gentamicin) provides synergistic bactericidal activity against enterococci."
+            },
+            {
+                question: "113. Which test helps differentiate streptococci from staphylococci?",
+                options: [
+                    "Catalase test",
+                    "Coagulase test", 
+                    "Oxidase test",
+                    "Bile esculin test"
+                ],
+                correct: 0,
+                explanation: "Catalase test is the primary differentiation: staphylococci are catalase-positive (produce bubbles with H₂O₂), while streptococci are catalase-negative."
+            },
+            {
+                question: "114. Necrotizing fasciitis can be caused by:",
+                options: [
+                    "Streptococcus pyogenes",
+                    "Staphylococcus aureus", 
+                    "Clostridium perfringens",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "While S. pyogenes is classically associated with necrotizing fasciitis, polymicrobial infections including S. aureus and anaerobes are also common causes."
+            },
+            {
+                question: "115. Which streptococcal species is most likely to cause infections in patients with sickle cell disease?",
+                options: [
+                    "Streptococcus pneumoniae",
+                    "Streptococcus pyogenes", 
+                    "Streptococcus agalactiae",
+                    "Enterococcus faecalis"
+                ],
+                correct: 0,
+                explanation: "Patients with functional asplenia (including sickle cell disease) have impaired clearance of encapsulated bacteria, making them highly susceptible to invasive pneumococcal disease."
+            },
+            {
+                question: "116. The 'halo' effect around Streptococcus pneumoniae colonies on blood agar is due to:",
+                options: [
+                    "Alpha-hemolysis",
+                    "Beta-hemolysis", 
+                    "Capsule production",
+                    "Pigment production"
+                ],
+                correct: 0,
+                explanation: "S. pneumoniae produces partial hemolysis (alpha-hemolysis) resulting in a greenish zone around colonies, often with a depressed 'halo' appearance."
+            },
+            {
+                question: "117. Which streptococcal species is intrinsically resistant to vancomycin?",
+                options: [
+                    "None - all are typically susceptible",
+                    "Streptococcus pneumoniae", 
+                    "Streptococcus pyogenes",
+                    "Enterococcus faecium"
+                ],
+                correct: 0,
+                explanation: "Unlike enterococci, streptococci do not have intrinsic vancomycin resistance, though acquired resistance has been reported rarely in S. pneumoniae."
+            },
+            {
+                question: "118. The most common cause of bacterial meningitis in adults is:",
+                options: [
+                    "Streptococcus pneumoniae",
+                    "Neisseria meningitidis", 
+                    "Haemophilus influenzae",
+                    "Listeria monocytogenes"
+                ],
+                correct: 0,
+                explanation: "S. pneumoniae is the leading cause of bacterial meningitis in adults, especially those with risk factors like CSF leak, asplenia, or immunocompromise."
+            },
+            {
+                question: "119. Which streptococcal species is associated with 'greening' on chocolate agar?",
+                options: [
+                    "Viridans streptococci",
+                    "Streptococcus pyogenes", 
+                    "Streptococcus agalactiae",
+                    "Streptococcus pneumoniae"
+                ],
+                correct: 0,
+                explanation: "Viridans streptococci produce green discoloration on both blood and chocolate agar due to alpha-hemolysis, though the effect may be less pronounced on chocolate agar."
+            },
+            {
+                question: "120. The recommended prophylaxis for Group B streptococcal disease in newborns is:",
+                options: [
+                    "Intrapartum penicillin for colonized mothers",
+                    "Postpartum antibiotics for all newborns", 
+                    "Vaccination during pregnancy",
+                    "No prophylaxis is recommended"
+                ],
+                correct: 0,
+                explanation: "Screening pregnant women at 35-37 weeks and administering intrapartum penicillin to carriers significantly reduces neonatal Group B streptococcal disease."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(microbiologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = microbiologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${microbiologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / microbiologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = microbiologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < microbiologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            microbiologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${microbiologyQuestions.length}</strong> (${Math.round((score/microbiologyQuestions.length)*100)}%)</p>
+                <p>${score === microbiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= microbiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

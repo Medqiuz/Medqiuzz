@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microbiology Quiz - Part 5</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🦠 Microbiology Quiz</h1>
+            <div class="subtitle">Part 5: Anaerobes, Mycobacteria & Miscellaneous Bacteria (Questions 161-200)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const microbiologyQuestions = [
+            {
+                question: "161. Clostridium difficile infection is typically associated with:",
+                options: [
+                    "Antibiotic use and pseudomembranous colitis",
+                    "Food poisoning from canned foods", 
+                    "Gas gangrene in traumatic wounds",
+                    "Botulism in infants"
+                ],
+                correct: 0,
+                explanation: "C. difficile overgrows when normal gut flora is disrupted by antibiotics, producing toxins that cause pseudomembranous colitis with watery diarrhea and abdominal pain."
+            },
+            {
+                question: "162. The toxin responsible for botulism is:",
+                options: [
+                    "A neurotoxin that blocks acetylcholine release",
+                    "An enterotoxin that causes fluid secretion", 
+                    "A cytotoxin that damages intestinal mucosa",
+                    "An endotoxin that causes fever and shock"
+                ],
+                correct: 0,
+                explanation: "Botulinum toxin prevents acetylcholine release at neuromuscular junctions, causing flaccid paralysis. It's the most potent known biological toxin."
+            },
+            {
+                question: "163. Tetanus is caused by:",
+                options: [
+                    "Clostridium tetani producing tetanospasmin",
+                    "Clostridium botulinum producing botulinum toxin", 
+                    "Clostridium perfringens producing alpha toxin",
+                    "Clostridium difficile producing toxins A and B"
+                ],
+                correct: 0,
+                explanation: "C. tetani produces tetanospasmin which blocks inhibitory neurotransmitters in the CNS, causing spastic paralysis and muscle rigidity (lockjaw)."
+            },
+            {
+                question: "164. Gas gangrene is typically caused by:",
+                options: [
+                    "Clostridium perfringens",
+                    "Clostridium tetani", 
+                    "Clostridium botulinum",
+                    "Clostridium difficile"
+                ],
+                correct: 0,
+                explanation: "C. perfringens produces alpha toxin (lecithinase) that causes tissue necrosis and gas formation in traumatic wounds, especially with devitalized tissue."
+            },
+            {
+                question: "165. Which Clostridium species causes food poisoning with abdominal cramps and diarrhea?",
+                options: [
+                    "Clostridium perfringens type A",
+                    "Clostridium botulinum", 
+                    "Clostridium tetani",
+                    "Clostridium difficile"
+                ],
+                correct: 0,
+                explanation: "C. perfringens type A enterotoxin causes self-limited food poisoning 8-16 hours after consuming contaminated meat, poultry, or gravy."
+            },
+            {
+                question: "166. Bacteroides fragilis is characterized by:",
+                options: [
+                    "Anaerobic, Gram-negative rod, bile-resistant",
+                    "Aerobic, Gram-positive coccus, catalase-positive", 
+                    "Anaerobic, Gram-positive rod, spore-forming",
+                    "Microaerophilic, Gram-negative coccobacillus"
+                ],
+                correct: 0,
+                explanation: "B. fragilis is the most common anaerobic pathogen in abdominal infections, resistant to bile and many beta-lactams due to beta-lactamase production."
+            },
+            {
+                question: "167. The drug of choice for Bacteroides fragilis is:",
+                options: [
+                    "Metronidazole",
+                    "Penicillin", 
+                    "Vancomycin",
+                    "Gentamicin"
+                ],
+                correct: 0,
+                explanation: "Metronidazole is bactericidal against anaerobes like B. fragilis, though many strains are now susceptible to other agents like carbapenems and beta-lactam/beta-lactamase inhibitors."
+            },
+            {
+                question: "168. Mycobacterium tuberculosis is characterized by:",
+                options: [
+                    "Acid-fast bacilli with slow growth",
+                    "Gram-positive cocci in clusters", 
+                    "Gram-negative rods with fast growth",
+                    "Spirochetes with corkscrew motility"
+                ],
+                correct: 0,
+                explanation: "M. tuberculosis is acid-fast due to mycolic acid in its cell wall, grows very slowly (3-6 weeks), and causes tuberculosis with granuloma formation."
+            },
+            {
+                question: "169. The primary stain used in acid-fast staining is:",
+                options: [
+                    "Carbol fuchsin",
+                    "Crystal violet", 
+                    "Safranin",
+                    "Methylene blue"
+                ],
+                correct: 0,
+                explanation: "Ziehl-Neelsen stain uses carbol fuchsin as primary stain, acid-alcohol for decolorization, and methylene blue as counterstain to identify acid-fast bacilli."
+            },
+            {
+                question: "170. Latent tuberculosis infection is diagnosed by:",
+                options: [
+                    "Tuberculin skin test or interferon-gamma release assay",
+                    "Sputum culture for Mycobacterium tuberculosis", 
+                    "Chest X-ray showing cavitary lesions",
+                    "Acid-fast stain of clinical specimens"
+                ],
+                correct: 0,
+                explanation: "Tuberculin skin test (PPD) or IGRA (like Quantiferon) detect cell-mediated immunity to M. tuberculosis antigens, indicating infection but not active disease."
+            },
+            {
+                question: "171. Multi-drug resistant TB (MDR-TB) is resistant to:",
+                options: [
+                    "Isoniazid and rifampin",
+                    "All first-line anti-TB drugs", 
+                    "Only second-line anti-TB drugs",
+                    "Isoniazid and pyrazinamide"
+                ],
+                correct: 0,
+                explanation: "MDR-TB is resistant to at least isoniazid and rifampin, the two most effective first-line drugs, requiring prolonged treatment with second-line agents."
+            },
+            {
+                question: "172. Mycobacterium leprae causes:",
+                options: [
+                    "Leprosy (Hansen's disease)",
+                    "Tuberculosis", 
+                    "Buruli ulcer",
+                    "Swimming pool granuloma"
+                ],
+                correct: 0,
+                explanation: "M. leprae causes leprosy, affecting skin and peripheral nerves, with spectrum from tuberculoid (paucibacillary) to lepromatous (multibacillary) forms."
+            },
+            {
+                question: "173. The Ridley-Jopling classification is used for:",
+                options: [
+                    "Leprosy",
+                    "Tuberculosis", 
+                    "Syphilis",
+                    "Lyme disease"
+                ],
+                correct: 0,
+                explanation: "Ridley-Jopling classification categorizes leprosy based on clinical, histopathological, and immunological criteria into five groups across the disease spectrum."
+            },
+            {
+                question: "174. Atypical mycobacteria are also called:",
+                options: [
+                    "Non-tuberculous mycobacteria (NTM)",
+                    "Rapidly growing mycobacteria only", 
+                    "Environmental mycobacteria exclusively",
+                    "Mycobacteria other than M. leprae"
+                ],
+                correct: 0,
+                explanation: "Non-tuberculous mycobacteria (NTM) include all mycobacteria except M. tuberculosis complex and M. leprae, often found in water and soil."
+            },
+            {
+                question: "175. Mycobacterium avium complex (MAC) typically causes disease in:",
+                options: [
+                    "HIV/AIDS patients with low CD4 counts",
+                    "Immunocompetent children", 
+                    "Pregnant women",
+                    "Elderly with chronic lung disease only"
+                ],
+                correct: 0,
+                explanation: "MAC causes disseminated disease in AIDS patients with CD4 <50 cells/μL, presenting with fever, weight loss, anemia, and gastrointestinal symptoms."
+            },
+            {
+                question: "176. Treponema pallidum is the causative agent of:",
+                options: [
+                    "Syphilis",
+                    "Lyme disease", 
+                    "Leptospirosis",
+                    "Relapsing fever"
+                ],
+                correct: 0,
+                explanation: "T. pallidum causes syphilis, transmitted sexually or vertically, with stages: primary (chancre), secondary (rash), latent, and tertiary (neurosyphilis, gummas)."
+            },
+            {
+                question: "177. The non-treponemal tests for syphilis include:",
+                options: [
+                    "RPR and VDRL",
+                    "FTA-ABS and TP-PA", 
+                    "Dark field microscopy",
+                    "PCR for treponemal DNA"
+                ],
+                correct: 0,
+                explanation: "RPR (Rapid Plasma Reagin) and VDRL (Venereal Disease Research Laboratory) detect antibodies to cardiolipin-cholesterol-lecithin antigen, used for screening and monitoring treatment."
+            },
+            {
+                question: "178. The Jarisch-Herxheimer reaction may occur after treatment of:",
+                options: [
+                    "Syphilis",
+                    "Tuberculosis", 
+                    "Leprosy",
+                    "Gas gangrene"
+                ],
+                correct: 0,
+                explanation: "Jarisch-Herxheimer reaction is an acute febrile reaction with headache, myalgia, and exacerbation of skin lesions occurring hours after antibiotic treatment for syphilis, due to cytokine release from dying treponemes."
+            },
+            {
+                question: "179. Borrelia burgdorferi causes:",
+                options: [
+                    "Lyme disease",
+                    "Relapsing fever", 
+                    "Syphilis",
+                    "Leptospirosis"
+                ],
+                correct: 0,
+                explanation: "B. burgdorferi causes Lyme disease transmitted by Ixodes ticks, with stages: early localized (erythema migrans), early disseminated (neurologic, cardiac), and late (arthritis)."
+            },
+            {
+                question: "180. The characteristic rash of Lyme disease is:",
+                options: [
+                    "Erythema migrans (bull's eye rash)",
+                    "Maculopapular rash on trunk", 
+                    "Petechial rash on extremities",
+                    "Vesicular rash in dermatomal pattern"
+                ],
+                correct: 0,
+                explanation: "Erythema migrans appears at the tick bite site 3-30 days post-exposure, expanding gradually with central clearing, though atypical presentations are common."
+            },
+            {
+                question: "181. Leptospira interrogans is transmitted through:",
+                options: [
+                    "Contact with water contaminated by animal urine",
+                    "Tick bites", 
+                    "Respiratory droplets",
+                    "Sexual contact"
+                ],
+                correct: 0,
+                explanation: "Leptospirosis is a zoonosis acquired from water or soil contaminated with urine from infected animals (especially rodents), entering through cuts or mucous membranes."
+            },
+            {
+                question: "182. Weil's disease refers to:",
+                options: [
+                    "Severe leptospirosis with jaundice and renal failure",
+                    "Late-stage Lyme disease with arthritis", 
+                    "Tertiary syphilis with neurological involvement",
+                    "Disseminated tuberculosis"
+                ],
+                correct: 0,
+                explanation: "Weil's disease is the severe form of leptospirosis characterized by jaundice, acute kidney injury, hemorrhage, and myocarditis, with significant mortality."
+            },
+            {
+                question: "183. Chlamydia trachomatis serovars D-K cause:",
+                options: [
+                    "Urogenital infections and inclusion conjunctivitis",
+                    "Lymphogranuloma venereum", 
+                    "Trachoma",
+                    "Psittacosis"
+                ],
+                correct: 0,
+                explanation: "Serovars D-K cause common sexually transmitted infections like urethritis, cervicitis, and pelvic inflammatory disease, as well as inclusion conjunctivitis in newborns."
+            },
+            {
+                question: "184. The characteristic intracellular inclusion of Chlamydia is called:",
+                options: [
+                    "Elementary body and reticulate body",
+                    "Guarnieri body", 
+                    "Negri body",
+                    "Molluscum body"
+                ],
+                correct: 0,
+                explanation: "Chlamydia exists in two forms: elementary body (infectious, metabolically inactive) and reticulate body (replicative form within cytoplasmic inclusions)."
+            },
+            {
+                question: "185. Psittacosis is caused by:",
+                options: [
+                    "Chlamydia psittaci",
+                    "Chlamydia trachomatis", 
+                    "Chlamydia pneumoniae",
+                    "Mycoplasma pneumoniae"
+                ],
+                correct: 0,
+                explanation: "C. psittaci causes psittacosis (ornithosis), an atypical pneumonia transmitted by inhalation of aerosols from infected birds (parrots, pigeons, poultry)."
+            },
+            {
+                question: "186. Mycoplasma pneumoniae is characterized by:",
+                options: [
+                    "Lack of cell wall and fried-egg colonies",
+                    "Acid-fast staining and slow growth", 
+                    "Gram-positive cocci in chains",
+                    "Spirochete morphology and motility"
+                ],
+                correct: 0,
+                explanation: "Mycoplasma lacks cell wall (resistant to beta-lactams), forms fried-egg colonies on agar, and causes walking pneumonia with extrapulmonary manifestations."
+            },
+            {
+                question: "187. The cold agglutinin test is associated with:",
+                options: [
+                    "Mycoplasma pneumoniae infection",
+                    "Infectious mononucleosis", 
+                    "Secondary syphilis",
+                    "Lyme disease"
+                ],
+                correct: 0,
+                explanation: "Cold agglutinins (IgM antibodies against I antigen on RBCs) occur in 50-70% of M. pneumoniae infections, causing hemolytic anemia in cold temperatures."
+            },
+            {
+                question: "188. Rickettsia rickettsii causes:",
+                options: [
+                    "Rocky Mountain spotted fever",
+                    "Epidemic typhus", 
+                    "Scrub typhus",
+                    "Q fever"
+                ],
+                correct: 0,
+                explanation: "R. rickettsii causes Rocky Mountain spotted fever transmitted by dog ticks, featuring fever, headache, and characteristic rash that begins on wrists/ankles."
+            },
+            {
+                question: "189. The Weil-Felix test detects antibodies against:",
+                options: [
+                    "Rickettsia using Proteus antigens",
+                    "Treponema pallidum using cardiolipin", 
+                    "Mycoplasma pneumoniae using RBC antigens",
+                    "Coxiella burnetii using phase variants"
+                ],
+                correct: 0,
+                explanation: "Weil-Felix test detects cross-reacting antibodies between Rickettsia and Proteus OX strains, but has been largely replaced by more specific serological tests."
+            },
+            {
+                question: "190. Coxiella burnetii causes:",
+                options: [
+                    "Q fever",
+                    "Trench fever", 
+                    "Cat scratch disease",
+                    "Brucellosis"
+                ],
+                correct: 0,
+                explanation: "C. burnetii causes Q fever, transmitted by inhalation of aerosols from infected animals, presenting as acute febrile illness or chronic endocarditis."
+            },
+            {
+                question: "191. Bartonella henselae causes:",
+                options: [
+                    "Cat scratch disease",
+                    "Trench fever", 
+                    "Bacillary angiomatosis",
+                    "Both A and C"
+                ],
+                correct: 3,
+                explanation: "B. henselae causes cat scratch disease (regional lymphadenopathy after cat scratch) and bacillary angiomatosis (vascular proliferative lesions in immunocompromised)."
+            },
+            {
+                question: "192. Actinomyces israelii is characterized by:",
+                options: [
+                    "Gram-positive filamentous bacteria forming sulfur granules",
+                    "Acid-fast bacilli with cord factor", 
+                    "Gram-negative coccobacilli requiring X and V factors",
+                    "Spirochetes with endoflagella"
+                ],
+                correct: 0,
+                explanation: "A. israelii is Gram-positive, filamentous, anaerobic bacterium that forms yellow sulfur granules in pus, causing cervicofacial, thoracic, or abdominal actinomycosis."
+            },
+            {
+                question: "193. Nocardia asteroides is:",
+                options: [
+                    "Partially acid-fast, aerobic, filamentous bacterium",
+                    "Non-acid-fast, anaerobic, spore-forming rod", 
+                    "Acid-fast, anaerobic, non-filamentous rod",
+                    "Non-acid-fast, aerobic, coccus"
+                ],
+                correct: 0,
+                explanation: "Nocardia is partially acid-fast (weaker than mycobacteria), aerobic, filamentous bacterium causing pulmonary nocardiosis, often in immunocompromised patients."
+            },
+            {
+                question: "194. The TORCH complex includes all EXCEPT:",
+                options: [
+                    "Mycobacterium tuberculosis",
+                    "Toxoplasma gondii", 
+                    "Rubella virus",
+                    "Cytomegalovirus"
+                ],
+                correct: 0,
+                explanation: "TORCH stands for Toxoplasma, Other (syphilis, varicella-zoster, parvovirus B19), Rubella, Cytomegalovirus, Herpes simplex - infections causing congenital abnormalities."
+            },
+            {
+                question: "195. The Warthin-Starry stain is used to detect:",
+                options: [
+                    "Bartonella henselae",
+                    "Mycobacterium tuberculosis", 
+                    "Treponema pallidum",
+                    "Both A and C"
+                ],
+                correct: 3,
+                explanation: "Warthin-Starry silver stain visualizes spirochetes like T. pallidum and small bacteria like Bartonella in tissue sections, showing black organisms against yellow background."
+            },
+            {
+                question: "196. Whipple's disease is caused by:",
+                options: [
+                    "Tropheryma whipplei",
+                    "Mycobacterium avium complex", 
+                    "Bartonella quintana",
+                    "Clostridium difficile"
+                ],
+                correct: 0,
+                explanation: "T. whipplei causes Whipple's disease with malabsorption, arthralgia, and neurological symptoms, diagnosed by PAS-positive macrophages in small intestine biopsy."
+            },
+            {
+                question: "197. The 'owl's eye' appearance is characteristic of:",
+                options: [
+                    "Cytomegalovirus inclusion bodies",
+                    "Chlamydia trachomatis inclusions", 
+                    "Actinomyces sulfur granules",
+                    "Borrelia burgdorferi in tissue"
+                ],
+                correct: 0,
+                explanation: "CMV produces large intranuclear inclusions with surrounding halo (owl's eye appearance) in infected cells, seen in tissues from patients with disseminated disease."
+            },
+            {
+                question: "198. Donovan bodies are seen in:",
+                options: [
+                    "Granuloma inguinale",
+                    "Lymphogranuloma venereum", 
+                    "Chancroid",
+                    "Syphilis"
+                ],
+                correct: 0,
+                explanation: "Donovan bodies are intracellular bacteria (Klebsiella granulomatis) within macrophages in granuloma inguinale (donovanosis), a genital ulcerative disease."
+            },
+            {
+                question: "199. The 'school of fish' arrangement is characteristic of:",
+                options: [
+                    "Gardnerella vaginalis in clue cells",
+                    "Mycobacterium tuberculosis in cords", 
+                    "Corynebacterium diphtheriae in palisades",
+                    "Streptococcus pyogenes in chains"
+                ],
+                correct: 0,
+                explanation: "Gardnerella vaginalis adheres to vaginal epithelial cells (clue cells) and displays a 'school of fish' microscopic arrangement in bacterial vaginosis."
+            },
+            {
+                question: "200. The drug of choice for Mycobacterium leprae is:",
+                options: [
+                    "Dapsone, rifampin, and clofazimine in combination",
+                    "Isoniazid alone", 
+                    "Penicillin G",
+                    "Tetracycline"
+                ],
+                correct: 0,
+                explanation: "Multidrug therapy (MDT) for leprosy includes dapsone, rifampin, and clofazimine for multibacillary disease to prevent resistance and relapse; paucibacillary disease uses dapsone and rifampin."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(microbiologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = microbiologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${microbiologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / microbiologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = microbiologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < microbiologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            microbiologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${microbiologyQuestions.length}</strong> (${Math.round((score/microbiologyQuestions.length)*100)}%)</p>
+                <p>${score === microbiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= microbiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

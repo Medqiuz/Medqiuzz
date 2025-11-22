@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microbiology Quiz - Part 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🦠 Microbiology Quiz</h1>
+            <div class="subtitle">Part 2: Diagnostic Methods & Staphylococcus (Questions 41-80)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const microbiologyQuestions = [
+            {
+                question: "41. Triple Sugar Iron (TSI) test differentiates bacteria based on:",
+                options: [
+                    "Glucose, lactose, sucrose fermentation and H₂S production",
+                    "Oxygen requirement only", 
+                    "Gram staining",
+                    "Capsule formation"
+                ],
+                correct: 0,
+                explanation: "TSI agar detects sugar fermentation patterns and hydrogen sulfide production, commonly used for enteric bacteria identification."
+            },
+            {
+                question: "42. Motility test detects:",
+                options: [
+                    "Bacterial ability to move using flagella",
+                    "Ability to ferment sugars",
+                    "Capsule production", 
+                    "Spore formation"
+                ],
+                correct: 0,
+                explanation: "Motility test medium shows if bacteria can spread from the stab line, indicating flagellar movement."
+            },
+            {
+                question: "43. KOH preparation is used to detect:",
+                options: [
+                    "Fungal elements in clinical specimens",
+                    "Bacterial spores",
+                    "Viruses",
+                    "Parasites"
+                ],
+                correct: 0,
+                explanation: "Potassium hydroxide dissolves human cells and background material, making fungal hyphae more visible under microscopy."
+            },
+            {
+                question: "44. Sabouraud Dextrose Agar (SDA) is used for:",
+                options: [
+                    "Culturing fungi",
+                    "Culturing bacteria", 
+                    "Viral isolation",
+                    "Parasitology"
+                ],
+                correct: 0,
+                explanation: "SDA has low pH and high sugar content that inhibits bacterial growth while promoting fungal growth."
+            },
+            {
+                question: "45. Serological diagnosis detects:",
+                options: [
+                    "Antibodies or antigens in patient samples",
+                    "DNA only",
+                    "RNA only", 
+                    "Lipid content"
+                ],
+                correct: 0,
+                explanation: "Serology identifies immune responses (antibodies) or pathogen components (antigens) to diagnose infections."
+            },
+            {
+                question: "46. Staphylococcus aureus is characterized by:",
+                options: [
+                    "Gram-positive cocci in clusters, catalase-positive",
+                    "Gram-negative rods, oxidase-positive", 
+                    "Gram-positive chains, catalase-negative",
+                    "Gram-positive cocci in pairs"
+                ],
+                correct: 0,
+                explanation: "S. aureus appears as grape-like clusters under microscope and produces catalase enzyme."
+            },
+            {
+                question: "47. The coagulase test is important for identifying:",
+                options: [
+                    "Staphylococcus aureus",
+                    "Streptococcus pyogenes", 
+                    "Escherichia coli",
+                    "Pseudomonas aeruginosa"
+                ],
+                correct: 0,
+                explanation: "Coagulase production differentiates S. aureus (positive) from other staphylococci like S. epidermidis."
+            },
+            {
+                question: "48. Which toxin causes Toxic Shock Syndrome?",
+                options: [
+                    "Toxic Shock Syndrome Toxin-1 (TSST-1)",
+                    "Enterotoxin B", 
+                    "Exfoliative toxin",
+                    "Alpha-toxin"
+                ],
+                correct: 0,
+                explanation: "TSST-1 is a superantigen that triggers massive cytokine release, leading to fever, rash, and multi-organ failure."
+            },
+            {
+                question: "49. MRSA stands for:",
+                options: [
+                    "Methicillin-Resistant Staphylococcus aureus",
+                    "Multiple Resistant Staphylococcus aureus", 
+                    "Methicillin-Resistant Streptococcus aureus",
+                    "Multi-drug Resistant Staphylococcus aureus"
+                ],
+                correct: 0,
+                explanation: "MRSA refers to S. aureus strains resistant to methicillin and other beta-lactam antibiotics due to altered penicillin-binding proteins."
+            },
+            {
+                question: "50. Scalded Skin Syndrome is caused by:",
+                options: [
+                    "Exfoliative toxins A and B",
+                    "Toxic Shock Syndrome Toxin", 
+                    "Enterotoxins",
+                    "Alpha-toxin"
+                ],
+                correct: 0,
+                explanation: "Exfoliative toxins cleave desmoglein-1 in the epidermis, causing separation of skin layers and blistering."
+            },
+            {
+                question: "51. Staphylococcus epidermidis is commonly associated with:",
+                options: [
+                    "Medical device infections and biofilm formation",
+                    "Food poisoning", 
+                    "Skin abscesses",
+                    "Pneumonia"
+                ],
+                correct: 0,
+                explanation: "S. epidermidis forms biofilms on catheters, prosthetic devices, and is a major cause of hospital-acquired infections."
+            },
+            {
+                question: "52. The normal habitat of Staphylococcus aureus is:",
+                options: [
+                    "Anterior nares and skin",
+                    "Gastrointestinal tract", 
+                    "Urinary tract",
+                    "Respiratory tract"
+                ],
+                correct: 0,
+                explanation: "S. aureus commonly colonizes the nasal passages and skin surfaces without causing disease in carriers."
+            },
+            {
+                question: "53. Which antibiotic is commonly used against MRSA?",
+                options: [
+                    "Vancomycin",
+                    "Penicillin", 
+                    "Cephalexin",
+                    "Ampicillin"
+                ],
+                correct: 0,
+                explanation: "Vancomycin is a glycopeptide antibiotic effective against MRSA when beta-lactams cannot be used."
+            },
+            {
+                question: "54. Protein A of Staphylococcus aureus:",
+                options: [
+                    "Binds the Fc portion of IgG antibodies",
+                    "Is a pore-forming toxin", 
+                    "Causes diarrhea",
+                    "Triggers cytokine storms"
+                ],
+                correct: 0,
+                explanation: "Protein A binds antibody Fc regions, preventing opsonization and phagocytosis, enhancing bacterial survival."
+            },
+            {
+                question: "55. Panton-Valentine leukocidin (PVL) is associated with:",
+                options: [
+                    "Severe necrotizing pneumonia and skin infections",
+                    "Food poisoning", 
+                    "Toxic shock syndrome",
+                    "Scalded skin syndrome"
+                ],
+                correct: 0,
+                explanation: "PVL is a pore-forming toxin that destroys white blood cells and is linked to community-acquired MRSA infections."
+            },
+            {
+                question: "56. Which test differentiates Staphylococcus from Streptococcus?",
+                options: [
+                    "Catalase test",
+                    "Coagulase test", 
+                    "Oxidase test",
+                    "Indole test"
+                ],
+                correct: 0,
+                explanation: "Staphylococci are catalase-positive (produce bubbles with H₂O₂), while streptococci are catalase-negative."
+            },
+            {
+                question: "57. Staphylococcus saprophyticus commonly causes:",
+                options: [
+                    "Urinary tract infections in young women",
+                    "Wound infections", 
+                    "Pneumonia in elderly",
+                    "Food poisoning"
+                ],
+                correct: 0,
+                explanation: "S. saprophyticus is second only to E. coli as a cause of uncomplicated UTIs in sexually active young women."
+            },
+            {
+                question: "58. The optimal growth temperature for most human pathogens is:",
+                options: [
+                    "37°C (human body temperature)",
+                    "25°C (room temperature)", 
+                    "42°C (fever temperature)",
+                    "55°C (thermophilic range)"
+                ],
+                correct: 0,
+                explanation: "37°C matches human body temperature, allowing optimal growth of bacteria adapted to infect humans."
+            },
+            {
+                question: "59. Selective media for Staphylococcus contains:",
+                options: [
+                    "High salt concentration (7.5% NaCl)",
+                    "Low pH", 
+                    "Bile salts",
+                    "Antibiotics"
+                ],
+                correct: 0,
+                explanation: "Mannitol Salt Agar contains 7.5% NaCl, inhibiting most bacteria except staphylococci which are salt-tolerant."
+            },
+            {
+                question: "60. Which Staphylococcus species is novobiocin-resistant?",
+                options: [
+                    "Staphylococcus saprophyticus",
+                    "Staphylococcus aureus", 
+                    "Staphylococcus epidermidis",
+                    "Staphylococcus haemolyticus"
+                ],
+                correct: 0,
+                explanation: "Novobiocin resistance helps differentiate S. saprophyticus (resistant) from other coagulase-negative staphylococci."
+            },
+            {
+                question: "61. Beta-lactamase production in Staphylococcus:",
+                options: [
+                    "Hydrolyzes penicillin antibiotics",
+                    "Inactivates vancomycin", 
+                    "Destroys erythromycin",
+                    "Blocks tetracycline"
+                ],
+                correct: 0,
+                explanation: "Beta-lactamase enzymes break the beta-lactam ring in penicillins, conferring resistance to these antibiotics."
+            },
+            {
+                question: "62. The D-test detects:",
+                options: [
+                    "Inducible clindamycin resistance",
+                    "Methicillin resistance", 
+                    "Vancomycin resistance",
+                    "Beta-lactamase production"
+                ],
+                correct: 0,
+                explanation: "D-test identifies macrolide-inducible resistance to clindamycin in staphylococci and streptococci."
+            },
+            {
+                question: "63. Which infection is NOT typically caused by Staphylococcus aureus?",
+                options: [
+                    "Streptococcal pharyngitis",
+                    "Skin abscesses", 
+                    "Osteomyelitis",
+                    "Endocarditis"
+                ],
+                correct: 0,
+                explanation: "Streptococcal pharyngitis (strep throat) is caused by Streptococcus pyogenes, not Staphylococcus aureus."
+            },
+            {
+                question: "64. Toxic Shock Syndrome is characterized by:",
+                options: [
+                    "Fever, rash, hypotension, and multi-organ involvement",
+                    "Watery diarrhea and vomiting", 
+                    "Localized skin infection",
+                    "Upper respiratory symptoms"
+                ],
+                correct: 0,
+                explanation: "TSS presents with high fever, diffuse rash, low blood pressure, and can affect multiple organ systems simultaneously."
+            },
+            {
+                question: "65. The most common source of Staphylococcus aureus food poisoning is:",
+                options: [
+                    "Contaminated food handler with poor hygiene",
+                    "Undercooked meat", 
+                    "Contaminated water",
+                    "Soil contamination"
+                ],
+                correct: 0,
+                explanation: "Food handlers with S. aureus colonization can contaminate food, which produces heat-stable enterotoxins."
+            },
+            {
+                question: "66. Which virulence factor helps Staphylococcus avoid phagocytosis?",
+                options: [
+                    "Capsule polysaccharide",
+                    "Coagulase", 
+                    "Enterotoxin",
+                    "Beta-lactamase"
+                ],
+                correct: 0,
+                explanation: "The capsule forms a physical barrier that prevents phagocytes from recognizing and engulfing the bacteria."
+            },
+            {
+                question: "67. Vancomycin-resistant Staphylococcus aureus (VRSA) is:",
+                options: [
+                    "Rare but concerning due to limited treatment options",
+                    "Very common in community settings", 
+                    "Not a clinical concern",
+                    "Easily treated with alternative antibiotics"
+                ],
+                correct: 0,
+                explanation: "VRSA is uncommon but serious as vancomycin is often the last resort for MRSA infections."
+            },
+            {
+                question: "68. Which specimen is best for diagnosing Staphylococcus bacteremia?",
+                options: [
+                    "Blood cultures",
+                    "Throat swab", 
+                    "Urine sample",
+                    "Sputum sample"
+                ],
+                correct: 0,
+                explanation: "Blood cultures are essential for detecting Staphylococcus in the bloodstream, guiding appropriate antibiotic therapy."
+            },
+            {
+                question: "69. The time frame for Staphylococcus enterotoxin food poisoning is:",
+                options: [
+                    "1-6 hours after ingestion",
+                    "12-24 hours after ingestion", 
+                    "2-3 days after ingestion",
+                    "1 week after ingestion"
+                ],
+                correct: 0,
+                explanation: "Pre-formed enterotoxins cause rapid onset of vomiting and diarrhea within hours of eating contaminated food."
+            },
+            {
+                question: "70. Which Staphylococcus species produces a yellow pigment?",
+                options: [
+                    "Staphylococcus aureus",
+                    "Staphylococcus epidermidis", 
+                    "Staphylococcus saprophyticus",
+                    "Staphylococcus haemolyticus"
+                ],
+                correct: 0,
+                explanation: "S. aureus often produces golden-yellow colonies due to carotenoid pigments, hence 'aureus' meaning golden."
+            },
+            {
+                question: "71. Impetigo is commonly caused by:",
+                options: [
+                    "Both Staphylococcus aureus and Streptococcus pyogenes",
+                    "Only Staphylococcus aureus", 
+                    "Only Streptococcus pyogenes",
+                    "Escherichia coli"
+                ],
+                correct: 0,
+                explanation: "Impetigo can be caused by S. aureus alone or in combination with S. pyogenes, presenting as honey-colored crusted lesions."
+            },
+            {
+                question: "72. The mecA gene confers resistance to:",
+                options: [
+                    "All beta-lactam antibiotics",
+                    "Only penicillin", 
+                    "Vancomycin",
+                    "Macrolides"
+                ],
+                correct: 0,
+                explanation: "mecA gene encodes altered penicillin-binding protein (PBP2a) that has low affinity for all beta-lactam antibiotics."
+            },
+            {
+                question: "73. Which infection requires surgical intervention along with antibiotics?",
+                options: [
+                    "Staphylococcus abscess",
+                    "Staphylococcus urinary tract infection", 
+                    "Staphylococcus food poisoning",
+                    "Staphylococcus colonization"
+                ],
+                correct: 0,
+                explanation: "Abscesses require drainage to remove pus and necrotic material, as antibiotics cannot penetrate well into abscess cavities."
+            },
+            {
+                question: "74. Community-associated MRSA typically causes:",
+                options: [
+                    "Skin and soft tissue infections",
+                    "Hospital-acquired pneumonia", 
+                    "Device-related infections",
+                    "Surgical site infections"
+                ],
+                correct: 0,
+                explanation: "CA-MRSA often presents as boils, abscesses, and cellulitis in otherwise healthy community-dwelling individuals."
+            },
+            {
+                question: "75. Which test is used for rapid detection of MRSA?",
+                options: [
+                    "PCR for mecA gene",
+                    "Gram stain", 
+                    "Catalase test",
+                    "Coagulase test"
+                ],
+                correct: 0,
+                explanation: "Molecular methods like PCR can rapidly detect mecA gene, providing faster results than culture-based methods."
+            },
+            {
+                question: "76. Staphylococcus epidermidis is differentiated from S. aureus by:",
+                options: [
+                    "Being coagulase-negative",
+                    "Catalase production", 
+                    "Gram stain morphology",
+                    "Growth on blood agar"
+                ],
+                correct: 0,
+                explanation: "S. epidermidis lacks coagulase enzyme, while S. aureus is coagulase-positive."
+            },
+            {
+                question: "77. Which antibiotic class should be avoided in MRSA infections?",
+                options: [
+                    "Beta-lactams (penicillins, cephalosporins)",
+                    "Glycopeptides", 
+                    "Lipopeptides",
+                    "Oxazolidinones"
+                ],
+                correct: 0,
+                explanation: "Beta-lactam antibiotics are ineffective against MRSA due to altered penicillin-binding proteins."
+            },
+            {
+                question: "78. The most important prevention measure for Staphylococcus infections is:",
+                options: [
+                    "Proper hand hygiene",
+                    "Vaccination", 
+                    "Antibiotic prophylaxis",
+                    "Isolation of carriers"
+                ],
+                correct: 0,
+                explanation: "Handwashing with soap or alcohol-based sanitizers is the most effective way to prevent Staphylococcus transmission."
+            },
+            {
+                question: "79. Which Staphylococcus toxin causes bullous impetigo?",
+                options: [
+                    "Exfoliative toxin",
+                    "Enterotoxin", 
+                    "Toxic shock syndrome toxin",
+                    "Alpha-toxin"
+                ],
+                correct: 0,
+                explanation: "Exfoliative toxins cause localized blistering in bullous impetigo, unlike the widespread involvement in scalded skin syndrome."
+            },
+            {
+                question: "80. Staphylococcus lugdunensis is notable for:",
+                options: [
+                    "Causing aggressive endocarditis similar to S. aureus",
+                    "Being completely avirulent", 
+                    "Only causing urinary infections",
+                    "Having no antibiotic resistance"
+                ],
+                correct: 0,
+                explanation: "Despite being coagulase-negative, S. lugdunensis can cause destructive endocarditis and other serious infections."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(microbiologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = microbiologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${microbiologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / microbiologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = microbiologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < microbiologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            microbiologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${microbiologyQuestions.length}</strong> (${Math.round((score/microbiologyQuestions.length)*100)}%)</p>
+                <p>${score === microbiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= microbiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

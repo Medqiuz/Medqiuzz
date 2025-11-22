@@ -1,0 +1,576 @@
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Microbiology Quiz - Part 4</title>  
+    <link rel="stylesheet" href="style.css">  
+</head>  
+<body>  
+    <div class="quiz-container">  
+        <div class="header">  
+            <h1>🦠 Microbiology Quiz</h1>  
+            <div class="subtitle">Part 4: Gram-Negative Bacteria (Questions 121-160)</div>  
+        </div>  <div class="progress-bar">  
+        <div class="progress" id="progress"></div>  
+    </div>  
+
+    <div class="question-counter" id="questionCounter">Question 1 of 40</div>  
+
+    <div class="question-card">  
+        <div class="question-text" id="questionText"></div>  
+          
+        <div class="options-container" id="optionsContainer"></div>  
+          
+        <div class="explanation" id="explanation"></div>  
+    </div>  
+
+    <div class="navigation">  
+        <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>  
+        <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>  
+    </div>  
+
+    <div class="score-display" id="scoreDisplay"></div>  
+</div>  
+
+<script>  
+    const microbiologyQuestions = [  
+        {  
+            question: "121. Escherichia coli is characterized by:",  
+            options: [  
+                "Lactose fermentation and indole production",  
+                "Lactose non-fermentation and H₂S production",   
+                "Urease production and motility",  
+                "Oxidase production and non-fermentation"  
+            ],  
+            correct: 0,  
+            explanation: "E. coli typically ferments lactose and produces indole from tryptophan, helping differentiate it from other Enterobacteriaceae."  
+        },  
+        {  
+            question: "122. The O157:H7 strain of E. coli is associated with:",  
+            options: [  
+                "Hemolytic uremic syndrome",  
+                "Urinary tract infections",   
+                "Neonatal meningitis",  
+                "Pneumonia in immunocompromised"  
+            ],  
+            correct: 0,  
+            explanation: "E. coli O157:H7 produces Shiga-like toxin causing hemorrhagic colitis and hemolytic uremic syndrome, often from undercooked beef."  
+        },  
+        {  
+            question: "123. Klebsiella pneumoniae is characterized by:",  
+            options: [  
+                "Large mucoid colonies and lactose fermentation",  
+                "Non-lactose fermentation and H₂S production",   
+                "Swarming motility and urease production",  
+                "Oxidase positivity and pigment production"  
+            ],  
+            correct: 0,  
+            explanation: "K. pneumoniae produces large, mucoid colonies due to its polysaccharide capsule and ferments lactose, commonly causing pneumonia and UTIs."  
+        },  
+        {  
+            question: "124. Which organism is the most common cause of uncomplicated urinary tract infections?",  
+            options: [  
+                "Escherichia coli",  
+                "Klebsiella pneumoniae",   
+                "Proteus mirabilis",  
+                "Pseudomonas aeruginosa"  
+            ],  
+            correct: 0,  
+            explanation: "E. coli accounts for 75-90% of community-acquired UTIs due to its virulence factors like P pili that facilitate bladder colonization."  
+        },  
+        {  
+            question: "125. Proteus species are characterized by:",  
+            options: [  
+                "Swarming motility and urease production",  
+                "Non-motility and lactose fermentation",   
+                "Pigment production and oxidase positivity",  
+                "Slow lactose fermentation and indole production"  
+            ],  
+            correct: 0,  
+            explanation: "Proteus exhibits characteristic swarming motility on agar and produces urease, which can alkalinize urine and promote stone formation."  
+        },  
+        {  
+            question: "126. Salmonella typhi causes:",  
+            options: [  
+                "Typhoid fever",  
+                "Gastroenteritis",   
+                "Urinary tract infections",  
+                "Wound infections"  
+            ],  
+            correct: 0,  
+            explanation: "S. typhi is the causative agent of typhoid fever, a systemic illness with fever, abdominal pain, and possible intestinal perforation."  
+        },  
+        {  
+            question: "127. The Widal test detects antibodies against:",  
+            options: [  
+                "Salmonella typhi and paratyphi",  
+                "Escherichia coli",   
+                "Shigella species",  
+                "Vibrio cholerae"  
+            ],  
+            correct: 0,  
+            explanation: "Widal test measures agglutinating antibodies against O and H antigens of S. typhi and S. paratyphi for typhoid fever diagnosis."  
+        },  
+        {  
+            question: "128. Which Salmonella species is most commonly associated with gastroenteritis?",  
+            options: [  
+                "Salmonella enteritidis",  
+                "Salmonella typhi",   
+                "Salmonella paratyphi",  
+                "Salmonella choleraesuis"  
+            ],  
+            correct: 0,  
+            explanation: "S. enteritidis and other non-typhoidal salmonellae typically cause self-limited gastroenteritis, often from contaminated poultry or eggs."  
+        },  
+        {  
+            question: "129. Shigella species cause dysentery by:",  
+            options: [  
+                "Invading colonic epithelial cells",  
+                "Producing enterotoxin that causes watery diarrhea",   
+                "Producing cytotoxin that damages villi",  
+                "Adhering to small intestinal mucosa"  
+            ],  
+            correct: 0,  
+            explanation: "Shigella invades colonic mucosa, causing inflammation, ulceration, and bloody diarrhea (dysentery) with pus and mucus in stools."  
+        },  
+        {  
+            question: "130. The most virulent Shigella species is:",  
+            options: [  
+                "Shigella dysenteriae type 1",  
+                "Shigella flexneri",   
+                "Shigella boydii",  
+                "Shigella sonnei"  
+            ],  
+            correct: 0,  
+            explanation: "S. dysenteriae type 1 produces Shiga toxin causing the most severe form of bacillary dysentery with potential complications like HUS."  
+        },  
+        {  
+            question: "131. Yersinia pestis is the causative agent of:",  
+            options: [  
+                "Plague",  
+                "Tularemia",   
+                "Brucellosis",  
+                "Leptospirosis"  
+            ],  
+            correct: 0,  
+            explanation: "Y. pestis causes plague, which manifests as bubonic (lymph node involvement), septicemic, or pneumonic forms, transmitted by fleas from rodents."  
+        },  
+        {  
+            question: "132. The 'safety-pin' appearance is characteristic of:",  
+            options: [  
+                "Yersinia pestis",  
+                "Bordetella pertussis",   
+                "Haemophilus influenzae",  
+                "Francisella tularensis"  
+            ],  
+            correct: 0,  
+            explanation: "Y. pestis exhibits bipolar staining with Wayson or Giemsa stain, giving a characteristic safety-pin appearance."  
+        },  
+        {  
+            question: "133. Vibrio cholerae causes diarrhea by:",  
+            options: [  
+                "Producing cholera toxin that activates adenylate cyclase",  
+                "Invading intestinal epithelial cells",   
+                "Producing cytotoxin that destroys mucosa",  
+                "Causing inflammatory response in colon"  
+            ],  
+            correct: 0,  
+            explanation: "Cholera toxin permanently activates adenylate cyclase, increasing cAMP levels, causing massive secretion of water and electrolytes into the intestinal lumen."  
+        },  
+        {  
+            question: "134. Which medium is selective for Vibrio cholerae?",  
+            options: [  
+                "TCBS agar",  
+                "MacConkey agar",   
+                "Hektoen enteric agar",  
+                "XLD agar"  
+            ],  
+            correct: 0,  
+            explanation: "Thiosulfate-citrate-bile salts-sucrose (TCBS) agar is selective for Vibrio species; V. cholerae ferments sucrose producing yellow colonies."  
+        },  
+        {  
+            question: "135. Campylobacter jejuni is a common cause of:",  
+            options: [  
+                "Inflammatory diarrhea",  
+                "Asymptomatic colonization",   
+                "Upper respiratory infections",  
+                "Urinary tract infections"  
+            ],  
+            correct: 0,  
+            explanation: "C. jejuni is a leading cause of bacterial gastroenteritis worldwide, often presenting with bloody diarrhea, abdominal pain, and fever."  
+        },  
+        {  
+            question: "136. Helicobacter pylori is associated with:",  
+            options: [  
+                "Peptic ulcer disease and gastric cancer",  
+                "Inflammatory bowel disease",   
+                "Colorectal cancer",  
+                "Esophageal varices"  
+            ],  
+            correct: 0,  
+            explanation: "H. pylori colonizes gastric mucosa, producing urease that generates ammonia, damaging the mucosal barrier and increasing risk of ulcers and gastric cancer."  
+        },  
+        {  
+            question: "137. The rapid urease test (CLO test) detects:",  
+            options: [  
+                "Helicobacter pylori",  
+                "Proteus species",   
+                "Klebsiella pneumoniae",  
+                "All urease-producing bacteria"  
+            ],  
+            correct: 0,  
+            explanation: "CLO test detects urease production by H. pylori in gastric biopsy specimens, with color change indicating presence of the bacterium."  
+        },  
+        {  
+            question: "138. Pseudomonas aeruginosa is characterized by:",  
+            options: [  
+                "Oxidase positivity and production of pyocyanin",  
+                "Lactose fermentation and indole negativity",   
+                "Urease production and swarming motility",  
+                "Non-motility and capsule production"  
+            ],  
+            correct: 0,  
+            explanation: "P. aeruginosa is oxidase-positive and produces pyocyanin (blue-green pigment) and fluorescein (yellow-green pigment), giving characteristic grapelike odor."  
+        },  
+        {  
+            question: "139. Which infection is commonly associated with Pseudomonas aeruginosa?",  
+            options: [  
+                "Burn wound infections and ventilator-associated pneumonia",  
+                "Uncomplicated urinary tract infections",   
+                "Strep throat",  
+                "Dental caries"  
+            ],  
+            correct: 0,  
+            explanation: "P. aeruginosa is an opportunistic pathogen causing serious infections in immunocompromised patients, including burn wounds, pneumonia in ventilated patients, and sepsis."  
+        },  
+        {  
+            question: "140. The Etest is used for:",  
+            options: [  
+                "Antibiotic susceptibility testing",  
+                "Rapid identification of bacteria",   
+                "Toxin detection",  
+                "Serological diagnosis"  
+            ],  
+            correct: 0,  
+            explanation: "Etest uses plastic strips with predefined antibiotic gradients to determine minimum inhibitory concentrations (MICs) for antimicrobial susceptibility testing."  
+        },  
+        {  
+            question: "141. Haemophilus influenzae requires which factors for growth?",  
+            options: [  
+                "X factor (hemin) and V factor (NAD)",  
+                "X factor only",   
+                "V factor only",  
+                "No special requirements"  
+            ],  
+            correct: 0,  
+            explanation: "H. influenzae requires both X factor (hemin) and V factor (NAD) for growth, which is the basis for satellite phenomenon testing with S. aureus."  
+        },  
+        {  
+            question: "142. The Quellung reaction is used for typing of:",  
+            options: [  
+                "Streptococcus pneumoniae",  
+                "Haemophilus influenzae",   
+                "Neisseria meningitidis",  
+                "Klebsiella pneumoniae"  
+            ],  
+            correct: 0,  
+            explanation: "Quellung reaction involves capsular swelling observed microscopically when specific anticapsular antibody binds, used for pneumococcal serotyping."  
+        },  
+        {  
+            question: "143. Bordetella pertussis causes:",  
+            options: [  
+                "Whooping cough",  
+                "Tuberculosis",   
+                "Diphtheria",  
+                "Scarlet fever"  
+            ],  
+            correct: 0,  
+            explanation: "B. pertussis causes whooping cough characterized by paroxysmal coughing, whoop, and post-tussive vomiting, primarily affecting children."  
+        },  
+        {  
+            question: "144. The Bordet-Gengou medium is used for:",  
+            options: [  
+                "Bordetella pertussis",  
+                "Mycobacterium tuberculosis",   
+                "Corynebacterium diphtheriae",  
+                "Legionella pneumophila"  
+            ],  
+            correct: 0,  
+            explanation: "Bordet-Gengou agar containing potato, glycerol, and blood is the traditional selective medium for isolation of B. pertussis."  
+        },  
+        {  
+            question: "145. Legionella pneumophila is typically acquired through:",  
+            options: [  
+                "Inhalation of aerosolized water",  
+                "Ingestion of contaminated food",   
+                "Direct person-to-person contact",  
+                "Insect bites"  
+            ],  
+            correct: 0,  
+            explanation: "L. pneumophila thrives in water systems like cooling towers, hot water tanks, and decorative fountains, causing Legionnaires' disease when inhaled."  
+        },  
+        {  
+            question: "146. Which medium is used for Legionella culture?",  
+            options: [  
+                "Buffered charcoal yeast extract (BCYE) agar",  
+                "MacConkey agar",   
+                "Blood agar",  
+                "Chocolate agar"  
+            ],  
+            correct: 0,  
+            explanation: "BCYE agar supplemented with L-cysteine, iron, and alpha-ketoglutarate supports Legionella growth, which doesn't grow on standard media."  
+        },  
+        {  
+            question: "147. Brucella species cause:",  
+            options: [  
+                "Undulant fever",  
+                "Typhoid fever",   
+                "Rocky Mountain spotted fever",  
+                "Q fever"  
+            ],  
+            correct: 0,  
+            explanation: "Brucellosis presents with undulant fever pattern, characterized by rising and falling temperature, along with arthralgia, hepatosplenomegaly."  
+        },  
+        {  
+            question: "148. Francisella tularensis causes:",  
+            options: [  
+                "Tularemia",  
+                "Plague",   
+                "Brucellosis",  
+                "Leptospirosis"  
+            ],  
+            correct: 0,  
+            explanation: "F. tularensis causes tularemia, a zoonotic disease transmitted by ticks, deer flies, or contact with infected animals, presenting with ulceroglandular or typhoidal forms."  
+        },  
+        {  
+            question: "149. Which organism causes cat-scratch disease?",  
+            options: [  
+                "Bartonella henselae",  
+                "Pasteurella multocida",   
+                "Francisella tularensis",  
+                "Yersinia pestis"  
+            ],  
+            correct: 0,  
+            explanation: "B. henselae is transmitted by cat scratches or bites, causing regional lymphadenopathy and sometimes systemic symptoms like fever and malaise."  
+        },  
+        {  
+            question: "150. Pasteurella multocida is associated with:",  
+            options: [  
+                "Animal bite infections",  
+                "Food poisoning",   
+                "Respiratory infections in children",  
+                "Urinary tract infections"  
+            ],  
+            correct: 0,  
+            explanation: "P. multocida commonly causes cellulitis and abscesses following cat or dog bites, with rapid onset of symptoms within 24 hours."  
+        },  
+        {  
+            question: "151. The oxidase test is positive for:",  
+            options: [  
+                "Pseudomonas aeruginosa",  
+                "Escherichia coli",   
+                "Klebsiella pneumoniae",  
+                "Salmonella typhi"  
+            ],  
+            correct: 0,  
+            explanation: "Oxidase test detects cytochrome c oxidase; Pseudomonas is positive while Enterobacteriaceae are negative, helping differentiate these groups."  
+        },  
+        {  
+            question: "152. Which of the following is a non-fermenter?",  
+            options: [  
+                "Pseudomonas aeruginosa",  
+                "Escherichia coli",   
+                "Klebsiella pneumoniae",  
+                "Enterobacter cloacae"  
+            ],  
+            correct: 0,  
+            explanation: "P. aeruginosa is a non-fermentative Gram-negative rod that oxidizes carbohydrates rather than fermenting them, unlike Enterobacteriaceae."  
+        },  
+        {  
+            question: "153. The IMViC test pattern for E. coli is:",  
+            options: [  
+                "++--",  
+                "--++",   
+                "+-+-",  
+                "-+-+"  
+            ],  
+            correct: 0,  
+            explanation: "E. coli is Indole positive, Methyl red positive, Voges-Proskauer negative, Citrate negative (++--), helping differentiate from other Enterobacteriaceae."  
+        },  
+        {  
+            question: "154. Which organism produces a red pigment?",  
+            options: [  
+                "Serratia marcescens",  
+                "Pseudomonas aeruginosa",   
+                "Escherichia coli",  
+                "Klebsiella pneumoniae"  
+            ],  
+            correct: 0,  
+            explanation: "S. marcescens produces prodigiosin, a red pigment, especially when cultured at room temperature, though clinical isolates may not always produce it."  
+        },  
+        {  
+            question: "155. The HACEK group of organisms are associated with:",  
+            options: [  
+                "Culture-negative endocarditis",  
+                "Gastroenteritis",   
+                "Urinary tract infections",  
+                "Skin and soft tissue infections"  
+            ],  
+            correct: 0,  
+            explanation: "HACEK organisms (Haemophilus, Aggregatibacter, Cardiobacterium, Eikenella, Kingella) are fastidious Gram-negative bacteria that cause subacute endocarditis."  
+        },  
+        {  
+            question: "156. Which of the following is capnophilic?",  
+            options: [  
+                "Haemophilus influenzae",  
+                "Escherichia coli",   
+                "Pseudomonas aeruginosa",  
+                "Klebsiella pneumoniae"  
+            ],  
+            correct: 0,  
+            explanation: "H. influenzae requires increased CO₂ (capnophilic) for optimal growth, along with X and V factors, explaining its growth in candle jars or CO₂ incubators."  
+        },  
+        {  
+            question: "157. The 'string test' is positive for:",  
+            options: [  
+                "Vibrio cholerae",  
+                "Escherichia coli",   
+                "Shigella dysenteriae",  
+                "Salmonella typhi"  
+            ],  
+            correct: 0,  
+            explanation: "String test detects vibrios: when mixed with sodium deoxycholate, V. cholerae lyses and releases DNA, forming a viscous string when loop is pulled."  
+        },  
+        {  
+            question: "158. Which organism causes melioidosis?",  
+            options: [  
+                "Burkholderia pseudomallei",  
+                "Pseudomonas aeruginosa",   
+                "Burkholderia cepacia",  
+                "Stenotrophomonas maltophilia"  
+            ],  
+            correct: 0,  
+            explanation: "B. pseudomallei causes melioidosis, endemic in Southeast Asia and Northern Australia, presenting with pneumonia, abscesses, or sepsis."  
+        },  
+        {  
+            question: "159. The drug of choice for Vibrio cholerae is:",  
+            options: [  
+                "Doxycycline",  
+                "Penicillin",   
+                "Vancomycin",  
+                "Amphotericin B"  
+            ],  
+            correct: 0,  
+            explanation: "Doxycycline is first-line treatment for cholera in adults, while azithromycin is preferred for children and pregnant women; rehydration is critical."  
+        },  
+        {  
+            question: "160. ESBL-producing organisms are resistant to:",  
+            options: [  
+                "Penicillins and cephalosporins",  
+                "Aminoglycosides only",   
+                "Fluoroquinolones only",  
+                "Carbapenems"  
+            ],  
+            correct: 0,  
+            explanation: "Extended-spectrum beta-lactamases (ESBLs) hydrolyze penicillins, cephalosporins, and aztreonam, but not carbapenems; often treated with carbapenems."  
+        }  
+    ];  
+
+    let currentQuestion = 0;  
+    let userAnswers = new Array(microbiologyQuestions.length).fill(null);  
+    let score = 0;  
+
+    function loadQuestion() {  
+        const question = microbiologyQuestions[currentQuestion];  
+        document.getElementById('questionText').textContent = question.question;  
+          
+        const optionsContainer = document.getElementById('optionsContainer');  
+        optionsContainer.innerHTML = '';  
+          
+        question.options.forEach((option, index) => {  
+            const button = document.createElement('button');  
+            button.className = 'option-btn';  
+            button.textContent = option;  
+              
+            if (userAnswers[currentQuestion] === index) {  
+                button.classList.add(question.correct === index ? 'correct' : 'wrong');  
+            }  
+              
+            button.onclick = () => selectOption(index);  
+            optionsContainer.appendChild(button);  
+        });  
+          
+        document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${microbiologyQuestions.length}`;  
+        document.getElementById('progress').style.width = `${((currentQuestion + 1) / microbiologyQuestions.length) * 100}%`;  
+          
+        document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';  
+        document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;  
+          
+        const explanation = document.getElementById('explanation');  
+        if (userAnswers[currentQuestion] !== null) {  
+            explanation.textContent = question.explanation;  
+            explanation.classList.add('show');  
+        } else {  
+            explanation.classList.remove('show');  
+        }  
+    }  
+
+    function selectOption(optionIndex) {  
+        userAnswers[currentQuestion] = optionIndex;  
+        const question = microbiologyQuestions[currentQuestion];  
+        const options = document.querySelectorAll('.option-btn');  
+          
+        options.forEach((button, index) => {  
+            button.classList.remove('correct', 'wrong');  
+            if (index === question.correct) {  
+                button.classList.add('correct');  
+            } else if (index === optionIndex && optionIndex !== question.correct) {  
+                button.classList.add('wrong');  
+            }  
+        });  
+          
+        document.getElementById('explanation').textContent = question.explanation;  
+        document.getElementById('explanation').classList.add('show');  
+        document.getElementById('nextBtn').disabled = false;  
+    }  
+
+    function nextQuestion() {  
+        if (currentQuestion < microbiologyQuestions.length - 1) {  
+            currentQuestion++;  
+            loadQuestion();  
+        } else {  
+            calculateScore();  
+        }  
+    }  
+
+    function previousQuestion() {  
+        if (currentQuestion > 0) {  
+            currentQuestion--;  
+            loadQuestion();  
+        }  
+    }  
+
+    function calculateScore() {  
+        score = 0;  
+        microbiologyQuestions.forEach((question, index) => {  
+            if (userAnswers[index] === question.correct) {  
+                score++;  
+            }  
+        });  
+          
+        const scoreDisplay = document.getElementById('scoreDisplay');  
+        scoreDisplay.innerHTML = `  
+            <h3>Quiz Completed! 🎉</h3>  
+            <p>Your score: <strong>${score}/${microbiologyQuestions.length}</strong> (${Math.round((score/microbiologyQuestions.length)*100)}%)</p>  
+            <p>${score === microbiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' :   
+                score >= microbiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' :   
+                'Keep studying! You\'ll improve! 💪'}</p>  
+        `;  
+        scoreDisplay.style.display = 'block';  
+    }  
+
+    loadQuestion();  
+</script>
+
+</body>  
+</html>  MedqiuZ@gmail.com

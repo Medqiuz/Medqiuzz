@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microbiology Quiz - Part 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>🦠 Microbiology Quiz</h1>
+            <div class="subtitle">Part 1: Introduction & Bacteriology (Questions 1-40)</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+
+        <div class="question-card">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <div class="explanation" id="explanation"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
+            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+
+    <script>
+        const microbiologyQuestions = [
+            {
+                question: "1. Microbiology is the study of:",
+                options: [
+                    "Microorganisms and their interactions with humans, animals, and the environment",
+                    "Only bacteria",
+                    "Viruses exclusively",
+                    "Human anatomy"
+                ],
+                correct: 0,
+                explanation: "Microbiology includes bacteria, viruses, fungi, and parasites."
+            },
+            {
+                question: "2. Medical Microbiology focuses on:",
+                options: [
+                    "Microorganisms causing diseases in humans",
+                    "All environmental microbes",
+                    "Plant pathogens",
+                    "Soil bacteria only"
+                ],
+                correct: 0,
+                explanation: "Emphasis on pathogens, infection, and clinical relevance."
+            },
+            {
+                question: "3. The Germ Theory of Disease was proposed by:",
+                options: [
+                    "Louis Pasteur and Robert Koch",
+                    "Hippocrates",
+                    "Joseph Lister only",
+                    "Alexander Fleming"
+                ],
+                correct: 0,
+                explanation: "Demonstrated that microbes can cause disease."
+            },
+            {
+                question: "4. Microorganisms include all except:",
+                options: [
+                    "Protozoa",
+                    "Viruses",
+                    "Helminths",
+                    "Mammals"
+                ],
+                correct: 3,
+                explanation: "Mammals are not microorganisms."
+            },
+            {
+                question: "5. Bacteriology is the study of:",
+                options: [
+                    "Bacteria",
+                    "Fungi",
+                    "Viruses",
+                    "Parasites"
+                ],
+                correct: 0,
+                explanation: "Study of bacterial structure, physiology, and pathogenicity."
+            },
+            {
+                question: "6. Mycology focuses on:",
+                options: [
+                    "Fungi",
+                    "Bacteria",
+                    "Viruses",
+                    "Protozoa"
+                ],
+                correct: 0,
+                explanation: "Includes yeast and mold infections."
+            },
+            {
+                question: "7. Virology studies:",
+                options: [
+                    "Viruses",
+                    "Bacteria",
+                    "Fungi",
+                    "Parasites"
+                ],
+                correct: 0,
+                explanation: "Includes viral replication and pathogenesis."
+            },
+            {
+                question: "8. Immunology is concerned with:",
+                options: [
+                    "Host defense mechanisms",
+                    "Viral replication only",
+                    "Bacterial cell walls",
+                    "Fungal spores"
+                ],
+                correct: 0,
+                explanation: "Innate and adaptive immunity."
+            },
+            {
+                question: "9. Bacterial cell wall of Gram-positive bacteria contains:",
+                options: [
+                    "Thick peptidoglycan layer",
+                    "Thin peptidoglycan and outer membrane",
+                    "Lipopolysaccharide only",
+                    "Sterols"
+                ],
+                correct: 0,
+                explanation: "Retains crystal violet stain in Gram staining."
+            },
+            {
+                question: "10. Gram-negative bacteria have:",
+                options: [
+                    "Thin peptidoglycan + outer membrane",
+                    "Thick peptidoglycan only",
+                    "No cell wall",
+                    "Only phospholipid bilayer"
+                ],
+                correct: 0,
+                explanation: "Lipopolysaccharides in outer membrane cause endotoxin effects."
+            },
+            {
+                question: "11. Bacterial reproduction is primarily by:",
+                options: [
+                    "Binary fission",
+                    "Mitosis",
+                    "Meiosis",
+                    "Budding only"
+                ],
+                correct: 0,
+                explanation: "Asexual reproduction."
+            },
+            {
+                question: "12. Bacterial DNA is:",
+                options: [
+                    "Circular, double-stranded",
+                    "Linear, single-stranded",
+                    "RNA only",
+                    "Absent"
+                ],
+                correct: 0,
+                explanation: "Located in nucleoid region."
+            },
+            {
+                question: "13. Plasmids in bacteria:",
+                options: [
+                    "Carry extra-chromosomal genes, e.g., antibiotic resistance",
+                    "Code for ribosomes",
+                    "Form cell walls",
+                    "Produce toxins only"
+                ],
+                correct: 0,
+                explanation: "Can be transferred via conjugation."
+            },
+            {
+                question: "14. Bacterial growth phases include:",
+                options: [
+                    "Lag, log, stationary, death",
+                    "Only stationary",
+                    "Only log",
+                    "Binary fission only"
+                ],
+                correct: 0,
+                explanation: "Standard bacterial growth curve."
+            },
+            {
+                question: "15. Facultative anaerobes:",
+                options: [
+                    "Grow with or without oxygen",
+                    "Require oxygen",
+                    "Cannot tolerate oxygen",
+                    "Only grow in anaerobic jar"
+                ],
+                correct: 0,
+                explanation: "Flexible metabolism."
+            },
+            {
+                question: "16. Obligate anaerobes:",
+                options: [
+                    "Cannot survive in presence of oxygen",
+                    "Require oxygen",
+                    "Grow facultatively",
+                    "Are all Gram-positive"
+                ],
+                correct: 0,
+                explanation: "Example: Clostridium species."
+            },
+            {
+                question: "17. Bacterial motility is due to:",
+                options: [
+                    "Flagella",
+                    "Cilia",
+                    "Pseudopodia",
+                    "Capsules"
+                ],
+                correct: 0,
+                explanation: "Enables chemotaxis and movement."
+            },
+            {
+                question: "18. Bacteria obtain nutrients by:",
+                options: [
+                    "Absorption",
+                    "Photosynthesis only",
+                    "Ingestion",
+                    "Pinocytosis"
+                ],
+                correct: 0,
+                explanation: "Cell wall allows uptake of small molecules."
+            },
+            {
+                question: "19. Bacteria metabolize glucose by:",
+                options: [
+                    "Fermentation or respiration",
+                    "Only photosynthesis",
+                    "Only oxidation",
+                    "Passive diffusion"
+                ],
+                correct: 0,
+                explanation: "Produces energy under different conditions."
+            },
+            {
+                question: "20. Bacterial genetic variation occurs via:",
+                options: [
+                    "Mutation, conjugation, transformation, transduction",
+                    "Only mutation",
+                    "Mitosis",
+                    "Meiosis"
+                ],
+                correct: 0,
+                explanation: "Promotes antibiotic resistance and adaptation."
+            },
+            {
+                question: "21. Sterilization destroys:",
+                options: [
+                    "All forms of microbial life",
+                    "Only vegetative bacteria",
+                    "Only spores",
+                    "Only viruses"
+                ],
+                correct: 0,
+                explanation: "Includes spores and viruses."
+            },
+            {
+                question: "22. Disinfection eliminates:",
+                options: [
+                    "Most pathogenic microorganisms but not all spores",
+                    "All microbial life",
+                    "Only viruses",
+                    "Only fungi"
+                ],
+                correct: 0,
+                explanation: "Used for surfaces and instruments."
+            },
+            {
+                question: "23. Autoclaving uses:",
+                options: [
+                    "Steam under pressure",
+                    "Dry heat",
+                    "UV light",
+                    "Alcohol"
+                ],
+                correct: 0,
+                explanation: "Effective sterilization at 121°C for 15-20 min."
+            },
+            {
+                question: "24. Alcohol-based disinfectants act by:",
+                options: [
+                    "Protein denaturation and membrane disruption",
+                    "DNA cleavage",
+                    "Spore germination",
+                    "Lipid synthesis"
+                ],
+                correct: 0,
+                explanation: "Effective against vegetative bacteria."
+            },
+            {
+                question: "25. Antibiotics target:",
+                options: [
+                    "Bacteria",
+                    "Viruses",
+                    "Fungi only",
+                    "Parasites"
+                ],
+                correct: 0,
+                explanation: "Selective toxicity to prokaryotic cells."
+            },
+            {
+                question: "26. Beta-lactam antibiotics inhibit:",
+                options: [
+                    "Bacterial cell wall synthesis",
+                    "Protein synthesis",
+                    "DNA replication",
+                    "RNA transcription"
+                ],
+                correct: 0,
+                explanation: "Penicillin and cephalosporins."
+            },
+            {
+                question: "27. Aminoglycosides inhibit:",
+                options: [
+                    "Protein synthesis by binding 30S ribosomal subunit",
+                    "DNA synthesis",
+                    "Cell wall synthesis",
+                    "Lipid metabolism"
+                ],
+                correct: 0,
+                explanation: "E.g., gentamicin."
+            },
+            {
+                question: "28. Fluoroquinolones inhibit:",
+                options: [
+                    "DNA gyrase",
+                    "RNA polymerase",
+                    "Ribosomes",
+                    "Peptidoglycan"
+                ],
+                correct: 0,
+                explanation: "Prevents bacterial DNA replication."
+            },
+            {
+                question: "29. Antifungal azoles inhibit:",
+                options: [
+                    "Ergosterol synthesis",
+                    "DNA replication",
+                    "Protein synthesis",
+                    "Cell wall peptidoglycan"
+                ],
+                correct: 0,
+                explanation: "Disrupts fungal membranes."
+            },
+            {
+                question: "30. Polyenes act by:",
+                options: [
+                    "Binding ergosterol, forming membrane pores",
+                    "Inhibiting DNA replication",
+                    "Protein denaturation",
+                    "Ribosome inhibition"
+                ],
+                correct: 0,
+                explanation: "Amphotericin B, Nystatin."
+            },
+            {
+                question: "31. Normal microbial flora:",
+                options: [
+                    "Colonize body without causing disease",
+                    "Always pathogenic",
+                    "Only found in soil",
+                    "Always harmful"
+                ],
+                correct: 0,
+                explanation: "Provides colonization resistance and vitamin synthesis."
+            },
+            {
+                question: "32. Skin normal flora includes:",
+                options: [
+                    "Staphylococcus epidermidis",
+                    "E. coli",
+                    "Salmonella",
+                    "Clostridium botulinum"
+                ],
+                correct: 0,
+                explanation: "Part of commensal microbiota."
+            },
+            {
+                question: "33. Innate immunity includes:",
+                options: [
+                    "Barriers, phagocytes, complement",
+                    "Antibodies only",
+                    "T-cell memory",
+                    "Vaccines"
+                ],
+                correct: 0,
+                explanation: "First line of defense."
+            },
+            {
+                question: "34. Adaptive immunity includes:",
+                options: [
+                    "Humoral (B-cell) and cellular (T-cell) responses",
+                    "Complement only",
+                    "Physical barriers only",
+                    "Normal flora"
+                ],
+                correct: 0,
+                explanation: "Provides specificity and memory."
+            },
+            {
+                question: "35. Active immunity occurs when:",
+                options: [
+                    "Host produces antibodies following infection or vaccination",
+                    "Antibodies are transferred from mother",
+                    "Antibiotics are given",
+                    "Steroids are administered"
+                ],
+                correct: 0,
+                explanation: "Long-lasting protection."
+            },
+            {
+                question: "36. Passive immunity occurs when:",
+                options: [
+                    "Antibodies are transferred from another host",
+                    "Host generates its own antibodies",
+                    "Antibiotics are given",
+                    "Vaccination occurs"
+                ],
+                correct: 0,
+                explanation: "Short-term protection."
+            },
+            {
+                question: "37. Vaccines stimulate:",
+                options: [
+                    "Active immunity",
+                    "Passive immunity",
+                    "Antibiotic resistance",
+                    "Innate immunity only"
+                ],
+                correct: 0,
+                explanation: "Prepares adaptive response without causing disease."
+            },
+            {
+                question: "38. Humoral immunity is mediated by:",
+                options: [
+                    "B lymphocytes and antibodies",
+                    "T lymphocytes",
+                    "Phagocytes",
+                    "Complement only"
+                ],
+                correct: 0,
+                explanation: "Neutralizes extracellular pathogens."
+            },
+            {
+                question: "39. Cellular immunity is mediated by:",
+                options: [
+                    "T lymphocytes",
+                    "B lymphocytes",
+                    "Antibodies only",
+                    "Complement only"
+                ],
+                correct: 0,
+                explanation: "Eliminates intracellular pathogens."
+            },
+            {
+                question: "40. Commensal flora benefit the host by:",
+                options: [
+                    "Competing with pathogens",
+                    "Producing vitamins",
+                    "Stimulating immune system",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Provides colonization resistance and metabolic contributions."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(microbiologyQuestions.length).fill(null);
+        let score = 0;
+
+        function loadQuestion() {
+            const question = microbiologyQuestions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                
+                if (userAnswers[currentQuestion] === index) {
+                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                }
+                
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${microbiologyQuestions.length}`;
+            document.getElementById('progress').style.width = `${((currentQuestion + 1) / microbiologyQuestions.length) * 100}%`;
+            
+            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            
+            const explanation = document.getElementById('explanation');
+            if (userAnswers[currentQuestion] !== null) {
+                explanation.textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            const question = microbiologyQuestions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((button, index) => {
+                button.classList.remove('correct', 'wrong');
+                if (index === question.correct) {
+                    button.classList.add('correct');
+                } else if (index === optionIndex && optionIndex !== question.correct) {
+                    button.classList.add('wrong');
+                }
+            });
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            document.getElementById('explanation').classList.add('show');
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < microbiologyQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                calculateScore();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            microbiologyQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `
+                <h3>Quiz Completed! 🎉</h3>
+                <p>Your score: <strong>${score}/${microbiologyQuestions.length}</strong> (${Math.round((score/microbiologyQuestions.length)*100)}%)</p>
+                <p>${score === microbiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
+                    score >= microbiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
+                    'Keep studying! You\'ll improve! 💪'}</p>
+            `;
+            scoreDisplay.style.display = 'block';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microbiology Study Guide – Video Edition</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    :root {
+      --primary: #1a6eb5;
+      --primary-dark: #0c3a6b;
+      --secondary: #2ecc71;
+      --light: #f5f9fc;
+      --dark: #333;
+      --gray: #777;
+    }
+    body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 30px 0; border-radius: 0 0 10px 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); margin-bottom: 30px; }
+    .header-content { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    .header-text { flex: 1; min-width: 300px; }
+    h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    .subtitle { font-size: 1.2rem; opacity: 0.9; }
+    .microbe-icon { width: 150px; height: 150px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 60px; margin-left: 20px; }
+    .section { background: white; border-radius: 10px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); }
+    h2 { color: var(--primary); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #eaeaea; }
+    h3 { color: var(--primary-dark); margin: 20px 0 10px; }
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; margin-top: 20px; }
+    .video-card { background: #f0f7ff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease; }
+    .video-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); }
+    .video-container { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; /* 16:9 */ }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    .video-info { padding: 15px; }
+    .video-info h4 { margin-bottom: 8px; color: var(--primary-dark); }
+    .video-info p { color: var(--gray); font-size: 0.9rem; }
+    footer { text-align: center; padding: 20px; margin-top: 30px; color: var(--gray); font-size: 0.9rem; border-top: 1px solid #eaeaea; }
+    @media (max-width: 768px) {
+      .header-content { flex-direction: column; text-align: center; }
+      .microbe-icon { margin: 20px 0 0; }
+      h1 { font-size: 2rem; }
+      .video-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="header-text">
+          <h1>Microbiology Study Guide</h1>
+          <p class="subtitle">Complete Video Resource Collection</p>
+        </div>
+        <div class="microbe-icon">🦠</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Section: Fundamental Concepts -->
+    <section class="section">
+      <h2>Fundamental Microbiology Concepts</h2>
+      <p>Core video lessons on key microbiology topics:</p>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/sxa46xKfIOY" 
+              title="Gram Staining Method" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-info">
+            <h4>Gram Staining Technique</h4>
+            <p>Bio-Rad demonstration of Gram staining protocol. 0</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/ROqbhi8s3OY" 
+              title="Gram positive vs Gram negative bacteria" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-info">
+            <h4>Bacterial Cell Structure & Gram Categories</h4>
+            <p>Lecture discussing structural differences and the principle behind Gram-positive and Gram-negative bacteria. 1</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Microscopy Techniques -->
+    <section class="section">
+      <h2>Microscopy & Lab Techniques</h2>
+      <p>Videos showing how to properly use a microscope and prepare slides:</p>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/SUo2fHZaZCU" 
+              title="Basic Microscope Setup and Use" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-info">
+            <h4>Using a Microscope – Basic Setup</h4>
+            <p>Intro tutorial on microscope parts and how to set it up and use it properly. 2</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/WhF1Aa39DSM" 
+              title="Microscope & Morphology Lab Practical" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-info">
+            <h4>Lab Practical: Microscope & Bacterial Morphology</h4>
+            <p>Live demonstration of slide observation under microscope and identifying bacterial morphology. 3</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Antibiotics Mechanisms -->
+    <section class="section">
+      <h2>Antibiotics & Resistance</h2>
+      <p>Educational content on how antibiotics work and how bacteria resist them:</p>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/IVBCrzjOl40" 
+              title="Antibiotic Mechanisms" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-info">
+            <h4>Mechanisms of Antibiotic Action</h4>
+            <p>Overview of how different antibiotic classes target bacteria. 4</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/ReKG-vuYHY4" 
+              title="Mechanisms of Antibiotic Resistance" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-info">
+            <h4>Antibiotic Resistance Mechanisms</h4>
+            <p>How bacteria develop resistance through mutation and gene transfer. 5</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Backup Search Strategy -->
+    <section class="section">
+      <h2>Backup Search Strategy</h2>
+      <div class="backup-strategy">
+        <h3>If Videos Become Unavailable:</h3>
+        <p>Use these keywords to search for more reliable videos on YouTube or educational platforms:</p>
+      </div>
+      <div class="search-box">
+        <h3>Search Terms for Microbiology Videos:</h3>
+        <div class="search-terms">
+          <div class="search-term">Gram staining procedure</div>
+          <div class="search-term">Bacterial cell structure lecture</div>
+          <div class="search-term">Microscopy in microbiology</div>
+          <div class="search-term">Lab practical microscope bacteria</div>
+          <div class="search-term">Mechanism of antibiotics</div>
+          <div class="search-term">Antibiotic resistance mechanisms</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>Microbiology Study Guide – Video Resource Edition | Updated</p>
+      <p>All videos embedded from reliable YouTube educational content.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchTerms = document.querySelectorAll('.search-term');
+      searchTerms.forEach(term => {
+        term.addEventListener('click', function() {
+          const text = this.textContent;
+          window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(text)}`, '_blank');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
