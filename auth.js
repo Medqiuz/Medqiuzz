@@ -275,8 +275,6 @@ class AuthSystem {
 "L9E6H2": "Y3X4K5", "U8A5J1": "B7T9M6", "I3F4P2": "C6S1V7", "D2O9R1": "Q5W8H4"
             // Add your full code list
         };
-  this.codes = this.loadCodes();
-    }
     this.codes = this.loadCodes();  
 }  
 
