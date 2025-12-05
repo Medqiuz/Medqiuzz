@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedQuiz- Registration</title>
+
 <style>
-  /* Reset & Base */
+/* Reset & Base */
 * {
     margin: 0;
     padding: 0;
@@ -136,21 +137,22 @@ button#register-btn:hover {
         padding: 30px 20px;
     }
     
-    form input[type="text"],
-    form input[type="tel"],
-    form input[type="email"],
-    form select,
+    form input,
     button#register-btn {
         font-size: 0.95em;
     }
 }
 </style>
-    <link rel="manifest" href="/Medqiuzz/manifest.json">
+
+<!-- Correct PWA paths for GitHub Pages -->
+<link rel="manifest" href="/Medqiuzz/manifest.json">
 <meta name="theme-color" content="#0a74da">
-<link rel="icon" sizes="192x192" href="icon-192.png">
+
+<!-- Correct icon path -->
+<link rel="icon" sizes="192x192" href="/Medqiuzz/icon-192.png">
 </head>
+
 <body>
-  
     <div class="container">
         <h1>MedQuiz</h1>
         <p>Secure Registration - Medical Education Portal</p>
@@ -159,7 +161,7 @@ button#register-btn:hover {
             <input type="text" id="fullName" placeholder="Full Name" required>
             <input type="tel" id="phone" placeholder="Phone Number" required>
             <input type="text" id="university" placeholder="University" required>
-            
+
             <select id="department" required>
                 <option value="" disabled selected>Select Department</option>
                 <option value="Medicine">Medicine</option>
@@ -202,98 +204,112 @@ button#register-btn:hover {
                 <p>Complete the payment process on our Telegram channel:</p>
                 <ol>
                     <li><a href="https://t.me/yerotechno" target="_blank">Join Telegram Channel</a></li>
-                    <li> <p><h3> pay</h3> <h2>100</h2> to <h2>1000413257429 (cbe Acc.ho.na  <h1>A/G...</h1></h2>
-                     <p>then send the screenshot to our tg channel<h2>251718461632</h2>h2></p>   
-                    <li>Contact the admin: <strong>@Goodlife61</strong></li>
+
+                    <li>
+                        <h3>Pay</h3>
+                        <h2>100 birr</h2>
+                        <p>To CBE account:</p>
+                        <h2>1000413257429</h2>
+                        <p>Account Holder: <strong>A/G</strong></p>
+                        <p>Then send the screenshot to Telegram number:</p>
+                        <h2>+251718461632</h2>
+                    </li>
+
+                    <li>Contact admin: <strong>@Goodlife61</strong></li>
                     <li>Receive your unique access code and return here</li>
                 </ol>
             </div>
         </form>
     </div>
-   <script src="dashboard.js"></script>
-    <script src="auth.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const btn = document.getElementById('register-btn');
-            const messageDiv = document.getElementById('message');
-            const codeInstructions = document.getElementById('code-instructions');
 
-            if (window.authSystem.isAuthenticated()) {
-                window.location.href = 'dashboard.html';
+<script src="dashboard.js"></script>
+<script src="auth.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('register-btn');
+    const messageDiv = document.getElementById('message');
+    const codeInstructions = document.getElementById('code-instructions');
+
+    if (window.authSystem.isAuthenticated()) {
+        window.location.href = 'dashboard.html';
+        return;
+    }
+
+    btn.addEventListener('click', handleRegistration);
+
+    async function handleRegistration() {
+        btn.disabled = true;
+        btn.textContent = 'Processing...';
+        messageDiv.style.display = 'none';
+        codeInstructions.style.display = 'none';
+
+        const fullName = document.getElementById('fullName').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const university = document.getElementById('university').value.trim();
+        const department = document.getElementById('department').value;
+        const year = document.getElementById('year').value;
+        const section = document.getElementById('section').value;
+        const email = document.getElementById('email').value.trim().toLowerCase();
+        const code = document.getElementById('code').value.trim().toUpperCase();
+
+        try {
+            if (!fullName || !phone || !university || !department || !year || !section || !email || !code) {
+                throw new Error('Please fill in all fields.');
+            }
+
+            const codeValidation = window.authSystem.validateAccessCode(code, email);
+            if (!codeValidation.valid) {
+                showMessage(codeValidation.message, 'error');
+                codeInstructions.style.display = 'block';
                 return;
             }
 
-            btn.addEventListener('click', handleRegistration);
+            const userData = {
+                fullName,
+                phone,
+                university,
+                department,
+                year,
+                section,
+                email,
+                code: codeValidation.codeEntry.code,
+                registrationDate: new Date().toISOString()
+            };
 
-            async function handleRegistration() {
-                btn.disabled = true;
-                btn.textContent = 'Processing...';
-                messageDiv.style.display = 'none';
-                codeInstructions.style.display = 'none';
+            window.authSystem.markCodeUsed(code, email);
+            window.authSystem.createSession(userData);
 
-                const fullName = document.getElementById('fullName').value.trim();
-                const phone = document.getElementById('phone').value.trim();
-                const university = document.getElementById('university').value.trim();
-                const department = document.getElementById('department').value;
-                const year = document.getElementById('year').value;
-                const section = document.getElementById('section').value;
-                const email = document.getElementById('email').value.trim().toLowerCase();
-                const code = document.getElementById('code').value.trim().toUpperCase();
+            showMessage('✅ Registration successful! Redirecting...', 'success');
 
-                try {
-                    if (!fullName || !phone || !university || !department || !year || !section || !email || !code) {
-                        throw new Error('Please fill in all fields.');
-                    }
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
 
-                    const codeValidation = window.authSystem.validateAccessCode(code, email);
-                    if (!codeValidation.valid) {
-                        showMessage(codeValidation.message, 'error');
-                        codeInstructions.style.display = 'block';
-                        return;
-                    }
+        } catch (err) {
+            showMessage(err.message, 'error');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Complete Registration';
+        }
+    }
 
-                    const userData = {
-                        fullName,
-                        phone,
-                        university,
-                        department,
-                        year,
-                        section,
-                        email,
-                        code: codeValidation.codeEntry.code,
-                        registrationDate: new Date().toISOString()
-                    };
+    function showMessage(msg, type) {
+        messageDiv.textContent = msg;
+        messageDiv.className = `message ${type}`;
+        messageDiv.style.display = 'block';
+    }
+});
+</script>
 
-                    window.authSystem.markCodeUsed(code, email);
-                    window.authSystem.createSession(userData);
-
-                    showMessage('✅ Registration successful! Redirecting...', 'success');
-
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 1500);
-
-                } catch (err) {
-                    showMessage(err.message, 'error');
-                } finally {
-                    btn.disabled = false;
-                    btn.textContent = 'Complete Registration';
-                }
-            }
-
-            function showMessage(msg, type) {
-                messageDiv.textContent = msg;
-                messageDiv.className = `message ${type}`;
-                messageDiv.style.display = 'block';
-            }
-        });
-    </script>
-    <script>
+<!-- Correct Service Worker Path for GitHub Pages -->
+<script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/Meddqiuz/service-worker.js')
+  navigator.serviceWorker.register('/Medqiuzz/service-worker.js')
     .then(() => console.log('Service Worker Registered'))
     .catch(err => console.log('SW registration failed:', err));
 }
 </script>
+
 </body>
 </html>
