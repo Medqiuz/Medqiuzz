@@ -3,576 +3,1164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physiology Quiz - Part 5</title>
+    <title>Endocrine System Quiz - Parathyroid & Endocrine Pancreas</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* style.css - Universal quiz styling */
+:root {
+    --primary: #2c3e50;
+    --secondary: #3498db;
+    --success: #27ae60;
+    --danger: #c0392b;
+    --warning: #f39c12;
+    --light: #ecf0f1;
+    --dark: #2c3e50;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    color: var(--dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.quiz-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background-color: var(--light);
+    border-bottom: 1px solid #ddd;
+}
+
+.timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--danger);
+}
+
+.progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--secondary);
+    width: 0%;
+    transition: var(--transition);
+}
+
+.quiz-container {
+    padding: 30px;
+}
+
+.question-container {
+    margin-bottom: 30px;
+}
+
+.question-number {
+    font-size: 1.1rem;
+    color: var(--secondary);
+    margin-bottom: 5px;
+}
+
+.question-text {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.options-container {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.option {
+    padding: 15px;
+    background-color: var(--light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.option:hover {
+    background-color: #e0e7ee;
+    transform: translateY(-2px);
+}
+
+.option.selected {
+    border-color: var(--secondary);
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.option.correct {
+    border-color: var(--success);
+    background-color: rgba(39, 174, 96, 0.1);
+}
+
+.option.incorrect {
+    border-color: var(--danger);
+    background-color: rgba(192, 57, 43, 0.1);
+}
+
+.explanation-container {
+    padding: 20px;
+    background-color: rgba(52, 152, 219, 0.05);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.explanation-title {
+    font-weight: 600;
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
+
+.memory-tip {
+    background-color: rgba(243, 156, 18, 0.1);
+    padding: 15px;
+    border-left: 4px solid var(--warning);
+    margin-top: 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+.memory-tip-title {
+    font-weight: 600;
+    color: var(--warning);
+    margin-bottom: 5px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-prev {
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+.btn-next {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.btn-submit {
+    background-color: var(--success);
+    color: white;
+    display: none;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.results-container {
+    padding: 30px;
+    text-align: center;
+    display: none;
+}
+
+.results-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.score {
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--secondary);
+    margin: 20px 0;
+}
+
+.score-text {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+.summary {
+    text-align: left;
+    background-color: var(--light);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.summary-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.restart-btn {
+    background-color: var(--secondary);
+    color: white;
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+}
+
+.question-review {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.review-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.review-question {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.review-answer {
+    margin-bottom: 5px;
+}
+
+.correct-answer {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.user-answer {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .quiz-info {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .progress-bar {
+        width: 100%;
+    }
+
+    .question-text {
+        font-size: 1.2rem;
+    }
+
+    .navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+    </style>
 </head>
 <body>
-    <div class="quiz-container">
-        <div class="header">
-            <h1>🧬 Physiology Quiz</h1>
-            <div class="subtitle">Part 5: Cardiovascular & Respiratory Physiology (Questions 161-200)</div>
+    <div class="container">
+        <header>
+            <h1>Endocrine System Quiz - Part 3</h1>
+            <p>Parathyroid Gland & Endocrine Pancreas | Based on Endocrine Physiology Materials</p>
+        </header>
+
+        <div class="quiz-info">
+            <div class="timer">Time: <span id="time">60:00</span></div>
+            <div class="progress">
+                <span>Progress:</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="progress-text">0/40</span>
+            </div>
         </div>
 
-        <div class="progress-bar">
-            <div class="progress" id="progress"></div>
+        <div class="quiz-container" id="quiz-container">
+            <div class="question-container">
+                <div class="question-number" id="question-number">Question 1 of 40</div>
+                <div class="question-text" id="question-text"></div>
+                <div class="options-container" id="options-container"></div>
+            </div>
+
+            <div class="explanation-container" id="explanation-container">
+                <div class="explanation-title">Explanation</div>
+                <div id="explanation-text"></div>
+                <div class="memory-tip" id="memory-tip">
+                    <div class="memory-tip-title">Memory Tip</div>
+                    <div id="memory-tip-text"></div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="btn-prev" id="prev-btn" disabled>Previous</button>
+                <button class="btn-next" id="next-btn">Next Question</button>
+                <button class="btn-submit" id="submit-btn">Submit Quiz</button>
+            </div>
         </div>
 
-        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
+        <div class="results-container" id="results-container">
+            <h2 class="results-title">Quiz Results</h2>
+            <div class="score" id="score">0/40</div>
+            <div class="score-text" id="score-text"></div>
 
-        <div class="question-card">
-            <div class="question-text" id="questionText"></div>
-            
-            <div class="options-container" id="optionsContainer"></div>
-            
-            <div class="explanation" id="explanation"></div>
+            <div class="summary">
+                <div class="summary-title">Performance Summary</div>
+                <p>Total Questions: <span id="total-questions">40</span></p>
+                <p>Correct Answers: <span id="correct-answers">0</span></p>
+                <p>Incorrect Answers: <span id="incorrect-answers">0</span></p>
+                <p>Percentage: <span id="percentage">0%</span></p>
+                <p>Time Taken: <span id="time-taken">60:00</span></p>
+            </div>
+
+            <div class="question-review" id="question-review">
+                <h3>Question Review</h3>
+                <!-- Review content will be generated by JavaScript -->
+            </div>
+
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
         </div>
-
-        <div class="navigation">
-            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
-            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
-        </div>
-
-        <div class="score-display" id="scoreDisplay"></div>
     </div>
 
     <script>
-        const physiologyQuestions = [
+        // Endocrine System Quiz - Parathyroid & Endocrine Pancreas (40 questions)
+        const questions = [
             {
-                question: "161. The primary function of the cardiovascular system is:",
+                question: "What is the primary stimulus for parathyroid hormone (PTH) secretion?",
                 options: [
-                    "Transport of oxygen, nutrients, and waste products",
-                    "Production of hormones", 
-                    "Digestion of food",
-                    "Gas exchange in lungs"
+                    "Hypercalcemia",
+                    "Hypocalcemia",
+                    "Hyperphosphatemia",
+                    "Hypomagnesemia"
                 ],
-                correct: 0,
-                explanation: "The cardiovascular system circulates blood to deliver oxygen and nutrients to tissues while removing waste products like carbon dioxide."
+                correct: 1,
+                explanation: "PTH secretion is primarily stimulated by low ionized calcium levels. Parathyroid chief cells sense calcium via calcium-sensing receptors (CaSR).",
+                memoryTip: "PTH released when calcium LOW; Calcitonin released when calcium HIGH"
             },
             {
-                question: "162. The cardiac cycle consists of:",
+                question: "Which pancreatic islet cell type secretes insulin?",
                 options: [
-                    "Systole and diastole",
-                    "Only ventricular contraction", 
-                    "Only atrial contraction",
-                    "Ventricular filling and emptying"
+                    "Alpha cells",
+                    "Beta cells",
+                    "Delta cells",
+                    "PP cells"
                 ],
-                correct: 0,
-                explanation: "The cardiac cycle includes systole (contraction) and diastole (relaxation) phases for both atria and ventricles."
+                correct: 1,
+                explanation: "Beta cells (60-75% of islet cells) synthesize and secrete insulin. Alpha cells secrete glucagon, delta cells secrete somatostatin, PP cells secrete pancreatic polypeptide.",
+                memoryTip: "Beta cells = insulin (B for Beta, B for Blood sugar lowering)"
             },
             {
-                question: "163. The pacemaker of the heart is the:",
+                question: "PTH increases serum calcium by all EXCEPT:",
                 options: [
-                    "Sinoatrial (SA) node",
-                    "Atrioventricular (AV) node", 
-                    "Bundle of His",
-                    "Purkinje fibers"
+                    "Stimulating bone resorption",
+                    "Increasing renal calcium reabsorption",
+                    "Increasing intestinal calcium absorption indirectly via vitamin D",
+                    "Stimulating renal calcium excretion"
                 ],
-                correct: 0,
-                explanation: "The SA node generates the electrical impulse that initiates each heartbeat, setting the heart's natural rhythm."
+                correct: 3,
+                explanation: "PTH increases serum calcium by: bone resorption, renal calcium reabsorption (distal tubule), and activating vitamin D (indirectly increases intestinal absorption). It decreases renal calcium excretion.",
+                memoryTip: "PTH raises calcium: Bone (resorption), Kidney (reabsorption), Gut (via vitamin D)"
             },
             {
-                question: "164. The QRS complex on an ECG represents:",
+                question: "Type 1 diabetes mellitus is characterized by:",
                 options: [
-                    "Ventricular depolarization",
-                    "Atrial depolarization", 
-                    "Ventricular repolarization",
-                    "Atrial repolarization"
+                    "Insulin resistance",
+                    "Autoimmune destruction of beta cells",
+                    "Adult onset",
+                    "Obesity as primary risk factor"
                 ],
-                correct: 0,
-                explanation: "The QRS complex corresponds to the rapid depolarization of the right and left ventricles."
+                correct: 1,
+                explanation: "Type 1 DM is autoimmune destruction of pancreatic beta cells, leading to absolute insulin deficiency. Typically juvenile onset, not associated with obesity.",
+                memoryTip: "Type 1 DM = autoimmune, juvenile onset, absolute insulin deficiency; Type 2 = insulin resistance, adult onset"
             },
             {
-                question: "165. Cardiac output is calculated as:",
+                question: "Vitamin D activation requires hydroxylation at which positions?",
                 options: [
-                    "Heart rate × Stroke volume",
-                    "Blood pressure × Heart rate", 
-                    "Stroke volume × Systemic vascular resistance",
-                    "End-diastolic volume - End-systolic volume"
+                    "25-position in liver, then 1α-position in kidney",
+                    "1α-position in liver, then 25-position in kidney",
+                    "Only 25-position in liver",
+                    "Only 1α-position in skin"
                 ],
                 correct: 0,
-                explanation: "Cardiac output (CO) = Heart rate (HR) × Stroke volume (SV), representing the volume of blood pumped by the heart per minute."
+                explanation: "Vitamin D activation: 25-hydroxylation in liver → 25-OH vitamin D (storage form); 1α-hydroxylation in kidney → 1,25-(OH)2 vitamin D (active form, stimulated by PTH).",
+                memoryTip: "Vitamin D activation: Liver (25-OH) → Kidney (1α-OH) → Active form"
             },
             {
-                question: "166. The Frank-Starling mechanism states that:",
+                question: "Diabetic ketoacidosis (DKA) is characterized by:",
                 options: [
-                    "Stroke volume increases with increased ventricular filling",
-                    "Heart rate increases with exercise", 
-                    "Blood pressure regulates cardiac output",
-                    "Ventricular contraction strength is constant"
+                    "Hyperglycemia, anion gap metabolic acidosis, ketonemia",
+                    "Hyperglycemia, metabolic alkalosis, ketonemia",
+                    "Hypoglycemia, anion gap metabolic acidosis, ketonemia",
+                    "Hyperglycemia, respiratory acidosis, no ketones"
                 ],
                 correct: 0,
-                explanation: "The Frank-Starling law describes how the heart pumps out the blood returned to it, with increased preload leading to increased stroke volume."
+                explanation: "DKA features: hyperglycemia, anion gap metabolic acidosis (ketoacids), ketonemia (β-hydroxybutyrate, acetoacetate), dehydration, Kussmaul respirations.",
+                memoryTip: "DKA triad: Hyperglycemia + Acidosis + Ketones"
             },
             {
-                question: "167. Mean arterial pressure (MAP) is calculated as:",
+                question: "Hypoparathyroidism causes:",
                 options: [
-                    "Diastolic pressure + 1/3 (Systolic - Diastolic)",
-                    "Systolic pressure - Diastolic pressure", 
-                    "(Systolic + Diastolic) / 2",
-                    "Cardiac output × Heart rate"
+                    "Hypercalcemia and hypophosphatemia",
+                    "Hypocalcemia and hyperphosphatemia",
+                    "Hypercalcemia and hyperphosphatemia",
+                    "Hypocalcemia and hypophosphatemia"
                 ],
-                correct: 0,
-                explanation: "MAP = Diastolic BP + 1/3 (Systolic BP - Diastolic BP), representing the average pressure in the arteries during one cardiac cycle."
+                correct: 1,
+                explanation: "Hypoparathyroidism → low PTH → hypocalcemia (decreased bone resorption/renal reabsorption) + hyperphosphatemia (decreased renal phosphate excretion).",
+                memoryTip: "Hypoparathyroidism: LOW calcium, HIGH phosphate; Hyperparathyroidism: HIGH calcium, LOW phosphate"
             },
             {
-                question: "168. Baroreceptors are primarily located in the:",
+                question: "The primary stimulus for glucagon secretion is:",
                 options: [
-                    "Carotid sinus and aortic arch",
-                    "Medulla oblongata", 
-                    "Heart chambers",
-                    "Pulmonary arteries"
+                    "Hyperglycemia",
+                    "Hypoglycemia",
+                    "High insulin levels",
+                    "High somatostatin levels"
                 ],
-                correct: 0,
-                explanation: "Baroreceptors in the carotid sinus and aortic arch detect changes in blood pressure and trigger reflex adjustments to maintain homeostasis."
+                correct: 1,
+                explanation: "Glucagon is secreted by pancreatic alpha cells in response to hypoglycemia, raising blood glucose via glycogenolysis and gluconeogenesis.",
+                memoryTip: "Glucagon = released when glucose LOW; Insulin = released when glucose HIGH"
             },
             {
-                question: "169. The primary function of the respiratory system is:",
+                question: "Secondary hyperparathyroidism commonly results from:",
                 options: [
-                    "Gas exchange between air and blood",
-                    "Sound production", 
-                    "pH regulation only",
-                    "Hormone production"
+                    "Parathyroid adenoma",
+                    "Chronic kidney disease",
+                    "Multiple endocrine neoplasia",
+                    "Lithium therapy"
                 ],
-                correct: 0,
-                explanation: "The respiratory system's main function is oxygenation of blood and elimination of carbon dioxide, though it also contributes to pH balance and vocalization."
+                correct: 1,
+                explanation: "Secondary hyperparathyroidism is compensatory PTH increase due to chronic hypocalcemia, most commonly from chronic kidney disease (impaired vitamin D activation).",
+                memoryTip: "Secondary hyperparathyroidism = appropriate PTH response to hypocalcemia (CKD most common cause)"
             },
             {
-                question: "170. Boyle's law explains:",
+                question: "Insulin promotes all EXCEPT:",
                 options: [
-                    "The relationship between pressure and volume in gases",
-                    "Gas diffusion in alveoli", 
-                    "Oxygen binding to hemoglobin",
-                    "Carbon dioxide transport"
+                    "GLUT-4 translocation to cell membrane",
+                    "Glycogen synthesis",
+                    "Lipolysis",
+                    "Protein synthesis"
                 ],
-                correct: 0,
-                explanation: "Boyle's law (P ∝ 1/V) explains how changes in thoracic volume create pressure gradients that drive ventilation."
+                correct: 2,
+                explanation: "Insulin promotes glucose uptake (GLUT-4), glycogen synthesis, protein synthesis, and lipogenesis. It inhibits lipolysis, gluconeogenesis, and glycogenolysis.",
+                memoryTip: "Insulin = storage hormone (anabolic); Glucagon = mobilization hormone (catabolic)"
             },
             {
-                question: "171. The most important muscle of inspiration is the:",
+                question: "Chvostek sign and Trousseau sign indicate:",
                 options: [
-                    "Diaphragm",
-                    "External intercostals", 
-                    "Sternocleidomastoid",
-                    "Scalene muscles"
+                    "Hypercalcemia",
+                    "Hypocalcemia",
+                    "Hyperkalemia",
+                    "Hypokalemia"
                 ],
-                correct: 0,
-                explanation: "The diaphragm accounts for about 75% of the air movement during quiet breathing by contracting to increase thoracic volume."
+                correct: 1,
+                explanation: "Chvostek (facial twitching) and Trousseau (carpopedal spasm with BP cuff) signs indicate hypocalcemia-induced neuromuscular irritability.",
+                memoryTip: "Chvostek & Trousseau signs = hypocalcemia (increased neuromuscular excitability)"
             },
             {
-                question: "172. Tidal volume is:",
+                question: "HbA1c measures:",
                 options: [
-                    "The volume of air inhaled or exhaled during normal breathing",
-                    "The maximum volume that can be inhaled after normal inspiration", 
-                    "The volume remaining in lungs after maximum expiration",
-                    "The total lung capacity"
+                    "Fasting blood glucose",
+                    "Average blood glucose over 2-3 months",
+                    "Postprandial glucose spikes",
+                    "Insulin resistance level"
                 ],
-                correct: 0,
-                explanation: "Tidal volume is typically 500 mL in adults and represents the air moved during normal, quiet breathing."
+                correct: 1,
+                explanation: "HbA1c (glycated hemoglobin) reflects average blood glucose over previous 2-3 months (RBC lifespan). Normal <5.7%, diabetes ≥6.5%.",
+                memoryTip: "HbA1c = 3-month blood glucose average (reflects long-term glycemic control)"
             },
             {
-                question: "173. Surfactant in the alveoli:",
+                question: "Calcitonin is secreted by:",
                 options: [
-                    "Reduces surface tension and prevents alveolar collapse",
-                    "Increases gas diffusion", 
-                    "Traps foreign particles",
-                    "Produces mucus"
+                    "Parathyroid chief cells",
+                    "Thyroid follicular cells",
+                    "Thyroid parafollicular C-cells",
+                    "Osteoblasts"
                 ],
-                correct: 0,
-                explanation: "Pulmonary surfactant, produced by type II alveolar cells, decreases surface tension, making lung expansion easier and preventing atelectasis."
+                correct: 2,
+                explanation: "Calcitonin is secreted by thyroid parafollicular C-cells (neural crest origin) in response to hypercalcemia. Weakly lowers calcium by inhibiting osteoclasts.",
+                memoryTip: "Calcitonin = from thyroid C-cells (C for Calcitonin, C for Calcium-lowering)"
             },
             {
-                question: "174. The majority of oxygen in blood is transported:",
+                question: "Metformin's primary mechanism of action is:",
                 options: [
-                    "Bound to hemoglobin as oxyhemoglobin",
-                    "Dissolved in plasma", 
-                    "As bicarbonate ions",
-                    "Bound to plasma proteins"
+                    "Stimulating insulin secretion",
+                    "Increasing hepatic gluconeogenesis",
+                    "Increasing peripheral insulin sensitivity and decreasing hepatic glucose output",
+                    "Inhibiting intestinal carbohydrate absorption"
                 ],
-                correct: 0,
-                explanation: "About 98% of oxygen is carried bound to hemoglobin in red blood cells, while only 2% is dissolved in plasma."
+                correct: 2,
+                explanation: "Metformin increases peripheral insulin sensitivity (muscle, liver) and decreases hepatic gluconeogenesis. First-line for type 2 DM.",
+                memoryTip: "Metformin = decreases hepatic glucose production + increases insulin sensitivity"
             },
             {
-                question: "175. The oxygen-hemoglobin dissociation curve:",
+                question: "Pseudohypoparathyroidism is characterized by:",
                 options: [
-                    "Shows the relationship between oxygen saturation and partial pressure",
-                    "Depicts carbon dioxide transport", 
-                    "Illustrates lung compliance",
-                    "Shows ventilation-perfusion matching"
+                    "Low PTH with target organ resistance",
+                    "High PTH with target organ resistance",
+                    "Autoimmune parathyroid destruction",
+                    "Parathyroid adenoma"
                 ],
-                correct: 0,
-                explanation: "This sigmoid-shaped curve demonstrates how hemoglobin saturation changes with PO2, facilitating oxygen loading in lungs and unloading in tissues."
+                correct: 1,
+                explanation: "Pseudohypoparathyroidism features end-organ resistance to PTH (especially kidney), with high PTH levels but hypocalcemia and hyperphosphatemia.",
+                memoryTip: "Pseudohypoparathyroidism = high PTH + hypocalcemia (resistance); Hypoparathyroidism = low PTH + hypocalcemia"
             },
             {
-                question: "176. A right shift in the oxygen-hemoglobin curve indicates:",
+                question: "Sulfonylureas (e.g., glyburide) act by:",
                 options: [
-                    "Decreased hemoglobin affinity for oxygen",
-                    "Increased hemoglobin affinity for oxygen", 
-                    "No change in oxygen binding",
-                    "Complete oxygen saturation"
+                    "Increasing insulin sensitivity",
+                    "Stimulating insulin secretion from beta cells",
+                    "Inhibiting hepatic gluconeogenesis",
+                    "Delaying carbohydrate absorption"
                 ],
-                correct: 0,
-                explanation: "A right shift (Bohr effect) occurs with increased temperature, CO2, H+, or 2,3-DPG, facilitating oxygen unloading in tissues."
+                correct: 1,
+                explanation: "Sulfonylureas stimulate insulin secretion by closing ATP-sensitive K+ channels in beta cells, causing depolarization and insulin release.",
+                memoryTip: "Sulfonylureas = stimulate insulin secretion (risk of hypoglycemia, weight gain)"
             },
             {
-                question: "177. The majority of carbon dioxide is transported in blood as:",
+                question: "DiGeorge syndrome involves:",
                 options: [
-                    "Bicarbonate ions (HCO3-)",
-                    "Dissolved CO2", 
-                    "Carbamino compounds",
-                    "Carbon monoxide"
+                    "Parathyroid hyperplasia and hypercalcemia",
+                    "Parathyroid and thymus absence (third/fourth pouch defect)",
+                    "Pancreatic islet cell tumors",
+                    "Adrenal insufficiency"
                 ],
-                correct: 0,
-                explanation: "About 70% of CO2 is transported as bicarbonate ions, 23% as carbamino compounds with hemoglobin, and 7% dissolved in plasma."
+                correct: 1,
+                explanation: "DiGeorge syndrome = 22q11.2 deletion → third/fourth pharyngeal pouch defects → absent parathyroids (hypocalcemia) and thymus (T-cell deficiency).",
+                memoryTip: "DiGeorge = CATCH-22: Cardiac defects, Abnormal facies, Thymic aplasia, Cleft palate, Hypocalcemia (22q11 deletion)"
             },
             {
-                question: "178. The primary center for respiratory control is located in the:",
+                question: "Hyperosmolar hyperglycemic state (HHS) differs from DKA by:",
                 options: [
-                    "Medulla oblongata",
-                    "Pons", 
-                    "Cerebral cortex",
-                    "Hypothalamus"
+                    "Higher glucose, no ketoacidosis",
+                    "Lower glucose, with ketoacidosis",
+                    "Similar glucose with ketoacidosis",
+                    "Hypoglycemia with ketosis"
                 ],
                 correct: 0,
-                explanation: "The medullary respiratory center contains the dorsal respiratory group (inspiration) and ventral respiratory group (expiration)."
+                explanation: "HHS features extreme hyperglycemia (>600 mg/dL), hyperosmolarity, dehydration, but no significant ketoacidosis (some insulin prevents lipolysis).",
+                memoryTip: "HHS = extreme hyperglycemia, hyperosmolar, dehydration, NO ketoacidosis; DKA = hyperglycemia + ketoacidosis"
             },
             {
-                question: "179. Chemoreceptors that monitor blood gases are located in the:",
+                question: "PTH increases serum phosphate by:",
                 options: [
-                    "Carotid and aortic bodies and medulla",
-                    "Lungs only", 
-                    "Heart chambers",
-                    "Pulmonary arteries"
+                    "Increasing renal phosphate reabsorption",
+                    "Increasing intestinal phosphate absorption",
+                    "Increasing bone phosphate resorption",
+                    "Actually, PTH decreases serum phosphate"
                 ],
-                correct: 0,
-                explanation: "Peripheral chemoreceptors (carotid and aortic bodies) detect changes in PO2, PCO2, and pH, while central chemoreceptors in the medulla primarily respond to CO2 changes."
+                correct: 3,
+                explanation: "PTH decreases serum phosphate by increasing renal phosphate excretion (phosphaturic effect), despite increasing phosphate release from bone.",
+                memoryTip: "PTH effect on phosphate: INCREASES renal excretion → DECREASES serum phosphate"
             },
             {
-                question: "180. The Hering-Breuer reflex:",
+                question: "C-peptide measurement is useful for:",
                 options: [
-                    "Prevents overinflation of the lungs",
-                    "Increases respiratory rate during exercise", 
-                    "Regulates blood pressure",
-                    "Controls heart rate"
+                    "Assessing insulin resistance",
+                    "Differentiating type 1 vs type 2 diabetes",
+                    "Measuring glycemic control",
+                    "Assessing glucagon secretion"
                 ],
-                correct: 0,
-                explanation: "Stretch receptors in the bronchi and bronchioles initiate this reflex to inhibit inspiration when lungs are adequately inflated."
+                correct: 1,
+                explanation: "C-peptide reflects endogenous insulin production. Low in type 1 DM (beta cell destruction), normal/high in type 2 DM (insulin resistance with compensation).",
+                memoryTip: "C-peptide = marker of endogenous insulin production"
             },
             {
-                question: "181. The primary determinant of peripheral vascular resistance is:",
+                question: "Primary hyperparathyroidism most commonly results from:",
                 options: [
-                    "Arteriolar diameter",
-                    "Blood viscosity", 
-                    "Vessel length",
-                    "Heart rate"
+                    "Parathyroid hyperplasia",
+                    "Parathyroid adenoma",
+                    "Parathyroid carcinoma",
+                    "Chronic kidney disease"
                 ],
-                correct: 0,
-                explanation: "According to Poiseuille's law, resistance is inversely proportional to the fourth power of the radius, making arteriolar diameter the most important factor."
+                correct: 1,
+                explanation: "Primary hyperparathyroidism is most often caused by a single parathyroid adenoma (85%), less commonly hyperplasia (15%), rarely carcinoma (<1%).",
+                memoryTip: "Primary hyperparathyroidism = adenoma (most common) → high calcium, low phosphate"
             },
             {
-                question: "182. The Valsalva maneuver:",
+                question: "Diabetic nephropathy is characterized by:",
                 options: [
-                    "Increases intrathoracic pressure and affects venous return",
-                    "Decreases heart rate", 
-                    "Increases lung compliance",
-                    "Enhances gas exchange"
+                    "Nephritic syndrome",
+                    "Nephrotic syndrome with Kimmelstiel-Wilson nodules",
+                    "Acute tubular necrosis",
+                    "Renal artery stenosis"
                 ],
-                correct: 0,
-                explanation: "Forced expiration against a closed glottis increases intrathoracic pressure, reducing venous return and initially increasing then decreasing blood pressure."
+                correct: 1,
+                explanation: "Diabetic nephropathy shows nodular glomerulosclerosis (Kimmelstiel-Wilson nodules), proteinuria, progressing to nephrotic syndrome and renal failure.",
+                memoryTip: "Diabetic nephropathy = Kimmelstiel-Wilson nodules (nodular glomerulosclerosis)"
             },
             {
-                question: "183. The coronary arteries fill primarily during:",
+                question: "Vitamin D deficiency causes:",
                 options: [
-                    "Diastole",
-                    "Systole", 
-                    "Both systole and diastole equally",
-                    "Atrial contraction"
+                    "Hypocalcemia and hypophosphatemia",
+                    "Hypocalcemia and hyperphosphatemia",
+                    "Hypercalcemia and hypophosphatemia",
+                    "Hypercalcemia and hyperphosphatemia"
                 ],
                 correct: 0,
-                explanation: "Coronary blood flow occurs mainly during diastole when the heart muscle is relaxed and not compressing the coronary vessels."
+                explanation: "Vitamin D deficiency → impaired intestinal calcium/phosphate absorption → hypocalcemia (stimulates PTH) and hypophosphatemia.",
+                memoryTip: "Vitamin D deficiency → low calcium & phosphate → secondary hyperparathyroidism"
             },
             {
-                question: "184. The most important factor regulating cerebral blood flow is:",
+                question: "Gestational diabetes screening typically uses:",
                 options: [
-                    "Arterial PCO2",
-                    "Arterial PO2", 
-                    "Systemic blood pressure",
-                    "Neural control"
+                    "Fasting glucose only",
+                    "Oral glucose tolerance test (OGTT)",
+                    "HbA1c measurement",
+                    "Random glucose test"
                 ],
-                correct: 0,
-                explanation: "Cerebral blood flow is exquisitely sensitive to PCO2, with hypercapnia causing vasodilation and hypocapnia causing vasoconstriction."
+                correct: 1,
+                explanation: "Gestational diabetes diagnosed with OGTT: 75g glucose load, check glucose at 1 and 2 hours. Screened at 24-28 weeks gestation.",
+                memoryTip: "Gestational DM screening = 75g OGTT at 24-28 weeks"
             },
             {
-                question: "185. The renin-angiotensin-aldosterone system (RAAS) is activated by:",
+                question: "Osteitis fibrosa cystica is seen in:",
                 options: [
-                    "Decreased renal perfusion",
-                    "Increased blood pressure", 
-                    "Hypernatremia",
-                    "Respiratory alkalosis"
+                    "Hypoparathyroidism",
+                    "Primary hyperparathyroidism",
+                    "Vitamin D deficiency",
+                    "Osteoporosis"
                 ],
-                correct: 0,
-                explanation: "RAAS is triggered by low renal perfusion pressure, sympathetic stimulation, or low sodium delivery to the macula densa, ultimately increasing blood pressure."
+                correct: 1,
+                explanation: "Osteitis fibrosa cystica = brown tumors from excessive bone resorption in primary hyperparathyroidism. 'Bone hunger' with subperiosteal resorption.",
+                memoryTip: "Osteitis fibrosa cystica = hyperparathyroidism bone changes (brown tumors)"
             },
             {
-                question: "186. The primary function of the pulmonary circulation is:",
+                question: "Glucagon-like peptide-1 (GLP-1) agonists (e.g., exenatide) work by:",
                 options: [
-                    "Gas exchange",
-                    "Nutrient delivery to lung tissue", 
-                    "Hormone transport",
-                    "Immune function"
+                    "Stimulating insulin secretion in glucose-dependent manner",
+                    "Increasing hepatic gluconeogenesis",
+                    "Blocking insulin receptors",
+                    "Inhibiting glucagon secretion only"
                 ],
                 correct: 0,
-                explanation: "The pulmonary circulation brings deoxygenated blood to the alveoli for oxygenation and CO2 elimination, with much lower pressure than systemic circulation."
+                explanation: "GLP-1 agonists enhance glucose-dependent insulin secretion, suppress glucagon, slow gastric emptying, promote satiety. Lower hypoglycemia risk.",
+                memoryTip: "GLP-1 agonists = glucose-dependent insulin secretion, weight loss benefit"
             },
             {
-                question: "187. Ventilation-perfusion (V/Q) matching refers to:",
+                question: "Hypomagnesemia can cause:",
                 options: [
-                    "The relationship between alveolar ventilation and pulmonary blood flow",
-                    "Heart rate and stroke volume coordination", 
-                    "Oxygen and carbon dioxide exchange",
-                    "Systemic and pulmonary circulation balance"
+                    "Increased PTH secretion",
+                    "Impaired PTH secretion and action",
+                    "Increased calcitonin secretion",
+                    "Vitamin D resistance"
                 ],
-                correct: 0,
-                explanation: "Optimal gas exchange requires matching of ventilation (V) and perfusion (Q), with a normal V/Q ratio of approximately 0.8."
+                correct: 1,
+                explanation: "Severe hypomagnesemia impairs both PTH secretion (from parathyroids) and PTH action (on target tissues), causing refractory hypocalcemia.",
+                memoryTip: "Hypomagnesemia → impairs PTH secretion AND action → hypocalcemia"
             },
             {
-                question: "188. Hypoxic pulmonary vasoconstriction:",
+                question: "Microvascular complications of diabetes include all EXCEPT:",
                 options: [
-                    "Diverts blood from poorly ventilated alveoli",
-                    "Increases blood flow to hypoxic areas", 
-                    "Decreases pulmonary artery pressure",
-                    "Enhances oxygen diffusion"
+                    "Retinopathy",
+                    "Nephropathy",
+                    "Neuropathy",
+                    "Coronary artery disease"
                 ],
-                correct: 0,
-                explanation: "This unique response of pulmonary vessels constricts in response to alveolar hypoxia, redirecting blood to better-ventilated areas for more efficient gas exchange."
+                correct: 3,
+                explanation: "Microvascular complications: retinopathy, nephropathy, neuropathy. Macrovascular: coronary artery disease, cerebrovascular disease, peripheral arterial disease.",
+                memoryTip: "Diabetes microvascular: Retina, Kidney, Nerves; Macrovascular: Heart, Brain, Legs"
             },
             {
-                question: "189. The Fick principle states that:",
+                question: "Familial hypocalciuric hypercalcemia (FHH) involves:",
                 options: [
-                    "Oxygen consumption equals blood flow times arteriovenous oxygen difference",
-                    "Cardiac output equals heart rate times stroke volume", 
-                    "Blood flow is proportional to pressure gradient and inversely proportional to resistance",
-                    "Gas diffusion is proportional to surface area and concentration gradient"
+                    "Inactivating CaSR mutation → high calcium, low urine calcium",
+                    "Activating CaSR mutation → low calcium, high urine calcium",
+                    "PTH receptor mutation",
+                    "Vitamin D receptor defect"
                 ],
                 correct: 0,
-                explanation: "The Fick principle: VO2 = CO × (CaO2 - CvO2), allowing calculation of cardiac output from oxygen consumption and arteriovenous oxygen difference."
+                explanation: "FHH = autosomal dominant inactivating CaSR mutation → parathyroids 'think' calcium is low → mild hypercalcemia with low urine calcium excretion.",
+                memoryTip: "FHH = inactivating CaSR mutation → mild hypercalcemia, low urine calcium, benign course"
             },
             {
-                question: "190. The most important factor in determining tissue oxygen delivery is:",
+                question: "The 'dawn phenomenon' in diabetes refers to:",
                 options: [
-                    "Cardiac output",
-                    "Hemoglobin concentration", 
-                    "Arterial oxygen saturation",
-                    "Blood pH"
+                    "Morning hypoglycemia",
+                    "Early morning hyperglycemia due to hormone surges",
+                    "Evening glucose elevation",
+                    "Postprandial glucose spikes"
                 ],
-                correct: 0,
-                explanation: "While all factors contribute, cardiac output has the greatest impact on oxygen delivery (DO2 = CO × CaO2 × 10)."
+                correct: 1,
+                explanation: "Dawn phenomenon = early morning (4-8 AM) hyperglycemia from growth hormone/cortisol surges, requiring increased insulin.",
+                memoryTip: "Dawn phenomenon = morning hormone surges → hyperglycemia"
             },
             {
-                question: "191. The primary determinant of lung compliance is:",
+                question: "Thiazolidinediones (e.g., pioglitazone) act by:",
                 options: [
-                    "Elastic recoil of lung tissue and surface tension",
-                    "Chest wall mobility", 
-                    "Respiratory muscle strength",
-                    "Airway resistance"
+                    "Stimulating insulin secretion",
+                    "Activating PPAR-γ receptors → increasing insulin sensitivity",
+                    "Inhibiting intestinal carbohydrate absorption",
+                    "Increasing glucagon secretion"
                 ],
-                correct: 0,
-                explanation: "Lung compliance depends on the elastic fibers in lung tissue and the surface tension at the air-liquid interface in alveoli."
+                correct: 1,
+                explanation: "Thiazolidinediones activate PPAR-γ nuclear receptors, increasing insulin sensitivity (especially adipose tissue), decreasing hepatic glucose output.",
+                memoryTip: "Thiazolidinediones = PPAR-γ agonists → insulin sensitizers (risk: fluid retention, weight gain)"
             },
             {
-                question: "192. Forced expiratory volume in 1 second (FEV1) is used to assess:",
+                question: "Hypercalcemia of malignancy most commonly results from:",
                 options: [
-                    "Airway obstruction",
-                    "Lung compliance", 
-                    "Gas exchange efficiency",
-                    "Respiratory muscle strength"
+                    "PTH secretion by tumors",
+                    "PTHrP (parathyroid hormone-related protein) secretion",
+                    "Vitamin D secretion by tumors",
+                    "Calcitonin deficiency"
                 ],
-                correct: 0,
-                explanation: "FEV1 measures the volume of air forcefully exhaled in the first second and is reduced in obstructive lung diseases like asthma and COPD."
+                correct: 1,
+                explanation: "Malignancy-associated hypercalcemia usually from PTHrP secretion (squamous cell lung CA, breast, renal cell), mimicking PTH effects.",
+                memoryTip: "Malignancy hypercalcemia = PTHrP (most common), bone metastases, lymphoma (1,25-OH vit D)"
             },
             {
-                question: "193. The chloride shift refers to:",
+                question: "Diabetic autonomic neuropathy may cause:",
                 options: [
-                    "Exchange of chloride for bicarbonate in red blood cells",
-                    "Sodium-chloride cotransport in kidneys", 
-                    "Chloride secretion in sweat glands",
-                    "Chloride movement in neurons"
+                    "Gastroparesis, orthostatic hypotension, erectile dysfunction",
+                    "Peripheral edema, hypertension, tachycardia",
+                    "Hyperhidrosis, muscle spasms, hyperreflexia",
+                    "Constipation only"
                 ],
                 correct: 0,
-                explanation: "The chloride shift maintains electrical neutrality when bicarbonate leaves red blood cells during CO2 transport, with chloride ions moving into the cells."
+                explanation: "Diabetic autonomic neuropathy: gastroparesis (delayed gastric emptying), orthostatic hypotension, erectile dysfunction, neurogenic bladder, cardiac denervation.",
+                memoryTip: "Diabetic autonomic neuropathy: Stomach (gastroparesis), Heart (orthostasis), Bladder, Sexual function"
             },
             {
-                question: "194. The primary stimulus for increased ventilation during exercise is:",
+                question: "Calcimimetic drugs (e.g., cinacalcet) work by:",
                 options: [
-                    "Neurogenic mechanisms and proprioceptors",
-                    "Decreased PO2", 
-                    "Increased PCO2",
-                    "Lactic acid production"
+                    "Increasing CaSR sensitivity to calcium → decreases PTH",
+                    "Blocking PTH receptors",
+                    "Increasing vitamin D production",
+                    "Stimulating calcitonin secretion"
                 ],
                 correct: 0,
-                explanation: "During moderate exercise, ventilation increases primarily due to neural signals from the motor cortex and proprioceptors, not chemical changes in blood gases."
+                explanation: "Calcimimetics (cinacalcet) activate CaSR, making parathyroids more sensitive to calcium → inhibits PTH secretion. Used in hyperparathyroidism.",
+                memoryTip: "Calcimimetics = activate CaSR → lower PTH; Used in secondary hyperparathyroidism (CKD)"
             },
             {
-                question: "195. The most important buffer in blood is:",
+                question: "Insulin therapy in type 2 diabetes is typically indicated when:",
                 options: [
-                    "Bicarbonate buffer system",
-                    "Hemoglobin", 
-                    "Phosphate buffer",
-                    "Plasma proteins"
+                    "First diagnosed",
+                    "Oral agents fail to maintain glycemic control",
+                    "Patient prefers injections",
+                    "Only during hospitalizations"
                 ],
-                correct: 0,
-                explanation: "The bicarbonate buffer system (H2CO3/HCO3-) is the most important extracellular buffer due to its high concentration and the ability to excrete CO2 through respiration."
+                correct: 1,
+                explanation: "Insulin added to type 2 DM when oral agents/metformin fail (beta cell function declines). Also used initially if severe hyperglycemia/HbA1c >10%.",
+                memoryTip: "Insulin in type 2 DM = when oral agents fail or severe hyperglycemia initially"
             },
             {
-                question: "196. The diving reflex includes:",
+                question: "Hungry bone syndrome occurs after:",
                 options: [
-                    "Bradycardia, peripheral vasoconstriction, and blood shift",
-                    "Tachycardia and increased cardiac output", 
-                    "Hyperventilation and vasodilation",
-                    "Increased metabolism and oxygen consumption"
+                    "Parathyroidectomy for hyperparathyroidism",
+                    "Pancreatectomy",
+                    "Thyroidectomy",
+                    "Adrenalectomy"
                 ],
                 correct: 0,
-                explanation: "The mammalian diving reflex conserves oxygen during submersion through bradycardia, peripheral vasoconstriction, and blood redistribution to vital organs."
+                explanation: "Hungry bone syndrome = severe hypocalcemia/hypophosphatemia after parathyroidectomy for hyperparathyroidism, as bones rapidly take up minerals.",
+                memoryTip: "Hungry bone syndrome = post-parathyroidectomy hypocalcemia (bones 'hungry' for calcium)"
             },
             {
-                question: "197. The primary function of the lymphatic system in circulation is:",
+                question: "Alpha-glucosidase inhibitors (e.g., acarbose) work by:",
                 options: [
-                    "Return of interstitial fluid to the bloodstream",
-                    "Oxygen transport", 
-                    "Hormone distribution",
-                    "Immune cell production only"
+                    "Increasing insulin secretion",
+                    "Delaying intestinal carbohydrate absorption",
+                    "Increasing insulin sensitivity",
+                    "Stimulating glucagon secretion"
                 ],
-                correct: 0,
-                explanation: "The lymphatic system returns filtered fluid and proteins from tissues to the venous system, maintaining fluid balance and preventing edema."
+                correct: 1,
+                explanation: "Acarbose inhibits intestinal alpha-glucosidase enzymes, delaying carbohydrate digestion/absorption, reducing postprandial glucose rise.",
+                memoryTip: "Acarbose = delays carbohydrate absorption (GI side effects common)"
             },
             {
-                question: "198. Starling's forces govern:",
+                question: "Nephrogenic diabetes insipidus can be caused by:",
                 options: [
-                    "Fluid movement across capillary walls",
-                    "Cardiac muscle contraction", 
-                    "Ventilation-perfusion matching",
-                    "Gas diffusion in alveoli"
+                    "Lithium toxicity",
+                    "ADH deficiency",
+                    "Pituitary tumor",
+                    "SIADH"
                 ],
                 correct: 0,
-                explanation: "Starling's equation describes how hydrostatic and oncotic pressures determine net fluid movement between capillaries and tissues."
+                explanation: "Nephrogenic DI = renal resistance to ADH. Causes: lithium, hypercalcemia, hypokalemia, genetic (aquaporin-2 or V2 receptor defects).",
+                memoryTip: "Nephrogenic DI causes: Li (lithium), Ca (hypercalcemia), K (hypokalemia)"
             },
             {
-                question: "199. The most important factor in venous return is:",
+                question: "The Somogyi effect refers to:",
                 options: [
-                    "Skeletal muscle pump",
-                    "Respiratory pump", 
-                    "Venous valves",
-                    "Gravity"
+                    "Morning hyperglycemia from overnight hypoglycemia (rebound)",
+                    "Morning hyperglycemia from hormone surges",
+                    "Postprandial hyperglycemia",
+                    "Evening hypoglycemia"
                 ],
                 correct: 0,
-                explanation: "The skeletal muscle pump, assisted by venous valves, is the primary mechanism promoting venous return, especially during exercise."
+                explanation: "Somogyi effect = rebound hyperglycemia after untreated nocturnal hypoglycemia (counterregulatory hormone response). Different from dawn phenomenon.",
+                memoryTip: "Somogyi = hypoglycemia → rebound hyperglycemia; Dawn = hormone surges → hyperglycemia"
             },
             {
-                question: "200. The primary determinant of pulse pressure is:",
+                question: "Chronic kidney disease-mineral bone disorder (CKD-MBD) involves:",
                 options: [
-                    "Stroke volume and arterial compliance",
-                    "Heart rate", 
-                    "Peripheral resistance",
-                    "Blood viscosity"
+                    "Secondary hyperparathyroidism, vitamin D deficiency, bone disease",
+                    "Primary hyperparathyroidism only",
+                    "Osteoporosis only",
+                    "Rickets only"
                 ],
                 correct: 0,
-                explanation: "Pulse pressure (systolic - diastolic) is mainly determined by stroke volume and the compliance of the large arteries."
+                explanation: "CKD-MBD: impaired renal 1α-hydroxylation → low active vitamin D → hypocalcemia → secondary hyperparathyroidism → renal osteodystrophy.",
+                memoryTip: "CKD-MBD triad: Secondary hyperparathyroidism + Vitamin D deficiency + Bone disease"
             }
         ];
 
-        let currentQuestion = 0;
-        let userAnswers = new Array(physiologyQuestions.length).fill(null);
-        let score = 0;
+        // DOM elements
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results-container');
+        const questionNumber = document.getElementById('question-number');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const memoryTipText = document.getElementById('memory-tip-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+        const timeDisplay = document.getElementById('time');
+        const scoreDisplay = document.getElementById('score');
+        const scoreText = document.getElementById('score-text');
+        const totalQuestions = document.getElementById('total-questions');
+        const correctAnswers = document.getElementById('correct-answers');
+        const incorrectAnswers = document.getElementById('incorrect-answers');
+        const percentage = document.getElementById('percentage');
+        const timeTaken = document.getElementById('time-taken');
+        const questionReview = document.getElementById('question-review');
+        const restartBtn = document.getElementById('restart-btn');
 
-        function loadQuestion() {
-            const question = physiologyQuestions[currentQuestion];
-            document.getElementById('questionText').textContent = question.question;
+        // Quiz state
+        let currentQuestion = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let shuffledOptions = new Array(questions.length).fill(null);
+        let shuffledCorrectIndex = new Array(questions.length).fill(null);
+        let score = 0;
+        let timer;
+        let timeLeft = 60 * 60; // 60 minutes in seconds
+        let quizCompleted = false;
+
+        // Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Get shuffled options for a question
+        function getShuffledOptions(questionIndex) {
+            if (!shuffledOptions[questionIndex]) {
+                const question = questions[questionIndex];
+                // Create array of indices [0, 1, 2, 3]
+                const indices = [0, 1, 2, 3];
+                // Shuffle the indices
+                const shuffledIndices = shuffleArray(indices);
+                
+                // Store shuffled options
+                shuffledOptions[questionIndex] = shuffledIndices.map(idx => question.options[idx]);
+                
+                // Find where the correct answer ended up after shuffling
+                shuffledCorrectIndex[questionIndex] = shuffledIndices.indexOf(question.correct);
+            }
             
-            const optionsContainer = document.getElementById('optionsContainer');
+            return {
+                options: shuffledOptions[questionIndex],
+                correctIndex: shuffledCorrectIndex[questionIndex]
+            };
+        }
+
+        // Initialize quiz
+        function initQuiz() {
+            displayQuestion();
+            startTimer();
+            updateProgress();
+        }
+
+        // Display current question
+        function displayQuestion() {
+            const question = questions[currentQuestion];
+            const shuffled = getShuffledOptions(currentQuestion);
+            
+            questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            questionText.textContent = question.question;
+            
             optionsContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'option-btn';
-                button.textContent = option;
+            shuffled.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.dataset.index = index; // Store the shuffled index
                 
                 if (userAnswers[currentQuestion] === index) {
-                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+                    optionElement.classList.add('selected');
                 }
                 
-                button.onclick = () => selectOption(index);
-                optionsContainer.appendChild(button);
+                optionElement.textContent = option;
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionElement);
             });
             
-            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${physiologyQuestions.length}`;
-            document.getElementById('progress').style.width = `${((currentQuestion + 1) / physiologyQuestions.length) * 100}%`;
-            
-            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
-            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
-            
-            const explanation = document.getElementById('explanation');
+            // Show/hide explanation
             if (userAnswers[currentQuestion] !== null) {
-                explanation.textContent = question.explanation;
-                explanation.classList.add('show');
+                showExplanation();
             } else {
-                explanation.classList.remove('show');
+                explanationContainer.style.display = 'none';
             }
+            
+            // Update button states
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.disabled = false;
+            submitBtn.style.display = currentQuestion === questions.length - 1 ? 'block' : 'none';
         }
 
-        function selectOption(optionIndex) {
-            userAnswers[currentQuestion] = optionIndex;
-            const question = physiologyQuestions[currentQuestion];
-            const options = document.querySelectorAll('.option-btn');
+        // Select an option
+        function selectOption(shuffledIndex) {
+            if (quizCompleted) return;
             
-            options.forEach((button, index) => {
-                button.classList.remove('correct', 'wrong');
-                if (index === question.correct) {
-                    button.classList.add('correct');
-                } else if (index === optionIndex && optionIndex !== question.correct) {
-                    button.classList.add('wrong');
+            userAnswers[currentQuestion] = shuffledIndex;
+            
+            // Update UI
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => option.classList.remove('selected'));
+            options[shuffledIndex].classList.add('selected');
+            
+            showExplanation();
+        }
+
+        // Show explanation for current question
+        function showExplanation() {
+            const question = questions[currentQuestion];
+            const shuffled = getShuffledOptions(currentQuestion);
+            
+            explanationText.textContent = question.explanation;
+            memoryTipText.textContent = question.memoryTip;
+            explanationContainer.style.display = 'block';
+            
+            // Highlight correct/incorrect answers
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                option.classList.remove('correct', 'incorrect');
+                if (index === shuffled.correctIndex) {
+                    option.classList.add('correct');
+                } else if (index === userAnswers[currentQuestion] && index !== shuffled.correctIndex) {
+                    option.classList.add('incorrect');
                 }
             });
-            
-            document.getElementById('explanation').textContent = question.explanation;
-            document.getElementById('explanation').classList.add('show');
-            document.getElementById('nextBtn').disabled = false;
         }
 
+        // Navigate to next question
         function nextQuestion() {
-            if (currentQuestion < physiologyQuestions.length - 1) {
+            if (currentQuestion < questions.length - 1) {
                 currentQuestion++;
-                loadQuestion();
-            } else {
-                calculateScore();
+                displayQuestion();
+                updateProgress();
             }
         }
 
-        function previousQuestion() {
+        // Navigate to previous question
+        function prevQuestion() {
             if (currentQuestion > 0) {
                 currentQuestion--;
-                loadQuestion();
+                displayQuestion();
+                updateProgress();
             }
         }
 
-        function calculateScore() {
-            score = 0;
-            physiologyQuestions.forEach((question, index) => {
-                if (userAnswers[index] === question.correct) {
-                    score++;
-                }
-            });
-            
-            const scoreDisplay = document.getElementById('scoreDisplay');
-            scoreDisplay.innerHTML = `
-                <h3>Quiz Completed! 🎉</h3>
-                <p>Your score: <strong>${score}/${physiologyQuestions.length}</strong> (${Math.round((score/physiologyQuestions.length)*100)}%)</p>
-                <p>${score === physiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
-                    score >= physiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
-                    'Keep studying! You\'ll improve! 💪'}</p>
-            `;
-            scoreDisplay.style.display = 'block';
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `${currentQuestion + 1}/${questions.length}`;
         }
 
-        loadQuestion();
+        // Start timer
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        // Submit quiz
+        function submitQuiz() {
+            clearInterval(timer);
+            quizCompleted = true;
+            
+            // Calculate score
+            score = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] !== null) {
+                    const shuffled = getShuffledOptions(i);
+                    if (userAnswers[i] === shuffled.correctIndex) {
+                        score++;
+                    }
+                }
+            }
+            
+            // Display results
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            scoreDisplay.textContent = `${score}/${questions.length}`;
+            totalQuestions.textContent = questions.length;
+            correctAnswers.textContent = score;
+            incorrectAnswers.textContent = questions.length - score;
+            percentage.textContent = `${((score / questions.length) * 100).toFixed(1)}%`;
+            
+            const minutesTaken = Math.floor((60 * 60 - timeLeft) / 60);
+            const secondsTaken = (60 * 60 - timeLeft) % 60;
+            timeTaken.textContent = `${minutesTaken.toString().padStart(2, '0')}:${secondsTaken.toString().padStart(2, '0')}`;
+            
+            // Set score text
+            if (score >= questions.length * 0.8) {
+                scoreText.textContent = "Excellent! You have mastered Parathyroid & Endocrine Pancreas physiology.";
+            } else if (score >= questions.length * 0.6) {
+                scoreText.textContent = "Good job! You have a solid understanding of calcium homeostasis and diabetes.";
+            } else if (score >= questions.length * 0.5) {
+                scoreText.textContent = "You passed! Review the explanations to strengthen your knowledge.";
+            } else {
+                scoreText.textContent = "Review the materials on parathyroid function and pancreatic endocrine physiology.";
+            }
+            
+            // Generate question review
+            generateQuestionReview();
+        }
+
+        // Generate question review
+        function generateQuestionReview() {
+            questionReview.innerHTML = '<h3>Question Review</h3>';
+            
+            questions.forEach((question, index) => {
+                const shuffled = getShuffledOptions(index);
+                const reviewItem = document.createElement('div');
+                reviewItem.className = 'review-item';
+                
+                const reviewQuestion = document.createElement('div');
+                reviewQuestion.className = 'review-question';
+                reviewQuestion.textContent = `${index + 1}. ${question.question}`;
+                
+                const userAnswer = document.createElement('div');
+                userAnswer.className = 'review-answer';
+                if (userAnswers[index] !== null) {
+                    userAnswer.innerHTML = `Your answer: <span class="user-answer">${shuffled.options[userAnswers[index]]}</span>`;
+                } else {
+                    userAnswer.innerHTML = `Your answer: <span class="user-answer">Not answered</span>`;
+                }
+                
+                const correctAnswer = document.createElement('div');
+                correctAnswer.className = 'review-answer';
+                correctAnswer.innerHTML = `Correct answer: <span class="correct-answer">${shuffled.options[shuffled.correctIndex]}</span>`;
+                
+                reviewItem.appendChild(reviewQuestion);
+                reviewItem.appendChild(userAnswer);
+                reviewItem.appendChild(correctAnswer);
+                
+                questionReview.appendChild(reviewItem);
+            });
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            shuffledOptions = new Array(questions.length).fill(null);
+            shuffledCorrectIndex = new Array(questions.length).fill(null);
+            score = 0;
+            timeLeft = 60 * 60;
+            quizCompleted = false;
+            
+            quizContainer.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            
+            initQuiz();
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', prevQuestion);
+        nextBtn.addEventListener('click', nextQuestion);
+        submitBtn.addEventListener('click', submitQuiz);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        // Start the quiz
+        initQuiz();
     </script>
 </body>
 </html>
