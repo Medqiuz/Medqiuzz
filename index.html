@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedQuiz- Registration</title>
+    <title>MedQuiz - Registration / Login</title>
 
 <style>
 /* Reset & Base */
@@ -33,7 +33,7 @@ body {
     text-align: center;
 }
 
-/* Heading */
+/* Headings */
 .container h1 {
     color: #1a6eb5;
     margin-bottom: 10px;
@@ -49,6 +49,7 @@ body {
 form input[type="text"],
 form input[type="tel"],
 form input[type="email"],
+form input[type="password"],
 form select {
     width: 100%;
     padding: 12px 15px;
@@ -66,8 +67,8 @@ form select:focus {
     box-shadow: 0 0 8px rgba(26, 110, 181, 0.3);
 }
 
-/* Button */
-button#register-btn {
+/* Buttons */
+button {
     width: 100%;
     padding: 14px;
     margin-top: 15px;
@@ -80,7 +81,7 @@ button#register-btn {
     transition: all 0.2s ease-in-out;
 }
 
-button#register-btn:hover {
+button:hover {
     background-color: #155a91;
 }
 
@@ -131,6 +132,19 @@ button#register-btn:hover {
     text-decoration: underline;
 }
 
+/* Toggle Links */
+.toggle-link {
+    color: #1a6eb5;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.toggle-link:hover {
+    text-decoration: underline;
+}
+
 /* Responsive */
 @media screen and (max-width: 600px) {
     .container {
@@ -138,17 +152,15 @@ button#register-btn:hover {
     }
     
     form input,
-    button#register-btn {
+    button {
         font-size: 0.95em;
     }
 }
 </style>
 
-<!-- Correct PWA paths for GitHub Pages -->
+<!-- PWA & Icons -->
 <link rel="manifest" href="/Medqiuzz/manifest.json">
 <meta name="theme-color" content="#0a74da">
-
-<!-- Correct icon path -->
 <link rel="icon" sizes="192x192" href="/Medqiuzz/icon-192.png">
 </head>
 
@@ -157,6 +169,7 @@ button#register-btn:hover {
         <h1>MedQuiz</h1>
         <p>Secure Registration - Medical Education Portal</p>
 
+        <!-- Registration Form -->
         <form id="registration-form">
             <input type="text" id="fullName" placeholder="Full Name" required>
             <input type="tel" id="phone" placeholder="Phone Number" required>
@@ -204,21 +217,30 @@ button#register-btn:hover {
                 <p>Complete the payment process on our Telegram channel:</p>
                 <ol>
                     <li><a href="https://t.me/yerotechno" target="_blank">Join Telegram Channel</a></li>
-
                     <li>
-                        <h3>Pay</h3>
+                      <p><h3>Pay</h3>
                         <h2>100 birr</h2>
-                        <p>To CBE account:</p>
+                        To CBE account:
                         <h2>1000413257429</h2>
-                        <p>Account Holder: <strong>A/G</strong></p>
-                        <p>Then send the screenshot to Telegram number:</p>
+                        Account Holder: <strong>A/G</strong>
+                        Then send the screenshot to Telegram number:
                         <h2>+251718461632</h2>
                     </li>
-
                     <li>Contact admin: <strong>@Goodlife61</strong></li>
-                    <li>Receive your unique access code and return here</li>
+                    <li>Receive your unique access code and return here</p></li>
                 </ol>
             </div>
+
+            <span class="toggle-link" id="show-login">Already registered? Login here</span>
+        </form>
+
+        <!-- Login Form -->
+        <form id="login-form" style="display:none; margin-top:20px;">
+            <input type="email" id="loginEmail" placeholder="Email Address" required>
+            <input type="text" id="loginCode" placeholder="Access Code" required>
+            <button type="button" id="login-btn">Login</button>
+            <div id="login-message" class="message"></div>
+            <span class="toggle-link" id="show-register">Don't have an account? Register here</span>
         </form>
     </div>
 
@@ -227,20 +249,39 @@ button#register-btn:hover {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('register-btn');
+    const registerForm = document.getElementById('registration-form');
+    const loginForm = document.getElementById('login-form');
+    const showLogin = document.getElementById('show-login');
+    const showRegister = document.getElementById('show-register');
+
+    const registerBtn = document.getElementById('register-btn');
     const messageDiv = document.getElementById('message');
     const codeInstructions = document.getElementById('code-instructions');
 
+    const loginBtn = document.getElementById('login-btn');
+    const loginMessage = document.getElementById('login-message');
+
+    // Toggle forms
+    showLogin.addEventListener('click', () => {
+        registerForm.style.display = 'none';
+        loginForm.style.display = 'block';
+    });
+
+    showRegister.addEventListener('click', () => {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+    });
+
+    // Redirect if already authenticated
     if (window.authSystem.isAuthenticated()) {
         window.location.href = 'dashboard.html';
         return;
     }
 
-    btn.addEventListener('click', handleRegistration);
-
-    async function handleRegistration() {
-        btn.disabled = true;
-        btn.textContent = 'Processing...';
+    // Registration
+    registerBtn.addEventListener('click', async () => {
+        registerBtn.disabled = true;
+        registerBtn.textContent = 'Processing...';
         messageDiv.style.display = 'none';
         codeInstructions.style.display = 'none';
 
@@ -266,13 +307,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const userData = {
-                fullName,
-                phone,
-                university,
-                department,
-                year,
-                section,
-                email,
+                fullName, phone, university, department, year, section, email,
                 code: codeValidation.codeEntry.code,
                 registrationDate: new Date().toISOString()
             };
@@ -282,27 +317,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
             showMessage('✅ Registration successful! Redirecting...', 'success');
 
-            setTimeout(() => {
-                window.location.href = 'dashboard.html';
-            }, 1500);
+            setTimeout(() => window.location.href = 'dashboard.html', 1500);
 
         } catch (err) {
             showMessage(err.message, 'error');
         } finally {
-            btn.disabled = false;
-            btn.textContent = 'Complete Registration';
+            registerBtn.disabled = false;
+            registerBtn.textContent = 'Complete Registration';
         }
-    }
+    });
 
     function showMessage(msg, type) {
         messageDiv.textContent = msg;
         messageDiv.className = `message ${type}`;
         messageDiv.style.display = 'block';
     }
+
+    // Login
+    loginBtn.addEventListener('click', () => {
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Logging in...';
+        loginMessage.style.display = 'none';
+
+        const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+        const code = document.getElementById('loginCode').value.trim().toUpperCase();
+
+        try {
+            if (!email || !code) {
+                throw new Error('Please fill in all fields.');
+            }
+
+            const validLogin = window.authSystem.loginUser(email, code);
+            if (!validLogin.success) {
+                throw new Error(validLogin.message);
+            }
+
+            loginMessage.textContent = '✅ Login successful! Redirecting...';
+            loginMessage.className = 'message success';
+            loginMessage.style.display = 'block';
+
+            setTimeout(() => window.location.href = 'dashboard.html', 1000);
+
+        } catch (err) {
+            loginMessage.textContent = err.message;
+            loginMessage.className = 'message error';
+            loginMessage.style.display = 'block';
+        } finally {
+            loginBtn.disabled = false;
+            loginBtn.textContent = 'Login';
+        }
+    });
+
 });
 </script>
 
-<!-- Correct Service Worker Path for GitHub Pages -->
+<!-- Service Worker -->
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/Medqiuzz/service-worker.js')
