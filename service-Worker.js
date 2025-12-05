@@ -1,11 +1,12 @@
-const CACHE_NAME = 'app-cache-v1';
+const CACHE_NAME = 'medquiz-cache-v1';
+
 const FILES_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
-  '/icon-192.png',
-  '/icon-512.png'
+  '/Medqiuzz/',
+  '/Medqiuzz/index.html',
+  '/Medqiuzz/style.css',
+  '/Medqiuzz/script.js',
+  '/Medqiuzz/icon-192.png',
+  '/Medqiuzz/icon-512.png'
 ];
 
 // Install: cache app shell
@@ -38,19 +39,20 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
   // Registration API always needs Internet
-  if (url.pathname === '/api/register') {
+  if (url.pathname.endsWith('/api/register')) {
     event.respondWith(fetch(event.request));
     return;
   }
 
-  // Login API also needs Internet for first-time verification
-  if (url.pathname === '/api/login') {
+  // Login API also needs Internet
+  if (url.pathname.endsWith('/api/login')) {
     event.respondWith(fetch(event.request));
     return;
   }
 
   // Everything else: cache-first
   event.respondWith(
-    caches.match(event.request).then(response => response || fetch(event.request))
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
   );
 });
