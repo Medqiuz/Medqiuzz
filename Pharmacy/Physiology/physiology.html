@@ -14,6 +14,7 @@
     --card-bg: #ffffff;
     --text-dark: #333;
     --text-light: #555;
+    --success: #2ecc71;
 }
 
 /* Reset */
@@ -29,6 +30,7 @@ body {
     background-color: var(--light-bg);
     color: var(--text-dark);
     min-height: 100vh;
+    line-height: 1.6;
 }
 
 /* Header */
@@ -36,53 +38,70 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: #fff;
-    padding: 15px 25px;
+    padding: 18px 25px;
     border-radius: 0 0 15px 15px;
     flex-wrap: wrap;
+    box-shadow: 0 4px 12px rgba(0, 119, 204, 0.15);
 }
 
 .dashboard-header .header-content span {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 .dashboard-header .header-subtitle {
-    font-size: 0.9rem;
-    color: #e0e0e0;
-    margin-top: 3px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .logout-btn {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9);
     color: var(--primary);
-    padding: 8px 16px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 .logout-btn:hover {
-    background-color: var(--primary-dark);
-    color: #fff;
+    background-color: #fff;
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Breadcrumb */
 .breadcrumb {
-    padding: 15px 25px;
-    font-size: 0.9rem;
+    padding: 20px 25px;
+    font-size: 0.95rem;
+    background-color: var(--light-bg);
 }
 
 .breadcrumb a {
     text-decoration: none;
     color: var(--primary);
+    transition: color 0.2s;
+    font-weight: 500;
+}
+
+.breadcrumb a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
 }
 
 .breadcrumb .separator {
-    margin: 0 5px;
+    margin: 0 8px;
     color: var(--text-light);
+    font-weight: 300;
 }
 
 /* Overview card */
@@ -92,105 +111,179 @@ body {
 
 .overview-card {
     background-color: var(--card-bg);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+    border-left: 5px solid var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.overview-card:hover {
+    transform: translateY(-3px);
 }
 
 .overview-card h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .overview-card p {
     color: var(--text-light);
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+    max-width: 800px;
 }
 
 /* Stats */
 .subject-stats {
     display: flex;
-    gap: 20px;
+    gap: 30px;
+    margin-top: 20px;
 }
 
 .stat {
     text-align: center;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: rgba(0, 119, 204, 0.05);
+    min-width: 100px;
+    transition: background-color 0.3s;
+}
+
+.stat:hover {
+    background-color: rgba(0, 119, 204, 0.1);
 }
 
 .stat-number {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 5px;
 }
 
 .stat-label {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--text-light);
+    font-weight: 500;
 }
 
 /* Category title */
 .category-title {
     display: flex;
     align-items: center;
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin: 20px 25px 10px;
-    gap: 8px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin: 30px 25px 20px;
+    gap: 10px;
+    color: var(--text-dark);
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(0, 119, 204, 0.1);
 }
 
 /* Parts grid */
 .parts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 0 25px 30px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 0 25px 40px;
 }
 
 .part-card {
     background-color: var(--card-bg);
-    border-radius: 15px;
-    padding: 15px 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     text-decoration: none;
     color: var(--text-dark);
-    transition: 0.3s;
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
+    border-top: 4px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.part-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .part-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.part-card:hover::before {
+    opacity: 1;
 }
 
 /* Part header */
 .part-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    gap: 10px;
 }
 
 .part-header h4 {
-    font-size: 1rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.4;
+    flex: 1;
+}
+
+.part-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin: 10px 0 15px;
+    line-height: 1.5;
+    flex: 1;
 }
 
 .part-badge {
-    background-color: var(--secondary);
+    background: linear-gradient(135deg, var(--success) 0%, #27ae60 100%);
     color: #fff;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 0.75rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 /* Part info */
 .part-info {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--text-light);
-    margin-top: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.part-info span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
 }
 
 /* Protection overlay */
@@ -200,43 +293,153 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
 }
 
 .protection-modal {
     background-color: #fff;
-    padding: 25px 30px;
-    border-radius: 15px;
+    padding: 35px 40px;
+    border-radius: 20px;
     text-align: center;
-    max-width: 400px;
+    max-width: 420px;
     width: 90%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: modalAppear 0.5s ease-out;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.protection-modal h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.protection-modal p {
+    color: var(--text-light);
+    margin-bottom: 25px;
+    font-size: 1.05rem;
 }
 
 .protection-modal .btn-primary {
-    background-color: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: #fff;
-    padding: 8px 15px;
-    border-radius: 8px;
+    padding: 12px 30px;
+    border-radius: 12px;
     border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 119, 204, 0.3);
+}
+
+.protection-modal .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 119, 204, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 20px 15px;
+    }
+    
+    .header-content {
+        width: 100%;
+    }
+    
+    .logout-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .subject-stats {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .stat {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .parts-grid {
+        grid-template-columns: 1fr;
+        padding: 0 15px 30px;
+        gap: 20px;
+    }
+    
+    .overview-card, .breadcrumb, .category-title {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .overview-card h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .protection-modal {
+        padding: 25px 20px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .part-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .part-badge {
+        align-self: flex-start;
+    }
+}
+
+/* Fix for nested headings in cards */
+.part-card h1,
+.part-card h2 {
+    display: inline;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure all links have consistent cursor */
+a {
     cursor: pointer;
 }
 
-@media (max-width: 600px) {
-    .dashboard-header {
-        flex-direction: column;
-        gap: 10px;
-    }
-    .subject-stats {
-        flex-direction: column;
-        gap: 10px;
-    }
-    .parts-grid {
-        grid-template-columns: 1fr;
-    }
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
 }
     </style>
 </head>
@@ -292,64 +495,69 @@ body {
     <div class="category-title"><span>📚</span> Course Parts</div>
 
     <div class="parts-grid">
-              <a href="Note1.html" class="part-card">
+        <a href="Note1.html" class="part-card">
             <div class="part-header">
-                <h4> short note: 
-                A Comprehensive Guide GIT</h4>
+                <h4>Short Note: A Comprehensive Guide GIT</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p></p>
-            <div class="part-info"><span>🔬note1</span><span>⏱ reading</span></div>
+            <p>Detailed notes on gastrointestinal system physiology</p>
+            <div class="part-info"><span>🔬 Note 1</span><span>⏱ Reading</span></div>
         </a>
+        
         <a href="note2.html" class="part-card">
             <div class="part-header">
-                <h4>short note 2: Endocrine Mastery</h4>
+                <h4>Short Note 2: Endocrine Mastery</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>endocrine</p>
-            <div class="part-info"><span>🔬 note</span><span>⏱endocrine system</span></div>
+            <p>Comprehensive endocrine system notes and concepts</p>
+            <div class="part-info"><span>🔬 Note</span><span>⏱ Endocrine System</span></div>
         </a>
+        
         <a href="Part1.html" class="part-card">
             <div class="part-header">
-                <h4>Part 1:GIT exam </h4>
+                <h4>Part 1: GIT Exam</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>choice multiple exam</p>
+            <p>Multiple choice exam on gastrointestinal physiology</p>
             <div class="part-info"><span>🔬 40 Qs</span><span>⏱ 50 min</span></div>
         </a>
 
         <a href="Part2.html" class="part-card">
             <div class="part-header">
-                <h4>Part 2:<h1>GIT</h1> </h4>
+                <h4>Part 2: GIT Advanced</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>exam </p>
-            <div class="Part-info"><span>🔬 50+ Qs</span><span>⏱ 1hr min</span></div>
+            <p>Advanced gastrointestinal system examination</p>
+            <div class="part-info"><span>🔬 50+ Qs</span><span>⏱ 1 hr</span></div>
         </a>
 
         <a href="part3.html" class="part-card">
             <div class="part-header">
-                <h4>Part 3: ENDOCRINE</h4>
+                <h4>Part 3: Endocrine Basics</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>Hormone Basics & Pituitary Glan</p>
+            <p>Hormone Basics & Pituitary Gland</p>
             <div class="part-info"><span>🔬 40 Qs</span><span>⏱ 50 min</span></div>
         </a>
 
         <a href="Part4.html" class="part-card">
             <div class="part-header">
-                <h4>Part4 <h1>ENDOCRINE /h1> </h4>
-<p> Thyroid & Adrenal Glands </p>
-            <div class="part-info"><span>🔬 60+ Qs</span><span>⏱ 60 min</span></div>
-        </a>
-<a href="Part5.html" class="part-card">
-            <div class="part-header">
-                <h4>Part 5: <h2>ENDOCRINE </h2></h4>
+                <h4>Part 4: Endocrine Advanced</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>parathyroid gland and calcium hemostasis , endocrine pancrees and diabetes </p>
+            <p>Thyroid & Adrenal Glands</p>
+            <div class="part-info"><span>🔬 60+ Qs</span><span>⏱ 60 min</span></div>
+        </a>
+        
+        <a href="Part5.html" class="part-card">
+            <div class="part-header">
+                <h4>Part 5: Endocrine Systems</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>Parathyroid gland, calcium homeostasis, endocrine pancreas and diabetes</p>
             <div class="part-info"><span>🔬 40 Qs</span><span>⏱ 50 min</span></div>
-</a>
+        </a>
+        
         <a href="Part6.html" class="part-card">
             <div class="part-header">
                 <h4>Part 6: Renal & Gastrointestinal</h4>
@@ -358,41 +566,33 @@ body {
             <p>Kidney, filtration, GI motility, digestion</p>
             <div class="part-info"><span>🔬 40 Qs</span><span>⏱ 50 min</span></div>
         </a> 
+        
         <a href="Part7.html" class="part-card">
             <div class="part-header">
-                <h4>Part 7: Renal & Gastrointestinal</h4>
+                <h4>Part 7: Renal & Gastrointestinal II</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>Kidney, filtration, GI motility, digestion</p>
+            <p>Advanced renal and gastrointestinal physiology</p>
             <div class="part-info"><span>🔬 40 Qs</span><span>⏱ 50 min</span></div>
         </a>
+        
         <a href="#" class="part-card">
             <div class="part-header">
-                <h4>Part 8: Renal & Gastrointestinal</h4>
-                <div class="part-badge">Available</div>
-            </div>
-            <p>Kidney, filtration, GI motility, digestion</p>
-            <div class="part-info"><span>🔬 40 Qs</span><span>⏱ 50 min</span></div>
-        </a>
-        <a href="#" class="part-card">
-            <div class="part-header">
-                <h4>Part 5: Endocrine & Reproductive</h4>
+                <h4>Part 8: Endocrine & Reproductive</h4>
                 <div class="part-badge">Available</div>
             </div>
             <p>Hormones, glands, reproduction</p>
             <div class="part-info"><span>🔬 40 Qs</span><span>⏱ 50 min</span></div>
         </a>
-
-        <!-- ⭐ NEW PART 6 -->
+        
         <a href="#" class="part-card">
             <div class="part-header">
-                <h4>Part 6: Summary, Short Notes & Exam Tips</h4>
+                <h4>Summary & Exam Tips</h4>
                 <div class="part-badge">New</div>
             </div>
-            <p>High-yield revision notes, diagrams, key points, exam hacks</p>
+            <p>High-yield revision notes, diagrams, key points, exam strategies</p>
             <div class="part-info"><span>📘 Summary</span><span>⏱ 35 min</span></div>
         </a>
-
     </div>
 </div>
 
@@ -410,4 +610,4 @@ function goBackToSession1() {
 </script>
 
 </body>
-  </html>
+</html>
