@@ -277,124 +277,87 @@ class AuthSystem {
         };
   this.codes = this.loadCodes();
     }
+    this.codes = this.loadCodes();  
+}  
 
-    loadCodes() {
-        const saved = localStorage.getItem('medquiz_used_codes');
-        let codes = Object.keys(this.codeMap).map(key => ({
-            code: key,
-            realCode: this.codeMap[key],
-            email: null,
-            used: false,
-            usedAt: null
-        }));
+loadCodes() {  
+    const saved = localStorage.getItem('medquiz_used_codes');  
+    let codes = Object.keys(this.codeMap).map(key => ({  
+        code: key,  
+        realCode: this.codeMap[key],  
+        email: null,  
+        used: false,  
+        usedAt: null  
+    }));  
 
-        if (saved) {
-            try {
-                const parsed = JSON.parse(saved);
-                codes.forEach(c => {
-                    const savedC = parsed.find(s => s.code === c.code);
-                    if (savedC) {
-                        c.email = savedC.email;
-                        c.used = savedC.used;
-                        c.usedAt = savedC.usedAt;
-                    }
-                });
-            } catch (e) { console.error(e); }
-        }
-        return codes;
-    }
+    if (saved) {  
+        try {  
+            const parsed = JSON.parse(saved);  
+            codes.forEach(c => {  
+                const savedC = parsed.find(s => s.code === c.code);  
+                if (savedC) {  
+                    c.email = savedC.email;  
+                    c.used = savedC.used;  
+                    c.usedAt = savedC.usedAt;  
+                }  
+            });  
+        } catch (e) { console.error(e); }  
+    }  
+    return codes;  
+}  
 
-    saveCodes() {
-        try {
-            localStorage.setItem('medquiz_used_codes', JSON.stringify(this.codes));
-        } catch (e) { console.error(e); }
-    }
+saveCodes() {  
+    try {  
+        localStorage.setItem('medquiz_used_codes', JSON.stringify(this.codes));  
+    } catch (e) { console.error(e); }  
+}  
 
-    validateAccessCode(code, email) {
-        const userCode = code.toUpperCase().trim();
-        const userEmail = email.toLowerCase().trim();
-        const entry = this.codes.find(c => c.code === userCode);
+validateAccessCode(code, email) {  
+    const userCode = code.toUpperCase().trim();  
+    const userEmail = email.toLowerCase().trim();  
+    const entry = this.codes.find(c => c.code === userCode);  
 
-        if (!entry) return { valid: false, message: '❌ Invalid access code!' };
+    if (!entry) return { valid: false, message: '❌ Invalid access code!' };  
 
-        if (entry.used && entry.email !== userEmail) {
-            return { valid: false, message: '❌ This code has already been used by another email!' };
-        }
+    if (entry.used && entry.email !== userEmail) {  
+        return { valid: false, message: '❌ This code has already been used by another email!' };  
+    }  
 
-        return { valid: true, message: '✅ Code is valid.', codeEntry: entry };
-    }
+    return { valid: true, message: '✅ Code is valid.', codeEntry: entry };  
+}  
 
-    markCodeUsed(code, email) {
-        const userCode = code.toUpperCase().trim();
-        const userEmail = email.toLowerCase().trim();
-        const entry = this.codes.find(c => c.code === userCode);
-        if (entry && !entry.used) {
-            entry.used = true;
-            entry.email = userEmail;
-            entry.usedAt = new Date().toISOString();
-            this.saveCodes();
-        }
-    }
+markCodeUsed(code, email) {  
+    const userCode = code.toUpperCase().trim();  
+    const userEmail = email.toLowerCase().trim();  
+    const entry = this.codes.find(c => c.code === userCode);  
+    if (entry && !entry.used) {  
+        entry.used = true;  
+        entry.email = userEmail;  
+        entry.usedAt = new Date().toISOString();  
+        this.saveCodes();  
+    }  
+}  
 
-    createSession(userData) {
-        localStorage.setItem('medquiz_user', JSON.stringify(userData));
-        localStorage.setItem('medquiz_session_time', Date.now().toString());
-    }
+createSession(userData) {  
+    localStorage.setItem('medquiz_user', JSON.stringify(userData));  
+    localStorage.setItem('medquiz_session_time', Date.now().toString());  
+}  
 
-    isAuthenticated() {
-        return !!localStorage.getItem('medquiz_user');
-    }
+isAuthenticated() {  
+    return !!localStorage.getItem('medquiz_user');  
+}  
 
-    getCurrentUser() {
-        const user = localStorage.getItem('medquiz_user');
-        return user ? JSON.parse(user) : null;
-    }
+getCurrentUser() {  
+    const user = localStorage.getItem('medquiz_user');  
+    return user ? JSON.parse(user) : null;  
+}  
 
-    logout() {
-        localStorage.removeItem('medquiz_user');
-        localStorage.removeItem('medquiz_session_time');
-        window.location.href = 'index.html';
-    }
-
-    // -----------------------------
-    // LOGIN FUNCTION FOR RETURNING USERS
-    // -----------------------------
-    login(email, code = null) {
-        const userEmail = email.toLowerCase().trim();
-
-        // Check if user has already used a code
-        const existingUser = this.codes.find(c => c.email === userEmail && c.used);
-
-        if (existingUser) {
-            // Already registered, allow login without new code
-            const userData = {
-                email: userEmail,
-                code: existingUser.code,
-                loginAt: new Date().toISOString()
-            };
-            this.createSession(userData);
-            return { success: true, message: '✅ Login successful!', user: userData };
-        }
-
-        // If not registered, require code for first-time login
-        if (!code) {
-            return { success: false, message: '❌ No code provided. Please register first using a valid code.' };
-        }
-
-        const validation = this.validateAccessCode(code, userEmail);
-        if (!validation.valid) {
-            return { success: false, message: validation.message };
-        }
-
-        // First-time registration, mark code as used
-        this.markCodeUsed(code, userEmail);
-
-        const userData = {
-            email: userEmail,
-            code: code.toUpperCase().trim(),
-            loginAt: new Date().toISOString()
-        };
-        this.createSession(userData);
-        return { success: true, message: '✅ Registration and login successful!', user: userData };
-    }
+logout() {  
+    localStorage.removeItem('medquiz_user');  
+    localStorage.removeItem('medquiz_session_time');  
+    window.location.href = 'index.html';  
 }
+
+}
+
+ 
