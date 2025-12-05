@@ -88,7 +88,7 @@ class AuthSystem {
 "J9F2S8": "TRQ801", "Q4H6G2": "MZR707", "P8T9C5": "SJM589", "H2V7A1": "DGF622",
 "V3M5K7": "KLP995", "R1X8D3": "GVH508", "W4L9F2": "XTQ744", "E6P3S9": "HZL678",
 "N9B1W4": "JMS120", "T2C8M7": "FQP319", "X5Q7K1": "SWD640", "K4H2R9": "PTX522",
-"U7A5G3": "XZR902", "C3V9P8": "HQL710", "M9K3P6": "B5V8Q1", "F4L8S2": "N6D3T9", "R2H5J7": "C9M1P4", "X7G3W5": "K4F8L2",
+"U7A5G3": "XZR902", "C3V9P8": "HQL710",            "M9K3P6": "B5V8Q1", "F4L8S2": "N6D3T9", "R2H5J7": "C9M1P4", "X7G3W5": "K4F8L2",
 "Q8T1N4": "D2R7S9", "P5B9K3": "M8V4H1", "Z3D6F8": "J5W7Q2", "Y1L9R6": "S3T8P4",
 "V6C2H4": "F9M5K8", "A8G1J3": "N7B2W6", "C5T7D9": "R8L4X2", "E3M6P1": "K9H5V7",
 "H2N8S4": "Q3B1J6", "W9F7C5": "T4D6R2", "L1K8M3": "V5P9G7", "B7S2J9": "X4H6F8",
@@ -273,89 +273,91 @@ class AuthSystem {
 "O2E1T6": "X5D3L9", "M5H9S4": "W6Z2U7", "P7B1D6": "N3C8J4", "R6Y5G3": "F4V8Q2",
 "T8K1I7": "E2L4A9", "S3M2F5": "H7U9B6", "V4C9N1": "P6O8R5", "Z1Q7W8": "G2J3D4",
 "L9E6H2": "Y3X4K5", "U8A5J1": "B7T9M6", "I3F4P2": "C6S1V7", "D2O9R1": "Q5W8H4"
-            // Add your full code list
+        
         };
-    this.codes = this.loadCodes();  
-}  
 
-loadCodes() {  
-    const saved = localStorage.getItem('medquiz_used_codes');  
-    let codes = Object.keys(this.codeMap).map(key => ({  
-        code: key,  
-        realCode: this.codeMap[key],  
-        email: null,  
-        used: false,  
-        usedAt: null  
-    }));  
+        this.codes = this.loadCodes();
+    }
 
-    if (saved) {  
-        try {  
-            const parsed = JSON.parse(saved);  
-            codes.forEach(c => {  
-                const savedC = parsed.find(s => s.code === c.code);  
-                if (savedC) {  
-                    c.email = savedC.email;  
-                    c.used = savedC.used;  
-                    c.usedAt = savedC.usedAt;  
-                }  
-            });  
-        } catch (e) { console.error(e); }  
-    }  
-    return codes;  
-}  
+    loadCodes() {
+        const saved = localStorage.getItem('medquiz_used_codes');
+        let codes = Object.keys(this.codeMap).map(key => ({
+            code: key,
+            realCode: this.codeMap[key],
+            email: null,
+            used: false,
+            usedAt: null
+        }));
 
-saveCodes() {  
-    try {  
-        localStorage.setItem('medquiz_used_codes', JSON.stringify(this.codes));  
-    } catch (e) { console.error(e); }  
-}  
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                codes.forEach(c => {
+                    const savedC = parsed.find(s => s.code === c.code);
+                    if (savedC) {
+                        c.email = savedC.email;
+                        c.used = savedC.used;
+                        c.usedAt = savedC.usedAt;
+                    }
+                });
+            } catch (e) { console.error(e); }
+        }
+        return codes;
+    }
 
-validateAccessCode(code, email) {  
-    const userCode = code.toUpperCase().trim();  
-    const userEmail = email.toLowerCase().trim();  
-    const entry = this.codes.find(c => c.code === userCode);  
+    saveCodes() {
+        try {
+            localStorage.setItem('medquiz_used_codes', JSON.stringify(this.codes));
+        } catch (e) { console.error(e); }
+    }
 
-    if (!entry) return { valid: false, message: '❌ Invalid access code!' };  
+    validateAccessCode(code, email) {
+        const userCode = code.toUpperCase().trim();
+        const userEmail = email.toLowerCase().trim();
+        const entry = this.codes.find(c => c.code === userCode);
 
-    if (entry.used && entry.email !== userEmail) {  
-        return { valid: false, message: '❌ This code has already been used by another email!' };  
-    }  
+        if (!entry) return { valid: false, message: '❌ Invalid access code!' };
 
-    return { valid: true, message: '✅ Code is valid.', codeEntry: entry };  
-}  
+        if (entry.used && entry.email !== userEmail) {
+            return { valid: false, message: '❌ This code has already been used by another email!' };
+        }
 
-markCodeUsed(code, email) {  
-    const userCode = code.toUpperCase().trim();  
-    const userEmail = email.toLowerCase().trim();  
-    const entry = this.codes.find(c => c.code === userCode);  
-    if (entry && !entry.used) {  
-        entry.used = true;  
-        entry.email = userEmail;  
-        entry.usedAt = new Date().toISOString();  
-        this.saveCodes();  
-    }  
-}  
+        return { valid: true, message: '✅ Code is valid.', codeEntry: entry };
+    }
 
-createSession(userData) {  
-    localStorage.setItem('medquiz_user', JSON.stringify(userData));  
-    localStorage.setItem('medquiz_session_time', Date.now().toString());  
-}  
+    markCodeUsed(code, email) {
+        const userCode = code.toUpperCase().trim();
+        const userEmail = email.toLowerCase().trim();
+        const entry = this.codes.find(c => c.code === userCode);
+        if (entry && !entry.used) {
+            entry.used = true;
+            entry.email = userEmail;
+            entry.usedAt = new Date().toISOString();
+            this.saveCodes();
+        }
+    }
 
-isAuthenticated() {  
-    return !!localStorage.getItem('medquiz_user');  
-}  
+    createSession(userData) {
+        localStorage.setItem('medquiz_user', JSON.stringify(userData));
+        localStorage.setItem('medquiz_session_time', Date.now().toString());
+    }
 
-getCurrentUser() {  
-    const user = localStorage.getItem('medquiz_user');  
-    return user ? JSON.parse(user) : null;  
-}  
+    isAuthenticated() {
+        return !!localStorage.getItem('medquiz_user');
+    }
 
-logout() {  
-    localStorage.removeItem('medquiz_user');  
-    localStorage.removeItem('medquiz_session_time');  
-    window.location.href = 'index.html';  
+    getCurrentUser() {
+        const user = localStorage.getItem('medquiz_user');
+        return user ? JSON.parse(user) : null;
+    }
+
+    logout() {
+        localStorage.removeItem('medquiz_user');
+        localStorage.removeItem('medquiz_session_time');
+        window.location.href = 'index.html';
+    }
 }
 
-}
-
- 
+document.addEventListener('DOMContentLoaded', () => {
+    window.authSystem = new AuthSystem();
+});
