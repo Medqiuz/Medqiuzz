@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physiology Questions 121-160 | Part 4</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-   /* physiology-style.css - Updated with Better Color Contrast */
-/* External Stylesheet for Physiology Questions 121-160 */
+    <title>Endocrine System Quiz - Thyroid & Adrenal Glands</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* style.css - Universal quiz styling */
+:root {
+    --primary: #2c3e50;
+    --secondary: #3498db;
+    --success: #27ae60;
+    --danger: #c0392b;
+    --warning: #f39c12;
+    --light: #ecf0f1;
+    --dark: #2c3e50;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
 
 * {
     margin: 0;
@@ -17,1440 +27,1092 @@
 }
 
 body {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    color: #2d3748;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    color: var(--dark);
     line-height: 1.6;
     min-height: 100vh;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
     padding: 20px;
 }
 
-header {
-    background: linear-gradient(135deg, #1a6bb3 0%, #0d4d8c 100%);
-    color: white;
-    padding: 40px 0;
-    text-align: center;
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
     border-radius: 15px;
-    margin-bottom: 30px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    position: relative;
+    box-shadow: var(--shadow);
     overflow: hidden;
 }
 
-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-    background-size: cover;
+header {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    padding: 25px;
+    text-align: center;
 }
 
 header h1 {
-    font-size: 2.8rem;
-    margin-bottom: 15px;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    position: relative;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
 }
 
 header p {
-    font-size: 1.3rem;
-    opacity: 0.95;
-    font-weight: 300;
-    position: relative;
+    font-size: 1.1rem;
+    opacity: 0.9;
 }
 
-.question-section {
-    background: white;
-    border-radius: 15px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-    border: 1px solid #e2e8f0;
+.quiz-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background-color: var(--light);
+    border-bottom: 1px solid #ddd;
 }
 
-.question-section:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+.timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--danger);
 }
 
-.question-section h2 {
-    color: #1a6bb3;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 3px solid #e2e8f0;
-    font-size: 1.8rem;
-    font-weight: 600;
+.progress {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.question-section h2::before {
-    content: '📚';
-    font-size: 1.5rem;
-}
-
-.question {
-    margin-bottom: 30px;
-    padding: 25px;
-    border-radius: 12px;
-    background: #ffffff;
-    border: 2px solid #e2e8f0;
-    position: relative;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.question:hover {
-    background: #f7fafc;
-    border-color: #cbd5e0;
-}
-
-.question:last-child {
-    border-bottom: none;
-}
-
-.question p {
-    font-weight: 600;
-    margin-bottom: 20px;
-    font-size: 1.15rem;
-    color: #2d3748;
-    line-height: 1.7;
-    background: #f7fafc;
-    padding: 15px;
-    border-radius: 8px;
-    border-left: 4px solid #1a6bb3;
-}
-
-.options {
-    list-style-type: none;
-    margin-bottom: 20px;
-}
-
-/* Default option style - all options same color initially */
-.options li {
-    padding: 14px 20px;
-    margin-bottom: 10px;
-    background: #ffffff;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    font-size: 1rem;
-    color: #2d3748;
-    font-weight: 500;
-    position: relative;
+.progress-bar {
+    width: 200px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
     overflow: hidden;
 }
 
-.options li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    background: linear-gradient(90deg, rgba(26, 107, 179, 0.05) 0%, transparent 100%);
-    transition: width 0.3s ease;
+.progress-fill {
+    height: 100%;
+    background-color: var(--secondary);
+    width: 0%;
+    transition: var(--transition);
 }
 
-.options li:hover {
-    background: #f0f7ff;
-    border-color: #1a6bb3;
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(26, 107, 179, 0.1);
+.quiz-container {
+    padding: 30px;
 }
 
-.options li:hover::before {
-    width: 100%;
+.question-container {
+    margin-bottom: 30px;
 }
 
-/* Selected option style */
-.options li.selected {
-    background: #e3f2fd;
-    border-color: #1a6bb3;
-    color: #1a6bb3;
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(26, 107, 179, 0.15);
+.question-number {
+    font-size: 1.1rem;
+    color: var(--secondary);
+    margin-bottom: 5px;
 }
 
-/* Correct answer style - Green */
-.options li.correct {
-    background: #d4edda;
-    border-color: #28a745;
-    color: #155724;
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.15);
-}
-
-.options li.correct::before {
-    content: '✓';
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #28a745;
-}
-
-/* Incorrect answer style - Red */
-.options li.incorrect {
-    background: #f8d7da;
-    border-color: #dc3545;
-    color: #721c24;
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.15);
-}
-
-.options li.incorrect::before {
-    content: '✗';
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #dc3545;
-}
-
-.answer {
-    background: linear-gradient(135deg, #e8f5e9 0%, #d4edda 100%);
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid #28a745;
-    margin-top: 15px;
-    display: none;
-    animation: slideDown 0.5s ease;
-    box-shadow: 0 3px 10px rgba(40, 167, 69, 0.2);
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.answer.show {
-    display: block;
-}
-
-.answer p {
-    margin: 0;
-    font-weight: 500;
-    color: #155724;
-    font-size: 1rem;
-    line-height: 1.6;
-    background: transparent;
-    padding: 0;
-    border-left: none;
-}
-
-.timer-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: white;
-    border-radius: 50%;
-    width: 90px;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    border: 3px solid #1a6bb3;
-    transition: all 0.3s ease;
-}
-
-.timer-container:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-}
-
-.timer {
+.question-text {
     font-size: 1.4rem;
-    font-weight: bold;
-    color: #1a6bb3;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.4;
 }
 
-.timer.warning {
-    color: #ff9800;
+.options-container {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 25px;
 }
 
-.timer.danger {
-    color: #f44336;
-    animation: pulse 1s infinite;
+.option {
+    padding: 15px;
+    background-color: var(--light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+.option:hover {
+    background-color: #e0e7ee;
+    transform: translateY(-2px);
 }
 
-.question-timer {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: linear-gradient(135deg, #1a6bb3 0%, #0d4d8c 100%);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+.option.selected {
+    border-color: var(--secondary);
+    background-color: rgba(52, 152, 219, 0.1);
 }
 
-.controls {
+.option.correct {
+    border-color: var(--success);
+    background-color: rgba(39, 174, 96, 0.1);
+}
+
+.option.incorrect {
+    border-color: var(--danger);
+    background-color: rgba(192, 57, 43, 0.1);
+}
+
+.explanation-container {
+    padding: 20px;
+    background-color: rgba(52, 152, 219, 0.05);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.explanation-title {
+    font-weight: 600;
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
+
+.memory-tip {
+    background-color: rgba(243, 156, 18, 0.1);
+    padding: 15px;
+    border-left: 4px solid var(--warning);
+    margin-top: 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+.memory-tip-title {
+    font-weight: 600;
+    color: var(--warning);
+    margin-bottom: 5px;
+}
+
+.navigation {
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
-    padding-top: 25px;
-    border-top: 2px solid #e2e8f0;
-    gap: 15px;
+    margin-top: 20px;
 }
 
-.btn {
+button {
     padding: 12px 25px;
     border: none;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
 }
 
-.btn:disabled {
+.btn-prev {
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+.btn-next {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.btn-submit {
+    background-color: var(--success);
+    color: white;
+    display: none;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    transform: none !important;
+    transform: none;
+    box-shadow: none;
 }
 
-.btn-primary {
-    background: linear-gradient(135deg, #1a6bb3 0%, #0d4d8c 100%);
-    color: white;
-}
-
-.btn-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #0d4d8c 0%, #083a6b 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(13, 77, 140, 0.4);
-}
-
-.btn-secondary {
-    background: linear-gradient(135deg, #6c757d 0%, #545b62 100%);
-    color: white;
-}
-
-.btn-secondary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #545b62 0%, #3d4246 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(84, 91, 98, 0.4);
-}
-
-.btn-success {
-    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
-    color: white;
-}
-
-.btn-success:hover:not(:disabled) {
-    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(30, 126, 52, 0.4);
-}
-
-.exam-tips {
-    background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
-    border-radius: 15px;
+.results-container {
     padding: 30px;
-    margin-top: 30px;
-    border: 2px solid #ffc107;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-}
-
-.exam-tips h2 {
-    color: #856404;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #ffecb3;
-    font-size: 1.8rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.exam-tips h2::before {
-    content: '💡';
-    font-size: 1.5rem;
-}
-
-.tip {
-    margin-bottom: 25px;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    border-left: 4px solid #ffc107;
-}
-
-.tip:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.tip h3 {
-    color: #856404;
-    margin-bottom: 12px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.tip h3::before {
-    content: '▶';
-    font-size: 0.8rem;
-    color: #856404;
-}
-
-.tip p {
-    color: #5d4037;
-    line-height: 1.7;
-    margin: 0;
-}
-
-.progress-container {
-    margin-bottom: 25px;
-    background: #e9ecef;
-    border-radius: 10px;
-    height: 12px;
-    overflow: hidden;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-.progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #1a6bb3 0%, #0d4d8c 100%);
-    width: 0%;
-    transition: width 0.5s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.progress-bar::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-
-footer {
     text-align: center;
-    margin-top: 40px;
-    padding: 25px;
-    color: #666;
-    font-size: 0.95rem;
-    border-top: 1px solid #e2e8f0;
+    display: none;
 }
 
-/* Responsive Design */
+.results-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.score {
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--secondary);
+    margin: 20px 0;
+}
+
+.score-text {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+.summary {
+    text-align: left;
+    background-color: var(--light);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.summary-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.restart-btn {
+    background-color: var(--secondary);
+    color: white;
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+}
+
+.question-review {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.review-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.review-question {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.review-answer {
+    margin-bottom: 5px;
+}
+
+.correct-answer {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.user-answer {
+    color: var(--danger);
+    font-weight: 600;
+}
+
 @media (max-width: 768px) {
-    header h1 {
-        font-size: 2.2rem;
-    }
-    
-    header p {
-        font-size: 1.1rem;
-    }
-    
-    .container {
-        padding: 15px;
-    }
-    
-    .question-section {
-        padding: 20px;
-    }
-    
-    .timer-container {
-        width: 70px;
-        height: 70px;
-        top: 10px;
-        right: 10px;
-    }
-    
-    .timer {
-        font-size: 1.1rem;
-    }
-    
-    .question-timer {
-        top: 10px;
-        right: 10px;
-        padding: 6px 12px;
-        font-size: 0.8rem;
-    }
-    
-    .controls {
+    .quiz-info {
         flex-direction: column;
+        gap: 15px;
+        text-align: center;
     }
-    
-    .btn {
+
+    .progress-bar {
         width: 100%;
-        justify-content: center;
     }
-    
-    .question p {
-        font-size: 1.1rem;
-        padding: 12px;
+
+    .question-text {
+        font-size: 1.2rem;
     }
-    
-    .options li {
-        padding: 12px 15px;
-        font-size: 0.95rem;
+
+    .navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button {
+        width: 100%;
     }
 }
-
-@media (max-width: 480px) {
-    header {
-        padding: 30px 0;
-    }
-    
-    header h1 {
-        font-size: 1.8rem;
-    }
-    
-    .question-section h2,
-    .exam-tips h2 {
-        font-size: 1.5rem;
-    }
-    
-    .question {
-        padding: 20px 15px;
-    }
-    
-    .exam-tips {
-        padding: 20px;
-    }
-}
-
-/* Print Styles */
-@media print {
-    .timer-container,
-    .controls,
-    .exam-tips {
-        display: none;
-    }
-    
-    .question-section {
-        box-shadow: none;
-        border: 1px solid #ccc;
-    }
-    
-    .answer.show {
-        display: block !important;
-    }
-}
-
-/* Accessibility Improvements */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
-
-/* Focus styles for keyboard navigation */
-.btn:focus,
-.options li:focus {
-    outline: 3px solid #1a6bb3;
-    outline-offset: 2px;
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    .question {
-        border: 2px solid #000;
-    }
-    
-    .options li {
-        border: 2px solid #000;
-    }
-    
-    .options li.correct {
-        border-color: #006400;
-        background: #90ee90;
-    }
-    
-    .options li.incorrect {
-        border-color: #8b0000;
-        background: #ffb6c1;
-    }
-} 
-  </style>
+    </style>
 </head>
 <body>
-    <div class="timer-container">
-        <div class="timer" id="global-timer">60:00</div>
-    </div>
-    
     <div class="container">
         <header>
-            <h1>Physiology Questions 121-160</h1>
-            <p>Part 4: Cardiovascular, Respiratory, and Renal Physiology</p>
+            <h1>Endocrine System Quiz - Part 2</h1>
+            <p>Thyroid & Adrenal Glands | Based on Endocrine Physiology Materials</p>
         </header>
-        
-        <section class="question-section">
-            <h2>Practice Questions</h2>
-            
-            <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
+
+        <div class="quiz-info">
+            <div class="timer">Time: <span id="time">60:00</span></div>
+            <div class="progress">
+                <span>Progress:</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="progress-text">0/35</span>
             </div>
-            
-            <!-- Questions 121-130 -->
-            <div class="question" id="question-1">
-                <div class="question-timer">01:30</div>
-                <p><strong>121. The primary function of the SA node in the heart is:</strong></p>
-                <ul class="options">
-                    <li data-correct="false">A. To regulate blood pressure</li>
-                    <li data-correct="true">B. To initiate the cardiac impulse</li>
-                    <li data-correct="false">C. To control ventricular contraction</li>
-                    <li data-correct="false">D. To filter blood entering the heart</li>
-                </ul>
-                <div class="answer" id="answer-1">
-                    <p><strong>Answer: B. To initiate the cardiac impulse</strong> - The SA node acts as the natural pacemaker of the heart, generating electrical impulses that initiate each heartbeat.</p>
+        </div>
+
+        <div class="quiz-container" id="quiz-container">
+            <div class="question-container">
+                <div class="question-number" id="question-number">Question 1 of 35</div>
+                <div class="question-text" id="question-text"></div>
+                <div class="options-container" id="options-container"></div>
+            </div>
+
+            <div class="explanation-container" id="explanation-container">
+                <div class="explanation-title">Explanation</div>
+                <div id="explanation-text"></div>
+                <div class="memory-tip" id="memory-tip">
+                    <div class="memory-tip-title">Memory Tip</div>
+                    <div id="memory-tip-text"></div>
                 </div>
             </div>
-            
-            <div class="question" id="question-2">
-                <div class="question-timer">01:30</div>
-                <p><strong>122. The Frank-Starling mechanism of the heart states that:</strong></p>
-                <ul class="options">
-                    <li data-correct="false">A. Heart rate increases with exercise</li>
-                    <li data-correct="true">B. Cardiac output increases with increased venous return</li>
-                    <li data-correct="false">C. Blood pressure regulates heart contraction</li>
-                    <li data-correct="false">D. The heart pumps what it receives</li>
-                </ul>
-                <div class="answer" id="answer-2">
-                    <p><strong>Answer: B. Cardiac output increases with increased venous return</strong> - This mechanism describes how the heart automatically adjusts its pumping capacity to match the volume of blood returning to it.</p>
-                </div>
+
+            <div class="navigation">
+                <button class="btn-prev" id="prev-btn" disabled>Previous</button>
+                <button class="btn-next" id="next-btn">Next Question</button>
+                <button class="btn-submit" id="submit-btn">Submit Quiz</button>
             </div>
-            
-            <div class="question" id="question-3">
-                <div class="question-timer">01:30</div>
-                <p><strong>123. The primary factor that determines blood flow through a vessel is:</strong></p>
-                <ul class="options">
-                    <li data-correct="false">A. Blood viscosity</li>
-                    <li data-correct="false">B. Vessel length</li>
-                    <li data-correct="true">C. Pressure gradient</li>
-                    <li data-correct="false">D. Vessel radius</li>
-                </ul>
-                <div class="answer" id="answer-3">
-                    <p><strong>Answer: C. Pressure gradient</strong> - Blood flows from areas of higher pressure to areas of lower pressure, making the pressure difference the primary driving force.</p>
-                </div>
+        </div>
+
+        <div class="results-container" id="results-container">
+            <h2 class="results-title">Quiz Results</h2>
+            <div class="score" id="score">0/35</div>
+            <div class="score-text" id="score-text"></div>
+
+            <div class="summary">
+                <div class="summary-title">Performance Summary</div>
+                <p>Total Questions: <span id="total-questions">35</span></p>
+                <p>Correct Answers: <span id="correct-answers">0</span></p>
+                <p>Incorrect Answers: <span id="incorrect-answers">0</span></p>
+                <p>Percentage: <span id="percentage">0%</span></p>
+                <p>Time Taken: <span id="time-taken">60:00</span></p>
             </div>
-            
-            <div class="question" id="question-4">
-                <div class="question-timer">01:30</div>
-                <p><strong>124. The primary function of hemoglobin is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Transport oxygen in the blood</li>
-                    <li data-correct="false">B. Fight infection</li>
-                    <li data-correct="false">C. Aid in blood clotting</li>
-                    <li data-correct="false">D. Regulate blood pH</li>
-                </ul>
-                <div class="answer" id="answer-4">
-                    <p><strong>Answer: A. Transport oxygen in the blood</strong> - Hemoglobin binds to oxygen in the lungs and releases it in tissues, facilitating oxygen transport throughout the body.</p>
-                </div>
+
+            <div class="question-review" id="question-review">
+                <h3>Question Review</h3>
+                <!-- Review content will be generated by JavaScript -->
             </div>
-            
-            <div class="question" id="question-5">
-                <div class="question-timer">01:30</div>
-                <p><strong>125. The primary stimulus for breathing in a healthy person is:</strong></p>
-                <ul class="options">
-                    <li data-correct="false">A. Low oxygen levels in the blood</li>
-                    <li data-correct="true">B. High carbon dioxide levels in the blood</li>
-                    <li data-correct="false">C. Low blood pressure</li>
-                    <li data-correct="false">D. High blood pH</li>
-                </ul>
-                <div class="answer" id="answer-5">
-                    <p><strong>Answer: B. High carbon dioxide levels in the blood</strong> - The central chemoreceptors are most sensitive to changes in CO2 levels, which directly affect blood pH.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-6">
-                <div class="question-timer">01:30</div>
-                <p><strong>126. The primary function of the kidneys is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Regulate fluid and electrolyte balance</li>
-                    <li data-correct="false">B. Produce red blood cells</li>
-                    <li data-correct="false">C. Digest nutrients</li>
-                    <li data-correct="false">D. Produce hormones for growth</li>
-                </ul>
-                <div class="answer" id="answer-6">
-                    <p><strong>Answer: A. Regulate fluid and electrolyte balance</strong> - The kidneys maintain homeostasis by filtering blood, reabsorbing needed substances, and excreting waste products.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-7">
-                <div class="question-timer">01:30</div>
-                <p><strong>127. The cardiac cycle consists of:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Systole and diastole</li>
-                    <li data-correct="false">B. Inspiration and expiration</li>
-                    <li data-correct="false">C. Filtration and reabsorption</li>
-                    <li data-correct="false">D. Depolarization and repolarization</li>
-                </ul>
-                <div class="answer" id="answer-7">
-                    <p><strong>Answer: A. Systole and diastole</strong> - Systole is the contraction phase when blood is ejected, and diastole is the relaxation phase when the heart fills with blood.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-8">
-                <div class="question-timer">01:30</div>
-                <p><strong>128. The Bohr effect describes:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. How CO2 and H+ affect oxygen binding to hemoglobin</li>
-                    <li data-correct="false">B. How oxygen affects CO2 transport</li>
-                    <li data-correct="false">C. How blood pressure affects heart rate</li>
-                    <li data-correct="false">D. How kidney function affects blood pH</li>
-                </ul>
-                <div class="answer" id="answer-8">
-                    <p><strong>Answer: A. How CO2 and H+ affect oxygen binding to hemoglobin</strong> - Increased CO2 and H+ cause hemoglobin to release oxygen more readily in tissues.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-9">
-                <div class="question-timer">01:30</div>
-                <p><strong>129. The glomerular filtration rate (GFR) is primarily regulated by:</strong></p>
-                <ul class="options">
-                    <li data-correct="false">A. Antidiuretic hormone (ADH)</li>
-                    <li data-correct="true">B. Autoregulation and sympathetic nervous system</li>
-                    <li data-correct="false">C. Aldosterone</li>
-                    <li data-correct="false">D. Atrial natriuretic peptide (ANP)</li>
-                </ul>
-                <div class="answer" id="answer-9">
-                    <p><strong>Answer: B. Autoregulation and sympathetic nervous system</strong> - The kidneys autoregulate GFR through myogenic and tubuloglomerular feedback mechanisms.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-10">
-                <div class="question-timer">01:30</div>
-                <p><strong>130. The Hering-Breuer reflex is involved in:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Preventing overinflation of the lungs</li>
-                    <li data-correct="false">B. Regulating blood pressure</li>
-                    <li data-correct="false">C. Controlling heart rate</li>
-                    <li data-correct="false">D. Maintaining acid-base balance</li>
-                </ul>
-                <div class="answer" id="answer-10">
-                    <p><strong>Answer: A. Preventing overinflation of the lungs</strong> - Stretch receptors in the lungs inhibit inspiration when lung volume becomes too high.</p>
-                </div>
-            </div>
-            
-            <!-- Questions 131-140 -->
-            <div class="question" id="question-11">
-                <div class="question-timer">01:30</div>
-                <p><strong>131. The hormone that primarily regulates water reabsorption in the kidneys is:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Antidiuretic hormone (ADH)</li>
-                    <li data-correct="false">B. Aldosterone</li>
-                    <li data-correct="false">C. Renin</li>
-                    <li data-correct="false">D. Atrial natriuretic peptide</li>
-                </ul>
-                <div class="answer" id="answer-11">
-                    <p><strong>Answer: A. Antidiuretic hormone (ADH)</strong> - ADH increases water permeability in the collecting ducts, allowing more water reabsorption.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-12">
-                <div class="question-timer">01:30</div>
-                <p><strong>132. The P wave in an ECG represents:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Atrial depolarization</li>
-                    <li data-correct="false">B. Ventricular depolarization</li>
-                    <li data-correct="false">C. Atrial repolarization</li>
-                    <li data-correct="false">D. Ventricular repolarization</li>
-                </ul>
-                <div class="answer" id="answer-12">
-                    <p><strong>Answer: A. Atrial depolarization</strong> - The P wave corresponds to the electrical activation of the atria before contraction.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-13">
-                <div class="question-timer">01:30</div>
-                <p><strong>133. The primary function of the respiratory system is:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Gas exchange between air and blood</li>
-                    <li data-correct="false">B. Blood filtration</li>
-                    <li data-correct="false">C. Hormone production</li>
-                    <li data-correct="false">D. Nutrient absorption</li>
-                </ul>
-                <div class="answer" id="answer-13">
-                    <p><strong>Answer: A. Gas exchange between air and blood</strong> - The respiratory system facilitates oxygen uptake and carbon dioxide elimination.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-14">
-                <div class="question-timer">01:30</div>
-                <p><strong>134. The juxtaglomerular apparatus is involved in:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Regulating blood pressure and GFR</li>
-                    <li data-correct="false">B. Filtering blood plasma</li>
-                    <li data-correct="false">C. Producing urine</li>
-                    <li data-correct="false">D. Reabsorbing glucose</li>
-                </ul>
-                <div class="answer" id="answer-14">
-                    <p><strong>Answer: A. Regulating blood pressure and GFR</strong> - It monitors sodium chloride concentration and releases renin to regulate blood pressure.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-15">
-                <div class="question-timer">01:30</div>
-                <p><strong>135. The QRS complex in an ECG represents:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Ventricular depolarization</li>
-                    <li data-correct="false">B. Atrial depolarization</li>
-                    <li data-correct="false">C. Ventricular repolarization</li>
-                    <li data-correct="false">D. Atrial repolarization</li>
-                </ul>
-                <div class="answer" id="answer-15">
-                    <p><strong>Answer: A. Ventricular depolarization</strong> - The QRS complex corresponds to the electrical activation of the ventricles.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-16">
-                <div class="question-timer">01:30</div>
-                <p><strong>136. Surfactant in the lungs primarily functions to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Reduce surface tension</li>
-                    <li data-correct="false">B. Increase oxygen diffusion</li>
-                    <li data-correct="false">C. Fight infection</li>
-                    <li data-correct="false">D. Produce mucus</li>
-                </ul>
-                <div class="answer" id="answer-16">
-                    <p><strong>Answer: A. Reduce surface tension</strong> - Surfactant decreases alveolar surface tension, preventing alveolar collapse.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-17">
-                <div class="question-timer">01:30</div>
-                <p><strong>137. The T wave in an ECG represents:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Ventricular repolarization</li>
-                    <li data-correct="false">B. Atrial depolarization</li>
-                    <li data-correct="false">C. Ventricular depolarization</li>
-                    <li data-correct="false">D. Atrial repolarization</li>
-                </ul>
-                <div class="answer" id="answer-17">
-                    <p><strong>Answer: A. Ventricular repolarization</strong> - The T wave corresponds to the electrical recovery of the ventricles.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-18">
-                <div class="question-timer">01:30</div>
-                <p><strong>138. The primary function of the renin-angiotensin-aldosterone system is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Regulate blood pressure and fluid balance</li>
-                    <li data-correct="false">B. Control blood glucose levels</li>
-                    <li data-correct="false">C. Regulate body temperature</li>
-                    <li data-correct="false">D. Control respiratory rate</li>
-                </ul>
-                <div class="answer" id="answer-18">
-                    <p><strong>Answer: A. Regulate blood pressure and fluid balance</strong> - This system increases blood pressure through vasoconstriction and sodium retention.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-19">
-                <div class="question-timer">01:30</div>
-                <p><strong>139. The vital capacity of the lungs includes:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Tidal volume + inspiratory reserve volume + expiratory reserve volume</li>
-                    <li data-correct="false">B. Only tidal volume</li>
-                    <li data-correct="false">C. Residual volume + expiratory reserve volume</li>
-                    <li data-correct="false">D. Inspiratory capacity + functional residual capacity</li>
-                </ul>
-                <div class="answer" id="answer-19">
-                    <p><strong>Answer: A. Tidal volume + inspiratory reserve volume + expiratory reserve volume</strong> - Vital capacity is the maximum amount of air that can be exhaled after maximum inhalation.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-20">
-                <div class="question-timer">01:30</div>
-                <p><strong>140. The primary function of the baroreceptor reflex is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Maintain stable blood pressure</li>
-                    <li data-correct="false">B. Regulate breathing rate</li>
-                    <li data-correct="false">C. Control body temperature</li>
-                    <li data-correct="false">D. Maintain blood glucose levels</li>
-                </ul>
-                <div class="answer" id="answer-20">
-                    <p><strong>Answer: A. Maintain stable blood pressure</strong> - Baroreceptors detect changes in blood pressure and trigger compensatory responses.</p>
-                </div>
-            </div>
-            
-            <!-- Questions 141-150 -->
-            <div class="question" id="question-21">
-                <div class="question-timer">01:30</div>
-                <p><strong>141. The primary site of gas exchange in the lungs is the:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Alveoli</li>
-                    <li data-correct="false">B. Bronchi</li>
-                    <li data-correct="false">C. Trachea</li>
-                    <li data-correct="false">D. Bronchioles</li>
-                </ul>
-                <div class="answer" id="answer-21">
-                    <p><strong>Answer: A. Alveoli</strong> - Alveoli provide a large surface area for efficient gas exchange between air and blood.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-22">
-                <div class="question-timer">01:30</div>
-                <p><strong>142. The primary function of the AV node is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Delay impulse conduction between atria and ventricles</li>
-                    <li data-correct="false">B. Initiate the heartbeat</li>
-                    <li data-correct="false">C. Regulate blood pressure</li>
-                    <li data-correct="false">D. Control ventricular contraction force</li>
-                </ul>
-                <div class="answer" id="answer-22">
-                    <p><strong>Answer: A. Delay impulse conduction between atria and ventricles</strong> - This delay allows complete atrial emptying before ventricular contraction begins.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-23">
-                <div class="question-timer">01:30</div>
-                <p><strong>143. The primary factor affecting peripheral resistance is:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Blood vessel diameter</li>
-                    <li data-correct="false">B. Blood viscosity</li>
-                    <li data-correct="false">C. Vessel length</li>
-                    <li data-correct="false">D. Heart rate</li>
-                </ul>
-                <div class="answer" id="answer-23">
-                    <p><strong>Answer: A. Blood vessel diameter</strong> - Resistance is inversely proportional to the fourth power of the radius, making vessel diameter the most important factor.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-24">
-                <div class="question-timer">01:30</div>
-                <p><strong>144. The primary function of aldosterone is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Promote sodium reabsorption in the kidneys</li>
-                    <li data-correct="false">B. Increase water reabsorption</li>
-                    <li data-correct="false">C. Regulate calcium levels</li>
-                    <li data-correct="false">D. Control potassium excretion</li>
-                </ul>
-                <div class="answer" id="answer-24">
-                    <p><strong>Answer: A. Promote sodium reabsorption in the kidneys</strong> - Aldosterone acts on the distal tubules and collecting ducts to increase sodium reabsorption.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-25">
-                <div class="question-timer">01:30</div>
-                <p><strong>145. The primary determinant of arterial blood pressure is:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Cardiac output and peripheral resistance</li>
-                    <li data-correct="false">B. Blood volume alone</li>
-                    <li data-correct="false">C. Heart rate only</li>
-                    <li data-correct="false">D. Stroke volume only</li>
-                </ul>
-                <div class="answer" id="answer-25">
-                    <p><strong>Answer: A. Cardiac output and peripheral resistance</strong> - Blood pressure = Cardiac Output × Peripheral Resistance.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-26">
-                <div class="question-timer">01:30</div>
-                <p><strong>146. The primary function of the bicarbonate buffer system is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Maintain blood pH</li>
-                    <li data-correct="false">B. Transport oxygen</li>
-                    <li data-correct="false">C. Regulate blood pressure</li>
-                    <li data-correct="false">D. Control body temperature</li>
-                </ul>
-                <div class="answer" id="answer-26">
-                    <p><strong>Answer: A. Maintain blood pH</strong> - The bicarbonate buffer system is the most important buffer in extracellular fluid for maintaining pH.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-27">
-                <div class="question-timer">01:30</div>
-                <p><strong>147. The primary function of the Purkinje fibers is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Rapidly conduct impulses through the ventricles</li>
-                    <li data-correct="false">B. Initiate the heartbeat</li>
-                    <li data-correct="false">C. Delay AV conduction</li>
-                    <li data-correct="false">D. Regulate heart rate</li>
-                </ul>
-                <div class="answer" id="answer-27">
-                    <p><strong>Answer: A. Rapidly conduct impulses through the ventricles</strong> - Purkinje fibers ensure coordinated ventricular contraction.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-28">
-                <div class="question-timer">01:30</div>
-                <p><strong>148. The primary stimulus for erythropoietin release is:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Tissue hypoxia</li>
-                    <li data-correct="false">B. High blood pressure</li>
-                    <li data-correct="false">C. Low blood glucose</li>
-                    <li data-correct="false">D. High sodium levels</li>
-                </ul>
-                <div class="answer" id="answer-28">
-                    <p><strong>Answer: A. Tissue hypoxia</strong> - Erythropoietin is released by the kidneys in response to low oxygen levels to stimulate red blood cell production.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-29">
-                <div class="question-timer">01:30</div>
-                <p><strong>149. The primary function of the medullary respiratory center is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Generate the basic rhythm of breathing</li>
-                    <li data-correct="false">B. Regulate blood pressure</li>
-                    <li data-correct="false">C. Control heart rate</li>
-                    <li data-correct="false">D. Maintain body temperature</li>
-                </ul>
-                <div class="answer" id="answer-29">
-                    <p><strong>Answer: A. Generate the basic rhythm of breathing</strong> - The medullary respiratory center sets the fundamental pattern of inspiration and expiration.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-30">
-                <div class="question-timer">01:30</div>
-                <p><strong>150. The primary factor determining oxygen delivery to tissues is:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Cardiac output and arterial oxygen content</li>
-                    <li data-correct="false">B. Respiratory rate alone</li>
-                    <li data-correct="false">C. Blood pressure only</li>
-                    <li data-correct="false">D. Heart rate only</li>
-                </ul>
-                <div class="answer" id="answer-30">
-                    <p><strong>Answer: A. Cardiac output and arterial oxygen content</strong> - Oxygen delivery = Cardiac Output × Arterial Oxygen Content.</p>
-                </div>
-            </div>
-            
-            <!-- Questions 151-160 -->
-            <div class="question" id="question-31">
-                <div class="question-timer">01:30</div>
-                <p><strong>151. The primary function of the coronary arteries is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Supply oxygenated blood to the heart muscle</li>
-                    <li data-correct="false">B. Drain deoxygenated blood from the heart</li>
-                    <li data-correct="false">C. Regulate heart rate</li>
-                    <li data-correct="false">D. Control blood pressure</li>
-                </ul>
-                <div class="answer" id="answer-31">
-                    <p><strong>Answer: A. Supply oxygenated blood to the heart muscle</strong> - Coronary arteries provide the myocardium with oxygen and nutrients.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-32">
-                <div class="question-timer">01:30</div>
-                <p><strong>152. The primary determinant of stroke volume is:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Preload, afterload, and contractility</li>
-                    <li data-correct="false">B. Heart rate only</li>
-                    <li data-correct="false">C. Blood pressure only</li>
-                    <li data-correct="false">D. Respiratory rate</li>
-                </ul>
-                <div class="answer" id="answer-32">
-                    <p><strong>Answer: A. Preload, afterload, and contractility</strong> - These three factors determine how much blood the ventricle ejects with each contraction.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-33">
-                <div class="question-timer">01:30</div>
-                <p><strong>153. The primary function of the loop of Henle is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Create a concentration gradient in the renal medulla</li>
-                    <li data-correct="false">B. Filter blood plasma</li>
-                    <li data-correct="false">C. Reabsorb glucose</li>
-                    <li data-correct="false">D. Secrete hydrogen ions</li>
-                </ul>
-                <div class="answer" id="answer-33">
-                    <p><strong>Answer: A. Create a concentration gradient in the renal medulla</strong> - The countercurrent multiplier system in the loop of Henle establishes the osmotic gradient for water reabsorption.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-34">
-                <div class="question-timer">01:30</div>
-                <p><strong>154. The primary factor affecting diffusion of gases in the lungs is:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Partial pressure gradient</li>
-                    <li data-correct="false">B. Blood flow rate</li>
-                    <li data-correct="false">C. Respiratory rate</li>
-                    <li data-correct="false">D. Heart rate</li>
-                </ul>
-                <div class="answer" id="answer-34">
-                    <p><strong>Answer: A. Partial pressure gradient</strong> - Gases diffuse from areas of higher partial pressure to areas of lower partial pressure.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-35">
-                <div class="question-timer">01:30</div>
-                <p><strong>155. The primary function of the sympathetic nervous system on the heart is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Increase heart rate and contractility</li>
-                    <li data-correct="false">B. Decrease heart rate</li>
-                    <li data-correct="false">C. Regulate blood pressure only</li>
-                    <li data-correct="false">D. Control breathing rate</li>
-                </ul>
-                <div class="answer" id="answer-35">
-                    <p><strong>Answer: A. Increase heart rate and contractility</strong> - Sympathetic stimulation enhances cardiac performance during stress or exercise.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-36">
-                <div class="question-timer">01:30</div>
-                <p><strong>156. The primary function of the parasympathetic nervous system on the heart is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Decrease heart rate</li>
-                    <li data-correct="false">B. Increase contractility</li>
-                    <li data-correct="false">C. Regulate blood pressure</li>
-                    <li data-correct="false">D. Control stroke volume</li>
-                </ul>
-                <div class="answer" id="answer-36">
-                    <p><strong>Answer: A. Decrease heart rate</strong> - Parasympathetic stimulation via the vagus nerve slows heart rate.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-37">
-                <div class="question-timer">01:30</div>
-                <p><strong>157. The primary determinant of blood viscosity is:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Hematocrit</li>
-                    <li data-correct="false">B. Plasma protein concentration</li>
-                    <li data-correct="false">C. Blood pressure</li>
-                    <li data-correct="false">D. Heart rate</li>
-                </ul>
-                <div class="answer" id="answer-37">
-                    <p><strong>Answer: A. Hematocrit</strong> - Hematocrit (percentage of red blood cells) is the main factor determining blood viscosity.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-38">
-                <div class="question-timer">01:30</div>
-                <p><strong>158. The primary function of the pulmonary circulation is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Oxygenate blood and remove carbon dioxide</li>
-                    <li data-correct="false">B. Deliver nutrients to tissues</li>
-                    <li data-correct="false">C. Regulate blood pressure</li>
-                    <li data-correct="false">D. Filter blood</li>
-                </ul>
-                <div class="answer" id="answer-38">
-                    <p><strong>Answer: A. Oxygenate blood and remove carbon dioxide</strong> - Pulmonary circulation carries deoxygenated blood to the lungs and returns oxygenated blood to the heart.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-39">
-                <div class="question-timer">01:30</div>
-                <p><strong>159. The primary function of the systemic circulation is to:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Deliver oxygen and nutrients to tissues</li>
-                    <li data-correct="false">B. Oxygenate blood</li>
-                    <li data-correct="false">C. Remove carbon dioxide</li>
-                    <li data-correct="false">D. Filter blood</li>
-                </ul>
-                <div class="answer" id="answer-39">
-                    <p><strong>Answer: A. Deliver oxygen and nutrients to tissues</strong> - Systemic circulation carries oxygenated blood to body tissues and returns deoxygenated blood to the heart.</p>
-                </div>
-            </div>
-            
-            <div class="question" id="question-40">
-                <div class="question-timer">01:30</div>
-                <p><strong>160. The primary factor determining venous return is:</strong></p>
-                <ul class="options">
-                    <li data-correct="true">A. Pressure gradient from veins to right atrium</li>
-                    <li data-correct="false">B. Heart rate only</li>
-                    <li data-correct="false">C. Blood pressure only</li>
-                    <li data-correct="false">D. Respiratory rate</li>
-                </ul>
-                <div class="answer" id="answer-40">
-                    <p><strong>Answer: A. Pressure gradient from veins to right atrium</strong> - Blood flows from higher pressure in veins to lower pressure in the right atrium, facilitated by skeletal muscle pumps and respiratory movements.</p>
-                </div>
-            </div>
-            
-            <div class="controls">
-                <button class="btn btn-secondary" id="prev-btn">Previous Question</button>
-                <button class="btn btn-primary" id="next-btn">Next Question</button>
-                <button class="btn btn-success" id="show-answer">Show Answer</button>
-            </div>
-        </section>
-        
-        <section class="exam-tips">
-            <h2>Physiology Exam Tips</h2>
-            
-            <div class="tip">
-                <h3>1. Understand Mechanisms, Not Just Facts</h3>
-                <p>Focus on understanding how physiological systems work together rather than memorizing isolated facts. Pay special attention to feedback mechanisms and regulatory pathways.</p>
-            </div>
-            
-            <div class="tip">
-                <h3>2. Master Cardiovascular Physiology</h3>
-                <p>The cardiovascular system is heavily tested. Be sure to understand cardiac cycle, ECG interpretation, blood pressure regulation, and hemodynamics.</p>
-            </div>
-            
-            <div class="tip">
-                <h3>3. Practice Integrated Systems</h3>
-                <p>Many exam questions test how multiple systems interact (e.g., how respiratory and renal systems work together to regulate acid-base balance).</p>
-            </div>
-            
-            <div class="tip">
-                <h3>4. Know Key Equations</h3>
-                <p>Memorize and understand important physiological equations like cardiac output, blood flow, and clearance formulas.</p>
-            </div>
-            
-            <div class="tip">
-                <h3>5. Focus on Homeostasis</h3>
-                <p>Physiology is fundamentally about maintaining homeostasis. Understand how each system contributes to this balance and how they respond to challenges.</p>
-            </div>
-        </section>
+
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
     </div>
-    
-    <footer>
-        <p>&copy; 2023 Physiology Review Resource | Part 4: Questions 121-160</p>
-    </footer>
 
     <script>
-        // Current question index
-        let currentQuestion = 1;
-        const totalQuestions = 40;
-        
-        // Timer variables
-        let globalTimer;
-        let questionTimer;
-        let globalTimeLeft = 3600; // 60 minutes in seconds
-        let questionTimeLeft = 90; // 1.5 minutes in seconds
-        
+        // Endocrine System Quiz - Thyroid & Adrenal Glands (35 questions)
+        const questions = [
+            {
+                question: "Which enzyme is responsible for converting T4 to the active T3 hormone?",
+                options: [
+                    "Thyroperoxidase",
+                    "5'-deiodinase",
+                    "Thyroglobulin synthase",
+                    "Na+/I- symporter"
+                ],
+                correct: 1,
+                explanation: "5'-deiodinase converts T4 (thyroxine) to active T3 (triiodothyronine) in peripheral tissues. T4 serves as a pro-hormone reservoir.",
+                memoryTip: "T4 → 5'-deiodinase → T3 (active form); rT3 = reverse T3 (inactive)"
+            },
+            {
+                question: "What is the primary regulator of aldosterone secretion?",
+                options: [
+                    "ACTH",
+                    "Renin-angiotensin-aldosterone system (RAAS)",
+                    "Potassium levels",
+                    "Both RAAS and potassium"
+                ],
+                correct: 3,
+                explanation: "Aldosterone secretion is primarily regulated by RAAS (angiotensin II) and plasma potassium levels. ACTH has minor stimulatory effect.",
+                memoryTip: "Aldosterone regulation: RAAS (main) + K+ (direct) + ACTH (minor)"
+            },
+            {
+                question: "Graves' disease is characterized by:",
+                options: [
+                    "Autoimmune destruction of thyroid",
+                    "TSH receptor-stimulating antibodies",
+                    "Iodine deficiency",
+                    "Thyroid carcinoma"
+                ],
+                correct: 1,
+                explanation: "Graves' disease is autoimmune hyperthyroidism caused by TSH receptor-stimulating antibodies (TSI), leading to unregulated thyroid hormone production.",
+                memoryTip: "Graves = TSH receptor antibodies (stimulatory) → hyperthyroidism + ophthalmopathy"
+            },
+            {
+                question: "Which zone of the adrenal cortex produces cortisol?",
+                options: [
+                    "Zona glomerulosa",
+                    "Zona fasciculata",
+                    "Zona reticularis",
+                    "Adrenal medulla"
+                ],
+                correct: 1,
+                explanation: "Zona fasciculata produces glucocorticoids (cortisol), zona glomerulosa produces mineralocorticoids (aldosterone), zona reticularis produces androgens.",
+                memoryTip: "Adrenal cortex: Glomerulosa (salt=aldosterone), Fasciculata (sugar=cortisol), Reticularis (sex=androgens)"
+            },
+            {
+                question: "Hashimoto's thyroiditis involves:",
+                options: [
+                    "Stimulatory TSH receptor antibodies",
+                    "Anti-TPO and anti-thyroglobulin antibodies",
+                    "Ectopic thyroid tissue",
+                    "TSH-secreting pituitary adenoma"
+                ],
+                correct: 1,
+                explanation: "Hashimoto's thyroiditis is autoimmune hypothyroidism with antibodies against thyroid peroxidase (TPO) and thyroglobulin, causing lymphocytic infiltration and follicular destruction.",
+                memoryTip: "Hashimoto = anti-TPO/anti-Tg antibodies → lymphocytic infiltration → hypothyroidism"
+            },
+            {
+                question: "Cushing's syndrome results from:",
+                options: [
+                    "Cortisol deficiency",
+                    "Chronic excess cortisol exposure",
+                    "Aldosterone deficiency",
+                    "Thyroid hormone excess"
+                ],
+                correct: 1,
+                explanation: "Cushing's syndrome is caused by chronic exposure to high cortisol levels (endogenous or exogenous), leading to central obesity, moon facies, purple striae, etc.",
+                memoryTip: "Cushing = too much cortisol; Addison = too little cortisol"
+            },
+            {
+                question: "What is the rate-limiting step in thyroid hormone synthesis?",
+                options: [
+                    "Iodide trapping by Na+/I- symporter",
+                    "Thyroglobulin synthesis",
+                    "Iodide oxidation by thyroperoxidase",
+                    "Coupling of MIT and DIT"
+                ],
+                correct: 0,
+                explanation: "Iodide trapping by the Na+/I- symporter (NIS) is the rate-limiting step, concentrating iodide 20-40 fold against gradient.",
+                memoryTip: "NIS (Na+/I- symporter) = rate-limiting step in thyroid hormone synthesis"
+            },
+            {
+                question: "Primary hyperaldosteronism (Conn syndrome) features:",
+                options: [
+                    "Hypertension, hypokalemia, metabolic alkalosis",
+                    "Hypotension, hyperkalemia, metabolic acidosis",
+                    "Hypertension, hypernatremia, metabolic acidosis",
+                    "Hypotension, hypokalemia, metabolic alkalosis"
+                ],
+                correct: 0,
+                explanation: "Conn syndrome presents with hypertension (salt/water retention), hypokalemia (K+ wasting), metabolic alkalosis (H+ excretion), and suppressed renin.",
+                memoryTip: "Conn syndrome = hypertension + hypokalemia + metabolic alkalosis + low renin"
+            },
+            {
+                question: "Which thyroid hormone has the longest half-life?",
+                options: [
+                    "T3 (triiodothyronine)",
+                    "T4 (thyroxine)",
+                    "rT3 (reverse T3)",
+                    "Calcitonin"
+                ],
+                correct: 1,
+                explanation: "T4 has a 7-day half-life due to strong binding to TBG, serving as reservoir. T3 has 1-day half-life, rT3 has intermediate half-life.",
+                memoryTip: "T4 half-life = 7 days (reservoir); T3 half-life = 1 day (active); rT3 = inactive"
+            },
+            {
+                question: "Addison's disease (primary adrenal insufficiency) presents with:",
+                options: [
+                    "Hypertension and hypokalemia",
+                    "Hypertension and hyperglycemia",
+                    "Hypotension and hyperpigmentation",
+                    "Hypotension and hypopigmentation"
+                ],
+                correct: 2,
+                explanation: "Addison's disease features hypotension (mineralocorticoid deficiency), hyperpigmentation (ACTH excess), hyponatremia, hyperkalemia, and hypoglycemia.",
+                memoryTip: "Addison = hypotension + hyperpigmentation + hyponatremia + hyperkalemia"
+            },
+            {
+                question: "The Na+/I- symporter (NIS) is inhibited by:",
+                options: [
+                    "Thyroid stimulating hormone (TSH)",
+                    "Perchlorate and thiocyanate",
+                    "Propylthiouracil (PTU)",
+                    "Methimazole"
+                ],
+                correct: 1,
+                explanation: "Perchlorate and thiocyanate competitively inhibit the Na+/I- symporter, blocking iodide uptake into thyroid follicular cells.",
+                memoryTip: "NIS inhibitors: perchlorate, thiocyanate; Organification inhibitors: PTU, methimazole"
+            },
+            {
+                question: "What is the most common cause of Cushing's syndrome?",
+                options: [
+                    "Pituitary adenoma (Cushing's disease)",
+                    "Adrenal adenoma",
+                    "Ectopic ACTH secretion",
+                    "Iatrogenic glucocorticoid administration"
+                ],
+                correct: 3,
+                explanation: "Exogenous glucocorticoid administration is the most common cause of Cushing's syndrome. Among endogenous causes, pituitary adenomas (Cushing's disease) are most common.",
+                memoryTip: "Most common Cushing: iatrogenic (exogenous steroids); Endogenous most common: pituitary adenoma"
+            },
+            {
+                question: "Thyroglobulin serves as:",
+                options: [
+                    "Transport protein for thyroid hormones",
+                    "Receptor for TSH",
+                    "Storage form of thyroid hormones",
+                    "Enzyme for T4 to T3 conversion"
+                ],
+                correct: 2,
+                explanation: "Thyroglobulin is a large glycoprotein that serves as storage for thyroid hormones within thyroid follicles (colloid). Hormones are stored as part of thyroglobulin.",
+                memoryTip: "Thyroglobulin = storage protein in colloid; TBG = transport protein in blood"
+            },
+            {
+                question: "Pheochromocytoma follows the 'rule of 10s' which includes:",
+                options: [
+                    "10% malignant, 10% bilateral, 10% extra-adrenal",
+                    "50% malignant, 25% bilateral, 25% extra-adrenal",
+                    "5% malignant, 5% bilateral, 5% extra-adrenal",
+                    "20% malignant, 20% bilateral, 20% extra-adrenal"
+                ],
+                correct: 0,
+                explanation: "Pheochromocytoma: 10% malignant, 10% bilateral, 10% extra-adrenal, 10% familial, 10% occur in children.",
+                memoryTip: "Pheochromocytoma rule of 10s: 10% malignant, bilateral, extra-adrenal, familial, pediatric"
+            },
+            {
+                question: "Which enzyme deficiency causes congenital adrenal hyperplasia with virilization and salt-wasting?",
+                options: [
+                    "11β-hydroxylase deficiency",
+                    "17α-hydroxylase deficiency",
+                    "21-hydroxylase deficiency",
+                    "3β-hydroxysteroid dehydrogenase deficiency"
+                ],
+                correct: 2,
+                explanation: "21-hydroxylase deficiency (most common CAH) causes cortisol and aldosterone deficiency with androgen excess, leading to virilization and salt-wasting crisis.",
+                memoryTip: "21-hydroxylase deficiency = most common CAH → virilization + salt-wasting"
+            },
+            {
+                question: "TSH secretion is inhibited by:",
+                options: [
+                    "Low T3/T4 levels",
+                    "High T3/T4 levels",
+                    "TRH from hypothalamus",
+                    "Cold exposure"
+                ],
+                correct: 1,
+                explanation: "TSH secretion is negatively regulated by thyroid hormones (T3/T4). High levels inhibit TRH and TSH, while low levels stimulate them.",
+                memoryTip: "Thyroid hormones (T3/T4) negatively feedback on TRH and TSH secretion"
+            },
+            {
+                question: "Waterhouse-Friderichsen syndrome involves:",
+                options: [
+                    "Chronic adrenal insufficiency",
+                    "Acute adrenal hemorrhage with meningococcal sepsis",
+                    "Adrenal adenoma rupture",
+                    "Pituitary apoplexy"
+                ],
+                correct: 1,
+                explanation: "Waterhouse-Friderichsen syndrome is acute adrenal hemorrhage associated with Neisseria meningitidis septicemia, causing acute adrenal insufficiency and DIC.",
+                memoryTip: "Waterhouse-Friderichsen = meningococcal sepsis → adrenal hemorrhage → acute adrenal crisis"
+            },
+            {
+                question: "Which thyroid cancer has the best prognosis?",
+                options: [
+                    "Papillary carcinoma",
+                    "Follicular carcinoma",
+                    "Medullary carcinoma",
+                    "Anaplastic carcinoma"
+                ],
+                correct: 0,
+                explanation: "Papillary thyroid carcinoma has excellent prognosis (95% 10-year survival), often presents with psammoma bodies and 'Orphan Annie' nuclei.",
+                memoryTip: "Papillary = best prognosis; Anaplastic = worst prognosis; Medullary = calcitonin secretion"
+            },
+            {
+                question: "Cortisol's anti-inflammatory effects include inhibition of:",
+                options: [
+                    "Phospholipase A2 and IL-2 production",
+                    "Na+/K+ ATPase",
+                    "Thyroid peroxidase",
+                    "Renin secretion"
+                ],
+                correct: 0,
+                explanation: "Cortisol inhibits phospholipase A2 (reducing prostaglandin/leukotriene synthesis) and IL-2 production (T-cell activation), mediating anti-inflammatory effects.",
+                memoryTip: "Cortisol anti-inflammatory: inhibits phospholipase A2 → ↓ prostaglandins; inhibits IL-2 → ↓ T-cell activation"
+            },
+            {
+                question: "Thyroid storm (thyrotoxic crisis) is characterized by:",
+                options: [
+                    "Mild hyperthyroid symptoms",
+                    "Life-threatening hypermetabolic state",
+                    "Hypothyroid coma",
+                    "Normal thyroid function"
+                ],
+                correct: 1,
+                explanation: "Thyroid storm is life-threatening exacerbation of hyperthyroidism with fever, tachycardia, agitation, delirium, and can lead to heart failure.",
+                memoryTip: "Thyroid storm = hyperthyroidism crisis → fever, tachycardia, agitation, delirium → medical emergency"
+            },
+            {
+                question: "Secondary hyperaldosteronism occurs in:",
+                options: [
+                    "Adrenal adenoma",
+                    "Renal artery stenosis",
+                    "Primary adrenal hyperplasia",
+                    "Adrenal carcinoma"
+                ],
+                correct: 1,
+                explanation: "Secondary hyperaldosteronism is appropriate aldosterone increase due to RAAS activation (e.g., renal artery stenosis, heart failure, cirrhosis).",
+                memoryTip: "Primary hyperaldosteronism = adrenal problem (low renin); Secondary = appropriate response (high renin)"
+            },
+            {
+                question: "Myxedema refers to:",
+                options: [
+                    "Hyperthyroid eye changes",
+                    "Severe, long-standing hypothyroidism",
+                    "Thyroid adenoma",
+                    "Thyroiditis pain"
+                ],
+                correct: 1,
+                explanation: "Myxedema is severe hypothyroidism with non-pitting edema, cool/dry skin, lethargy, and can progress to myxedema coma (medical emergency).",
+                memoryTip: "Myxedema = severe hypothyroidism; Myxedema coma = hypothyroid emergency"
+            },
+            {
+                question: "The adrenal medulla secretes:",
+                options: [
+                    "Cortisol and aldosterone",
+                    "Epinephrine and norepinephrine",
+                    "Thyroid hormones",
+                    "Insulin and glucagon"
+                ],
+                correct: 1,
+                explanation: "Adrenal medulla (derived from neural crest) secretes catecholamines: epinephrine (80%), norepinephrine (20%), and some dopamine.",
+                memoryTip: "Adrenal medulla = catecholamines (Epi/NE); Adrenal cortex = steroids (cortisol, aldosterone, androgens)"
+            },
+            {
+                question: "Propylthiouracil (PTU) and methimazole act by:",
+                options: [
+                    "Inhibiting iodide trapping",
+                    "Inhibiting thyroid hormone release",
+                    "Inhibiting thyroid hormone synthesis (organization and coupling)",
+                    "Destroying thyroid tissue"
+                ],
+                correct: 2,
+                explanation: "PTU and methimazole inhibit thyroperoxidase, blocking organification (iodination) and coupling reactions. PTU also inhibits peripheral T4→T3 conversion.",
+                memoryTip: "PTU/methimazole = inhibit thyroid hormone synthesis; Radioactive iodine = destroys thyroid tissue"
+            },
+            {
+                question: "Which test distinguishes Cushing's disease from ectopic ACTH production?",
+                options: [
+                    "Water deprivation test",
+                    "Dexamethasone suppression test",
+                    "TRH stimulation test",
+                    "Calcium infusion test"
+                ],
+                correct: 1,
+                explanation: "High-dose dexamethasone suppression test: Cushing's disease (pituitary adenoma) suppresses ACTH/cortisol; ectopic ACTH does not suppress.",
+                memoryTip: "Dexamethasone test: Pituitary Cushing's suppresses; Ectopic ACTH doesn't suppress"
+            },
+            {
+                question: "Thyroid hormones increase basal metabolic rate by:",
+                options: [
+                    "Stimulating Na+/K+ ATPase activity",
+                    "Inhibiting mitochondrial respiration",
+                    "Decreasing protein synthesis",
+                    "Stimulating insulin secretion"
+                ],
+                correct: 0,
+                explanation: "Thyroid hormones stimulate Na+/K+ ATPase activity (ion pumping), increasing oxygen consumption, heat production, and basal metabolic rate.",
+                memoryTip: "Thyroid hormones ↑ BMR by ↑ Na+/K+ ATPase → ↑ O2 consumption → ↑ heat production"
+            },
+            {
+                question: "Addisonian crisis (acute adrenal insufficiency) requires:",
+                options: [
+                    "Slow steroid taper",
+                    "Immediate hydrocortisone IV and fluid resuscitation",
+                    "Radioactive iodine ablation",
+                    "Thyroid hormone replacement"
+                ],
+                correct: 1,
+                explanation: "Addisonian crisis is life-threatening and requires immediate IV hydrocortisone, IV fluids with dextrose, and electrolyte correction.",
+                memoryTip: "Addisonian crisis = medical emergency → IV hydrocortisone + fluids immediately"
+            },
+            {
+                question: "Medullary thyroid carcinoma originates from:",
+                options: [
+                    "Thyroid follicular cells",
+                    "Parafollicular C-cells",
+                    "Thyroid stromal cells",
+                    "Parathyroid cells"
+                ],
+                correct: 1,
+                explanation: "Medullary thyroid carcinoma arises from parafollicular C-cells (neural crest origin), secretes calcitonin, associated with MEN 2A/2B.",
+                memoryTip: "Medullary thyroid cancer = C-cells → calcitonin secretion → associated with MEN 2"
+            },
+            {
+                question: "Conn's syndrome vs secondary hyperaldosteronism: which has low plasma renin?",
+                options: [
+                    "Both have low renin",
+                    "Both have high renin",
+                    "Conn's has low renin, secondary has high renin",
+                    "Conn's has high renin, secondary has low renin"
+                ],
+                correct: 2,
+                explanation: "Primary hyperaldosteronism (Conn's) has low renin (autonomous aldosterone secretion); Secondary hyperaldosteronism has high renin (appropriate RAAS activation).",
+                memoryTip: "Primary hyperaldosteronism = high aldosterone + low renin; Secondary = high aldosterone + high renin"
+            },
+            {
+                question: "Thyroid hormone synthesis requires which essential element?",
+                options: [
+                    "Iron",
+                    "Zinc",
+                    "Iodine",
+                    "Selenium"
+                ],
+                correct: 2,
+                explanation: "Iodine is essential for thyroid hormone synthesis - incorporated into tyrosine residues of thyroglobulin to form MIT and DIT, which couple to form T3/T4.",
+                memoryTip: "Iodine essential for thyroid hormones; Selenium needed for deiodinase enzymes"
+            },
+            {
+                question: "Cortisol secretion pattern is:",
+                options: [
+                    "Constant throughout day",
+                    "Pulsatile with circadian rhythm (AM peak)",
+                    "Only during stress",
+                    "Random without pattern"
+                ],
+                correct: 1,
+                explanation: "Cortisol secretion is pulsatile with circadian rhythm: peaks early morning (6-8 AM), declines through day, lowest at midnight, plus stress-induced pulses.",
+                memoryTip: "Cortisol = circadian (AM peak) + stress-induced pulses"
+            },
+            {
+                question: "Which is NOT a feature of hyperthyroidism?",
+                options: [
+                    "Heat intolerance",
+                    "Weight loss with increased appetite",
+                    "Bradycardia",
+                    "Tremor and anxiety"
+                ],
+                correct: 2,
+                explanation: "Hyperthyroidism causes tachycardia (increased heart rate), not bradycardia. Other features: heat intolerance, weight loss, tremor, anxiety, diarrhea.",
+                memoryTip: "Hyperthyroidism = ↑ HR (tachycardia); Hypothyroidism = ↓ HR (bradycardia)"
+            },
+            {
+                question: "Addison's disease hyperpigmentation is due to:",
+                options: [
+                    "Melanocyte-stimulating hormone (MSH) from POMC",
+                    "Direct cortisol effect on melanocytes",
+                    "Thyroid hormone excess",
+                    "Aldosterone deficiency"
+                ],
+                correct: 0,
+                explanation: "Hyperpigmentation in Addison's results from increased POMC-derived peptides (ACTH and MSH) due to loss of cortisol negative feedback.",
+                memoryTip: "Addison's hyperpigmentation = ↑ ACTH/MSH (from POMC) → stimulates melanocytes"
+            },
+            {
+                question: "Thyroglossal duct cysts arise from:",
+                options: [
+                    "Persistent thyroglossal duct remnant",
+                    "Thyroid adenoma degeneration",
+                    "Branchial cleft abnormality",
+                    "Parathyroid cyst"
+                ],
+                correct: 0,
+                explanation: "Thyroglossal duct cysts are midline neck cysts from persistent embryonic thyroglossal duct (thyroid migration path from foramen cecum to neck).",
+                memoryTip: "Thyroglossal duct cyst = midline neck mass, moves with tongue protrusion"
+            },
+            {
+                question: "Pheochromocytoma diagnosis relies on:",
+                options: [
+                    "Serum cortisol levels",
+                    "24-hour urinary metanephrines",
+                    "Plasma aldosterone",
+                    "TSH levels"
+                ],
+                correct: 1,
+                explanation: "Pheochromocytoma diagnosis: 24-hour urinary fractionated metanephrines (most reliable) or plasma free metanephrines. Measure catecholamine metabolites.",
+                memoryTip: "Pheochromocytoma diagnosis = urinary metanephrines (metabolites of catecholamines)"
+            },
+            {
+                question: "Hashimoto's thyroiditis is associated with which HLA type?",
+                options: [
+                    "HLA-DR3",
+                    "HLA-DR5",
+                    "HLA-B27",
+                    "HLA-DQ2"
+                ],
+                correct: 1,
+                explanation: "Hashimoto's thyroiditis shows genetic association with HLA-DR5 (in Caucasians) and HLA-DR3. Graves' disease associated with HLA-DR3.",
+                memoryTip: "Hashimoto: HLA-DR5; Graves: HLA-DR3; Type 1 DM: HLA-DR3/DR4"
+            }
+        ];
+
         // DOM elements
-        const globalTimerElement = document.getElementById('global-timer');
-        const progressBar = document.getElementById('progress-bar');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results-container');
+        const questionNumber = document.getElementById('question-number');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const memoryTipText = document.getElementById('memory-tip-text');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
-        const showAnswerBtn = document.getElementById('show-answer');
-        
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Show first question
-            showQuestion(currentQuestion);
+        const submitBtn = document.getElementById('submit-btn');
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+        const timeDisplay = document.getElementById('time');
+        const scoreDisplay = document.getElementById('score');
+        const scoreText = document.getElementById('score-text');
+        const totalQuestions = document.getElementById('total-questions');
+        const correctAnswers = document.getElementById('correct-answers');
+        const incorrectAnswers = document.getElementById('incorrect-answers');
+        const percentage = document.getElementById('percentage');
+        const timeTaken = document.getElementById('time-taken');
+        const questionReview = document.getElementById('question-review');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Quiz state
+        let currentQuestion = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let shuffledOptions = new Array(questions.length).fill(null);
+        let shuffledCorrectIndex = new Array(questions.length).fill(null);
+        let score = 0;
+        let timer;
+        let timeLeft = 60 * 60; // 60 minutes in seconds
+        let quizCompleted = false;
+
+        // Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Get shuffled options for a question
+        function getShuffledOptions(questionIndex) {
+            if (!shuffledOptions[questionIndex]) {
+                const question = questions[questionIndex];
+                // Create array of indices [0, 1, 2, 3]
+                const indices = [0, 1, 2, 3];
+                // Shuffle the indices
+                const shuffledIndices = shuffleArray(indices);
+                
+                // Store shuffled options
+                shuffledOptions[questionIndex] = shuffledIndices.map(idx => question.options[idx]);
+                
+                // Find where the correct answer ended up after shuffling
+                shuffledCorrectIndex[questionIndex] = shuffledIndices.indexOf(question.correct);
+            }
             
-            // Start global timer
-            startGlobalTimer();
+            return {
+                options: shuffledOptions[questionIndex],
+                correctIndex: shuffledCorrectIndex[questionIndex]
+            };
+        }
+
+        // Initialize quiz
+        function initQuiz() {
+            displayQuestion();
+            startTimer();
+            updateProgress();
+        }
+
+        // Display current question
+        function displayQuestion() {
+            const question = questions[currentQuestion];
+            const shuffled = getShuffledOptions(currentQuestion);
             
-            // Start question timer
-            startQuestionTimer();
+            questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            questionText.textContent = question.question;
             
-            // Set up event listeners
-            prevBtn.addEventListener('click', showPreviousQuestion);
-            nextBtn.addEventListener('click', showNextQuestion);
-            showAnswerBtn.addEventListener('click', showCurrentAnswer);
-            
-            // Set up option selection
-            document.querySelectorAll('.options li').forEach(option => {
-                option.addEventListener('click', function() {
-                    if (this.parentElement.parentElement.id === `question-${currentQuestion}`) {
-                        selectOption(this);
-                    }
-                });
+            optionsContainer.innerHTML = '';
+            shuffled.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.dataset.index = index; // Store the shuffled index
+                
+                if (userAnswers[currentQuestion] === index) {
+                    optionElement.classList.add('selected');
+                }
+                
+                optionElement.textContent = option;
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionElement);
             });
             
-            // Update progress bar
-            updateProgressBar();
-        });
-        
-        // Function to show a specific question
-        function showQuestion(questionNumber) {
-            // Hide all questions
-            document.querySelectorAll('.question').forEach(q => {
-                q.style.display = 'none';
-            });
-            
-            // Show the selected question
-            document.getElementById(`question-${questionNumber}`).style.display = 'block';
-            
-            // Update current question
-            currentQuestion = questionNumber;
+            // Show/hide explanation
+            if (userAnswers[currentQuestion] !== null) {
+                showExplanation();
+            } else {
+                explanationContainer.style.display = 'none';
+            }
             
             // Update button states
-            updateButtonStates();
-            
-            // Reset question timer
-            resetQuestionTimer();
-            
-            // Update progress bar
-            updateProgressBar();
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.disabled = false;
+            submitBtn.style.display = currentQuestion === questions.length - 1 ? 'block' : 'none';
         }
-        
-        // Function to show previous question
-        function showPreviousQuestion() {
-            if (currentQuestion > 1) {
-                showQuestion(currentQuestion - 1);
+
+        // Select an option
+        function selectOption(shuffledIndex) {
+            if (quizCompleted) return;
+            
+            userAnswers[currentQuestion] = shuffledIndex;
+            
+            // Update UI
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => option.classList.remove('selected'));
+            options[shuffledIndex].classList.add('selected');
+            
+            showExplanation();
+        }
+
+        // Show explanation for current question
+        function showExplanation() {
+            const question = questions[currentQuestion];
+            const shuffled = getShuffledOptions(currentQuestion);
+            
+            explanationText.textContent = question.explanation;
+            memoryTipText.textContent = question.memoryTip;
+            explanationContainer.style.display = 'block';
+            
+            // Highlight correct/incorrect answers
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                option.classList.remove('correct', 'incorrect');
+                if (index === shuffled.correctIndex) {
+                    option.classList.add('correct');
+                } else if (index === userAnswers[currentQuestion] && index !== shuffled.correctIndex) {
+                    option.classList.add('incorrect');
+                }
+            });
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+                updateProgress();
             }
         }
-        
-        // Function to show next question
-        function showNextQuestion() {
-            if (currentQuestion < totalQuestions) {
-                showQuestion(currentQuestion + 1);
+
+        // Navigate to previous question
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+                updateProgress();
             }
         }
-        
-        // Function to update button states
-        function updateButtonStates() {
-            prevBtn.disabled = currentQuestion === 1;
-            nextBtn.disabled = currentQuestion === totalQuestions;
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `${currentQuestion + 1}/${questions.length}`;
         }
-        
-        // Function to start global timer
-        function startGlobalTimer() {
-            globalTimer = setInterval(function() {
-                globalTimeLeft--;
-                updateGlobalTimerDisplay();
+
+        // Start timer
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
                 
-                if (globalTimeLeft <= 0) {
-                    clearInterval(globalTimer);
-                    alert("Time's up! You've completed the quiz.");
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    submitQuiz();
                 }
             }, 1000);
         }
-        
-        // Function to start question timer
-        function startQuestionTimer() {
-            questionTimer = setInterval(function() {
-                questionTimeLeft--;
-                updateQuestionTimerDisplay();
-                
-                if (questionTimeLeft <= 0) {
-                    clearInterval(questionTimer);
-                    showCurrentAnswer();
-                    if (currentQuestion < totalQuestions) {
-                        setTimeout(() => showNextQuestion(), 2000);
+
+        // Submit quiz
+        function submitQuiz() {
+            clearInterval(timer);
+            quizCompleted = true;
+            
+            // Calculate score
+            score = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] !== null) {
+                    const shuffled = getShuffledOptions(i);
+                    if (userAnswers[i] === shuffled.correctIndex) {
+                        score++;
                     }
                 }
-            }, 1000);
-        }
-        
-        // Function to reset question timer
-        function resetQuestionTimer() {
-            clearInterval(questionTimer);
-            questionTimeLeft = 90;
-            updateQuestionTimerDisplay();
-            startQuestionTimer();
-        }
-        
-        // Function to update global timer display
-        function updateGlobalTimerDisplay() {
-            const minutes = Math.floor(globalTimeLeft / 60);
-            const seconds = globalTimeLeft % 60;
-            globalTimerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
-            // Change color based on time remaining
-            if (globalTimeLeft <= 600) {
-                globalTimerElement.classList.add('danger');
-                globalTimerElement.classList.remove('warning');
-            } else if (globalTimeLeft <= 1200) {
-                globalTimerElement.classList.add('warning');
-                globalTimerElement.classList.remove('danger');
-            } else {
-                globalTimerElement.classList.remove('warning', 'danger');
             }
+            
+            // Display results
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            scoreDisplay.textContent = `${score}/${questions.length}`;
+            totalQuestions.textContent = questions.length;
+            correctAnswers.textContent = score;
+            incorrectAnswers.textContent = questions.length - score;
+            percentage.textContent = `${((score / questions.length) * 100).toFixed(1)}%`;
+            
+            const minutesTaken = Math.floor((60 * 60 - timeLeft) / 60);
+            const secondsTaken = (60 * 60 - timeLeft) % 60;
+            timeTaken.textContent = `${minutesTaken.toString().padStart(2, '0')}:${secondsTaken.toString().padStart(2, '0')}`;
+            
+            // Set score text
+            if (score >= questions.length * 0.8) {
+                scoreText.textContent = "Excellent! You have mastered Thyroid & Adrenal Gland physiology.";
+            } else if (score >= questions.length * 0.6) {
+                scoreText.textContent = "Good job! You have a solid understanding of thyroid and adrenal function.";
+            } else if (score >= questions.length * 0.5) {
+                scoreText.textContent = "You passed! Review the explanations to strengthen your knowledge.";
+            } else {
+                scoreText.textContent = "Review the materials on thyroid and adrenal gland physiology.";
+            }
+            
+            // Generate question review
+            generateQuestionReview();
         }
-        
-        // Function to update question timer display
-        function updateQuestionTimerDisplay() {
-            const minutes = Math.floor(questionTimeLeft / 60);
-            const seconds = questionTimeLeft % 60;
-            const timerElement = document.querySelector(`#question-${currentQuestion} .question-timer`);
-            if (timerElement) {
-                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        // Generate question review
+        function generateQuestionReview() {
+            questionReview.innerHTML = '<h3>Question Review</h3>';
+            
+            questions.forEach((question, index) => {
+                const shuffled = getShuffledOptions(index);
+                const reviewItem = document.createElement('div');
+                reviewItem.className = 'review-item';
                 
-                // Change color based on time remaining
-                if (questionTimeLeft <= 15) {
-                    timerElement.style.backgroundColor = '#f44336';
-                } else if (questionTimeLeft <= 30) {
-                    timerElement.style.backgroundColor = '#ff9800';
+                const reviewQuestion = document.createElement('div');
+                reviewQuestion.className = 'review-question';
+                reviewQuestion.textContent = `${index + 1}. ${question.question}`;
+                
+                const userAnswer = document.createElement('div');
+                userAnswer.className = 'review-answer';
+                if (userAnswers[index] !== null) {
+                    userAnswer.innerHTML = `Your answer: <span class="user-answer">${shuffled.options[userAnswers[index]]}</span>`;
                 } else {
-                    timerElement.style.backgroundColor = '#1a6bb3';
+                    userAnswer.innerHTML = `Your answer: <span class="user-answer">Not answered</span>`;
                 }
-            }
-        }
-        
-        // Function to show current answer
-        function showCurrentAnswer() {
-            const answerElement = document.getElementById(`answer-${currentQuestion}`);
-            if (answerElement) {
-                answerElement.classList.add('show');
-            }
-            clearInterval(questionTimer);
-        }
-        
-        // Function to select an option
-        function selectOption(optionElement) {
-            // Remove selected class from all options in this question
-            const options = optionElement.parentElement.querySelectorAll('li');
-            options.forEach(opt => {
-                opt.classList.remove('selected', 'correct', 'incorrect');
-            });
-            
-            // Add selected class to clicked option
-            optionElement.classList.add('selected');
-            
-            // Show if correct or incorrect
-            if (optionElement.getAttribute('data-correct') === 'true') {
-                optionElement.classList.add('correct');
-            } else {
-                optionElement.classList.add('incorrect');
                 
-                // Also show the correct answer
-                const correctOption = optionElement.parentElement.querySelector('li[data-correct="true"]');
-                if (correctOption) {
-                    correctOption.classList.add('correct');
-                }
-            }
+                const correctAnswer = document.createElement('div');
+                correctAnswer.className = 'review-answer';
+                correctAnswer.innerHTML = `Correct answer: <span class="correct-answer">${shuffled.options[shuffled.correctIndex]}</span>`;
+                
+                reviewItem.appendChild(reviewQuestion);
+                reviewItem.appendChild(userAnswer);
+                reviewItem.appendChild(correctAnswer);
+                
+                questionReview.appendChild(reviewItem);
+            });
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            shuffledOptions = new Array(questions.length).fill(null);
+            shuffledCorrectIndex = new Array(questions.length).fill(null);
+            score = 0;
+            timeLeft = 60 * 60;
+            quizCompleted = false;
             
-            // Show answer explanation
-            showCurrentAnswer();
+            quizContainer.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            
+            initQuiz();
         }
-        
-        // Function to update progress bar
-        function updateProgressBar() {
-            const progress = (currentQuestion / totalQuestions) * 100;
-            progressBar.style.width = `${progress}%`;
-        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', prevQuestion);
+        nextBtn.addEventListener('click', nextQuestion);
+        submitBtn.addEventListener('click', submitQuiz);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        // Start the quiz
+        initQuiz();
     </script>
 </body>
 </html>
