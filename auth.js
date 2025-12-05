@@ -88,45 +88,313 @@ class AuthSystem {
 "J9F2S8": "TRQ801", "Q4H6G2": "MZR707", "P8T9C5": "SJM589", "H2V7A1": "DGF622",
 "V3M5K7": "KLP995", "R1X8D3": "GVH508", "W4L9F2": "XTQ744", "E6P3S9": "HZL678",
 "N9B1W4": "JMS120", "T2C8M7": "FQP319", "X5Q7K1": "SWD640", "K4H2R9": "PTX522",
-"U7A5G3": "XZR902", "C3V9P8": "HQL710"
+"U7A5G3": "XZR902", "C3V9P8": "HQL710", "M9K3P6": "B5V8Q1", "F4L8S2": "N6D3T9", "R2H5J7": "C9M1P4", "X7G3W5": "K4F8L2",
+"Q8T1N4": "D2R7S9", "P5B9K3": "M8V4H1", "Z3D6F8": "J5W7Q2", "Y1L9R6": "S3T8P4",
+"V6C2H4": "F9M5K8", "A8G1J3": "N7B2W6", "C5T7D9": "R8L4X2", "E3M6P1": "K9H5V7",
+"H2N8S4": "Q3B1J6", "W9F7C5": "T4D6R2", "L1K8M3": "V5P9G7", "B7S2J9": "X4H6F8",
+"N4P3R5": "Z8C1L7", "T8W6Q2": "A9D3M5", "S1V9K7": "Y4F2H8", "D5J6G3": "W7R1T4",
+"J9M2B4": "L8K5P1", "F6R8S5": "C3H7N2", "K5T3V9": "E1Q8X6", "G4N7W1": "S2D9J5",
+"P7H6L2": "B8M3C9", "Q2F9D8": "T6V1K4", "X1B5J7": "R3N8G2", "Y8M4P6": "H9L1C3",
+"Z9R2S4": "W5D7F8", "V3L5K9": "J4Q6N1", "C8N1F7": "A2T3M6", "E6G5H2": "P4K9R7",
+"R4W8J3": "S7B6X5", "A3M9K5": "V1Q2T7", "B6P4D1": "C5J8H3", "L7T6G9": "F2N3Z8",
+"H1S8Q4": "Y6D2X9", "W2C7N5": "R9K3M1", "M5J1B8": "L4H6F7", "D9F3P2": "Q8S4V6",
+"T4V7H9": "Z1G6W5", "S6K8C4": "A7N2B9", "F1Q5R3": "E4H8J2", "J3W4M7": "P6L9D5",
+"X5D2G8": "T7S1K3", "Y9B6P3": "V8C4H1", "N8R1S7": "M2J5F9", "K2L7H4": "W3Q6D8",
+"G3T9F5": "C1B4R2", "P8J6V1": "X9M5L7", "R5S3N9": "A6K2H8", "Q7D4B2": "F8G1T5",
+"C2H7L9": "Y3P6J4", "V9N1W8": "S4R2M5", "E8K4T2": "B3Q9Z7", "M1S5G6": "D7F2J8",
+"B4C8K3": "W6H9L1", "Z6X1P7": "T8N4V2", "L3D9H5": "R7J2B6", "F5V6S2": "K1M8C4",
+"W8J3Q9": "E7G4N6", "A5R1T4": "H2P9F3", "H7B9M2": "X6L8D1", "J4S6W5": "Z3V7K9",
+"Y2G8L3": "C6Q1F4", "T3P7K6": "B5D8S9", "S9M4H1": "V2R6G7", "D6Q2F8": "A3N5C9",
+"N1W7V3": "Y8J4L6", "K8B5C2": "P9T1H7", "R3G9J6": "W4S2M8", "P2L4F1": "D5B7X3",
+"X4T8N7": "Q6K3V9", "C7V5B8": "F9M6H2", "G6H3S9": "E2J7L4", "Q1D8R4": "T5Z9N3",
+"M7K2F6": "S8B1C5", "V4P9J5": "R6W3H8", "L5W6T3": "X2G7D9", "F2S8C4": "A9M1K7",
+"B3N6Q7": "P4H5V1", "E9J1L8": "Y7D3F6", "Z8R5M4": "W2T7K9", "H4D2S3": "C1Q6G8",
+"Y6B7F9": "V3N8J2", "J8T1K5": "L9R4P6", "A2G5C7": "M3S6D8", "T9Q3V8": "H1B4X7",
+"S5P2R6": "E4K9F7", "D1H8L9": "Z2W5C3", "W7M4B6": "Q8J3T1", "K6N9X2": "G5V1R4",
+"C3F8J7": "P7S2D5", "R9V5T2": "N1H6L4", "X1Q4G6": "A8K7B3", "L2S7H3": "Y9M6F8",
+"B8D4P9": "T3C6J1", "F7N3W5": "V2R8G4", "M5T6K1": "E9S4H2", "P3J8B2": "D7L5Q6",
+"H9R1V7": "W4X3C8", "Y5G2F4": "K8M7S1", "Q6L3D9": "R2P5B7", "Z4C1H8": "T7N6V3",
+"V8S2J6": "F5G9K4", "A7M9L5": "C2B6D1", "E5W3R8": "H7J4X9", "T1K7B4": "Q9N2P6",
+"G8D6S3": "Y1V5F2", "S4N8C5": "L6T9R7", "D3P1J2": "M8K5H4", "W6X9T4": "Z7B1G3",
+"N2F5Q8": "A4C9L7", "J7R3V9": "E6H8S2", "K4M1G7": "P8D2F6", "C6L9W8": "X5T3Q1",
+"R1B5H2": "V4J9N7", "Y3T7D4": "S6K8M2", "L8F9P2": "G1C3B6", "B9Q6X4": "W5T2R8",
+"F3S1M8": "H6J4K9", "X2V6N5": "D8C7P1", "P5K9L6": "R4B3J7", "M6H4Q2": "Y8S1T5",
+"Q7G8V3": "F2N9C1", "A1D5R9": "Z6W7K4", "T8C2J3": "L5H9M7", "E4B6F1": "X3Q5S8",
+"Z9M7P4": "V1R2D6", "H5N3K8": "C8G2T7", "S2W8L1": "A9J6F4", "D7V4G9": "P3M5B1",
+"W3T6Q5": "E8K2H7", "Y4J7B8": "R9S1N6", "L1C5X9": "F6D3M2", "V2P8R3": "T4H7K9",
+"N9F6S5": "B5G8J2", "K7D1T4": "Q3W6V8", "R8M3H5": "C4Z9L2", "J6Q9F2": "Y5S7D8",
+"G2B4V7": "N1P6K3", "X5A8C6": "H3T9M4", "P9R7W1": "L8D2F5", "M4S3J9": "E1V6Q8",
+"B3T5K2": "X7G4N8", "F8H6L4": "R2C9P7", "C1Q8D7": "W9J5M3", "Z6E2G5": "S4V3T1",
+"A2N7H1": "K8B5F9", "T3M9R6": "D4L8Q2", "Y8P5C3": "V7J1N9", "S1D9F6": "G7K4B2",
+"V9L2X8": "H4R3M5", "E5W4T7": "P6Q9C1", "J7B8K3": "N2F6Z5", "R4G1S2": "A3M8L9",
+"L6H9P7": "Y2D5V4", "Q1T8N3": "W7C6F2", "X9K5B4": "E6S3J8", "D8M2F1": "R5T7G3",
+"W6V3C5": "L1P9H8", "H2J7Q4": "B9N6S1", "P4R8D6": "K3T2M7", "N5G9F7": "C8V1Z2",
+"K4S1L3": "X6J5Q7", "F3C9B6": "A7H8D2", "M8E2V5": "Y1W4T9", "Z7Q6J9": "G5P3L8",
+"B1T4N8": "S9R2K6", "C2X5H7": "D3F8M1", "A6L7W9": "V8Q4P2", "Y3G6K2": "E9B5H1",
+"S5P1M4": "N7C8T6", "T9D6R3": "W2J4F7", "V7H5N9": "L8K1B3", "E4Q8S2": "P5G7C9",
+"J8M3F6": "R1V9D4", "G2W4T5": "X8S6Z1", "R7B9L1": "H3Q5K6", "D5C4J2": "A9F8M7",
+"Q3N6V8": "Y7T2G9", "P8K7X1": "C6B4H2", "F1S9D3": "W5L4R8", "X2T8G5": "E6M1J9",
+"M6H4C7": "V3P9Q2", "L9R5W6": "N8K2B1", "Z4F7J3": "D1S8H6", "A5V2N4": "T7C9G8",
+"Y1B8K9": "R6Q3M5", "H7P6S4": "W9F2L3", "K3D1T4": "J5C8X7", "C9E2M8": "G4V6P1",
+"B6S5R2": "L7H3N9", "W8Q7F3": "D2K4J1", "T1G6V5": "A3M9P8", "N2J8C4": "Y5B7Z6",
+"E3L9H1": "X4R8S7", "P7D5F9": "V2K6T3", "S4M3Q6": "C1G8W5", "R9T7B4": "H6N1L2",
+"J2X8K5": "Z3D9F7", "V4P1C6": "E7Q9M2", "L5W3H8": "B8T6G4", "F8R4N7": "Y9S1J3",
+"M1G5D2": "K7C3V6", "Q6B9T8": "P4J2H7", "A8K3S7": "W1F5R2", "X9Z4L6": "D7N8C5",
+"Y2V1M9": "T5H3G6", "H4C7F2": "R3Q8B6", "D6P9J1": "L4S5K8", "G3T8W5": "A2E7N1",
+"C5N6B4": "M8V9J7", "K2F1R3": "Q4D8H9", "W7S5L9": "X6P3Z2", "B3M4H6": "E1G8T7",
+"J9Q5C8": "V2R7S4", "T6N3P2": "Y8K1B5", "E5D9G4": "F7W6H2", "R1L8V3": "C2J5M7",
+"S8X7F9": "P6T4B1", "Z1H2Q6": "N9K5D3", "V8M7R5": "A4G6C9", "L3T9K4": "W2J8S1",
+"P5B2N8": "H7Q3D6", "F4C1J7": "Y9M6V5", "Q8G3T2": "R6K4L1", "A6D7S9": "E3P1X4",
+"M2W5H8": "B9C4J6", "X3R6F1": "T8V7N9", "K1P7L4": "Z5G2D8", "Y7S3B6": "Q9H4M8",
+"J4V9C2": "L6R5F3", "H5N8T1": "D4W7G9", "C8E6K3": "P2S1B7", "D1Q5M9": "A3F8J2",
+"G7W4R3": "V6T2L5", "B8K6N4": "X9C7H1", "T3J7P5": "Y2M1Q8", "S2F9D6": "E4H3V8",
+"R4L9G5": "W8K7B3", "V1C5H2": "N6P8J4", "Z6M4X8": "Q7D3T9", "E9B2S7": "L1G6F4",
+"P8R1K3": "C4V5H9", "A7T6W2": "J9N5D8", "Y5F8M3": "G2Q4S1", "L2D4B9": "R7K6X3",
+"Q3N1J6": "T8H5V2", "H9C7P4": "Z1W6M5", "K5G3F1": "B4D9S8", "X8V7L6": "E2R5T4",
+"M1S9C8": "P6J4H3", "D2T5R9": "Y3W1K7", "F6B8N2": "A5Q9V4", "J7L4G9": "C3S6D1",
+"W3H2Z5": "M8P7K6", "R6E1T8": "F9B5X2", "V4N3J1": "L9Q2D7", "S5P9M6": "H8C4R1",
+"B1K7G5": "T6W4Z3", "C9Q2L8": "A2J3D5", "E8F3S4": "V1M7R9", "Y6H1T7": "P5N4B2",
+"G4X9D6": "K2C8J5", "L5R3W1": "Q7S2V8", "T9M8H4": "F5D1C6", "P2J6K3": "B7G9N1",
+"A3V5F7": "Y8X4L2", "D8Q4S9": "E6R2M1", "Z7B6C1": "W9H5T3", "H2N7P8": "K4J1G3",
+"X1T6V9": "L3R5D4", "M4S2G8": "Q9C7F6", "R8K5B3": "A6H9W7", "J9D1L7": "Y2P4T8",
+"F8Q3M5": "V7S6C2", "N6E4H1": "B5G2X9", "W5C9J4": "D3T7K8", "S3R1L6": "P8M2F4",
+"V2Z8G7": "H6Q5B1", "Y7M9K6": "E1D4S2", "T4P1C3": "A8W6N9", "B9L5R2": "J3H8F7",
+"K1X7N4": "Q6V3D5", "C5G8F2": "M7T9W1", "E3J6S8": "L4B2H5", "Q2D9T5": "R1P7K4",
+"H8V4N3": "Z9C6X2", "L7W1M8": "F3G5S4", "P6B4J9": "Y5T2D1", "A1K3H6": "V8Q7E9",
+"D5S2R4": "C7N8G1", "X9F6L3": "W2M5B8", "G3T8V7": "J1P4K9", "R9Z5C2": "H4E6S1",
+"M2Q7D8": "B6F9L5", "S4N1J3": "T6Y8G2", "Y1P5W9": "A3K7D4", "F7H6B2": "Q4M8R3",
+"J8C1V5": "L9X6S7", "T3G4N2": "E5W1Z8", "V6R8K7": "P9D2H3", "W5M9L4": "B1C8F6",
+"B3S7Q1": "J2H9G5", "C4D6T8": "Y7K1P3", "E2X5F9": "R6V4N8", "K8M3Z1": "A9L7S2",
+"L6P4H2": "W8T9G3", "N9B5R7": "D1C3J4", "Q3V8S6": "F5H7M1", "A7G9K2": "Y4T6D8",
+"H1W4J5": "X2L3Z9", "D8M6F3": "B4P7Q9", "P2R5T1": "E9S8C6", "Z7N3V9": "K5J1G4",
+"T4X8B6": "L2H7M9", "S5Q9C7": "V3R1D2", "F1K6J8": "A5W3N4", "Y2G8L1": "P6B7T9",
+"M7D4H9": "Q8C2R3", "R6E3S4": "X1Z5V7", "W9T7K5": "G6J2F8", "B8L1N3": "D9H4P5",
+"J4M8V2": "Y3S6C9", "C5Q7G6": "T1F2R8", "E1P9W4": "K3N5L7", "X6B3Z8": "H5D7S2",
+"V9R2F5": "M4J8C1", "G7T6H3": "Q5L4N9", "L8K9S1": "A2D3B6", "N2P4X7": "W1R8E5",
+"A4J5M3": "V6F9C8", "H8Q6T2": "S7G1Y9", "D7R9B4": "E8K2L5", "P3V1C6": "Z4X8N7",
+"T5S8W3": "J9H7F2", "F4N1L9": "M6R2D5", "Y1B7K4": "P8C3Q6", "Q2G5V8": "T7H9J1",
+"M9E6S3": "L4W5X2", "K7D2R4": "B1N8C5", "Z3H6F8": "A9P1V7", "C8J7T9": "Y2M5G4",
+"X5L1B6": "D4Q3S7", "R1W9N4": "H2K8F3", "V3P8G2": "E7C6T5", "S6J4M1": "L9Q5B8",
+"B5T7H9": "W6D8X2", "E4K3N6": "R2S1P9", "F9Q8L2": "Z7V4C1", "J1D5G7": "Y3M6T8",
+"H7R3C4": "A8B9W5", "P6X2V1": "K4N7S3", "L5F8T4": "Q9J6D2", "W8M2Z9": "G1H4R7",
+"N9S5B3": "E6C7J8", "Y4P1K6": "T3D8V2", "A2Q7R9": "F5H1L4", "D6G3M8": "X9W4S7",
+"T1C5J2": "B8N6V7", "K9H4L7": "P2R5Q3", "M3B6F1": "Y8D9S4", "V5W2X8": "L1J3C6",
+"Z8N4Q7": "E9T6H5", "C1R2S9": "G7P3M4", "X6F8B5": "A4K1V9", "U1D7G4": "J5W3T8",
+"O3P6R9": "N2Q8B1", "I2M5K7": "F9C4X6", "E8H1S3": "V6L9J4", "Z5N7W2": "P4T1R8",
+"A6B3Q9": "D2G5K8", "Y7F4C1": "M8S6H3", "L1T8J6": "X9V5R2", "U4K3M9": "W7Z6P5",
+"R2D5B8": "C9Q1F7", "S4G6H2": "E3N8L7", "P7W1T4": "A5J9V3", "O9X8M2": "B6R3K4",
+"F5J7L9": "Y1D4H8", "C3N6V1": "S2Q8T5", "I8E2R4": "G9W3P6", "H4B7Z5": "M1K9L2",
+"T6Q3X9": "U7D8F2", "V9P5G1": "C4R6J8", "M7S1K4": "Y2L3T6", "J8N6B5": "A3H9Q7",
+"L5W4F3": "E1R2D9", "O2C7H6": "P8Z4V1", "U3T9M8": "B4G5S7", "X1R6Q2": "F8K7N9",
+"Z8D3J5": "W9H1C6", "A4G2L7": "T5M6V8", "Y9B1P4": "S3K8F6", "E7N5C9": "Q6X2R4",
+"F2V8H3": "D1J4M9", "I6S4K1": "L8Z7P3", "R1T7W5": "O9G3B2", "C5M8Q9": "U4A6V2",
+"P3L6H1": "Y7E9D4", "J9F8X2": "N5B3K6", "S2R5D8": "C1W4G7", "O7V3Z9": "T6H2M4",
+"U8K4B6": "A5Q1J3", "X6N9T7": "F7L2P8", "G1W5R3": "D9S4H8", "V2C8M3": "E6Q7K9",
+"L4H7F9": "B2J5Z1", "T1P6Q8": "I3M9V4", "Y8E2S5": "R4C6X7", "N3D1K5": "W9G7B4",
+"A7U4J6": "H5T2M8", "B9Q3R1": "F6S8L4", "C2G5X9": "Y1V7P6", "D8M4Z2": "O5N6K3",
+"E3F9S7": "W1C4J8", "I1L8H6": "Q2T5V9", "J7R4P9": "A6B3D2", "K6V5W8": "U9M2X3",
+"O4N7C1": "G8H3L9", "P2T8D5": "S6Q1F4", "R9Z6X4": "E7B5M1", "U5A3H2": "Y4K9J7",
+"V1G7L3": "C8F6N2", "X8Q9B7": "I2D4R5", "Y5S3M6": "T7J1K4", "Z4W2H8": "P1V9L6",
+"M9R1C5": "F3A8B6", "N8E6D3": "U7Q4S2", "T4J2F5": "O1G9H3", "W3K7P8": "V6L5X9",
+"L6B4Q7": "D2M8C1", "S1H9V2": "Z5A3R8", "F8X6J3": "E4P7N9", "G5U1T9": "W7Y2K6",
+"H4M7C2": "Q3V8B1", "A2D6R9": "L1S5P4", "I9O3K5": "F6J8X7", "E1N4V3": "C9T7G2",
+"P5Q8L2": "H6W4M9", "B3S6Z7": "Y8U2D1", "R7C4T1": "A5K9J2", "X9G8F5": "V4N3H7",
+"U6M5W1": "P2Q4L3", "O2D9B8": "S7R6T5", "Y1H3J4": "E8K6C7", "V7L9N8": "I5F2X3",
+"Z6A4C3": "G1T8M2", "J8K2R5": "B7W3D4", "M1Q9S4": "O6H5V8", "T3P7F6": "U4X1Y9",
+"W5E2G7": "N9C8L4", "D1H6B5": "R3J7A2", "F4V9K8": "Z2M6P1", "C5I7O3": "Q9S8T2",
+"L8U4X6": "Y5W1H2", "G9N3R2": "V6D7J4", "A6M5F8": "C2E9K3", "B4Q1T7": "P3H6S9",
+"E7R5W2": "L1G4X8", "S3J9V1": "I8M6D5", "H2P8C6": "U9T4Z7", "K1A3B9": "O7F5N4",
+"X8Y6Z4": "Q2V3R1", "N7D2L5": "W4H9C1", "U5T1M9": "J6G8S7", "P4F3Q6": "E1B7K2",
+"O9I8C2": "A5X3D4", "Y7V6H1": "M8L2T9", "R4S5G3": "F9J1W6", "Z1B8K5": "C7N6P2",
+"D3W4E9": "H5Q8V2", "F2M7L3": "Y9T6R1", "G6I4A8": "S2U3J5", "J9P1X7": "K4B3C6",
+"V8N5T2": "L7E1H4", "Q3O6R8": "D9Z2W5", "C1H7S4": "M3F8K9", "T5U9P2": "A4B6V7",
+"W1L4D6": "I2R3N8", "X9M2G5": "E7Q4J6", "A3K8F1": "Y5C9T7", "B7O4N9": "U6S2D8",
+"E5R6J3": "P1H8L7", "S8V4C2": "G9W3M6", "H1Z5Q7": "F4T9K2", "L2D8X4": "O7B1I9",
+"M6P3U1": "C5J4R9", "F7S5E2": "W8N1V3", "Y8G6A9": "H3K4T1", "I9Q2B4": "X7Z3L5",
+"O1C7M8": "R5D6J2", "N4T3V9": "A2F8G7", "P9K5L6": "E3W1H4", "U7R2D4": "B6Y8S1",
+"Z6J8H3": "M9Q4V5", "W5F1C8": "L3T7G2", "V2B3N7": "D1K9P6", "X4A5I8": "S6O2R9",
+"D7E9G4": "Y1U3M2", "Q8L1P3": "H6C5T9", "J4S7W2": "F9V8N6", "K3R6O5": "Z2B1A4",
+"T9H2M4": "C8I7E6", "G5X3U9": "P2L8R1", "A6N8Y7": "W4V1Q3", "B1F7D5": "M3J9S2",
+"C4K6T8": "O9E1H5", "E2P5V4": "X8G7L9", "S3M1R9": "Q6J8B2", "H8I4Z1": "D3F6W7",
+"L7U2O6": "Y9T5K4", "R1Q9A3": "V7C2N8", "F8B4J5": "P6H1M9", "Y5G3X2": "S4E7K6",
+"V9W6D8": "L2T1B7", "M5N3Q7": "C9R4F1", "O8P1Z4": "A7I2H6", "I3E4L9": "U1D5K8",
+"J6C8S5": "B3G2X9", "T7A2F3": "W5N1R8", "Z1Y8H7": "Q4V6M9", "X9O2D6": "P3K7E1",
+"G4B5L1": "S8T6J2", "K1R3W4": "M7H9C6", "U5F2N8": "Y3V7Q9", "E6D4P7": "O1A9I2",
+"Q2M8T3": "X5C1L4", "H7S9K6": "Z8B4R5", "D1A6V2": "J3G8F5", "W3L5O9": "E7N4C2",
+"B9J1P4": "T8M6H2", "F6Y7X8": "U4R2Q1", "C5I8G3": "V1A9S7", "N2D7O5": "W6H4K3",
+"L4R9E1": "P8T2M7", "S1Q3B6": "F5C9J4", "Y4Z6U8": "G2A7H1", "V3P9K2": "D8O6L5",
+"J7W5T4": "X1M3C6", "M8G1F9": "B2E5H4", "A3N6S7": "R4V8Q9", "K9C2L1": "Z7Y6I8",
+"T5D3H8": "O4F1W7", "E8R6X2": "N9P7B1", "U1M4J5": "S2K3G6", "H6A9V7": "C4Q8L2",
+"P2I7O3": "Y1T6D9", "G5Z4W8": "J9E3F7", "B8N1R2": "X6M5C3", "F4Q9S3": "V2K8H1",
+"L3D6A5": "W7P1O9", "C7E2M8": "T4H5R1", "X8U9B4": "I6J3Z5", "O5K7V6": "N2G1D8",
+"R1S4T9": "A7F3H2", "Y2C6P8": "Q5L9E4", "D9W3M7": "U6B5G1", "J8H4F6": "O1K3X7",
+"V5T2R4": "S9N7L8", "I9G8A1": "E4C2Z6", "Q6B3P5": "D7M1W9", "K4L7J2": "Y8F9H3",
+"N3E5U8": "R2V1X4", "Z7O6S1": "C9G4T5", "H1W9M4": "P3Q2A6", "F8D2C3": "B6I7K5",
+"X5Y4L9": "J1R8V2", "T7G6E3": "O8S4N1", "A2P1U7": "H5Q9D4", "M9B8J6": "W3K2F7",
+"E1C5V9": "Z8L4R3", "S6I3O2": "X7N5G1", "Y9T4H8": "M2D6K7", "U4R5F2": "P9J1B3",
+"L8Q7W6": "C2A4V1", "G3N1K5": "T6E9D7", "B7Z2X8": "I4O9H6", "C4M8P1": "Y3S5F9",
+"V6A5D9": "Q8J2R1", "J9H7T3": "L1N6E4", "O2W4Z5": "G8B3M7", "D3K8I1": "X6C9S2",
+"R1F5L4": "V7U2H9", "P6E8B2": "A9T3J5", "Q4N7C6": "Z1W5K8", "X2G1Y7": "M4D8R3",
+"S8U3V9": "F6H4B1", "F7J5I8": "C3P2O9", "T9L6M1": "W2A7G4", "K3R4E5": "Y6Q1D2",
+"H2N8B4": "S1V5P7", "W1C7O6": "E9J3L8", "I4Z9D5": "M6T8G2", "A8F3Q7": "R2H5K4",
+"U5P9M2": "B6V1L3", "E7S4X3": "N9C1J8", "Y8G6W2": "T5D4F1", "O1L9K7": "P3H8Q6",
+"B5A3V4": "Z7R9M6", "C2J8I1": "X4N7D9", "D6H3T1": "W5F8S2", "G4E2R5": "L7P1K9",
+"M1Q9U6": "V3B8Y7", "J7S5Z4": "A2C6H1", "N8F9W3": "I3O4T2", "R6P2L8": "E5G1D4",
+"V9X7K5": "Q3Y2B1", "T4U8H6": "M7S9C3", "L2O5N9": "J1F6R8", "Q8I7A4": "W9D5G2",
+"P1C3M6": "Y4K8Z1", "F5B2E9": "H7S6X8", "X6T3V2": "O9R4L1", "S7G5U1": "D8J4N3",
+"K4Z9W8": "C1A6P7", "H8R3Q5": "B9E2M4", "Y1D7F4": "T6J2V3", "E6L9O2": "N5P8I7",
+"G3A8C2": "Q7X5S1", "M5I6J9": "R2V8D4", "W4B7N1": "F3H6K2", "U9P6T7": "L8Y1O3",
+"D2S4K3": "Z5C9E1", "V5R8H2": "X7M3Q4", "J1G6I8": "A9F4L7", "O7C5N2": "W6T9B8",
+"Q3P9E4": "D1S5Y2", "B6M8L4": "H9U7J5", "F8X1Z6": "G2K4T3", "A4V9R7": "I5C3O1",
+"T2W5N6": "E8Q1J7", "K7H3D9": "Y6P4M2", "L1U4S8": "B5G9F2", "C8J3A6": "V2R1X9",
+"P4O9I1": "Z8D6H7", "R5E7G3": "N3W2T4", "S6Y8B1": "M4Q2K9", "X9F7V4": "L5C1J8",
+"H2T6M3": "U1A8Z7", "E3N4Q5": "R9D7P2", "G5W1I2": "S4K8B3", "J8L6O7": "C9F2V1",
+"Y7P3D2": "T8H4M9", "U6B9K5": "A3Q1X4", "V4Z2C7": "E5J6N8", "M1S5R8": "W3G7L2",
+"D9A2F6": "Y4H8P1", "Q6I3T7": "V5O9C8", "K8R4J1": "B7M2G9", "L3E1W9": "N6S4X2",
+"F5C4H8": "D7P9T2", "O2Z6N5": "R3A1U4", "X8M7J4": "G6K9V1", "B2T3Y7": "H5Q8L1",
+"W9U5P4": "F1E6S3", "C1D4G7": "I8J2Z3", "A5N6K3": "Y9M8V2", "S7R1B4": "T6O4Q9",
+"H9L8E2": "X3C5W6", "J5V1U4": "P8D3M7", "T7G2F9": "A6K4R5", "E4N1Q3": "L9B8Z2",
+"P6Y8C1": "V7S2H3", "M3W5O9": "D1J4I6", "R8K7X2": "Q5T4B6", "U2A9L1": "E3G6F7",
+"V6D5I7": "C8H2Y9", "Z4S3T8": "W1N7P2", "Y1O6M4": "J9R2K5", "Q7F9H5": "B3C6A8",
+"G8L2N3": "V4X1T7", "I4E5D6": "M9P1S8", "K9B7R1": "Z5J3W2", "C2U8H4": "Y6A7O1",
+"F3P5M6": "D9T2L8", "X7V1Q4": "E8S6K2", "W8J9G3": "R4N5B1", "L7Z6A2": "H1C4U3",
+"O1T9D8": "P3M5F7", "S4E6B5": "Q2J8X9", "N2H7C9": "A5I3V1", "U9K4W6": "G7L1R3",
+"E2Y5Z7": "T8P6C1", "J3M8S1": "F4D9H6", "R6B4V2": "O7K5N3", "Q1G9A3": "W4X8L2",
+"T5C7I6": "Y2H8Z9", "D3F1P8": "U6M9R4", "H2J5O4": "B8S7K1", "V9N6E7": "C5L3W1",
+"A8G4X2": "Q9T7D6", "P1R3Y5": "J6H4F2", "L9M2K8": "E1V3S4", "B6C8Z1": "I5N7O9",
+"F7W5T3": "X6A4D2", "G8U1H9": "M3P4R7", "S2Q4L6": "C9B5V8", "X3O9J7": "D1K6E8",
+"Y4N8I2": "R5T1W7", "Z7A6F1": "H3Q2M5", "K1D4C3": "P8V9L2", "W6E5G9": "U7J4S3",
+"O2B9R8": "A3H1F4", "M7P6T5": "Y9L4C2", "I8V1N3": "G5Q7D9", "E6S4U2": "X8Z3K1",
+"H5J8W4": "B2F3L7", "Q3M9A7": "D6P1T4", "R1C5G2": "V8O4N6", "T7Y6K9": "E9I1S2",
+"L8F2D5": "J3H4B1", "U5X7Z4": "W9C6M3", "N4P9V3": "Q2A8R6", "F1O8J5": "G7K2Y1",
+"C4S6H9": "L3E7T8", "B7M1W5": "I9D4U6", "A2G3Q6": "P5X8V4", "Y8K7R2": "H6J1F9",
+"D9T3E4": "C1L5N2", "J6P8S7": "B4W3M9", "V2U1O5": "A7Q4G8", "X9I4Z8": "E5F6R3",
+"W3L7H1": "D8T2C9", "G5N6B8": "Y1M4K2", "Q9A3C7": "S8V6P1", "K8R4F2": "J7I5O1",
+"O2E1T6": "X5D3L9", "M5H9S4": "W6Z2U7", "P7B1D6": "N3C8J4", "R6Y5G3": "F4V8Q2",
+"T8K1I7": "E2L4A9", "S3M2F5": "H7U9B6", "V4C9N1": "P6O8R5", "Z1Q7W8": "G2J3D4",
+"L9E6H2": "Y3X4K5", "U8A5J1": "B7T9M6", "I3F4P2": "C6S1V7", "D2O9R1": "Q5W8H4"
             // Add your full code list
         };
-
-        this.codes = this.loadCodes();
+  this.codes = this.loadCodes();
     }
 
-    // --- Existing methods ---
-    loadCodes() { /* ... */ }
-    saveCodes() { /* ... */ }
-    validateAccessCode(code, email) { /* ... */ }
-    markCodeUsed(code, email) { /* ... */ }
-    createSession(userData) { /* ... */ }
-    isAuthenticated() { /* ... */ }
-    getCurrentUser() { /* ... */ }
-    logout() { /* ... */ }
+    loadCodes() {
+        const saved = localStorage.getItem('medquiz_used_codes');
+        let codes = Object.keys(this.codeMap).map(key => ({
+            code: key,
+            realCode: this.codeMap[key],
+            email: null,
+            used: false,
+            usedAt: null
+        }));
 
-    // --- NEW LOGIN METHOD ---
-    loginUser(email, code) {
-        const userEmail = email.toLowerCase().trim();
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                codes.forEach(c => {
+                    const savedC = parsed.find(s => s.code === c.code);
+                    if (savedC) {
+                        c.email = savedC.email;
+                        c.used = savedC.used;
+                        c.usedAt = savedC.usedAt;
+                    }
+                });
+            } catch (e) { console.error(e); }
+        }
+        return codes;
+    }
+
+    saveCodes() {
+        try {
+            localStorage.setItem('medquiz_used_codes', JSON.stringify(this.codes));
+        } catch (e) { console.error(e); }
+    }
+
+    validateAccessCode(code, email) {
         const userCode = code.toUpperCase().trim();
+        const userEmail = email.toLowerCase().trim();
+        const entry = this.codes.find(c => c.code === userCode);
 
-        const entry = this.codes.find(c => c.code === userCode && c.email === userEmail && c.used);
-        if (!entry) {
-            return { success: false, message: '❌ Invalid email or access code.' };
+        if (!entry) return { valid: false, message: '❌ Invalid access code!' };
+
+        if (entry.used && entry.email !== userEmail) {
+            return { valid: false, message: '❌ This code has already been used by another email!' };
         }
 
-        // Create session for existing user
+        return { valid: true, message: '✅ Code is valid.', codeEntry: entry };
+    }
+
+    markCodeUsed(code, email) {
+        const userCode = code.toUpperCase().trim();
+        const userEmail = email.toLowerCase().trim();
+        const entry = this.codes.find(c => c.code === userCode);
+        if (entry && !entry.used) {
+            entry.used = true;
+            entry.email = userEmail;
+            entry.usedAt = new Date().toISOString();
+            this.saveCodes();
+        }
+    }
+
+    createSession(userData) {
+        localStorage.setItem('medquiz_user', JSON.stringify(userData));
+        localStorage.setItem('medquiz_session_time', Date.now().toString());
+    }
+
+    isAuthenticated() {
+        return !!localStorage.getItem('medquiz_user');
+    }
+
+    getCurrentUser() {
+        const user = localStorage.getItem('medquiz_user');
+        return user ? JSON.parse(user) : null;
+    }
+
+    logout() {
+        localStorage.removeItem('medquiz_user');
+        localStorage.removeItem('medquiz_session_time');
+        window.location.href = 'index.html';
+    }
+
+    // -----------------------------
+    // LOGIN FUNCTION FOR RETURNING USERS
+    // -----------------------------
+    login(email, code = null) {
+        const userEmail = email.toLowerCase().trim();
+
+        // Check if user has already used a code
+        const existingUser = this.codes.find(c => c.email === userEmail && c.used);
+
+        if (existingUser) {
+            // Already registered, allow login without new code
+            const userData = {
+                email: userEmail,
+                code: existingUser.code,
+                loginAt: new Date().toISOString()
+            };
+            this.createSession(userData);
+            return { success: true, message: '✅ Login successful!', user: userData };
+        }
+
+        // If not registered, require code for first-time login
+        if (!code) {
+            return { success: false, message: '❌ No code provided. Please register first using a valid code.' };
+        }
+
+        const validation = this.validateAccessCode(code, userEmail);
+        if (!validation.valid) {
+            return { success: false, message: validation.message };
+        }
+
+        // First-time registration, mark code as used
+        this.markCodeUsed(code, userEmail);
+
         const userData = {
-            fullName: entry.fullName || 'User', // Optional, if you stored name
             email: userEmail,
-            code: userCode,
-            loginDate: new Date().toISOString()
+            code: code.toUpperCase().trim(),
+            loginAt: new Date().toISOString()
         };
         this.createSession(userData);
-        return { success: true, message: '✅ Login successful.' };
+        return { success: true, message: '✅ Registration and login successful!', user: userData };
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    window.authSystem = new AuthSystem();
-});
