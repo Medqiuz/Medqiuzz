@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursing Department | MedQuiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Protection Overlay -->
+    <div id="protection-overlay" class="nursing-protection-overlay" style="display:none;">
+        <div class="nursing-protection-modal">
+            <h3>🔒 Access Required</h3>
+            <p>Please login to access Nursing Department content</p>
+            <button onclick="window.location.href='../dashboard.html'" class="nursing-btn">
+                Go to Dashboard
+            </button>
+        </div>
+    </div>
+
+    <header class="nursing-header">
+        <div class="nursing-logo">🏥</div>
+        <div class="nursing-header-content">
+            <span>Nursing Department</span>
+            <div class="nursing-subtitle">Comprehensive Nursing Education & Training</div>
+        </div>
+        <button onclick="goBackToDashboard()" class="nursing-back-btn">Back to Dashboard</button>
+    </header>
+
+    <div class="nursing-container" id="nursing-content" style="display:none;">
+        <!-- Breadcrumb -->
+        <div class="nursing-breadcrumb">
+            <a href="../dashboard.html">Dashboard</a>
+            <span class="nursing-separator">></span>
+            <span>Nursing Department</span>
+        </div>
+
+        <!-- Department Overview -->
+        <div class="nursing-overview">
+            <div class="nursing-overview-card">
+                <h2>💉 Nursing Program Overview</h2>
+                <p>The Nursing Department offers comprehensive training in nursing sciences, patient care, and clinical practice. Our program covers essential topics from basic nursing skills to advanced clinical specialties, preparing students for successful healthcare careers.</p>
+                
+                <div class="nursing-stats">
+                    <div class="nursing-stat">
+                        <div class="nursing-stat-number">4</div>
+                        <div class="nursing-stat-label">Year Levels</div>
+                    </div>
+                    <div class="nursing-stat">
+                        <div class="nursing-stat-number">60+</div>
+                        <div class="nursing-stat-label">Subjects</div>
+                    </div>
+                    <div class="nursing-stat">
+                        <div class="nursing-stat-number">2500+</div>
+                        <div class="nursing-stat-label">Questions</div>
+                    </div>
+                </div>
+
+                <div class="nursing-features">
+                    <div class="nursing-feature">
+                        <div class="nursing-feature-icon">📚</div>
+                        <div class="nursing-feature-content">
+                            <strong>Comprehensive Curriculum</strong>
+                            <p>Covering all major nursing subjects and specialties</p>
+                        </div>
+                    </div>
+                    <div class="nursing-feature">
+                        <div class="nursing-feature-icon">🩺</div>
+                        <div class="nursing-feature-content">
+                            <strong>Clinical Focus</strong>
+                            <p>Real-world patient scenarios and case studies</p>
+                        </div>
+                    </div>
+                    <div class="nursing-feature">
+                        <div class="nursing-feature-icon">📊</div>
+                        <div class="nursing-feature-content">
+                            <strong>Exam Preparation</strong>
+                            <p>Targeted practice for NCLEX and certification exams</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Specialties -->
+        <div class="nursing-specialties-section">
+            <h2 class="nursing-section-title">
+                <span>👩‍⚕️</span> Nursing Specialties
+            </h2>
+
+            <div class="nursing-specialty-grid">
+                <a href="medsurg.html" class="nursing-specialty-card">
+                    <h4>Medical-Surgical</h4>
+                    <p>Adult health and surgical nursing care</p>
+                    <div class="nursing-course-count">15 Modules Available</div>
+                </a>
+
+                <a href="pediatrics.html" class="nursing-specialty-card">
+                    <h4>Pediatrics</h4>
+                    <p>Child health and developmental care</p>
+                    <div class="nursing-course-count">12 Modules Available</div>
+                </a>
+
+                <a href="obgyn.html" class="nursing-specialty-card">
+                    <h4>OB-GYN</h4>
+                    <p>Maternal and women's health nursing</p>
+                    <div class="nursing-course-count">10 Modules Available</div>
+                </a>
+
+                <a href="psychiatric.html" class="nursing-specialty-card">
+                    <h4>Psychiatric</h4>
+                    <p>Mental health and behavioral nursing</p>
+                    <div class="nursing-course-count">8 Modules Available</div>
+                </a>
+
+                <div class="nursing-specialty-card coming-soon">
+                    <h4>Critical Care</h4>
+                    <p>ICU and emergency nursing</p>
+                    <div class="nursing-course-count">Coming Soon</div>
+                </div>
+
+                <div class="nursing-specialty-card coming-soon">
+                    <h4>Community Health</h4>
+                    <p>Public health and community nursing</p>
+                    <div class="nursing-course-count">Coming Soon</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Years -->
+        <div class="nursing-years-section">
+            <h2 class="nursing-section-title">
+                <span>📚</span> Academic Years
+            </h2>
+
+            <div class="nursing-year-grid">
+                <a href="year1.html" class="nursing-year-card">
+                    <h4>Year 1</h4>
+                    <p>Fundamentals of Nursing</p>
+                    <div class="nursing-course-count">10 Subjects Available</div>
+                </a>
+
+                <a href="year2.html" class="nursing-year-card">
+                    <h4>Year 2</h4>
+                    <p>Clinical Nursing Sciences</p>
+                    <div class="nursing-course-count">15 Subjects Available</div>
+                </a>
+
+                <div class="nursing-year-card coming-soon">
+                    <h4>Year 3</h4>
+                    <p>Advanced Clinical Practice</p>
+                    <div class="nursing-course-count">Coming Soon</div>
+                </div>
+
+                <div class="nursing-year-card coming-soon">
+                    <h4>Year 4</h4>
+                    <p>Leadership & Management</p>
+                    <div class="nursing-course-count">Coming Soon</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources -->
+        <div class="nursing-resources-section">
+            <h2 class="nursing-section-title">
+                <span>📋</span> Nursing Resources
+            </h2>
+            
+            <div class="nursing-resources-grid">
+                <div class="nursing-resource-card">
+                    <h4>NCLEX Prep</h4>
+                    <p>Comprehensive question bank and practice tests</p>
+                    <span class="nursing-resource-tag">Exam Preparation</span>
+                </div>
+                
+                <div class="nursing-resource-card">
+                    <h4>Drug Guides</h4>
+                    <p>Medication administration and pharmacology</p>
+                    <span class="nursing-resource-tag">Reference</span>
+                </div>
+                
+                <div class="nursing-resource-card">
+                    <h4>Skill Videos</h4>
+                    <p>Step-by-step nursing procedures</p>
+                    <span class="nursing-resource-tag">Tutorials</span>
+                </div>
+                
+                <div class="nursing-resource-card">
+                    <h4>Case Studies</h4>
+                    <p>Real patient scenarios for practice</p>
+                    <span class="nursing-resource-tag">Practice</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="nursing-footer">
+        <div class="nursing-footer-content">
+            <div class="nursing-footer-section">
+                <h4>Nursing Department</h4>
+                <p>Comprehensive nursing education and clinical training</p>
+                <p>Latest curriculum and NCLEX preparation</p>
+            </div>
+            <div class="nursing-footer-section">
+                <h4>Quick Links</h4>
+                <p><a href="year1.html">Year 1 Courses</a></p>
+                <p><a href="medsurg.html">Medical-Surgical Nursing</a></p>
+                <p><a href="../dashboard.html">Main Dashboard</a></p>
+            </div>
+            <div class="nursing-footer-section">
+                <h4>Certifications</h4>
+                <p>NCLEX-RN Preparation</p>
+                <p>Specialty Certification</p>
+                <p>Clinical Competency</p>
+            </div>
+        </div>
+        <div class="nursing-footer-bottom">
+            © 2025 MedQuiz Nursing | Care with Knowledge, Practice with Excellence
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.authSystem || !window.authSystem.isAuthenticated()) {
+                // Show overlay if not logged in
+                document.getElementById('protection-overlay').style.display = 'flex';
+                document.getElementById('nursing-content').style.display = 'none';
+            } else {
+                // Show content if logged in
+                document.getElementById('protection-overlay').style.display = 'none';
+                document.getElementById('nursing-content').style.display = 'block';
+                console.log('Authenticated user:', authSystem.getCurrentUser());
+            }
+        });
+
+        function goBackToDashboard() {
+            window.location.href = '../dashboard.html';
+        }
+    </script>
+</body>
+</html>
