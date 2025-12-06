@@ -1,1 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Laboratory Department | MedQuiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Protection Overlay -->
+    <div id="protection-overlay" class="lab-protection-overlay" style="display:none;">
+        <div class="lab-protection-modal">
+            <h3>🔒 Access Required</h3>
+            <p>Please login to access Medical Laboratory Department content</p>
+            <button onclick="window.location.href='../dashboard.html'" class="lab-btn">
+                Go to Dashboard
+            </button>
+        </div>
+    </div>
 
+    <header class="lab-header">
+        <div class="lab-logo">🧪</div>
+        <div class="lab-header-content">
+            <span>Medical Laboratory Department</span>
+            <div class="lab-subtitle">Comprehensive Laboratory Science Education</div>
+        </div>
+        <button onclick="goBackToDashboard()" class="lab-back-btn">Back to Dashboard</button>
+    </header>
+
+    <div class="lab-container" id="lab-content" style="display:none;">
+        <!-- Breadcrumb -->
+        <div class="lab-breadcrumb">
+            <a href="../dashboard.html">Dashboard</a>
+            <span class="lab-separator">></span>
+            <span>Medical Laboratory Department</span>
+        </div>
+
+        <!-- Department Overview -->
+        <div class="lab-overview">
+            <div class="lab-overview-card">
+                <h2>🔬 Medical Laboratory Program Overview</h2>
+                <p>The Medical Laboratory Department provides comprehensive training in laboratory sciences, diagnostic techniques, and clinical analysis. Our program covers essential topics from basic hematology to advanced molecular diagnostics.</p>
+                
+                <div class="lab-stats">
+                    <div class="lab-stat">
+                        <div class="lab-stat-number">4</div>
+                        <div class="lab-stat-label">Year Levels</div>
+                    </div>
+                    <div class="lab-stat">
+                        <div class="lab-stat-number">40+</div>
+                        <div class="lab-stat-label">Subjects</div>
+                    </div>
+                    <div class="lab-stat">
+                        <div class="lab-stat-number">1800+</div>
+                        <div class="lab-stat-label">Questions</div>
+                    </div>
+                </div>
+
+                <div class="lab-features">
+                    <div class="lab-feature">
+                        <div class="lab-feature-icon">🧫</div>
+                        <div class="lab-feature-content">
+                            <strong>Comprehensive Curriculum</strong>
+                            <p>Covering all major laboratory disciplines and specialties</p>
+                        </div>
+                    </div>
+                    <div class="lab-feature">
+                        <div class="lab-feature-icon">🔍</div>
+                        <div class="lab-feature-content">
+                            <strong>Practical Focus</strong>
+                            <p>Real-world diagnostic scenarios and case studies</p>
+                        </div>
+                    </div>
+                    <div class="lab-feature">
+                        <div class="lab-feature-icon">📊</div>
+                        <div class="lab-feature-content">
+                            <strong>Exam Preparation</strong>
+                            <p>Targeted practice for ASCP and other certification exams</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Specialties -->
+        <div class="lab-specialties-section">
+            <h2 class="lab-section-title">
+                <span>🧬</span> Laboratory Specialties
+            </h2>
+
+            <div class="lab-specialty-grid">
+                <a href="hematology.html" class="lab-specialty-card">
+                    <h4>Hematology</h4>
+                    <p>Blood cell analysis and coagulation studies</p>
+                    <div class="lab-course-count">8 Modules Available</div>
+                </a>
+
+                <a href="microbiology.html" class="lab-specialty-card">
+                    <h4>Microbiology</h4>
+                    <p>Bacteriology, mycology, and parasitology</p>
+                    <div class="lab-course-count">10 Modules Available</div>
+                </a>
+
+                <a href="biochemistry.html" class="lab-specialty-card">
+                    <h4>Clinical Chemistry</h4>
+                    <p>Biochemical analysis and instrumentation</p>
+                    <div class="lab-course-count">7 Modules Available</div>
+                </a>
+
+                <a href="immunology.html" class="lab-specialty-card">
+                    <h4>Immunology</h4>
+                    <p>Serology and autoimmune testing</p>
+                    <div class="lab-course-count">6 Modules Available</div>
+                </a>
+
+                <div class="lab-specialty-card coming-soon">
+                    <h4>Histotechnology</h4>
+                    <p>Tissue processing and staining techniques</p>
+                    <div class="lab-course-count">Coming Soon</div>
+                </div>
+
+                <div class="lab-specialty-card coming-soon">
+                    <h4>Molecular Diagnostics</h4>
+                    <p>DNA/RNA analysis and genetic testing</p>
+                    <div class="lab-course-count">Coming Soon</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Years -->
+        <div class="lab-years-section">
+            <h2 class="lab-section-title">
+                <span>📚</span> Academic Years
+            </h2>
+
+            <div class="lab-year-grid">
+                <a href="year1.html" class="lab-year-card">
+                    <h4>Year 1</h4>
+                    <p>Foundation Courses</p>
+                    <div class="lab-course-count">8 Subjects Available</div>
+                </a>
+
+                <a href="year2.html" class="lab-year-card">
+                    <h4>Year 2</h4>
+                    <p>Core Laboratory Sciences</p>
+                    <div class="lab-course-count">12 Subjects Available</div>
+                </a>
+
+                <div class="lab-year-card coming-soon">
+                    <h4>Year 3</h4>
+                    <p>Advanced Techniques</p>
+                    <div class="lab-course-count">Coming Soon</div>
+                </div>
+
+                <div class="lab-year-card coming-soon">
+                    <h4>Year 4</h4>
+                    <p>Clinical Internship</p>
+                    <div class="lab-course-count">Coming Soon</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="lab-footer">
+        <div class="lab-footer-content">
+            <div class="lab-footer-section">
+                <h4>Medical Laboratory Department</h4>
+                <p>Comprehensive laboratory science education and training</p>
+                <p>Latest diagnostic techniques and certification preparation</p>
+            </div>
+            <div class="lab-footer-section">
+                <h4>Quick Links</h4>
+                <p><a href="year1.html">Year 1 Courses</a></p>
+                <p><a href="hematology.html">Hematology Modules</a></p>
+                <p><a href="../dashboard.html">Main Dashboard</a></p>
+            </div>
+        </div>
+        <div class="lab-footer-bottom">
+            © 2025 MedQuiz Medical Laboratory | Precision in Diagnostics
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.authSystem || !window.authSystem.isAuthenticated()) {
+                // Show overlay if not logged in
+                document.getElementById('protection-overlay').style.display = 'flex';
+                document.getElementById('lab-content').style.display = 'none';
+            } else {
+                // Show content if logged in
+                document.getElementById('protection-overlay').style.display = 'none';
+                document.getElementById('lab-content').style.display = 'block';
+                console.log('Authenticated user:', authSystem.getCurrentUser());
+            }
+        });
+
+        function goBackToDashboard() {
+            window.location.href = '../dashboard.html';
+        }
+    </script>
+</body>
+</html>
