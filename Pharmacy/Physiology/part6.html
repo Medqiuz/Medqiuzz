@@ -1,196 +1,2719 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pathology Part 6 | High-Yield Notes, Images & Videos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIT Secretory Function: Interactive Exam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #f6f9fc;
-        margin: 0;
-        padding: 20px;
-        line-height: 1.6;
-    }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
 
-    h1, h2, h3 {
-        color: #0a4a7a;
-    }
+        .header {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
 
-    .note-box {
-        background: #ffffff;
-        padding: 15px;
-        border-left: 4px solid #0a4a7a;
-        margin-bottom: 20px;
-        border-radius: 8px;
-    }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
 
-    .img-box {
-        margin: 20px 0;
-        text-align: center;
-    }
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
 
-    .img-box img {
-        width: 100%;
-        max-width: 600px;
-        border-radius: 8px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-    }
+        .exam-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
 
-    .video-box iframe {
-        width: 100%;
-        height: 315px;
-        margin-bottom: 10px;
-        border-radius: 8px;
-    }
+        .question-counter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+        }
 
-    ul {
-        margin-left: 15px;
-    }
+        .question-counter span {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #2c3e50;
+        }
 
-    .tips {
-        background: #e9f5ff;
-        padding: 12px;
-        border-left: 5px solid #0a4a7a;
-        border-radius: 6px;
-        margin: 25px 0;
-    }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
 
-</style>
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #1a2980, #26d0ce);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .question-box {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .option {
+            padding: 18px 20px;
+            background: white;
+            border: 2px solid #dfe6e9;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            transform: translateX(5px);
+            border-color: #3498db;
+            background: #e8f4fc;
+        }
+
+        .option.selected {
+            border-color: #3498db;
+            background: #e8f4fc;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        .option.correct {
+            border-color: #2ecc71;
+            background: #d5f4e6;
+        }
+
+        .option.incorrect {
+            border-color: #e74c3c;
+            background: #fadbd8;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .option.correct .option-label {
+            background: #2ecc71;
+        }
+
+        .option.incorrect .option-label {
+            background: #e74c3c;
+        }
+
+        .option-text {
+            font-size: 1.1rem;
+            flex-grow: 1;
+        }
+
+        .feedback-box {
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-box.correct {
+            background: #d5f4e6;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .feedback-box.incorrect {
+            background: #fadbd8;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .feedback-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .feedback-title i {
+            margin-right: 10px;
+        }
+
+        .feedback-explanation {
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .nav-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn i {
+            margin-right: 10px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #prevBtn {
+            background: #95a5a6;
+            color: white;
+        }
+
+        #nextBtn {
+            background: #3498db;
+            color: white;
+        }
+
+        #submitBtn {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .score-container {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: none;
+            animation: fadeIn 1s ease;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            margin: 0 auto 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 10px 25px rgba(26, 41, 128, 0.3);
+        }
+
+        .score-percent {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .score-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .score-details {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .restart-btn {
+            padding: 15px 40px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            min-width: 150px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #3498db;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .timer {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timer i {
+            color: #e74c3c;
+        }
+
+        .question-navigation {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .question-nav-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid #3498db;
+            background: white;
+            color: #3498db;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .question-nav-btn:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        .question-nav-btn.answered {
+            background: #2ecc71;
+            border-color: #2ecc71;
+            color: white;
+        }
+
+        .question-nav-btn.current {
+            background: #3498db;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .exam-container {
+                padding: 20px;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 15px;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="header">
+        <h1>GIT Secretory Function Examination</h1>
+        <p>Test your knowledge with 60+ multiple choice questions</p>
+        <div class="timer">
+            <i class="fas fa-clock"></i>
+            <span id="timer">Time: 60:00</span>
+        </div>
+    </div>
 
-<h1>Pathology Part 6 — High-Yield Notes, Images & Videos</h1>
+    <div class="exam-container" id="examContainer">
+        <div class="question-counter">
+            <span id="questionNumber">Question 1 of 60</span>
+            <div>
+                <div>Progress</div>
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
 
+        <div class="question-box">
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="options-container" id="optionsContainer">
+                <!-- Options will be inserted here -->
+            </div>
+            
+            <div class="feedback-box" id="feedbackBox">
+                <div class="feedback-title" id="feedbackTitle">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Correct Answer!</span>
+                </div>
+                <div class="feedback-explanation" id="feedbackExplanation"></div>
+            </div>
+        </div>
 
+        <div class="navigation-buttons">
+            <button class="nav-btn" id="prevBtn" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <div>
+                <button class="nav-btn" id="submitBtn" style="display: none;">
+                    <i class="fas fa-paper-plane"></i> Submit Exam
+                </button>
+                <button class="nav-btn" id="nextBtn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
 
-<!-- ========== SECTION 1 ========== -->
-<h2>1. Cell Injury & Adaptation — High-Yield Summary</h2>
+        <div class="question-navigation" id="questionNav">
+            <!-- Question navigation buttons will be inserted here -->
+        </div>
+    </div>
 
-<div class="note-box">
-    <strong>Reversible Injury:</strong>
-    <ul>
-        <li>Cell swelling (hydropic change)</li>
-        <li>Fatty change</li>
-        <li>Loss of microvilli</li>
-        <li>Membrane blebbing</li>
-    </ul>
+    <div class="score-container" id="scoreContainer">
+        <h2>Exam Complete!</h2>
+        <div class="score-circle">
+            <div class="score-percent" id="scorePercent">0%</div>
+            <div class="score-text">Your Score</div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value" id="correctCount">0</div>
+                <div class="stat-label">Correct Answers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="incorrectCount">0</div>
+                <div class="stat-label">Incorrect Answers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="timeTaken">0:00</div>
+                <div class="stat-label">Time Taken</div>
+            </div>
+        </div>
+        
+        <div class="score-details">
+            <p id="scoreMessage"></p>
+            <p>Review your answers by navigating through questions above.</p>
+        </div>
+        
+        <button class="restart-btn" id="restartBtn">
+            <i class="fas fa-redo"></i> Restart Exam
+        </button>
+    </div>
 
-    <strong>Irreversible Injury:</strong>
-    <ul>
-        <li>Membrane damage</li>
-        <li>Calcium influx → enzyme activation</li>
-        <li>Mitochondrial damage</li>
-        <li>Nuclear pyknosis → karyorrhexis → karyolysis</li>
-    </ul>
-</div>
+    <script>
+        // Questions data
+        const questions = [
+            {
+                question: "Which type of glands produce digestive enzymes from the mouth to the terminal ileum?",
+                options: [
+                    "Mucus glands only",
+                    "Secretory glands",
+                    "Sebaceous glands",
+                    "Sudoriferous glands"
+                ],
+                correct: 1,
+                explanation: "Secretory glands produce digestive enzymes throughout the alimentary tract from mouth to terminal ileum. Mucus glands provide lubrication from mouth to anus but don't produce digestive enzymes."
+            },
+            {
+                question: "What is the primary anatomical type of single mucus-secreting gland found throughout the GIT?",
+                options: [
+                    "Crypts of Lieberkühn",
+                    "Oxyntic glands",
+                    "Goblet cells",
+                    "Salivary acini"
+                ],
+                correct: 2,
+                explanation: "Goblet cells are single mucus-secreting glands scattered throughout the gastrointestinal epithelium. They secrete mucus for lubrication and protection."
+            },
+            {
+                question: "Which specialized glands are located in pits like the crypts of Lieberkühn?",
+                options: [
+                    "Goblet cells",
+                    "Oxyntic glands",
+                    "Specialized intestinal glands",
+                    "Sebaceous glands"
+                ],
+                correct: 2,
+                explanation: "Specialized glands lie in pits like the crypts of Lieberkühn in the small intestine. These are distinct from single goblet cells and deep tubular oxyntic glands."
+            },
+            {
+                question: "What is the basic mechanism of stimulation for alimentary tract glands when food is present?",
+                options: [
+                    "Only hormonal stimulation",
+                    "Only neural stimulation",
+                    "Mechanical stimulation by presence of food",
+                    "Only chemical stimulation"
+                ],
+                correct: 2,
+                explanation: "The basic mechanism includes mechanical stimulation by the presence of food, especially for mucus glands. This is complemented by direct contact, enteric nervous stimuli, and hormonal regulation."
+            },
+            {
+                question: "Which of the following is NOT a function of enteric nervous stimuli in glandular secretion?",
+                options: [
+                    "Tactile stimulation",
+                    "Chemical irritation",
+                    "Distention of the gut wall",
+                    "Production of erythrocytes"
+                ],
+                correct: 3,
+                explanation: "Enteric nervous stimuli include tactile stimulation, chemical irritation, and distention of the gut wall. Production of erythrocytes (red blood cells) is not related to GIT secretion regulation."
+            },
+            {
+                question: "How does parasympathetic stimulation generally affect GIT glandular secretion?",
+                options: [
+                    "Inhibits secretion",
+                    "Has no effect",
+                    "Stimulates secretion",
+                    "Only affects motility, not secretion"
+                ],
+                correct: 2,
+                explanation: "Parasympathetic stimulation generally stimulates GIT glandular secretion as part of the 'rest and digest' response. Sympathetic stimulation typically inhibits secretion."
+            },
+            {
+                question: "What is the chemical nature of most gastrointestinal hormones?",
+                options: [
+                    "Steroids",
+                    "Fatty acids",
+                    "Polypeptides or polypeptide derivatives",
+                    "Carbohydrates"
+                ],
+                correct: 2,
+                explanation: "Chemically, gastrointestinal hormones are predominantly polypeptides or polypeptide derivatives. Examples include gastrin, secretin, and cholecystokinin (CCK)."
+            },
+            {
+                question: "What is the primary component of mucus in the gastrointestinal tract?",
+                options: [
+                    "Proteins",
+                    "Water",
+                    "Lipids",
+                    "Nucleic acids"
+                ],
+                correct: 1,
+                explanation: "Mucus is a thick secretion composed mainly of water (approximately 95%), along with electrolytes and glycoproteins (mucins)."
+            },
+            {
+                question: "Which characteristic of mucus allows it to adhere tightly to food particles?",
+                options: [
+                    "Low resistance to slippage",
+                    "Amphoteric properties",
+                    "Adherent qualities",
+                    "Digestion resistance"
+                ],
+                correct: 2,
+                explanation: "Mucus has adherent qualities that make it adhere tightly to food or other particles and spread as a thin film over surfaces, providing protection and lubrication."
+            },
+            {
+                question: "What property of mucus allows particles to slide along the epithelium with ease?",
+                options: [
+                    "Amphoteric nature",
+                    "Low resistance for slippage",
+                    "High viscosity",
+                    "Buffering capacity"
+                ],
+                correct: 1,
+                explanation: "Mucus has low resistance for slippage, enabling food particles and other contents to slide along the epithelium with great ease during digestion and propulsion."
+            },
+            {
+                question: "Why is mucus strongly resistant to digestion by gastrointestinal enzymes?",
+                options: [
+                    "It contains antibacterial agents",
+                    "Its glycoprotein structure resists enzymatic breakdown",
+                    "It has a high lipid content",
+                    "It contains mineral deposits"
+                ],
+                correct: 1,
+                explanation: "The glycoprotein structure of mucus (mucins) is strongly resistant to digestion by gastrointestinal enzymes, allowing it to maintain its protective barrier function."
+            },
+            {
+                question: "What amphoteric property of mucus glycoproteins allows them to buffer small amounts of acids or alkalis?",
+                options: [
+                    "They can change color with pH",
+                    "They contain both acidic and basic groups",
+                    "They expand with temperature changes",
+                    "They dissolve in both water and lipids"
+                ],
+                correct: 1,
+                explanation: "Amphoteric properties mean mucus glycoproteins contain both acidic and basic groups, allowing them to buffer small amounts of either acids or alkalis, maintaining optimal pH."
+            },
+            {
+                question: "Which ion in mucus specifically helps neutralize acids in the GIT?",
+                options: [
+                    "Chloride ions",
+                    "Sodium ions",
+                    "Potassium ions",
+                    "Bicarbonate ions"
+                ],
+                correct: 3,
+                explanation: "Mucus often contains moderate quantities of bicarbonate ions which specifically neutralize acids, protecting the epithelial lining from acid damage."
+            },
+            {
+                question: "Which salivary gland produces purely serous secretion?",
+                options: [
+                    "Submandibular gland",
+                    "Sublingual gland",
+                    "Parotid gland",
+                    "Buccal glands"
+                ],
+                correct: 2,
+                explanation: "The parotid gland produces purely serous secretion containing ptyalin (α-amylase). Submandibular and sublingual glands produce mixed secretions."
+            },
+            {
+                question: "What is the normal daily secretion range of saliva in adults?",
+                options: [
+                    "200-500 mL",
+                    "800-1500 mL",
+                    "2000-2500 mL",
+                    "3000-4000 mL"
+                ],
+                correct: 1,
+                explanation: "Daily secretion of saliva normally ranges between 800 and 1500 milliliters, with an average value of 1000 milliliters (1 liter)."
+            },
+            {
+                question: "Which enzyme in saliva begins starch digestion?",
+                options: [
+                    "Lipase",
+                    "Pepsin",
+                    "Ptyalin (α-amylase)",
+                    "Trypsin"
+                ],
+                correct: 2,
+                explanation: "Saliva contains ptyalin (an α-amylase), which is an enzyme for digesting starches. It begins carbohydrate digestion in the mouth."
+            },
+            {
+                question: "What is the optimal pH range for salivary ptyalin activity?",
+                options: [
+                    "1.0-3.0",
+                    "3.0-5.0",
+                    "6.0-7.0",
+                    "8.0-9.0"
+                ],
+                correct: 2,
+                explanation: "Saliva has a pH between 6.0 and 7.0, which is a favorable range for the digestive action of ptyalin. The enzyme becomes inactive in the acidic stomach environment."
+            },
+            {
+                question: "What are the basic building blocks of all salivary glands where saliva formation begins?",
+                options: [
+                    "Ducts",
+                    "Acinii",
+                    "Crypts",
+                    "Villi"
+                ],
+                correct: 1,
+                explanation: "Acinii are the basic building blocks of all salivary glands. They secrete a primary isotonic fluid that flows down ducts where ionic composition is modified."
+            },
+            {
+                question: "Which ions are found in especially large quantities in saliva compared to plasma?",
+                options: [
+                    "Sodium and chloride",
+                    "Potassium and bicarbonate",
+                    "Calcium and magnesium",
+                    "Phosphate and sulfate"
+                ],
+                correct: 1,
+                explanation: "Saliva contains especially large quantities of potassium and bicarbonate ions. Sodium and chloride ions are several times less concentrated in saliva than in plasma."
+            },
+            {
+                question: "During maximal salivation, what happens to the sodium chloride concentration in saliva?",
+                options: [
+                    "Increases to twice plasma concentration",
+                    "Decreases to one-half or two-thirds of plasma concentration",
+                    "Remains exactly the same as plasma",
+                    "Becomes undetectable"
+                ],
+                correct: 1,
+                explanation: "During maximal salivation, NaCl concentration is about one-half or two-thirds that of plasma because the rapid flow reduces ductal reconditioning time."
+            },
+            {
+                question: "Which of the following is NOT a major function of saliva?",
+                options: [
+                    "Solvent action",
+                    "Buffering",
+                    "Remineralization of teeth",
+                    "Protein synthesis"
+                ],
+                correct: 3,
+                explanation: "Major functions of saliva include: solvent, buffering, lubrication, remineralization, digestion, antibacterial action, antifungal action, temperature regulation, and production of growth factors. Protein synthesis occurs in cells, not in saliva itself."
+            },
+            {
+                question: "What is the approximate rate of continuous saliva secretion for oral hygiene?",
+                options: [
+                    "0.5 mL per minute",
+                    "5 mL per minute",
+                    "50 mL per hour",
+                    "100 mL per hour"
+                ],
+                correct: 0,
+                explanation: "About 0.5 milliliter of saliva, almost entirely of the mucous type, is secreted each minute for continuous oral hygiene, washing away bacteria and food particles."
+            },
+            {
+                question: "Which antibacterial enzyme in saliva helps destroy oral bacteria?",
+                options: [
+                    "Pepsin",
+                    "Trypsin",
+                    "Lysozyme",
+                    "Amylase"
+                ],
+                correct: 2,
+                explanation: "Lysozyme is a proteolytic enzyme in saliva that destroys bacteria by breaking down bacterial cell walls. It's one of several antibacterial factors in saliva."
+            },
+            {
+                question: "Where are the salivatory nuclei located that control salivary secretion?",
+                options: [
+                    "Cerebral cortex",
+                    "Cerebellum",
+                    "Brain stem",
+                    "Spinal cord"
+                ],
+                correct: 2,
+                explanation: "The salivary glands are controlled mainly by parasympathetic nervous signals from the superior and inferior salivatory nuclei in the brain stem."
+            },
+            {
+                question: "Which taste stimulus typically elicits the most copious saliva secretion?",
+                options: [
+                    "Sweet",
+                    "Salty",
+                    "Bitter",
+                    "Sour (acidic)"
+                ],
+                correct: 3,
+                explanation: "Many taste stimuli, especially the sour taste (caused by acids), elicit copious secretion of saliva—often 8 to 20 times the basal rate of secretion."
+            },
+            {
+                question: "What role does the kallikrein-bradykinin system play in salivary secretion?",
+                options: [
+                    "Inhibits secretion",
+                    "Decreases blood flow to glands",
+                    "Increases blood flow during high salivary activity",
+                    "Activates digestive enzymes"
+                ],
+                correct: 2,
+                explanation: "Kallikrein activates bradykinin, which causes vasodilation and increased blood flow to salivary glands during periods of high salivary activity."
+            },
+            {
+                question: "What type of secretion does the esophagus produce?",
+                options: [
+                    "Enzyme-rich secretion",
+                    "Acidic secretion",
+                    "Entirely mucous secretion",
+                    "Bile-like secretion"
+                ],
+                correct: 2,
+                explanation: "The esophageal secretions are entirely mucous and mainly provide lubrication for swallowing. They contain no digestive enzymes."
+            },
+            {
+                question: "Where are compound mucous glands located in the esophagus?",
+                options: [
+                    "Only in the upper third",
+                    "Throughout the entire length",
+                    "At the lower end and initial portion",
+                    "Only at the midpoint"
+                ],
+                correct: 2,
+                explanation: "Compound mucous glands are located at the lower end and to a lesser extent the initial portion of the esophagus, helping prevent peptic ulceration from reflux."
+            },
+            {
+                question: "Which cells in the stomach secrete hydrochloric acid and intrinsic factor?",
+                options: [
+                    "Chief cells",
+                    "Parietal (oxyntic) cells",
+                    "Mucus neck cells",
+                    "G cells"
+                ],
+                correct: 1,
+                explanation: "Parietal (oxyntic) cells are the most distinctive cells in the stomach, secreting HCl (hydrochloric acid) and intrinsic factor (essential for vitamin B12 absorption)."
+            },
+            {
+                question: "What do chief (peptic) cells in the stomach secrete?",
+                options: [
+                    "Hydrochloric acid",
+                    "Pepsinogen",
+                    "Gastrin",
+                    "Mucus"
+                ],
+                correct: 1,
+                explanation: "Chief (peptic) cells secrete pepsinogen, the inactive precursor of pepsin, which is activated by stomach acid to become the protein-digesting enzyme pepsin."
+            },
+            {
+                question: "Which cells secrete gastrin hormone in the stomach?",
+                options: [
+                    "Parietal cells",
+                    "Chief cells",
+                    "G cells",
+                    "D cells"
+                ],
+                correct: 2,
+                explanation: "G cells, located mainly in the gastric antrum, secrete the hormone gastrin, which stimulates hydrochloric acid secretion by parietal cells."
+            },
+            {
+                question: "What is the approximate pH of hydrochloric acid secreted by parietal cells?",
+                options: [
+                    "4.0-5.0",
+                    "2.0-3.0",
+                    "1.0-2.0",
+                    "0.8"
+                ],
+                correct: 3,
+                explanation: "Parietal cells secrete an isotonic acid solution containing about 160 mmol/L HCl with a pH of about 0.8, which is extremely acidic."
+            },
+            {
+                question: "What phenomenon occurs when bicarbonate ions diffuse into the blood during gastric acid secretion?",
+                options: [
+                    "Acidic tide",
+                    "Alkaline tide",
+                    "Neutralization wave",
+                    "Buffer surge"
+                ],
+                correct: 1,
+                explanation: "The alkaline tide refers to the increased pH observed in gastric venous blood after a meal, caused by bicarbonate ions diffusing into blood as hydrogen ions are secreted into the stomach."
+            },
+            {
+                question: "Which enzyme converts pepsinogen to active pepsin in the stomach?",
+                options: [
+                    "Hydrochloric acid",
+                    "Trypsin",
+                    "Enterokinase",
+                    "Bicarbonate"
+                ],
+                correct: 0,
+                explanation: "Pepsinogen is converted to active pepsin by hydrochloric acid in the stomach. Pepsin functions optimally in highly acidic conditions (pH 1.8-3.5)."
+            },
+            {
+                question: "What is the optimal pH range for pepsin activity?",
+                options: [
+                    "7.0-8.0",
+                    "5.0-6.0",
+                    "1.8-3.5",
+                    "9.0-10.0"
+                ],
+                correct: 2,
+                explanation: "Pepsin functions as an active proteolytic enzyme in a highly acid medium (optimum pH 1.8 to 3.5). Above pH 5, it has almost no proteolytic activity."
+            },
+            {
+                question: "Which phase of gastric secretion is stimulated by the sight, smell, or thought of food?",
+                options: [
+                    "Gastric phase",
+                    "Intestinal phase",
+                    "Cephalic phase",
+                    "Colonic phase"
+                ],
+                correct: 2,
+                explanation: "The cephalic phase (30% of secretion) is stimulated by the sight, smell, taste, or thought of food, mediated by the vagus nerve through conditioned and unconditioned reflexes."
+            },
+            {
+                question: "What protects the stomach mucosa from being digested by its own acid and enzymes?",
+                options: [
+                    "Rapid epithelial cell turnover",
+                    "Mucus-bicarbonate barrier",
+                    "Tight junctions between epithelial cells",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Multiple protective mechanisms exist: a mucus-bicarbonate barrier (>1 mm thick), tight junctions between epithelial cells, and rapid epithelial cell turnover (3-5 days)."
+            },
+            {
+                question: "Which pancreatic enzyme digests starch and glycogen?",
+                options: [
+                    "Trypsin",
+                    "Pancreatic lipase",
+                    "Pancreatic amylase",
+                    "Chymotrypsin"
+                ],
+                correct: 2,
+                explanation: "Pancreatic amylase hydrolyzes starches, glycogen, and most other carbohydrates (except cellulose) to form mostly disaccharides and a few trisaccharides."
+            },
+            {
+                question: "What is the pH range of pancreatic juice?",
+                options: [
+                    "1.0-3.0",
+                    "4.0-5.0",
+                    "7.1-8.2",
+                    "9.0-10.0"
+                ],
+                correct: 2,
+                explanation: "Pancreatic juice is alkaline with a pH of 7.1-8.2. This neutralizes acidic gastric juice, stops pepsin activity, and creates proper pH for intestinal enzymes."
+            },
+            {
+                question: "Which hormone stimulates secretion of pancreatic bicarbonate-rich fluid?",
+                options: [
+                    "Gastrin",
+                    "Secretin",
+                    "Cholecystokinin (CCK)",
+                    "Motilin"
+                ],
+                correct: 1,
+                explanation: "Secretin stimulates secretion of large quantities of water solution of sodium bicarbonate by pancreatic ductal epithelium, neutralizing acidic chyme."
+            },
+            {
+                question: "How are pancreatic proteolytic enzymes protected from digesting the pancreas itself?",
+                options: [
+                    "They are secreted in active form",
+                    "They are secreted in inactive zymogen form",
+                    "They are bound to inhibitors in acinar cells",
+                    "They are immediately diluted in the duodenum"
+                ],
+                correct: 1,
+                explanation: "All proteolytic enzymes are secreted in inactive zymogen form (trypsinogen, chymotrypsinogen, procarboxypeptidase) to protect the pancreas from autodigestion."
+            },
+            {
+                question: "Which enzyme activates trypsinogen to trypsin in the small intestine?",
+                options: [
+                    "Enterokinase (enteropeptidase)",
+                    "Pepsin",
+                    "Amylase",
+                    "Lipase"
+                ],
+                correct: 0,
+                explanation: "Enterokinase (enteropeptidase), secreted by intestinal mucosa, converts trypsinogen to active trypsin, which then activates other pancreatic zymogens."
+            },
+            {
+                question: "What is the daily secretion volume of pancreatic juice?",
+                options: [
+                    "200-400 mL",
+                    "500-700 mL",
+                    "1000-1200 mL",
+                    "1500-2000 mL"
+                ],
+                correct: 2,
+                explanation: "Pancreatic juice secretion is 1.0-1.2 L/day, containing water, salts, bicarbonate, and enzymes for digesting all major food types."
+            },
+            {
+                question: "Which cells in the small intestine secrete digestive enzymes on the brush border?",
+                options: [
+                    "Goblet cells",
+                    "Enterocytes",
+                    "Paneth cells",
+                    "Kupffer cells"
+                ],
+                correct: 1,
+                explanation: "Enterocytes of the mucosa covering the villi contain brush border enzymes (peptidases, disaccharidases, enterokinase) that complete digestion during absorption."
+            },
+            {
+                question: "What is the approximate daily secretion volume from the crypts of Lieberkühn?",
+                options: [
+                    "500 mL",
+                    "1000 mL",
+                    "1800 mL",
+                    "2500 mL"
+                ],
+                correct: 2,
+                explanation: "Intestinal secretions from crypts of Lieberkühn are formed at a rate of about 1800 mL/day. These are almost pure extracellular fluid with pH 7.5-8.0."
+            },
+            {
+                question: "Which enzyme on the brush border converts lactose to glucose and galactose?",
+                options: [
+                    "Sucrase",
+                    "Maltase",
+                    "Lactase",
+                    "Isomaltase"
+                ],
+                correct: 2,
+                explanation: "Lactase on the brush border hydrolyzes lactose into glucose and galactose. Lactase deficiency causes lactose intolerance."
+            },
+            {
+                question: "What is the life cycle of an intestinal epithelial cell?",
+                options: [
+                    "1 day",
+                    "3 days",
+                    "5 days",
+                    "10 days"
+                ],
+                correct: 2,
+                explanation: "The life cycle of an intestinal epithelial cell is about 5 days, demonstrating rapid turnover of the absorptive surface."
+            },
+            {
+                question: "What is the main secretory product of the large intestine?",
+                options: [
+                    "Digestive enzymes",
+                    "Hydrochloric acid",
+                    "Mucus only",
+                    "Bile salts"
+                ],
+                correct: 2,
+                explanation: "The large intestine epithelial cells secrete almost no digestive enzymes. Instead, they contain mucous cells that secrete only mucus, which contains bicarbonate ions."
+            },
+            {
+                question: "How much bile does the liver typically secrete daily?",
+                options: [
+                    "200-400 mL",
+                    "600-1200 mL",
+                    "1500-2000 mL",
+                    "2500-3000 mL"
+                ],
+                correct: 1,
+                explanation: "The liver forms and secretes 600-1200 mL of bile per day. Initial secretion is rich in bile acids, cholesterol, and lecithin."
+            },
+            {
+                question: "What is the pH range of bile?",
+                options: [
+                    "1.0-3.0",
+                    "4.0-6.0",
+                    "7.8-8.6",
+                    "9.0-10.0"
+                ],
+                correct: 2,
+                explanation: "Bile is alkaline with a pH of 7.8-8.6, which helps neutralize gastric acid in the duodenum."
+            },
+            {
+                question: "What percentage of bile is aqueous fluid?",
+                options: [
+                    "50%",
+                    "75%",
+                    "87.5%",
+                    "97.5%"
+                ],
+                correct: 3,
+                explanation: "Bile is 97.5% aqueous constituents (alkaline fluid) and only 2.5% organic constituents (bile salts, pigments, cholesterol, lecithin)."
+            },
+            {
+                question: "Which of the following is NOT a function of bile?",
+                options: [
+                    "Neutralization of HCl",
+                    "Fat digestion and absorption",
+                    "Excretion of waste products",
+                    "Protein digestion"
+                ],
+                correct: 3,
+                explanation: "Bile functions include: neutralization of HCl (via bicarbonate), fat digestion/absorption (via bile salts), and excretion of waste products (bilirubin, cholesterol). Protein digestion is done by pancreatic and brush border enzymes."
+            },
+            {
+                question: "What are the primary bile acids synthesized from cholesterol in hepatocytes?",
+                options: [
+                    "Deoxycholic and lithocholic acids",
+                    "Cholic and chenodeoxycholic acids",
+                    "Ursodeoxycholic and sulpholithocholic acids",
+                    "Glycocholic and taurocholic acids"
+                ],
+                correct: 1,
+                explanation: "Primary bile acids are cholic and chenodeoxycholic acids, synthesized from cholesterol in hepatocytes, then conjugated with glycine or taurine."
+            },
+            {
+                question: "What percentage of bile salts is typically reabsorbed via enterohepatic circulation?",
+                options: [
+                    "50%",
+                    "75%",
+                    "84%",
+                    "94%"
+                ],
+                correct: 3,
+                explanation: "94% of bile salts are reabsorbed (about half by diffusion in early small intestine, half by active transport in terminal ileum) and returned to the liver via enterohepatic circulation."
+            },
+            {
+                question: "What happens if the enterohepatic circulation of bile salts is interrupted?",
+                options: [
+                    "Increased fat absorption",
+                    "Bile salt deficiency symptoms appear",
+                    "Increased cholesterol synthesis",
+                    "Enhanced pancreatic secretion"
+                ],
+                correct: 1,
+                explanation: "If enterohepatic circulation is interrupted, the liver cannot compensate for bile salt loss, leading to deficiency symptoms: steatorrhea (fat malabsorption), deficiency of fat-soluble vitamins, and cholesterol gallstones."
+            },
+            {
+                question: "Which hormone stimulates gallbladder contraction?",
+                options: [
+                    "Secretin",
+                    "Gastrin",
+                    "Cholecystokinin (CCK)",
+                    "Motilin"
+                ],
+                correct: 2,
+                explanation: "Cholecystokinin (CCK) stimulates gallbladder contraction and relaxation of the sphincter of Oddi, causing bile ejection into the duodenum."
+            },
+            {
+                question: "How does the gallbladder concentrate bile?",
+                options: [
+                    "By adding enzymes",
+                    "By active reabsorption of Na⁺ followed by water",
+                    "By secreting more bile salts",
+                    "By acidification only"
+                ],
+                correct: 1,
+                explanation: "The gallbladder concentrates bile by active reabsorption of Na⁺ followed by passive reabsorption of water and most electrolytes. Bile salts become 5-10 times more concentrated."
+            },
+            {
+                question: "What gives stool its characteristic brown color?",
+                options: [
+                    "Bilirubin",
+                    "Stercobilin",
+                    "Urobilinogen",
+                    "Biliverdin"
+                ],
+                correct: 1,
+                explanation: "Stercobilin, derived from bilirubin metabolism, gives stool its characteristic brown color. Urobilin gives urine its yellow color."
+            },
+            {
+                question: "What is the total volume of fluid entering the small intestine daily?",
+                options: [
+                    "2.3 L",
+                    "5.0 L",
+                    "9.3 L",
+                    "12.0 L"
+                ],
+                correct: 2,
+                explanation: "Total volume added to small intestine daily is 9.3 L: ~2.3 L from ingestion + ~7.0 L from secretions (saliva, gastric, pancreatic, bile, intestinal)."
+            },
+            {
+                question: "How much fluid does the small intestine typically absorb daily?",
+                options: [
+                    "5.0 L",
+                    "8.3 L",
+                    "10.5 L",
+                    "12.0 L"
+                ],
+                correct: 1,
+                explanation: "Small intestine absorbs ~8.3 L/day via passive absorption following nutrient molecules through osmosis. The rest passes to large intestine."
+            },
+            {
+                question: "What triggers diarrhea during enteritis?",
+                options: [
+                    "Decreased secretion",
+                    "Excess absorption",
+                    "Excess secretion of water and electrolytes",
+                    "Enhanced digestion"
+                ],
+                correct: 2,
+                explanation: "During enteritis, mucosa secretes extra-large quantities of water and electrolytes to dilute irritants and promote rapid movement of feces, causing diarrhea but also washing away irritants."
+            }
+        ];
 
-<h3>📌 Working Image (Wikimedia)</h3>
-<div class="img-box">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Cell_necrosis_diagram.png" alt="Cell injury image">
-</div>
+        // Exam state variables
+        let currentQuestion = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let score = 0;
+        let examCompleted = false;
+        let timeLeft = 60 * 60; // 60 minutes in seconds
+        let timerInterval;
+        let startTime;
 
+        // DOM elements
+        const examContainer = document.getElementById('examContainer');
+        const scoreContainer = document.getElementById('scoreContainer');
+        const questionNumber = document.getElementById('questionNumber');
+        const questionText = document.getElementById('questionText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const feedbackBox = document.getElementById('feedbackBox');
+        const feedbackTitle = document.getElementById('feedbackTitle');
+        const feedbackExplanation = document.getElementById('feedbackExplanation');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const progressBar = document.getElementById('progressBar');
+        const questionNav = document.getElementById('questionNav');
+        const timerElement = document.getElementById('timer');
+        const scorePercent = document.getElementById('scorePercent');
+        const correctCount = document.getElementById('correctCount');
+        const incorrectCount = document.getElementById('incorrectCount');
+        const timeTaken = document.getElementById('timeTaken');
+        const scoreMessage = document.getElementById('scoreMessage');
+        const restartBtn = document.getElementById('restartBtn');
 
+        // Initialize exam
+        function initExam() {
+            startTime = new Date();
+            startTimer();
+            createQuestionNavigation();
+            loadQuestion(currentQuestion);
+            updateProgressBar();
+            updateNavigationButtons();
+        }
 
-<!-- ========== SECTION 2 ========== -->
-<h2>2. Inflammation — High-Yield Summary</h2>
+        // Start the timer
+        function startTimer() {
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                }
+            }, 1000);
+        }
 
-<div class="note-box">
-    <strong>Acute inflammation:</strong>
-    <ul>
-        <li>Neutrophils</li>
-        <li>Vasodilation → redness, heat</li>
-        <li>Vascular permeability → swelling</li>
-        <li>Pain mediators: bradykinin, PGE2</li>
-    </ul>
+        // Update timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Change color when time is running low
+            if (timeLeft < 300) { // 5 minutes
+                timerElement.style.color = '#e74c3c';
+            }
+        }
 
-    <strong>Chronic inflammation:</strong>
-    <ul>
-        <li>Macrophages, lymphocytes</li>
-        <li>Fibrosis</li>
-        <li>Granulomas (caseating vs non-caseating)</li>
-    </ul>
-</div>
+        // Create question navigation buttons
+        function createQuestionNavigation() {
+            questionNav.innerHTML = '';
+            for (let i = 0; i < questions.length; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'question-nav-btn';
+                btn.textContent = i + 1;
+                btn.addEventListener('click', () => {
+                    if (currentQuestion !== i) {
+                        currentQuestion = i;
+                        loadQuestion(currentQuestion);
+                        updateNavigationButtons();
+                    }
+                });
+                questionNav.appendChild(btn);
+            }
+        }
 
-<h3>📌 Working Image</h3>
-<div class="img-box">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Inflammation.png" alt="Inflammation diagram">
-</div>
+        // Load a specific question
+        function loadQuestion(index) {
+            // Update question navigation buttons
+            updateQuestionNavigation();
+            
+            // Update question counter
+            questionNumber.textContent = `Question ${index + 1} of ${questions.length}`;
+            
+            // Update question text
+            questionText.textContent = questions[index].question;
+            
+            // Clear previous options
+            optionsContainer.innerHTML = '';
+            
+            // Create new options
+            const optionLabels = ['A', 'B', 'C', 'D'];
+            questions[index].options.forEach((option, optionIndex) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[index] === optionIndex) {
+                    optionElement.classList.add('selected');
+                }
+                
+                optionElement.innerHTML = `
+                    <div class="option-label">${optionLabels[optionIndex]}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                
+                optionElement.addEventListener('click', () => selectOption(optionIndex));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Hide feedback box initially
+            feedbackBox.style.display = 'none';
+            
+            // If user has already answered, show feedback
+            if (userAnswers[index] !== null) {
+                showFeedback(index, userAnswers[index]);
+            }
+        }
 
+        // Update question navigation buttons
+        function updateQuestionNavigation() {
+            const navButtons = document.querySelectorAll('.question-nav-btn');
+            navButtons.forEach((btn, index) => {
+                btn.classList.remove('current', 'answered');
+                
+                if (index === currentQuestion) {
+                    btn.classList.add('current');
+                }
+                
+                if (userAnswers[index] !== null) {
+                    btn.classList.add('answered');
+                }
+            });
+        }
 
+        // Select an option
+        function selectOption(optionIndex) {
+            // If exam is completed, don't allow changes
+            if (examCompleted) return;
+            
+            // Remove selected class from all options
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            event.currentTarget.classList.add('selected');
+            
+            // Save user's answer
+            userAnswers[currentQuestion] = optionIndex;
+            
+            // Show feedback immediately
+            showFeedback(currentQuestion, optionIndex);
+            
+            // Update question navigation
+            updateQuestionNavigation();
+            
+            // Update submit button visibility
+            if (userAnswers.every(answer => answer !== null)) {
+                submitBtn.style.display = 'inline-block';
+                nextBtn.style.display = 'none';
+            }
+        }
 
-<!-- ========== SECTION 3 ========== -->
-<h2>3. Lab Markers of Inflammation</h2>
+        // Show feedback for selected answer
+        function showFeedback(questionIndex, selectedOption) {
+            const question = questions[questionIndex];
+            const isCorrect = selectedOption === question.correct;
+            
+            // Update option styling
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                if (index === question.correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedOption && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // Update feedback box
+            if (isCorrect) {
+                feedbackBox.className = 'feedback-box correct';
+                feedbackTitle.innerHTML = '<i class="fas fa-check-circle"></i><span>Correct Answer!</span>';
+            } else {
+                feedbackBox.className = 'feedback-box incorrect';
+                feedbackTitle.innerHTML = '<i class="fas fa-times-circle"></i><span>Incorrect Answer</span>';
+            }
+            
+            feedbackExplanation.textContent = question.explanation;
+            feedbackBox.style.display = 'block';
+        }
 
-<div class="note-box">
-<ul>
-    <li>↑ ESR — rouleaux formation</li>
-    <li>↑ CRP — produced by liver</li>
-    <li>↑ Ferritin (acute-phase reactant)</li>
-    <li>↑ Fibrinogen</li>
-</ul>
-</div>
+        // Update navigation buttons
+        function updateNavigationButtons() {
+            // Previous button
+            prevBtn.disabled = currentQuestion === 0;
+            
+            // Next button
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                if (userAnswers.every(answer => answer !== null)) {
+                    submitBtn.style.display = 'inline-block';
+                }
+            } else {
+                nextBtn.style.display = 'inline-block';
+                submitBtn.style.display = 'none';
+            }
+            
+            // Update progress bar
+            updateProgressBar();
+        }
 
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
 
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion(currentQuestion);
+                updateNavigationButtons();
+            }
+        }
 
-<!-- ========== SECTION 4 (ALL VIDEOS WORKING) ========== -->
-<h2>🎥 High-Quality Available Videos</h2>
+        // Navigate to previous question
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion(currentQuestion);
+                updateNavigationButtons();
+            }
+        }
 
-<div class="video-box">
+        // Submit exam and show results
+        function submitExam() {
+            clearInterval(timerInterval);
+            examCompleted = true;
+            
+            // Calculate score
+            score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    score++;
+                }
+            });
+            
+            // Calculate percentage
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            // Calculate time taken
+            const endTime = new Date();
+            const timeDiff = Math.floor((endTime - startTime) / 1000); // in seconds
+            const minutesTaken = Math.floor(timeDiff / 60);
+            const secondsTaken = timeDiff % 60;
+            
+            // Update score display
+            scorePercent.textContent = `${percentage}%`;
+            correctCount.textContent = score;
+            incorrectCount.textContent = questions.length - score;
+            timeTaken.textContent = `${minutesTaken}:${secondsTaken.toString().padStart(2, '0')}`;
+            
+            // Set score message
+            if (percentage >= 90) {
+                scoreMessage.textContent = "Excellent! You have mastered the secretory functions of the GIT.";
+            } else if (percentage >= 75) {
+                scoreMessage.textContent = "Very good! You have a strong understanding of GIT secretions.";
+            } else if (percentage >= 60) {
+                scoreMessage.textContent = "Good job! You have a solid foundation in GIT secretory functions.";
+            } else {
+                scoreMessage.textContent = "Keep studying! Review the material and try again.";
+            }
+            
+            // Show score container, hide exam container
+            examContainer.style.display = 'none';
+            scoreContainer.style.display = 'block';
+        }
 
-    <iframe src="https://www.youtube.com/embed/OXpxSTiYbyQ" allowfullscreen></iframe>
-    <p><strong>Cell Injury: Reversible vs Irreversible (Osmosis)</strong></p>
+        // Restart exam
+        function restartExam() {
+            // Reset all variables
+            currentQuestion = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            score = 0;
+            examCompleted = false;
+            timeLeft = 60 * 60;
+            
+            // Reset UI
+            examContainer.style.display = 'block';
+            scoreContainer.style.display = 'none';
+            timerElement.style.color = '#2c3e50';
+            
+            // Reinitialize exam
+            initExam();
+        }
 
-    <iframe src="https://www.youtube.com/embed/k6xpar7F5Rs" allowfullscreen></iframe>
-    <p><strong>Introduction to Neurophysiology Part 1 (NinjaNerd)</strong></p>
+        // Event listeners
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        submitBtn.addEventListener('click', submitExam);
+        restartBtn.addEventListener('click', restartExam);
 
-    <iframe src="https://www.youtube.com/embed/3u4JQyZl0KM" allowfullscreen></iframe>
-    <p><strong>Inflammation Overview (Armando Hasudungan)</strong></p>
+        // Initialize exam when page loads
+        window.addEventListener('DOMContentLoaded', initExam);
 
-    <iframe src="https://www.youtube.com/embed/dc-K4jLL_Zw" allowfullscreen></iframe>
-    <p><strong>Necrosis Types Explained (Osmosis)</strong></p>
-
-</div>
-
-
-
-<!-- ========== SECTION 5 ========== -->
-<h2>📚 Recommended References & Websites</h2>
-<div class="note-box">
-<ul>
-    <li>Robbins Basic Pathology (Student Edition)</li>
-    <li>Pathoma (Online Videos & Notes)</li>
-    <li>Osmosis (Medical Learning Platform)</li>
-    <li>Geeky Medics — Clinical Videos & Notes</li>
-    <li>Amboss — Pathology Learning Modules</li>
-</ul>
-</div>
-
-
-
-<!-- ========== SECTION 6 ========== -->
-<h2>📝 Study Tips & Exam Strategy</h2>
-
-<div class="tips">
-    <strong>🔥 Most Tested Areas:</strong>
-    <ul>
-        <li>Cell injury (reversible vs irreversible)</li>
-        <li>Necrosis types (coagulative, liquefactive, caseous, fat)</li>
-        <li>Inflammation mediators</li>
-        <li>Granuloma formation</li>
-        <li>Apoptosis pathways</li>
-    </ul>
-    <strong>Exam Tips:</strong>
-    <ul>
-        <li>Always link clinical signs with underlying pathology.</li>
-        <li>Memorize acute vs chronic inflammation differences.</li>
-        <li>Practice image-based questions (very common).</li>
-        <li>Use flowcharts to memorize necrosis + apoptosis steps.</li>
-        <li>Review inflammation mediators before exam day.</li>
-    </ul>
-</div>
-
+        // Keyboard navigation
+        document.addEventListener('keydown', (event) => {
+            if (examCompleted) return;
+            
+            switch(event.key) {
+                case 'ArrowLeft':
+                    if (currentQuestion > 0) {
+                        prevQuestion();
+                    }
+                    break;
+                case 'ArrowRight':
+                    if (currentQuestion < questions.length - 1) {
+                        nextQuestion();
+                    }
+                    break;
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                    const optionIndex = parseInt(event.key) - 1;
+                    if (optionIndex >= 0 && optionIndex < 4) {
+                        // Simulate clicking the option
+                        const options = document.querySelectorAll('.option');
+                        if (optionIndex < options.length) {
+                            options[optionIndex].click();
+                        }
+                    }
+                    break;
+                case 'Enter':
+                    if (currentQuestion === questions.length - 1 || userAnswers.every(answer => answer !== null)) {
+                        submitExam();
+                    } else {
+                        nextQuestion();
+                    }
+                    break;
+            }
+        });
+    </script>
 </body>
-</html>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digestion and Absorption: Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            color: #2d3436;
+            line-height: 1.8;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 35px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 6px solid #3498db;
+        }
+
+        .section:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .section-title {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ecf0f1;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 120px;
+            height: 3px;
+            background: #3498db;
+        }
+
+        .section-title i {
+            margin-right: 20px;
+            color: white;
+            background: #3498db;
+            padding: 12px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        .subsection-title {
+            color: #2980b9;
+            font-size: 1.6rem;
+            margin-bottom: 18px;
+            padding-left: 15px;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .subsection-subtitle {
+            color: #16a085;
+            font-size: 1.3rem;
+            margin: 18px 0 12px 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 18px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 25px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            padding-left: 8px;
+            font-size: 1.05rem;
+        }
+
+        .key-term {
+            font-weight: 700;
+            color: #c0392b;
+            background-color: #fdedec;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid #fadbd8;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-left: 5px solid #9b59b6;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .definition-box {
+            background: #e8f6f3;
+            border-left: 5px solid #1abc9c;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .function-box {
+            background: #fff9e6;
+            border-left: 5px solid #f39c12;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+            font-size: 1.05rem;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #e8f4fc;
+        }
+
+        .organ-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .organ-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-top: 5px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .organ-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .organ-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .organ-card h4 i {
+            margin-right: 12px;
+            color: #3498db;
+        }
+
+        .figure-placeholder {
+            background: linear-gradient(135deg, #ecf0f1, #dfe6e9);
+            border: 3px dashed #bdc3c7;
+            border-radius: 15px;
+            padding: 50px 30px;
+            text-align: center;
+            margin: 30px 0;
+            color: #7f8c8d;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .note {
+            background: #fffacd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #ffd700;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .process-box {
+            background: #f0f8ff;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #4169e1;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            margin-top: 50px;
+            color: #7f8c8d;
+            font-size: 1rem;
+            border-top: 2px solid #ecf0f1;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+            
+            .organ-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Digestion and Absorption</h1>
+        <p>Complete Guide to Gastrointestinal Physiology, Enzymatic Breakdown, and Nutrient Uptake</p>
+    </div>
+
+    <div class="container">
+        <!-- Section 1: Introduction to Digestive System -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-digital-tachograph"></i> Digestive System Overview</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Primary Functions</h3>
+                
+                <div class="function-box">
+                    <p>The digestive system performs several critical functions essential for maintaining health and nutrition:</p>
+                    <ul>
+                        <li><span class="key-term">Reduces particle size</span> of ingested food through mechanical and chemical processes</li>
+                        <li><span class="key-term">Facilitates absorption</span> of micronutrients and trace elements</li>
+                        <li><span class="key-term">Establishes physical and immunologic barriers</span> against pathogens and harmful substances</li>
+                        <li><span class="key-term">Processes and eliminates</span> waste products from the body</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Definition of Digestion</h3>
+                
+                <div class="definition-box">
+                    <p><strong>Digestion</strong> is the biochemical process that breaks down complex food molecules into simpler, absorbable units:</p>
+                    <ul>
+                        <li><span class="key-term">Carbohydrates</span> (starch and sugars) → <span class="key-term">Monosaccharides</span> (single sugar molecules)</li>
+                        <li><span class="key-term">Proteins</span> → <span class="key-term">Amino acids</span></li>
+                        <li><span class="key-term">Fats (lipids)</span> → <span class="key-term">Fatty acids and glycerol</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Enzymes: The Biological Catalysts</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>Enzymes</strong> are specialized protein molecules that:</p>
+                    <ul>
+                        <li>Accelerate chemical reactions without being consumed</li>
+                        <li><span class="key-term">Break specific bonds</span> in food molecules</li>
+                        <li>Function optimally under specific pH and temperature conditions</li>
+                        <li>Are highly specific for their substrates (the molecules they act upon)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Anatomy of the Digestive System -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-body"></i> Anatomy of the Digestive System</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Basic Structure</h3>
+                <p>The gastrointestinal tract extends from the mouth to the anus and consists of several specialized layers:</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Primary Components:</strong></p>
+                    <ul>
+                        <li><span class="key-term">Epithelial lining</span> facing the lumen - Forms a selective barrier against pathogens</li>
+                        <li><span class="key-term">Submucosal layer</span> - Contains blood vessels, nerves, and glands</li>
+                        <li><span class="key-term">Muscularis</span> - Smooth muscle layers responsible for motility</li>
+                        <li><span class="key-term">Sensory components</span> - Taste and smell receptors that initiate digestive processes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Peristalsis: The Motility Mechanism</h3>
+                
+                <div class="definition-box">
+                    <p><span class="key-term">Peristalsis</span> refers to the coordinated, wave-like muscular contractions that propel food along the entire gastrointestinal tract.</p>
+                </div>
+                
+                <div class="figure-placeholder">
+                    <p><strong>Illustration:</strong> Peristaltic contractions moving food mass through the GI tract</p>
+                    <p><i>Muscle contractions create waves that push food forward while relaxing segments ahead</i></p>
+                </div>
+                
+                <div class="note">
+                    <p><strong>Key Point:</strong> Peristalsis is an involuntary process controlled by the enteric nervous system and occurs throughout the entire GI tract, from esophagus to rectum.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: The Mouth and Oral Cavity -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-teeth-open"></i> The Mouth and Oral Cavity</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Mastication (Chewing)</h3>
+                
+                <div class="function-box">
+                    <p><strong>Functions of Chewing:</strong></p>
+                    <ul>
+                        <li>Mechanically breaks down food into smaller particles</li>
+                        <li>Increases surface area for enzymatic action</li>
+                        <li>Mixes food with saliva to form a bolus for swallowing</li>
+                        <li>Stimulates taste receptors to initiate digestive reflexes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Saliva and Salivary Glands</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>Salivary Production:</strong> Approximately 1.5 liters of saliva are produced daily by three pairs of major salivary glands:</p>
+                    <ul>
+                        <li><span class="key-term">Parotid glands</span> - Largest, produce serous saliva rich in enzymes</li>
+                        <li><span class="key-term">Submandibular glands</span> - Mixed serous and mucous secretion</li>
+                        <li><span class="key-term">Sublingual glands</span> - Primarily mucous secretion</li>
+                    </ul>
+                </div>
+                
+                <div class="function-box">
+                    <p><strong>Components and Functions of Saliva:</strong></p>
+                    <ul>
+                        <li><span class="key-term">Salivary amylase (ptyalin)</span> - Begins starch digestion (inactivated in stomach acid)</li>
+                        <li><span class="key-term">Salivary lipase</span> - Initiates fat digestion (minimal effect)</li>
+                        <li><span class="key-term">Mucus</span> - Lubricates food for easier swallowing</li>
+                        <li><span class="key-term">Lysozyme</span> - Antibacterial enzyme that kills bacteria</li>
+                        <li><span class="key-term">Water and electrolytes</span> - Moisten food and maintain oral pH</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">The Tongue</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>Functions of the Tongue:</strong></p>
+                    <ul>
+                        <li><span class="key-term">Taste perception</span> via taste buds detecting five basic tastes: sweet, sour, salty, bitter, and umami (savory)</li>
+                        <li><span class="key-term">Mechanical manipulation</span> of food during chewing</li>
+                        <li><span class="key-term">Secretion of lingual lipase</span> - Enzyme that begins fat digestion</li>
+                        <li><span class="key-term">Formation of bolus</span> for swallowing</li>
+                        <li><span class="key-term">Speech articulation</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Swallowing and Esophagus -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-swallowing"></i> Swallowing and Esophagus</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Swallowing (Deglutition)</h3>
+                
+                <div class="process-box">
+                    <p><strong>The Swallowing Process:</strong></p>
+                    <ol>
+                        <li><span class="key-term">Oral Phase (Voluntary)</span> - Tongue forms food into a bolus and pushes it toward the pharynx</li>
+                        <li><span class="key-term">Pharyngeal Phase (Involuntary)</span> - Soft palate elevates to close nasal passage; epiglottis covers larynx to prevent aspiration</li>
+                        <li><span class="key-term">Esophageal Phase (Involuntary)</span> - Peristalsis moves bolus through esophagus to stomach</li>
+                    </ol>
+                </div>
+                
+                <div class="note">
+                    <p><strong>Key Structure:</strong> The <span class="key-term">epiglottis</span> is a flap-like structure that covers the trachea during swallowing, preventing food from entering the respiratory tract.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">The Esophagus</h3>
+                
+                <div class="function-box">
+                    <p><strong>Structure and Function:</strong></p>
+                    <ul>
+                        <li><span class="key-term">Muscular tube</span> approximately 25 cm long connecting pharynx to stomach</li>
+                        <li>Transports food via <span class="key-term">peristalsis</span> - coordinated wave-like muscular contractions</li>
+                        <li>Contains two important sphincters:
+                            <ul>
+                                <li><span class="key-term">Upper esophageal sphincter</span> - Prevents air entry during breathing</li>
+                                <li><span class="key-term">Lower esophageal sphincter (LES)</span> - Prevents gastric reflux into esophagus</li>
+                            </ul>
+                        </li>
+                        <li><span class="key-term">Heartburn (acid reflux)</span> occurs when LES malfunctions, allowing stomach acid to enter esophagus</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: The Stomach -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-stomach"></i> The Stomach</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Structure and Capacity</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>Key Features:</strong></p>
+                    <ul>
+                        <li><span class="key-term">Storage capacity</span> of approximately 4 cups (1 liter)</li>
+                        <li>Regulated by two sphincters:
+                            <ul>
+                                <li><span class="key-term">Lower esophageal sphincter</span> (entry)</li>
+                                <li><span class="key-term">Pyloric sphincter</span> (exit to duodenum)</li>
+                            </ul>
+                        </li>
+                        <li>Secretes <span class="key-term">2,000-2,500 mL of gastric juice</span> daily</li>
+                        <li>Liquid meals exit in <span class="key-term">1-2 hours</span>, solid meals in <span class="key-term">2-3 hours</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Gastric Secretions</h3>
+                
+                <div class="function-box">
+                    <p><strong>Components of Gastric Juice:</strong></p>
+                    <ul>
+                        <li><span class="key-term">Hydrochloric acid (HCl)</span> - Creates acidic environment (pH 1-4)</li>
+                        <li><span class="key-term">Pepsinogen</span> - Inactive precursor of pepsin (activated by HCl)</li>
+                        <li><span class="key-term">Gastric lipase</span> - Begins fat digestion (especially short-chain triglycerides)</li>
+                        <li><span class="key-term">Mucus</span> - Protective layer against self-digestion</li>
+                        <li><span class="key-term">Intrinsic factor</span> - Essential for vitamin B₁₂ absorption</li>
+                        <li><span class="key-term">Gastrin</span> - Hormone that stimulates acid secretion</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Functions of Stomach Acid</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>Critical Roles of Gastric Acid:</strong></p>
+                    <ul>
+                        <li><span class="key-term">Activates digestive enzymes</span> (converts pepsinogen to pepsin)</li>
+                        <li><span class="key-term">Partially digests dietary proteins</span></li>
+                        <li><span class="key-term">Assists in calcium absorption</span> by solubilizing calcium salts</li>
+                        <li><span class="key-term">Makes dietary minerals soluble</span> for absorption</li>
+                        <li><span class="key-term">Kills bacteria and microorganisms</span> ingested with food</li>
+                    </ul>
+                </div>
+                
+                <div class="note">
+                    <p><strong>Clinical Note:</strong> <span class="key-term">Achlorhydria</span> (lack of stomach acid), gastrectomy, or GI dysfunction increases risk of bacterial overgrowth in the intestines due to reduced microbial killing.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Chyme Formation and Gastric Emptying</h3>
+                
+                <div class="definition-box">
+                    <p><span class="key-term">Chyme</span> is the semi-fluid mass of partially digested food that exits the stomach into the small intestine.</p>
+                </div>
+                
+                <div class="function-box">
+                    <p><strong>Gastric Emptying Patterns:</strong></p>
+                    <ul>
+                        <li>Different nutrients exit at different rates (from fastest to slowest):
+                            <ol>
+                                <li><span class="key-term">Carbohydrates</span></li>
+                                <li><span class="key-term">Proteins</span></li>
+                                <li><span class="key-term">Fats</span></li>
+                                <li><span class="key-term">Fibrous foods</span></li>
+                            </ol>
+                        </li>
+                        <li>The stomach absorbs <span class="key-term">very few nutrients</span> directly (primarily some drugs and alcohol)</li>
+                        <li>The <span class="key-term">mucus layer</span> protects stomach lining from autodigestion</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: The Small Intestine -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-long-arrow-alt-down"></i> The Small Intestine</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Structure and Divisions</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>Three Anatomical Segments (Total 5-7 meters):</strong></p>
+                    <ul>
+                        <li><span class="key-term">Duodenum</span> (0.5 meters) - Receives chyme from stomach, bile from liver, and pancreatic secretions</li>
+                        <li><span class="key-term">Jejunum</span> (2-3 meters) - Primary site for nutrient absorption</li>
+                        <li><span class="key-term">Ileum</span> (3-4 meters) - Completes absorption, especially of bile salts and vitamin B₁₂</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Absorptive Surface Area</h3>
+                
+                <div class="definition-box">
+                    <p>The small intestine has specialized structural adaptations that <span class="key-term">increase its surface area approximately 600-fold</span> compared to a simple tube:</p>
+                </div>
+                
+                <div class="function-box">
+                    <p><strong>Surface Area Enhancements:</strong></p>
+                    <ol>
+                        <li><span class="key-term">Folds of Kerckring</span> - Large circular folds in intestinal wall</li>
+                        <li><span class="key-term">Villi</span> - Finger-like projections (0.5-1.5 mm long) containing:
+                            <ul>
+                                <li>Absorptive cells (enterocytes)</li>
+                                <li>Capillaries (for water-soluble nutrients)</li>
+                                <li>Lacteals (lymphatic vessels for fat-soluble nutrients)</li>
+                            </ul>
+                        </li>
+                        <li><span class="key-term">Microvilli (Brush Border)</span> - Microscopic projections on enterocytes forming the "brush border"</li>
+                    </ol>
+                </div>
+                
+                <div class="note">
+                    <p><strong>Cell Turnover:</strong> Intestinal epithelial cells have a rapid turnover rate of approximately <span class="key-term">3-5 days</span>, constantly renewing the absorptive surface.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Nutrient Absorption Mechanisms</h3>
+                
+                <div class="organ-grid">
+                    <div class="organ-card">
+                        <h4><i class="fas fa-exchange-alt"></i> Passive Diffusion</h4>
+                        <p><strong>Driven by concentration gradient</strong></p>
+                        <ul>
+                            <li>No energy required</li>
+                            <li>Examples: Water, small lipids, some minerals</li>
+                            <li>Moves from high to low concentration</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="organ-card">
+                        <h4><i class="fas fa-battery-full"></i> Active Absorption</h4>
+                        <p><strong>Requires energy (ATP)</strong></p>
+                        <ul>
+                            <li>Against concentration gradient</li>
+                            <li>Examples: Glucose, amino acids</li>
+                            <li>Uses carrier proteins</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="organ-card">
+                        <h4><i class="fas fa-utensils"></i> Phagocytosis/Pinocytosis</h4>
+                        <p><strong>Cell "drinking" or "eating"</strong></p>
+                        <ul>
+                            <li>Cell membrane engulfs substances</li>
+                            <li>Examples: Immune substances in breast milk</li>
+                            <li>For larger molecules</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Absorption Pathways</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>After Digestion → Absorption → Transport:</strong></p>
+                    <ul>
+                        <li><span class="key-term">Water-soluble nutrients</span> (monosaccharides, amino acids, water-soluble vitamins) → <span class="key-term">Blood capillaries</span> → Portal vein → Liver → General circulation</li>
+                        <li><span class="key-term">Fat-soluble nutrients</span> (fatty acids, monoglycerides, fat-soluble vitamins) → <span class="key-term">Lymphatic lacteals</span> → Thoracic duct → Left subclavian vein → General circulation (bypassing liver initially)</li>
+                    </ul>
+                </div>
+                
+                <div class="note">
+                    <p><strong>Liver Functions:</strong> The liver <span class="key-term">detoxifies</span> absorbed substances and <span class="key-term">repackages</span> nutrients for distribution to body tissues.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7: The Large Intestine -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-toilet"></i> The Large Intestine</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Structure and Function</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>Key Characteristics:</strong></p>
+                    <ul>
+                        <li><span class="key-term">Length</span>: Approximately 1.5 meters (5 feet)</li>
+                        <li><span class="key-term">No villi or digestive enzymes</span> present</li>
+                        <li><span class="key-term">Little digestion</span> occurs (except bacterial fermentation)</li>
+                        <li><span class="key-term">Primary functions</span>:
+                            <ul>
+                                <li>Absorption of water and electrolytes</li>
+                                <li>Formation and storage of feces</li>
+                                <li>Bacterial fermentation of undigested material</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Bacterial Action and Nutrient Production</h3>
+                
+                <div class="function-box">
+                    <p><strong>Colonic Bacteria Functions:</strong></p>
+                    <ul>
+                        <li><span class="key-term">Ferment indigestible carbohydrates</span> (fiber) producing:
+                            <ul>
+                                <li>Gases (hydrogen, methane, carbon dioxide)</li>
+                                <li>Short-chain fatty acids (butyrate, acetate, propionate)</li>
+                            </ul>
+                        </li>
+                        <li><span class="key-term">Synthesize vitamins</span>:
+                            <ul>
+                                <li>Vitamin K (essential for blood clotting)</li>
+                                <li>Vitamin B₁₂, thiamin, riboflavin (in smaller amounts)</li>
+                            </ul>
+                        </li>
+                        <li><span class="key-term">Compete with pathogens</span> for resources</li>
+                        <li><span class="key-term">Metabolize bile acids</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Rectum and Defecation</h3>
+                
+                <div class="process-box">
+                    <p><strong>Defecation Process:</strong></p>
+                    <ol>
+                        <li>Feces accumulate in <span class="key-term">rectum</span>, causing distension</li>
+                        <li>Stretch receptors trigger <span class="key-term">defecation reflex</span></li>
+                        <li><span class="key-term">Internal anal sphincter</span> relaxes involuntarily</li>
+                        <li><span class="key-term">External anal sphincter</span> (under voluntary control) relaxes when appropriate</li>
+                        <li>Abdominal muscles contract to assist elimination</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 8: Accessory Digestive Organs -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-assistive-listening-systems"></i> Accessory Digestive Organs</h2>
+            
+            <div class="organ-grid">
+                <div class="organ-card">
+                    <h4><i class="fas fa-gland"></i> Salivary Glands</h4>
+                    <ul>
+                        <li>Produce 1.5L saliva daily</li>
+                        <li>Contain salivary amylase (starch digestion)</li>
+                        <li>Provide lubrication for swallowing</li>
+                        <li>Contain antibacterial compounds</li>
+                    </ul>
+                </div>
+                
+                <div class="organ-card">
+                    <h4><i class="fas fa-pancreas"></i> Pancreas</h4>
+                    <ul>
+                        <li><span class="key-term">Endocrine function</span>: Produces insulin and glucagon</li>
+                        <li><span class="key-term">Exocrine function</span>: Produces digestive enzymes and bicarbonate</li>
+                        <li>Bicarbonate neutralizes acidic chyme</li>
+                        <li>Enzymes digest all macromolecules</li>
+                    </ul>
+                </div>
+                
+                <div class="organ-card">
+                    <h4><i class="fas fa-gallbladder"></i> Gallbladder</h4>
+                    <ul>
+                        <li>Stores and concentrates bile</li>
+                        <li>Releases bile when needed for fat digestion</li>
+                        <li>Contracts in response to cholecystokinin (CCK)</li>
+                        <li>Bile emulsifies fats for digestion</li>
+                    </ul>
+                </div>
+                
+                <div class="organ-card">
+                    <h4><i class="fas fa-liver"></i> Liver</h4>
+                    <ul>
+                        <li>Produces bile (1L daily)</li>
+                        <li>Detoxifies absorbed substances</li>
+                        <li>Metabolizes nutrients</li>
+                        <li>Stores glycogen, vitamins, minerals</li>
+                        <li>Synthesizes plasma proteins</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Enterohepatic Circulation</h3>
+                
+                <div class="definition-box">
+                    <p><span class="key-term">Enterohepatic circulation</span> refers to the recycling of bile salts between the liver and small intestine:</p>
+                    <ol>
+                        <li>Liver produces bile salts</li>
+                        <li>Bile salts aid fat digestion/absorption in small intestine</li>
+                        <li>95% of bile salts reabsorbed in ileum</li>
+                        <li>Returned to liver via portal vein</li>
+                        <li>Recycled and resecreted</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 9: Enzymatic Digestion Summary -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-vial"></i> Enzymatic Digestion Summary</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Complete Enzyme Overview</h3>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Secretion Source</th>
+                                <th>Enzyme</th>
+                                <th>Substrate</th>
+                                <th>Action</th>
+                                <th>Final Product</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Saliva</strong></td>
+                                <td>Ptyalin (Salivary amylase)</td>
+                                <td>Starch</td>
+                                <td>Hydrolysis to form dextrins</td>
+                                <td>Dextrins, maltose</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gastric Juice</strong></td>
+                                <td>Pepsin</td>
+                                <td>Proteins</td>
+                                <td>Hydrolysis of peptide bonds</td>
+                                <td>Polypeptides, peptides</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gastric Juice</strong></td>
+                                <td>Gastric lipase</td>
+                                <td>Fats (triglycerides)</td>
+                                <td>Hydrolysis into free fatty acids</td>
+                                <td>Fatty acids, diglycerides</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pancreatic Secretion</strong></td>
+                                <td>Pancreatic lipase</td>
+                                <td>Fats</td>
+                                <td>Hydrolysis to monoglycerides</td>
+                                <td>Fatty acids, monoglycerides</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pancreatic Secretion</strong></td>
+                                <td>Cholesterol esterase</td>
+                                <td>Cholesterol esters</td>
+                                <td>Hydrolysis to cholesterol and fatty acids</td>
+                                <td>Cholesterol, fatty acids</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pancreatic Secretion</strong></td>
+                                <td>α-Amylase</td>
+                                <td>Starch, dextrins</td>
+                                <td>Hydrolysis</td>
+                                <td>Dextrins, maltose, maltotriose</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pancreatic Secretion</strong></td>
+                                <td>Trypsin</td>
+                                <td>Proteins</td>
+                                <td>Hydrolysis</td>
+                                <td>Polypeptides</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pancreatic Secretion</strong></td>
+                                <td>Chymotrypsin</td>
+                                <td>Proteins</td>
+                                <td>Hydrolysis</td>
+                                <td>Polypeptides</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pancreatic Secretion</strong></td>
+                                <td>Carboxypeptidase</td>
+                                <td>Polypeptides</td>
+                                <td>Hydrolysis</td>
+                                <td>Amino acids</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pancreatic Secretion</strong></td>
+                                <td>Ribonuclease</td>
+                                <td>RNA</td>
+                                <td>Hydrolysis</td>
+                                <td>Nucleotides</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pancreatic Secretion</strong></td>
+                                <td>Elastase</td>
+                                <td>Elastin (fibrous protein)</td>
+                                <td>Hydrolysis</td>
+                                <td>Amino acids</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brush Border</strong></td>
+                                <td>Enterokinase</td>
+                                <td>Trypsinogen</td>
+                                <td>Activates to trypsin</td>
+                                <td>Active trypsin</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brush Border</strong></td>
+                                <td>Sucrase</td>
+                                <td>Sucrose</td>
+                                <td>Hydrolysis</td>
+                                <td>Glucose + Fructose</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brush Border</strong></td>
+                                <td>Maltase</td>
+                                <td>Maltose</td>
+                                <td>Hydrolysis</td>
+                                <td>Glucose</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brush Border</strong></td>
+                                <td>Lactase</td>
+                                <td>Lactose</td>
+                                <td>Hydrolysis</td>
+                                <td>Glucose + Galactose</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brush Border</strong></td>
+                                <td>Isomaltase</td>
+                                <td>Dextrins</td>
+                                <td>Hydrolysis</td>
+                                <td>Glucose</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Carbohydrate Digestion Process</h3>
+                
+                <div class="process-box">
+                    <p><strong>Starch Digestion Pathway:</strong></p>
+                    <ol>
+                        <li><span class="key-term">Mouth</span>: Salivary amylase begins starch breakdown → dextrins</li>
+                        <li><span class="key-term">Stomach</span>: Amylase inactivated by acid (limited digestion)</li>
+                        <li><span class="key-term">Small Intestine</span>: Pancreatic amylase continues breakdown → maltose, maltotriose, dextrins</li>
+                        <li><span class="key-term">Brush Border</span>: Disaccharidases (maltase, sucrase, lactase) complete digestion → monosaccharides</li>
+                        <li><span class="key-term">Absorption</span>: Monosaccharides (glucose, fructose, galactose) absorbed via specific transporters</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Fat Digestion and Absorption</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>Key Steps in Fat Processing:</strong></p>
+                    <ol>
+                        <li><span class="key-term">Emulsification</span>: Bile salts break large fat globules into smaller droplets</li>
+                        <li><span class="key-term">Enzymatic digestion</span>: Pancreatic lipase breaks triglycerides into fatty acids and monoglycerides</li>
+                        <li><span class="key-term">Micelle formation</span>: Bile salts surround digestion products forming water-soluble micelles</li>
+                        <li><span class="key-term">Absorption</span>: Micelles transport lipids to enterocyte membrane</li>
+                        <li><span class="key-term">Re-esterification</span>: Triglycerides reformed inside enterocytes</li>
+                        <li><span class="key-term">Chylomicron formation</span>: Lipids packaged with proteins into chylomicrons</li>
+                        <li><span class="key-term">Transport</span>: Chylomicrons enter lymphatics (lacteals) → thoracic duct → bloodstream</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 10: Regulatory Systems -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-brain"></i> Regulatory Systems</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Neurotransmitters in GI Function</h3>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Neurotransmitter</th>
+                                <th>Primary Action</th>
+                                <th>Effect on GI Tract</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Gamma-aminobutyric acid (GABA)</strong></td>
+                                <td>Relaxes lower esophageal sphincter</td>
+                                <td>Facilitates esophageal emptying</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Norepinephrine</strong></td>
+                                <td>Decreases motility, increases sphincter contractions</td>
+                                <td>Inhibits secretions, slows digestion (sympathetic response)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Acetylcholine</strong></td>
+                                <td>Increases motility, relaxes sphincters</td>
+                                <td>Stimulates secretions, enhances digestion (parasympathetic)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Neurotensin</strong></td>
+                                <td>Inhibits gastric emptying and acid secretion</td>
+                                <td>Slows gastric processing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Neuropeptide-Y</strong></td>
+                                <td>Stimulates feeding behavior</td>
+                                <td>Increases appetite and food intake</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Gastrointestinal Hormones</h3>
+                
+                <div class="organ-grid">
+                    <div class="organ-card">
+                        <h4><i class="fas fa-hormone"></i> Gastrin</h4>
+                        <ul>
+                            <li><strong>Source:</strong> Gastric mucosa, duodenum</li>
+                            <li><strong>Stimulus:</strong> Peptides, amino acids, gastric distension</li>
+                            <li><strong>Actions:</strong> Stimulates HCl and pepsinogen secretion; increases gastric motility; increases LES tone</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="organ-card">
+                        <h4><i class="fas fa-hormone"></i> Secretin</h4>
+                        <ul>
+                            <li><strong>Source:</strong> Duodenal mucosa (S cells)</li>
+                            <li><strong>Stimulus:</strong> Acidic chyme in small intestine</li>
+                            <li><strong>Actions:</strong> Stimulates pancreatic bicarbonate secretion; stimulates biliary bicarbonate; inhibits gastric acid secretion</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="organ-card">
+                        <h4><i class="fas fa-hormone"></i> Cholecystokinin (CCK)</h4>
+                        <ul>
+                            <li><strong>Source:</strong> Proximal small bowel (I cells)</li>
+                            <li><strong>Stimulus:</strong> Peptides, amino acids, fats, HCl</li>
+                            <li><strong>Actions:</strong> Stimulates pancreatic enzyme release; contracts gallbladder; inhibits gastric emptying; promotes satiety</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="organ-card">
+                        <h4><i class="fas fa-hormone"></i> GIP</h4>
+                        <ul>
+                            <li><strong>Source:</strong> Small intestine (K cells)</li>
+                            <li><strong>Stimulus:</strong> Glucose, fats</li>
+                            <li><strong>Actions:</strong> Inhibits gastrin-stimulated acid secretion; stimulates insulin secretion (incretin effect)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="organ-card">
+                        <h4><i class="fas fa-hormone"></i> Motilin</h4>
+                        <ul>
+                            <li><strong>Source:</strong> Stomach, small and large intestine</li>
+                            <li><strong>Stimulus:</strong> Biliary and pancreatic secretions</li>
+                            <li><strong>Actions:</strong> Promotes gastric emptying; increases GI motility; regulates migrating motor complexes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="organ-card">
+                        <h4><i class="fas fa-hormone"></i> Somatostatin</h4>
+                        <ul>
+                            <li><strong>Source:</strong> Stomach, pancreas, upper small intestine</li>
+                            <li><strong>Stimulus:</strong> Acidity, protein/fat digestion products</li>
+                            <li><strong>Actions:</strong> Inhibits gastrin, motilin, pancreatic secretions; decreases GI motility</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 11: Key Concepts and Clinical Notes -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-clipboard-check"></i> Key Concepts and Clinical Notes</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Efficiency of Digestion and Absorption</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>Key Statistics:</strong></p>
+                    <ul>
+                        <li><span class="key-term">92-97% of dietary intake</span> is absorbed under normal conditions</li>
+                        <li>The small intestine is <span class="key-term">7 meters long</span> with extensive surface area modifications</li>
+                        <li><span class="key-term">Villi and microvilli</span> increase absorptive surface 600-fold compared to a simple tube</li>
+                        <li><span class="key-term">Most digestion and absorption</span> occurs in the small intestine</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Refeeding After Starvation</h3>
+                
+                <div class="note">
+                    <p><strong>Important Consideration:</strong> The gastrointestinal tract becomes compromised after prolonged starvation. When feeding resumes:</p>
+                    <ul>
+                        <li>Cellular proliferation is stimulated</li>
+                        <li>Normal gastrointestinal architecture and function are restored within days</li>
+                        <li>Refeeding must be gradual to avoid complications like refeeding syndrome</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Transport Mechanisms Through Cell Membranes</h3>
+                
+                <div class="organ-grid">
+                    <div class="organ-card">
+                        <h4><i class="fas fa-arrow-right"></i> Simple Diffusion</h4>
+                        <p>Passive movement down concentration gradient</p>
+                    </div>
+                    
+                    <div class="organ-card">
+                        <h4><i class="fas fa-road"></i> Facilitated Diffusion</h4>
+                        <p>Passive transport via channel proteins</p>
+                    </div>
+                    
+                    <div class="organ-card">
+                        <h4><i class="fas fa-battery-full"></i> Active Transport</h4>
+                        <p>Energy-requiring transport against gradient</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Clinical Importance</h3>
+                
+                <div class="definition-box">
+                    <p><strong>Understanding GI Physiology is Essential:</strong></p>
+                    <ul>
+                        <li>Enables comprehension of <span class="key-term">pathophysiology</span> of digestive disorders</li>
+                        <li>Guides <span class="key-term">nutritional interventions</span> for various medical conditions</li>
+                        <li>Informs <span class="key-term">pharmacological approaches</span> to GI diseases</li>
+                        <li>Helps predict <span class="key-term">consequences</span> of surgical interventions</li>
+                        <li>Forms basis for <span class="key-term">diagnostic testing</span> and interpretation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h3>Digestion and Absorption: Complete Guide</h3>
+        <p>Comprehensive summary of gastrointestinal physiology, enzymatic processes, and nutrient uptake mechanisms</p>
+        <p>Based on McGraw-Hill educational materials and current physiological understanding</p>
+        <p><i class="far fa-copyright"></i> Educational Resource - For Academic and Clinical Reference</p>
+    </div>
+</body>
+    </html>
