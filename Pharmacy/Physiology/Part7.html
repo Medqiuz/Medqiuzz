@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digestion and Absorption Exam | Medical Physiology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #1abc9c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --correct: #27ae60;
+            --incorrect: #e74c3c;
+            --warning: #f39c12;
+            --gray: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles - Now scrolls with content */
+        header {
+            background: linear-gradient(135deg, var(--primary), #1a252f);
+            color: white;
+            padding: 25px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            /* Removed fixed/sticky positioning */
+            min-height: 50vh; /* Header takes about half screen initially */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative; /* For positioning exam mode indicator */
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--accent);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .exam-info {
+            text-align: right;
+        }
+        
+        .exam-info p {
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+        
+        /* Exam instructions */
+        .exam-instructions {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .exam-instructions h3 {
+            margin-bottom: 15px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .instructions-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .instruction-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .instruction-item i {
+            color: var(--accent);
+            margin-top: 3px;
+        }
+        
+        /* Scroll indicator */
+        .scroll-indicator {
+            text-align: center;
+            margin-top: 30px;
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+        
+        /* Progress Bar - Now positioned below header */
+        .progress-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 20px; /* Sticks below the header when scrolling */
+            z-index: 10;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background-color: #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            width: 0%;
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+        
+        /* Question Container */
+        .question-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+        
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question-number {
+            background-color: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .question-topic {
+            background-color: var(--light);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* Options */
+        .options-container {
+            margin-bottom: 25px;
+        }
+        
+        .option {
+            background-color: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: #f1f8ff;
+            border-color: #b3d9ff;
+        }
+        
+        .option.selected {
+            border-color: var(--secondary);
+            background-color: #e8f4fc;
+        }
+        
+        .option.correct {
+            border-color: var(--correct);
+            background-color: #d4edda;
+        }
+        
+        .option.incorrect {
+            border-color: var(--incorrect);
+            background-color: #f8d7da;
+        }
+        
+        .option-label {
+            background-color: #e0e0e0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .option.selected .option-label {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .option.correct .option-label {
+            background-color: var(--correct);
+            color: white;
+        }
+        
+        .option.incorrect .option-label {
+            background-color: var(--incorrect);
+            color: white;
+        }
+        
+        .option-text {
+            flex-grow: 1;
+        }
+        
+        /* Feedback */
+        .feedback-container {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .feedback-container.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feedback-correct {
+            background-color: #d4edda;
+            border-left: 5px solid var(--correct);
+        }
+        
+        .feedback-incorrect {
+            background-color: #f8d7da;
+            border-left: 5px solid var(--incorrect);
+        }
+        
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .feedback-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .feedback-title {
+            font-size: 1.1rem;
+        }
+        
+        .feedback-explanation, .feedback-tip, .feedback-clinical {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+        
+        .feedback-subtitle {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feedback-subtitle i {
+            margin-right: 8px;
+        }
+        
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-prev {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            border: 1px solid #ddd;
+        }
+        
+        .btn-prev:hover {
+            background-color: #e9ecef;
+        }
+        
+        .btn-next {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-next:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-submit {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            background-color: #16a085;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* Results Screen */
+        .results-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+        
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .results-icon {
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .results-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .results-score {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin: 20px 0;
+        }
+        
+        .results-details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .result-item {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            min-width: 150px;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .result-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .result-correct .result-value {
+            color: var(--correct);
+        }
+        
+        .result-incorrect .result-value {
+            color: var(--incorrect);
+        }
+        
+        .result-skipped .result-value {
+            color: var(--warning);
+        }
+        
+        .results-message {
+            font-size: 1.2rem;
+            margin: 25px 0;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        
+        .btn-restart {
+            background-color: var(--primary);
+            color: white;
+            margin: 0 auto;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+        
+        .btn-restart:hover {
+            background-color: #1a252f;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Exam Mode Indicator - Now inside header */
+        .exam-mode {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--warning);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 10;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                min-height: auto;
+                padding: 20px 0;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .exam-info {
+                text-align: center;
+            }
+            
+            .exam-mode {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 0 auto 20px;
+                width: fit-content;
+            }
+            
+            .instructions-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-container {
+                padding: 20px;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .question-topic {
+                align-self: flex-start;
+            }
+            
+            .results-details {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .result-item {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Now scrolls with content -->
+    <header>
+        <!-- Exam Mode Indicator -->
+        <div class="exam-mode">
+            <i class="fas fa-clock"></i> EXAM MODE
+        </div>
+        
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Digestion & Absorption Exam</h1>
+                        <p>Medical Physiology | 75 Questions</p>
+                    </div>
+                </div>
+                <div class="exam-info">
+                    <p><i class="fas fa-graduation-cap"></i> Advanced Level</p>
+                    <p><i class="fas fa-clock"></i> Immediate Feedback</p>
+                    <p><i class="fas fa-chart-line"></i> Progress Tracking</p>
+                </div>
+            </div>
+            
+            <!-- Exam Instructions -->
+            <div class="exam-instructions">
+                <h3><i class="fas fa-info-circle"></i> Exam Instructions</h3>
+                <div class="instructions-list">
+                    <div class="instruction-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>Select one answer per question. Immediate feedback will be shown.</div>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <div>Each question includes explanations and memorization tips.</div>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-user-md"></i>
+                        <div>Clinical correlations connect theory to practice.</div>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-arrows-alt-h"></i>
+                        <div>Use navigation buttons or skip questions to review later.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <p>Scroll down to begin the exam</p>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-header">
+                <span>Progress: <span id="current-question">1</span> of <span id="total-questions">75</span></span>
+                <span>Score: <span id="current-score">0</span>%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        
+        <!-- Question Containers will be inserted here -->
+        <div id="questions-area"></div>
+        
+        <!-- Results Screen -->
+        <div class="results-container" id="results-container">
+            <div class="results-icon">
+                <i class="fas fa-clipboard-check"></i>
+            </div>
+            <h2 class="results-title">Exam Completed!</h2>
+            <p>You have finished the Digestion and Absorption exam. Review your results below.</p>
+            
+            <div class="results-score" id="final-score">0%</div>
+            
+            <div class="results-details">
+                <div class="result-item result-correct">
+                    <div class="result-value" id="correct-count">0</div>
+                    <div class="result-label">Correct Answers</div>
+                </div>
+                <div class="result-item result-incorrect">
+                    <div class="result-value" id="incorrect-count">0</div>
+                    <div class="result-label">Incorrect Answers</div>
+                </div>
+                <div class="result-item result-skipped">
+                    <div class="result-value" id="skipped-count">0</div>
+                    <div class="result-label">Skipped Questions</div>
+                </div>
+            </div>
+            
+            <div class="results-message" id="results-message">
+                Your performance analysis will appear here.
+            </div>
+            
+            <button class="btn btn-restart" id="restart-btn">
+                <i class="fas fa-redo"></i> Restart Exam
+            </button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Digestion and Absorption Exam Platform | Based on McGraw-Hill & Elsevier Educational Content</p>
+            <p>This exam is designed for educational purposes to test comprehensive understanding of gastrointestinal physiology.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Question data - 75 questions covering all topics from the PDF
+        const questions = [
+            {
+                id: 1,
+                topic: "Digestive System Overview",
+                question: "Which of the following is NOT a primary function of the digestive system?",
+                options: [
+                    "Reduces particle size of food",
+                    "Absorbs micronutrients and trace elements",
+                    "Produces hormones for glucose regulation",
+                    "Sets a physical and immunologic barrier"
+                ],
+                answer: 2,
+                explanation: "While the digestive system does produce some hormones (like gastrin and secretin), the primary function of glucose regulation is handled by the endocrine system via insulin and glucagon from the pancreas. The digestive system's main functions include mechanical and chemical breakdown of food, absorption of nutrients, and serving as a barrier against pathogens.",
+                tip: "Remember the 4 primary functions: 1) Mechanical and chemical digestion, 2) Absorption, 3) Barrier function, 4) Excretion. Glucose regulation is an endocrine function.",
+                clinical: "Understanding the primary vs secondary functions of the digestive system helps differentiate between gastrointestinal disorders and endocrine disorders like diabetes."
+            },
+            {
+                id: 2,
+                topic: "Digestion Process",
+                question: "What are the final breakdown products of protein digestion that are absorbed in the small intestine?",
+                options: [
+                    "Monosaccharides",
+                    "Amino acids",
+                    "Fatty acids and glycerol",
+                    "Nucleotides"
+                ],
+                answer: 1,
+                explanation: "Proteins are broken down into their constituent amino acids through enzymatic digestion by proteases (pepsin, trypsin, chymotrypsin, etc.). These amino acids are then absorbed through the intestinal wall into the bloodstream.",
+                tip: "Use the mnemonic 'CAP' for digestion end products: Carbohydrates → monosaccharides, Amino acids from Proteins, Fats → Fatty acids + glycerol.",
+                clinical: "Malabsorption of amino acids can occur in conditions like celiac disease or pancreatic insufficiency, leading to protein malnutrition."
+            },
+            {
+                id: 3,
+                topic: "Enzymes",
+                question: "What is the primary characteristic of digestive enzymes?",
+                options: [
+                    "They are lipids that emulsify fats",
+                    "They are carbohydrates that provide energy",
+                    "They are proteins that break chemical bonds",
+                    "They are nucleic acids that code for digestion"
+                ],
+                answer: 2,
+                explanation: "All digestive enzymes are proteins that act as biological catalysts to break specific chemical bonds in food molecules. For example, amylase breaks glycosidic bonds in starch, while proteases break peptide bonds in proteins.",
+                tip: "Remember: All enzymes are proteins (except for some RNA molecules called ribozymes), and they catalyze specific biochemical reactions.",
+                clinical: "Enzyme deficiencies (like lactase deficiency) lead to malabsorption and digestive symptoms after consuming specific nutrients."
+            },
+            {
+                id: 4,
+                topic: "Digestive System Anatomy",
+                question: "Which layer of the GI tract is primarily responsible for peristalsis?",
+                options: [
+                    "Mucosa",
+                    "Submucosa",
+                    "Muscularis",
+                    "Serosa"
+                ],
+                answer: 2,
+                explanation: "The muscularis layer contains smooth muscle arranged in circular and longitudinal layers that contract in coordinated waves to create peristalsis, moving food along the GI tract.",
+                tip: "Remember the layers from inside out: Mucus (Mucosa), Sends (Submucosa), Muscles (Muscularis) Moving (Muscularis externa) Stuff (Serosa).",
+                clinical: "Disorders of the muscularis layer (like achalasia) impair peristalsis and cause swallowing difficulties."
+            },
+            {
+                id: 5,
+                topic: "Peristalsis",
+                question: "What is the primary function of peristalsis in the digestive system?",
+                options: [
+                    "To secrete digestive enzymes",
+                    "To absorb nutrients",
+                    "To move food along the GI tract",
+                    "To emulsify fats"
+                ],
+                answer: 2,
+                explanation: "Peristalsis refers to the coordinated, wave-like muscular contractions that propel food through the entire gastrointestinal tract, from the esophagus to the rectum.",
+                tip: "Think 'peri' (around) + 'stalsis' (contraction) = contraction moving in a wave around the tube to push contents forward.",
+                clinical: "Abnormal peristalsis can result in conditions like gastroparesis (delayed gastric emptying) or rapid intestinal transit."
+            },
+            {
+                id: 6,
+                topic: "The Mouth",
+                question: "Which enzyme in saliva begins the digestion of starch but is inactivated in the stomach?",
+                options: [
+                    "Salivary lipase",
+                    "Lingual lipase",
+                    "Salivary amylase (ptyalin)",
+                    "Lysozyme"
+                ],
+                answer: 2,
+                explanation: "Salivary amylase (also called ptyalin) begins starch digestion in the mouth by breaking down starch into smaller dextrins and maltose. It is inactivated by the acidic pH of the stomach.",
+                tip: "Remember: 'Amy' loves starch. Amylase digests starch. Salivary amylase works in the mouth, pancreatic amylase continues in the small intestine.",
+                clinical: "Patients with pancreatic insufficiency may rely more on salivary amylase for initial starch digestion."
+            },
+            {
+                id: 7,
+                topic: "The Mouth",
+                question: "Approximately how much saliva do the salivary glands produce daily?",
+                options: [
+                    "0.5 liters",
+                    "1.5 liters",
+                    "3.0 liters",
+                    "5.0 liters"
+                ],
+                answer: 1,
+                explanation: "The salivary glands produce approximately 1.5 liters of saliva per day. Saliva contains water, electrolytes, mucus, enzymes (amylase and lipase), and antibacterial compounds.",
+                tip: "Remember the number 1.5 L for daily saliva production. Compare to gastric juice (2-2.5 L/day) and bile (0.5-1 L/day).",
+                clinical: "Reduced saliva production (xerostomia) can occur with certain medications, autoimmune diseases (Sjögren's syndrome), or radiation therapy."
+            },
+            {
+                id: 8,
+                topic: "Tongue",
+                question: "Which of the following is NOT one of the five basic tastes detected by the tongue?",
+                options: [
+                    "Sweet",
+                    "Sour",
+                    "Salty",
+                    "Spicy"
+                ],
+                answer: 3,
+                explanation: "The five basic tastes are sweet, sour, salty, bitter, and umami (savory). Spicy is not a taste but a pain sensation mediated by capsaicin receptors (TRPV1).",
+                tip: "Use the mnemonic 'So Sweet, Bitter Salty Umami' to remember the five tastes: Sour, Sweet, Bitter, Salty, Umami.",
+                clinical: "Loss of taste (ageusia) can occur with zinc deficiency, neurological disorders, or as a side effect of certain medications."
+            },
+            {
+                id: 9,
+                topic: "Swallowing",
+                question: "During swallowing, what structure prevents food from entering the trachea?",
+                options: [
+                    "Uvula",
+                    "Hard palate",
+                    "Epiglottis",
+                    "Vocal folds"
+                ],
+                answer: 2,
+                explanation: "The epiglottis is a flap of cartilage that covers the larynx during swallowing, directing food into the esophagus and preventing it from entering the trachea.",
+                tip: "Remember: Epiglottis = 'Epi' (above) + 'glottis' (vocal cords) = above the vocal cords, protects airway during swallowing.",
+                clinical: "Failure of the epiglottis to close properly can lead to aspiration pneumonia, especially in neurological disorders or after stroke."
+            },
+            {
+                id: 10,
+                topic: "Esophagus",
+                question: "What condition is commonly caused by dysfunction of the lower esophageal sphincter?",
+                options: [
+                    "Constipation",
+                    "Heartburn (GERD)",
+                    "Gallstones",
+                    "Pancreatitis"
+                ],
+                answer: 1,
+                explanation: "Heartburn or gastroesophageal reflux disease (GERD) occurs when the lower esophageal sphincter fails to close properly, allowing stomach acid to reflux into the esophagus.",
+                tip: "Lower Esophageal Sphincter (LES) dysfunction = GERD. Remember LES to prevent reflux.",
+                clinical: "Chronic GERD can lead to Barrett's esophagus, a precancerous condition requiring surveillance endoscopy."
+            },
+            {
+                id: 11,
+                topic: "Stomach",
+                question: "Which cells in the stomach secrete hydrochloric acid?",
+                options: [
+                    "Chief cells",
+                    "Parietal cells",
+                    "G cells",
+                    "Mucous cells"
+                ],
+                answer: 1,
+                explanation: "Parietal (oxyntic) cells in the gastric glands secrete hydrochloric acid, which creates the highly acidic environment of the stomach (pH 1-4).",
+                tip: "Parietal cells produce acid (HCl). Chief cells produce pepsinogen. G cells produce gastrin. Mucous cells produce mucus.",
+                clinical: "Autoimmune destruction of parietal cells leads to pernicious anemia due to lack of intrinsic factor for B12 absorption."
+            },
+            {
+                id: 12,
+                topic: "Stomach",
+                question: "What is the approximate storage capacity of the adult stomach?",
+                options: [
+                    "1 cup (240 ml)",
+                    "4 cups (approx. 1 liter)",
+                    "8 cups (approx. 2 liters)",
+                    "12 cups (approx. 3 liters)"
+                ],
+                answer: 1,
+                explanation: "The adult stomach has a storage capacity of approximately 4 cups (about 1 liter) when moderately distended, though it can expand further with large meals.",
+                tip: "Remember: Stomach capacity is about 1 liter (4 cups). Compare to bladder capacity of 400-600 ml.",
+                clinical: "Post-gastrectomy patients have reduced stomach capacity, requiring smaller, more frequent meals."
+            },
+            {
+                id: 13,
+                topic: "Stomach Physiology",
+                question: "Which enzyme begins protein digestion in the stomach and is activated by low pH?",
+                options: [
+                    "Trypsin",
+                    "Pepsin",
+                    "Chymotrypsin",
+                    "Carboxypeptidase"
+                ],
+                answer: 1,
+                explanation: "Pepsinogen is secreted by chief cells and is activated to pepsin by the acidic environment of the stomach. Pepsin begins protein digestion by breaking peptide bonds.",
+                tip: "Pepsin works in the stomach (peptic = related to digestion). Trypsin and chymotrypsin work in the small intestine.",
+                clinical: "Patients taking proton pump inhibitors (reducing stomach acid) may have impaired protein digestion due to decreased pepsin activation."
+            },
+            {
+                id: 14,
+                topic: "Stomach Function",
+                question: "Which of the following is NOT a function of stomach acid?",
+                options: [
+                    "Activates digestive enzymes",
+                    "Partially digests dietary protein",
+                    "Assists in calcium absorption",
+                    "Emulsifies fats for digestion"
+                ],
+                answer: 3,
+                explanation: "Stomach acid does not emulsify fats; this is primarily the function of bile salts from the liver. Stomach acid functions include: activating pepsinogen to pepsin, denaturing proteins, killing ingested microorganisms, and enhancing mineral solubility.",
+                tip: "Remember stomach acid functions with the mnemonic 'APE': Activate enzymes, Protein denaturation, Eliminate pathogens.",
+                clinical: "Long-term use of acid-suppressing medications may increase risk of certain infections and affect mineral absorption."
+            },
+            {
+                id: 15,
+                topic: "Small Intestine",
+                question: "Which section of the small intestine is primarily responsible for nutrient absorption?",
+                options: [
+                    "Duodenum only",
+                    "Jejunum only",
+                    "Ileum only",
+                    "All three sections (duodenum, jejunum, ileum)"
+                ],
+                answer: 3,
+                explanation: "While different nutrients are absorbed along different sections, all three parts of the small intestine (duodenum, jejunum, and ileum) participate in nutrient absorption. The jejunum is the primary site for most nutrient absorption.",
+                tip: "Remember: Duodenum = digestion continues, Jejunum = Jej'absorbs'most, Ileum = ile'absorbs'the rest (B12, bile salts).",
+                clinical: "Short bowel syndrome results from surgical removal of large portions of small intestine, leading to malabsorption."
+            },
+            {
+                id: 16,
+                topic: "Small Intestine Anatomy",
+                question: "What structural adaptations increase the absorptive surface area of the small intestine approximately 600 times compared to a simple tube?",
+                options: [
+                    "Rugae only",
+                    "Villi only",
+                    "Microvilli only",
+                    "Circular folds, villi, and microvilli"
+                ],
+                answer: 3,
+                explanation: "The small intestine has three levels of structural adaptation: 1) Circular folds (plicae circulares), 2) Villi (finger-like projections), and 3) Microvilli (brush border on epithelial cells). Together these increase surface area about 600-fold.",
+                tip: "Remember: Folds + Villi + Microvilli = Maximum absorption surface. Microvilli create the 'brush border'.",
+                clinical: "Celiac disease damages villi, dramatically reducing surface area and causing malabsorption."
+            },
+            {
+                id: 17,
+                topic: "Nutrient Absorption",
+                question: "Which absorption mechanism requires energy (ATP) and moves nutrients against their concentration gradient?",
+                options: [
+                    "Passive diffusion",
+                    "Facilitated diffusion",
+                    "Active transport",
+                    "Phagocytosis"
+                ],
+                answer: 2,
+                explanation: "Active transport requires energy (ATP) to move substances against their concentration gradient (from low to high concentration). Examples include glucose and amino acid absorption via sodium-coupled transporters.",
+                tip: "Active = Against gradient + ATP. Passive = With gradient, no ATP.",
+                clinical: "Glucose-galactose malabsorption is caused by defects in SGLT1 transporters, demonstrating the importance of active transport."
+            },
+            {
+                id: 18,
+                topic: "Nutrient Absorption",
+                question: "How are fat-soluble nutrients (like vitamins A, D, E, K) transported after absorption?",
+                options: [
+                    "Directly into the bloodstream via capillaries",
+                    "Into the lymphatic system via lacteals",
+                    "Via active transport into portal circulation",
+                    "Through phagocytosis into epithelial cells"
+                ],
+                answer: 1,
+                explanation: "Fat-soluble nutrients are incorporated into micelles, absorbed by intestinal cells, reassembled into chylomicrons, and then enter the lymphatic system via lacteals (lymphatic capillaries in villi). They eventually enter the bloodstream via the thoracic duct.",
+                tip: "Fat = Lymph (Lacteals). Water-soluble = Blood (Capillaries). Remember: Fat floats on lymph!",
+                clinical: "Conditions impairing lymphatic flow (like intestinal lymphangiectasia) cause fat malabsorption and fat-soluble vitamin deficiencies."
+            },
+            {
+                id: 19,
+                topic: "Large Intestine",
+                question: "What is the primary function of the large intestine?",
+                options: [
+                    "Digestion of proteins",
+                    "Absorption of most nutrients",
+                    "Absorption of water and electrolytes",
+                    "Production of digestive enzymes"
+                ],
+                answer: 2,
+                explanation: "The large intestine primarily absorbs water and electrolytes (sodium, potassium) from the remaining indigestible material, converting liquid chyme into semisolid feces. It also houses bacteria that produce some vitamins (like vitamin K).",
+                tip: "Large intestine = Water absorption + Feces formation. Small intestine = Nutrient absorption.",
+                clinical: "Diarrhea results from inadequate water absorption in the large intestine, while constipation results from excessive water absorption."
+            },
+            {
+                id: 20,
+                topic: "Large Intestine",
+                question: "Which vitamin is produced by bacterial action in the large intestine?",
+                options: [
+                    "Vitamin A",
+                    "Vitamin C",
+                    "Vitamin D",
+                    "Vitamin K"
+                ],
+                answer: 3,
+                explanation: "Bacteria in the colon synthesize vitamin K (specifically K2 or menaquinone), which is then absorbed. This provides about half of our daily vitamin K requirement.",
+                tip: "Remember: Colonic bacteria produce Vitamin K. Also produce some B vitamins and short-chain fatty acids.",
+                clinical: "Prolonged antibiotic use can reduce colonic bacteria, potentially leading to vitamin K deficiency and bleeding disorders."
+            },
+            {
+                id: 21,
+                topic: "Accessory Organs",
+                question: "Which organ produces bile for fat digestion?",
+                options: [
+                    "Pancreas",
+                    "Gallbladder",
+                    "Liver",
+                    "Spleen"
+                ],
+                answer: 2,
+                explanation: "The liver produces bile, which is then stored and concentrated in the gallbladder. Bile emulsifies fats, increasing surface area for pancreatic lipase action.",
+                tip: "Liver makes bile, Gallbladder stores it. Remember: Liver = Production, Gallbladder = Storage.",
+                clinical: "Liver disease can impair bile production, leading to fat malabsorption and deficiencies of fat-soluble vitamins."
+            },
+            {
+                id: 22,
+                topic: "Salivary Glands",
+                question: "Which salivary gland produces the majority of saliva?",
+                options: [
+                    "Parotid gland",
+                    "Submandibular gland",
+                    "Sublingual gland",
+                    "Accessory parotid gland"
+                ],
+                answer: 1,
+                explanation: "The submandibular glands produce about 70% of saliva, while the parotid glands produce about 25%, and the sublingual glands produce about 5%. Submandibular saliva is more viscous and contains more mucus.",
+                tip: "Submandibular = Majority (70%), Parotid = Serous (watery, amylase-rich), Sublingual = Mucous (thick).",
+                clinical: "Mumps is an inflammation of the parotid glands, while salivary stones most commonly occur in the submandibular glands."
+            },
+            {
+                id: 23,
+                topic: "Pancreas",
+                question: "What substance does the pancreas secrete to neutralize acidic chyme entering the duodenum?",
+                options: [
+                    "Hydrochloric acid",
+                    "Bicarbonate",
+                    "Mucus",
+                    "Bile"
+                ],
+                answer: 1,
+                explanation: "The pancreas secretes bicarbonate-rich pancreatic juice to neutralize the acidic chyme from the stomach, creating an optimal pH (around 6-7) for pancreatic enzymes to function.",
+                tip: "Pancreas provides bicarbonate to neutralize stomach acid. Remember: Acid from stomach needs base from pancreas.",
+                clinical: "In chronic pancreatitis, bicarbonate secretion may be impaired, leading to inadequate neutralization and poor enzyme function."
+            },
+            {
+                id: 24,
+                topic: "Liver Function",
+                question: "What is the enterohepatic circulation?",
+                options: [
+                    "Circulation of blood between intestines and liver",
+                    "Recycling of bile salts between liver and intestines",
+                    "Circulation of pancreatic enzymes",
+                    "Movement of chyme from stomach to intestine"
+                ],
+                answer: 1,
+                explanation: "Enterohepatic circulation refers to the recycling of bile salts: they are secreted by the liver into the intestine, where 95% are reabsorbed in the ileum and returned to the liver via the portal vein for reuse.",
+                tip: "Entero (intestine) + hepatic (liver) = Circulation between intestine and liver, specifically for bile salts.",
+                clinical: "Bile acid sequestrants (like cholestyramine) work by interrupting enterohepatic circulation to lower cholesterol."
+            },
+            {
+                id: 25,
+                topic: "Gallbladder",
+                question: "What is the primary function of the gallbladder?",
+                options: [
+                    "Produce bile",
+                    "Store and concentrate bile",
+                    "Produce digestive enzymes",
+                    "Neutralize stomach acid"
+                ],
+                answer: 1,
+                explanation: "The gallbladder stores and concentrates bile produced by the liver. When fatty food enters the duodenum, the gallbladder contracts and releases bile through the common bile duct.",
+                tip: "Gallbladder = Storage tank for bile. Liver = Bile factory. Remember: GB stores, concentrates, and releases bile when needed.",
+                clinical: "Gallstones can form in the gallbladder when bile becomes too concentrated, potentially causing biliary colic or cholecystitis."
+            },
+            {
+                id: 26,
+                topic: "Digestive System Overview",
+                question: "Which part of the digestive system has voluntary control over elimination?",
+                options: [
+                    "Internal anal sphincter",
+                    "External anal sphincter",
+                    "Ileocecal valve",
+                    "Pyloric sphincter"
+                ],
+                answer: 1,
+                explanation: "The external anal sphincter is composed of skeletal muscle and is under voluntary control, allowing conscious regulation of defecation. The internal anal sphincter is smooth muscle and involuntary.",
+                tip: "External = Voluntary (skeletal muscle), Internal = Involuntary (smooth muscle). Remember: You can voluntarily 'squeeze' the external sphincter.",
+                clinical: "Fecal incontinence can result from damage to the external anal sphincter or its nerve supply."
+            },
+            {
+                id: 27,
+                topic: "Digestion Rates",
+                question: "Which nutrient category typically leaves the stomach most quickly?",
+                options: [
+                    "Carbohydrates",
+                    "Proteins",
+                    "Fats",
+                    "Fibrous foods"
+                ],
+                answer: 0,
+                explanation: "Carbohydrates leave the stomach first, followed by proteins, then fats and fibrous foods. Liquids empty faster than solids. Fats delay gastric emptying (enterogastric reflex).",
+                tip: "Gastric emptying order: Carbohydrates > Proteins > Fats. Remember: Carbs are quick, Fats are slow.",
+                clinical: "Understanding gastric emptying rates helps manage conditions like dumping syndrome and diabetes gastroparesis."
+            },
+            {
+                id: 28,
+                topic: "Enzymatic Digestion",
+                question: "Which enzyme begins starch digestion in the mouth?",
+                options: [
+                    "Pepsin",
+                    "Trypsin",
+                    "Salivary amylase (ptyalin)",
+                    "Pancreatic lipase"
+                ],
+                answer: 2,
+                explanation: "Salivary amylase (also called ptyalin) begins starch digestion in the mouth by breaking down starch into dextrins and maltose. This enzyme works optimally at neutral pH and is inactivated in the acidic stomach.",
+                tip: "Salivary amylase = Starch digestion in mouth. Remember: 'Amy' loves starch, starts in mouth.",
+                clinical: "Even without salivary amylase (e.g., in xerostomia), starch digestion can still occur via pancreatic amylase in the small intestine."
+            },
+            {
+                id: 29,
+                topic: "Enzymatic Digestion",
+                question: "Which gastric enzyme begins fat digestion, though with minimal effect compared to pancreatic lipase?",
+                options: [
+                    "Pepsin",
+                    "Gastric lipase",
+                    "Trypsin",
+                    "Amylase"
+                ],
+                answer: 1,
+                explanation: "Gastric lipase secreted by chief cells begins fat digestion in the stomach, though it has minimal effect compared to pancreatic lipase. It works best on shorter-chain triglycerides and is acid-stable.",
+                tip: "Gastric lipase = Minor fat digestion in stomach. Major fat digestion occurs in small intestine via pancreatic lipase.",
+                clinical: "In pancreatic insufficiency, gastric lipase may contribute more significantly to fat digestion."
+            },
+            {
+                id: 30,
+                topic: "Pancreatic Enzymes",
+                question: "Which pancreatic enzyme is responsible for breaking down fats into monoglycerides and fatty acids?",
+                options: [
+                    "Trypsin",
+                    "Amylase",
+                    "Lipase",
+                    "Chymotrypsin"
+                ],
+                answer: 2,
+                explanation: "Pancreatic lipase is the primary enzyme that hydrolyzes dietary triglycerides into monoglycerides and fatty acids. It works at the lipid-water interface and requires bile salts for optimal activity.",
+                tip: "Pancreatic lipase = Fat digestion. Remember: Lipase = Lipid breakdown.",
+                clinical: "Pancreatic insufficiency leads to steatorrhea (fatty stools) due to inadequate lipase production."
+            },
+            {
+                id: 31,
+                topic: "Pancreatic Enzymes",
+                question: "Which enzyme activates trypsinogen to trypsin in the small intestine?",
+                options: [
+                    "Enterokinase (enteropeptidase)",
+                    "Pepsin",
+                    "Chymotrypsin",
+                    "Carboxypeptidase"
+                ],
+                answer: 0,
+                explanation: "Enterokinase (also called enteropeptidase) is a brush border enzyme that activates trypsinogen to trypsin. Trypsin then activates other pancreatic zymogens (chymotrypsinogen, procarboxypeptidase, etc.).",
+                tip: "Enterokinase = Key that starts the pancreatic enzyme activation cascade. Remember: Entero-kinase activates trypsin-ogen.",
+                clinical: "Congenital enterokinase deficiency causes protein malabsorption due to failure to activate pancreatic proteases."
+            },
+            {
+                id: 32,
+                topic: "Brush Border Enzymes",
+                question: "Which brush border enzyme breaks down lactose into glucose and galactose?",
+                options: [
+                    "Sucrase",
+                    "Lactase",
+                    "Maltase",
+                    "Isomaltase"
+                ],
+                answer: 1,
+                explanation: "Lactase breaks down lactose (milk sugar) into glucose and galactose. Deficiency of this enzyme causes lactose intolerance.",
+                tip: "Lactase digests lactose. Remember: 'Lactase for lactose'.",
+                clinical: "Lactose intolerance is common worldwide and results from lactase deficiency, causing bloating, gas, and diarrhea after dairy consumption."
+            },
+            {
+                id: 33,
+                topic: "Absorption Statistics",
+                question: "What percentage of the diet is typically absorbed in a healthy digestive system?",
+                options: [
+                    "75-80%",
+                    "82-87%",
+                    "92-97%",
+                    "98-100%"
+                ],
+                answer: 2,
+                explanation: "In a healthy digestive system, approximately 92-97% of the diet is absorbed. The small intestine absorbs most nutrients, while the large intestine absorbs water and electrolytes.",
+                tip: "Remember: 92-97% absorption efficiency in healthy GI tract. Small intestine does the majority.",
+                clinical: "Malabsorption syndromes can reduce absorption to less than 85%, leading to nutritional deficiencies and weight loss."
+            },
+            {
+                id: 34,
+                topic: "Intestinal Villi",
+                question: "What is the function of the lacteal within each intestinal villus?",
+                options: [
+                    "Absorb water-soluble nutrients",
+                    "Transport absorbed fats into lymphatic system",
+                    "Secrete digestive enzymes",
+                    "Produce mucus for lubrication"
+                ],
+                answer: 1,
+                explanation: "The lacteal is a lymphatic capillary located in the core of each villus. It absorbs and transports dietary fats (as chylomicrons) and fat-soluble vitamins into the lymphatic system.",
+                tip: "Lacteal = Lymphatic vessel in villus for fat absorption. Remember: Lacteal for lipids.",
+                clinical: "Conditions affecting lymphatic vessels (like intestinal lymphangiectasia) impair fat absorption and cause steatorrhea."
+            },
+            {
+                id: 35,
+                topic: "Refeeding after Starvation",
+                question: "Why must refeeding after starvation be done gradually?",
+                options: [
+                    "To prevent overwhelming the liver",
+                    "To avoid diarrhea from sudden food intake",
+                    "To allow the GI tract to restore normal architecture and function",
+                    "To prevent hyperglycemia from sudden carbohydrate intake"
+                ],
+                answer: 2,
+                explanation: "After starvation, the GI tract undergoes atrophy. Gradual refeeding allows cellular proliferation and restoration of normal gastrointestinal architecture and function over several days. Rapid refeeding can cause refeeding syndrome with electrolyte imbalances.",
+                tip: "Remember: Starvation → GI atrophy → Need gradual refeeding for mucosal regeneration.",
+                clinical: "Refeeding syndrome is a potentially fatal condition involving fluid and electrolyte shifts when nutrition is reintroduced too quickly after starvation."
+            },
+            {
+                id: 36,
+                topic: "Lipid Digestion",
+                question: "Where does the majority of fat digestion occur?",
+                options: [
+                    "Mouth (via lingual lipase)",
+                    "Stomach (via gastric lipase)",
+                    "Small intestine (via pancreatic lipase)",
+                    "Large intestine (via bacterial action)"
+                ],
+                answer: 2,
+                explanation: "The majority of fat digestion occurs in the small intestine via pancreatic lipase, with assistance from bile salts that emulsify fats. Lingual and gastric lipases contribute minimally.",
+                tip: "Major fat digestion = Small intestine + Pancreatic lipase + Bile salts.",
+                clinical: "Pancreatic insufficiency or bile duct obstruction leads to severe fat malabsorption and steatorrhea."
+            },
+            {
+                id: 37,
+                topic: "Transport Mechanisms",
+                question: "Which transport mechanism involves the cell membrane engulfing large molecules or particles?",
+                options: [
+                    "Simple diffusion",
+                    "Facilitated diffusion",
+                    "Active transport",
+                    "Phagocytosis/pinocytosis"
+                ],
+                answer: 3,
+                explanation: "Phagocytosis (cell eating) and pinocytosis (cell drinking) involve the cell membrane engulfing large particles or fluid droplets. In the GI tract, this mechanism absorbs immune substances from breast milk.",
+                tip: "Phagocytosis/pinocytosis = Cell 'eating/drinking' large particles. Remember: 'Cytosis' processes involve membrane engulfment.",
+                clinical: "Some pathogens exploit phagocytosis to enter cells, while immunoglobulins in breast milk are absorbed via this mechanism in infants."
+            },
+            {
+                id: 38,
+                topic: "Large Intestine Function",
+                question: "Which of the following is absorbed in the large intestine?",
+                options: [
+                    "Amino acids",
+                    "Monosaccharides",
+                    "Water and electrolytes",
+                    "Triglycerides"
+                ],
+                answer: 2,
+                explanation: "The large intestine primarily absorbs water and electrolytes (sodium, potassium, chloride). It also absorbs some vitamins produced by colonic bacteria (vitamin K, biotin).",
+                tip: "Large intestine = Water, electrolytes, bacterial vitamin production. No significant nutrient absorption.",
+                clinical: "Inflammatory bowel disease (like ulcerative colitis) impairs colonic water absorption, causing diarrhea."
+            },
+            {
+                id: 39,
+                topic: "Carbohydrate Digestion",
+                question: "What is the final product of complete carbohydrate digestion?",
+                options: [
+                    "Disaccharides",
+                    "Monosaccharides",
+                    "Dextrins",
+                    "Oligosaccharides"
+                ],
+                answer: 1,
+                explanation: "Carbohydrates are ultimately broken down into monosaccharides (glucose, fructose, galactose) for absorption. Disaccharides and dextrins are intermediate products.",
+                tip: "Carbohydrate digestion end point = Monosaccharides. Remember: Mono = single sugar unit.",
+                clinical: "Disaccharidase deficiencies (like lactase deficiency) cause carbohydrate malabsorption with osmotic diarrhea."
+            },
+            {
+                id: 40,
+                topic: "Sites of Secretion",
+                question: "Where are brush border enzymes located?",
+                options: [
+                    "Salivary glands",
+                    "Stomach lining",
+                    "Microvilli of small intestine",
+                    "Pancreatic acinar cells"
+                ],
+                answer: 2,
+                explanation: "Brush border enzymes are located on the microvilli of absorptive cells in the small intestine. They complete the digestion of carbohydrates and proteins.",
+                tip: "Brush border enzymes = On microvilli of small intestine. Final digestion before absorption.",
+                clinical: "Conditions damaging the brush border (like celiac disease) cause malabsorption of multiple nutrients."
+            },
+            {
+                id: 41,
+                topic: "Neurotransmitters",
+                question: "Which neurotransmitter increases GI motility, relaxes sphincters, and stimulates secretions?",
+                options: [
+                    "Norepinephrine",
+                    "Acetylcholine",
+                    "GABA",
+                    "Neuropeptide Y"
+                ],
+                answer: 1,
+                explanation: "Acetylcholine (from parasympathetic nervous system) increases GI motility, relaxes sphincters (except lower esophageal sphincter which it contracts), and stimulates secretions. It is the primary neurotransmitter of the enteric nervous system.",
+                tip: "Acetylcholine = Parasympathetic = Rest and digest = Increases motility and secretions.",
+                clinical: "Anticholinergic medications (like scopolamine) reduce GI motility and secretions, used for treating diarrhea and cramping."
+            },
+            {
+                id: 42,
+                topic: "Hormones - Gastrin",
+                question: "What stimulates the release of gastrin?",
+                options: [
+                    "Acid in the stomach",
+                    "Fat in the duodenum",
+                    "Peptides and amino acids in the stomach",
+                    "High blood glucose"
+                ],
+                answer: 2,
+                explanation: "Gastrin is released from G cells in the gastric antrum and duodenum in response to peptides, amino acids, and stomach distension. It stimulates gastric acid secretion and gastric motility.",
+                tip: "Gastrin release = Stretch + Protein digestion products. Action = Stimulate acid secretion.",
+                clinical: "Zollinger-Ellison syndrome involves gastrin-secreting tumors causing severe peptic ulcer disease."
+            },
+            {
+                id: 43,
+                topic: "Hormones - Secretin",
+                question: "What is the primary stimulus for secretin release?",
+                options: [
+                    "Fat in the duodenum",
+                    "Acid in the duodenum",
+                    "Carbohydrates in the stomach",
+                    "Protein in the jejunum"
+                ],
+                answer: 1,
+                explanation: "Secretin is released from S cells in the duodenum in response to acidic chyme (pH < 4.5). It stimulates pancreatic bicarbonate secretion to neutralize gastric acid.",
+                tip: "Secretin release = Acid in duodenum. Action = Stimulate bicarbonate secretion.",
+                clinical: "Secretin is used diagnostically in pancreatic function tests and to treat pancreatitis."
+            },
+            {
+                id: 44,
+                topic: "Hormones - CCK",
+                question: "What is the primary function of cholecystokinin (CCK)?",
+                options: [
+                    "Inhibit gastric emptying",
+                    "Stimulate pancreatic enzyme secretion and gallbladder contraction",
+                    "Increase lower esophageal sphincter tone",
+                    "Stimulate gastric acid secretion"
+                ],
+                answer: 1,
+                explanation: "CCK is released from I cells in the duodenum in response to fats and proteins. It stimulates pancreatic enzyme secretion, gallbladder contraction, and inhibits gastric emptying.",
+                tip: "CCK = Cholecysto (gallbladder) + kinin (movement) = Gallbladder contraction + Pancreatic enzyme secretion.",
+                clinical: "CCK is used in diagnostic imaging to assess gallbladder function (CCK-HIDA scan)."
+            },
+            {
+                id: 45,
+                topic: "Hormones - GIP",
+                question: "What does Gastric Inhibitory Polypeptide (GIP) primarily do?",
+                options: [
+                    "Stimulates gastric acid secretion",
+                    "Inhibits insulin release",
+                    "Stimulates glucagon release",
+                    "Inhibits gastric acid secretion and stimulates insulin release"
+                ],
+                answer: 3,
+                explanation: "GIP is released from K cells in the duodenum and jejunum in response to glucose and fat. It inhibits gastric acid secretion and stimulates insulin release (incretin effect).",
+                tip: "GIP = Gastric Inhibitory Polypeptide = Inhibits gastric acid + Stimulates insulin (Incretin effect).",
+                clinical: "GIP contributes to the incretin effect, which is impaired in type 2 diabetes. GLP-1 analogs are used to treat diabetes."
+            },
+            {
+                id: 46,
+                topic: "Hormones - Motilin",
+                question: "What is the primary function of motilin?",
+                options: [
+                    "Stimulate gastric acid secretion",
+                    "Initiate migrating motor complexes during fasting",
+                    "Inhibit pancreatic secretion",
+                    "Stimulate colonic motility"
+                ],
+                answer: 1,
+                explanation: "Motilin is released during fasting and stimulates migrating motor complexes (MMCs) - waves of electrical activity that sweep undigested material through the GI tract between meals.",
+                tip: "Motilin = Motility during fasting (MMCs). Released every 90-120 minutes between meals.",
+                clinical: "Erythromycin acts as a motilin agonist and is used to promote gastric emptying in gastroparesis."
+            },
+            {
+                id: 47,
+                topic: "Hormones - Somatostatin",
+                question: "What is the overall effect of somatostatin on the digestive system?",
+                options: [
+                    "Stimulates all digestive processes",
+                    "Inhibits digestive secretions and motility",
+                    "Specifically stimulates acid secretion",
+                    "Only affects pancreatic secretions"
+                ],
+                answer: 1,
+                explanation: "Somatostatin has broad inhibitory effects: it inhibits gastrin, CCK, secretin, motilin, gastric acid secretion, pancreatic secretion, and GI motility. It acts as a 'brake' on digestive functions.",
+                tip: "Somatostatin = Universal inhibitor of GI function. Remember: 'SS' = Stop Secretions.",
+                clinical: "Somatostatin analogs (octreotide) are used to treat hormone-secreting tumors and severe diarrhea."
+            },
+            {
+                id: 48,
+                topic: "Clinical Correlation",
+                question: "Why is understanding GI physiology important in clinical practice?",
+                options: [
+                    "To perform surgery more effectively",
+                    "To understand implications of pathophysiology",
+                    "To prescribe antibiotics correctly",
+                    "To interpret ECG readings"
+                ],
+                answer: 1,
+                explanation: "Understanding normal GI physiology is essential to recognize and treat pathophysiology. For example, knowing normal absorption mechanisms helps diagnose malabsorption syndromes, and understanding hormone functions helps diagnose endocrine tumors.",
+                tip: "Physiology → Pathophysiology → Clinical management. Know normal to recognize abnormal.",
+                clinical: "Examples: Understanding LES function explains GERD; knowing pancreatic enzyme functions explains steatorrhea in pancreatitis."
+            },
+            {
+                id: 49,
+                topic: "Stomach pH",
+                question: "What is the typical pH range of the stomach?",
+                options: [
+                    "pH 7-8 (neutral to slightly basic)",
+                    "pH 5-6 (slightly acidic)",
+                    "pH 1-4 (highly acidic)",
+                    "pH 8-9 (alkaline)"
+                ],
+                answer: 2,
+                explanation: "The stomach maintains a highly acidic environment with pH typically between 1 and 4. This acidity activates pepsin, denatures proteins, and kills most ingested microorganisms.",
+                tip: "Stomach pH = 1-4 (very acidic). Remember: Acidic enough to activate pepsin and kill bacteria.",
+                clinical: "Proton pump inhibitors raise gastric pH to 4-5, reducing acid-related damage but potentially increasing infection risk."
+            },
+            {
+                id: 50,
+                topic: "Achlorhydria",
+                question: "What condition increases the risk of bacterial overgrowth in the intestines?",
+                options: [
+                    "Hyperchlorhydria (excess acid)",
+                    "Achlorhydria (no acid)",
+                    "Normal gastric acidity",
+                    "Increased pepsin secretion"
+                ],
+                answer: 1,
+                explanation: "Achlorhydria (absence of gastric acid), gastrectomy, or other GI dysfunction increases risk of bacterial overgrowth because stomach acid normally kills many ingested bacteria.",
+                tip: "No stomach acid (achlorhydria) = Increased bacterial survival = Risk of intestinal overgrowth.",
+                clinical: "Patients with pernicious anemia (autoimmune gastritis with achlorhydria) have increased risk of bacterial overgrowth and certain infections."
+            },
+            {
+                id: 51,
+                topic: "Protein Digestion",
+                question: "Which enzyme activates pepsinogen to pepsin?",
+                options: [
+                    "Hydrochloric acid",
+                    "Trypsin",
+                    "Enterokinase",
+                    "Bicarbonate"
+                ],
+                answer: 0,
+                explanation: "Pepsinogen is activated to pepsin by hydrochloric acid in the stomach. The acid cleaves a protective peptide from pepsinogen, exposing the active site.",
+                tip: "HCl activates pepsinogen → pepsin. Also, pepsin can autoactivate more pepsinogen (positive feedback).",
+                clinical: "Proton pump inhibitors reduce pepsin activity by decreasing acid, which can impair protein digestion."
+            },
+            {
+                id: 52,
+                topic: "Gastric Emptying",
+                question: "How long does it typically take for most of a solid meal to leave the stomach?",
+                options: [
+                    "30 minutes to 1 hour",
+                    "1 to 2 hours",
+                    "2 to 3 hours",
+                    "4 to 6 hours"
+                ],
+                answer: 2,
+                explanation: "Most of a solid meal leaves the stomach in 2 to 3 hours, though this varies with meal composition (fats delay emptying). Liquids empty faster (1-2 hours).",
+                tip: "Solid gastric emptying = 2-3 hours. Liquid = 1-2 hours. Fat delays emptying.",
+                clinical: "Rapid gastric emptying causes dumping syndrome; delayed emptying causes gastroparesis (common in diabetes)."
+            },
+            {
+                id: 53,
+                topic: "Chyme",
+                question: "What is chyme?",
+                options: [
+                    "The mixture of food and saliva in the mouth",
+                    "The semisolid mass of swallowed food",
+                    "The liquefied mixture of partially digested food and gastric secretions",
+                    "The fecal material in the colon"
+                ],
+                answer: 2,
+                explanation: "Chyme is the semifluid mass of partly digested food and digestive secretions that passes from the stomach to the small intestine. It is created by the mechanical and chemical digestion in the stomach.",
+                tip: "Chyme = Stomach contents after mixing with gastric secretions. Remember: Chyme leaves stomach, enters duodenum.",
+                clinical: "The rate of chyme delivery to the small intestine affects nutrient absorption and hormonal responses."
+            },
+            {
+                id: 54,
+                topic: "Mucus Protection",
+                question: "How does the stomach protect itself from being digested by its own acid and enzymes?",
+                options: [
+                    "By producing bicarbonate in the stomach lining",
+                    "Through rapid epithelial cell turnover",
+                    "Via a mucus-bicarbonate barrier",
+                    "All of the above"
+                ],
+                answer: 3,
+                explanation: "The stomach protects itself through multiple mechanisms: 1) A mucus-bicarbonate barrier that creates a pH gradient, 2) Rapid epithelial cell turnover (every 3-6 days), 3) Tight junctions between cells, and 4) Prostaglandins that maintain mucosal blood flow.",
+                tip: "Stomach protects itself via mucus-bicarbonate barrier + rapid cell renewal + tight junctions.",
+                clinical: "NSAIDs damage the protective barrier by inhibiting prostaglandins, leading to gastric ulcers."
+            },
+            {
+                id: 55,
+                topic: "Nutrient Absorption in Stomach",
+                question: "Which of the following is absorbed in significant amounts in the stomach?",
+                options: [
+                    "Glucose",
+                    "Amino acids",
+                    "Alcohol and some drugs",
+                    "Fatty acids"
+                ],
+                answer: 2,
+                explanation: "The stomach absorbs very few nutrients. The main exceptions are some weak acids (like aspirin) and alcohol (about 20% of alcohol is absorbed in the stomach, 80% in the small intestine).",
+                tip: "Stomach absorbs mainly: Alcohol, some drugs (aspirin), and water (minimal). Most nutrients absorbed in small intestine.",
+                clinical: "Food in the stomach slows alcohol absorption by delaying gastric emptying, reducing peak blood alcohol levels."
+            },
+            {
+                id: 56,
+                topic: "Small Intestine Length",
+                question: "What is the approximate length of the adult small intestine?",
+                options: [
+                    "1-2 meters",
+                    "3-4 meters",
+                    "5-7 meters",
+                    "8-10 meters"
+                ],
+                answer: 2,
+                explanation: "The adult small intestine is approximately 5-7 meters (16-23 feet) long. The duodenum is about 0.5 meters, jejunum 2-3 meters, and ileum 3-4 meters.",
+                tip: "Small intestine = 5-7 meters total. Duodenum (0.5m) + Jejunum (2-3m) + Ileum (3-4m).",
+                clinical: "The considerable length provides extensive surface area for absorption. Short bowel syndrome results from surgical resection."
+            },
+            {
+                id: 57,
+                topic: "Surface Area Increase",
+                question: "How much do the villi and microvilli increase the surface area of the small intestine?",
+                options: [
+                    "10 times",
+                    "100 times",
+                    "600 times",
+                    "1000 times"
+                ],
+                answer: 2,
+                explanation: "The combination of circular folds, villi, and microvilli increases the absorptive surface area of the small intestine approximately 600 times compared to a simple tube of the same length.",
+                tip: "Surface area increased ~600x by folds + villi + microvilli. Microvilli alone increase surface area 20-30x.",
+                clinical: "Celiac disease flattens villi, drastically reducing surface area and causing malabsorption."
+            },
+            {
+                id: 58,
+                topic: "Cell Turnover",
+                question: "How often do intestinal absorptive cells typically turn over?",
+                options: [
+                    "Every 24 hours",
+                    "Every 3-5 days",
+                    "Every 2-3 weeks",
+                    "Every 2-3 months"
+                ],
+                answer: 1,
+                explanation: "Intestinal epithelial cells have rapid turnover, typically every 3-5 days. This rapid renewal helps repair damage from digestive processes and pathogens.",
+                tip: "Intestinal epithelial turnover = 3-5 days. One of the fastest cell renewal rates in the body.",
+                clinical: "Chemotherapy targets rapidly dividing cells, causing intestinal damage (mucositis) as a side effect."
+            },
+            {
+                id: 59,
+                topic: "Passive Diffusion",
+                question: "Which nutrients are primarily absorbed by passive diffusion?",
+                options: [
+                    "Glucose and amino acids",
+                    "Water, some minerals, and fats",
+                    "Vitamin B12",
+                    "Iron and calcium"
+                ],
+                answer: 1,
+                explanation: "Passive diffusion moves substances down their concentration gradient without energy. It absorbs water, some minerals, and lipids (after they become lipid-soluble).",
+                tip: "Passive diffusion = Down concentration gradient, no energy. For small, lipid-soluble molecules.",
+                clinical: "Malabsorption of fat-soluble vitamins occurs in conditions impairing fat digestion/absorption (like cystic fibrosis)."
+            },
+            {
+                id: 60,
+                topic: "Active Absorption",
+                question: "Which nutrients require active transport for absorption?",
+                options: [
+                    "Water and ethanol",
+                    "Glucose, galactose, and amino acids",
+                    "Short-chain fatty acids",
+                    "Vitamin D"
+                ],
+                answer: 1,
+                explanation: "Glucose, galactose, and most amino acids require active transport (sodium-coupled secondary active transport) for absorption against their concentration gradients.",
+                tip: "Active transport = Against gradient + Energy. For glucose, galactose, amino acids.",
+                clinical: "Glucose-galactose malabsorption is a rare genetic disorder affecting SGLT1 transporter."
+            },
+            {
+                id: 61,
+                topic: "Blood vs Lymph Transport",
+                question: "Which nutrients enter the lymphatic system (lacteals) rather than the bloodstream directly?",
+                options: [
+                    "Water-soluble vitamins",
+                    "Monosaccharides",
+                    "Amino acids",
+                    "Fat-soluble vitamins and long-chain fatty acids"
+                ],
+                answer: 3,
+                explanation: "Fat-soluble vitamins (A, D, E, K) and long-chain fatty acids are incorporated into chylomicrons and enter the lymphatic system via lacteals. Water-soluble nutrients enter the portal blood directly.",
+                tip: "Fat-soluble nutrients → Lymph (lacteals) → Thoracic duct → Blood. Water-soluble → Portal blood → Liver.",
+                clinical: "Obstructed lymphatics cause fat malabsorption. Medium-chain triglycerides bypass lymph and enter blood directly."
+            },
+            {
+                id: 62,
+                topic: "Liver Processing",
+                question: "What happens to absorbed water-soluble nutrients after they enter the portal blood?",
+                options: [
+                    "They go directly to the heart for systemic circulation",
+                    "They are stored in the liver permanently",
+                    "They pass through the liver for processing before systemic circulation",
+                    "They enter the lymphatic system"
+                ],
+                answer: 2,
+                explanation: "Water-soluble nutrients absorbed in the intestine enter the portal vein and pass through the liver first. The liver detoxifies, metabolizes, and repackages nutrients before they enter systemic circulation.",
+                tip: "Portal vein → Liver first (first-pass metabolism) → Systemic circulation. Lymphatic route bypasses liver initially.",
+                clinical: "Oral medications undergo first-pass metabolism in the liver, which may reduce their bioavailability."
+            },
+            {
+                id: 63,
+                topic: "Large Intestine Anatomy",
+                question: "What is the approximate length of the large intestine?",
+                options: [
+                    "1.5 feet",
+                    "3.5 feet",
+                    "5.5 feet",
+                    "7.5 feet"
+                ],
+                answer: 1,
+                explanation: "The large intestine is approximately 3.5 feet (1.1 meters) long, compared to the small intestine which is 5-7 meters long. It consists of cecum, colon, rectum, and anal canal.",
+                tip: "Large intestine = ~3.5 feet. Small intestine = 5-7 meters (16-23 feet). Remember: Small is longer but large has greater diameter.",
+                clinical: "Colonoscopy examines the entire large intestine, which is possible due to its shorter length."
+            },
+            {
+                id: 64,
+                topic: "Large Intestine Structure",
+                question: "Which of the following is absent in the large intestine?",
+                options: [
+                    "Mucosal glands",
+                    "Villi",
+                    "Circular muscle",
+                    "Longitudinal muscle (taeniae coli)"
+                ],
+                answer: 1,
+                explanation: "The large intestine lacks villi, which are characteristic of the small intestine. It has a smooth mucosal surface with crypts (intestinal glands) but no villi.",
+                tip: "Large intestine: No villi, no digestive enzymes (except from bacteria). Small intestine: Villi present, brush border enzymes.",
+                clinical: "The absence of villi in the colon reduces its absorptive capacity compared to the small intestine."
+            },
+            {
+                id: 65,
+                topic: "Bacterial Action",
+                question: "What do colonic bacteria produce from undigested fiber?",
+                options: [
+                    "Glucose and amino acids",
+                    "Short-chain fatty acids and gases",
+                    "Long-chain triglycerides",
+                    "Complex proteins"
+                ],
+                answer: 1,
+                explanation: "Colonic bacteria ferment undigested carbohydrates (fiber) to produce short-chain fatty acids (acetate, propionate, butyrate) and gases (hydrogen, methane, carbon dioxide).",
+                tip: "Colonic bacteria: Ferment fiber → Short-chain fatty acids + Gas. Also produce some vitamins.",
+                clinical: "Butyrate produced by bacteria is the primary energy source for colonocytes. Low fiber diets reduce butyrate production."
+            },
+            {
+                id: 66,
+                topic: "Vitamin Production",
+                question: "Which vitamins are produced by colonic bacteria and absorbed in the large intestine?",
+                options: [
+                    "Vitamin A and D",
+                    "Vitamin C and B12",
+                    "Vitamin K and some B vitamins",
+                    "Vitamin E only"
+                ],
+                answer: 2,
+                explanation: "Colonic bacteria produce vitamin K (menaquinone) and some B vitamins (biotin, folate, B12). However, B12 absorption requires intrinsic factor and occurs mainly in the ileum.",
+                tip: "Colonic bacteria produce: Vitamin K, biotin, folate. Vitamin K is the most significant nutritionally.",
+                clinical: "Prolonged broad-spectrum antibiotics can reduce vitamin K production, potentially affecting clotting factors."
+            },
+            {
+                id: 67,
+                topic: "Feces Formation",
+                question: "What is the primary composition of feces?",
+                options: [
+                    "Undigested food",
+                    "Bacteria and water",
+                    "Digestive enzymes",
+                    "Bile pigments only"
+                ],
+                answer: 1,
+                explanation: "Feces consist of approximately 75% water and 25% solid matter. The solids include bacteria (30%), undigested food and fiber (30%), fat (10-20%), and inorganic matter, protein, and dead cells.",
+                tip: "Feces = 75% water, 25% solids. Solids = Bacteria + Fiber + Fat + Inorganic matter.",
+                clinical: "Water content determines stool consistency: >85% water = diarrhea, <70% water = constipation."
+            },
+            {
+                id: 68,
+                topic: "Defecation",
+                question: "What stimulates the defecation reflex?",
+                options: [
+                    "Stomach distension",
+                    "Food in the mouth",
+                    "Rectal distension by feces",
+                    "Gallbladder contraction"
+                ],
+                answer: 2,
+                explanation: "The defecation reflex is initiated when feces enter and distend the rectum, stimulating stretch receptors. This triggers parasympathetic signals to increase colonic motility and relax the internal anal sphincter.",
+                tip: "Defecation reflex = Rectal distension → Parasympathetic response → Relax internal sphincter + Increase motility.",
+                clinical: "Spinal cord injuries above the sacral level can interrupt voluntary control but preserve the reflex."
+            },
+            {
+                id: 69,
+                topic: "Pancreatic Endocrine Function",
+                question: "Which pancreatic hormones regulate blood glucose?",
+                options: [
+                    "Insulin and glucagon",
+                    "Secretin and CCK",
+                    "Gastrin and motilin",
+                    "Somatostatin only"
+                ],
+                answer: 0,
+                explanation: "The pancreas has both exocrine (digestive enzymes) and endocrine functions. Its endocrine hormones include insulin (lowers blood glucose) and glucagon (raises blood glucose), secreted by islet cells.",
+                tip: "Pancreas endocrine: Insulin (beta cells) + Glucagon (alpha cells). Exocrine: Digestive enzymes + Bicarbonate.",
+                clinical: "Type 1 diabetes results from autoimmune destruction of pancreatic beta cells, causing insulin deficiency."
+            },
+            {
+                id: 70,
+                topic: "Bile Function",
+                question: "What is the primary digestive function of bile?",
+                options: [
+                    "Emulsify fats",
+                    "Digest proteins",
+                    "Break down carbohydrates",
+                    "Neutralize stomach acid"
+                ],
+                answer: 0,
+                explanation: "Bile emulsifies dietary fats, breaking large fat globules into smaller droplets. This increases the surface area for pancreatic lipase action. Bile also aids in absorption of fat-soluble vitamins.",
+                tip: "Bile = Emulsification (not digestion). Lipase = Digestion of fats. Remember: Bile prepares fats for lipase.",
+                clinical: "Bile duct obstruction causes pale, fatty stools (steatorrhea) and fat-soluble vitamin deficiencies."
+            },
+            {
+                id: 71,
+                topic: "Bile Storage",
+                question: "How does the gallbladder modify bile?",
+                options: [
+                    "Produces new bile components",
+                    "Concentrates bile by absorbing water",
+                    "Adds digestive enzymes",
+                    "Changes bile pH to acidic"
+                ],
+                answer: 1,
+                explanation: "The gallbladder stores and concentrates bile by absorbing water and electrolytes, making bile 5-10 times more concentrated than when it leaves the liver. It also adds mucus.",
+                tip: "Gallbladder: Stores + Concentrates (absorbs water) + Releases bile when needed (via CCK stimulation).",
+                clinical: "Concentrated bile can precipitate to form gallstones, especially if cholesterol saturation is high."
+            },
+            {
+                id: 72,
+                topic: "Sphincter of Oddi",
+                question: "What controls the release of bile and pancreatic juice into the duodenum?",
+                options: [
+                    "Pyloric sphincter",
+                    "Ileocecal valve",
+                    "Sphincter of Oddi",
+                    "Lower esophageal sphincter"
+                ],
+                answer: 2,
+                explanation: "The sphincter of Oddi controls the flow of bile and pancreatic juice from the common bile duct and pancreatic duct into the duodenum. It relaxes in response to CCK.",
+                tip: "Sphincter of Oddi = Gatekeeper for bile + pancreatic juice entry to duodenum.",
+                clinical: "Sphincter of Oddi dysfunction can cause pain, pancreatitis, or abnormal liver enzymes."
+            },
+            {
+                id: 73,
+                topic: "GI Tract Lining",
+                question: "What type of epithelium lines most of the gastrointestinal tract?",
+                options: [
+                    "Stratified squamous epithelium",
+                    "Simple columnar epithelium",
+                    "Transitional epithelium",
+                    "Pseudostratified ciliated columnar epithelium"
+                ],
+                answer: 1,
+                explanation: "Most of the GI tract (stomach, small and large intestines) is lined with simple columnar epithelium specialized for absorption and secretion. The mouth, esophagus, and anal canal have stratified squamous epithelium for protection.",
+                tip: "Stomach + Intestines = Simple columnar. Mouth + Esophagus + Anus = Stratified squamous (for protection).",
+                clinical: "Barrett's esophagus involves replacement of stratified squamous with simple columnar epithelium, increasing cancer risk."
+            },
+            {
+                id: 74,
+                topic: "Barrier Function",
+                question: "How does the GI tract provide an immunologic barrier?",
+                options: [
+                    "Through stomach acid killing microbes",
+                    "Via gut-associated lymphoid tissue (GALT)",
+                    "Through rapid cell turnover",
+                    "All of the above"
+                ],
+                answer: 3,
+                explanation: "The GI tract provides immunologic protection through: 1) Stomach acid killing pathogens, 2) Gut-associated lymphoid tissue (GALT including Peyer's patches), 3) Secretory IgA in mucus, 4) Tight junctions between epithelial cells, and 5) Rapid cell turnover.",
+                tip: "GI immunologic barrier: Acid + GALT + IgA + Tight junctions + Rapid turnover.",
+                clinical: "Inflammatory bowel disease involves dysfunction of the intestinal barrier and immune response to gut microbiota."
+            },
+            {
+                id: 75,
+                topic: "Digestive System Integration",
+                question: "Which statement best summarizes the integrated function of the digestive system?",
+                options: [
+                    "It mechanically breaks down food only",
+                    "It absorbs all nutrients completely without regulation",
+                    "It coordinates mechanical, chemical, and hormonal processes to digest food and absorb nutrients",
+                    "It functions independently of neural control"
+                ],
+                answer: 2,
+                explanation: "The digestive system integrates mechanical processes (chewing, peristalsis), chemical processes (enzyme action), neural control (enteric and autonomic nervous systems), and hormonal regulation to efficiently digest food and absorb nutrients while maintaining barrier functions.",
+                tip: "Digestive system integration: Mechanical + Chemical + Neural + Hormonal coordination.",
+                clinical: "Disorders can affect any component: mechanical (obstruction), chemical (enzyme deficiency), neural (Hirschsprung's), or hormonal (gastrinoma)."
+            }
+        ];
+
+        // DOM Elements
+        const questionsArea = document.getElementById('questions-area');
+        const currentQuestionEl = document.getElementById('current-question');
+        const totalQuestionsEl = document.getElementById('total-questions');
+        const currentScoreEl = document.getElementById('current-score');
+        const progressFillEl = document.getElementById('progress-fill');
+        const resultsContainer = document.getElementById('results-container');
+        const finalScoreEl = document.getElementById('final-score');
+        const correctCountEl = document.getElementById('correct-count');
+        const incorrectCountEl = document.getElementById('incorrect-count');
+        const skippedCountEl = document.getElementById('skipped-count');
+        const resultsMessageEl = document.getElementById('results-message');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Exam State
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let score = 0;
+        let examCompleted = false;
+
+        // Initialize the exam
+        function initExam() {
+            totalQuestionsEl.textContent = questions.length;
+            createQuestionContainers();
+            showQuestion(currentQuestionIndex);
+            updateProgress();
+        }
+
+        // Create all question containers
+        function createQuestionContainers() {
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                questionDiv.id = `question-${index}`;
+                
+                questionDiv.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">${index + 1}</div>
+                        <div class="question-topic">${q.topic}</div>
+                    </div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-container">
+                        ${q.options.map((option, optIndex) => `
+                            <div class="option" data-option="${optIndex}">
+                                <div class="option-label">${String.fromCharCode(65 + optIndex)}</div>
+                                <div class="option-text">${option}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback-container" id="feedback-${index}">
+                        <div class="feedback-header">
+                            <div class="feedback-icon"></div>
+                            <div class="feedback-title"></div>
+                        </div>
+                        <div class="feedback-explanation">
+                            <div class="feedback-subtitle"><i class="fas fa-lightbulb"></i> Explanation</div>
+                            <p id="explanation-${index}"></p>
+                        </div>
+                        <div class="feedback-tip">
+                            <div class="feedback-subtitle"><i class="fas fa-brain"></i> Memorization Tip</div>
+                            <p id="tip-${index}"></p>
+                        </div>
+                        <div class="feedback-clinical">
+                            <div class="feedback-subtitle"><i class="fas fa-user-md"></i> Clinical Correlation</div>
+                            <p id="clinical-${index}"></p>
+                        </div>
+                    </div>
+                    <div class="navigation">
+                        <button class="btn btn-prev" id="prev-${index}" ${index === 0 ? 'disabled' : ''}>
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn btn-next" id="next-${index}">
+                            ${index === questions.length - 1 ? 'Submit Exam' : 'Next Question'}
+                        </button>
+                    </div>
+                `;
+                
+                questionsArea.appendChild(questionDiv);
+                
+                // Add event listeners for this question
+                setTimeout(() => {
+                    // Option selection
+                    const options = questionDiv.querySelectorAll('.option');
+                    options.forEach(option => {
+                        option.addEventListener('click', () => selectOption(index, parseInt(option.dataset.option)));
+                    });
+                    
+                    // Navigation buttons
+                    const prevBtn = document.getElementById(`prev-${index}`);
+                    const nextBtn = document.getElementById(`next-${index}`);
+                    
+                    prevBtn.addEventListener('click', () => showQuestion(index - 1));
+                    
+                    if (index === questions.length - 1) {
+                        nextBtn.addEventListener('click', submitExam);
+                    } else {
+                        nextBtn.addEventListener('click', () => {
+                            if (userAnswers[index] !== null || confirm("You haven't answered this question. Skip to next question?")) {
+                                showQuestion(index + 1);
+                            }
+                        });
+                    }
+                }, 0);
+            });
+        }
+
+        // Show a specific question
+        function showQuestion(index) {
+            // Hide all questions
+            document.querySelectorAll('.question-container').forEach(q => {
+                q.classList.remove('active');
+            });
+            
+            // Show the requested question
+            const questionEl = document.getElementById(`question-${index}`);
+            questionEl.classList.add('active');
+            
+            // Update current question index
+            currentQuestionIndex = index;
+            currentQuestionEl.textContent = index + 1;
+            
+            // Update progress
+            updateProgress();
+            
+            // Restore previous selection if any
+            if (userAnswers[index] !== null) {
+                const options = questionEl.querySelectorAll('.option');
+                options.forEach(opt => {
+                    if (parseInt(opt.dataset.option) === userAnswers[index]) {
+                        opt.classList.add('selected');
+                    }
+                });
+                
+                // If feedback was already shown, restore it
+                if (document.getElementById(`feedback-${index}`).classList.contains('show')) {
+                    showFeedback(index, userAnswers[index]);
+                }
+            }
+            
+            // Scroll to top of question
+            window.scrollTo({ top: questionEl.offsetTop - 100, behavior: 'smooth' });
+        }
+
+        // Select an option for a question
+        function selectOption(questionIndex, optionIndex) {
+            const questionEl = document.getElementById(`question-${questionIndex}`);
+            const options = questionEl.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            options[optionIndex].classList.add('selected');
+            
+            // Save user's answer
+            userAnswers[questionIndex] = optionIndex;
+            
+            // Show feedback immediately
+            showFeedback(questionIndex, optionIndex);
+            
+            // Update score if needed
+            updateScore();
+        }
+
+        // Show feedback for a question
+        function showFeedback(questionIndex, selectedOption) {
+            const question = questions[questionIndex];
+            const feedbackEl = document.getElementById(`feedback-${questionIndex}`);
+            const feedbackIcon = feedbackEl.querySelector('.feedback-icon');
+            const feedbackTitle = feedbackEl.querySelector('.feedback-title');
+            const explanationEl = document.getElementById(`explanation-${questionIndex}`);
+            const tipEl = document.getElementById(`tip-${questionIndex}`);
+            const clinicalEl = document.getElementById(`clinical-${questionIndex}`);
+            
+            // Check if answer is correct
+            const isCorrect = selectedOption === question.answer;
+            
+            // Update feedback styling and content
+            feedbackEl.className = `feedback-container ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}`;
+            feedbackEl.classList.add('show');
+            
+            feedbackIcon.innerHTML = isCorrect ? 
+                '<i class="fas fa-check-circle" style="color: #27ae60;"></i>' : 
+                '<i class="fas fa-times-circle" style="color: #e74c3c;"></i>';
+            
+            feedbackTitle.textContent = isCorrect ? 
+                'Correct! Well done.' : 
+                `Incorrect. The correct answer is ${String.fromCharCode(65 + question.answer)}: ${question.options[question.answer]}`;
+            
+            explanationEl.textContent = question.explanation;
+            tipEl.textContent = question.tip;
+            clinicalEl.textContent = question.clinical;
+            
+            // Highlight correct/incorrect options
+            const options = document.querySelectorAll(`#question-${questionIndex} .option`);
+            options.forEach((opt, idx) => {
+                if (idx === question.answer) {
+                    opt.classList.add('correct');
+                } else if (idx === selectedOption && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+        }
+
+        // Update progress bar and score
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressFillEl.style.width = `${progress}%`;
+            
+            // Calculate current score
+            const answeredQuestions = userAnswers.filter(answer => answer !== null).length;
+            const correctAnswers = userAnswers.filter((answer, idx) => answer === questions[idx].answer).length;
+            
+            if (answeredQuestions > 0) {
+                score = Math.round((correctAnswers / answeredQuestions) * 100);
+                currentScoreEl.textContent = score;
+            }
+        }
+
+        // Update score display
+        function updateScore() {
+            const correctAnswers = userAnswers.filter((answer, idx) => 
+                answer !== null && answer === questions[idx].answer
+            ).length;
+            
+            const answeredQuestions = userAnswers.filter(answer => answer !== null).length;
+            
+            if (answeredQuestions > 0) {
+                score = Math.round((correctAnswers / answeredQuestions) * 100);
+                currentScoreEl.textContent = score;
+            }
+        }
+
+        // Submit the exam
+        function submitExam() {
+            if (!examCompleted) {
+                examCompleted = true;
+                
+                // Calculate final results
+                const totalQuestions = questions.length;
+                const correctAnswers = userAnswers.filter((answer, idx) => 
+                    answer !== null && answer === questions[idx].answer
+                ).length;
+                const incorrectAnswers = userAnswers.filter((answer, idx) => 
+                    answer !== null && answer !== questions[idx].answer
+                ).length;
+                const skippedQuestions = userAnswers.filter(answer => answer === null).length;
+                
+                const finalScore = Math.round((correctAnswers / totalQuestions) * 100);
+                
+                // Update results display
+                finalScoreEl.textContent = `${finalScore}%`;
+                correctCountEl.textContent = correctAnswers;
+                incorrectCountEl.textContent = incorrectAnswers;
+                skippedCountEl.textContent = skippedQuestions;
+                
+                // Generate results message
+                let message = '';
+                if (finalScore >= 90) {
+                    message = 'Outstanding! You have an excellent understanding of digestion and absorption. Your knowledge is at an advanced level suitable for clinical applications.';
+                } else if (finalScore >= 80) {
+                    message = 'Great job! You have a strong grasp of gastrointestinal physiology. Review the questions you missed to fill any knowledge gaps.';
+                } else if (finalScore >= 70) {
+                    message = 'Good work! You understand the key concepts of digestion and absorption. Focus on the topics where you missed questions to improve.';
+                } else if (finalScore >= 60) {
+                    message = 'You have a basic understanding but should review the material more thoroughly. Pay special attention to enzymatic digestion and hormonal regulation.';
+                } else {
+                    message = 'You need to review the digestion and absorption material. Focus on understanding the basic processes before moving to more advanced topics.';
+                }
+                
+                resultsMessageEl.textContent = message;
+                
+                // Show results screen
+                document.querySelectorAll('.question-container').forEach(q => {
+                    q.style.display = 'none';
+                });
+                resultsContainer.classList.add('show');
+                
+                // Scroll to results
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Restart exam
+        function restartExam() {
+            // Reset state
+            currentQuestionIndex = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            score = 0;
+            examCompleted = false;
+            
+            // Reset UI
+            document.querySelectorAll('.question-container').forEach(q => {
+                q.style.display = 'block';
+                const questionIndex = parseInt(q.id.split('-')[1]);
+                
+                // Reset options
+                const options = q.querySelectorAll('.option');
+                options.forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Hide feedback
+                const feedback = document.getElementById(`feedback-${questionIndex}`);
+                feedback.classList.remove('show', 'feedback-correct', 'feedback-incorrect');
+            });
+            
+            // Hide results
+            resultsContainer.classList.remove('show');
+            
+            // Show first question
+            showQuestion(0);
+            updateProgress();
+        }
+
+        // Event listeners
+        restartBtn.addEventListener('click', restartExam);
+
+        // Initialize exam when page loads
+        document.addEventListener('DOMContentLoaded', initExam);
+    </script>
+</body>
+  </html>
