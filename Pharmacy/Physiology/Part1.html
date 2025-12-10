@@ -3,177 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physiology Quiz - Part 1</title>
+    <title>Gastrointestinal Tract Physiology Exam</title>
     <style>
         * {
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #2c3e50, #3498db, #1abc9c);
+            background-color: #f5f9fc;
             color: #333;
-            min-height: 100vh;
+            line-height: 1.6;
             padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
         
-        .quiz-container {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            width: 90%;
-            max-width: 800px;
-            padding: 30px;
-            position: relative;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
         
-        .header {
+        header {
+            background: linear-gradient(135deg, #1a6b9e 0%, #2c8cbb 100%);
+            color: white;
+            padding: 25px;
             text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #2c3e50;
-            padding-bottom: 15px;
         }
         
-        .header h1 {
-            color: #2c3e50;
-            margin-bottom: 5px;
+        h1 {
             font-size: 2.2rem;
+            margin-bottom: 10px;
         }
         
         .subtitle {
-            color: #3498db;
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .exam-info {
+            display: flex;
+            justify-content: space-between;
+            background-color: #e8f4fc;
+            padding: 15px 25px;
+            border-bottom: 1px solid #d0e6f2;
+        }
+        
+        .progress-container {
+            background-color: #e8f4fc;
+            padding: 15px 25px;
+            border-bottom: 1px solid #d0e6f2;
         }
         
         .progress-bar {
-            height: 8px;
+            height: 10px;
             background-color: #e0e0e0;
-            border-radius: 4px;
-            margin-bottom: 20px;
+            border-radius: 5px;
             overflow: hidden;
+            margin-top: 10px;
         }
         
-        .progress {
+        .progress-fill {
             height: 100%;
-            background: linear-gradient(to right, #2c3e50, #3498db);
+            background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 0.5s ease;
         }
         
-        .question-counter {
-            text-align: center;
-            font-weight: bold;
+        .question-container {
+            padding: 30px;
+            min-height: 400px;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 20px;
-            color: #2c3e50;
-            font-size: 1.1rem;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eaeaea;
         }
         
-        .question-card {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #2c3e50;
+        .question-number {
+            font-weight: bold;
+            color: #1a6b9e;
+            font-size: 1.2rem;
         }
         
         .question-text {
             font-size: 1.3rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 1.5;
-            color: #2c3e50;
         }
         
         .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            margin-bottom: 30px;
         }
         
-        .option-btn {
-            background-color: white;
-            border: 2px solid #e0e0e0;
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
             padding: 15px;
-            text-align: left;
+            margin-bottom: 12px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 1rem;
-        }
-        
-        .option-btn:hover {
-            background-color: #f0f0f0;
-            border-color: #2c3e50;
-        }
-        
-        .option-btn.correct {
-            background-color: #d4edda;
-            border-color: #28a745;
-            color: #155724;
-        }
-        
-        .option-btn.wrong {
-            background-color: #f8d7da;
-            border-color: #dc3545;
-            color: #721c24;
-        }
-        
-        .explanation {
-            background-color: #e8f4f8;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-            border-left: 4px solid #3498db;
-            display: none;
-        }
-        
-        .explanation.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .navigation {
+            transition: all 0.2s;
             display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+            align-items: flex-start;
         }
         
-        .nav-btn {
-            background-color: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 12px 25px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
+        .option:hover {
+            background-color: #edf7ff;
+            border-color: #b8d9f0;
         }
         
-        .nav-btn:hover {
-            background-color: #1a252f;
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: #2196F3;
         }
         
-        .nav-btn:disabled {
-            background-color: #a0a0a0;
-            cursor: not-allowed;
+        .option.correct {
+            background-color: #e8f5e9;
+            border-color: #4CAF50;
         }
         
-        .score-display {
+        .option.incorrect {
+            background-color: #ffebee;
+            border-color: #f44336;
+        }
+        
+        .option-letter {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
             text-align: center;
-            margin-top: 30px;
+            background-color: #e2e8f0;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .option.selected .option-letter {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        .option.correct .option-letter {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .option.incorrect .option-letter {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .feedback-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
             padding: 20px;
-            background-color: #e8f4f8;
-            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #2196F3;
             display: none;
-            animation: fadeIn 0.5s ease;
+        }
+        
+        .feedback-container.show {
+            display: block;
+            animation: fadeIn 0.5s;
         }
         
         @keyframes fadeIn {
@@ -181,593 +182,1469 @@
             to { opacity: 1; }
         }
         
-        @media (max-width: 600px) {
-            .quiz-container {
+        .feedback-title {
+            font-weight: bold;
+            color: #1a6b9e;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feedback-title i {
+            margin-right: 8px;
+        }
+        
+        .explanation, .tip {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .explanation-title, .tip-title {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        
+        .tip {
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .btn-prev {
+            background-color: #f0f0f0;
+            color: #555;
+        }
+        
+        .btn-prev:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .btn-next {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        .btn-next:hover {
+            background-color: #0b7dda;
+        }
+        
+        .btn-submit {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            background-color: #3d8b40;
+        }
+        
+        .btn:disabled {
+            background-color: #e0e0e0;
+            color: #aaa;
+            cursor: not-allowed;
+        }
+        
+        .result-container {
+            padding: 40px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result-title {
+            font-size: 2rem;
+            color: #1a6b9e;
+            margin-bottom: 20px;
+        }
+        
+        .score {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 20px 0;
+        }
+        
+        .score-breakdown {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+        }
+        
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .btn-restart {
+            background-color: #1a6b9e;
+            color: white;
+            margin-top: 20px;
+        }
+        
+        .btn-restart:hover {
+            background-color: #15527a;
+        }
+        
+        @media (max-width: 768px) {
+            .question-container {
                 padding: 20px;
             }
             
-            .header h1 {
-                font-size: 1.8rem;
+            .controls {
+                flex-direction: column;
+                gap: 10px;
             }
             
-            .question-text {
-                font-size: 1.1rem;
-            }
-            
-            .nav-btn {
-                padding: 10px 15px;
-                font-size: 0.9rem;
+            .btn {
+                width: 100%;
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="quiz-container">
-        <div class="header">
-            <h1>🧬 Physiology Quiz</h1>
-            <div class="subtitle">Part 1: General Physiology, Cell Physiology & Neurophysiology (Questions 1-40)</div>
+    <div class="container">
+        <header>
+            <h1>Gastrointestinal Tract Physiology Exam</h1>
+            <p class="subtitle">Dr. Betsegaw M | MD | 70+ Multiple Choice Questions</p>
+        </header>
+        
+        <div class="exam-info">
+            <div><i class="fas fa-book-medical"></i> Covers all 5 major sections of GIT physiology</div>
+            <div><i class="fas fa-brain"></i> Medium to Hard Difficulty</div>
+            <div><i class="fas fa-clock"></i> Exam Mode with Immediate Feedback</div>
         </div>
-
-        <div class="progress-bar">
-            <div class="progress" id="progress"></div>
+        
+        <div class="progress-container">
+            <div>Progress: <span id="current-question">1</span> of <span id="total-questions">70</span></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
         </div>
-
-        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
-
-        <div class="question-card">
-            <div class="question-text" id="questionText"></div>
+        
+        <!-- Question Screen -->
+        <div id="question-screen">
+            <div class="question-container">
+                <div class="question-header">
+                    <div class="question-number">Question <span id="q-num">1</span></div>
+                    <div id="q-topic">Structure of the Gastrointestinal Tract</div>
+                </div>
+                
+                <div class="question-text" id="question-text">
+                    Loading question...
+                </div>
+                
+                <div class="options-container" id="options-container">
+                    <!-- Options will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="feedback-container" id="feedback-container">
+                    <div class="feedback-title"><i class="fas fa-info-circle"></i> Feedback</div>
+                    <div id="feedback-text"></div>
+                    
+                    <div class="explanation">
+                        <div class="explanation-title">Explanation:</div>
+                        <div id="explanation-text"></div>
+                    </div>
+                    
+                    <div class="tip">
+                        <div class="tip-title">Memorization Tip:</div>
+                        <div id="tip-text"></div>
+                    </div>
+                </div>
+            </div>
             
-            <div class="options-container" id="optionsContainer"></div>
+            <div class="controls">
+                <button class="btn btn-prev" id="prev-btn" disabled>
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button class="btn btn-next" id="next-btn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn btn-submit" id="submit-btn" style="display: none;">
+                    Submit Exam <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Results Screen -->
+        <div class="result-container" id="result-screen">
+            <h2 class="result-title">Exam Results</h2>
+            <div class="score" id="final-score">0%</div>
+            <p id="result-message"></p>
             
-            <div class="explanation" id="explanation"></div>
+            <div class="score-breakdown">
+                <h3>Performance Breakdown</h3>
+                <div class="breakdown-item">
+                    <span>Total Questions:</span>
+                    <span id="total-questions-result">70</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Correct Answers:</span>
+                    <span id="correct-answers">0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Incorrect Answers:</span>
+                    <span id="incorrect-answers">0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Accuracy:</span>
+                    <span id="accuracy">0%</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Time Spent:</span>
+                    <span id="time-spent">0 min</span>
+                </div>
+            </div>
+            
+            <button class="btn btn-restart" id="restart-btn">
+                <i class="fas fa-redo"></i> Restart Exam
+            </button>
         </div>
-
-        <div class="navigation">
-            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
-            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
-        </div>
-
-        <div class="score-display" id="scoreDisplay"></div>
     </div>
 
     <script>
-        const physiologyQuestions = [
+        // Question database
+        const questions = [
+            // Section 1: Structure of the Gastrointestinal Tract (10 questions)
             {
-                question: "1. Homeostasis refers to:",
+                id: 1,
+                topic: "Structure of the Gastrointestinal Tract",
+                question: "Which of the following is NOT one of the four major activities of the GI tract?",
                 options: [
-                    "Maintenance of a stable internal environment",
-                    "Breakdown of complex molecules", 
-                    "Production of energy in cells",
-                    "Response to external stimuli"
+                    "Motility",
+                    "Secretion",
+                    "Digestion",
+                    "Excretion"
                 ],
-                correct: 0,
-                explanation: "Homeostasis is the body's ability to maintain relatively stable internal conditions despite external changes, involving multiple regulatory mechanisms like negative feedback loops."
+                correct: 3,
+                explanation: "The four major activities of the GI tract are motility, secretion, digestion, and absorption. Excretion is a function of the large intestine but is not classified as one of the four primary activities of the entire GI tract.",
+                tip: "Remember the mnemonic: 'My Stomach Does Absorb' for Motility, Secretion, Digestion, Absorption."
             },
             {
-                question: "2. The Na⁺/K⁺ ATPase pump:",
+                id: 2,
+                topic: "Structure of the Gastrointestinal Tract",
+                question: "Which layer of the GI tract wall contains the muscularis mucosae?",
                 options: [
-                    "Moves 3 Na⁺ out and 2 K⁺ into the cell",
-                    "Moves 2 Na⁺ out and 3 K⁺ into the cell", 
-                    "Moves equal amounts of Na⁺ and K⁺",
-                    "Only moves Na⁺ out of the cell"
+                    "Submucosal layer",
+                    "Mucosal layer",
+                    "Muscularis externa",
+                    "Serosal layer"
                 ],
-                correct: 0,
-                explanation: "The Na⁺/K⁺ ATPase is an electrogenic pump that transports 3 Na⁺ ions out and 2 K⁺ ions into the cell per ATP hydrolyzed, maintaining resting membrane potential."
+                correct: 1,
+                explanation: "The mucosal layer consists of epithelial cells, lamina propria, and the muscularis mucosae. The muscularis mucosae is a thin layer of smooth muscle that causes local movements of the mucosa.",
+                tip: "Remember: Mucosa = innermost layer, has muscularis mucosae. Submucosa = connective tissue, glands, vessels. Muscularis externa = main muscle layer. Serosa = outermost layer."
             },
             {
-                question: "3. The resting membrane potential of a typical neuron is approximately:",
+                id: 3,
+                topic: "Structure of the Gastrointestinal Tract",
+                question: "Which of the following is NOT considered an accessory organ of the digestive system?",
                 options: [
-                    "-70 mV",
-                    "+40 mV", 
-                    "0 mV",
-                    "-90 mV"
+                    "Pancreas",
+                    "Gallbladder",
+                    "Spleen",
+                    "Salivary glands"
                 ],
-                correct: 0,
-                explanation: "The resting membrane potential of neurons is typically around -70 mV, maintained by the Na⁺/K⁺ ATPase pump and selective membrane permeability to K⁺."
+                correct: 2,
+                explanation: "The spleen is part of the lymphatic system, not the digestive system. The accessory organs of the digestive system include the teeth, tongue, liver, pancreas, gallbladder, and salivary glands.",
+                tip: "Accessory organs assist in digestion but are not part of the alimentary canal. The spleen filters blood and is part of the immune system."
             },
             {
-                question: "4. Which ion has the highest permeability in a resting neuron?",
+                id: 4,
+                topic: "Structure of the Gastrointestinal Tract",
+                question: "The wall of the GI tract consists of multiple layers. Which layer contains blood vessels and glands?",
                 options: [
-                    "Potassium (K⁺)",
-                    "Sodium (Na⁺)", 
-                    "Chloride (Cl⁻)",
-                    "Calcium (Ca²⁺)"
+                    "Mucosa",
+                    "Submucosa",
+                    "Muscularis externa",
+                    "Serosa"
                 ],
-                correct: 0,
-                explanation: "At rest, neuronal membranes are most permeable to K⁺ due to many open potassium channels, which contributes significantly to the resting membrane potential."
+                correct: 1,
+                explanation: "The submucosal layer contains connective tissue, blood vessels, lymphatic vessels, and glands. It lies between the mucosa and the muscularis externa.",
+                tip: "Submucosa = 'under the mucosa', contains vessels and glands. Think: 'Sub' means under."
             },
             {
-                question: "5. An action potential is characterized by:",
+                id: 5,
+                topic: "Structure of the Gastrointestinal Tract",
+                question: "Which of the following correctly describes the muscularis externa of the GI tract?",
                 options: [
-                    "All-or-none principle and refractory periods",
-                    "Graded responses and summation", 
-                    "Decreased membrane permeability",
-                    "Only depolarization phase"
+                    "Contains only circular muscle fibers",
+                    "Contains only longitudinal muscle fibers",
+                    "Contains both circular and longitudinal muscle fibers",
+                    "Contains skeletal muscle throughout the entire tract"
                 ],
-                correct: 0,
-                explanation: "Action potentials follow the all-or-none principle (either fire completely or not at all) and have absolute and relative refractory periods that limit firing frequency."
+                correct: 2,
+                explanation: "The muscularis externa typically consists of two layers of smooth muscle: an inner circular layer and an outer longitudinal layer. This arrangement allows for peristaltic movements.",
+                tip: "Remember: 'Circular' squeezes (constricts), 'Longitudinal' shortens (propels). Together they create peristalsis."
             },
             {
-                question: "6. During the depolarization phase of an action potential:",
+                id: 6,
+                topic: "Structure of the Gastrointestinal Tract",
+                question: "Which organ is primarily responsible for the absorption of nutrients?",
                 options: [
-                    "Voltage-gated Na⁺ channels open rapidly",
-                    "Voltage-gated K⁺ channels open rapidly", 
-                    "Na⁺/K⁺ ATPase activity increases",
-                    "Membrane permeability to K⁺ increases"
+                    "Stomach",
+                    "Esophagus",
+                    "Small intestine",
+                    "Large intestine"
                 ],
-                correct: 0,
-                explanation: "Depolarization occurs when voltage-gated Na⁺ channels open in response to threshold stimulus, allowing Na⁺ influx that further depolarizes the membrane."
+                correct: 2,
+                explanation: "The small intestine is the primary site for nutrient absorption due to its large surface area created by villi and microvilli. The stomach absorbs only limited substances like alcohol and some drugs.",
+                tip: "Small intestine = absorption powerhouse. Large intestine = mainly absorbs water and electrolytes."
             },
             {
-                question: "7. The absolute refractory period occurs because:",
+                id: 7,
+                topic: "Structure of the Gastrointestinal Tract",
+                question: "Which of the following is a function of the large intestine?",
                 options: [
-                    "Voltage-gated Na⁺ channels are inactivated",
-                    "Voltage-gated K⁺ channels are closed", 
-                    "Na⁺/K⁺ ATPase is inhibited",
-                    "Membrane is hyperpolarized"
+                    "Digestion of proteins",
+                    "Absorption of most nutrients",
+                    "Absorption of water and electrolytes",
+                    "Production of digestive enzymes"
                 ],
-                correct: 0,
-                explanation: "During the absolute refractory period, voltage-gated Na⁺ channels are inactivated and cannot be reopened, preventing another action potential regardless of stimulus strength."
+                correct: 2,
+                explanation: "The large intestine primarily absorbs water and electrolytes, and stores fecal matter until defecation. It does not produce digestive enzymes and has minimal role in nutrient absorption.",
+                tip: "Large intestine = 'drying and storage' organ. Remember: It reclaims water from the indigestible residue."
             },
             {
-                question: "8. Saltatory conduction refers to:",
+                id: 8,
+                topic: "Structure of the Gastrointestinal Tract",
+                question: "Which layer of the GI tract is in direct contact with the lumen?",
                 options: [
-                    "Rapid impulse propagation along myelinated axons",
-                    "Slow continuous conduction in unmyelinated fibers", 
-                    "Neurotransmitter release at synapses",
-                    "Muscle contraction mechanism"
+                    "Serosa",
+                    "Muscularis externa",
+                    "Submucosa",
+                    "Mucosa"
                 ],
-                correct: 0,
-                explanation: "Saltatory conduction occurs in myelinated axons where action potentials 'jump' between nodes of Ranvier, significantly increasing conduction velocity."
+                correct: 3,
+                explanation: "The mucosa is the innermost layer that lines the lumen of the GI tract. It consists of epithelium, lamina propria, and muscularis mucosae.",
+                tip: "Mucosa = mucosal membrane = in contact with lumen. Think: Mucous membranes line body cavities open to the exterior."
             },
             {
-                question: "9. The neurotransmitter at the neuromuscular junction is:",
+                id: 9,
+                topic: "Structure of the Gastrointestinal Tract",
+                question: "Which of the following is NOT a function of the digestive system?",
+                options: [
+                    "Circulation of blood to carry away absorbed substances",
+                    "Movement of food through the alimentary tract",
+                    "Secretion of digestive juices",
+                    "Production of red blood cells"
+                ],
+                correct: 3,
+                explanation: "The digestive system does not produce red blood cells; that function belongs to the bone marrow. The digestive system functions include movement of food, secretion of digestive juices, digestion, absorption, and circulation of blood to carry away absorbed substances.",
+                tip: "Remember the 5 main functions of the digestive system: Movement, Secretion, Digestion, Absorption, Circulation (MSDAC)."
+            },
+            {
+                id: 10,
+                topic: "Structure of the Gastrointestinal Tract",
+                question: "Which part of the digestive tract has three layers of smooth muscle?",
+                options: [
+                    "Esophagus",
+                    "Stomach",
+                    "Small intestine",
+                    "Large intestine"
+                ],
+                correct: 1,
+                explanation: "The stomach has three layers of smooth muscle: outer longitudinal, middle circular, and inner oblique. This unique arrangement allows for the mechanical churning of food.",
+                tip: "Stomach is unique with 3 muscle layers for churning. Other GI organs typically have 2 layers."
+            },
+            // Section 2: Innervation of the Gastrointestinal Tract (15 questions)
+            {
+                id: 11,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "Which part of the autonomic nervous system is primarily responsible for 'rest and digest' functions?",
+                options: [
+                    "Sympathetic nervous system",
+                    "Parasympathetic nervous system",
+                    "Enteric nervous system",
+                    "Somatic nervous system"
+                ],
+                correct: 1,
+                explanation: "The parasympathetic nervous system is responsible for 'rest and digest' functions, promoting digestion, absorption, and GI motility. The sympathetic nervous system is involved in 'fight or flight' responses and generally inhibits GI functions.",
+                tip: "Parasympathetic = peace and digestion. Sympathetic = stress and suppression of digestion."
+            },
+            {
+                id: 12,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "Where is the myenteric plexus (Auerbach's plexus) located?",
+                options: [
+                    "Between the mucosa and submucosa",
+                    "Between the circular and longitudinal muscle layers",
+                    "Within the lamina propria",
+                    "Between the submucosa and circular muscle"
+                ],
+                correct: 1,
+                explanation: "The myenteric plexus (Auerbach's plexus) is located between the longitudinal and circular muscle layers of the muscularis externa. It primarily controls motor activity (motility).",
+                tip: "Myenteric = 'myo' (muscle) + 'enteric' (intestine) = between muscle layers. Controls motility."
+            },
+            {
+                id: 13,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "Which plexus is primarily responsible for regulating absorption and secretion in the GI tract?",
+                options: [
+                    "Myenteric plexus",
+                    "Submucosal plexus",
+                    "Celiac plexus",
+                    "Hypogastric plexus"
+                ],
+                correct: 1,
+                explanation: "The submucosal plexus (Meissner's plexus) is located between the submucosa and circular muscle layer. It innervates glandular epithelium, blood vessels, and endocrine cells, regulating absorption and secretion.",
+                tip: "Submucosal plexus = regulates secretion and absorption. Myenteric plexus = regulates motility."
+            },
+            {
+                id: 14,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "What type of reflex is the receptive relaxation of the stomach?",
+                options: [
+                    "Somatic reflex",
+                    "Spinal reflex",
+                    "Vasovagal reflex",
+                    "Crossed extensor reflex"
+                ],
+                correct: 2,
+                explanation: "Receptive relaxation is a vasovagal reflex, meaning both the afferent and efferent limbs of the reflex are mediated by the vagus nerve. This reflex allows the stomach to accommodate incoming food without significant pressure increase.",
+                tip: "Vasovagal reflex = both afferent and efferent pathways in vagus nerve. Important for receptive relaxation."
+            },
+            {
+                id: 15,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "Which neurotransmitter is released from neurons to cause receptive relaxation of the stomach?",
                 options: [
                     "Acetylcholine",
-                    "Norepinephrine", 
+                    "Norepinephrine",
+                    "VIP (Vasoactive Intestinal Peptide)",
+                    "Substance P"
+                ],
+                correct: 2,
+                explanation: "VIP (Vasoactive Intestinal Peptide) is released from neurons to cause receptive relaxation of the orad (upper) stomach when food enters. This reduces pressure and increases volume.",
+                tip: "VIP = Vasoactive Intestinal Peptide = causes relaxation. Acetylcholine = contraction. Norepinephrine = inhibition."
+            },
+            {
+                id: 16,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "Which of the following best describes the enteric nervous system?",
+                options: [
+                    "It is completely dependent on the autonomic nervous system",
+                    "It can function independently of the CNS",
+                    "It only controls motility, not secretion",
+                    "It is part of the somatic nervous system"
+                ],
+                correct: 1,
+                explanation: "The enteric nervous system (ENS) is an intrinsic nervous system that can function independently of the central nervous system. It contains complete reflex pathways and can coordinate GI functions without CNS input.",
+                tip: "ENS = 'the brain in the gut' = can function autonomously. Contains as many neurons as the spinal cord!"
+            },
+            {
+                id: 17,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "Sympathetic stimulation of the GI tract generally results in:",
+                options: [
+                    "Increased motility and secretion",
+                    "Decreased motility and secretion",
+                    "Increased motility but decreased secretion",
+                    "Decreased motility but increased secretion"
+                ],
+                correct: 1,
+                explanation: "Sympathetic stimulation generally inhibits GI functions - decreasing motility, secretion, and blood flow to the GI tract. This is part of the 'fight or flight' response, diverting resources away from digestion.",
+                tip: "Sympathetic = 'shuts down' digestion during stress. Parasympathetic = 'turns on' digestion during rest."
+            },
+            {
+                id: 18,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "Which cranial nerve provides parasympathetic innervation to most of the GI tract?",
+                options: [
+                    "Facial nerve (VII)",
+                    "Glossopharyngeal nerve (IX)",
+                    "Vagus nerve (X)",
+                    "Hypoglossal nerve (XII)"
+                ],
+                correct: 2,
+                explanation: "The vagus nerve (cranial nerve X) provides parasympathetic innervation to the esophagus, stomach, pancreas, gallbladder, small intestine, and proximal colon. The distal colon receives parasympathetic innervation from sacral spinal nerves.",
+                tip: "Vagus nerve = 'wanderer' nerve = innervates most of the GI tract. Remember: 75% of parasympathetic fibers are in vagus."
+            },
+            {
+                id: 19,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "What is the primary neurotransmitter released by parasympathetic nerves in the GI tract?",
+                options: [
+                    "Norepinephrine",
+                    "Acetylcholine",
                     "Dopamine",
-                    "GABA"
+                    "Serotonin"
                 ],
-                correct: 0,
-                explanation: "Acetylcholine is the neurotransmitter released by motor neurons at the neuromuscular junction, binding to nicotinic receptors on skeletal muscle fibers."
+                correct: 1,
+                explanation: "Parasympathetic nerves in the GI tract primarily release acetylcholine, which stimulates GI motility and secretion. Acetylcholine acts on muscarinic receptors in the GI tract.",
+                tip: "Parasympathetic = cholinergic = acetylcholine. Sympathetic = adrenergic = norepinephrine."
             },
             {
-                question: "10. An excitatory postsynaptic potential (EPSP):",
+                id: 20,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "Which of the following reflexes is triggered by distension of the stomach and increases colonic motility?",
                 options: [
-                    "Depolarizes the postsynaptic membrane",
-                    "Hyperpolarizes the postsynaptic membrane", 
-                    "Has no effect on membrane potential",
-                    "Always triggers an action potential"
+                    "Enterogastric reflex",
+                    "Gastrocolic reflex",
+                    "Ileogastric reflex",
+                    "Coloileal reflex"
                 ],
-                correct: 0,
-                explanation: "EPSPs are graded depolarizations that bring the membrane potential closer to threshold, increasing the likelihood of action potential generation."
+                correct: 1,
+                explanation: "The gastrocolic reflex is triggered by distension of the stomach and increases motility of the colon, promoting mass movements. This helps make room for incoming food by moving contents along.",
+                tip: "Gastrocolic reflex = stomach to colon. Often experienced as the urge to defecate after a meal."
             },
             {
-                question: "11. The blood-brain barrier is formed primarily by:",
+                id: 21,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "What type of receptors in the GI mucosa relay information to the CNS for vasovagal reflexes?",
                 options: [
-                    "Tight junctions between endothelial cells",
-                    "Gap junctions between neurons", 
-                    "Schwann cell membranes",
-                    "Astrocyte foot processes"
+                    "Mechano- and chemoreceptors",
+                    "Thermoreceptors and nociceptors",
+                    "Photoreceptors and baroreceptors",
+                    "Proprioceptors and osmoreceptors"
                 ],
                 correct: 0,
-                explanation: "The blood-brain barrier consists of tight junctions between cerebral capillary endothelial cells, supported by astrocyte foot processes, restricting passage of substances from blood to brain."
+                explanation: "The vagus nerve has both mechanoreceptors (responding to stretch) and chemoreceptors (responding to chemical changes) in the GI mucosa. These relay information to the CNS to trigger vasovagal reflexes.",
+                tip: "Vagus nerve senses mechanical (stretch) and chemical changes in the gut. This info travels to brainstem."
             },
             {
-                question: "12. Cerebrospinal fluid is produced by:",
+                id: 22,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "Which of the following is an example of a long reflex in the GI tract?",
                 options: [
-                    "Choroid plexuses in the ventricles",
-                    "Arachnoid granulations", 
-                    "Ependymal cells alone",
-                    " Cerebral capillaries"
+                    "Myenteric reflex",
+                    "Submucosal reflex",
+                    "Gastrocolic reflex",
+                    "Peristaltic reflex"
                 ],
-                correct: 0,
-                explanation: "CSF is produced primarily by the choroid plexuses in the lateral, third, and fourth ventricles through filtration and secretion processes."
+                correct: 2,
+                explanation: "The gastrocolic reflex is a long reflex because it involves the CNS (afferent signals to spinal cord/brainstem and efferent signals back). Short reflexes are confined to the enteric nervous system.",
+                tip: "Long reflexes involve CNS. Short reflexes are local, within ENS. Gastrocolic reflex is long; peristaltic reflex is short."
             },
             {
-                question: "13. The limbic system is primarily involved in:",
+                id: 23,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "What is the effect of sympathetic stimulation on gastrointestinal sphincters?",
                 options: [
-                    "Emotion and memory",
-                    "Motor coordination", 
-                    "Visual processing",
-                    "Language comprehension"
+                    "Relaxes all sphincters",
+                    "Contracts all sphincters",
+                    "Relaxes some and contracts others",
+                    "Has no effect on sphincters"
                 ],
-                correct: 0,
-                explanation: "The limbic system (including hippocampus, amygdala, hypothalamus) regulates emotions, memory formation, and various autonomic functions."
+                correct: 1,
+                explanation: "Sympathetic stimulation generally contracts gastrointestinal sphincters (e.g., pyloric sphincter, ileocecal sphincter), which inhibits the movement of contents through the GI tract.",
+                tip: "Sympathetic = 'closes the gates' (contracts sphincters). Parasympathetic = 'opens the gates' (relaxes sphincters)."
             },
             {
-                question: "14. Broca's area is responsible for:",
+                id: 24,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "Which of the following is NOT a function of the enteric nervous system?",
                 options: [
-                    "Motor aspects of speech production",
-                    "Language comprehension", 
-                    "Auditory processing",
-                    "Visual recognition"
+                    "Coordinating peristalsis",
+                    "Regulating local blood flow",
+                    "Controlling secretions",
+                    "Conscious perception of hunger"
                 ],
-                correct: 0,
-                explanation: "Broca's area in the inferior frontal gyrus controls motor aspects of speech production; damage results in expressive aphasia with intact comprehension."
+                correct: 3,
+                explanation: "The enteric nervous system controls local GI functions like peristalsis, secretions, and blood flow, but conscious perception of hunger involves hypothalamic centers and is not controlled by the ENS.",
+                tip: "ENS handles local reflexes. Hunger perception is central (hypothalamus)."
             },
             {
-                question: "15. Wernicke's area is involved in:",
+                id: 25,
+                topic: "Innervation of the Gastrointestinal Tract",
+                question: "What is the rectosphincteric reflex?",
                 options: [
-                    "Language comprehension",
-                    "Speech production", 
-                    "Motor coordination",
-                    "Sensory integration"
+                    "Rectum contracts and internal anal sphincter relaxes when rectum fills",
+                    "Rectum relaxes and internal anal sphincter contracts when rectum fills",
+                    "Rectum and internal anal sphincter both contract when rectum fills",
+                    "Rectum and internal anal sphincter both relax when rectum fills"
                 ],
                 correct: 0,
-                explanation: "Wernicke's area in the superior temporal gyrus is crucial for language comprehension; damage causes receptive aphasia with fluent but meaningless speech."
+                explanation: "In the rectosphincteric reflex, when the rectum fills with feces, it contracts while the internal anal sphincter relaxes. The external anal sphincter remains under voluntary control.",
+                tip: "Rectosphincteric reflex: Rectum contracts (pushes), internal sphincter relaxes (lets through). External sphincter is voluntary."
+            },
+            // Section 3: Gastrointestinal Regulatory Substances (15 questions)
+            {
+                id: 26,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which hormone is secreted by I-cells in response to fats and proteins in the duodenum?",
+                options: [
+                    "Gastrin",
+                    "Secretin",
+                    "Cholecystokinin (CCK)",
+                    "Gastric inhibitory peptide (GIP)"
+                ],
+                correct: 2,
+                explanation: "Cholecystokinin (CCK) is secreted by I-cells in the duodenum and jejunum in response to fatty acids and amino acids (fats and proteins). Its main functions include gallbladder contraction and pancreatic enzyme secretion.",
+                tip: "CCK = 'Cholecysto' (gallbladder) + 'kinin' (move) = moves gallbladder. Released by I-cells for fats/proteins."
             },
             {
-                question: "16. The autonomic nervous system controls:",
+                id: 27,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which hormone stimulates the secretion of pancreatic bicarbonate to neutralize acid in the duodenum?",
                 options: [
-                    "Involuntary functions of visceral organs",
-                    "Voluntary skeletal muscle movements", 
-                    "Conscious thought processes",
-                    "Sensory perception only"
+                    "Gastrin",
+                    "Secretin",
+                    "Cholecystokinin",
+                    "Motilin"
                 ],
-                correct: 0,
-                explanation: "The autonomic nervous system regulates involuntary bodily functions including heart rate, digestion, respiration, and glandular secretion through sympathetic and parasympathetic divisions."
+                correct: 1,
+                explanation: "Secretin is secreted by S-cells in the duodenum in response to acid. It stimulates pancreatic and biliary bicarbonate secretion to neutralize gastric acid in the duodenum, creating optimal pH for pancreatic enzymes.",
+                tip: "Secretin = secreted for acid neutralization. Think: 'Secretin for bicarbonate'."
             },
             {
-                question: "17. The sympathetic nervous system is characterized by:",
+                id: 28,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which GI hormone is the only one stimulated by all nutrients (glucose, fatty acids, and amino acids)?",
                 options: [
-                    "Fight-or-flight response",
-                    "Rest-and-digest activities", 
-                    "Voluntary muscle control",
-                    "Sensory processing"
+                    "Gastrin",
+                    "Secretin",
+                    "Cholecystokinin",
+                    "Glucose-dependent insulinotropic peptide (GIP)"
                 ],
-                correct: 0,
-                explanation: "The sympathetic nervous system prepares the body for emergency situations through fight-or-flight responses, increasing heart rate, blood pressure, and metabolic rate."
+                correct: 3,
+                explanation: "GIP (Glucose-dependent Insulinotropic Peptide) is secreted by K-cells in the duodenum and jejunum and is stimulated by all nutrients: glucose, fatty acids, and amino acids. Its major function is stimulating insulin secretion.",
+                tip: "GIP = 'Gastric Inhibitory Peptide' (old name) or 'Glucose-dependent Insulinotropic Peptide' - stimulated by all nutrients."
             },
             {
-                question: "18. The parasympathetic nervous system:",
+                id: 29,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which hormone is secreted by G-cells in the stomach antrum and stimulates gastric acid secretion?",
                 options: [
-                    "Conserves energy and promotes digestion",
-                    "Increases heart rate and blood pressure", 
-                    "Dilates bronchioles",
-                    "Stimulates sweat glands"
+                    "Secretin",
+                    "Cholecystokinin",
+                    "Gastrin",
+                    "Motilin"
                 ],
-                correct: 0,
-                explanation: "The parasympathetic nervous system promotes rest-and-digest activities, slowing heart rate, stimulating digestion, and conserving energy."
+                correct: 2,
+                explanation: "Gastrin is secreted by G-cells in the stomach antrum (and duodenum) and stimulates gastric acid secretion by parietal cells. It also promotes gastric mucosal growth.",
+                tip: "Gastrin = Gastric acid stimulator. Secreted by G-cells in Gastric antrum."
             },
             {
-                question: "19. Norepinephrine is the primary neurotransmitter in:",
+                id: 30,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which of the following actions is NOT associated with cholecystokinin (CCK)?",
                 options: [
-                    "Most postganglionic sympathetic neurons",
-                    "Preganglionic autonomic neurons", 
-                    "Neuromuscular junctions",
-                    "Central nervous system only"
+                    "Contraction of the gallbladder",
+                    "Secretion of pancreatic enzymes",
+                    "Inhibition of gastric emptying",
+                    "Stimulation of insulin secretion"
                 ],
-                correct: 0,
-                explanation: "Norepinephrine is released by most postganglionic sympathetic neurons, acting on adrenergic receptors in target organs to mediate sympathetic responses."
+                correct: 3,
+                explanation: "CCK causes gallbladder contraction, pancreatic enzyme secretion, and inhibition of gastric emptying. Stimulation of insulin secretion is primarily the function of GIP (Glucose-dependent Insulinotropic Peptide).",
+                tip: "CCK = gallbladder contraction, pancreatic enzymes, slows gastric emptying. GIP = stimulates insulin secretion."
             },
             {
-                question: "20. The stretch reflex is an example of:",
+                id: 31,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which hormone regulates migrating myoelectric complexes (MMCs) that clear the stomach between meals?",
                 options: [
-                    "Monosynaptic reflex",
-                    "Polysynaptic reflex", 
-                    "Conditioned reflex",
-                    "Voluntary movement"
+                    "Gastrin",
+                    "Secretin",
+                    "Cholecystokinin",
+                    "Motilin"
                 ],
-                correct: 0,
-                explanation: "The stretch reflex (like knee jerk) is monosynaptic, involving direct connection between sensory afferent and motor efferent neurons in the spinal cord."
+                correct: 3,
+                explanation: "Motilin regulates migrating myoelectric complexes (MMCs), which are periodic gastric contractions occurring at 90-minute intervals between meals. MMCs function to clear the stomach of residual food.",
+                tip: "Motilin = Motility between meals. Regulates MMCs every 90 minutes."
             },
             {
-                question: "21. Golgi tendon organs protect against:",
+                id: 32,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which substance, released by adipose tissue, inhibits appetite by acting on hypothalamic centers?",
                 options: [
-                    "Excessive muscle tension",
-                    "Muscle stretching", 
-                    "Joint damage",
-                    "Tendon relaxation"
+                    "Ghrelin",
+                    "Leptin",
+                    "Neuropeptide Y",
+                    "GLP-1"
                 ],
-                correct: 0,
-                explanation: "Golgi tendon organs detect excessive muscle tension and initiate inhibitory reflexes that cause muscle relaxation, preventing damage from overload."
+                correct: 1,
+                explanation: "Leptin is released by adipose tissue and inhibits appetite by acting on anorexigenic neurons in the hypothalamus. It signals satiety and increases energy expenditure.",
+                tip: "Leptin = from fat cells, inhibits appetite. Ghrelin = from stomach, stimulates appetite."
             },
             {
-                question: "22. Muscle spindles detect:",
+                id: 33,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which appetite-stimulating hormone is secreted by the stomach when empty?",
                 options: [
-                    "Muscle length changes",
-                    "Muscle tension", 
-                    "Joint position",
-                    "Pain stimuli"
+                    "Leptin",
+                    "Ghrelin",
+                    "Peptide YY",
+                    "GLP-1"
                 ],
-                correct: 0,
-                explanation: "Muscle spindles are proprioceptors that detect changes in muscle length and rate of length change, involved in stretch reflexes and proprioception."
+                correct: 1,
+                explanation: "Ghrelin is secreted by the stomach when empty and stimulates appetite by acting on orexigenic neurons in the hypothalamus. It's often called the 'hunger hormone'.",
+                tip: "Ghrelin = 'Growl' hormone (stomach growling when hungry). From stomach, stimulates appetite."
             },
             {
-                question: "23. The blood-CSF barrier is formed by:",
+                id: 34,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which hypothalamic nucleus is considered the satiety center?",
                 options: [
-                    "Choroid plexus epithelial cells",
-                    "Brain capillary endothelial cells", 
-                    "Astrocyte foot processes",
-                    "Ependymal cells"
+                    "Lateral hypothalamic area",
+                    "Ventromedial nucleus",
+                    "Arcuate nucleus",
+                    "Paraventricular nucleus"
                 ],
-                correct: 0,
-                explanation: "The blood-CSF barrier consists of tight junctions between choroid plexus epithelial cells, controlling composition of cerebrospinal fluid."
+                correct: 1,
+                explanation: "The ventromedial nucleus (VMN) of the hypothalamus is the satiety center. The lateral hypothalamic area (LHA) is the feeding center. The arcuate nucleus integrates signals.",
+                tip: "VMN = VentroMedial Nucleus = Satiety center. LHA = Lateral Hypothalamic Area = Feeding center."
             },
             {
-                question: "24. The blood-aqueous barrier in the eye is formed by:",
+                id: 35,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which of the following substances inhibits appetite?",
                 options: [
-                    "Non-pigmented epithelium of ciliary body",
-                    "Corneal endothelial cells", 
-                    "Retinal pigment epithelium",
-                    "Lens epithelial cells"
+                    "Neuropeptide Y",
+                    "Ghrelin",
+                    "Peptide YY",
+                    "Orexin"
                 ],
-                correct: 0,
-                explanation: "The blood-aqueous barrier is formed by tight junctions between non-pigmented epithelial cells of the ciliary body, regulating aqueous humor composition."
+                correct: 2,
+                explanation: "Peptide YY (PYY) is released by the ileum and colon after meals and inhibits appetite. Neuropeptide Y, ghrelin, and orexin are appetite stimulants.",
+                tip: "PYY = Post-meal satiety signal from ileum/colon. Inhibits appetite."
             },
             {
-                question: "25. The most abundant cation in intracellular fluid is:",
+                id: 36,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "What is the primary function of glucose-dependent insulinotropic peptide (GIP)?",
                 options: [
-                    "Potassium (K⁺)",
-                    "Sodium (Na⁺)", 
-                    "Calcium (Ca²⁺)",
-                    "Magnesium (Mg²⁺)"
+                    "Stimulate gastric acid secretion",
+                    "Stimulate insulin secretion",
+                    "Inhibit gastric emptying",
+                    "Stimulate pancreatic enzyme secretion"
                 ],
-                correct: 0,
-                explanation: "Potassium is the predominant intracellular cation, with concentrations around 140-150 mEq/L inside cells versus 3.5-5.0 mEq/L in extracellular fluid."
+                correct: 1,
+                explanation: "The primary function of GIP is to stimulate insulin secretion from pancreatic beta cells in response to nutrients in the duodenum. This is part of the 'incretin effect'.",
+                tip: "GIP = major incretin hormone. Stimulates insulin release when nutrients are in the gut."
             },
             {
-                question: "26. The most abundant cation in extracellular fluid is:",
+                id: 37,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which hormone's secretion is stimulated by acid in the duodenum?",
                 options: [
-                    "Sodium (Na⁺)",
-                    "Potassium (K⁺)", 
-                    "Calcium (Ca²⁺)",
-                    "Magnesium (Mg²⁺)"
+                    "Gastrin",
+                    "Secretin",
+                    "Cholecystokinin",
+                    "Motilin"
                 ],
-                correct: 0,
-                explanation: "Sodium is the major extracellular cation, with concentrations around 135-145 mEq/L in extracellular fluid versus 10-15 mEq/L inside cells."
+                correct: 1,
+                explanation: "Secretin secretion is stimulated by acid (low pH) in the duodenum. It then stimulates bicarbonate secretion to neutralize the acid.",
+                tip: "Acid in duodenum → Secretin → Bicarbonate secretion → Neutralization."
             },
             {
-                question: "27. Osmolarity refers to:",
+                id: 38,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which of the following is a paracrine regulator in the GI tract?",
                 options: [
-                    "Total solute concentration per liter of solution",
-                    "Solute concentration per kg of solvent", 
-                    "Only electrolyte concentration",
-                    "Only non-electrolyte concentration"
+                    "Gastrin",
+                    "Secretin",
+                    "Histamine",
+                    "Cholecystokinin"
                 ],
-                correct: 0,
-                explanation: "Osmolarity is the total concentration of osmotically active particles per liter of solution, expressed as osmoles/liter (Osm/L)."
+                correct: 2,
+                explanation: "Histamine acts as a paracrine regulator in the stomach, where it is released by enterochromaffin-like (ECL) cells and acts locally on parietal cells to stimulate acid secretion.",
+                tip: "Paracrines act locally. Histamine from ECL cells stimulates nearby parietal cells."
             },
             {
-                question: "28. Tonicity describes:",
+                id: 39,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which substance is released by anorexigenic neurons in the arcuate nucleus to decrease appetite?",
                 options: [
-                    "Effect of solution on cell volume",
-                    "Total solute concentration", 
-                    "Electrical charge of solutes",
-                    "pH of a solution"
+                    "Neuropeptide Y",
+                    "Agouti-related protein",
+                    "POMC (pro-opiomelanocortin)",
+                    "Orexin"
                 ],
-                correct: 0,
-                explanation: "Tonicity refers to how a solution affects cell volume, depending on the concentration of non-penetrating solutes relative to intracellular fluid."
+                correct: 2,
+                explanation: "Anorexigenic (appetite-suppressing) neurons in the arcuate nucleus release POMC (pro-opiomelanocortin), which is processed to α-MSH, a potent appetite inhibitor.",
+                tip: "Anorexigenic neurons release POMC → α-MSH → decreases appetite. Orexigenic neurons release NPY → increases appetite."
             },
             {
-                question: "29. In a hypotonic solution, a red blood cell will:",
+                id: 40,
+                topic: "Gastrointestinal Regulatory Substances",
+                question: "Which GI hormone also acts as a neurotransmitter in the brain?",
                 options: [
-                    "Swell and possibly hemolyze",
-                    "Shrink and crenate", 
-                    "Maintain normal volume",
-                    "Become more rigid"
+                    "Gastrin",
+                    "Secretin",
+                    "Cholecystokinin",
+                    "Motilin"
                 ],
-                correct: 0,
-                explanation: "In hypotonic solutions (lower solute concentration than intracellular fluid), water enters cells by osmosis, causing swelling and potential hemolysis."
+                correct: 2,
+                explanation: "Cholecystokinin (CCK) acts as both a GI hormone and a neurotransmitter in the brain, where it is involved in satiety signaling and anxiety regulation.",
+                tip: "CCK has dual role: hormone in gut (digestion), neurotransmitter in brain (satiety/anxiety)."
+            },
+            // Section 4: Gastrointestinal Motility (15 questions)
+            {
+                id: 41,
+                topic: "Gastrointestinal Motility",
+                question: "What are the pacemaker cells for GI smooth muscle that generate slow waves?",
+                options: [
+                    "Parietal cells",
+                    "Enterochromaffin cells",
+                    "Interstitial cells of Cajal",
+                    "Chief cells"
+                ],
+                correct: 2,
+                explanation: "Interstitial cells of Cajal (ICCs) are the pacemaker cells of the GI tract. They generate slow waves, which are rhythmic oscillations in membrane potential that determine the frequency of contractions.",
+                tip: "Interstitial cells of Cajal = GI pacemakers. Generate slow waves = basic electrical rhythm."
             },
             {
-                question: "30. Facilitated diffusion:",
+                id: 42,
+                topic: "Gastrointestinal Motility",
+                question: "Which part of the GI tract has the highest frequency of slow waves?",
                 options: [
-                    "Requires carrier proteins but no energy",
-                    "Requires ATP hydrolysis", 
-                    "Moves substances against concentration gradient",
-                    "Only occurs in neurons"
+                    "Stomach",
+                    "Duodenum",
+                    "Ileum",
+                    "Colon"
                 ],
-                correct: 0,
-                explanation: "Facilitated diffusion uses carrier proteins or channels to move substances down their concentration gradient without energy expenditure."
+                correct: 1,
+                explanation: "The duodenum has the highest frequency of slow waves at 12 waves per minute. The stomach has the lowest at 3 waves per minute, and the ileum has 9 waves per minute.",
+                tip: "Slow wave frequency: Duodenum (12/min) > Ileum (9/min) > Stomach (3/min)."
             },
             {
-                question: "31. Primary active transport:",
+                id: 43,
+                topic: "Gastrointestinal Motility",
+                question: "Which phase of swallowing is under voluntary control?",
                 options: [
-                    "Directly uses ATP for energy",
-                    "Uses energy from another concentration gradient", 
-                    "Occurs only through channels",
-                    "Is always coupled to diffusion"
+                    "Oral phase",
+                    "Pharyngeal phase",
+                    "Esophageal phase",
+                    "All phases are involuntary"
                 ],
                 correct: 0,
-                explanation: "Primary active transport directly hydrolyzes ATP to move substances against their concentration gradient, as seen in Na⁺/K⁺ ATPase and Ca²⁺ ATPase pumps."
+                explanation: "The oral phase of swallowing is voluntary. Once the swallowing reflex is initiated, the pharyngeal and esophageal phases are involuntary and controlled by the medullary swallowing center.",
+                tip: "Swallowing: Oral = voluntary, Pharyngeal & Esophageal = involuntary (medullary control)."
             },
             {
-                question: "32. Secondary active transport:",
+                id: 44,
+                topic: "Gastrointestinal Motility",
+                question: "What is the function of the lower esophageal sphincter (LES)?",
                 options: [
-                    "Uses energy from an ion gradient",
-                    "Directly hydrolyzes ATP", 
-                    "Only moves one substance at a time",
-                    "Does not require membrane proteins"
+                    "Prevents air from entering the esophagus",
+                    "Prevents gastric contents from refluxing into the esophagus",
+                    "Regulates passage of food into the duodenum",
+                    "Controls defecation"
                 ],
-                correct: 0,
-                explanation: "Secondary active transport uses the energy stored in an ion gradient (usually Na⁺) established by primary active transport to move other substances."
+                correct: 1,
+                explanation: "The lower esophageal sphincter (LES) prevents gastric contents from refluxing into the esophagus. It remains tonically contracted except during swallowing, when it relaxes to allow food passage.",
+                tip: "LES = anti-reflux barrier. Tonic contraction prevents acid reflux. Relaxes during swallowing."
             },
             {
-                question: "33. The Nernst equation calculates:",
+                id: 45,
+                topic: "Gastrointestinal Motility",
+                question: "Which neurotransmitter mediates relaxation of the lower esophageal sphincter (LES)?",
                 options: [
-                    "Equilibrium potential for an ion",
-                    "Resting membrane potential", 
-                    "Action potential threshold",
-                    "Membrane capacitance"
+                    "Acetylcholine",
+                    "Norepinephrine",
+                    "VIP (Vasoactive Intestinal Peptide)",
+                    "Substance P"
                 ],
-                correct: 0,
-                explanation: "The Nernst equation calculates the equilibrium potential for a specific ion based on its concentration gradient across the membrane."
+                correct: 2,
+                explanation: "VIP (Vasoactive Intestinal Peptide) mediates relaxation of the LES during swallowing. This allows the food bolus to enter the stomach.",
+                tip: "VIP relaxes LES (and causes receptive relaxation of stomach)."
             },
             {
-                question: "34. The Goldman-Hodgkin-Katz equation:",
+                id: 46,
+                topic: "Gastrointestinal Motility",
+                question: "Which region of the stomach is responsible for receptive relaxation?",
                 options: [
-                    "Predicts membrane potential considering multiple ions",
-                    "Calculates single ion equilibrium potential", 
-                    "Measures membrane resistance",
-                    "Determines action potential duration"
+                    "Caudad region",
+                    "Orad region",
+                    "Pyloric region",
+                    "Fundic region"
                 ],
-                correct: 0,
-                explanation: "The Goldman-Hodgkin-Katz equation predicts membrane potential based on the concentrations and permeabilities of all major ions (K⁺, Na⁺, Cl⁻)."
+                correct: 1,
+                explanation: "The orad (proximal) region of the stomach undergoes receptive relaxation when food enters, allowing accommodation without significant pressure increase. The caudad (distal) region has strong mixing contractions.",
+                tip: "Orad = upper stomach, thin-walled, receptive relaxation. Caudad = lower stomach, thick-walled, strong contractions."
             },
             {
-                question: "35. Myelin in the central nervous system is produced by:",
+                id: 47,
+                topic: "Gastrointestinal Motility",
+                question: "What is the term for the backward movement of gastric contents that weren't propelled into the duodenum?",
                 options: [
-                    "Oligodendrocytes",
-                    "Schwann cells", 
-                    "Astrocytes",
-                    "Microglia"
+                    "Retropulsion",
+                    "Receptive relaxation",
+                    "Peristalsis",
+                    "Segmentation"
                 ],
                 correct: 0,
-                explanation: "Oligodendrocytes form myelin sheaths around multiple axons in the CNS, while Schwann cells myelinate peripheral nerves (one cell per axon segment)."
+                explanation: "Retropulsion is the backward movement of gastric contents that were not propelled through the pylorus into the duodenum. This allows further mixing and grinding of food in the stomach.",
+                tip: "Retropulsion = 'pushing back' for more mixing. Important for mechanical digestion in stomach."
             },
             {
-                question: "36. The nodes of Ranvier are:",
+                id: 48,
+                topic: "Gastrointestinal Motility",
+                question: "Which of the following slows gastric emptying?",
                 options: [
-                    "Gaps in myelin sheath with high Na⁺ channel density",
-                    "Areas of continuous myelin", 
-                    "Synaptic connections",
-                    "Cell bodies of neurons"
+                    "High carbohydrate meal",
+                    "High protein meal",
+                    "High fat meal",
+                    "Isotonic fluids"
                 ],
-                correct: 0,
-                explanation: "Nodes of Ranvier are periodic gaps in the myelin sheath where voltage-gated Na⁺ channels are concentrated, enabling saltatory conduction."
+                correct: 2,
+                explanation: "High fat meals slow gastric emptying the most, mediated by CCK release. Carbohydrates empty fastest, then proteins, then fats slowest.",
+                tip: "Gastric emptying speed: Carbs > Proteins > Fats (slowest). Fats trigger CCK which slows emptying."
             },
             {
-                question: "37. Temporal summation occurs when:",
+                id: 49,
+                topic: "Gastrointestinal Motility",
+                question: "What is the primary pattern of contraction in the small intestine during digestion?",
                 options: [
-                    "Multiple signals from one neuron arrive in rapid succession",
-                    "Signals from different neurons arrive simultaneously", 
-                    "Inhibitory signals cancel excitatory signals",
-                    "Action potentials travel in opposite directions"
+                    "Migrating myoelectric complexes",
+                    "Mass movements",
+                    "Segmentation",
+                    "Tonic contraction"
                 ],
-                correct: 0,
-                explanation: "Temporal summation involves multiple postsynaptic potentials from the same presynaptic neuron occurring close together in time, potentially reaching threshold."
+                correct: 2,
+                explanation: "Segmentation is the primary pattern of contraction in the small intestine during digestion. It mixes chyme with digestive enzymes and exposes nutrients to the mucosa for absorption.",
+                tip: "Segmentation = mixing contractions in small intestine. MMCs = between meals. Mass movements = in colon."
             },
             {
-                question: "38. Spatial summation involves:",
+                id: 50,
+                topic: "Gastrointestinal Motility",
+                question: "Which reflex is triggered by gastric distension and increases colonic motility?",
                 options: [
-                    "Multiple inputs from different locations arriving simultaneously",
-                    "Repeated signals from one source", 
-                    "Inhibition of excitatory inputs",
-                    "Action potential propagation"
+                    "Enterogastric reflex",
+                    "Gastrocolic reflex",
+                    "Ileogastric reflex",
+                    "Coloileal reflex"
                 ],
-                correct: 0,
-                explanation: "Spatial summation occurs when postsynaptic potentials from multiple different presynaptic neurons combine at the same time to reach threshold."
+                correct: 1,
+                explanation: "The gastrocolic reflex is triggered by gastric distension and increases colonic motility, often leading to the urge to defecate after a meal.",
+                tip: "Gastrocolic reflex = stomach to colon. Makes room for new food by moving old contents."
             },
             {
-                question: "39. The absolute refractory period ensures:",
+                id: 51,
+                topic: "Gastrointestinal Motility",
+                question: "What is the frequency of migrating myoelectric complexes (MMCs) in the stomach?",
                 options: [
-                    "Action potentials propagate in one direction",
-                    "Action potentials can summate", 
-                    "Membrane potential remains constant",
-                    "Neurotransmitter is recycled"
+                    "Every 15 minutes",
+                    "Every 30 minutes",
+                    "Every 90 minutes",
+                    "Every 4 hours"
                 ],
-                correct: 0,
-                explanation: "The absolute refractory period prevents backward propagation of action potentials and limits maximum firing frequency, ensuring unidirectional conduction."
+                correct: 2,
+                explanation: "Migrating myoelectric complexes (MMCs) occur approximately every 90 minutes during fasting. They sweep residual food and secretions from the stomach through the small intestine.",
+                tip: "MMCs = 'housekeeping waves' every 90 minutes between meals. Clears the gut."
             },
             {
-                question: "40. The relative refractory period occurs when:",
+                id: 52,
+                topic: "Gastrointestinal Motility",
+                question: "Which part of the vomiting reflex is triggered by signals from the vestibular system?",
                 options: [
-                    "Some Na⁺ channels have recovered but K⁺ channels are still open",
-                    "All Na⁺ channels are inactivated", 
-                    "Membrane is at resting potential",
-                    "Action potential is at peak"
+                    "Gastrointestinal tract signals",
+                    "Chemoreceptor trigger zone",
+                    "Back of the throat signals",
+                    "Motion sickness"
+                ],
+                correct: 3,
+                explanation: "Motion sickness triggers vomiting through signals from the vestibular system (inner ear). Other triggers include GI tract irritation (via vagus), back of throat stimulation (gag reflex), and chemicals (via chemoreceptor trigger zone).",
+                tip: "Vomiting triggers: 1) GI irritation (vagus), 2) Throat stimulation, 3) Vestibular (motion), 4) Chemoreceptor zone (toxins/drugs)."
+            },
+            {
+                id: 53,
+                topic: "Gastrointestinal Motility",
+                question: "What is the primary function of mass movements in the colon?",
+                options: [
+                    "Mixing of contents",
+                    "Absorption of water",
+                    "Propulsion over long distances",
+                    "Storage of feces"
+                ],
+                correct: 2,
+                explanation: "Mass movements in the colon propel contents over long distances, typically 1-3 times per day. They move fecal content into the rectum for storage until defecation.",
+                tip: "Mass movements = long distance propulsion in colon, 1-3 times/day. Segmentation = local mixing."
+            },
+            {
+                id: 54,
+                topic: "Gastrointestinal Motility",
+                question: "Which sphincter prevents reflux from the colon into the ileum?",
+                options: [
+                    "Pyloric sphincter",
+                    "Lower esophageal sphincter",
+                    "Ileocecal sphincter",
+                    "Internal anal sphincter"
+                ],
+                correct: 2,
+                explanation: "The ileocecal sphincter prevents reflux from the colon into the ileum. It regulates the passage of ileal contents into the cecum.",
+                tip: "Ileocecal sphincter = between small and large intestine. Prevents colonic bacteria from entering ileum."
+            },
+            {
+                id: 55,
+                topic: "Gastrointestinal Motility",
+                question: "What happens during the repolarization phase of a slow wave?",
+                options: [
+                    "Ca2+ channels open, causing depolarization",
+                    "K+ channels open, causing repolarization",
+                    "Na+ channels open, causing action potential",
+                    "Cl- channels open, causing hyperpolarization"
+                ],
+                correct: 1,
+                explanation: "During the repolarization phase of a slow wave, K+ channels open, producing an outward flow of K+ that repolarizes the membrane (makes it more negative).",
+                tip: "Slow wave phases: 1) Depolarization (Ca2+ in), 2) Plateau (Ca2+ stays in), 3) Repolarization (K+ out)."
+            },
+            // Section 5: Secretion (15 questions)
+            {
+                id: 56,
+                topic: "Secretion",
+                question: "Which enzyme in saliva initiates carbohydrate digestion?",
+                options: [
+                    "Lysozyme",
+                    "Lingual lipase",
+                    "Salivary amylase",
+                    "Mucin"
+                ],
+                correct: 2,
+                explanation: "Salivary amylase (ptyalin) initiates carbohydrate digestion in the mouth by breaking down starch into maltose. It continues to work in the stomach until inactivated by acid.",
+                tip: "Salivary amylase = starch digestion starts in mouth. Works at pH 6-7, inactivated by gastric acid."
+            },
+            {
+                id: 57,
+                topic: "Secretion",
+                question: "What is the effect of high flow rate on saliva composition?",
+                options: [
+                    "Saliva becomes more hypotonic",
+                    "Saliva becomes more similar to plasma",
+                    "Saliva has more K+ and HCO3-",
+                    "Saliva becomes hypertonic"
+                ],
+                correct: 1,
+                explanation: "High flow rate reduces contact time for modification in ductal cells, so saliva remains more similar to plasma (less hypotonic). Low flow rate allows more modification, making saliva more hypotonic.",
+                tip: "Saliva: High flow = less modification = more like plasma. Low flow = more modification = more hypotonic."
+            },
+            {
+                id: 58,
+                topic: "Secretion",
+                question: "Which enzyme in parietal cells produces H+ and HCO3- from CO2 and water?",
+                options: [
+                    "ATPase",
+                    "Carbonic anhydrase",
+                    "Pepsinogen",
+                    "Amylase"
+                ],
+                correct: 1,
+                explanation: "Carbonic anhydrase in parietal cells catalyzes the reaction: CO2 + H2O ↔ H2CO3 ↔ H+ + HCO3-. H+ is secreted into the lumen, HCO3- is absorbed into blood.",
+                tip: "Carbonic anhydrase = key enzyme for acid secretion. Produces H+ (secreted) and HCO3- (absorbed as 'alkaline tide')."
+            },
+            {
+                id: 59,
+                topic: "Secretion",
+                question: "What is the 'alkaline tide' observed in gastric venous blood after a meal?",
+                options: [
+                    "Increased H+ concentration",
+                    "Increased HCO3- concentration",
+                    "Decreased pH",
+                    "Increased Cl- concentration"
+                ],
+                correct: 1,
+                explanation: "The 'alkaline tide' is the increased pH (due to increased HCO3-) in gastric venous blood after a meal, resulting from HCO3- absorption when parietal cells secrete H+.",
+                tip: "Alkaline tide = increased blood pH from HCO3- absorption during acid secretion. Countercurrent to gastric lumen acidity."
+            },
+            {
+                id: 60,
+                topic: "Secretion",
+                question: "Which cells secrete pepsinogen in the stomach?",
+                options: [
+                    "Parietal cells",
+                    "G cells",
+                    "Mucous cells and chief cells",
+                    "Enterochromaffin-like cells"
+                ],
+                correct: 2,
+                explanation: "Pepsinogen is secreted by mucous cells (in cardiac and pyloric glands) and chief cells (in fundic glands). It is converted to active pepsin by gastric acid.",
+                tip: "Pepsinogen from chief/mucous cells → activated by HCl to pepsin (protein digestion)."
+            },
+            {
+                id: 61,
+                topic: "Secretion",
+                question: "What is the only essential secretion of the stomach?",
+                options: [
+                    "HCl",
+                    "Pepsinogen",
+                    "Intrinsic factor",
+                    "Mucus"
+                ],
+                correct: 2,
+                explanation: "Intrinsic factor is the only essential secretion of the stomach because it is required for vitamin B12 absorption in the ileum. Deficiency causes pernicious anemia.",
+                tip: "Intrinsic factor = essential for B12 absorption. Without it → pernicious anemia (even if B12 in diet)."
+            },
+            {
+                id: 62,
+                topic: "Secretion",
+                question: "Which hormone primarily stimulates pancreatic enzyme secretion?",
+                options: [
+                    "Secretin",
+                    "Cholecystokinin (CCK)",
+                    "Gastrin",
+                    "GIP"
+                ],
+                correct: 1,
+                explanation: "CCK primarily stimulates pancreatic enzyme secretion (amylase, lipase, proteases). Secretin primarily stimulates pancreatic bicarbonate secretion.",
+                tip: "CCK → pancreatic enzymes. Secretin → pancreatic bicarbonate. Remember: CCK for enzymes, Secretin for bicarbonate."
+            },
+            {
+                id: 63,
+                topic: "Secretion",
+                question: "What is the effect of increasing flow rate on pancreatic secretion composition?",
+                options: [
+                    "Becomes richer in enzymes",
+                    "Becomes richer in bicarbonate",
+                    "Becomes isotonic",
+                    "Becomes hypertonic"
+                ],
+                correct: 1,
+                explanation: "Increasing flow rate increases the bicarbonate concentration in pancreatic secretion (makes it more alkaline). At low flow rates, pancreatic secretion has more Cl- and less HCO3-.",
+                tip: "Pancreatic juice: High flow = high HCO3- (alkaline). Low flow = high Cl-."
+            },
+            {
+                id: 64,
+                topic: "Secretion",
+                question: "What is the primary stimulus for bile ejection from the gallbladder?",
+                options: [
+                    "Secretin",
+                    "Cholecystokinin (CCK)",
+                    "Gastrin",
+                    "Vagal stimulation"
+                ],
+                correct: 1,
+                explanation: "CCK is the primary stimulus for gallbladder contraction and bile ejection. It also causes relaxation of the sphincter of Oddi, allowing bile to enter the duodenum.",
+                tip: "CCK = gallbladder contraction + sphincter of Oddi relaxation = bile ejection."
+            },
+            {
+                id: 65,
+                topic: "Secretion",
+                question: "What is the primary function of bile salts?",
+                options: [
+                    "Digestion of proteins",
+                    "Digestion of carbohydrates",
+                    "Emulsification of lipids",
+                    "Neutralization of acid"
+                ],
+                correct: 2,
+                explanation: "Bile salts emulsify dietary lipids, breaking them into small droplets to increase surface area for lipase action. They also form micelles for absorption of lipid digestion products.",
+                tip: "Bile salts = lipid emulsifiers. They don't digest lipids but prepare them for digestion by lipase."
+            },
+            {
+                id: 66,
+                topic: "Secretion",
+                question: "Where are bile salts reabsorbed for enterohepatic circulation?",
+                options: [
+                    "Duodenum",
+                    "Jejunum",
+                    "Ileum",
+                    "Colon"
+                ],
+                correct: 2,
+                explanation: "Bile salts are actively reabsorbed in the terminal ileum and returned to the liver via the portal vein for re-secretion (enterohepatic circulation).",
+                tip: "Bile salts recycled: Liver → Bile → Intestine → Ileal reabsorption → Portal vein → Liver."
+            },
+            {
+                id: 67,
+                topic: "Secretion",
+                question: "Which phase of gastric secretion is triggered by the sight, smell, or thought of food?",
+                options: [
+                    "Cephalic phase",
+                    "Gastric phase",
+                    "Intestinal phase",
+                    "Basal phase"
                 ],
                 correct: 0,
-                explanation: "During the relative refractory period, some Na⁺ channels have recovered but K⁺ channels remain open, requiring stronger stimuli to generate action potentials."
+                explanation: "The cephalic phase is triggered by the sight, smell, thought, or taste of food. It is mediated by vagal stimulation and prepares the stomach for food arrival.",
+                tip: "Cephalic phase = 'head phase' = anticipation of food. Vagal stimulation → acid and pepsinogen secretion."
+            },
+            {
+                id: 68,
+                topic: "Secretion",
+                question: "Which substance directly inhibits parietal cells to reduce acid secretion?",
+                options: [
+                    "Histamine",
+                    "Acetylcholine",
+                    "Gastrin",
+                    "Somatostatin"
+                ],
+                correct: 3,
+                explanation: "Somatostatin directly inhibits parietal cells to reduce acid secretion. It also inhibits G cells (reducing gastrin) and ECL cells (reducing histamine).",
+                tip: "Somatostatin = universal inhibitor of GI secretion. Inhibits acid, gastrin, histamine, and other hormones."
+            },
+            {
+                id: 69,
+                topic: "Secretion",
+                question: "What is the primary ion exchanged for HCO3- when it leaves the parietal cell?",
+                options: [
+                    "Na+",
+                    "K+",
+                    "Cl-",
+                    "Ca2+"
+                ],
+                correct: 2,
+                explanation: "HCO3- leaves the parietal cell in exchange for Cl- via a Cl-/HCO3- exchanger (antiporter). This Cl- then exits into the lumen through channels, accompanying H+.",
+                tip: "Parietal cell: HCO3- out (to blood) in exchange for Cl- in. Cl- then secreted with H+ as HCl."
+            },
+            {
+                id: 70,
+                topic: "Secretion",
+                question: "Which pancreatic enzyme is secreted in an inactive form to prevent autodigestion?",
+                options: [
+                    "Pancreatic amylase",
+                    "Pancreatic lipase",
+                    "Trypsinogen",
+                    "Ribonuclease"
+                ],
+                correct: 2,
+                explanation: "Trypsinogen is secreted in inactive form and activated to trypsin by enterokinase in the duodenum. This prevents pancreatic autodigestion. Trypsin then activates other proteases.",
+                tip: "Pancreatic proteases secreted as zymogens (inactive). Trypsinogen → trypsin (by enterokinase) → activates other proteases."
             }
         ];
 
-        let currentQuestion = 0;
-        let userAnswers = new Array(physiologyQuestions.length).fill(null);
+        // Initialize variables
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
         let score = 0;
+        let examStarted = false;
+        let startTime = null;
+        let endTime = null;
 
-        function loadQuestion() {
-            const question = physiologyQuestions[currentQuestion];
-            document.getElementById('questionText').textContent = question.question;
+        // DOM elements
+        const questionScreen = document.getElementById('question-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackContainer = document.getElementById('feedback-container');
+        const feedbackText = document.getElementById('feedback-text');
+        const explanationText = document.getElementById('explanation-text');
+        const tipText = document.getElementById('tip-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const qNum = document.getElementById('q-num');
+        const qTopic = document.getElementById('q-topic');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const progressFill = document.getElementById('progress-fill');
+        const finalScore = document.getElementById('final-score');
+        const resultMessage = document.getElementById('result-message');
+        const totalQuestionsResult = document.getElementById('total-questions-result');
+        const correctAnswers = document.getElementById('correct-answers');
+        const incorrectAnswers = document.getElementById('incorrect-answers');
+        const accuracy = document.getElementById('accuracy');
+        const timeSpent = document.getElementById('time-spent');
+
+        // Initialize exam
+        function initExam() {
+            totalQuestionsSpan.textContent = questions.length;
+            totalQuestionsResult.textContent = questions.length;
+            startTime = new Date();
+            loadQuestion(currentQuestionIndex);
+            updateProgress();
+        }
+
+        // Load question
+        function loadQuestion(index) {
+            const question = questions[index];
+            qNum.textContent = question.id;
+            qTopic.textContent = question.topic;
+            currentQuestionSpan.textContent = index + 1;
+            questionText.textContent = question.question;
             
-            const optionsContainer = document.getElementById('optionsContainer');
+            // Clear previous options
             optionsContainer.innerHTML = '';
             
-            question.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'option-btn';
-                button.textContent = option;
-                
-                if (userAnswers[currentQuestion] === index) {
-                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+            // Add new options
+            const letters = ['A', 'B', 'C', 'D'];
+            question.options.forEach((option, i) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[index] === i) {
+                    optionElement.classList.add('selected');
                 }
                 
-                button.onclick = () => selectOption(index);
-                optionsContainer.appendChild(button);
+                optionElement.innerHTML = `
+                    <div class="option-letter">${letters[i]}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                
+                optionElement.addEventListener('click', () => selectOption(i));
+                optionsContainer.appendChild(optionElement);
             });
             
-            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${physiologyQuestions.length}`;
-            document.getElementById('progress').style.width = `${((currentQuestion + 1) / physiologyQuestions.length) * 100}%`;
+            // Hide feedback
+            feedbackContainer.classList.remove('show');
             
-            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
-            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            // Update buttons
+            prevBtn.disabled = index === 0;
             
-            const explanation = document.getElementById('explanation');
-            if (userAnswers[currentQuestion] !== null) {
-                explanation.textContent = question.explanation;
-                explanation.classList.add('show');
+            if (index === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
             } else {
-                explanation.classList.remove('show');
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
             }
+            
+            updateProgress();
         }
 
+        // Select option
         function selectOption(optionIndex) {
-            userAnswers[currentQuestion] = optionIndex;
-            const question = physiologyQuestions[currentQuestion];
-            const options = document.querySelectorAll('.option-btn');
+            // Remove selected class from all options
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
             
-            options.forEach((button, index) => {
-                button.classList.remove('correct', 'wrong');
-                if (index === question.correct) {
-                    button.classList.add('correct');
-                } else if (index === optionIndex && optionIndex !== question.correct) {
-                    button.classList.add('wrong');
+            // Add selected class to clicked option
+            document.querySelectorAll('.option')[optionIndex].classList.add('selected');
+            
+            // Store answer
+            userAnswers[currentQuestionIndex] = optionIndex;
+            
+            // Show feedback immediately
+            showFeedback();
+        }
+
+        // Show feedback
+        function showFeedback() {
+            const question = questions[currentQuestionIndex];
+            const userAnswer = userAnswers[currentQuestionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            // Update option colors
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && userAnswer !== question.correct) {
+                    opt.classList.add('incorrect');
                 }
             });
             
-            document.getElementById('explanation').textContent = question.explanation;
-            document.getElementById('explanation').classList.add('show');
-            document.getElementById('nextBtn').disabled = false;
-        }
-
-        function nextQuestion() {
-            if (currentQuestion < physiologyQuestions.length - 1) {
-                currentQuestion++;
-                loadQuestion();
+            // Set feedback text
+            if (isCorrect) {
+                feedbackText.innerHTML = `<span style="color: #4CAF50; font-weight: bold;">Correct!</span> You selected the right answer.`;
             } else {
-                calculateScore();
+                feedbackText.innerHTML = `<span style="color: #f44336; font-weight: bold;">Incorrect.</span> The correct answer is ${String.fromCharCode(65 + question.correct)}.`;
             }
+            
+            explanationText.textContent = question.explanation;
+            tipText.textContent = question.tip;
+            
+            // Show feedback container
+            feedbackContainer.classList.add('show');
         }
 
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                loadQuestion();
+        // Next question
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion(currentQuestionIndex);
             }
-        }
+        });
 
+        // Previous question
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion(currentQuestionIndex);
+            }
+        });
+
+        // Submit exam
+        submitBtn.addEventListener('click', () => {
+            endTime = new Date();
+            calculateScore();
+            showResults();
+        });
+
+        // Calculate score
         function calculateScore() {
             score = 0;
-            physiologyQuestions.forEach((question, index) => {
-                if (userAnswers[index] === question.correct) {
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
                     score++;
                 }
             });
-            
-            const scoreDisplay = document.getElementById('scoreDisplay');
-            scoreDisplay.innerHTML = `
-                <h3>Quiz Completed! 🎉</h3>
-                <p>Your score: <strong>${score}/${physiologyQuestions.length}</strong> (${Math.round((score/physiologyQuestions.length)*100)}%)</p>
-                <p>${score === physiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
-                    score >= physiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
-                    'Keep studying! You\'ll improve! 💪'}</p>
-            `;
-            scoreDisplay.style.display = 'block';
         }
 
-        loadQuestion();
+        // Show results
+        function showResults() {
+            questionScreen.style.display = 'none';
+            resultScreen.style.display = 'block';
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            finalScore.textContent = `${percentage}%`;
+            
+            // Set result message based on score
+            if (percentage >= 90) {
+                resultMessage.textContent = "Outstanding! You have excellent knowledge of gastrointestinal physiology.";
+            } else if (percentage >= 80) {
+                resultMessage.textContent = "Great job! You have a strong understanding of GI tract physiology.";
+            } else if (percentage >= 70) {
+                resultMessage.textContent = "Good work! You have a solid foundation in GI physiology.";
+            } else if (percentage >= 60) {
+                resultMessage.textContent = "Not bad! You have basic understanding but should review some concepts.";
+            } else {
+                resultMessage.textContent = "Keep studying! Review the material and try again.";
+            }
+            
+            // Calculate time spent
+            const timeDiff = endTime - startTime;
+            const minutes = Math.floor(timeDiff / 60000);
+            const seconds = Math.floor((timeDiff % 60000) / 1000);
+            
+            // Update result stats
+            correctAnswers.textContent = score;
+            incorrectAnswers.textContent = questions.length - score;
+            accuracy.textContent = `${percentage}%`;
+            timeSpent.textContent = `${minutes} min ${seconds} sec`;
+        }
+
+        // Restart exam
+        restartBtn.addEventListener('click', () => {
+            // Reset variables
+            currentQuestionIndex = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            score = 0;
+            startTime = new Date();
+            
+            // Show question screen
+            resultScreen.style.display = 'none';
+            questionScreen.style.display = 'block';
+            
+            // Reload first question
+            loadQuestion(currentQuestionIndex);
+        });
+
+        // Update progress
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+
+        // Initialize the exam when page loads
+        window.addEventListener('DOMContentLoaded', initExam);
     </script>
 </body>
-</html>
+    </html>
