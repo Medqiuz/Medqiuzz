@@ -3,576 +3,1761 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physiology Quiz - Part 2</title>
-    <link rel="stylesheet" href="style.css">
+    <title>GIT Secretory Functions - Comprehensive Exam</title>
+    <style>
+        :root {
+            --primary: #1a6b9e;
+            --secondary: #2c8cbb;
+            --accent: #4CAF50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --light: #f5f9fc;
+            --dark: #333;
+        }
+        
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: #f0f7ff;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .exam-stats {
+            display: flex;
+            justify-content: space-around;
+            background-color: #e8f4fc;
+            padding: 15px 25px;
+            border-bottom: 1px solid #d0e6f2;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 5px 10px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .progress-container {
+            background-color: #e8f4fc;
+            padding: 15px 25px;
+            border-bottom: 1px solid #d0e6f2;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, #8BC34A 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .exam-content {
+            padding: 30px;
+            min-height: 500px;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .question-topic {
+            background-color: #e8f4fc;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+        
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            padding: 10px 0;
+        }
+        
+        .options-container {
+            margin-bottom: 30px;
+        }
+        
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .option:hover {
+            background-color: #edf7ff;
+            border-color: #b8d9f0;
+        }
+        
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: var(--secondary);
+        }
+        
+        .option.correct {
+            background-color: #e8f5e9;
+            border-color: var(--accent);
+        }
+        
+        .option.incorrect {
+            background-color: #ffebee;
+            border-color: var(--danger);
+        }
+        
+        .option-letter {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: #e2e8f0;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .option.selected .option-letter {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .option.correct .option-letter {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .option.incorrect .option-letter {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .feedback-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid var(--secondary);
+            display: none;
+        }
+        
+        .feedback-container.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .feedback-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feedback-title i {
+            margin-right: 8px;
+        }
+        
+        .explanation, .tip, .clinical {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .explanation-title, .tip-title, .clinical-title {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        
+        .tip {
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .clinical {
+            background-color: #f3e5f5;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #9c27b0;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-prev {
+            background-color: #f0f0f0;
+            color: #555;
+        }
+        
+        .btn-prev:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .btn-next {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-next:hover {
+            background-color: var(--primary);
+        }
+        
+        .btn-submit {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            background-color: #3d8b40;
+        }
+        
+        .btn:disabled {
+            background-color: #e0e0e0;
+            color: #aaa;
+            cursor: not-allowed;
+        }
+        
+        .result-container {
+            padding: 40px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .score {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 20px 0;
+        }
+        
+        .result-message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .score-breakdown {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+        }
+        
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .btn-restart {
+            background-color: var(--primary);
+            color: white;
+            margin-top: 20px;
+        }
+        
+        .btn-restart:hover {
+            background-color: #15527a;
+        }
+        
+        .section-break {
+            background-color: #e8f4fc;
+            padding: 10px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: bold;
+            color: var(--primary);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .exam-content {
+                padding: 20px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .exam-stats {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="quiz-container">
-        <div class="header">
-            <h1>🧬 Physiology Quiz</h1>
-            <div class="subtitle">Part 2: Cardiovascular, Respiratory & Renal Physiology (Questions 41-80)</div>
+    <div class="container">
+        <header>
+            <h1>GIT Secretory Functions Comprehensive Exam</h1>
+            <p class="subtitle">60+ Questions Covering All Aspects of Gastrointestinal Secretions</p>
+        </header>
+        
+        <div class="exam-stats">
+            <div class="stat-item">
+                <div class="stat-value" id="total-questions">60</div>
+                <div class="stat-label">Total Questions</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="current-section">1/7</div>
+                <div class="stat-label">Sections</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="correct-count">0</div>
+                <div class="stat-label">Correct</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="time-spent">0:00</div>
+                <div class="stat-label">Time</div>
+            </div>
         </div>
-
-        <div class="progress-bar">
-            <div class="progress" id="progress"></div>
+        
+        <div class="progress-container">
+            <div>Progress: <span id="current-question">1</span> of <span id="total-questions-display">60</span></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
         </div>
-
-        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
-
-        <div class="question-card">
-            <div class="question-text" id="questionText"></div>
+        
+        <!-- Question Screen -->
+        <div id="question-screen">
+            <div class="exam-content">
+                <div id="section-break" class="section-break" style="display: none;">
+                    Section: <span id="section-name"></span>
+                </div>
+                
+                <div class="question-header">
+                    <div class="question-number">Question <span id="q-num">1</span></div>
+                    <div class="question-topic" id="q-topic">Introduction to Secretory Functions</div>
+                </div>
+                
+                <div class="question-text" id="question-text">
+                    Loading question...
+                </div>
+                
+                <div class="options-container" id="options-container">
+                    <!-- Options will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="feedback-container" id="feedback-container">
+                    <div class="feedback-title"><i class="fas fa-info-circle"></i> Feedback & Explanation</div>
+                    <div id="feedback-text"></div>
+                    
+                    <div class="explanation">
+                        <div class="explanation-title">Detailed Explanation:</div>
+                        <div id="explanation-text"></div>
+                    </div>
+                    
+                    <div class="tip">
+                        <div class="tip-title">Memorization Tip:</div>
+                        <div id="tip-text"></div>
+                    </div>
+                    
+                    <div class="clinical">
+                        <div class="clinical-title">Clinical Correlation:</div>
+                        <div id="clinical-text"></div>
+                    </div>
+                </div>
+            </div>
             
-            <div class="options-container" id="optionsContainer"></div>
+            <div class="controls">
+                <button class="btn btn-prev" id="prev-btn" disabled>
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button class="btn btn-next" id="next-btn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn btn-submit" id="submit-btn" style="display: none;">
+                    Submit Exam <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Results Screen -->
+        <div class="result-container" id="result-screen">
+            <h2 class="result-title">Exam Results</h2>
+            <div class="score" id="final-score">0%</div>
+            <div class="result-message" id="result-message"></div>
             
-            <div class="explanation" id="explanation"></div>
+            <div class="score-breakdown">
+                <h3>Performance Breakdown</h3>
+                <div class="breakdown-item">
+                    <span>Total Questions:</span>
+                    <span id="total-questions-result">60</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Correct Answers:</span>
+                    <span id="correct-answers">0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Incorrect Answers:</span>
+                    <span id="incorrect-answers">0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Skipped Questions:</span>
+                    <span id="skipped-answers">0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Accuracy:</span>
+                    <span id="accuracy">0%</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Time Spent:</span>
+                    <span id="time-spent-result">0 min</span>
+                </div>
+            </div>
+            
+            <button class="btn btn-restart" id="restart-btn">
+                <i class="fas fa-redo"></i> Restart Exam
+            </button>
         </div>
-
-        <div class="navigation">
-            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
-            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
-        </div>
-
-        <div class="score-display" id="scoreDisplay"></div>
     </div>
 
     <script>
-        const physiologyQuestions = [
+        // Comprehensive question database for GIT Secretory Functions
+        const questions = [
+            // Section 1: Introduction to Secretory Functions (8 questions)
             {
-                question: "41. The cardiac output is calculated as:",
+                id: 1,
+                topic: "Introduction",
+                question: "Which type of gland in the GIT is characterized by being a 'single mucus secretion gland'?",
                 options: [
-                    "Heart rate × Stroke volume",
-                    "Blood pressure × Total peripheral resistance", 
-                    "End diastolic volume - End systolic volume",
-                    "Preload × Afterload"
+                    "Crypts of Lieberkühn",
+                    "Goblet cells",
+                    "Oxyntic glands",
+                    "Brunner's glands"
                 ],
-                correct: 0,
-                explanation: "Cardiac output (CO) = Heart rate (HR) × Stroke volume (SV). Normal CO is about 5 L/min at rest."
+                correct: 1,
+                explanation: "Goblet cells are single mucus-secreting glands found throughout the gastrointestinal tract epithelium. They are individual cells (not organized into complex glands) that produce mucus for lubrication and protection.",
+                tip: "Goblet cells = single mucus cells. Think of them as individual 'goblets' filled with mucus.",
+                clinical: "In inflammatory bowel diseases, goblet cell depletion is a characteristic finding, leading to reduced mucus protection."
             },
             {
-                question: "42. The Frank-Starling mechanism states that:",
+                id: 2,
+                topic: "Introduction",
+                question: "Which of the following is NOT a basic mechanism for stimulating alimentary tract gland secretion?",
                 options: [
-                    "Stroke volume increases with increased preload",
-                    "Heart rate increases with exercise", 
-                    "Blood pressure regulates cardiac output",
-                    "Afterload determines heart rate"
+                    "Mechanical stimulation by food presence",
+                    "Direct contact with food",
+                    "Changes in blood oxygen levels",
+                    "Chemical irritation"
                 ],
-                correct: 0,
-                explanation: "The Frank-Starling law states that the stroke volume of the heart increases in response to an increase in the volume of blood filling the heart (preload)."
+                correct: 2,
+                explanation: "Changes in blood oxygen levels are not a primary stimulus for GIT gland secretion. The main stimuli are: mechanical stimulation by food, direct contact, tactile stimulation, chemical irritation, and distention of the gut wall.",
+                tip: "GIT secretion is stimulated by local factors (food, irritation, distension), not blood gases.",
+                clinical: "Hypoxia can indirectly affect secretion by altering blood flow, but it's not a direct stimulus."
             },
             {
-                question: "43. The pacemaker of the heart is the:",
+                id: 3,
+                topic: "Introduction",
+                question: "What is the primary effect of parasympathetic stimulation on GIT secretion?",
                 options: [
-                    "Sinoatrial (SA) node",
-                    "Atrioventricular (AV) node", 
-                    "Bundle of His",
-                    "Purkinje fibers"
+                    "Generally inhibits secretion",
+                    "Generally stimulates secretion",
+                    "Has no effect on secretion",
+                    "Stimulates only mucus secretion"
                 ],
-                correct: 0,
-                explanation: "The SA node generates the electrical impulses that initiate heartbeats, typically at 60-100 beats/min, making it the natural pacemaker."
+                correct: 1,
+                explanation: "Parasympathetic stimulation generally increases GIT secretion and motility as part of the 'rest and digest' response. This includes increased salivary, gastric, pancreatic, and intestinal secretions.",
+                tip: "Parasympathetic = 'peace and digestion' = stimulates secretions.",
+                clinical: "Anticholinergic drugs (which block parasympathetic effects) cause dry mouth and reduced gastric secretions."
             },
             {
-                question: "44. The PR interval on ECG represents:",
+                id: 4,
+                topic: "Introduction",
+                question: "Which of the following glands are classified as 'several complex glands'?",
                 options: [
-                    "Atrial depolarization and conduction through AV node",
-                    "Ventricular depolarization", 
-                    "Ventricular repolarization",
-                    "Atrial repolarization"
+                    "Gastric oxyntic glands",
+                    "Intestinal crypts",
+                    "Salivary glands, pancreas, and liver",
+                    "Esophageal mucous glands"
                 ],
-                correct: 0,
-                explanation: "The PR interval (0.12-0.20 sec) represents the time from atrial depolarization to the start of ventricular depolarization, including conduction through the AV node."
+                correct: 2,
+                explanation: "Salivary glands, pancreas, and liver are classified as 'several complex glands' due to their elaborate structure with duct systems and specialized secretory units. Other glands in the GIT are simpler in organization.",
+                tip: "Complex glands = salivary, pancreas, liver. They have ducts and complex organization.",
+                clinical: "These complex glands are more susceptible to specific diseases (sialadenitis, pancreatitis, hepatitis)."
             },
             {
-                question: "45. The QRS complex corresponds to:",
+                id: 5,
+                topic: "Introduction",
+                question: "What type of stimuli does the enteric nervous system respond to for regulating secretion?",
                 options: [
-                    "Ventricular depolarization",
-                    "Atrial depolarization", 
-                    "Ventricular repolarization",
-                    "Atrial repolarization"
+                    "Only hormonal signals",
+                    "Only signals from the brain",
+                    "Tactile, chemical, and distention stimuli",
+                    "Only changes in blood pressure"
                 ],
-                correct: 0,
-                explanation: "The QRS complex represents ventricular depolarization and normally lasts less than 0.12 seconds."
+                correct: 2,
+                explanation: "The enteric nervous system responds to local stimuli including tactile stimulation, chemical irritation, and distention of the gut wall. This allows for local regulation of secretion independent of central nervous system input.",
+                tip: "Enteric nervous system = 'gut brain' that responds to local gut conditions.",
+                clinical: "Enteric nervous system dysfunction contributes to disorders like irritable bowel syndrome."
             },
             {
-                question: "46. Mean arterial pressure (MAP) is calculated as:",
+                id: 6,
+                topic: "Introduction",
+                question: "What is the chemical nature of most gastrointestinal hormones?",
                 options: [
-                    "Diastolic BP + 1/3 (Systolic BP - Diastolic BP)",
-                    "Systolic BP + Diastolic BP / 2", 
-                    "Cardiac output × Heart rate",
-                    "Stroke volume × Total peripheral resistance"
+                    "Steroids",
+                    "Polypeptides or polypeptide derivatives",
+                    "Fatty acids",
+                    "Nucleic acids"
                 ],
-                correct: 0,
-                explanation: "MAP = Diastolic BP + 1/3 (Systolic BP - Diastolic BP). It represents the average pressure driving blood into tissues throughout the cardiac cycle."
+                correct: 1,
+                explanation: "Most gastrointestinal hormones are polypeptides or polypeptide derivatives. Examples include gastrin, secretin, cholecystokinin (CCK), and gastric inhibitory peptide (GIP).",
+                tip: "Gut hormones = peptides. Remember: 'P' for peptide hormones.",
+                clinical: "These peptide hormones can be measured in blood tests to diagnose certain GI disorders."
             },
             {
-                question: "47. The baroreceptor reflex helps regulate:",
+                id: 7,
+                topic: "Introduction",
+                question: "Which of the following is an example of 'deep tubular glands' in the GIT?",
                 options: [
-                    "Blood pressure",
-                    "Respiratory rate", 
-                    "Body temperature",
-                    "Blood glucose"
+                    "Salivary acini",
+                    "Oxyntic (gastric) glands",
+                    "Brunner's glands",
+                    "Crypts of Lieberkühn"
                 ],
-                correct: 0,
-                explanation: "Baroreceptors in the carotid sinus and aortic arch detect changes in blood pressure and trigger autonomic adjustments to maintain stable blood pressure."
+                correct: 1,
+                explanation: "Oxyntic glands (also called gastric glands) are deep tubular glands located in the stomach mucosa. They contain parietal cells that secrete hydrochloric acid and chief cells that secrete pepsinogen.",
+                tip: "Deep tubular glands = oxyntic glands in stomach. 'Deep' because they extend deep into mucosa.",
+                clinical: "These glands are the target of proton pump inhibitors for ulcer treatment."
             },
             {
-                question: "48. The Valsalva maneuver causes:",
+                id: 8,
+                topic: "Introduction",
+                question: "What is the primary function of specialized glands lying in pits like crypts of Lieberkühn?",
                 options: [
-                    "Decreased venous return and increased intrathoracic pressure",
-                    "Increased cardiac output and blood pressure", 
-                    "Decreased heart rate and vasodilation",
-                    "Increased respiratory rate and tidal volume"
+                    "Hormone production only",
+                    "Secretion of digestive enzymes and fluids",
+                    "Absorption of nutrients",
+                    "Storage of vitamins"
                 ],
-                correct: 0,
-                explanation: "The Valsalva maneuver (forced expiration against closed glottis) increases intrathoracic pressure, decreasing venous return and cardiac output."
+                correct: 1,
+                explanation: "Crypts of Lieberkühn are specialized glands that secrete intestinal digestive juices containing enzymes and fluids. They are located between villi in the small intestine and are responsible for producing the fluid component of intestinal secretions.",
+                tip: "Crypts of Lieberkühn = secretion sites in small intestine. Villi = absorption sites.",
+                clinical: "In cholera, crypt secretion is dramatically increased, causing severe watery diarrhea."
+            },
+            
+            // Section 2: Importance of Mucus (6 questions)
+            {
+                id: 9,
+                topic: "Mucus Functions",
+                question: "What property of mucus allows it to form a protective coating on the gut wall?",
+                options: [
+                    "High enzyme content",
+                    "Adherent qualities",
+                    "Acidic pH",
+                    "High electrolyte concentration"
+                ],
+                correct: 1,
+                explanation: "Mucus has adherent qualities that allow it to adhere tightly to the gut wall and spread as a thin film over surfaces. This creates a protective barrier between the mucosa and gut contents.",
+                tip: "Mucus adherence = 'biological cling film' protecting gut lining.",
+                clinical: "Loss of this adherent property contributes to ulcer formation."
             },
             {
-                question: "49. The Fick principle is used to calculate:",
+                id: 10,
+                topic: "Mucus Functions",
+                question: "Which component of mucus gives it buffering capacity against acids and alkalis?",
                 options: [
-                    "Cardiac output",
-                    "Blood pressure", 
-                    "Oxygen consumption",
-                    "Ventilation rate"
+                    "Water content",
+                    "Amphoteric glycoproteins",
+                    "Sodium ions",
+                    "Potassium ions"
                 ],
-                correct: 0,
-                explanation: "The Fick principle states that cardiac output equals oxygen consumption divided by the arteriovenous oxygen difference."
+                correct: 1,
+                explanation: "The glycoproteins in mucus have amphoteric properties, meaning they can act as both acids and bases, allowing them to buffer small amounts of either acids or alkalis. This helps protect the mucosa from pH extremes.",
+                tip: "Amphoteric = can buffer both acids and bases. 'Amphi' = both (like amphibian).",
+                clinical: "This buffering capacity is crucial in preventing acid damage in GERD and peptic ulcer disease."
             },
             {
-                question: "50. The most important factor determining blood flow through a vessel is:",
+                id: 11,
+                topic: "Mucus Functions",
+                question: "Why is mucus resistant to digestion by gastrointestinal enzymes?",
                 options: [
-                    "Vessel radius",
-                    "Blood viscosity", 
-                    "Vessel length",
-                    "Pressure difference"
+                    "It contains enzyme inhibitors",
+                    "Its glycoproteins have a resistant structure",
+                    "It is constantly replaced",
+                    "It has a very low pH"
                 ],
-                correct: 0,
-                explanation: "According to Poiseuille's law, blood flow is proportional to the fourth power of the radius, making vessel radius the most important determinant."
+                correct: 1,
+                explanation: "The glycoproteins in mucus have a specific chemical structure that makes them resistant to proteolytic digestion by gastrointestinal enzymes. This allows the mucus layer to persist and provide continuous protection.",
+                tip: "Mucus glycoproteins = digestion-resistant 'armor' for gut lining.",
+                clinical: "In cystic fibrosis, abnormal mucus is more susceptible to digestion, contributing to GI problems."
             },
             {
-                question: "51. Tidal volume is:",
+                id: 12,
+                topic: "Mucus Functions",
+                question: "How does mucus contribute to normal bowel movements?",
                 options: [
-                    "Volume of air inhaled or exhaled during normal breathing",
-                    "Maximum volume that can be inhaled after normal inspiration", 
-                    "Volume remaining in lungs after maximum expiration",
-                    "Maximum volume that can be exhaled after normal expiration"
+                    "By providing bulk to stool",
+                    "By causing fecal particles to adhere together",
+                    "By stimulating peristalsis",
+                    "By absorbing water from stool"
                 ],
-                correct: 0,
-                explanation: "Tidal volume is the volume of air moved into or out of the lungs during normal quiet breathing, typically about 500 mL in adults."
+                correct: 1,
+                explanation: "Mucus causes fecal particles to adhere to one another, helping form cohesive feces that can be expelled during a bowel movement. Without adequate mucus, stool would be loose and watery.",
+                tip: "Mucus = 'glue' for feces. Helps form normal, formed stools.",
+                clinical: "Mucus-deficient conditions can cause chronic diarrhea or difficulty with defecation."
             },
             {
-                question: "52. Vital capacity includes:",
+                id: 13,
+                topic: "Mucus Functions",
+                question: "What is the primary role of bicarbonate ions in mucus?",
                 options: [
-                    "Tidal volume + Inspiratory reserve volume + Expiratory reserve volume",
-                    "Residual volume + Expiratory reserve volume", 
-                    "Total lung capacity - Residual volume",
-                    "Both A and C"
+                    "Provide energy for cells",
+                    "Neutralize acids",
+                    "Act as enzymes",
+                    "Provide structural support"
+                ],
+                correct: 1,
+                explanation: "Bicarbonate ions in mucus specifically neutralize acids, helping to protect the mucosa from acid damage. This is particularly important in the stomach and duodenum where acid concentrations are high.",
+                tip: "Mucus bicarbonate = acid neutralizer. Creates pH gradient in mucus layer.",
+                clinical: "Insufficient bicarbonate in mucus contributes to ulcer formation."
+            },
+            {
+                id: 14,
+                topic: "Mucus Functions",
+                question: "What characteristic of mucus makes it an excellent lubricant?",
+                options: [
+                    "High protein content",
+                    "Low resistance to slippage",
+                    "Viscous consistency",
+                    "Alkaline pH"
+                ],
+                correct: 1,
+                explanation: "Mucus has a low resistance to slippage, which allows food particles and other contents to slide along the epithelium with great ease. This lubricating function is essential for normal propulsion of contents through the GIT.",
+                tip: "Mucus lubrication = low friction surface. Like oil for mechanical parts.",
+                clinical: "Reduced mucus lubrication contributes to dysphagia (difficulty swallowing) and constipation."
+            },
+            
+            // Section 3: Salivary Secretion (10 questions)
+            {
+                id: 15,
+                topic: "Salivary Secretion",
+                question: "Which salivary gland produces primarily serous secretion?",
+                options: [
+                    "Submandibular gland",
+                    "Sublingual gland",
+                    "Parotid gland",
+                    "Buccal glands"
+                ],
+                correct: 2,
+                explanation: "The parotid glands produce primarily serous secretion containing ptyalin (α-amylase). The submandibular glands produce mixed serous and mucus secretion, while buccal and sublingual glands produce mainly mucus.",
+                tip: "Parotid = pure serous. Remember: 'P' for parotid, 'P' for ptyalin.",
+                clinical: "Mumps virus primarily affects parotid glands, impairing starch digestion initiation."
+            },
+            {
+                id: 16,
+                topic: "Salivary Secretion",
+                question: "What happens to saliva's ionic composition as it flows through ducts?",
+                options: [
+                    "Becomes hypertonic",
+                    "Becomes hypotonic",
+                    "Remains isotonic",
+                    "Becomes acidic"
+                ],
+                correct: 1,
+                explanation: "As saliva flows through ducts, sodium and chloride are reabsorbed while potassium and bicarbonate are secreted, making final saliva hypotonic compared to plasma.",
+                tip: "Duct modification: Na+ and Cl- out, K+ and HCO3- in → hypotonic saliva.",
+                clinical: "In cystic fibrosis, defective chloride channels impair this modification."
+            },
+            {
+                id: 17,
+                topic: "Salivary Secretion",
+                question: "During maximal salivation, how does saliva composition change?",
+                options: [
+                    "Becomes more hypotonic",
+                    "Becomes more similar to plasma",
+                    "Potassium concentration decreases",
+                    "Bicarbonate concentration increases"
+                ],
+                correct: 1,
+                explanation: "During maximal salivation, rapid flow reduces time for ductal modification, so saliva composition becomes more similar to plasma (less hypotonic).",
+                tip: "Fast flow = less modification = more like plasma. Slow flow = more modification = more hypotonic.",
+                clinical: "This explains why mouth gets dry with thick saliva when dehydrated."
+            },
+            {
+                id: 18,
+                topic: "Salivary Secretion",
+                question: "Which enzyme in saliva initiates starch digestion?",
+                options: [
+                    "Pepsin",
+                    "Trypsin",
+                    "Lipase",
+                    "Ptyalin (α-amylase)"
                 ],
                 correct: 3,
-                explanation: "Vital capacity = Tidal volume + Inspiratory reserve volume + Expiratory reserve volume = Total lung capacity - Residual volume."
+                explanation: "Ptyalin (salivary α-amylase) initiates starch digestion by breaking down starches into maltose. It works optimally at pH 6.0-7.0.",
+                tip: "Ptyalin = salivary amylase for starch. Works in mouth, continues in stomach until acid inactivated.",
+                clinical: "Reduced ptyalin may affect starch digestion, though pancreatic amylase compensates."
             },
             {
-                question: "53. The majority of CO₂ is transported in blood as:",
+                id: 19,
+                topic: "Salivary Secretion",
+                question: "What is the approximate daily secretion of saliva?",
                 options: [
-                    "Bicarbonate ions (HCO₃⁻)",
-                    "Dissolved CO₂ in plasma", 
-                    "Carbamino compounds with hemoglobin",
-                    "Carbonic acid"
+                    "200-400 mL",
+                    "500-800 mL",
+                    "800-1500 mL",
+                    "2000-2500 mL"
                 ],
-                correct: 0,
-                explanation: "About 70% of CO₂ is transported as bicarbonate ions formed by the carbonic anhydrase reaction in red blood cells."
+                correct: 2,
+                explanation: "Daily saliva secretion normally ranges between 800 and 1500 mL, averaging about 1000 mL. This substantial volume underscores saliva's importance.",
+                tip: "~1L saliva/day. Similar to daily urine output.",
+                clinical: "Xerostomia (dry mouth) occurs when production falls below 0.1 mL/min."
             },
             {
-                question: "54. The Haldane effect refers to:",
+                id: 20,
+                topic: "Salivary Secretion",
+                question: "Which taste typically elicits the greatest salivary secretion?",
                 options: [
-                    "Enhanced CO₂ transport when hemoglobin is deoxygenated",
-                    "Enhanced O₂ binding when CO₂ is high", 
-                    "Decreased O₂ affinity with increased temperature",
-                    "Increased CO₂ solubility at high pressures"
+                    "Sweet",
+                    "Salty",
+                    "Sour",
+                    "Bitter"
                 ],
-                correct: 0,
-                explanation: "The Haldane effect describes how deoxygenated hemoglobin can carry more CO₂ than oxygenated hemoglobin, facilitating CO₂ transport from tissues."
+                correct: 2,
+                explanation: "Sour taste (from acids) elicits copious saliva secretion - often 8-20 times basal rate. This helps dilute and neutralize acids.",
+                tip: "Sour = lots of saliva. Evolutionary protection against acidic foods.",
+                clinical: "GERD patients may have increased salivation (water brash) as protective reflex."
             },
             {
-                question: "55. The Bohr effect describes:",
+                id: 21,
+                topic: "Salivary Secretion",
+                question: "What is the primary neural regulation of salivary secretion?",
                 options: [
-                    "Decreased O₂ affinity of hemoglobin with increased CO₂ and decreased pH",
-                    "Increased O₂ affinity with increased CO₂", 
-                    "CO₂ transport as bicarbonate",
-                    "O₂ diffusion across alveolar membrane"
+                    "Sympathetic dominance",
+                    "Parasympathetic dominance",
+                    "Equal control",
+                    "Somatic control"
                 ],
-                correct: 0,
-                explanation: "The Bohr effect: increased CO₂ and decreased pH (as in tissues) decrease hemoglobin's affinity for O₂, promoting O₂ unloading where needed."
+                correct: 1,
+                explanation: "Salivary secretion is controlled mainly by parasympathetic signals from salivatory nuclei. Sympathetic stimulation can increase it slightly, but parasympathetic dominates.",
+                tip: "Saliva = parasympathetic dominant. 'Rest and digest' includes saliva production.",
+                clinical: "Anticholinergic drugs cause dry mouth by blocking parasympathetic effects."
             },
             {
-                question: "56. The most important chemical regulator of ventilation is:",
+                id: 22,
+                topic: "Salivary Secretion",
+                question: "Which antibacterial component is found in saliva?",
                 options: [
-                    "Arterial PCO₂",
-                    "Arterial PO₂", 
-                    "Arterial pH",
-                    "Blood bicarbonate"
+                    "Sodium ions",
+                    "Thiocyanate ions",
+                    "Calcium ions",
+                    "Magnesium ions"
                 ],
-                correct: 0,
-                explanation: "Arterial PCO₂ is the most potent chemical regulator of ventilation; small increases strongly stimulate breathing via central chemoreceptors."
+                correct: 1,
+                explanation: "Thiocyanate ions in saliva have antibacterial properties. Other antibacterial factors include lysozyme and secretory IgA antibodies.",
+                tip: "Thiocyanate = antibacterial. 'Thio' = sulfur, often antimicrobial.",
+                clinical: "Reduced salivary antibacterial factors increase risk of dental caries and oral infections."
             },
             {
-                question: "57. Surfactant in the lungs:",
+                id: 23,
+                topic: "Salivary Secretion",
+                question: "What is the pH range of saliva?",
                 options: [
-                    "Reduces surface tension and prevents alveolar collapse",
-                    "Increases gas diffusion rate", 
-                    "Protects against infection",
-                    "Regulates blood flow"
+                    "1.0-2.0",
+                    "4.0-5.0",
+                    "6.0-7.0",
+                    "8.0-9.0"
                 ],
-                correct: 0,
-                explanation: "Pulmonary surfactant, produced by type II alveolar cells, reduces surface tension, preventing alveolar collapse and decreasing work of breathing."
+                correct: 2,
+                explanation: "Saliva has a pH between 6.0 and 7.0, which is favorable for the digestive action of ptyalin and for oral health.",
+                tip: "Saliva pH ~6-7 = slightly acidic to neutral. Protects teeth from demineralization.",
+                clinical: "Chronic low saliva pH increases risk of dental erosion and caries."
             },
             {
-                question: "58. Compliance of the lungs refers to:",
+                id: 24,
+                topic: "Salivary Secretion",
+                question: "Which salivary gland secretes only mucus?",
                 options: [
-                    "Change in lung volume per unit change in pressure",
-                    "Resistance to airflow", 
-                    "Elastic recoil of lung tissue",
-                    "Surface tension in alveoli"
+                    "Parotid",
+                    "Submandibular",
+                    "Sublingual",
+                    "Buccal glands"
                 ],
-                correct: 0,
-                explanation: "Compliance = ΔVolume/ΔPressure. High compliance means lungs expand easily; low compliance means stiff lungs requiring more pressure to expand."
+                correct: 3,
+                explanation: "Buccal glands secrete only mucus. Parotid secretes serous, submandibular mixed (70% serous), sublingual mainly mucus with some serous.",
+                tip: "Buccal = only mucus. 'Buccal' sounds like 'buckle' - think of mucus 'holding things together'.",
+                clinical: "Different glands affected differently in autoimmune conditions like Sjögren's syndrome."
+            },
+            
+            // Section 4: Gastric Secretion (12 questions)
+            {
+                id: 25,
+                topic: "Gastric Secretion",
+                question: "Which cells secrete hydrochloric acid in the stomach?",
+                options: [
+                    "Chief cells",
+                    "Parietal (oxyntic) cells",
+                    "Mucous neck cells",
+                    "G cells"
+                ],
+                correct: 1,
+                explanation: "Parietal (oxyntic) cells secrete hydrochloric acid and intrinsic factor. They are located in the oxyntic glands of the stomach body and fundus.",
+                tip: "Parietal = acid (HCl). Remember: 'Parietal' contains 'acid' conceptually.",
+                clinical: "Autoimmune destruction of parietal cells causes pernicious anemia and achlorhydria."
             },
             {
-                question: "59. The glomerular filtration rate (GFR) is approximately:",
+                id: 26,
+                topic: "Gastric Secretion",
+                question: "What is the approximate pH of pure parietal cell secretion?",
                 options: [
-                    "125 mL/min",
-                    "500 mL/min", 
-                    "1000 mL/min",
-                    "50 mL/min"
+                    "2.0-3.0",
+                    "1.0-1.5",
+                    "0.8-1.0",
+                    "7.0-7.4"
                 ],
-                correct: 0,
-                explanation: "Normal GFR is about 125 mL/min (180 L/day), with about 99% of filtrate reabsorbed, leaving 1-2 L urine output daily."
+                correct: 2,
+                explanation: "Pure parietal cell secretion has pH about 0.8, extremely acidic. At this pH, H+ concentration is ~3 million times that of arterial blood.",
+                tip: "Gastric acid pH ~0.8 = strongest acid in body. Kills bacteria, denatures proteins.",
+                clinical: "This extreme acidity explains why GERD can cause severe esophageal damage."
             },
             {
-                question: "60. The juxtaglomerular apparatus includes:",
+                id: 27,
+                topic: "Gastric Secretion",
+                question: "What is the 'alkaline tide'?",
                 options: [
-                    "Macula densa and juxtaglomerular cells",
-                    "Podocytes and mesangial cells", 
-                    "Proximal and distal tubules",
-                    "Collecting ducts and vasa recta"
+                    "Increased bicarbonate in gastric venous blood",
+                    "Decreased pH in gastric arterial blood",
+                    "Increased chloride in gastric secretion",
+                    "Decreased potassium in parietal cells"
                 ],
                 correct: 0,
-                explanation: "The juxtaglomerular apparatus consists of macula densa cells (in distal tubule) and juxtaglomerular cells (in afferent arteriole) that regulate GFR and renin release."
+                explanation: "The 'alkaline tide' is increased pH (from increased bicarbonate) in gastric venous blood when stomach secretes acid. For each H+ secreted, one HCO3- enters blood.",
+                tip: "Alkaline tide = bicarbonate wave in blood from acid secretion.",
+                clinical: "Contributes to postprandial alkalosis in some conditions."
             },
             {
-                question: "61. The countercurrent multiplier system is located in the:",
+                id: 28,
+                topic: "Gastric Secretion",
+                question: "Which enzyme activates pepsinogen to pepsin?",
                 options: [
-                    "Loop of Henle",
-                    "Proximal convoluted tubule", 
-                    "Distal convoluted tubule",
-                    "Collecting duct"
+                    "Hydrochloric acid",
+                    "Enterokinase",
+                    "Trypsin",
+                    "Pepsin itself"
                 ],
                 correct: 0,
-                explanation: "The countercurrent multiplier in the loop of Henle creates a hyperosmotic medullary interstitium, enabling urine concentration."
+                explanation: "Pepsinogen is activated to pepsin by hydrochloric acid. Once some pepsin forms, it can autoactivate more pepsinogen.",
+                tip: "HCl activates pepsinogen → pepsin. Acid starts protein digestion.",
+                clinical: "In achlorhydria, protein digestion impaired due to lack of pepsin activation."
             },
             {
-                question: "62. Aldosterone acts primarily on the:",
+                id: 29,
+                topic: "Gastric Secretion",
+                question: "Which is the only essential secretion of the stomach?",
                 options: [
-                    "Distal convoluted tubule and collecting duct",
-                    "Proximal convoluted tubule", 
-                    "Loop of Henle",
-                    "Glomerulus"
+                    "Hydrochloric acid",
+                    "Pepsinogen",
+                    "Intrinsic factor",
+                    "Mucus"
                 ],
-                correct: 0,
-                explanation: "Aldosterone stimulates sodium reabsorption and potassium secretion in the distal convoluted tubule and collecting duct, regulated by the renin-angiotensin system."
+                correct: 2,
+                explanation: "Intrinsic factor is essential for vitamin B12 absorption in ileum. Deficiency causes pernicious anemia. Other secretions have alternatives or are less critical.",
+                tip: "Essential = intrinsic factor for B12. Everything else has workarounds.",
+                clinical: "Pernicious anemia results from autoimmune destruction of parietal cells (no intrinsic factor)."
             },
             {
-                question: "63. Antidiuretic hormone (ADH) increases water reabsorption in the:",
+                id: 30,
+                topic: "Gastric Secretion",
+                question: "Which cells secrete histamine in gastric mucosa?",
                 options: [
-                    "Collecting duct",
-                    "Proximal tubule", 
-                    "Loop of Henle",
-                    "Distal tubule"
+                    "Parietal cells",
+                    "Chief cells",
+                    "Enterochromaffin-like (ECL) cells",
+                    "D cells"
                 ],
-                correct: 0,
-                explanation: "ADH (vasopressin) increases water permeability of the collecting duct by inserting aquaporin-2 channels, promoting water reabsorption and concentrated urine."
+                correct: 2,
+                explanation: "Enterochromaffin-like (ECL) cells secrete histamine, which acts as paracrine on parietal cells to stimulate acid secretion via H2 receptors.",
+                tip: "ECL cells = Histamine for acid. 'ECL' sounds like 'Excel' at making histamine.",
+                clinical: "H2 receptor blockers (like ranitidine) block histamine's effect on parietal cells."
             },
             {
-                question: "64. The renal threshold for glucose is approximately:",
+                id: 31,
+                topic: "Gastric Secretion",
+                question: "What is pepsin's optimal pH range?",
                 options: [
-                    "180-200 mg/dL",
-                    "100 mg/dL", 
-                    "250 mg/dL",
-                    "300 mg/dL"
+                    "1.8-3.5",
+                    "5.0-6.0",
+                    "7.0-8.0",
+                    "8.5-9.0"
                 ],
                 correct: 0,
-                explanation: "When plasma glucose exceeds ~180-200 mg/dL, the glucose transport maximum is exceeded, and glucosuria occurs (as in diabetes mellitus)."
+                explanation: "Pepsin functions optimally at pH 1.8-3.5. Above pH 5, it has little activity and is quickly inactivated.",
+                tip: "Pepsin loves acid: pH 1.8-3.5. Neutral pH inactivates it.",
+                clinical: "Antacids raising gastric pH above 5 reduce protein digestion."
             },
             {
-                question: "65. The main buffer in the urine is:",
+                id: 32,
+                topic: "Gastric Secretion",
+                question: "Which phase of gastric secretion is triggered by thought/sight/smell of food?",
                 options: [
-                    "Phosphate buffer system",
-                    "Bicarbonate buffer system", 
-                    "Protein buffer system",
-                    "Hemoglobin buffer"
+                    "Gastric phase",
+                    "Intestinal phase",
+                    "Cephalic phase",
+                    "Basal phase"
                 ],
-                correct: 0,
-                explanation: "The phosphate buffer system (HPO₄²⁻/H₂PO₄⁻) is the main urinary buffer, with pKa of 6.8, ideal for buffering urine pH (4.5-8.0)."
+                correct: 2,
+                explanation: "Cephalic phase is triggered by thought, smell, sight, or taste of food. Mediated by vagal stimulation, it accounts for ~20% of gastric secretion.",
+                tip: "Cephalic = head phase (brain-mediated). Think Pavlov's dogs.",
+                clinical: "Stress affects this phase, influencing digestion before food enters stomach."
             },
             {
-                question: "66. The V/Q ratio is highest in the:",
+                id: 33,
+                topic: "Gastric Secretion",
+                question: "What directly inhibits parietal cells to reduce acid secretion?",
                 options: [
-                    "Apex of the lung",
-                    "Base of the lung", 
-                    "Middle lobe",
-                    "Equal throughout lung"
+                    "Gastrin",
+                    "Acetylcholine",
+                    "Histamine",
+                    "Somatostatin"
                 ],
-                correct: 0,
-                explanation: "The ventilation/perfusion (V/Q) ratio is higher at the lung apex due to gravity effects on blood flow, with more ventilation relative to perfusion."
+                correct: 3,
+                explanation: "Somatostatin, secreted by D cells, directly inhibits parietal cells. It also inhibits G cells (reducing gastrin) and ECL cells (reducing histamine).",
+                tip: "Somatostatin = universal inhibitor of gastric secretion. The 'brake' on acid.",
+                clinical: "Somatostatin analogs (octreotide) treat hypersecretory conditions."
             },
             {
-                question: "67. Physiological dead space includes:",
+                id: 34,
+                topic: "Gastric Secretion",
+                question: "How does stomach prevent autodigestion?",
                 options: [
-                    "Anatomical dead space + Alveolar dead space",
-                    "Only anatomical dead space", 
-                    "Only alveolar dead space",
-                    "Conducting airways only"
+                    "Rapid epithelial turnover",
+                    "Gastric barrier of alkaline mucus",
+                    "Secretion of protease inhibitors",
+                    "Low pH inactivating pepsin"
                 ],
-                correct: 0,
-                explanation: "Physiological dead space = anatomical dead space (conducting airways) + alveolar dead space (ventilated but unperfused alveoli)."
+                correct: 1,
+                explanation: "Primary protection is gastric barrier: thick (≥1 mm) layer of viscid, alkaline mucus preventing acid/pepsin back-leak. Tight junctions also help.",
+                tip: "Mucus barrier = stomach's self-protection. Without it, stomach digests itself.",
+                clinical: "NSAIDs damage this barrier, causing gastric ulcers."
             },
             {
-                question: "68. The most common type of hypoxia is:",
+                id: 35,
+                topic: "Gastric Secretion",
+                question: "Which enzyme produces H+ and HCO3- from CO2 and water in parietal cells?",
                 options: [
-                    "Hypoxic hypoxia",
-                    "Anemic hypoxia", 
-                    "Circulatory hypoxia",
-                    "Histotoxic hypoxia"
+                    "ATPase",
+                    "Carbonic anhydrase",
+                    "Pepsin",
+                    "Kinase"
                 ],
-                correct: 0,
-                explanation: "Hypoxic hypoxia (low arterial PO₂) is most common, caused by high altitude, hypoventilation, or ventilation-perfusion mismatch."
+                correct: 1,
+                explanation: "Carbonic anhydrase catalyzes: CO2 + H2O ↔ H2CO3 ↔ H+ + HCO3-. H+ secreted, HCO3- exchanged for Cl- enters blood.",
+                tip: "Carbonic anhydrase = key for acid secretion. Also in kidney, RBCs.",
+                clinical: "Carbonic anhydrase inhibitors (acetazolamide) reduce gastric acid secretion."
             },
             {
-                question: "69. The carotid bodies are sensitive to:",
+                id: 36,
+                topic: "Gastric Secretion",
+                question: "What percentage of stomach contains oxyntic glands?",
                 options: [
-                    "Decreased PO₂, increased PCO₂, and decreased pH",
-                    "Only decreased PO₂", 
-                    "Only increased PCO₂",
-                    "Only decreased pH"
+                    "20%",
+                    "50%",
+                    "80%",
+                    "100%"
                 ],
-                correct: 0,
-                explanation: "Carotid bodies (peripheral chemoreceptors) respond to decreased PO₂, increased PCO₂, and decreased pH, stimulating increased ventilation."
+                correct: 2,
+                explanation: "Oxyntic glands constitute proximal 80% of stomach (body and fundus). Pyloric glands constitute distal 20% (antrum).",
+                tip: "Oxyntic glands = 80% of stomach. Pyloric glands = 20%.",
+                clinical: "Ulcers in different locations have different causes and treatments."
+            },
+            
+            // Section 5: Pancreatic Secretion (12 questions)
+            {
+                id: 37,
+                topic: "Pancreatic Secretion",
+                question: "Which pancreatic enzyme digests triglycerides?",
+                options: [
+                    "Pancreatic amylase",
+                    "Trypsin",
+                    "Pancreatic lipase",
+                    "Chymotrypsin"
+                ],
+                correct: 2,
+                explanation: "Pancreatic lipase digests triglycerides into monoglycerides and fatty acids. Requires bile salts for optimal activity.",
+                tip: "Pancreatic lipase = fat digester. 'Lipase' for lipids.",
+                clinical: "Pancreatic insufficiency causes steatorrhea (fatty stools)."
             },
             {
-                question: "70. The central chemoreceptors are primarily sensitive to:",
+                id: 38,
+                topic: "Pancreatic Secretion",
+                question: "How does pancreas protect itself from autodigestion?",
                 options: [
-                    "CO₂-induced changes in CSF pH",
-                    "Arterial PO₂", 
-                    "Arterial pH directly",
-                    "Blood bicarbonate levels"
+                    "Secreting enzymes only with food",
+                    "Producing trypsin inhibitor",
+                    "Maintaining alkaline environment",
+                    "Rapid secretion into duodenum"
                 ],
-                correct: 0,
-                explanation: "Central chemoreceptors in the medulla respond to CO₂-induced changes in cerebrospinal fluid pH, as CO₂ crosses blood-brain barrier and forms carbonic acid."
+                correct: 1,
+                explanation: "Pancreas secretes trypsin inhibitor blocking trypsin activity inside pancreas. Also, all proteases secreted as inactive zymogens activated only in small intestine.",
+                tip: "Trypsin inhibitor = pancreatic self-protection. Without it, pancreatitis.",
+                clinical: "Genetic defects in trypsin inhibitor cause hereditary pancreatitis."
             },
             {
-                question: "71. The Hering-Breuer reflex prevents:",
+                id: 39,
+                topic: "Pancreatic Secretion",
+                question: "Which hormone stimulates bicarbonate-rich pancreatic secretion?",
                 options: [
-                    "Overinflation of the lungs",
-                    "Underinflation of the lungs", 
-                    "Rapid breathing",
-                    "Shallow breathing"
+                    "Gastrin",
+                    "Cholecystokinin (CCK)",
+                    "Secretin",
+                    "GIP"
                 ],
-                correct: 0,
-                explanation: "The Hering-Breuer inflation reflex is triggered by stretch receptors in bronchi/bronchioles, inhibiting inspiration to prevent overinflation."
+                correct: 2,
+                explanation: "Secretin stimulates watery, bicarbonate-rich secretion from pancreatic duct cells to neutralize gastric acid in duodenum.",
+                tip: "Secretin = bicarbonate-rich pancreatic juice. 'Secretin' for 'secretion' of bicarbonate.",
+                clinical: "Secretin stimulation test diagnoses pancreatic exocrine insufficiency."
             },
             {
-                question: "72. The normal A-a gradient (alveolar-arterial O₂ difference) is:",
+                id: 40,
+                topic: "Pancreatic Secretion",
+                question: "What activates trypsinogen to trypsin?",
                 options: [
-                    "5-15 mmHg",
-                    "20-30 mmHg", 
-                    "35-45 mmHg",
-                    "50-60 mmHg"
+                    "Enterokinase (enteropeptidase)",
+                    "HCl acid",
+                    "Chymotrypsin",
+                    "Bile salts"
                 ],
                 correct: 0,
-                explanation: "Normal A-a gradient is 5-15 mmHg, increasing with age. Elevated gradient indicates impaired gas exchange (diffusion defect, V/Q mismatch, shunt)."
+                explanation: "Enterokinase (enteropeptidase) on duodenal brush border converts trypsinogen to trypsin. Trypsin then activates other pancreatic zymogens.",
+                tip: "Enterokinase = intestinal key for trypsin activation.",
+                clinical: "Enterokinase deficiency causes protein maldigestion despite normal pancreas."
             },
             {
-                question: "73. The primary driving force for fluid filtration in capillaries is:",
+                id: 41,
+                topic: "Pancreatic Secretion",
+                question: "Which pancreatic enzyme digests starch?",
                 options: [
-                    "Capillary hydrostatic pressure",
-                    "Plasma oncotic pressure", 
-                    "Interstitial hydrostatic pressure",
-                    "Interstitial oncotic pressure"
+                    "Pancreatic lipase",
+                    "Pancreatic amylase",
+                    "Trypsin",
+                    "Ribonuclease"
                 ],
-                correct: 0,
-                explanation: "Capillary hydrostatic pressure (favoring filtration) is opposed by plasma oncotic pressure (favoring absorption), according to Starling forces."
+                correct: 1,
+                explanation: "Pancreatic amylase digests starch into maltose, maltotriose, dextrins. More potent than salivary amylase, works at neutral pH.",
+                tip: "Pancreatic amylase = starch digestion completer.",
+                clinical: "Pancreatic amylase levels measured in diagnosing pancreatitis."
             },
             {
-                question: "74. The renin-angiotensin-aldosterone system (RAAS) is activated by:",
+                id: 42,
+                topic: "Pancreatic Secretion",
+                question: "What is pancreatic juice pH range?",
                 options: [
-                    "Decreased renal perfusion pressure",
-                    "Increased blood pressure", 
-                    "Increased plasma sodium",
-                    "Decreased angiotensin II"
+                    "1.0-2.0",
+                    "4.0-5.0",
+                    "7.1-8.2",
+                    "8.5-9.5"
                 ],
-                correct: 0,
-                explanation: "RAAS activates when renal perfusion decreases, stimulating renin release from juxtaglomerular cells, ultimately increasing blood pressure and sodium retention."
+                correct: 2,
+                explanation: "Pancreatic juice pH 7.1-8.2, alkaline to neutralize gastric acid and provide optimal pH for pancreatic enzymes.",
+                tip: "Pancreatic juice pH ~7.1-8.2 = slightly alkaline. Perfect for enzymes.",
+                clinical: "Insufficient pancreatic bicarbonate contributes to duodenal ulcers."
             },
             {
-                question: "75. Atrial natriuretic peptide (ANP) causes:",
+                id: 43,
+                topic: "Pancreatic Secretion",
+                question: "Which hormone stimulates pancreatic enzyme secretion?",
                 options: [
-                    "Increased sodium excretion and vasodilation",
-                    "Sodium retention and vasoconstriction", 
-                    "Water retention only",
-                    "Potassium retention"
+                    "Secretin",
+                    "Cholecystokinin (CCK)",
+                    "Gastrin",
+                    "Motilin"
                 ],
-                correct: 0,
-                explanation: "ANP, released from atrial myocytes in response to stretch, promotes natriuresis, diuresis, and vasodilation, opposing RAAS effects."
+                correct: 1,
+                explanation: "CCK stimulates pancreatic acinar cells to secrete enzymes. Secretin stimulates bicarbonate, gastrin minimal effect, motilin regulates motility.",
+                tip: "CCK = enzyme secretion. Remember: 'CCK' sounds like 'enzyme' conceptually.",
+                clinical: "CCK secretion test evaluates pancreatic exocrine function."
             },
             {
-                question: "76. The normal pH of arterial blood is:",
+                id: 44,
+                topic: "Pancreatic Secretion",
+                question: "Which pancreatic protease is an exopeptidase?",
                 options: [
-                    "7.35-7.45",
-                    "7.25-7.35", 
-                    "7.45-7.55",
-                    "7.15-7.25"
+                    "Trypsin",
+                    "Chymotrypsin",
+                    "Carboxypeptidase",
+                    "Elastase"
                 ],
-                correct: 0,
-                explanation: "Normal arterial blood pH is 7.35-7.45, tightly regulated by buffer systems, respiratory compensation, and renal compensation."
+                correct: 2,
+                explanation: "Carboxypeptidase is exopeptidase cleaving amino acids from C-terminal end. Trypsin, chymotrypsin, elastase are endopeptidases.",
+                tip: "Carboxypeptidase = C-terminal cutter. 'Carboxy' gives it away.",
+                clinical: "Different protease deficiencies cause different protein maldigestion patterns."
             },
             {
-                question: "77. Metabolic acidosis is characterized by:",
+                id: 45,
+                topic: "Pancreatic Secretion",
+                question: "What triggers secretin release?",
                 options: [
-                    "Decreased pH and decreased HCO₃⁻",
-                    "Decreased pH and increased HCO₃⁻", 
-                    "Increased pH and decreased HCO₃⁻",
-                    "Increased pH and increased HCO₃⁻"
+                    "Fatty acids",
+                    "Amino acids",
+                    "Acidic chyme (pH < 4.5-5.0)",
+                    "Hypertonic solutions"
                 ],
-                correct: 0,
-                explanation: "Metabolic acidosis: primary decrease in HCO₃⁻ with compensatory decrease in PCO₂. Causes include lactic acidosis, ketoacidosis, renal failure."
+                correct: 2,
+                explanation: "Secretin released when duodenal pH falls below 4.5-5.0. Release increases as pH falls to 3.0.",
+                tip: "Secretin release = acid in duodenum. Alarm for 'too much acid'.",
+                clinical: "Key protective reflex against duodenal ulcers."
             },
             {
-                question: "78. Respiratory alkalosis is characterized by:",
+                id: 46,
+                topic: "Pancreatic Secretion",
+                question: "Which pancreatic enzyme digests cholesterol esters?",
                 options: [
-                    "Increased pH and decreased PCO₂",
-                    "Decreased pH and increased PCO₂", 
-                    "Increased pH and increased PCO₂",
-                    "Decreased pH and decreased PCO₂"
+                    "Pancreatic lipase",
+                    "Cholesterol esterase",
+                    "Phospholipase A2",
+                    "Pancreatic amylase"
                 ],
-                correct: 0,
-                explanation: "Respiratory alkalosis: primary decrease in PCO₂ (hyperventilation) with compensatory decrease in HCO₃⁻. Causes include anxiety, high altitude, fever."
+                correct: 1,
+                explanation: "Cholesterol esterase hydrolyzes cholesterol esters into cholesterol and fatty acids, important for cholesterol absorption.",
+                tip: "Cholesterol esterase = for cholesterol esters. Name says it.",
+                clinical: "Reduced cholesterol esterase contributes to cholesterol malabsorption in pancreatic insufficiency."
             },
             {
-                question: "79. The anion gap is calculated as:",
+                id: 47,
+                topic: "Pancreatic Secretion",
+                question: "What percentage of pancreatic secretion occurs in cephalic/gastric phases?",
                 options: [
-                    "Na⁺ - (Cl⁻ + HCO₃⁻)",
-                    "K⁺ + Na⁺ - Cl⁻", 
-                    "Cl⁻ + HCO₃⁻ - Na⁺",
-                    "Na⁺ + K⁺ - (Cl⁻ + HCO₃⁻)"
+                    "5%",
+                    "10-20%",
+                    "30%",
+                    "50%"
                 ],
-                correct: 0,
-                explanation: "Anion gap = Na⁺ - (Cl⁻ + HCO₃⁻), normally 8-12 mEq/L. Increased gap suggests accumulation of unmeasured anions (lactate, ketones)."
+                correct: 2,
+                explanation: "Cephalic phase 20% + gastric phase 10% = 30% before food reaches intestine. Rest (70%) in intestinal phase.",
+                tip: "Cephalic (20%) + Gastric (10%) = 30% before intestinal phase.",
+                clinical: "Pancreatic secretion impaired after vagotomy."
             },
             {
-                question: "80. The most important intracellular buffer is:",
+                id: 48,
+                topic: "Pancreatic Secretion",
+                question: "What activates chymotrypsinogen to chymotrypsin?",
                 options: [
-                    "Protein buffer system",
-                    "Bicarbonate buffer system", 
-                    "Phosphate buffer system",
-                    "Hemoglobin buffer"
+                    "Enterokinase",
+                    "Trypsin",
+                    "HCl acid",
+                    "Chymotrypsin itself"
+                ],
+                correct: 1,
+                explanation: "Trypsin activates chymotrypsinogen to chymotrypsin. Trypsin is master activator of pancreatic zymogens (except its own activation by enterokinase).",
+                tip: "Trypsin = master activator of pancreatic zymogens.",
+                clinical: "Trypsinogen mutations cause hereditary pancreatitis from premature activation."
+            },
+            
+            // Section 6: Intestinal & Bile Secretion (12 questions)
+            {
+                id: 49,
+                topic: "Intestinal & Bile",
+                question: "Where are Brunner's glands located?",
+                options: [
+                    "Throughout small intestine",
+                    "Only in jejunum",
+                    "Mainly in duodenum",
+                    "In ileocecal region"
+                ],
+                correct: 2,
+                explanation: "Brunner's glands mainly in duodenum, between pylorus and ampulla of Vater. Secrete alkaline mucus to protect duodenal mucosa from gastric acid.",
+                tip: "Brunner's glands = duodenal protectors. 'Brun' sounds like 'burn' protection.",
+                clinical: "Brunner's gland hyperplasia can cause duodenal obstruction."
+            },
+            {
+                id: 50,
+                topic: "Intestinal & Bile",
+                question: "What do crypts of Lieberkühn primarily secrete?",
+                options: [
+                    "Digestive enzymes",
+                    "Water and electrolytes",
+                    "Mucus only",
+                    "Bicarbonate-rich fluid"
+                ],
+                correct: 1,
+                explanation: "Crypts of Lieberkühn secrete ~1800 mL/day of water and electrolytes (almost pure extracellular fluid, pH 7.5-8.0). Villi reabsorb this.",
+                tip: "Crypts = secretion, Villi = absorption. Secretion-reabsorption cycle.",
+                clinical: "In secretory diarrheas, crypt secretion increases while absorption impaired."
+            },
+            {
+                id: 51,
+                topic: "Intestinal & Bile",
+                question: "Which brush border enzyme activates trypsinogen?",
+                options: [
+                    "Enterokinase (enteropeptidase)",
+                    "Sucrase",
+                    "Lactase",
+                    "Aminopeptidase"
                 ],
                 correct: 0,
-                explanation: "Proteins are the main intracellular buffers due to their abundance and the presence of ionizable groups (especially histidine residues) with pKa near physiological pH."
+                explanation: "Enterokinase (enteropeptidase) on brush border converts trypsinogen to trypsin. Critical step activating pancreatic proteases.",
+                tip: "Enterokinase = brush border activator of trypsin. Unique among brush border enzymes.",
+                clinical: "Enterokinase deficiency causes severe protein maldigestion."
+            },
+            {
+                id: 52,
+                topic: "Intestinal & Bile",
+                question: "What is intestinal epithelial cell life cycle?",
+                options: [
+                    "12 hours",
+                    "24 hours",
+                    "5 days",
+                    "30 days"
+                ],
+                correct: 2,
+                explanation: "Intestinal epithelial cells live ~5 days. Rapid turnover allows quick repair but requires substantial nutrient support.",
+                tip: "Intestinal cells live ~5 days. Very rapid turnover.",
+                clinical: "Chemotherapy affects rapidly dividing cells, causing intestinal mucositis."
+            },
+            {
+                id: 53,
+                topic: "Intestinal & Bile",
+                question: "How does large intestine secretion differ from small intestine?",
+                options: [
+                    "Secretes digestive enzymes",
+                    "Secretes only mucus",
+                    "Secretes large watery volumes",
+                    "Secretes bicarbonate-rich enzyme fluid"
+                ],
+                correct: 1,
+                explanation: "Large intestine secretes almost exclusively mucus (with bicarbonate). No digestive enzymes. Crypts contain mucous cells secreting only mucus.",
+                tip: "Large intestine = mucus only, no enzymes. Small intestine = enzymes + mucus + fluid.",
+                clinical: "In ulcerative colitis, mucus secretion impaired, worsening inflammation."
+            },
+            {
+                id: 54,
+                topic: "Intestinal & Bile",
+                question: "What is primary bile acid synthesized from cholesterol?",
+                options: [
+                    "Deoxycholic acid",
+                    "Lithocholic acid",
+                    "Cholic acid",
+                    "Ursodeoxycholic acid"
+                ],
+                correct: 2,
+                explanation: "Primary bile acids: cholic and chenodeoxycholic acids, synthesized in hepatocytes from cholesterol. Deoxycholic and lithocholic are secondary (bacterial action in colon).",
+                tip: "Primary bile acids = cholic and chenodeoxycholic. Made fresh in liver.",
+                clinical: "Primary biliary cholangitis involves destruction of bile acid-producing hepatocytes."
+            },
+            {
+                id: 55,
+                topic: "Intestinal & Bile",
+                question: "Where are bile salts reabsorbed?",
+                options: [
+                    "Duodenum and jejunum",
+                    "Jejunum only",
+                    "Terminal ileum",
+                    "Colon"
+                ],
+                correct: 2,
+                explanation: "Bile salts actively reabsorbed in terminal ileum, returned to liver via portal circulation (enterohepatic circulation). 94% recycled.",
+                tip: "Terminal ileum = bile salt recovery site.",
+                clinical: "Ileal resection causes bile salt malabsorption and steatorrhea."
+            },
+            {
+                id: 56,
+                topic: "Intestinal & Bile",
+                question: "What stimulates gallbladder contraction?",
+                options: [
+                    "Secretin",
+                    "Cholecystokinin (CCK)",
+                    "Gastrin",
+                    "VIP"
+                ],
+                correct: 1,
+                explanation: "CCK stimulates gallbladder contraction and sphincter of Oddi relaxation, causing bile ejection into duodenum in response to fats.",
+                tip: "CCK = gallbladder contractor. 'Cystokinin' = moves the cyst (gallbladder).",
+                clinical: "CCK injection used in gallbladder function tests (HIDA scan)."
+            },
+            {
+                id: 57,
+                topic: "Intestinal & Bile",
+                question: "How does gallbladder concentrate bile?",
+                options: [
+                    "Secretes more bile salts",
+                    "Absorbs water and electrolytes",
+                    "Adds mucus",
+                    "Acidifies bile"
+                ],
+                correct: 1,
+                explanation: "Gallbladder concentrates bile 5-10x by actively reabsorbing Na+, followed by passive water/electrolyte reabsorption. Bile salts become more concentrated.",
+                tip: "Gallbladder = bile concentrator. Removes water, keeps bile salts.",
+                clinical: "Concentration increases gallstone risk if bile becomes supersaturated."
+            },
+            {
+                id: 58,
+                topic: "Intestinal & Bile",
+                question: "What is a choleretic?",
+                options: [
+                    "Increases bile flow from liver",
+                    "Contracts gallbladder",
+                    "Relaxes sphincter of Oddi",
+                    "Inhibits bile formation"
+                ],
+                correct: 0,
+                explanation: "Choleretic increases bile formation by liver (e.g., bile salts, secretin). Cholagogue increases bile release from gallbladder (e.g., CCK).",
+                tip: "Choleretic = increases bile production (liver). Cholagogue = increases bile release (gallbladder).",
+                clinical: "Ursodeoxycholic acid is choleretic used in cholestatic liver diseases."
+            },
+            {
+                id: 59,
+                topic: "Intestinal & Bile",
+                question: "What is enterohepatic circulation?",
+                options: [
+                    "Blood circulation through liver/intestines",
+                    "Bile salt recycling between liver and intestine",
+                    "Enzyme movement from pancreas to intestine",
+                    "Neural connection between enteric and hepatic systems"
+                ],
+                correct: 1,
+                explanation: "Enterohepatic circulation = bile salt recycling: liver → bile → intestine → ileal reabsorption → portal blood → liver. 94% recycled 6-8x daily.",
+                tip: "Enterohepatic circulation = bile salt recycling. Saves energy.",
+                clinical: "Interruption causes bile salt deficiency and steatorrhea."
+            },
+            {
+                id: 60,
+                topic: "Intestinal & Bile",
+                question: "What is approximate daily bile production?",
+                options: [
+                    "200-400 mL",
+                    "600-1200 mL",
+                    "1500-2000 mL",
+                    "2500-3000 mL"
+                ],
+                correct: 1,
+                explanation: "Liver produces 600-1200 mL bile/day. ~50% stored/concentrated in gallbladder between meals, released in response to food.",
+                tip: "Bile production = 0.6-1.2 L/day. Similar to saliva and gastric juice.",
+                clinical: "Obstructive jaundice occurs when bile flow blocked, backing up bilirubin."
             }
         ];
 
-        let currentQuestion = 0;
-        let userAnswers = new Array(physiologyQuestions.length).fill(null);
+        // Initialize variables
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
         let score = 0;
+        let startTime = null;
+        let endTime = null;
+        let timerInterval = null;
+        let sections = [
+            { name: "Introduction", start: 0, end: 7 },
+            { name: "Mucus Functions", start: 8, end: 13 },
+            { name: "Salivary Secretion", start: 14, end: 23 },
+            { name: "Gastric Secretion", start: 24, end: 35 },
+            { name: "Pancreatic Secretion", start: 36, end: 47 },
+            { name: "Intestinal & Bile", start: 48, end: 59 }
+        ];
+        let currentSectionIndex = 0;
 
-        function loadQuestion() {
-            const question = physiologyQuestions[currentQuestion];
-            document.getElementById('questionText').textContent = question.question;
+        // DOM elements
+        const questionScreen = document.getElementById('question-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackContainer = document.getElementById('feedback-container');
+        const feedbackText = document.getElementById('feedback-text');
+        const explanationText = document.getElementById('explanation-text');
+        const tipText = document.getElementById('tip-text');
+        const clinicalText = document.getElementById('clinical-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const qNum = document.getElementById('q-num');
+        const qTopic = document.getElementById('q-topic');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const totalQuestionsDisplay = document.getElementById('total-questions-display');
+        const progressFill = document.getElementById('progress-fill');
+        const finalScore = document.getElementById('final-score');
+        const resultMessage = document.getElementById('result-message');
+        const totalQuestionsResult = document.getElementById('total-questions-result');
+        const correctAnswers = document.getElementById('correct-answers');
+        const incorrectAnswers = document.getElementById('incorrect-answers');
+        const skippedAnswers = document.getElementById('skipped-answers');
+        const accuracy = document.getElementById('accuracy');
+        const timeSpentResult = document.getElementById('time-spent-result');
+        const sectionBreak = document.getElementById('section-break');
+        const sectionName = document.getElementById('section-name');
+        const currentSection = document.getElementById('current-section');
+        const correctCount = document.getElementById('correct-count');
+        const timeSpent = document.getElementById('time-spent');
+
+        // Initialize exam
+        function initExam() {
+            totalQuestionsSpan.textContent = questions.length;
+            totalQuestionsDisplay.textContent = questions.length;
+            totalQuestionsResult.textContent = questions.length;
+            startTime = new Date();
+            loadQuestion(currentQuestionIndex);
+            updateProgress();
+            updateStats();
+            startTimer();
+        }
+
+        // Start timer
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        // Update timer display
+        function updateTimer() {
+            if (!startTime) return;
+            const now = new Date();
+            const diff = Math.floor((now - startTime) / 1000);
+            const minutes = Math.floor(diff / 60);
+            const seconds = diff % 60;
+            timeSpent.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Load question
+        function loadQuestion(index) {
+            const question = questions[index];
+            qNum.textContent = question.id;
+            qTopic.textContent = question.topic;
+            currentQuestionSpan.textContent = index + 1;
+            questionText.textContent = question.question;
             
-            const optionsContainer = document.getElementById('optionsContainer');
+            // Update section display
+            updateSectionDisplay(index);
+            
+            // Clear previous options
             optionsContainer.innerHTML = '';
             
-            question.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'option-btn';
-                button.textContent = option;
-                
-                if (userAnswers[currentQuestion] === index) {
-                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
+            // Add new options
+            const letters = ['A', 'B', 'C', 'D'];
+            question.options.forEach((option, i) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[index] === i) {
+                    optionElement.classList.add('selected');
                 }
                 
-                button.onclick = () => selectOption(index);
-                optionsContainer.appendChild(button);
+                optionElement.innerHTML = `
+                    <div class="option-letter">${letters[i]}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                
+                optionElement.addEventListener('click', () => selectOption(i));
+                optionsContainer.appendChild(optionElement);
             });
             
-            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${physiologyQuestions.length}`;
-            document.getElementById('progress').style.width = `${((currentQuestion + 1) / physiologyQuestions.length) * 100}%`;
+            // Hide feedback
+            feedbackContainer.classList.remove('show');
             
-            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
-            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+            // Update buttons
+            prevBtn.disabled = index === 0;
             
-            const explanation = document.getElementById('explanation');
-            if (userAnswers[currentQuestion] !== null) {
-                explanation.textContent = question.explanation;
-                explanation.classList.add('show');
+            if (index === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
             } else {
-                explanation.classList.remove('show');
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            }
+            
+            updateProgress();
+            updateStats();
+        }
+
+        // Update section display
+        function updateSectionDisplay(index) {
+            // Find current section
+            for (let i = 0; i < sections.length; i++) {
+                if (index >= sections[i].start && index <= sections[i].end) {
+                    currentSectionIndex = i;
+                    break;
+                }
+            }
+            
+            // Update section info
+            currentSection.textContent = `${currentSectionIndex + 1}/${sections.length}`;
+            
+            // Show section break at start of each section (except first)
+            if (index === sections[currentSectionIndex].start && currentSectionIndex > 0) {
+                sectionBreak.style.display = 'block';
+                sectionName.textContent = sections[currentSectionIndex].name;
+            } else {
+                sectionBreak.style.display = 'none';
             }
         }
 
+        // Select option
         function selectOption(optionIndex) {
-            userAnswers[currentQuestion] = optionIndex;
-            const question = physiologyQuestions[currentQuestion];
-            const options = document.querySelectorAll('.option-btn');
+            // Remove selected class from all options
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
             
-            options.forEach((button, index) => {
-                button.classList.remove('correct', 'wrong');
-                if (index === question.correct) {
-                    button.classList.add('correct');
-                } else if (index === optionIndex && optionIndex !== question.correct) {
-                    button.classList.add('wrong');
+            // Add selected class to clicked option
+            document.querySelectorAll('.option')[optionIndex].classList.add('selected');
+            
+            // Store answer
+            userAnswers[currentQuestionIndex] = optionIndex;
+            
+            // Show feedback immediately
+            showFeedback();
+            
+            // Update stats
+            updateStats();
+        }
+
+        // Show feedback
+        function showFeedback() {
+            const question = questions[currentQuestionIndex];
+            const userAnswer = userAnswers[currentQuestionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            // Update option colors
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && userAnswer !== question.correct) {
+                    opt.classList.add('incorrect');
                 }
             });
             
-            document.getElementById('explanation').textContent = question.explanation;
-            document.getElementById('explanation').classList.add('show');
-            document.getElementById('nextBtn').disabled = false;
-        }
-
-        function nextQuestion() {
-            if (currentQuestion < physiologyQuestions.length - 1) {
-                currentQuestion++;
-                loadQuestion();
+            // Set feedback text
+            if (isCorrect) {
+                feedbackText.innerHTML = `<span style="color: #4CAF50; font-weight: bold;">Correct!</span>`;
+            } else if (userAnswer === null) {
+                feedbackText.innerHTML = `<span style="color: #FF9800; font-weight: bold;">No answer selected.</span> The correct answer is ${String.fromCharCode(65 + question.correct)}.`;
             } else {
-                calculateScore();
+                feedbackText.innerHTML = `<span style="color: #f44336; font-weight: bold;">Incorrect.</span> The correct answer is ${String.fromCharCode(65 + question.correct)}.`;
             }
+            
+            explanationText.textContent = question.explanation;
+            tipText.textContent = question.tip;
+            clinicalText.textContent = question.clinical;
+            
+            // Show feedback container
+            feedbackContainer.classList.add('show');
         }
 
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                loadQuestion();
-            }
+        // Update stats
+        function updateStats() {
+            // Calculate current score
+            let correct = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    correct++;
+                }
+            });
+            
+            correctCount.textContent = correct;
         }
 
+        // Next question
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion(currentQuestionIndex);
+            }
+        });
+
+        // Previous question
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion(currentQuestionIndex);
+            }
+        });
+
+        // Submit exam
+        submitBtn.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            endTime = new Date();
+            calculateScore();
+            showResults();
+        });
+
+        // Calculate score
         function calculateScore() {
             score = 0;
-            physiologyQuestions.forEach((question, index) => {
-                if (userAnswers[index] === question.correct) {
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
                     score++;
                 }
             });
-            
-            const scoreDisplay = document.getElementById('scoreDisplay');
-            scoreDisplay.innerHTML = `
-                <h3>Quiz Completed! 🎉</h3>
-                <p>Your score: <strong>${score}/${physiologyQuestions.length}</strong> (${Math.round((score/physiologyQuestions.length)*100)}%)</p>
-                <p>${score === physiologyQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
-                    score >= physiologyQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
-                    'Keep studying! You\'ll improve! 💪'}</p>
-            `;
-            scoreDisplay.style.display = 'block';
         }
 
-        loadQuestion();
+        // Show results
+        function showResults() {
+            questionScreen.style.display = 'none';
+            resultScreen.style.display = 'block';
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            finalScore.textContent = `${percentage}%`;
+            
+            // Set result message based on score
+            if (percentage >= 90) {
+                resultMessage.textContent = "Outstanding! You have exceptional knowledge of GIT secretory functions.";
+            } else if (percentage >= 80) {
+                resultMessage.textContent = "Excellent! You have a strong understanding of gastrointestinal secretions.";
+            } else if (percentage >= 70) {
+                resultMessage.textContent = "Good job! You have solid knowledge of GIT secretory functions.";
+            } else if (percentage >= 60) {
+                resultMessage.textContent = "Satisfactory. You understand the basics but should review some areas.";
+            } else {
+                resultMessage.textContent = "Keep studying! Review the material and try again to improve your understanding.";
+            }
+            
+            // Calculate time spent
+            const timeDiff = endTime - startTime;
+            const minutes = Math.floor(timeDiff / 60000);
+            const seconds = Math.floor((timeDiff % 60000) / 1000);
+            
+            // Calculate skipped questions
+            const skipped = userAnswers.filter(answer => answer === null).length;
+            
+            // Update result stats
+            correctAnswers.textContent = score;
+            incorrectAnswers.textContent = questions.length - score - skipped;
+            skippedAnswers.textContent = skipped;
+            accuracy.textContent = `${percentage}%`;
+            timeSpentResult.textContent = `${minutes} min ${seconds} sec`;
+        }
+
+        // Restart exam
+        restartBtn.addEventListener('click', () => {
+            // Reset variables
+            currentQuestionIndex = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            score = 0;
+            startTime = new Date();
+            
+            // Show question screen
+            resultScreen.style.display = 'none';
+            questionScreen.style.display = 'block';
+            
+            // Reload first question
+            loadQuestion(currentQuestionIndex);
+            
+            // Restart timer
+            startTimer();
+        });
+
+        // Update progress
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+
+        // Initialize the exam when page loads
+        window.addEventListener('DOMContentLoaded', initExam);
     </script>
 </body>
-</html>
+    </html>
