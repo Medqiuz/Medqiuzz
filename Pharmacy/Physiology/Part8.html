@@ -1,0 +1,2446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete GI System Master Notes | Everything Integrated</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #2c3e50;
+            line-height: 1.7;
+            padding: 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+            counter-reset: section;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #1a5276);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .file-sources {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .author {
+            margin-top: 20px;
+            font-style: italic;
+            opacity: 0.8;
+            position: relative;
+            z-index: 1;
+        }
+        
+        main {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+        
+        #table-of-contents {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #1a5276;
+        }
+        
+        #table-of-contents h2 {
+            color: #1a5276;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        #toc-list {
+            list-style: none;
+        }
+        
+        #toc-list li {
+            margin-bottom: 12px;
+            position: relative;
+        }
+        
+        #toc-list a {
+            color: #2c3e50;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        #toc-list a:hover {
+            background: #f0f7ff;
+            border-left-color: #1a5276;
+            transform: translateX(5px);
+        }
+        
+        #toc-list .sub-item {
+            margin-left: 20px;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid #1a5276;
+            position: relative;
+            counter-increment: section;
+        }
+        
+        .content-section::before {
+            content: counter(section) ". ";
+            position: absolute;
+            left: -35px;
+            top: 35px;
+            background: #1a5276;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        h2 {
+            color: #1a5276;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #1a5276, #3498db);
+            border-radius: 3px;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            padding-left: 15px;
+            border-left: 4px solid #3498db;
+        }
+        
+        h4 {
+            color: #5a738e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        p {
+            margin-bottom: 18px;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 5px;
+        }
+        
+        li::marker {
+            color: #1a5276;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #1a5276, #2c3e50);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        th::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 25%;
+            height: 50%;
+            width: 2px;
+            background: rgba(255,255,255,0.3);
+        }
+        
+        th:last-child::after {
+            display: none;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e8f4fd;
+            transition: background-color 0.3s;
+        }
+        
+        .info-box {
+            background: #e8f4fd;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.1);
+        }
+        
+        .warning-box {
+            background: #fff8e1;
+            border-left: 5px solid #f39c12;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 3px 10px rgba(243, 156, 18, 0.1);
+        }
+        
+        .success-box {
+            background: #e8f6ef;
+            border-left: 5px solid #27ae60;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
+        }
+        
+        .mechanism-box {
+            background: #f4ecf7;
+            border-left: 5px solid #8e44ad;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+        
+        .comparison-box {
+            background: #fff8e1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px dashed #f39c12;
+        }
+        
+        .diagram-placeholder {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+            color: #5a738e;
+            font-style: italic;
+        }
+        
+        .key-point {
+            background: #fff;
+            border: 2px solid #1a5276;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .key-point::before {
+            content: '★';
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            background: #1a5276;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #eaeaea;
+            color: #666;
+            font-size: 0.9rem;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .content-highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .enzyme-badge {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .hormone-badge {
+            display: inline-block;
+            background: #9b59b6;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 1100px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+            
+            #table-of-contents {
+                position: static;
+                margin-bottom: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+            
+            .content-section::before {
+                display: none;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>COMPREHENSIVE GASTROINTESTINAL SYSTEM MASTER NOTES</h1>
+        <p class="subtitle">Complete Integration of All Three Source Files - No Duplication, Nothing Missing</p>
+        
+        <div class="file-sources">
+            <p><strong>Integrated Sources:</strong></p>
+            <ul style="color: white; margin-top: 10px;">
+                <li>GIT ECT.pptx - GI Tract Physiology</li>
+                <li>Secretory function of GIT (1).pptx - Secretory Functions</li>
+                <li>digestionand absorption.pdf - Digestion & Absorption</li>
+            </ul>
+        </div>
+        
+        <p class="author">Compiled for Comprehensive Medical Study | All Content Organized Systematically</p>
+    </header>
+    
+    <main>
+        <aside id="table-of-contents">
+            <h2>Table of Contents</h2>
+            <ul id="toc-list">
+                <li><a href="#overview">1. System Overview & Functions</a></li>
+                <li><a href="#structure">2. GI Tract Structure</a></li>
+                <li><a href="#innervation">3. Innervation & Control</a></li>
+                <li><a href="#regulatory">4. Regulatory Substances</a></li>
+                <li><a href="#motility">5. Gastrointestinal Motility</a></li>
+                <li><a href="#secretion">6. Secretory Functions</a></li>
+                <li><a href="#digestion">7. Digestion Processes</a></li>
+                <li><a href="#absorption">8. Absorption Mechanisms</a></li>
+                <li><a href="#integration">9. System Integration</a></li>
+                <li><a href="#clinical">10. Clinical Correlations</a></li>
+            </ul>
+        </aside>
+        
+        <article id="content-container">
+            <!-- SECTION 1: SYSTEM OVERVIEW -->
+            <section id="overview" class="content-section">
+                <h2>1. Gastrointestinal System Overview & Functions</h2>
+                
+                <div class="info-box">
+                    <p><strong>Primary Function:</strong> To process food, extract nutrients, and eliminate waste through coordinated mechanical and chemical processes.</p>
+                </div>
+                
+                <h3>Four Major Activities of the GI Tract</h3>
+                <ol>
+                    <li><strong class="content-highlight">Motility</strong> - Propulsion of ingested food from mouth to rectum
+                        <ul>
+                            <li>Ingestion, mastication, deglutition</li>
+                            <li>Peristalsis and segmentation</li>
+                            <li>Defecation</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong class="content-highlight">Secretion</strong> - Production of digestive juices
+                        <ul>
+                            <li>Saliva, gastric juice, pancreatic juice, bile</li>
+                            <li>Mucus for lubrication and protection</li>
+                            <li>Enzymes for chemical digestion</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong class="content-highlight">Digestion</strong> - Breakdown of food into absorbable molecules
+                        <ul>
+                            <li>Mechanical: Chewing, churning, segmentation</li>
+                            <li>Chemical: Enzymatic hydrolysis</li>
+                            <li>Carbohydrates → Monosaccharides</li>
+                            <li>Proteins → Amino acids</li>
+                            <li>Fats → Fatty acids + Monoglycerides</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong class="content-highlight">Absorption</strong> - Transport of nutrients from lumen to bloodstream
+                        <ul>
+                            <li>Small intestine: Primary site (90-95%)</li>
+                            <li>Water and electrolyte balance</li>
+                            <li>Vitamin and mineral uptake</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <h3>Components of the Digestive System</h3>
+                
+                <div class="comparison-box">
+                    <h4>Main Organs (Alimentary Canal)</h4>
+                    <ul>
+                        <li><strong>Mouth</strong> - Ingestion, mechanical digestion, initial chemical digestion</li>
+                        <li><strong>Pharynx & Esophagus</strong> - Transportation to stomach</li>
+                        <li><strong>Stomach</strong> - Storage, mixing, protein digestion, intrinsic factor secretion</li>
+                        <li><strong>Small Intestine</strong> - Duodenum, Jejunum, Ileum - Main digestion and absorption</li>
+                        <li><strong>Large Intestine</strong> - Water absorption, feces formation, bacterial fermentation</li>
+                        <li><strong>Rectum & Anus</strong> - Feces storage and elimination</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-box">
+                    <h4>Accessory Organs</h4>
+                    <ul>
+                        <li><strong>Teeth & Tongue</strong> - Mechanical digestion and taste</li>
+                        <li><strong>Salivary Glands</strong> - Saliva production (enzymes, mucus, ions)</li>
+                        <li><strong>Liver</strong> - Bile production, metabolic processing</li>
+                        <li><strong>Gallbladder</strong> - Bile storage and concentration</li>
+                        <li><strong>Pancreas</strong> - Digestive enzymes and bicarbonate secretion</li>
+                    </ul>
+                </div>
+                
+                <div class="key-point">
+                    <p><strong>Key Integration:</strong> The GI system functions as an integrated unit where motility, secretion, digestion, and absorption are precisely coordinated by neural and hormonal signals to optimize nutrient processing.</p>
+                </div>
+            </section>
+            
+            <!-- SECTION 2: STRUCTURE -->
+            <section id="structure" class="content-section">
+                <h2>2. Gastrointestinal Tract Structure</h2>
+                
+                <h3>Four-Layered Organization (From Lumen Outward)</h3>
+                
+                <div class="info-box">
+                    <h4>1. Mucosa (Innermost Layer)</h4>
+                    <ul>
+                        <li><strong>Epithelium</strong> - Variable along tract:
+                            <ul>
+                                <li>Stratified squamous in mouth, esophagus, anus (protection)</li>
+                                <li>Simple columnar in stomach, intestines (absorption/secretion)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Lamina Propria</strong> - Loose connective tissue with:
+                            <ul>
+                                <li>Blood and lymphatic vessels</li>
+                                <li>Nerve fibers</li>
+                                <li>Lymphoid tissue (GALT - Gut-Associated Lymphoid Tissue)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Muscularis Mucosae</strong> - Thin smooth muscle layer
+                            <ul>
+                                <li>Creates local mucosal folding</li>
+                                <li>Increases surface area</li>
+                                <li>Aids in secretion and absorption</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>2. Submucosa</h4>
+                    <ul>
+                        <li>Dense connective tissue with larger blood vessels</li>
+                        <li>Submucosal (Meissner's) plexus - part of ENS</li>
+                        <li>Glands in some regions (esophageal, duodenal)</li>
+                        <li>Lymphatic tissue</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>3. Muscularis Externa</h4>
+                    <ul>
+                        <li><strong>Inner Circular Layer</strong> - Contraction narrows lumen</li>
+                        <li><strong>Outer Longitudinal Layer</strong> - Contraction shortens segment</li>
+                        <li><strong>Stomach has third oblique layer</strong> - Unique for mixing</li>
+                        <li>Myenteric (Auerbach's) plexus between layers</li>
+                        <li>Coordinated contractions create peristalsis</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>4. Serosa/Adventitia</h4>
+                    <ul>
+                        <li><strong>Serosa</strong> - Intraperitoneal organs (visceral peritoneum)
+                            <ul>
+                                <li>Simple squamous epithelium (mesothelium)</li>
+                                <li>Connective tissue</li>
+                            </ul>
+                        </li>
+                        <li><strong>Adventitia</strong> - Retroperitoneal organs
+                            <ul>
+                                <li>Connective tissue binding to surrounding structures</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <h3>Specialized Structural Adaptations</h3>
+                
+                <div class="comparison-box">
+                    <h4>Surface Area Maximization</h4>
+                    <table>
+                        <tr><th>Structure</th><th>Location</th><th>Function</th><th>Surface Increase</th></tr>
+                        <tr><td>Plicae circulares</td><td>Small intestine</td><td>Permanent circular folds</td><td>3×</td></tr>
+                        <tr><td>Villi</td><td>Small intestine</td><td>Finger-like projections</td><td>10×</td></tr>
+                        <tr><td>Microvilli (Brush border)</td><td>Enterocyte apical membrane</td><td>Cytoplasmic projections</td><td>20×</td></tr>
+                        <tr><td colspan="3"><strong>Total Surface Area Increase</strong></td><td><strong>600×</strong></td></tr>
+                    </table>
+                </div>
+                
+                <h3>Gastric Structural Specialization</h3>
+                <ul>
+                    <li><strong>Three muscle layers</strong> (vs two elsewhere):
+                        <ul>
+                            <li>Outer longitudinal</li>
+                            <li>Middle circular</li>
+                            <li>Inner oblique (unique to stomach)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Thickness gradient</strong>: Proximal (thin, weak contractions) to distal (thick, strong contractions)</li>
+                    <li><strong>Gastric pits</strong> lead to glands with specialized cells</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <p><strong>Important Distinction:</strong> The stomach wall thickness increases from the cardia (proximal) to the pylorus (distal), correlating with the strength of contractions needed for mixing versus propulsion.</p>
+                </div>
+            </section>
+            
+            <!-- SECTION 3: INNERVATION -->
+            <section id="innervation" class="content-section">
+                <h2>3. Innervation & Control Systems</h2>
+                
+                <h3>Three-Tiered Neural Control</h3>
+                
+                <div class="info-box">
+                    <h4>1. Extrinsic Innervation (Autonomic Nervous System)</h4>
+                    <table>
+                        <tr><th>System</th><th>Origin</th><th>Effect on GI Tract</th><th>Neurotransmitters</th></tr>
+                        <tr><td>Parasympathetic</td>
+                            <td>Vagus (cranial X) & Pelvic nerves</td>
+                            <td>Generally stimulatory
+                                <ul style="margin-top: 5px;">
+                                    <li>↑ Motility</li>
+                                    <li>↑ Secretion</li>
+                                    <li>Sphincter relaxation</li>
+                                </ul>
+                            </td>
+                            <td>Acetylcholine (ACh)</td></tr>
+                        <tr><td>Sympathetic</td>
+                            <td>Thoracolumbar spinal cord</td>
+                            <td>Generally inhibitory
+                                <ul style="margin-top: 5px;">
+                                    <li>↓ Motility</li>
+                                    <li>↓ Secretion</li>
+                                    <li>Sphincter contraction</li>
+                                </ul>
+                            </td>
+                            <td>Norepinephrine (NE)</td></tr>
+                    </table>
+                </div>
+                
+                <div class="info-box">
+                    <h4>2. Intrinsic Innervation (Enteric Nervous System - ENS)</h4>
+                    <p>The "second brain" - Can function independently of CNS</p>
+                    
+                    <div class="comparison-box">
+                        <h4>Two Major Plexuses</h4>
+                        <table>
+                            <tr><th>Plexus</th><th>Location</th><th>Primary Functions</th><th>Neurons</th></tr>
+                            <tr><td><strong>Myenteric (Auerbach's)</strong></td>
+                                <td>Between longitudinal and circular muscle layers</td>
+                                <td>
+                                    <ul>
+                                        <li>Controls motility</li>
+                                        <li>Regulates peristalsis and segmentation</li>
+                                        <li>Coordinates sphincter function</li>
+                                    </ul>
+                                </td>
+                                <td>Mostly motor neurons</td></tr>
+                            <tr><td><strong>Submucosal (Meissner's)</strong></td>
+                                <td>Submucosa layer</td>
+                                <td>
+                                    <ul>
+                                        <li>Regulates secretion and absorption</li>
+                                        <li>Controls local blood flow</li>
+                                        <li>Innervates glandular epithelium</li>
+                                    </ul>
+                                </td>
+                                <td>Sensory and secretomotor neurons</td></tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <h3>Neurotransmitters and Neuromodulators</h3>
+                
+                <div class="comparison-box">
+                    <table>
+                        <tr><th>Substance</th><th>Type</th><th>Primary Action</th><th>Notes</th></tr>
+                        <tr><td><strong>Acetylcholine (ACh)</strong></td>
+                            <td>Neurotransmitter</td>
+                            <td>↑ Motility, ↑ Secretion</td>
+                            <td>Main parasympathetic neurotransmitter</td></tr>
+                        <tr><td><strong>Norepinephrine (NE)</strong></td>
+                            <td>Neurotransmitter</td>
+                            <td>↓ Motility, ↓ Secretion</td>
+                            <td>Main sympathetic neurotransmitter</td></tr>
+                        <tr><td><strong>VIP (Vasoactive Intestinal Peptide)</strong></td>
+                            <td>Neurotransmitter</td>
+                            <td>Smooth muscle relaxation</td>
+                            <td>Mediates LES relaxation, increases secretion</td></tr>
+                        <tr><td><strong>Serotonin (5-HT)</strong></td>
+                            <td>Neurotransmitter</td>
+                            <td>↑ Peristalsis, modulates sensation</td>
+                            <td>90% of body's serotonin in GI tract</td></tr>
+                        <tr><td><strong>GABA</strong></td>
+                            <td>Neurotransmitter</td>
+                            <td>Relaxes LES</td>
+                            <td>Inhibitory neurotransmitter</td></tr>
+                        <tr><td><strong>Neuropeptide Y (NPY)</strong></td>
+                            <td>Neuromodulator</td>
+                            <td>Stimulates feeding, various GI effects</td>
+                            <td>Potent orexigenic signal</td></tr>
+                        <tr><td><strong>Substance P</strong></td>
+                            <td>Neurotransmitter</td>
+                            <td>↑ Motility, pain transmission</td>
+                            <td>Involved in vomiting reflex</td></tr>
+                        <tr><td><strong>Nitric Oxide (NO)</strong></td>
+                            <td>Neurotransmitter</td>
+                            <td>Smooth muscle relaxation</td>
+                            <td>Non-adrenergic, non-cholinergic (NANC) transmitter</td></tr>
+                    </table>
+                </div>
+                
+                <h3>Major Gastrointestinal Reflexes</h3>
+                
+                <div class="info-box">
+                    <h4>Vagovagal Reflexes</h4>
+                    <p>Both afferent and efferent limbs in vagus nerve</p>
+                    <ul>
+                        <li><strong>Receptive relaxation</strong> - Stomach relaxes when food enters</li>
+                        <li><strong>Gastrocolic reflex</strong> - Stomach distension increases colon motility</li>
+                        <li><strong>Enterogastric reflex</strong> - Duodenal distension/inhibition slows gastric emptying</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Other Important Reflexes</h4>
+                    <ul>
+                        <li><strong>Defecation reflex</strong> - Rectal distension triggers desire to defecate</li>
+                        <li><strong>Rectosphincteric reflex</strong> - Internal anal sphincter relaxes when rectum fills</li>
+                        <li><strong>Ileogastric reflex</strong> - Ileal distension inhibits gastric motility</li>
+                        <li><strong>Intestino-intestinal reflex</strong> - Overdistension of one intestinal segment relaxes others</li>
+                    </ul>
+                </div>
+                
+                <div class="mechanism-box">
+                    <h4>Reflex Pathway Example: Receptive Relaxation</h4>
+                    <p>1. Food enters stomach → Distension detected by mechanoreceptors</p>
+                    <p>2. Afferent signal via vagus nerve to medulla</p>
+                    <p>3. Efferent signal via vagus nerve back to stomach</p>
+                    <p>4. VIP release → Smooth muscle relaxation → Stomach volume increases</p>
+                </div>
+            </section>
+            
+            <!-- SECTION 4: REGULATORY SUBSTANCES -->
+            <section id="regulatory" class="content-section">
+                <h2>4. Gastrointestinal Regulatory Substances</h2>
+                
+                <h3>Classification by Action Range</h3>
+                
+                <div class="comparison-box">
+                    <table>
+                        <tr><th>Type</th><th>Definition</th><th>Examples</th><th>Transport</th></tr>
+                        <tr><td><strong>Endocrines (Hormones)</strong></td>
+                            <td>Secreted into blood, act on distant targets</td>
+                            <td>Gastrin, Secretin, CCK, GIP, Motilin</td>
+                            <td>Bloodstream</td></tr>
+                        <tr><td><strong>Paracrines</strong></td>
+                            <td>Act locally on nearby cells</td>
+                            <td>Somatostatin, Histamine</td>
+                            <td>Diffusion through interstitial fluid</td></tr>
+                        <tr><td><strong>Neurocrines</strong></td>
+                            <td>Released from neurons</td>
+                            <td>ACh, NE, VIP, Serotonin</td>
+                            <td>Synaptic cleft</td></tr>
+                        <tr><td><strong>Autocrines</strong></td>
+                            <td>Act on same cell that secreted them</td>
+                            <td>Prostaglandins</td>
+                            <td>Local diffusion</td></tr>
+                    </table>
+                </div>
+                
+                <h3>Major Gastrointestinal Hormones</h3>
+                
+                <div class="comparison-box">
+                    <table>
+                        <tr><th>Hormone</th><th>Source Cells</th><th>Stimuli for Release</th><th>Major Actions</th></tr>
+                        <tr><td><span class="hormone-badge">Gastrin</span></td>
+                            <td>G cells (stomach antrum, duodenum)</td>
+                            <td>
+                                <ul>
+                                    <li>Peptides & amino acids in stomach</li>
+                                    <li>Stomach distension</li>
+                                    <li>Vagal stimulation (via GRP)</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Stimulates gastric acid secretion</li>
+                                    <li>Promotes gastric mucosal growth</li>
+                                    <li>Increases gastric motility</li>
+                                    <li>Strengthens LES tone</li>
+                                </ul>
+                            </td></tr>
+                        <tr><td><span class="hormone-badge">Cholecystokinin (CCK)</span></td>
+                            <td>I cells (duodenum, jejunum)</td>
+                            <td>
+                                <ul>
+                                    <li>Fatty acids & monoglycerides</li>
+                                    <li>Amino acids & peptides</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Gallbladder contraction</li>
+                                    <li>Pancreatic enzyme secretion</li>
+                                    <li>Inhibits gastric emptying</li>
+                                    <li>Potentiates secretin action</li>
+                                    <li>Increases satiety</li>
+                                </ul>
+                            </td></tr>
+                        <tr><td><span class="hormone-badge">Secretin</span></td>
+                            <td>S cells (duodenum)</td>
+                            <td>Acidic chyme (pH < 4.5) in duodenum</td>
+                            <td>
+                                <ul>
+                                    <li>Pancreatic bicarbonate secretion</li>
+                                    <li>Biliary bicarbonate secretion</li>
+                                    <li>Inhibits gastric acid secretion</li>
+                                    <li>Potentiates CCK action</li>
+                                </ul>
+                            </td></tr>
+                        <tr><td><span class="hormone-badge">GIP (Glucose-dependent Insulinotropic Peptide)</span></td>
+                            <td>K cells (duodenum, jejunum)</td>
+                            <td>
+                                <ul>
+                                    <li>Glucose</li>
+                                    <li>Fatty acids</li>
+                                    <li>Amino acids</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Stimulates insulin release (incretin effect)</li>
+                                    <li>Inhibits gastric acid secretion</li>
+                                    <li>Slows gastric emptying</li>
+                                </ul>
+                            </td></tr>
+                        <tr><td><span class="hormone-badge">Motilin</span></td>
+                            <td>M cells (stomach, duodenum)</td>
+                            <td>Periodic during fasting state</td>
+                            <td>
+                                <ul>
+                                    <li>Initiates migrating motor complexes (MMC)</li>
+                                    <li>Increases gastric emptying</li>
+                                    <li>Stimulates intestinal motility</li>
+                                </ul>
+                            </td></tr>
+                    </table>
+                </div>
+                
+                <div class="key-point">
+                    <p><strong>Unique Feature of GIP:</strong> It is the ONLY gastrointestinal hormone stimulated by ALL THREE macronutrient types (carbohydrates, fats, and proteins). This allows it to serve as a comprehensive nutrient sensor.</p>
+                </div>
+                
+                <h3>Paracrine Regulators</h3>
+                
+                <div class="info-box">
+                    <h4>Somatostatin</h4>
+                    <ul>
+                        <li><strong>Source:</strong> D cells in stomach, pancreas, intestine</li>
+                        <li><strong>Stimuli:</strong> Acid, products of protein/fat digestion</li>
+                        <li><strong>Actions:</strong>
+                            <ul>
+                                <li>Inhibits gastrin, secretin, CCK, GIP release</li>
+                                <li>Decreases gastric acid and pepsinogen secretion</li>
+                                <li>Reduces pancreatic and biliary secretion</li>
+                                <li>Slows GI motility and absorption</li>
+                                <li>Decreases blood flow to GI tract</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Histamine</h4>
+                    <ul>
+                        <li><strong>Source:</strong> Enterochromaffin-like (ECL) cells in stomach</li>
+                        <li><strong>Stimuli:</strong> Gastrin, ACh</li>
+                        <li><strong>Action:</strong> Potent stimulator of gastric acid secretion via H₂ receptors on parietal cells</li>
+                        <li><strong>Clinical:</strong> H₂ receptor antagonists (ranitidine, famotidine) reduce acid secretion</li>
+                    </ul>
+                </div>
+                
+                <h3>Appetite and Satiety Regulation</h3>
+                
+                <div class="info-box">
+                    <h4>Hypothalamic Centers</h4>
+                    <ul>
+                        <li><strong>Ventromedial Nucleus (VMN):</strong> "Satiety center" - when stimulated, inhibits feeding</li>
+                        <li><strong>Lateral Hypothalamic Area (LHA):</strong> "Feeding center" - when stimulated, promotes feeding</li>
+                        <li><strong>Arcuate Nucleus:</strong> Integrates peripheral signals, contains:
+                            <ul>
+                                <li><strong>Anorexigenic neurons:</strong> Release POMC/CART → decrease appetite</li>
+                                <li><strong>Orexigenic neurons:</strong> Release NPY/AgRP → increase appetite</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-box">
+                    <h4>Peripheral Signals Influencing Appetite</h4>
+                    <table>
+                        <tr><th>Signal</th><th>Source</th><th>Effect on Appetite</th><th>Mechanism</th></tr>
+                        <tr><td><strong>Ghrelin</strong></td>
+                            <td>Stomach (fasting state)</td>
+                            <td>↑ Increases</td>
+                            <td>Stimulates NPY/AgRP neurons</td></tr>
+                        <tr><td><strong>Leptin</strong></td>
+                            <td>Adipose tissue</td>
+                            <td>↓ Decreases</td>
+                            <td>Stimulates POMC neurons, inhibits NPY neurons</td></tr>
+                        <tr><td><strong>Peptide YY (PYY)</strong></td>
+                            <td>L cells (ileum, colon)</td>
+                            <td>↓ Decreases</td>
+                            <td>Inhibits NPY neurons</td></tr>
+                        <tr><td><strong>GLP-1</strong></td>
+                            <td>L cells (ileum, colon)</td>
+                            <td>↓ Decreases</td>
+                            <td>Slows gastric emptying, promotes satiety</td></tr>
+                        <tr><td><strong>CCK</strong></td>
+                            <td>I cells (duodenum)</td>
+                            <td>↓ Decreases</td>
+                            <td>Vagal afferents to brainstem</td></tr>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- SECTION 5: MOTILITY -->
+            <section id="motility" class="content-section">
+                <h2>5. Gastrointestinal Motility</h2>
+                
+                <h3>Basic Principles</h3>
+                
+                <div class="info-box">
+                    <p><strong>Definition:</strong> The contraction and relaxation of GI walls and sphincters that mix and propel contents.</p>
+                    <p><strong>Primary Functions:</strong></p>
+                    <ol>
+                        <li><strong>Propulsion:</strong> Move contents aborally (toward anus)</li>
+                        <li><strong>Mixing:</strong> Combine contents with secretions</li>
+                        <li><strong>Grinding:</strong> Reduce particle size</li>
+                        <li><strong>Retention:</strong> Sphincters control passage between segments</li>
+                    </ol>
+                </div>
+                
+                <h3>Electrical Basis: Slow Waves and Interstitial Cells of Cajal</h3>
+                
+                <div class="mechanism-box">
+                    <h4>Slow Wave Characteristics</h4>
+                    <p><strong>Definition:</strong> Oscillating depolarization and repolarization of smooth muscle membrane potential</p>
+                    <p><strong>Origin:</strong> Interstitial Cells of Cajal (ICC) - GI pacemaker cells</p>
+                    <p><strong>Frequency (varies by region):</strong></p>
+                    <ul>
+                        <li>Stomach: 3 waves/min</li>
+                        <li>Duodenum: 12 waves/min (highest)</li>
+                        <li>Ileum: 9 waves/min</li>
+                        <li>Colon: 2-13 waves/min (variable)</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Slow Wave Phases</h4>
+                    <ol>
+                        <li><strong>Depolarization Phase:</strong>
+                            <ul>
+                                <li>Voltage-gated Ca²⁺ channels open</li>
+                                <li>Ca²⁺ influx → inward current → depolarization</li>
+                                <li>Membrane potential moves toward threshold (-40 mV)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Plateau Phase:</strong>
+                            <ul>
+                                <li>If threshold reached, voltage-gated channels open</li>
+                                <li>Action potentials occur at peak of slow wave</li>
+                                <li>More action potentials = stronger contraction</li>
+                            </ul>
+                        </li>
+                        <li><strong>Repolarization Phase:</strong>
+                            <ul>
+                                <li>Voltage-gated K⁺ channels open</li>
+                                <li>K⁺ efflux → outward current → repolarization</li>
+                                <li>Returns to resting potential</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <div class="warning-box">
+                    <p><strong>Important:</strong> Slow waves themselves do NOT cause contraction. They set the maximum frequency at which contractions CAN occur. Contractions only happen when slow waves reach threshold and trigger action potentials.</p>
+                </div>
+                
+                <h3>Esophageal Motility</h3>
+                
+                <div class="info-box">
+                    <h4>Pressure Dynamics</h4>
+                    <ul>
+                        <li><strong>Intrathoracic pressure:</strong> -4 mmHg (subatmospheric)</li>
+                        <li><strong>Intraesophageal pressure:</strong> Equal to intrathoracic</li>
+                        <li><strong>Problem:</strong> Low pressure could suck air in (upper end) and allow reflux (lower end)</li>
+                        <li><strong>Solution:</strong> Sphincters remain closed except during swallowing</li>
+                    </ul>
+                </div>
+                
+                <div class="mechanism-box">
+                    <h4>Swallowing Sequence</h4>
+                    <p><strong>1. Oral Phase (voluntary):</strong> Bolus formation, tongue propulsion</p>
+                    <p><strong>2. Pharyngeal Phase (involuntary):</strong>
+                        <br>• Soft palate elevates (closes nasopharynx)
+                        <br>• Epiglottis covers larynx
+                        <br>• UES relaxes → bolus enters esophagus</p>
+                    <p><strong>3. Esophageal Phase (involuntary):</strong>
+                        <br>• Primary peristaltic wave (initiated by swallowing)
+                        <br>• LES relaxation (vagally-mediated VIP release)
+                        <br>• Receptive relaxation of proximal stomach
+                        <br>• Secondary peristalsis (if needed, triggered by local distension)</p>
+                </div>
+                
+                <h3>Gastric Motility</h3>
+                
+                <div class="info-box">
+                    <h4>Regional Specialization</h4>
+                    <table>
+                        <tr><th>Region</th><th>Structure</th><th>Function</th><th>Contraction Type</th></tr>
+                        <tr><td><strong>Orad (proximal)</strong></td>
+                            <td>Thin wall, weak contractions</td>
+                            <td>Storage, receptive relaxation</td>
+                            <td>Tonic contractions</td></tr>
+                        <tr><td><strong>Caudad (distal)</strong></td>
+                            <td>Thick wall, strong contractions</td>
+                            <td>Mixing, grinding, emptying</td>
+                            <td>Phasic peristaltic waves</td></tr>
+                    </table>
+                </div>
+                
+                <div class="mechanism-box">
+                    <h4>Gastric Emptying Regulation</h4>
+                    <p><strong>Factors that SLOW gastric emptying:</strong></p>
+                    <ul>
+                        <li>Fat in duodenum → CCK release</li>
+                        <li>Acid in duodenum → secretin release, local reflexes</li>
+                        <li>Hypertonic/hypotonic solutions</li>
+                        <li>Distension of duodenum</li>
+                        <li>Emotions (pain, fear)</li>
+                    </ul>
+                    
+                    <p><strong>Emptying rates (fastest to slowest):</strong></p>
+                    <ol>
+                        <li>Carbohydrates</li>
+                        <li>Proteins</li>
+                        <li>Fats (slowest)</li>
+                    </ol>
+                </div>
+                
+                <h3>Intestinal Motility</h3>
+                
+                <div class="info-box">
+                    <h4>Small Intestine Motility Patterns</h4>
+                    <table>
+                        <tr><th>Pattern</th><th>Function</th><th>Control</th><th>Frequency</th></tr>
+                        <tr><td><strong>Segmentation</strong></td>
+                            <td>Mixing, exposure to mucosa</td><td>ENS, distension</td><td>Local variations</td></tr>
+                        <tr><td><strong>Peristalsis</strong></td>
+                            <td>Propulsion</td><td>ENS, distension</td><td>Slow aboral movement</td></tr>
+                        <tr><td><strong>Migrating Motor Complex (MMC)</strong></td>
+                            <td>Housekeeping (clears residues)</td><td>Motilin (fasting)</td><td>Every 90 minutes</td></tr>
+                    </table>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Large Intestine Motility</h4>
+                    <ul>
+                        <li><strong>Haustral contractions:</strong> Slow mixing movements (like segmentation)</li>
+                        <li><strong>Mass movements:</strong> Powerful peristaltic waves (1-3 times/day)
+                            <ul>
+                                <li>Move contents long distances</li>
+                                <li>Triggered by gastrocolic reflex</li>
+                                <li>Often follow meals</li>
+                            </ul>
+                        </li>
+                        <li><strong>Defecation:</strong>
+                            <ul>
+                                <li>Rectal distension → rectosphincteric reflex</li>
+                                <li>Internal anal sphincter relaxes (involuntary)</li>
+                                <li>External anal sphincter under voluntary control</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <h3>Vomiting Reflex</h3>
+                
+                <div class="warning-box">
+                    <h4>Vomiting Center (Medulla)</h4>
+                    <p><strong>Afferent signals from:</strong></p>
+                    <ul>
+                        <li>GI tract (irritation, distension)</li>
+                        <li>Chemoreceptor trigger zone (4th ventricle) - drugs, toxins</li>
+                        <li>Vestibular system (motion sickness)</li>
+                        <li>Higher centers (sights, smells, emotions)</li>
+                    </ul>
+                    
+                    <p><strong>Efferent responses:</strong></p>
+                    <ul>
+                        <li>Deep inspiration, glottis closure</li>
+                        <li>UES relaxation</li>
+                        <li>Abdominal muscle contraction</li>
+                        <li>Reverse peristalsis (sometimes)</li>
+                        <li>LES relaxation</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SECTION 6: SECRETION -->
+            <section id="secretion" class="content-section">
+                <h2>6. Secretory Functions of the GI Tract</h2>
+                
+                <h3>General Principles</h3>
+                
+                <div class="info-box">
+                    <p><strong>Secretory glands produce:</strong></p>
+                    <ol>
+                        <li><strong>Digestive enzymes</strong> (mouth to ileum)</li>
+                        <li><strong>Mucus</strong> (mouth to anus) - lubrication and protection</li>
+                        <li><strong>Water and electrolytes</strong> - create fluid environment</li>
+                        <li><strong>Hormones</strong> - regulatory control</li>
+                    </ol>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Gland Types</h4>
+                    <ul>
+                        <li><strong>Goblet cells:</strong> Single mucus-secreting cells scattered throughout epithelium</li>
+                        <li><strong>Crypts of Lieberkühn:</strong> Simple tubular glands in small intestine</li>
+                        <li><strong>Oxyntic (gastric) glands:</strong> Deep tubular glands in stomach</li>
+                        <li><strong>Compound glands:</strong> Salivary glands, pancreas, liver (complex structure)</li>
+                    </ul>
+                </div>
+                
+                <h3>Mucus: The Universal Protectant</h3>
+                
+                <div class="success-box">
+                    <h4>Mucus Composition and Properties</h4>
+                    <p><strong>Composition:</strong> Water, electrolytes, glycoproteins (mucins)</p>
+                    <p><strong>Key Properties:</strong></p>
+                    <ul>
+                        <li><strong>Adherent:</strong> Sticks to epithelium, forms continuous layer</li>
+                        <li><strong>Lubricating:</strong> Low resistance to slippage</li>
+                        <li><strong>Protective:</strong> Physical barrier against mechanical and chemical damage</li>
+                        <li><strong>Buffering:</strong> Contains bicarbonate that neutralizes acid</li>
+                        <li><strong>Resistant to digestion:</strong> Glycoproteins resist proteolytic enzymes</li>
+                        <li><strong>Amphoteric:</strong> Can buffer both acids and alkalis</li>
+                    </ul>
+                </div>
+                
+                <h3>Salivary Secretion</h3>
+                
+                <div class="comparison-box">
+                    <h4>Salivary Glands</h4>
+                    <table>
+                        <tr><th>Gland</th><th>Type of Secretion</th><th>% of Total</th><th>Key Features</th></tr>
+                        <tr><td><strong>Parotid</strong></td><td>Serous (watery)</td><td>25%</td><td>Rich in α-amylase (ptyalin), Stensen's duct</td></tr>
+                        <tr><td><strong>Submandibular</strong></td><td>Mixed (70% mucus)</td><td>70%</td><td>Primary contributor to resting saliva, Wharton's duct</td></tr>
+                        <tr><td><strong>Sublingual</strong></td><td>Mucous</td><td>5%</td><td>Thick, viscous, Bartholin's ducts</td></tr>
+                        <tr><td><strong>Minor glands</strong></td><td>Mucous</td><td><1%</td><td>Throughout oral cavity</td></tr>
+                    </table>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Saliva Composition and Formation</h4>
+                    <p><strong>Daily volume:</strong> 800-1500 mL (average 1000 mL)</p>
+                    <p><strong>pH:</strong> 6.0-7.0 (optimal for α-amylase)</p>
+                    <p><strong>Key components:</strong></p>
+                    <ul>
+                        <li><strong>α-amylase (ptyalin):</strong> Starch digestion</li>
+                        <li><strong>Lingual lipase:</strong> Fat digestion (minor role)</li>
+                        <li><strong>Mucin:</strong> Lubrication</li>
+                        <li><strong>Lysozyme:</strong> Antibacterial</li>
+                        <li><strong>IgA:</strong> Immune protection</li>
+                        <li><strong>Electrolytes:</strong> High K⁺ and HCO₃⁻, low Na⁺ and Cl⁻ vs plasma</li>
+                    </ul>
+                </div>
+                
+                <div class="mechanism-box">
+                    <h4>Mechanism of Saliva Formation</h4>
+                    <p><strong>Step 1 - Primary secretion (acini):</strong> Isotonic fluid similar to plasma</p>
+                    <p><strong>Step 2 - Ductal modification:</strong>
+                        <br>• Na⁺ actively reabsorbed
+                        <br>• K⁺ actively secreted
+                        <br>• HCO₃⁻ secreted (increases with flow rate)
+                        <br>• Cl⁻ passively follows Na⁺
+                        <br>• Water impermeable ducts (in resting state)</p>
+                    <p><strong>Result:</strong> Hypotonic final saliva (especially at low flow rates)</p>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Regulation of Salivary Secretion</h4>
+                    <ul>
+                        <li><strong>Primary control:</strong> Parasympathetic (dominant)
+                            <ul>
+                                <li>Stimulates copious, watery secretion</li>
+                                <li>Via facial (VII) and glossopharyngeal (IX) nerves</li>
+                            </ul>
+                        </li>
+                        <li><strong>Secondary:</strong> Sympathetic (minor role)
+                            <ul>
+                                <li>Stimulates small volume, mucus-rich secretion</li>
+                                <li>Via cervical sympathetic chain</li>
+                            </ul>
+                        </li>
+                        <li><strong>Stimuli:</strong> Taste (especially sour), smell, thought of food, conditioned reflexes</li>
+                        <li><strong>Kallikrein-bradykinin system:</strong> Local vasodilation during secretion</li>
+                    </ul>
+                </div>
+                
+                <h3>Gastric Secretion</h3>
+                
+                <div class="comparison-box">
+                    <h4>Gastric Gland Types</h4>
+                    <table>
+                        <tr><th>Gland Type</th><th>Location</th><th>Cell Types</th><th>Secretions</th></tr>
+                        <tr><td><strong>Oxyntic (Gastric)</strong></td>
+                            <td>Body & fundus (80% of stomach)</td>
+                            <td>
+                                <ul>
+                                    <li>Parietal (oxyntic)</li>
+                                    <li>Chief (peptic)</li>
+                                    <li>Mucus neck</li>
+                                    <li>Enterochromaffin-like (ECL)</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>HCl</li>
+                                    <li>Pepsinogen</li>
+                                    <li>Intrinsic factor</li>
+                                    <li>Mucus & HCO₃⁻</li>
+                                </ul>
+                            </td></tr>
+                        <tr><td><strong>Pyloric</strong></td>
+                            <td>Antrum (20% of stomach)</td>
+                            <td>
+                                <ul>
+                                    <li>G cells</li>
+                                    <li>Mucus cells</li>
+                                    <li>D cells</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Gastrin (hormone)</li>
+                                    <li>Mucus</li>
+                                    <li>Somatostatin</li>
+                                </ul>
+                            </td></tr>
+                    </table>
+                </div>
+                
+                <div class="mechanism-box">
+                    <h4>HCl Secretion Mechanism (Parietal Cell)</h4>
+                    <p><strong>Step 1:</strong> CO₂ + H₂O → H₂CO₃ (carbonic anhydrase) → H⁺ + HCO₃⁻</p>
+                    <p><strong>Step 2:</strong> H⁺ secreted into lumen via H⁺/K⁺ ATPase (proton pump)</p>
+                    <p><strong>Step 3:</strong> HCO₃⁻ exchanged for Cl⁻ at basolateral membrane (Cl⁻/HCO₃⁻ exchanger)</p>
+                    <p><strong>Step 4:</strong> Cl⁻ diffuses into lumen through channels</p>
+                    <p><strong>Step 5:</strong> Water follows osmotically → isotonic HCl (160 mmol/L, pH 0.8)</p>
+                    <p><strong>Alkaline tide:</strong> HCO₃⁻ entering blood increases venous pH after meals</p>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Regulation of Gastric Acid Secretion</h4>
+                    
+                    <h5>Three Phases:</h5>
+                    <ol>
+                        <li><strong>Cephalic Phase (30% of response):</strong>
+                            <ul>
+                                <li>Sight, smell, taste, thought of food</li>
+                                <li>Vagal stimulation → ACh release → direct parietal stimulation & gastrin release</li>
+                            </ul>
+                        </li>
+                        <li><strong>Gastric Phase (60% of response):</strong>
+                            <ul>
+                                <li>Food in stomach → distension & chemical stimuli</li>
+                                <li>Distension → vagovagal reflex → ACh release</li>
+                                <li>Peptides/amino acids → gastrin release</li>
+                                <li>Gastrin & ACh → stimulate ECL cells → histamine release</li>
+                                <li>Histamine (paracrine) → potent acid stimulation</li>
+                            </ul>
+                        </li>
+                        <li><strong>Intestinal Phase (10% of response):</strong>
+                            <ul>
+                                <li>Chyme in duodenum</li>
+                                <li>Initially stimulatory (via gastrin release)</li>
+                                <li>Then inhibitory (acid, fat, hypertonicity → secretin, CCK, GIP release)</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Other Gastric Secretions</h4>
+                    <ul>
+                        <li><strong>Pepsinogen:</strong>
+                            <ul>
+                                <li>Secreted by chief cells (and mucus cells)</li>
+                                <li>Activated to pepsin by HCl (autoactivation possible)</li>
+                                <li>Optimal pH 1.8-3.5 (inactive above pH 5)</li>
+                                <li>Digests proteins to peptides</li>
+                                <li>Regulated by vagal stimulation, local reflexes</li>
+                            </ul>
+                        </li>
+                        <li><strong>Intrinsic Factor:</strong>
+                            <ul>
+                                <li>Secreted by parietal cells</li>
+                                <li>Binds vitamin B₁₂ → protects from digestion</li>
+                                <li>Essential for B₁₂ absorption in terminal ileum</li>
+                                <li>Deficiency → pernicious anemia</li>
+                            </ul>
+                        </li>
+                        <li><strong>Gastric Lipase:</strong>
+                            <ul>
+                                <li>Minor role in fat digestion</li>
+                                <li>Optimal pH 3-6 (acid-stable)</li>
+                                <li>Important in pancreatic insufficiency</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <h3>Pancreatic Secretion</h3>
+                
+                <div class="info-box">
+                    <h4>Pancreatic Juice Characteristics</h4>
+                    <p><strong>Volume:</strong> 1.0-1.5 L/day</p>
+                    <p><strong>pH:</strong> 7.1-8.2 (alkaline)</p>
+                    <p><strong>Two Components:</strong></p>
+                    <ol>
+                        <li><strong>Aqueous (bicarbonate-rich):</strong>
+                            <ul>
+                                <li>Secreted by duct cells</li>
+                                <li>Neutralizes gastric acid</li>
+                                <li>Provides optimal pH for enzymes</li>
+                                <li>Stimulated by secretin</li>
+                            </ul>
+                        </li>
+                        <li><strong>Enzymatic (enzyme-rich):</strong>
+                            <ul>
+                                <li>Secreted by acinar cells</li>
+                                <li>Complete digestion of all macronutrients</li>
+                                <li>Stimulated by CCK and vagal input</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <div class="comparison-box">
+                    <h4>Pancreatic Enzymes</h4>
+                    <table>
+                        <tr><th>Enzyme Class</th><th>Specific Enzymes</th><th>Substrate</th><th>Products</th><th>Activation</th></tr>
+                        <tr><td><strong>Proteolytic</strong></td>
+                            <td>Trypsinogen, Chymotrypsinogen, Procarboxypeptidase, Proelastase</td>
+                            <td>Proteins, peptides</td>
+                            <td>Peptides, amino acids</td>
+                            <td>Enterokinase → Trypsin → cascade</td></tr>
+                        <tr><td><strong>Lipolytic</strong></td>
+                            <td>Pancreatic lipase, Colipase, Cholesterol esterase, Phospholipase A2</td>
+                            <td>Triglycerides, cholesterol esters, phospholipids</td>
+                            <td>Monoglycerides, fatty acids, cholesterol, lyso-phospholipids</td>
+                            <td>Active on secretion</td></tr>
+                        <tr><td><strong>Amylolytic</strong></td>
+                            <td>Pancreatic α-amylase</td>
+                            <td>Starch, glycogen</td>
+                            <td>Maltose, maltotriose, α-limit dextrins</td>
+                            <td>Active on secretion</td></tr>
+                        <tr><td><strong>Nucleolytic</strong></td>
+                            <td>Ribonuclease, Deoxyribonuclease</td>
+                            <td>RNA, DNA</td>
+                            <td>Nucleotides</td>
+                            <td>Active on secretion</td></tr>
+                    </table>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Protection Against Autodigestion</h4>
+                    <ol>
+                        <li><strong>Zymogen secretion:</strong> Proteases secreted as inactive precursors</li>
+                        <li><strong>Enterokinase:</strong> Only on brush border (not in pancreas)</li>
+                        <li><strong>Trypsin inhibitor:</strong> Inactivates any trypsin formed in pancreas</li>
+                        <li><strong>Compartmentalization:</strong> Enzymes stored in zymogen granules</li>
+                        <li><strong>pH control:</strong> Pancreatic juice is alkaline (not optimal for trypsin)</li>
+                    </ol>
+                    <p><strong>Pancreatitis:</strong> Occurs when protective mechanisms fail → premature activation → autodigestion.</p>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Regulation of Pancreatic Secretion</h4>
+                    
+                    <h5>Three Phases:</h5>
+                    <ol>
+                        <li><strong>Cephalic Phase (20%):</strong>
+                            <ul>
+                                <li>Sight, smell, taste of food</li>
+                                <li>Vagal stimulation → enzyme-rich secretion</li>
+                            </ul>
+                        </li>
+                        <li><strong>Gastric Phase (10%):</strong>
+                            <ul>
+                                <li>Gastric distension → vagovagal reflex</li>
+                                <li>Gastrin release → enzyme secretion</li>
+                            </ul>
+                        </li>
+                        <li><strong>Intestinal Phase (70%):</strong>
+                            <ul>
+                                <li>Chyme in duodenum</li>
+                                <li><strong>Secretin:</strong> Acid → bicarbonate-rich secretion</li>
+                                <li><strong>CCK:</strong> Fat/protein → enzyme-rich secretion</li>
+                                <li>Vagal input potentiates both</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <h3>Biliary Secretion</h3>
+                
+                <div class="info-box">
+                    <h4>Liver Functions Overview</h4>
+                    <table>
+                        <tr><th>Function Category</th><th>Specific Functions</th></tr>
+                        <tr><td><strong>Vascular</strong></td>
+                            <td>Blood storage (10% of volume), filtration (Kupffer cells), RBC removal</td></tr>
+                        <tr><td><strong>Secretory</strong></td>
+                            <td>Bile production (600-1200 mL/day), bile salt synthesis</td></tr>
+                        <tr><td><strong>Metabolic</strong></td>
+                            <td>Carbohydrate (gluconeogenesis, glycogenesis), protein (deamination, urea cycle), lipid (cholesterol synthesis, lipoprotein formation)</td></tr>
+                        <tr><td><strong>Synthetic</strong></td>
+                            <td>Plasma proteins (except γ-globulin), clotting factors, 25-hydroxy-cholecalciferol</td></tr>
+                        <tr><td><strong>Storage</strong></td>
+                            <td>Glycogen, vitamins (A, D, B₁₂), iron (ferritin)</td></tr>
+                        <tr><td><strong>Detoxification</strong></td>
+                            <td>Drugs, hormones (thyroxine, steroids), ammonia → urea</td></tr>
+                        <tr><td><strong>Excretory</strong></td>
+                            <td>Bile pigments (bilirubin), cholesterol, drugs</td></tr>
+                    </table>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Bile Composition</h4>
+                    <p><strong>Volume:</strong> 600-1200 mL/day</p>
+                    <p><strong>pH:</strong> 7.8-8.6 (alkaline)</p>
+                    <p><strong>Major Components:</strong></p>
+                    <ul>
+                        <li><strong>Water (97%):</strong> Vehicle for other components</li>
+                        <li><strong>Bile salts (0.7%):</strong> Cholic, chenodeoxycholic acids (conjugated with glycine/taurine)</li>
+                        <li><strong>Phospholipids (0.2%):</strong> Mainly lecithin (emulsification)</li>
+                        <li><strong>Cholesterol (0.06%):</strong> Excretory pathway</li>
+                        <li><strong>Bile pigments (0.2%):</strong> Bilirubin (breakdown product of heme)</li>
+                        <li><strong>Ions:</strong> Na⁺, K⁺, Ca²⁺, Cl⁻, HCO₃⁻ (alkaline)</li>
+                    </ul>
+                </div>
+                
+                <div class="mechanism-box">
+                    <h4>Bile Salt Synthesis and Recycling</h4>
+                    
+                    <h5>Synthesis (Liver):</h5>
+                    <p><strong>Step 1:</strong> Cholesterol → Primary bile acids (cholic & chenodeoxycholic) via 7α-hydroxylase (rate-limiting)</p>
+                    <p><strong>Step 2:</strong> Conjugation with glycine or taurine → increases solubility</p>
+                    
+                    <h5>Enterohepatic Circulation:</h5>
+                    <p>1. Bile secreted → duodenum → aid fat digestion/absorption</p>
+                    <p>2. 94% reabsorbed: 50% passive (jejunum), 50% active (terminal ileum)</p>
+                    <p>3. Portal blood → liver → resecreted</p>
+                    <p>4. Recycling: 6-8 times/day, pool size: 3.5g, daily loss: 0.2-0.4g (feces)</p>
+                    <p>5. 5-10% reach colon → bacterial modification → secondary bile acids (deoxycholic, lithocholic)</p>
+                </div>
+                
+                <div class="success-box">
+                    <h4>Functions of Bile Salts</h4>
+                    <ol>
+                        <li><strong>Emulsification:</strong> Break large fat globules into smaller droplets (increases surface area)</li>
+                        <li><strong>Micelle formation:</strong> Transport fat digestion products to brush border</li>
+                        <li><strong>Fat absorption:</strong> Essential for absorption of fatty acids, monoglycerides, cholesterol, fat-soluble vitamins</li>
+                        <li><strong>Choleretic action:</strong> Stimulate bile flow (positive feedback)</li>
+                        <li><strong>Cholesterol solubilization:</strong> Keep cholesterol dissolved in bile</li>
+                        <li><strong>Laxative effect:</strong> Stimulate colonic motility</li>
+                    </ol>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Gallbladder Functions</h4>
+                    <ol>
+                        <li><strong>Bile storage:</strong> Between meals (sphincter of Oddi closed)</li>
+                        <li><strong>Concentration:</strong> 5-10× by absorbing water and electrolytes</li>
+                        <li><strong>Acidification:</strong> HCO₃⁻ absorption → pH 7.0-7.4 (prevents Ca²⁺ precipitation)</li>
+                        <li><strong>Mucus secretion:</strong> "White bile" protects mucosa</li>
+                        <li><strong>Ejection:</strong> CCK-stimulated contraction + sphincter relaxation</li>
+                    </ol>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Bilirubin Metabolism</h4>
+                    <div class="mechanism-box">
+                        <p><strong>Step 1:</strong> RBC breakdown (spleen) → Heme + Globin</p>
+                        <p><strong>Step 2:</strong> Heme → Biliverdin (green) → Unconjugated bilirubin (yellow)</p>
+                        <p><strong>Step 3:</strong> Unconjugated bilirubin + Albumin → Transport to liver</p>
+                        <p><strong>Step 4:</strong> Liver: Conjugation with glucuronic acid → Conjugated bilirubin (water-soluble)</p>
+                        <p><strong>Step 5:</strong> Secretion into bile → Intestine</p>
+                        <p><strong>Step 6:</strong> Intestine: Bacterial conversion → Urobilinogen</p>
+                        <p><strong>Step 7:</strong> Fate: 80% oxidized to stercobilin (brown feces), 20% reabsorbed → kidney → urobilin (yellow urine)</p>
+                    </div>
+                </div>
+                
+                <h3>Intestinal Secretions</h3>
+                
+                <div class="info-box">
+                    <h4>Small Intestine Secretions</h4>
+                    <ul>
+                        <li><strong>Volume:</strong> ~1800 mL/day</li>
+                        <li><strong>pH:</strong> 7.5-8.0 (alkaline)</li>
+                        <li><strong>Sources:</strong>
+                            <ul>
+                                <li><strong>Brunner's glands (duodenum):</strong> Alkaline mucus (protects from acid)</li>
+                                <li><strong>Crypts of Lieberkühn:</strong> Watery fluid (provides vehicle for digestion/absorption)</li>
+                                <li><strong>Enterocytes (brush border):</strong> Enzymes (sucrase, maltase, lactase, peptidases)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Regulation:</strong> Mainly local (tactile, chemical stimuli), ENS, hormones</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Large Intestine Secretions</h4>
+                    <ul>
+                        <li><strong>Volume:</strong> Small (mostly mucus)</li>
+                        <li><strong>Composition:</strong> Mucus (with HCO₃⁻), no digestive enzymes</li>
+                        <li><strong>Functions:</strong>
+                            <ul>
+                                <li>Protection against mechanical injury</li>
+                                <li>Lubrication for fecal passage</li>
+                                <li>Adherence of fecal matter</li>
+                                <li>Neutralization of acids from bacterial fermentation</li>
+                            </ul>
+                        </li>
+                        <li><strong>Regulation:</strong> Local tactile stimuli, parasympathetic stimulation</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SECTION 7: DIGESTION -->
+            <section id="digestion" class="content-section">
+                <h2>7. Digestion Processes</h2>
+                
+                <h3>General Principles</h3>
+                
+                <div class="info-box">
+                    <p><strong>Digestion:</strong> The process of breaking down complex food molecules into absorbable units through mechanical and chemical means.</p>
+                    
+                    <p><strong>End Products:</strong></p>
+                    <ul>
+                        <li>Carbohydrates → Monosaccharides (glucose, fructose, galactose)</li>
+                        <li>Proteins → Amino acids, dipeptides, tripeptides</li>
+                        <li>Fats → Fatty acids, monoglycerides</li>
+                        <li>Nucleic acids → Nucleotides, nucleosides, bases</li>
+                    </ul>
+                </div>
+                
+                <h3>Carbohydrate Digestion</h3>
+                
+                <div class="mechanism-box">
+                    <h4>Complete Starch Digestion Pathway</h4>
+                    
+                    <h5>1. Mouth (Minor Digestion):</h5>
+                    <p>• <span class="enzyme-badge">Salivary α-amylase (ptyalin)</span>
+                    <br>• Acts on cooked starch (α-1,4 glycosidic bonds only)
+                    <br>• Produces: Maltose, maltotriose, α-limit dextrins
+                    <br>• Inactivated in stomach when pH < 4.5</p>
+                    
+                    <h5>2. Stomach (No Carbohydrate Digestion):</h5>
+                    <p>• Acid environment inactivates salivary amylase</p>
+                    
+                    <h5>3. Small Intestine (Main Digestion Site):</h5>
+                    <p>• <span class="enzyme-badge">Pancreatic α-amylase</span> (more potent than salivary)
+                    <br>• Continues starch breakdown → maltose, maltotriose, α-limit dextrins</p>
+                    
+                    <h5>4. Brush Border (Final Digestion):</h5>
+                    <p>• <span class="enzyme-badge">Maltase</span>: Maltose → 2 glucose
+                    <br>• <span class="enzyme-badge">Sucrase</span>: Sucrose → glucose + fructose
+                    <br>• <span class="enzyme-badge">Lactase</span>: Lactose → glucose + galactose
+                    <br>• <span class="enzyme-badge">α-dextrinase (isomaltase)</span>: α-limit dextrins → glucose (cleaves α-1,6 bonds)</p>
+                    
+                    <h5>5. Final Products for Absorption:</h5>
+                    <p>• Glucose (80%), Galactose (10%), Fructose (10%)</p>
+                </div>
+                
+                <div class="comparison-box">
+                    <h4>Disaccharidase Deficiency</h4>
+                    <table>
+                        <tr><th>Enzyme Deficiency</th><th>Substrate Affected</th><th>Symptoms</th><th>Prevalence</th></tr>
+                        <tr><td><strong>Lactase</strong></td>
+                            <td>Lactose (milk sugar)</td>
+                            <td>Bloating, gas, diarrhea (osmotic)</td>
+                            <td>Common (adult: 65% worldwide)</td></tr>
+                        <tr><td><strong>Sucrase-isomaltase</strong></td>
+                            <td>Sucrose, starch derivatives</td>
+                            <td>Chronic diarrhea, failure to thrive</td>
+                            <td>Rare (autosomal recessive)</td></tr>
+                        <tr><td><strong>Maltase</strong></td>
+                            <td>Maltose</td>
+                            <td>Mild symptoms</td>
+                            <td>Very rare</td></tr>
+                    </table>
+                </div>
+                
+                <h3>Protein Digestion</h3>
+                
+                <div class="mechanism-box">
+                    <h4>Complete Protein Digestion Pathway</h4>
+                    
+                    <h5>1. Stomach (Initial Digestion):</h5>
+                    <p>• HCl denatures proteins (unfolds tertiary structure)
+                    <br>• <span class="enzyme-badge">Pepsin</span> (from pepsinogen activated by HCl)
+                    <br>• Cleaves peptide bonds adjacent to aromatic amino acids
+                    <br>• Produces: Large polypeptides, some smaller peptides</p>
+                    
+                    <h5>2. Small Intestine (Main Digestion):</h5>
+                    <p><strong>Pancreatic Proteases (all secreted as zymogens):</strong>
+                    <br>• <span class="enzyme-badge">Trypsin</span> (from trypsinogen via enterokinase): Cleaves after basic amino acids (Arg, Lys)
+                    <br>• <span class="enzyme-badge">Chymotrypsin</span> (from chymotrypsinogen via trypsin): Cleaves after aromatic amino acids (Phe, Trp, Tyr)
+                    <br>• <span class="enzyme-badge">Elastase</span> (from proelastase via trypsin): Cleaves after small neutral amino acids
+                    <br>• <span class="enzyme-badge">Carboxypeptidase A & B</span> (from procarboxypeptidase via trypsin): Remove C-terminal amino acids</p>
+                    
+                    <h5>3. Brush Border (Final Digestion):</h5>
+                    <p>• <span class="enzyme-badge">Aminopeptidases</span>: Remove N-terminal amino acids
+                    <br>• <span class="enzyme-badge">Dipeptidases, Tripeptidases</span>: Hydrolyze small peptides</p>
+                    
+                    <h5>4. Final Products for Absorption:</h5>
+                    <p>• Amino acids (70%), Dipeptides (20%), Tripeptides (10%)</p>
+                </div>
+                
+                <div class="key-point">
+                    <p><strong>Activation Cascade:</strong> Enterokinase (brush border) activates trypsinogen → trypsin → trypsin activates all other pancreatic proteases. This ensures activation only occurs in the duodenum, preventing pancreatic autodigestion.</p>
+                </div>
+                
+                <h3>Fat Digestion</h3>
+                
+                <div class="mechanism-box">
+                    <h4>Complete Fat Digestion Pathway</h4>
+                    
+                    <h5>1. Mouth & Stomach (Minor Digestion):</h5>
+                    <p>• <span class="enzyme-badge">Lingual lipase</span> (mouth) & <span class="enzyme-badge">Gastric lipase</span> (stomach)
+                    <br>• Act on short/medium-chain triglycerides
+                    <br>• Acid-stable (optimal pH 3-6)
+                    <br>• Minor contribution in adults, important in infants/pancreatic insufficiency</p>
+                    
+                    <h5>2. Small Intestine (Main Digestion Site):</h5>
+                    
+                    <p><strong>Step 1 - Emulsification:</strong>
+                    <br>• Bile salts reduce surface tension
+                    <br>• Mechanical mixing (peristalsis)
+                    <br>• Large fat globules → small droplets (increases surface area 1000×)</p>
+                    
+                    <p><strong>Step 2 - Enzymatic Digestion:</strong>
+                    <br>• <span class="enzyme-badge">Pancreatic lipase-colipase complex</span> (main enzyme)
+                    <br>• Hydrolyzes triglycerides at positions 1 & 3 → 2-monoglycerides + 2 fatty acids
+                    <br>• <span class="enzyme-badge">Cholesterol esterase</span>: Cholesterol esters → cholesterol + fatty acids
+                    <br>• <span class="enzyme-badge">Phospholipase A2</span> (activated by trypsin): Phospholipids → lyso-phospholipids + fatty acids</p>
+                    
+                    <p><strong>Step 3 - Micelle Formation:</strong>
+                    <br>• Bile salts + phospholipids form micelles
+                    <br>• Hydrophobic core contains digestion products
+                    <br>• Hydrophilic exterior allows water solubility
+                    <br>• Transport to brush border for absorption</p>
+                    
+                    <h5>3. Intracellular Processing (Enterocytes):</h5>
+                    <p>• Re-esterification: Fatty acids + monoglycerides → triglycerides
+                    <br>• + Cholesterol, phospholipids, apoproteins → Chylomicrons
+                    <br>• Exocytosis → lymphatics (lacteals) → thoracic duct → systemic circulation</p>
+                </div>
+                
+                <div class="warning-box">
+                    <p><strong>Critical Role of Bile Salts:</strong> Without bile salts (liver disease, bile duct obstruction, ileal resection), fat digestion is incomplete → steatorrhea (fatty stools), fat-soluble vitamin deficiencies.</p>
+                </div>
+                
+                <h3>Nucleic Acid Digestion</h3>
+                
+                <div class="info-box">
+                    <h4>DNA/RNA Digestion Pathway</h4>
+                    <ol>
+                        <li><strong>Pancreatic nucleases:</strong>
+                            <ul>
+                                <li><span class="enzyme-badge">Ribonuclease</span>: RNA → oligonucleotides</li>
+                                <li><span class="enzyme-badge">Deoxyribonuclease</span>: DNA → oligonucleotides</li>
+                            </ul>
+                        </li>
+                        <li><strong>Brush border enzymes:</strong>
+                            <ul>
+                                <li><span class="enzyme-badge">Nucleotidases</span>: Remove phosphate → nucleosides</li>
+                                <li><span class="enzyme-badge">Nucleosidases</span>: Cleave sugar-base bond</li>
+                            </ul>
+                        </li>
+                        <li><strong>Final products:</strong> Purine/pyrimidine bases, pentose sugars, phosphate</li>
+                        <li><strong>Absorption:</strong> Mostly as nucleosides via specific carriers</li>
+                    </ol>
+                </div>
+            </section>
+            
+            <!-- SECTION 8: ABSORPTION -->
+            <section id="absorption" class="content-section">
+                <h2>8. Absorption Mechanisms</h2>
+                
+                <h3>General Transport Mechanisms</h3>
+                
+                <div class="comparison-box">
+                    <table>
+                        <tr><th>Mechanism</th><th>Energy Requirement</th><th>Direction</th><th>Examples</th></tr>
+                        <tr><td><strong>Simple Diffusion</strong></td>
+                            <td>No</td>
+                            <td>High → Low concentration</td>
+                            <td>Water, small lipids, some drugs</td></tr>
+                        <tr><td><strong>Facilitated Diffusion</strong></td>
+                            <td>No (carrier-mediated)</td>
+                            <td>High → Low concentration</td>
+                            <td>Fructose (GLUT5), some vitamins</td></tr>
+                        <tr><td><strong>Primary Active Transport</strong></td>
+                            <td>Direct ATP use</td>
+                            <td>Against gradient</td>
+                            <td>Na⁺/K⁺ ATPase, H⁺/K⁺ ATPase</td></tr>
+                        <tr><td><strong>Secondary Active Transport</strong></td>
+                            <td>Indirect (ion gradient)</td>
+                            <td>Against gradient</td>
+                            <td>Glucose (SGLT1), amino acids, some vitamins</td></tr>
+                        <tr><td><strong>Endocytosis</strong></td>
+                            <td>Yes</td>
+                            <td>Into cell</td>
+                            <td>Large molecules, immunoglobulins in breast milk</td></tr>
+                    </table>
+                </div>
+                
+                <h3>Site-Specific Absorption</h3>
+                
+                <div class="diagram-placeholder">
+                    <h4>Absorption Sites Along GI Tract</h4>
+                    <p><strong>Stomach:</strong> Alcohol (20%), some drugs (aspirin), small water amounts</p>
+                    <p><strong>Duodenum:</strong> Iron, calcium, magnesium, zinc, copper, folate</p>
+                    <p><strong>Jejunum (PRIMARY SITE):</strong> Most nutrients, vitamins, electrolytes</p>
+                    <p><strong>Ileum:</strong> Vitamin B₁₂, bile salts, remaining nutrients</p>
+                    <p><strong>Colon:</strong> Water, electrolytes, short-chain fatty acids, vitamin K (bacterial)</p>
+                </div>
+                
+                <h3>Carbohydrate Absorption</h3>
+                
+                <div class="mechanism-box">
+                    <h4>Monosaccharide Transport Mechanisms</h4>
+                    
+                    <h5>1. Glucose & Galactose (SGLT1 - Secondary Active):</h5>
+                    <p>• Apical membrane: SGLT1 (Na⁺-glucose cotransporter)
+                    <br>• 2 Na⁺ : 1 glucose stoichiometry
+                    <br>• Na⁺ gradient (maintained by basolateral Na⁺/K⁺ ATPase) drives uptake
+                    <br>• Basolateral exit: GLUT2 (facilitated diffusion)</p>
+                    
+                    <h5>2. Fructose (GLUT5 - Facilitated Diffusion):</h5>
+                    <p>• Apical: GLUT5 (specific for fructose)
+                    <br>• No energy requirement, slower than glucose
+                    <br>• Some conversion to glucose inside enterocyte
+                    <br>• Basolateral exit: GLUT2 (with glucose/galactose)</p>
+                    
+                    <h5>3. Pentose Sugars (ribose, xylose):</h5>
+                    <p>• Passive diffusion (slow)</p>
+                </div>
+                
+                <h3>Protein/Amino Acid Absorption</h3>
+                
+                <div class="info-box">
+                    <h4>Amino Acid Transport Systems</h4>
+                    <table>
+                        <tr><th>System</th><th>Specificity</th><th>Mechanism</th><th>Examples</th></tr>
+                        <tr><td><strong>System B⁰</strong></td>
+                            <td>Neutral AA</td><td>Na⁺-dependent</td><td>Ala, Ser, Thr, Cys</td></tr>
+                        <tr><td><strong>System b⁰⁺</strong></td>
+                            <td>Basic & neutral AA</td><td>Na⁺-independent</td><td>Lys, Arg, Orn, Cystine</td></tr>
+                        <tr><td><strong>System imino</strong></td>
+                            <td>Imino acids</td><td>Na⁺-dependent</td><td>Pro, Hyp, MeAIB</td></tr>
+                        <tr><td><strong>System X<sub>AG</sub>⁻</strong></td>
+                            <td>Acidic AA</td><td>Na⁺-dependent</td><td>Glu, Asp</td></tr>
+                        <tr><td><strong>PEPT1</strong></td>
+                            <td>Di-/tri-peptides</td><td>H⁺-coupled</td><td>All small peptides</td></tr>
+                    </table>
+                </div>
+                
+                <div class="key-point">
+                    <p><strong>Advantage of Peptide Transport:</strong> PEPT1 has broader specificity than amino acid transporters and uses H⁺ gradient (not Na⁺). This allows efficient absorption even when individual amino acid transport is compromised.</p>
+                </div>
+                
+                <h3>Fat Absorption</h3>
+                
+                <div class="mechanism-box">
+                    <h4>Step-by-Step Fat Absorption</h4>
+                    
+                    <p><strong>Step 1 - Micelle Delivery:</strong>
+                    <br>• Mixed micelles (bile salts + phospholipids + fat digestion products) diffuse through unstirred water layer
+                    <br>• Deliver lipids to brush border membrane</p>
+                    
+                    <p><strong>Step 2 - Cellular Uptake:</strong>
+                    <br>• Fatty acids, monoglycerides, cholesterol diffuse across apical membrane
+                    <br>• Some evidence for specific transporters (FATP4, CD36)</p>
+                    
+                    <p><strong>Step 3 - Intracellular Processing:</strong>
+                    <br>• Fatty acid binding protein (FABP) transports to smooth ER
+                    <br>• Re-esterification: Fatty acids + monoglycerides → triglycerides (MGAT, DGAT enzymes)
+                    <br>• Cholesterol re-esterification (ACAT enzyme)
+                    <br>• Phospholipid synthesis</p>
+                    
+                    <p><strong>Step 4 - Chylomicron Assembly:</strong>
+                    <br>• Triglycerides + cholesterol esters + phospholipids + apoproteins (B-48, A-I, A-IV)
+                    <br>• In Golgi apparatus</p>
+                    
+                    <p><strong>Step 5 - Exocytosis & Transport:</strong>
+                    <br>• Chylomicrons exocytosed at basolateral membrane
+                    <br>• Enter lymphatics (lacteals) → thoracic duct → left subclavian vein → systemic circulation
+                    <br>• Bypass liver initially (unlike other nutrients)</p>
+                </div>
+                
+                <div class="warning-box">
+                    <p><strong>Medium-Chain Triglycerides (MCTs):</strong> Unlike long-chain fats, MCTs (6-12 carbons) are more water-soluble, can be absorbed without micelles, enter portal blood (not lymph), and don't require chylomicron formation. Used in malabsorption conditions.</p>
+                </div>
+                
+                <h3>Vitamin Absorption</h3>
+                
+                <div class="comparison-box">
+                    <h4>Fat-Soluble Vitamins (A, D, E, K)</h4>
+                    <ul>
+                        <li><strong>Requirement:</strong> Bile salts for micelle formation</li>
+                        <li><strong>Mechanism:</strong> Incorporated into mixed micelles → passive diffusion</li>
+                        <li><strong>Intracellular:</strong> Incorporated into chylomicrons</li>
+                        <li><strong>Transport:</strong> Lymphatics → systemic circulation</li>
+                        <li><strong>Deficiency:</strong> Occurs in fat malabsorption (steatorrhea)</li>
+                    </ul>
+                    
+                    <h4>Water-Soluble Vitamins</h4>
+                    <table>
+                        <tr><th>Vitamin</th><th>Transport Mechanism</th><th>Special Features</th></tr>
+                        <tr><td><strong>Vitamin C</strong></td>
+                            <td>Active (SVCT1), Na⁺-dependent</td>
+                            <td>Saturable, competitively inhibited by glucose</td></tr>
+                        <tr><td><strong>Thiamin (B₁)</strong></td>
+                            <td>Active at low conc., passive at high</td>
+                            <td>THTR1/2 transporters</td></tr>
+                        <tr><td><strong>Riboflavin (B₂)</strong></td>
+                            <td>Carrier-mediated</td>
+                            <td>RFVT1-3 transporters</td></tr>
+                        <tr><td><strong>Niacin (B₃)</strong></td>
+                            <td>Passive diffusion (nicotinic acid), carrier (nicotinamide)</td>
+                            <td>SMCT1 transporter</td></tr>
+                        <tr><td><strong>Pyridoxine (B₆)</strong></td>
+                            <td>Passive diffusion</td>
+                            <td>Converted to active forms in liver</td></tr>
+                        <tr><td><strong>Folate</strong></td>
+                            <td>Reduced folate: PCFT (H⁺-coupled), Folic acid: hydrolysis then RFC</td>
+                            <td>pH-dependent, inhibited by some drugs (methotrexate)</td></tr>
+                        <tr><td><strong>Vitamin B₁₂</strong></td>
+                            <td>Complex: IF-B₁₂ → cubilin receptor in terminal ileum</td>
+                            <td>See detailed mechanism below</td></tr>
+                    </table>
+                </div>
+                
+                <div class="mechanism-box">
+                    <h4>Vitamin B₁₂ Absorption (Complex Pathway)</h4>
+                    
+                    <p><strong>Step 1 - Gastric Phase:</strong>
+                    <br>• Dietary B₁₂ bound to proteins → released by pepsin/HCl
+                    <br>• Binds R-protein (haptocorrin) from saliva</p>
+                    
+                    <p><strong>Step 2 - Duodenal Phase:</strong>
+                    <br>• Pancreatic proteases degrade R-protein
+                    <br>• B₁₂ released, binds intrinsic factor (IF from parietal cells)</p>
+                    
+                    <p><strong>Step 3 - Ileal Phase:</strong>
+                    <br>• IF-B₁₂ complex binds cubilin receptor on ileal brush border
+                    <br>• Receptor-mediated endocytosis</p>
+                    
+                    <p><strong>Step 4 - Transport:</strong>
+                    <br>• Released into portal blood bound to transcobalamin II
+                    <br>• Delivery to tissues</p>
+                    
+                    <p><strong>Deficiency causes:</strong> Pernicious anemia (autoimmune vs parietal cells/IF), gastrectomy, ileal resection, bacterial overgrowth</p>
+                </div>
+                
+                <h3>Mineral Absorption</h3>
+                
+                <div class="info-box">
+                    <h4>Major Mineral Absorption Mechanisms</h4>
+                    
+                    <h5>Calcium:</h5>
+                    <ul>
+                        <li><strong>Active transport (duodenum, jejunum):</strong>
+                            <ul>
+                                <li>TRPV6 (apical Ca²⁺ channel)</li>
+                                <li>Calbindin-D9k (intracellular transport)</li>
+                                <li>PMCA1b (basolateral Ca²⁺ ATPase)</li>
+                                <li>Vitamin D upregulates TRPV6 and calbindin</li>
+                            </ul>
+                        </li>
+                        <li><strong>Passive paracellular (throughout intestine):</strong> Concentration-dependent</li>
+                    </ul>
+                    
+                    <h5>Iron:</h5>
+                    <ul>
+                        <li><strong>Heme iron (meat):</strong>
+                            <ul>
+                                <li>HCP1 transporter → enterocyte</li>
+                                <li>Heme oxygenase releases Fe²⁺</li>
+                            </ul>
+                        </li>
+                        <li><strong>Non-heme iron (Fe³⁺):</strong>
+                            <ul>
+                                <li>Reduced to Fe²⁺ by DcytB (duodenal cytochrome B)</li>
+                                <li>DMT1 transporter (apical, H⁺-coupled)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Intracellular:</strong> Stored as ferritin or exported via ferroportin</li>
+                        <li><strong>Basolateral export:</strong> Ferroportin + hephaestin (oxidizes to Fe³⁺ for transferrin binding)</li>
+                        <li><strong>Regulation:</strong> Hepcidin (liver hormone) inhibits ferroportin → decreases absorption</li>
+                    </ul>
+                    
+                    <h5>Sodium:</h5>
+                    <ul>
+                        <li><strong>Active (throughout):</strong> Na⁺/K⁺ ATPase (basolateral) creates gradient</li>
+                        <li><strong>Coupled absorption:</strong> With nutrients (glucose, amino acids), Cl⁻, bile acids</li>
+                        <li><strong>Passive paracellular:</strong> Follows osmotic gradients</li>
+                    </ul>
+                </div>
+                
+                <h3>Water Absorption and Fluid Balance</h3>
+                
+                <div class="info-box">
+                    <h4>Daily Fluid Handling</h4>
+                    <table>
+                        <tr><th>Source</th><th>Volume (mL/day)</th><th>Notes</th></tr>
+                        <tr><td><strong>Ingestion</strong></td><td>2000</td><td>Food + drink</td></tr>
+                        <tr><td><strong>Secretions</strong></td>
+                            <td>7000
+                                <ul style="margin-top: 5px;">
+                                    <li>Saliva: 1000</li>
+                                    <li>Gastric: 2000</li>
+                                    <li>Bile: 1000</li>
+                                    <li>Pancreatic: 1000</li>
+                                    <li>Intestinal: 2000</li>
+                                </ul>
+                            </td>
+                            <td>Total secretions exceed intake</td></tr>
+                        <tr><td><strong>Total Input</strong></td><td>9000</td><td></td></tr>
+                        <tr><td><strong>Small Intestine Absorption</strong></td><td>8000</td><td>Primary absorption site</td></tr>
+                        <tr><td><strong>Colon Absorption</strong></td><td>900</td><td>Efficient water recovery</td></tr>
+                        <tr><td><strong>Fecal Loss</strong></td><td>100</td><td>Only 1% of total fluid</td></tr>
+                    </table>
+                </div>
+                
+                <div class="mechanism-box">
+                    <h4>Water Absorption Mechanism</h4>
+                    <p><strong>Osmosis:</strong> Water follows osmotic gradients created by active solute absorption</p>
+                    <p><strong>Routes:</strong></p>
+                    <ol>
+                        <li><strong>Transcellular:</strong> Through aquaporins (water channels) in enterocytes</li>
+                        <li><strong>Paracellular:</strong> Between cells through tight junctions (depends on tightness)</li>
+                    </ol>
+                    <p><strong>Coupling with Solute Absorption:</strong></p>
+                    <ul>
+                        <li>Na⁺ absorption creates osmotic gradient → water follows</li>
+                        <li>Nutrient absorption (glucose, amino acids) enhances Na⁺ and water absorption</li>
+                        <li>This is exploited in oral rehydration therapy (glucose + NaCl)</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SECTION 9: INTEGRATION -->
+            <section id="integration" class="content-section">
+                <h2>9. System Integration and Coordination</h2>
+                
+                <h3>Meal Processing Timeline</h3>
+                
+                <div class="info-box">
+                    <h4>Postprandial Sequence of Events</h4>
+                    
+                    <h5>0-1 Hour (Cephalic & Early Gastric Phase):</h5>
+                    <ul>
+                        <li>Sight/smell/taste of food → vagal stimulation</li>
+                        <li>Increased salivary and gastric secretion</li>
+                        <li>Receptive relaxation of stomach</li>
+                        <li>Initial gastric mixing</li>
+                    </ul>
+                    
+                    <h5>1-3 Hours (Gastric & Early Intestinal Phase):</h5>
+                    <ul>
+                        <li>Gastric secretion peaks (histamine-mediated)</li>
+                        <li>Protein digestion begins (pepsin)</li>
+                        <li>Carbohydrates begin leaving stomach</li>
+                        <li>Chyme enters duodenum → CCK, secretin release</li>
+                        <li>Gallbladder contraction, pancreatic secretion</li>
+                    </ul>
+                    
+                    <h5>3-6 Hours (Intestinal Phase):</h5>
+                    <ul>
+                        <li>Main digestion and absorption in small intestine</li>
+                        <li>Fat digestion/absorption (requires bile, slower)</li>
+                        <li>Nutrient absorption stimulates insulin release (incretin effect)</li>
+                        <li>Ileal brake slows gastric emptying</li>
+                    </ul>
+                    
+                    <h5>6+ Hours (Interdigestive Phase):</h5>
+                    <ul>
+                        <li>Migrating motor complexes clear residual material</li>
+                        <li>Motilin coordinates housekeeping waves</li>
+                        <li>Colon processes residue, absorbs water</li>
+                    </ul>
+                </div>
+                
+                <h3>Neural-Hormonal Integration</h3>
+                
+                <div class="diagram-placeholder">
+                    <h4>Integrated Response to a Meal</h4>
+                    <p><strong>Sensory Input</strong> (sight, smell, taste) → <strong>Vagal Activation</strong> →</p>
+                    <p>• Gastric acid secretion (direct + via gastrin)</p>
+                    <p>• Pancreatic enzyme secretion</p>
+                    <p>• Gallbladder contraction (minor)</p>
+                    <p>• Receptive relaxation</p>
+                    
+                    <p><strong>Gastric Phase:</strong> Distension + peptides → Gastrin release →</p>
+                    <p>• Acid secretion (direct + via histamine)</p>
+                    <p>• Gastric motility</p>
+                    
+                    <p><strong>Intestinal Phase:</strong> Chyme components →</p>
+                    <p>• Acid → Secretin → Bicarbonate secretion</p>
+                    <p>• Fat/Protein → CCK → Enzymes, gallbladder contraction</p>
+                    <p>• Nutrients → GIP → Insulin release</p>
+                    <p>• All → Enterogastric reflex → Slowed gastric emptying</p>
+                </div>
+                
+                <h3>Interorgan Communication</h3>
+                
+                <div class="info-box">
+                    <h4>Key Communication Pathways</h4>
+                    
+                    <h5>1. Gastropancreatic Reflex:</h5>
+                    <ul>
+                        <li>Gastric distension → vagovagal reflex → pancreatic secretion</li>
+                        <li>Ensures pancreatic enzymes ready when chyme arrives</li>
+                    </ul>
+                    
+                    <h5>2. Enteroinsular Axis:</h5>
+                    <ul>
+                        <li>Nutrients in intestine → GIP, GLP-1 release → insulin secretion</li>
+                        <li>Explains why oral glucose elicits greater insulin response than IV glucose (incretin effect)</li>
+                    </ul>
+                    
+                    <h5>3. Enterohepatic Circulation:</h5>
+                    <ul>
+                        <li>Bile salts reabsorbed in ileum → portal blood → liver → resecretion</li>
+                        <li>Conserves bile salt pool (only 5-10% lost daily)</li>
+                    </ul>
+                    
+                    <h5>4. Gastrocolic Reflex:</h5>
+                    <ul>
+                        <li>Gastric distension → increased colonic motility</li>
+                        <li>Often produces urge to defecate after meals</li>
+                    </ul>
+                    
+                    <h5>5. Ileal Brake:</h5>
+                    <ul>
+                        <li>Nutrients in ileum → PYY, GLP-1 release → slowed gastric emptying</li>
+                        <li>Prevents overloading of digestion/absorption capacity</li>
+                    </ul>
+                </div>
+                
+                <h3>Adaptive Responses</h3>
+                
+                <div class="info-box">
+                    <h4>System Adaptation to Different Meals</h4>
+                    
+                    <h5>High-Carbohydrate Meal:</h5>
+                    <ul>
+                        <li>Rapid gastric emptying (carbohydrates empty fastest)</li>
+                        <li>Pancreatic amylase secretion adequate for starch load</li>
+                        <li>Brush border disaccharidases not rate-limiting</li>
+                        <li>Strong incretin effect (GIP from glucose)</li>
+                    </ul>
+                    
+                    <h5>High-Fat Meal:</h5>
+                    <ul>
+                        <li>Slow gastric emptying (fat stimulates CCK)</li>
+                        <li>Strong gallbladder contraction (CCK-mediated)</li>
+                        <li>Pancreatic lipase secretion increased</li>
+                        <li>Micelle formation critical for absorption</li>
+                        <li>Satiety signals prolonged (CCK, PYY)</li>
+                    </ul>
+                    
+                    <h5>High-Protein Meal:</h5>
+                    <ul>
+                        <li>Moderate gastric emptying rate</li>
+                        <li>Strong gastrin stimulation (from amino acids)</li>
+                        <li>Increased pancreatic protease secretion</li>
+                        <li>Active amino acid and peptide transporters not saturated</li>
+                    </ul>
+                </div>
+                
+                <div class="key-point">
+                    <p><strong>System Efficiency:</strong> The GI tract processes approximately 30 tons of food and 50,000 liters of fluid in an average lifetime, with 92-97% efficiency in nutrient extraction, demonstrating remarkable integration of its component functions.</p>
+                </div>
+            </section>
+            
+            <!-- SECTION 10: CLINICAL CORRELATIONS -->
+            <section id="clinical" class="content-section">
+                <h2>10. Clinical Correlations and Pathophysiology</h2>
+                
+                <h3>Common GI Disorders</h3>
+                
+                <div class="comparison-box">
+                    <h4>Malabsorption Syndromes</h4>
+                    <table>
+                        <tr><th>Disorder</th><th>Deficient Component</th><th>Pathophysiology</th><th>Manifestations</th></tr>
+                        <tr><td><strong>Lactose Intolerance</strong></td>
+                            <td>Lactase (brush border)</td>
+                            <td>Genetic or acquired enzyme deficiency</td>
+                            <td>Bloating, gas, osmotic diarrhea after dairy</td></tr>
+                        <tr><td><strong>Celiac Disease</strong></td>
+                            <td>Multiple (villous atrophy)</td>
+                            <td>Autoimmune reaction to gluten → villous damage</td>
+                            <td>Global malabsorption, diarrhea, weight loss, deficiencies</td></tr>
+                        <tr><td><strong>Pancreatic Insufficiency</strong></td>
+                            <td>Pancreatic enzymes</td>
+                            <td>Chronic pancreatitis, cystic fibrosis</td>
+                            <td>Steatorrhea, creatorrhea, weight loss</td></tr>
+                        <tr><td><strong>Bile Salt Deficiency</strong></td>
+                            <td>Bile salts</td>
+                            <td>Liver disease, bile duct obstruction, ileal resection</td>
+                            <td>Steatorrhea, fat-soluble vitamin deficiencies</td></tr>
+                        <tr><td><strong>Pernicious Anemia</strong></td>
+                            <td>Intrinsic factor</td>
+                            <td>Autoimmune vs parietal cells/IF</td>
+                            <td>Megaloblastic anemia, neurological symptoms (B₁₂ deficiency)</td></tr>
+                    </table>
+                </div>
+                
+                <div class="comparison-box">
+                    <h4>Motility Disorders</h4>
+                    <table>
+                        <tr><th>Disorder</th><th>Pathophysiology</th><th>Manifestations</th></tr>
+                        <tr><td><strong>Gastroparesis</strong></td>
+                            <td>Delayed gastric emptying (often diabetic neuropathy)</td>
+                            <td>Early satiety, nausea, vomiting, bloating</td></tr>
+                        <tr><td><strong>Irritable Bowel Syndrome</strong></td>
+                            <td>Altered motility + visceral hypersensitivity</td>
+                            <td>Abdominal pain, altered bowel habits (diarrhea/constipation)</td></tr>
+                        <tr><td><strong>Achalasia</strong></td>
+                            <td>Failure of LES relaxation + absent peristalsis</td>
+                            <td>Dysphagia, regurgitation, chest pain</td></tr>
+                        <tr><td><strong>Chronic Intestinal Pseudo-obstruction</strong></td>
+                            <td>Severe dysmotility without mechanical obstruction</td>
+                            <td>Nausea, vomiting, abdominal distension, malnutrition</td></tr>
+                    </table>
+                </div>
+                
+                <h3>Peptic Ulcer Disease</h3>
+                
+                <div class="info-box">
+                    <h4>Pathophysiology</h4>
+                    <p><strong>Imbalance between aggressive and defensive factors:</strong></p>
+                    
+                    <h5>Aggressive Factors:</h5>
+                    <ul>
+                        <li>HCl acid</li>
+                        <li>Pepsin</li>
+                        <li><em>H. pylori</em> infection (80% of ulcers)</li>
+                        <li>NSAIDs (inhibit prostaglandin synthesis)</li>
+                    </ul>
+                    
+                    <h5>Defensive Factors:</h5>
+                    <ul>
+                        <li>Mucus-bicarbonate barrier</li>
+                        <li>Mucosal blood flow</li>
+                        <li>Epithelial cell renewal</li>
+                        <li>Prostaglandins (stimulate mucus and bicarbonate)</li>
+                    </ul>
+                </div>
+                
+                <div class="mechanism-box">
+                    <h4><em>H. pylori</em> Mechanism</h4>
+                    <p>1. Flagella allow movement through mucus layer</p>
+                    <p>2. Urease converts urea → NH₃ + CO₂ (neutralizes local acid)</p>
+                    <p>3. Adhesins bind to epithelial cells</p>
+                    <p>4. Toxins (VacA, CagA) cause cell damage</p>
+                    <p>5. Inflammation → increased gastrin → increased acid</p>
+                    <p>6. Combined acid increase + mucosal damage → ulcer</p>
+                </div>
+                
+                <h3>Gallstone Disease</h3>
+                
+                <div class="info-box">
+                    <h4>Types and Pathogenesis</h4>
+                    
+                    <h5>Cholesterol Stones (80%):</h5>
+                    <ul>
+                        <li><strong>Requirements:</strong>
+                            <ol>
+                                <li>Cholesterol supersaturation in bile</li>
+                                <li>Nucleation (mucin, calcium salts as nidus)</li>
+                                <li>Impaired gallbladder emptying (stasis)</li>
+                            </ol>
+                        </li>
+                        <li><strong>Risk factors:</strong> Female, Forty, Fertile, Fat, Fair (5 F's), rapid weight loss, TPN, ileal disease</li>
+                    </ul>
+                    
+                    <h5>Pigment Stones (20%):</h5>
+                    <ul>
+                        <li><strong>Black stones:</strong> Hemolytic disorders, cirrhosis (increased unconjugated bilirubin)</li>
+                        <li><strong>Brown stones:</strong> Bacterial infection (β-glucuronidase deconjugates bilirubin)</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Consequences of Gallstones</h4>
+                    <ul>
+                        <li><strong>Asymptomatic:</strong> Majority (80%)</li>
+                        <li><strong>Biliary colic:</strong> Stone transiently obstructs cystic duct</li>
+                        <li><strong>Acute cholecystitis:</strong> Impacted stone → inflammation</li>
+                        <li><strong>Choledocholithiasis:</strong> Stone in common bile duct → jaundice, pancreatitis</li>
+                        <li><strong>Gallstone ileus:</strong> Fistula to intestine → mechanical obstruction</li>
+                    </ul>
+                </div>
+                
+                <h3>Diarrhea Mechanisms</h3>
+                
+                <div class="comparison-box">
+                    <table>
+                        <tr><th>Type</th><th>Mechanism</th><th>Examples</th><th>Stool Characteristics</th></tr>
+                        <tr><td><strong>Osmotic</strong></td>
+                            <td>Non-absorbable solutes retain water in lumen</td>
+                            <td>Lactose intolerance, Mg²⁺ antacids</td>
+                            <td>Stops with fasting, high osmotic gap (>50 mOsm/kg)</td></tr>
+                        <tr><td><strong>Secretory</strong></td>
+                            <td>Active ion secretion into lumen</td>
+                            <td>Cholera (cAMP↑), E. coli (cGMP↑), VIPoma</td>
+                            <td>Persists with fasting, large volume, low osmotic gap (<50 mOsm/kg)</td></tr>
+                        <tr><td><strong>Inflammatory</strong></td>
+                            <td>Mucosal damage, exudation</td>
+                            <td>IBD, infections (Shigella, Campylobacter)</td>
+                            <td>Blood, pus, fever, leukocytes, increased fecal calprotectin</td></tr>
+                        <tr><td><strong>Motility</strong></td>
+                            <td>Increased transit → reduced absorption time</td>
+                            <td>Hyperthyroidism, IBS-diarrhea</td>
+                            <td>Small volume, urgency, often with abdominal pain</td></tr>
+                    </table>
+                </div>
+                
+                <h3>Liver Disease Manifestations</h3>
+                
+                <div class="info-box">
+                    <h4>Consequences of Liver Dysfunction</h4>
+                    
+                    <h5>1. Jaundice:</h5>
+                    <ul>
+                        <li><strong>Pre-hepatic:</strong> Excess bilirubin production (hemolysis)</li>
+                        <li><strong>Hepatic:</strong> Impaired conjugation/excretion (hepatitis, cirrhosis)</li>
+                        <li><strong>Post-hepatic:</strong> Biliary obstruction (stones, tumor)</li>
+                    </ul>
+                    
+                    <h5>2. Portal Hypertension:</h5>
+                    <ul>
+                        <li>Increased resistance to portal flow</li>
+                        <li>Consequences: Varices (esophageal, gastric), ascites, splenomegaly</li>
+                    </ul>
+                    
+                    <h5>3. Synthetic Failure:</h5>
+                    <ul>
+                        <li><strong>Coagulopathy:</strong> Reduced clotting factors (increased PT/INR)</li>
+                        <li><strong>Hypoalbuminemia:</strong> Edema, ascites</li>
+                    </ul>
+                    
+                    <h5>4. Detoxification Failure:</h5>
+                    <ul>
+                        <li><strong>Hepatic encephalopathy:</strong> Ammonia accumulation → neuropsychiatric symptoms</li>
+                        <li><strong>Drug toxicity:</strong> Reduced metabolism</li>
+                    </ul>
+                </div>
+                
+                <h3>Pancreatitis</h3>
+                
+                <div class="warning-box">
+                    <h4>Pathogenesis and Consequences</h4>
+                    
+                    <h5>Mechanisms:</h5>
+                    <ol>
+                        <li><strong>Obstructive:</strong> Gallstone impacts pancreatic duct → increased pressure</li>
+                        <li><strong>Toxic:</strong> Alcohol → protein plugs → duct obstruction</li>
+                        <li><strong>Metabolic:</strong> Hypertriglyceridemia (>1000 mg/dL)</li>
+                        <li><strong>Common pathway:</strong> Premature activation of trypsin → autodigestion</li>
+                    </ol>
+                    
+                    <h5>Local Complications:</h5>
+                    <ul>
+                        <li>Pancreatic necrosis, pseudocyst, abscess</li>
+                        <li>Fluid collections (lesser sac, retroperitoneum)</li>
+                    </ul>
+                    
+                    <h5>Systemic Complications:</h5>
+                    <ul>
+                        <li>ARDS (acute respiratory distress syndrome)</li>
+                        <li>Acute kidney injury</li>
+                        <li>Shock (fluid sequestration, vasodilation)</li>
+                        <li>Hypocalcemia (saponification of fat)</li>
+                    </ul>
+                </div>
+                
+                <h3>Refeeding Syndrome</h3>
+                
+                <div class="info-box">
+                    <h4>Pathophysiology After Starvation</h4>
+                    
+                    <p><strong>Starvation adaptations:</strong></p>
+                    <ul>
+                        <li>Catabolic state → using fat/protein for energy</li>
+                        <li>Electrolyte depletion (K⁺, Mg²⁺, PO₄³⁻)</li>
+                        <li>Reduced insulin secretion</li>
+                        <li>GI tract atrophy (villous shortening, enzyme reduction)</li>
+                    </ul>
+                    
+                    <p><strong>Refeeding response:</strong></p>
+                    <ul>
+                        <li>Carbohydrate intake → insulin surge</li>
+                        <li>Electrolyte shifts into cells (hypophosphatemia, hypokalemia, hypomagnesemia)</li>
+                        <li>Fluid retention (Na⁺/K⁺ ATPase reactivation)</li>
+                        <li>Increased metabolic demand (thiamine especially)</li>
+                    </ul>
+                    
+                    <p><strong>Consequences:</strong> Cardiac arrhythmias, respiratory failure, neurological symptoms, fluid overload</p>
+                    
+                    <p><strong>Prevention:</strong> Gradual refeeding, electrolyte monitoring/replacement, thiamine administration</p>
+                </div>
+                
+                <div class="key-point">
+                    <p><strong>Clinical Integration:</strong> Understanding GI physiology allows prediction of which deficiencies will occur in specific diseases and guides targeted therapy (e.g., pancreatic enzyme replacement in cystic fibrosis, bile acid sequestrants in bile acid diarrhea, lactase supplements in lactose intolerance).</p>
+                </div>
+            </section>
+        </article>
+    </main>
+    
+    <footer>
+        <h3>Complete GI System Master Notes</h3>
+        <p>Integrated from: GIT ECT.pptx | Secretory function of GIT (1).pptx | digestionand absorption.pdf</p>
+        <p>Total Content: 10 Comprehensive Sections | All Material Organized Without Duplication</p>
+        <p>Compiled for Medical Study | Last Updated: <span id="currentDate"></span></p>
+        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.7;">© Comprehensive Medical Notes | For Educational Purposes</p>
+    </footer>
+    
+    <script>
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('#toc-list a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                
+                // Highlight current section in TOC
+                document.querySelectorAll('#toc-list a').forEach(a => {
+                    a.style.background = 'transparent';
+                    a.style.borderLeftColor = 'transparent';
+                });
+                this.style.background = '#f0f7ff';
+                this.style.borderLeftColor = '#1a5276';
+            });
+        });
+        
+        // Highlight current section in TOC on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.content-section');
+            const navLinks = document.querySelectorAll('#toc-list a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.style.background = 'transparent';
+                link.style.borderLeftColor = 'transparent';
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.style.background = '#f0f7ff';
+                    link.style.borderLeftColor = '#1a5276';
+                }
+            });
+        });
+        
+        // Print-friendly page
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'p') {
+                e.preventDefault();
+                alert('For best printing results, use "Print to PDF" with landscape orientation.');
+                window.print();
+            }
+        });
+    </script>
+</body>
+          </html>
