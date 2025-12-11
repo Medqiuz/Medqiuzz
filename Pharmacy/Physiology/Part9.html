@@ -1,0 +1,2827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GI System Comprehensive Exam | Medical Physiology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #3498db;
+            --accent: #27ae60;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --correct: #27ae60;
+            --incorrect: #e74c3c;
+            --warning: #f39c12;
+            --gray: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), #2c3e50);
+            color: white;
+            padding: 25px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--secondary);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .exam-info {
+            text-align: right;
+        }
+        
+        .exam-info p {
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+        
+        /* Timer */
+        .timer-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px 25px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .timer {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        /* Exam instructions */
+        .exam-instructions {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .exam-instructions h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .instructions-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .instruction-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .instruction-item i {
+            color: var(--secondary);
+            margin-top: 3px;
+        }
+        
+        /* Scroll indicator */
+        .scroll-indicator {
+            text-align: center;
+            margin-top: 30px;
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 20px;
+            z-index: 10;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background-color: #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            width: 0%;
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+        
+        /* Stats */
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        /* Question Container */
+        .question-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+        
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question-number {
+            background-color: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .question-topic {
+            background-color: var(--light);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* Options */
+        .options-container {
+            margin-bottom: 25px;
+        }
+        
+        .option {
+            background-color: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: #f1f8ff;
+            border-color: #b3d9ff;
+        }
+        
+        .option.selected {
+            border-color: var(--secondary);
+            background-color: #e8f4fc;
+        }
+        
+        .option.correct {
+            border-color: var(--correct);
+            background-color: #d4edda;
+        }
+        
+        .option.incorrect {
+            border-color: var(--incorrect);
+            background-color: #f8d7da;
+        }
+        
+        .option-label {
+            background-color: #e0e0e0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .option.selected .option-label {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .option.correct .option-label {
+            background-color: var(--correct);
+            color: white;
+        }
+        
+        .option.incorrect .option-label {
+            background-color: var(--incorrect);
+            color: white;
+        }
+        
+        .option-text {
+            flex-grow: 1;
+        }
+        
+        /* Feedback */
+        .feedback-container {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .feedback-container.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feedback-correct {
+            background-color: #d4edda;
+            border-left: 5px solid var(--correct);
+        }
+        
+        .feedback-incorrect {
+            background-color: #f8d7da;
+            border-left: 5px solid var(--incorrect);
+        }
+        
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .feedback-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .feedback-title {
+            font-size: 1.1rem;
+        }
+        
+        .feedback-explanation, .feedback-tip {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+        
+        .feedback-subtitle {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feedback-subtitle i {
+            margin-right: 8px;
+        }
+        
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-prev {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            border: 1px solid #ddd;
+        }
+        
+        .btn-prev:hover {
+            background-color: #e9ecef;
+        }
+        
+        .btn-next {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-next:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-submit {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            background-color: #219653;
+        }
+        
+        .btn-mark {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .btn-mark:hover {
+            background-color: #e67e22;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* Question Navigation */
+        .question-nav {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question-nav h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .question-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .q-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            color: var(--dark);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .q-btn:hover {
+            border-color: var(--secondary);
+            transform: scale(1.05);
+        }
+        
+        .q-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        .q-btn.answered {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .q-btn.incorrect {
+            background: var(--incorrect);
+            color: white;
+            border-color: var(--incorrect);
+        }
+        
+        .q-btn.marked {
+            border: 3px solid var(--warning);
+        }
+        
+        /* Results Screen */
+        .results-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+        
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .results-icon {
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .results-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .results-score {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin: 20px 0;
+        }
+        
+        .results-details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .result-item {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            min-width: 150px;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .result-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .result-correct .result-value {
+            color: var(--correct);
+        }
+        
+        .result-incorrect .result-value {
+            color: var(--incorrect);
+        }
+        
+        .result-marked .result-value {
+            color: var(--warning);
+        }
+        
+        .results-message {
+            font-size: 1.2rem;
+            margin: 25px 0;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        
+        .btn-restart {
+            background-color: var(--primary);
+            color: white;
+            margin: 0 auto;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+        
+        .btn-restart:hover {
+            background-color: #154360;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Exam Mode Indicator */
+        .exam-mode {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--warning);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 10;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Category Filter */
+        .category-filter {
+            margin-top: 20px;
+        }
+        
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .cat-btn {
+            padding: 8px 15px;
+            background: #eaeaea;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .cat-btn.active {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .cat-btn:hover {
+            background: #d5d5d5;
+        }
+        
+        .cat-btn.active:hover {
+            background: #2980b9;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                min-height: auto;
+                padding: 20px 0;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .exam-info {
+                text-align: center;
+            }
+            
+            .exam-mode {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 0 auto 20px;
+                width: fit-content;
+            }
+            
+            .instructions-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-container {
+                padding: 20px;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .question-topic {
+                align-self: flex-start;
+            }
+            
+            .results-details {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .result-item {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+            
+            .stats-container {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .stat-item {
+                flex: 1 0 45%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 12px 15px;
+            }
+            
+            .q-btn {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Exam Mode Indicator -->
+        <div class="exam-mode">
+            <i class="fas fa-clock"></i> 90 MINUTE EXAM
+        </div>
+        
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>GI System Comprehensive Exam</h1>
+                        <p>Medical Physiology | 90 Questions</p>
+                    </div>
+                </div>
+                <div class="exam-info">
+                    <p><i class="fas fa-graduation-cap"></i> Advanced Level</p>
+                    <p><i class="fas fa-clock"></i> Time: <span class="timer" id="timer">90:00</span></p>
+                    <p><i class="fas fa-chart-line"></i> Immediate Feedback</p>
+                </div>
+            </div>
+            
+            <!-- Exam Instructions -->
+            <div class="exam-instructions">
+                <h3><i class="fas fa-info-circle"></i> Exam Instructions</h3>
+                <div class="instructions-list">
+                    <div class="instruction-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>Select one answer per question. Immediate feedback will be shown.</div>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <div>Each question includes detailed explanations and memorization tips.</div>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-book-medical"></i>
+                        <div>Covers Anatomy, Physiology, Motility, Secretion, Digestion, and Hormones.</div>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-arrows-alt-h"></i>
+                        <div>Use navigation buttons or question buttons to navigate between questions.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <p>Scroll down to begin the exam</p>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Stats Container -->
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-value" id="score">0</div>
+                <div class="stat-label">Score</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="answered">0/90</div>
+                <div class="stat-label">Answered</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="correct">0</div>
+                <div class="stat-label">Correct</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="marked">0</div>
+                <div class="stat-label">Marked</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="percentage">0%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-header">
+                <span>Progress: <span id="current-question">1</span> of <span id="total-questions">90</span></span>
+                <span>Accuracy: <span id="current-accuracy">0%</span></span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        
+        <!-- Question Navigation -->
+        <div class="question-nav">
+            <h3>Question Navigation</h3>
+            <div class="category-filter">
+                <p><strong>Filter by Category:</strong></p>
+                <div class="category-buttons">
+                    <button class="cat-btn active" data-category="all">All (90)</button>
+                    <button class="cat-btn" data-category="anatomy">Anatomy (15)</button>
+                    <button class="cat-btn" data-category="physiology">Physiology (18)</button>
+                    <button class="cat-btn" data-category="motility">Motility (12)</button>
+                    <button class="cat-btn" data-category="secretion">Secretion (20)</button>
+                    <button class="cat-btn" data-category="digestion">Digestion (15)</button>
+                    <button class="cat-btn" data-category="hormones">Hormones (10)</button>
+                </div>
+            </div>
+            <div class="question-buttons" id="question-buttons">
+                <!-- Question buttons will be generated by JavaScript -->
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-restart" id="reset-btn" style="padding: 10px 20px; font-size: 0.9rem;">
+                    <i class="fas fa-redo"></i> Reset Exam
+                </button>
+            </div>
+        </div>
+        
+        <!-- Question Containers will be inserted here -->
+        <div id="questions-area"></div>
+        
+        <!-- Results Screen -->
+        <div class="results-container" id="results-container">
+            <div class="results-icon">
+                <i class="fas fa-clipboard-check"></i>
+            </div>
+            <h2 class="results-title">Exam Completed!</h2>
+            <p>You have finished the GI System Comprehensive Exam. Review your results below.</p>
+            
+            <div class="results-score" id="final-score">0%</div>
+            
+            <div class="results-details">
+                <div class="result-item result-correct">
+                    <div class="result-value" id="correct-count">0</div>
+                    <div class="result-label">Correct Answers</div>
+                </div>
+                <div class="result-item result-incorrect">
+                    <div class="result-value" id="incorrect-count">0</div>
+                    <div class="result-label">Incorrect Answers</div>
+                </div>
+                <div class="result-item result-marked">
+                    <div class="result-value" id="marked-count">0</div>
+                    <div class="result-label">Marked Questions</div>
+                </div>
+            </div>
+            
+            <div class="results-message" id="results-message">
+                Your performance analysis will appear here.
+            </div>
+            
+            <button class="btn btn-restart" id="restart-btn">
+                <i class="fas fa-redo"></i> Restart Exam
+            </button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>GI System Comprehensive Exam | Based on complete integration of all three source files</p>
+            <p>Each question includes detailed explanation and memorization tips | Exam simulation mode</p>
+        </div>
+    </footer>
+
+    <script>
+        // Question data - 90 questions from the original GI System Comprehensive Exam
+        const questions = [
+            // ANATOMY QUESTIONS (15)
+            {
+                id: 1,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "Which layer of the GI tract contains the myenteric (Auerbach's) plexus and is primarily responsible for controlling motility?",
+                options: [
+                    "Mucosa",
+                    "Submucosa",
+                    "Muscularis externa",
+                    "Serosa"
+                ],
+                answer: 2,
+                explanation: "The myenteric plexus is located between the longitudinal and circular muscle layers of the muscularis externa. This plexus primarily controls GI motility, coordinating peristaltic contractions and sphincter function.",
+                tip: "Remember: Myenteric = Muscle control. Meissner's (submucosal) plexus controls secretion/absorption."
+            },
+            {
+                id: 2,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "What structural adaptation increases the small intestinal surface area by approximately 600 times compared to a simple tube?",
+                options: [
+                    "Plicae circulares alone",
+                    "Villi alone",
+                    "Microvilli alone",
+                    "Combination of plicae circulares, villi, and microvilli"
+                ],
+                answer: 3,
+                explanation: "The 600-fold increase results from three levels of folding: 1) Plicae circulares (3×), 2) Villi (10×), and 3) Microvilli (20×). Multiplying these gives 3 × 10 × 20 = 600× increase.",
+                tip: "Memorize the multiplication: 3 (plicae) × 10 (villi) × 20 (microvilli) = 600×"
+            },
+            {
+                id: 3,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "Which region of the stomach has three muscle layers (longitudinal, circular, and oblique) instead of the usual two found elsewhere in the GI tract?",
+                options: [
+                    "Cardia only",
+                    "Fundus only",
+                    "Body only",
+                    "Entire stomach"
+                ],
+                answer: 3,
+                explanation: "The entire stomach has three muscle layers, which is unique in the GI tract. The oblique layer (innermost) allows for the powerful mixing and churning motions characteristic of gastric motility.",
+                tip: "Stomach = 3 layers for 3D mixing. Other GI organs have only 2 layers."
+            },
+            {
+                id: 4,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "What cells in the gastric glands secrete pepsinogen and are found primarily in the body and fundus of the stomach?",
+                options: [
+                    "Parietal (oxyntic) cells",
+                    "Chief (peptic) cells",
+                    "G cells",
+                    "Mucous neck cells"
+                ],
+                answer: 1,
+                explanation: "Chief cells (also called peptic cells) secrete pepsinogen, the inactive precursor of pepsin. They are most abundant in the gastric glands of the body and fundus.",
+                tip: "Chief = Chef = Makes pepsin(ogen). Parietal = HCl factory. G cells = Gastrin. D cells = Somatostatin."
+            },
+            {
+                id: 5,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "Which specialized cells are considered the pacemakers of GI smooth muscle, generating slow waves that determine the maximum frequency of contractions?",
+                options: [
+                    "Enterochromaffin-like cells",
+                    "Interstitial cells of Cajal",
+                    "Myenteric neurons",
+                    "Submucosal neurons"
+                ],
+                answer: 1,
+                explanation: "Interstitial cells of Cajal (ICC) generate slow waves, which are rhythmic oscillations in membrane potential that determine the maximum frequency of contractions in different GI regions.",
+                tip: "ICC = Intestinal Cardiac Cells (like pacemaker cells in heart)."
+            },
+            {
+                id: 6,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "What is the approximate length of the adult small intestine, and how is it divided among its three segments?",
+                options: [
+                    "3-4 meters total: Duodenum 0.25m, Jejunum 1m, Ileum 2-3m",
+                    "5-7 meters total: Duodenum 0.5m, Jejunum 2-3m, Ileum 3-4m",
+                    "7-9 meters total: Duodenum 1m, Jejunum 3-4m, Ileum 3-4m",
+                    "10-12 meters total: Equal division among three segments"
+                ],
+                answer: 1,
+                explanation: "The small intestine is approximately 5-7 meters long in adults. The duodenum is the shortest (about 0.5m), the jejunum comprises about 2-3m, and the ileum is the longest at 3-4m.",
+                tip: "Remember: D-J-I = 0.5-2.5-4 (approximate meters). Duodenum is short but crucial for digestion regulation."
+            },
+            {
+                id: 7,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "Which cells in the small intestinal crypts have a rapid turnover rate of approximately 3-5 days and continuously replace the villous epithelium?",
+                options: [
+                    "Paneth cells",
+                    "Enteroendocrine cells",
+                    "Stem cells",
+                    "Goblet cells"
+                ],
+                answer: 2,
+                explanation: "Stem cells located near the base of the crypts continuously proliferate and differentiate into all epithelial cell types, migrating up the villus and being shed at the tip every 3-5 days.",
+                tip: "Fastest cell turnover in body: 3-5 days for intestinal epithelium vs. 120 days for RBCs."
+            },
+            {
+                id: 8,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "What is the primary function of Paneth cells located at the base of the small intestinal crypts?",
+                options: [
+                    "Secretion of digestive enzymes",
+                    "Absorption of nutrients",
+                    "Secretion of antimicrobial peptides",
+                    "Production of mucus"
+                ],
+                answer: 2,
+                explanation: "Paneth cells secrete antimicrobial peptides (defensins, lysozyme) and other proteins that help control the intestinal microbiota and protect the crypt stem cells.",
+                tip: "Paneth = Pan-defensin (antibacterial defense). Located at crypt base to protect stem cells."
+            },
+            {
+                id: 9,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "Which structure marks the transition from the foregut to the midgut during embryonic development and has clinical significance in peptic ulcer disease?",
+                options: [
+                    "Pylorus",
+                    "Ampulla of Vater",
+                    "Ligament of Treitz",
+                    "Ileocecal valve"
+                ],
+                answer: 2,
+                explanation: "The ligament of Treitz (suspensory ligament of the duodenum) marks the duodenojejunal junction and the transition from foregut to midgut. It's used to differentiate upper vs. lower GI bleeding.",
+                tip: "Treitz = Transition point. Foregut ends, midgut begins here."
+            },
+            {
+                id: 10,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "What specialized structure in the colon is responsible for its segmented, sacculated appearance and aids in haustral mixing?",
+                options: [
+                    "Teniae coli",
+                    "Haustra",
+                    "Epiploic appendages",
+                    "Semilunar folds"
+                ],
+                answer: 1,
+                explanation: "Haustra are the sacculations of the colon created by contractions of the taeniae coli. They facilitate mixing and slow transit, allowing for water absorption.",
+                tip: "Haustra = House-tra (like little houses/sacs). Created by teniae coli contractions."
+            },
+            {
+                id: 11,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "Which cells in the gastric antrum secrete gastrin and are stimulated by the presence of peptides and amino acids?",
+                options: [
+                    "Parietal cells",
+                    "Chief cells",
+                    "G cells",
+                    "D cells"
+                ],
+                answer: 2,
+                explanation: "G cells in the gastric antrum secrete gastrin in response to peptides, amino acids, and stomach distension. Gastrin stimulates gastric acid secretion and mucosal growth.",
+                tip: "G cells = Gastrin. Located in Gastric antrum. Stimulated by Gastric contents (proteins)."
+            },
+            {
+                id: 12,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "What is the function of the valvulae conniventes (plicae circulares) in the small intestine?",
+                options: [
+                    "Increase surface area for absorption",
+                    "Prevent retrograde flow of chyme",
+                    "Secrete digestive enzymes",
+                    "House lymphoid tissue"
+                ],
+                answer: 0,
+                explanation: "Plicae circulares are permanent circular folds of mucosa and submucosa that increase surface area approximately 3-fold and slow transit time, enhancing digestion and absorption.",
+                tip: "Plicae = Pleats in clothing = increase surface area. Not to be confused with villi or microvilli."
+            },
+            {
+                id: 13,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "Which pancreatic cell type secretes bicarbonate-rich fluid in response to secretin stimulation?",
+                options: [
+                    "Acinar cells",
+                    "Ductal cells",
+                    "Islet alpha cells",
+                    "Islet beta cells"
+                ],
+                answer: 1,
+                explanation: "Pancreatic ductal cells secrete bicarbonate-rich fluid when stimulated by secretin. This alkaline secretion neutralizes gastric acid in the duodenum.",
+                tip: "Duct cells = Bicarbonate (like ducts carry water). Acinar cells = Enzymes."
+            },
+            {
+                id: 14,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "What is the approximate surface area of the adult human small intestine, considering all levels of folding?",
+                options: [
+                    "10-20 m²",
+                    "30-40 m²",
+                    "200-300 m²",
+                    "400-500 m²"
+                ],
+                answer: 2,
+                explanation: "With plicae circulares (3×), villi (10×), and microvilli (20×), the 0.5m² of a simple tube becomes approximately 200-300 m², about the size of a tennis court.",
+                tip: "Small intestine surface area = Tennis court. Large intestine = Table top."
+            },
+            {
+                id: 15,
+                topic: "Anatomy",
+                category: "anatomy",
+                question: "Which structure prevents reflux of colonic contents into the ileum and is normally tonically contracted?",
+                options: [
+                    "Pyloric sphincter",
+                    "Sphincter of Oddi",
+                    "Ileocecal valve",
+                    "Lower esophageal sphincter"
+                ],
+                answer: 2,
+                explanation: "The ileocecal valve prevents reflux of colonic contents (which contain bacteria) into the relatively sterile ileum. It normally remains closed, opening in response to ileal peristalsis.",
+                tip: "Ileocecal valve = One-way valve from small to large intestine. Prevents bacterial migration backward."
+            },
+            
+            // PHYSIOLOGY QUESTIONS (18)
+            {
+                id: 16,
+                topic: "Physiology",
+                category: "physiology",
+                question: "During the 'alkaline tide' phenomenon, what enters the bloodstream from parietal cells as HCl is secreted into the stomach lumen?",
+                options: [
+                    "Hydrogen ions",
+                    "Chloride ions",
+                    "Bicarbonate ions",
+                    "Potassium ions"
+                ],
+                answer: 2,
+                explanation: "For every H⁺ secreted into the lumen via H⁺/K⁺ ATPase, a HCO₃⁻ enters the blood via a Cl⁻/HCO₃⁻ exchanger. This temporarily increases venous blood pH after meals.",
+                tip: "Alkaline tide = Alkaline (bicarbonate) flows into blood like a tide while acid goes into stomach."
+            },
+            {
+                id: 17,
+                topic: "Physiology",
+                category: "physiology",
+                question: "What is the primary mechanism by which fructose is absorbed across the intestinal brush border membrane?",
+                options: [
+                    "Na⁺-dependent secondary active transport (SGLT1)",
+                    "H⁺-coupled secondary active transport",
+                    "Facilitated diffusion via GLUT5",
+                    "Simple diffusion"
+                ],
+                answer: 2,
+                explanation: "Fructose is absorbed via facilitated diffusion through the GLUT5 transporter on the apical membrane. This is passive and slower than glucose/galactose absorption.",
+                tip: "Fructose = Fruit sugar = Facilitated diffusion (GLUT5). Glucose = GLUT (SGLT1 active transport)."
+            },
+            {
+                id: 18,
+                topic: "Physiology",
+                category: "physiology",
+                question: "Which phase of gastric acid secretion accounts for approximately 60% of total acid production and is stimulated by gastrin release?",
+                options: [
+                    "Cephalic phase",
+                    "Gastric phase",
+                    "Intestinal phase",
+                    "Basal phase"
+                ],
+                answer: 1,
+                explanation: "The gastric phase accounts for about 60% of acid secretion. It's stimulated by stomach distension and the presence of peptides/amino acids, which trigger gastrin release from G cells.",
+                tip: "Cephalic (30%) = Head. Gastric (60%) = Stomach. Intestinal (10%) = Intestine. Remember 30-60-10."
+            },
+            {
+                id: 19,
+                topic: "Physiology",
+                category: "physiology",
+                question: "What is the normal pH range of pancreatic juice, and why is this important for its function?",
+                options: [
+                    "pH 1-3: Activates pepsin",
+                    "pH 4-5: Optimal for lingual lipase",
+                    "pH 7-8: Neutralizes gastric acid, optimal for pancreatic enzymes",
+                    "pH 8-9: Denatures proteins"
+                ],
+                answer: 2,
+                explanation: "Pancreatic juice pH is 7.1-8.2. This alkalinity neutralizes acidic chyme from the stomach (stopping pepsin activity) and provides optimal pH for pancreatic enzymes (pH 7-8).",
+                tip: "Pancreas = Alkaline like baking soda. Neutralizes stomach acid."
+            },
+            {
+                id: 20,
+                topic: "Physiology",
+                category: "physiology",
+                question: "How does the enteric nervous system differ from the autonomic nervous system in controlling GI function?",
+                options: [
+                    "ENS requires continuous input from the CNS",
+                    "ENS can function independently of the CNS",
+                    "ENS only controls secretion, not motility",
+                    "ENS uses only acetylcholine as neurotransmitter"
+                ],
+                answer: 1,
+                explanation: "The enteric nervous system (ENS) can function independently as the 'second brain' with its own sensory neurons, interneurons, and motor neurons. It coordinates local reflexes without CNS input.",
+                tip: "ENS = Independent mini-brain in gut. Can work even if vagus nerve is cut."
+            },
+            {
+                id: 21,
+                topic: "Physiology",
+                category: "physiology",
+                question: "What is the primary driving force for water absorption in the small intestine?",
+                options: [
+                    "Active transport of water via aquaporins",
+                    "Osmosis following active solute absorption",
+                    "Co-transport with sodium ions",
+                    "Paracellular transport through tight junctions"
+                ],
+                answer: 1,
+                explanation: "Water absorption occurs primarily via osmosis. Active absorption of nutrients (especially Na⁺) creates an osmotic gradient that pulls water across the epithelium.",
+                tip: "Water follows salt (Na⁺). This principle is used in oral rehydration therapy."
+            },
+            {
+                id: 22,
+                topic: "Physiology",
+                category: "physiology",
+                question: "Which statement best describes the relationship between slow waves and action potentials in GI smooth muscle?",
+                options: [
+                    "Slow waves are action potentials specific to GI muscle",
+                    "Action potentials occur at the peak of slow waves if threshold is reached",
+                    "Slow waves always cause contraction without action potentials",
+                    "Action potentials determine slow wave frequency"
+                ],
+                answer: 1,
+                explanation: "Slow waves are rhythmic oscillations in membrane potential. If they depolarize the cell to threshold (about -40 mV), action potentials occur at the peak, triggering contraction.",
+                tip: "Slow waves = Possibility of contraction. Action potentials = Actual contraction. Like a heart rhythm vs heartbeat."
+            },
+            {
+                id: 23,
+                topic: "Physiology",
+                category: "physiology",
+                question: "What is the primary function of the migrating motor complex (MMC) that occurs during fasting?",
+                options: [
+                    "Digest and absorb nutrients",
+                    "Clear residual material from the GI tract",
+                    "Store bile in the gallbladder",
+                    "Increase gastric acid secretion"
+                ],
+                answer: 1,
+                explanation: "The MMC is a 'housekeeping' wave that sweeps through the GI tract every 90 minutes during fasting, clearing residual food, bacteria, and secretions.",
+                tip: "MMC = Motilin-Mediated Cleansing. Fasting housekeeper."
+            },
+            {
+                id: 24,
+                topic: "Physiology",
+                category: "physiology",
+                question: "How does receptive relaxation in the stomach facilitate food intake?",
+                options: [
+                    "Increases acid secretion for digestion",
+                    "Decreases pressure as volume increases",
+                    "Accelerates gastric emptying",
+                    "Stimulates hunger signals"
+                ],
+                answer: 1,
+                explanation: "Receptive relaxation is a vagovagal reflex where the proximal stomach relaxes as food enters, allowing volume to increase with minimal pressure rise. This accommodates meals without discomfort.",
+                tip: "Stomach is like a balloon that relaxes as it fills. Prevents pressure buildup."
+            },
+            {
+                id: 25,
+                topic: "Physiology",
+                category: "physiology",
+                question: "What is the mechanism by which iron absorption is regulated based on body stores?",
+                options: [
+                    "Upregulation of DMT1 when stores are low",
+                    "Hepcidin inhibition of ferroportin when stores are high",
+                    "Increased transferrin production when stores are low",
+                    "Decreased ferritin synthesis when stores are high"
+                ],
+                answer: 1,
+                explanation: "Hepcidin, produced by the liver, inhibits ferroportin (iron exporter on enterocytes and macrophages) when iron stores are adequate, reducing iron absorption and release.",
+                tip: "Hepcidin = Hepatic (liver) + cidin (killer of iron absorption). High iron → High hepcidin → Blocks absorption."
+            },
+            {
+                id: 26,
+                topic: "Physiology",
+                category: "physiology",
+                question: "Which of the following best describes the process of 'retropulsion' during gastric mixing?",
+                options: [
+                    "Forward propulsion of chyme through pylorus",
+                    "Backward movement of chyme for further mixing",
+                    "Relaxation of the lower esophageal sphincter",
+                    "Secretion of enzymes into the stomach"
+                ],
+                answer: 1,
+                explanation: "Retropulsion occurs when the pylorus closes during antral contractions, forcing chyme backward into the stomach for further mixing and grinding.",
+                tip: "Retropulsion = Retro (backward) + propulsion. Like a washing machine agitator."
+            },
+            {
+                id: 27,
+                topic: "Physiology",
+                category: "physiology",
+                question: "What is the primary stimulus for the release of secretin from S cells in the duodenum?",
+                options: [
+                    "Fatty acids in the duodenum",
+                    "Amino acids in the duodenum",
+                    "Acidic chyme (pH < 4.5) in the duodenum",
+                    "Distension of the duodenum"
+                ],
+                answer: 2,
+                explanation: "Secretin release is primarily stimulated by acidic chyme (pH < 4.5) entering the duodenum. This triggers bicarbonate secretion to neutralize the acid.",
+                tip: "Secretin = Secretes bicarbonate in response to acid. 'S' cells sense acid."
+            },
+            {
+                id: 28,
+                topic: "Physiology",
+                category: "physiology",
+                question: "How does calcium absorption differ between the duodenum and other intestinal segments?",
+                options: [
+                    "Only absorbed in duodenum via passive diffusion",
+                    "Active transport in duodenum (vitamin D dependent), passive elsewhere",
+                    "Only absorbed in ileum with intrinsic factor",
+                    "Requires bile salts throughout small intestine"
+                ],
+                answer: 1,
+                explanation: "Calcium is actively absorbed in the duodenum via TRPV6 channels and calbindin (vitamin D dependent). Passive paracellular absorption occurs throughout the intestine.",
+                tip: "Calcium absorption = Active in duodenum (needs vitamin D), passive elsewhere. Like iron."
+            },
+            {
+                id: 29,
+                topic: "Physiology",
+                category: "physiology",
+                question: "What is the physiological significance of the lower esophageal sphincter having a resting pressure higher than gastric pressure?",
+                options: [
+                    "Prevents esophageal reflux during inspiration",
+                    "Prevents gastric reflux into esophagus",
+                    "Facilitates swallowing",
+                    "Increases gastric mixing efficiency"
+                ],
+                answer: 1,
+                explanation: "The LES maintains a resting pressure of 10-25 mmHg (vs gastric pressure of 5-10 mmHg), creating a pressure gradient that prevents reflux of gastric contents.",
+                tip: "LES = One-way valve. High pressure keeps stomach contents in stomach."
+            },
+            {
+                id: 30,
+                topic: "Physiology",
+                category: "physiology",
+                question: "Which factor most significantly slows gastric emptying?",
+                options: [
+                    "Carbohydrates in the duodenum",
+                    "Isotonic solutions in the duodenum",
+                    "Fat in the duodenum",
+                    "Water in the duodenum"
+                ],
+                answer: 2,
+                explanation: "Fat in the duodenum potently inhibits gastric emptying via CCK release and enterogastric reflexes. This allows time for fat digestion/absorption.",
+                tip: "Fat = Slow. Carbs = Fast. Proteins = Medium. Remember F-S-P (Fat-Slow-Protein)."
+            },
+            {
+                id: 31,
+                topic: "Physiology",
+                category: "physiology",
+                question: "What is the primary mechanism by which bile salts facilitate fat digestion?",
+                options: [
+                    "Direct enzymatic breakdown of triglycerides",
+                    "Activation of pancreatic lipase",
+                    "Emulsification to increase surface area",
+                    "Stimulation of CCK release"
+                ],
+                answer: 2,
+                explanation: "Bile salts emulsify fats, breaking large globules into small droplets. This increases surface area for pancreatic lipase action by 1000-fold.",
+                tip: "Bile salts = Biological detergent. Like dish soap breaking up grease."
+            },
+            {
+                id: 32,
+                topic: "Physiology",
+                category: "physiology",
+                question: "How does the composition of final saliva differ from plasma, and why?",
+                options: [
+                    "Hypertonic with high Na⁺ due to ductal secretion",
+                    "Hypotonic with low Na⁺, high K⁺ due to ductal modification",
+                    "Identical to plasma for optimal enzyme function",
+                    "Hypertonic with high glucose for energy"
+                ],
+                answer: 1,
+                explanation: "Ductal cells modify saliva by reabsorbing Na⁺ and Cl⁻ while secreting K⁺ and HCO₃⁻, making final saliva hypotonic (especially at low flow rates).",
+                tip: "Saliva = Hypotonic. At high flow, less time for modification → closer to plasma."
+            },
+            {
+                id: 33,
+                topic: "Physiology",
+                category: "physiology",
+                question: "What is the role of the 'ileal brake' in GI regulation?",
+                options: [
+                    "Accelerates gastric emptying when ileum is empty",
+                    "Slows gastric emptying when nutrients reach ileum",
+                    "Stimulates gallbladder contraction",
+                    "Increases pancreatic secretion"
+                ],
+                answer: 1,
+                explanation: "The ileal brake refers to slowing of gastric emptying and intestinal transit when nutrients (especially fat) reach the ileum, mediated by PYY and GLP-1.",
+                tip: "Ileal brake = Brake pedal in ileum that slows everything down when nutrients arrive late."
+            },
+            
+            // MOTILITY QUESTIONS (12)
+            {
+                id: 34,
+                topic: "Motility",
+                category: "motility",
+                question: "Which phase of swallowing is under voluntary control and involves tongue movement to form a bolus?",
+                options: [
+                    "Oral phase",
+                    "Pharyngeal phase",
+                    "Esophageal phase",
+                    "Gastric phase"
+                ],
+                answer: 0,
+                explanation: "The oral phase is voluntary: food is chewed, mixed with saliva, formed into a bolus, and propelled to the oropharynx by tongue movement.",
+                tip: "Oral = Voluntary (you control chewing). Pharyngeal/Esophageal = Involuntary reflex."
+            },
+            {
+                id: 35,
+                topic: "Motility",
+                category: "motility",
+                question: "What is the frequency of slow waves in the stomach, and how does this compare to other GI regions?",
+                options: [
+                    "3 waves/min (slowest in GI tract)",
+                    "9 waves/min (same as ileum)",
+                    "12 waves/min (fastest in GI tract)",
+                    "Variable, 2-13 waves/min"
+                ],
+                answer: 0,
+                explanation: "Gastric slow waves occur at 3 waves/min, the slowest frequency in the GI tract. Duodenum has the fastest (12 waves/min), ileum intermediate (9 waves/min).",
+                tip: "Stomach = 3 (slow, like digestion). Duodenum = 12 (fast, needs quick processing). Ileum = 9."
+            },
+            {
+                id: 36,
+                topic: "Motility",
+                category: "motility",
+                question: "Which neurotransmitter mediates relaxation of the lower esophageal sphincter during swallowing?",
+                options: [
+                    "Acetylcholine",
+                    "Norepinephrine",
+                    "Vasoactive intestinal peptide (VIP)",
+                    "Substance P"
+                ],
+                answer: 2,
+                explanation: "VIP released from enteric neurons mediates LES relaxation via nitric oxide, allowing bolus passage. ACh mediates contraction at other times.",
+                tip: "VIP = Very Important for sphincter relaxation. VIP = Vasoactive Intestinal Peptide."
+            },
+            {
+                id: 37,
+                topic: "Motility",
+                category: "motility",
+                question: "What is the primary function of segmentation contractions in the small intestine?",
+                options: [
+                    "Rapid propulsion of contents",
+                    "Mixing and exposure to mucosa",
+                    "Housekeeping during fasting",
+                    "Storage of chyme"
+                ],
+                answer: 1,
+                explanation: "Segmentation involves alternating contractions that mix chyme with digestive juices and expose nutrients to the absorptive mucosa without significant propulsion.",
+                tip: "Segmentation = Mixing (like kneading dough). Peristalsis = Propulsion (moving forward)."
+            },
+            {
+                id: 38,
+                topic: "Motility",
+                category: "motility",
+                question: "Which hormone is primarily responsible for initiating the migrating motor complex during fasting?",
+                options: [
+                    "Gastrin",
+                    "Secretin",
+                    "Cholecystokinin (CCK)",
+                    "Motilin"
+                ],
+                answer: 3,
+                explanation: "Motilin, released cyclically during fasting, initiates phase III of the MMC - powerful contractions that clear residual material from the GI tract.",
+                tip: "Motilin = MOTILITY during fasting. MMC = Motilin-Mediated Contractions."
+            },
+            {
+                id: 39,
+                topic: "Motility",
+                category: "motility",
+                question: "What is the gastrocolic reflex, and what stimulates it?",
+                options: [
+                    "Colon contraction stimulated by gastric distension",
+                    "Gastric relaxation stimulated by colonic distension",
+                    "Colonic secretion stimulated by gastric acid",
+                    "Gastric secretion stimulated by colonic contents"
+                ],
+                answer: 0,
+                explanation: "The gastrocolic reflex is increased colonic motility and often the urge to defecate following gastric distension by a meal.",
+                tip: "Gastrocolic = Stomach to colon. Meal in stomach → colon says 'make room!'"
+            },
+            {
+                id: 40,
+                topic: "Motility",
+                category: "motility",
+                question: "How does the pressure in the thoracic esophagus compare to atmospheric pressure, and what problem does this create?",
+                options: [
+                    "Higher, promoting reflux",
+                    "Lower, requiring sphincters to prevent reflux/air entry",
+                    "Same, no functional significance",
+                    "Variable with respiration only"
+                ],
+                answer: 1,
+                explanation: "Intraesophageal pressure equals intrathoracic pressure, which is subatmospheric (-4 mmHg). This creates suction that could draw air in (upper end) or allow reflux (lower end) without sphincters.",
+                tip: "Esophagus in chest = Negative pressure. Needs tight seals at both ends."
+            },
+            {
+                id: 41,
+                topic: "Motility",
+                category: "motility",
+                question: "What is the primary mechanism of 'mass movements' in the colon, and how often do they typically occur?",
+                options: [
+                    "Slow segmental contractions, continuous",
+                    "Powerful peristaltic waves, 1-3 times/day",
+                    "Retrograde contractions, after each meal",
+                    "Tonic sphincter contractions, hourly"
+                ],
+                answer: 1,
+                explanation: "Mass movements are powerful peristaltic contractions that move colonic contents over long distances, typically occurring 1-3 times per day, often after meals.",
+                tip: "Mass movements = Colon's version of peristalsis. Few times daily, often postprandial."
+            },
+            {
+                id: 42,
+                topic: "Motility",
+                category: "motility",
+                question: "Which statement about gastric emptying rates is correct?",
+                options: [
+                    "Fluids empty slower than solids",
+                    "Hypertonic solutions empty fastest",
+                    "Carbohydrates empty fastest, fats slowest",
+                    "Proteins empty slowest due to complex digestion"
+                ],
+                answer: 2,
+                explanation: "Carbohydrates empty fastest (minutes), proteins intermediate (1-2 hours), fats slowest (2+ hours) due to CCK-mediated inhibition.",
+                tip: "Emptying speed: Carbs > Proteins > Fats. Think: Simple to complex digestion."
+            },
+            {
+                id: 43,
+                topic: "Motility",
+                category: "motility",
+                question: "What is the rectosphincteric reflex, and what controls it?",
+                options: [
+                    "Rectal contraction with internal sphincter relaxation (involuntary)",
+                    "External sphincter relaxation with rectal contraction (voluntary)",
+                    "Both sphincters relax during defecation (voluntary)",
+                    "Rectal relaxation with sphincter contraction (involuntary)"
+                ],
+                answer: 0,
+                explanation: "The rectosphincteric reflex involves rectal distension causing contraction of the rectum and relaxation of the internal anal sphincter (involuntary). The external sphincter remains under voluntary control.",
+                tip: "Rectosphincteric = Automatic when rectum fills. You voluntarily decide whether to relax external sphincter."
+            },
+            {
+                id: 44,
+                topic: "Motility",
+                category: "motility",
+                question: "What is the primary difference between primary and secondary peristalsis in the esophagus?",
+                options: [
+                    "Primary is voluntary, secondary is reflex",
+                    "Primary follows swallowing, secondary follows local distension",
+                    "Primary involves UES only, secondary involves LES only",
+                    "Primary moves solids, secondary moves liquids"
+                ],
+                answer: 1,
+                explanation: "Primary peristalsis is initiated by swallowing and moves the entire length. Secondary peristalsis is initiated by local distension and clears residual material.",
+                tip: "Primary = Planned (swallow). Secondary = Spontaneous (leftovers)."
+            },
+            {
+                id: 45,
+                topic: "Motility",
+                category: "motility",
+                question: "Which factor does NOT normally inhibit gastric motility and emptying?",
+                options: [
+                    "Fat in the duodenum",
+                    "Acid in the duodenum",
+                    "Distension of the duodenum",
+                    "Carbohydrates in the duodenum"
+                ],
+                answer: 3,
+                explanation: "Carbohydrates in the duodenum have minimal inhibitory effect on gastric emptying. Fat, acid, hypertonicity, and distension in the duodenum all inhibit emptying.",
+                tip: "Carbs are welcome in duodenum (empty quickly). Fat, acid, stretch say 'slow down!'"
+            },
+            
+            // SECRETION QUESTIONS (20)
+            {
+                id: 46,
+                topic: "Secretion",
+                category: "secretion",
+                question: "What enzyme catalyzes the conversion of CO₂ and H₂O to H⁺ and HCO₃⁻ in parietal cells during HCl secretion?",
+                options: [
+                    "ATPase",
+                    "Carbonic anhydrase",
+                    "Phospholipase",
+                    "Adenylate cyclase"
+                ],
+                answer: 1,
+                explanation: "Carbonic anhydrase catalyzes: CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻. H⁺ is secreted into lumen, HCO₃⁻ enters blood (alkaline tide).",
+                tip: "Carbonic anhydrase = Carbon + Water enzyme. Crucial for acid-base balance everywhere (kidney, RBCs, stomach)."
+            },
+            {
+                id: 47,
+                topic: "Secretion",
+                category: "secretion",
+                question: "Which component of saliva increases significantly during high flow rates, making saliva closer to plasma composition?",
+                options: [
+                    "Potassium",
+                    "Bicarbonate",
+                    "Sodium and chloride",
+                    "α-amylase"
+                ],
+                answer: 2,
+                explanation: "At high flow rates, there's less time for ductal modification, so Na⁺ and Cl⁻ remain higher (closer to plasma levels). K⁺ actually decreases slightly.",
+                tip: "High flow = Fast through ducts = Less modification = More like plasma."
+            },
+            {
+                id: 48,
+                topic: "Secretion",
+                category: "secretion",
+                question: "What protects the pancreas from autodigestion by its own proteolytic enzymes?",
+                options: [
+                    "Secretion as inactive zymogens",
+                    "Trypsin inhibitor in pancreatic juice",
+                    "Compartmentalization in zymogen granules",
+                    "All of the above"
+                ],
+                answer: 3,
+                explanation: "Multiple protections: 1) Secretion as inactive zymogens, 2) Trypsin inhibitor inactivates any trypsin formed, 3) Compartmentalization, 4) Activation only in duodenum by enterokinase.",
+                tip: "Pancreas has 4-layer protection: Zymogens, Inhibitor, Compartments, Delayed activation."
+            },
+            {
+                id: 49,
+                topic: "Secretion",
+                category: "secretion",
+                question: "What is the primary stimulus for CCK release from I cells in the duodenum?",
+                options: [
+                    "Acidic chyme",
+                    "Fatty acids and amino acids",
+                    "Carbohydrates",
+                    "Distension only"
+                ],
+                answer: 1,
+                explanation: "CCK is released primarily in response to fatty acids and amino acids (especially tryptophan) in the duodenum. Acid stimulates secretin, not CCK.",
+                tip: "CCK = CholeCystoKinin = Contracts Gallbladder. Released by Fat (Chole = bile) and Protein."
+            },
+            {
+                id: 50,
+                topic: "Secretion",
+                category: "secretion",
+                question: "Which cells in the stomach secrete intrinsic factor, and what is its essential function?",
+                options: [
+                    "Chief cells; activates pepsin",
+                    "Parietal cells; vitamin B₁₂ absorption",
+                    "G cells; stimulates acid secretion",
+                    "Mucous cells; protects mucosa"
+                ],
+                answer: 1,
+                explanation: "Parietal cells secrete intrinsic factor, which binds vitamin B₁₂ and is essential for its absorption in the terminal ileum. Deficiency causes pernicious anemia.",
+                tip: "Intrinsic factor = Intrinsic to B₁₂ absorption. From Parietal cells (same as HCl)."
+            },
+            {
+                id: 51,
+                topic: "Secretion",
+                category: "secretion",
+                question: "What is the approximate daily secretion volume of gastric juice?",
+                options: [
+                    "500-800 mL",
+                    "1000-1500 mL",
+                    "2000-2500 mL",
+                    "3000-4000 mL"
+                ],
+                answer: 2,
+                explanation: "The stomach secretes approximately 2000-2500 mL of gastric juice daily. Combined with saliva (1000 mL), this creates significant fluid load for absorption.",
+                tip: "Stomach = 2-2.5 L/day. Saliva = 1 L. Pancreas = 1-1.5 L. Bile = 0.5-1 L. Intestine = 2 L. Total = ~7 L secretions!"
+            },
+            {
+                id: 52,
+                topic: "Secretion",
+                category: "secretion",
+                question: "How does the gallbladder concentrate bile, and by what factor?",
+                options: [
+                    "Active water secretion, 2-3×",
+                    "Absorption of water and electrolytes, 5-10×",
+                    "Secretion of organic compounds, 3-4×",
+                    "Filtration by gallbladder epithelium, 10-20×"
+                ],
+                answer: 1,
+                explanation: "The gallbladder concentrates bile 5-10× by actively absorbing Na⁺, Cl⁻, and HCO₃⁻, with water following osmotically. Organic compounds (bile salts, pigments) are concentrated.",
+                tip: "Gallbladder = Bile concentrator. Like boiling soup to make it stronger."
+            },
+            {
+                id: 53,
+                topic: "Secretion",
+                category: "secretion",
+                question: "Which pancreatic enzyme is secreted in active form rather than as a zymogen?",
+                options: [
+                    "Trypsin",
+                    "Chymotrypsin",
+                    "Pancreatic lipase",
+                    "Carboxypeptidase"
+                ],
+                answer: 2,
+                explanation: "Pancreatic lipase is secreted in active form. Proteases are secreted as zymogens to prevent autodigestion. Lipase doesn't digest pancreatic proteins.",
+                tip: "Lipase = Already active (digests fat, not protein). Proteases = Need activation (could digest pancreas)."
+            },
+            {
+                id: 54,
+                topic: "Secretion",
+                category: "secretion",
+                question: "What is the primary function of Brunner's glands in the duodenum?",
+                options: [
+                    "Secrete digestive enzymes",
+                    "Secrete alkaline mucus",
+                    "Absorb nutrients",
+                    "Secrete hormones"
+                ],
+                answer: 1,
+                explanation: "Brunner's glands secrete thick, alkaline mucus that protects the duodenal mucosa from acidic chyme and provides lubrication.",
+                tip: "Brunner's = Bulwark against acid. Alkaline mucus in first part of duodenum."
+            },
+            {
+                id: 55,
+                topic: "Secretion",
+                category: "secretion",
+                question: "Which statement about the enterohepatic circulation of bile salts is correct?",
+                options: [
+                    "95% are excreted in feces daily",
+                    "They circulate 1-2 times per meal",
+                    "94% are reabsorbed, mainly in terminal ileum",
+                    "Liver synthesizes new bile salts for each meal"
+                ],
+                answer: 2,
+                explanation: "94% of bile salts are reabsorbed (50% passive in jejunum, 50% active in terminal ileum) and returned to liver. Only 0.2-0.4g lost daily, replaced by synthesis.",
+                tip: "Enterohepatic circulation = Efficient recycling. 6-8 cycles/day, 94% recovered."
+            },
+            {
+                id: 56,
+                topic: "Secretion",
+                category: "secretion",
+                question: "What is the effect of vagotomy (vagus nerve cutting) on pancreatic secretion?",
+                options: [
+                    "Eliminates all pancreatic secretion",
+                    "Reduces enzyme-rich secretion but not bicarbonate",
+                    "Increases secretion due to loss of inhibition",
+                    "No effect - pancreatic secretion is purely hormonal"
+                ],
+                answer: 1,
+                explanation: "Vagotomy reduces the enzyme-rich pancreatic secretion (mediated by vagal ACh) but not bicarbonate secretion (mediated by secretin).",
+                tip: "Vagus = Enzymes (cephalic/gastric phases). Secretin = Bicarbonate (intestinal phase)."
+            },
+            {
+                id: 57,
+                topic: "Secretion",
+                category: "secretion",
+                question: "Which ion's concentration is HIGHER in saliva than in plasma?",
+                options: [
+                    "Sodium",
+                    "Chloride",
+                    "Potassium",
+                    "Calcium"
+                ],
+                answer: 2,
+                explanation: "Saliva K⁺ concentration is about 30 mEq/L (vs plasma 4-5 mEq/L) due to active secretion by ductal cells. Na⁺ and Cl⁻ are lower than plasma.",
+                tip: "Saliva: High K⁺, High HCO₃⁻. Low Na⁺, Low Cl⁻. Opposite of urine."
+            },
+            {
+                id: 58,
+                topic: "Secretion",
+                category: "secretion",
+                question: "What is the primary mechanism of HCO₃⁻ secretion by pancreatic ductal cells?",
+                options: [
+                    "Simple diffusion",
+                    "Na⁺/HCO₃⁻ co-transport",
+                    "Cl⁻/HCO₃⁻ exchange",
+                    "H⁺/HCO₃⁻ ATPase"
+                ],
+                answer: 2,
+                explanation: "Pancreatic ductal cells secrete HCO₃⁻ via apical Cl⁻/HCO₃⁻ exchangers. Cl⁻ enters via CFTR channels, then exchanges for HCO₃⁻.",
+                tip: "Pancreatic HCO₃⁻ secretion = CFTR → Cl⁻ → Cl⁻/HCO₃⁻ exchange. CFTR defects cause viscous secretions in cystic fibrosis."
+            },
+            {
+                id: 59,
+                topic: "Secretion",
+                category: "secretion",
+                question: "Which substance is NOT secreted by the parietal cells?",
+                options: [
+                    "HCl",
+                    "Intrinsic factor",
+                    "Gastrin",
+                    "All are secreted by parietal cells"
+                ],
+                answer: 2,
+                explanation: "Parietal cells secrete HCl and intrinsic factor. Gastrin is secreted by G cells in the antrum. This is a common trick question.",
+                tip: "Parietal = Acid + IF. G cells = Gastrin. Chief cells = Pepsinogen."
+            },
+            {
+                id: 60,
+                topic: "Secretion",
+                category: "secretion",
+                question: "What is the approximate pH of gastric juice at maximal secretion?",
+                options: [
+                    "pH 7.0-7.4",
+                    "pH 5.0-6.0",
+                    "pH 2.0-3.0",
+                    "pH 0.8-1.0"
+                ],
+                answer: 3,
+                explanation: "Maximal HCl secretion produces pH ~0.8, with H⁺ concentration of 160 mmol/L - about 3 million times more concentrated than arterial blood.",
+                tip: "Stomach acid = pH ~1. Battery acid = pH ~0. Stomach is incredibly acidic!"
+            },
+            {
+                id: 61,
+                topic: "Secretion",
+                category: "secretion",
+                question: "Which enzyme activates all other pancreatic proteases in the duodenum?",
+                options: [
+                    "Enterokinase",
+                    "Trypsin",
+                    "Chymotrypsin",
+                    "Carboxypeptidase"
+                ],
+                answer: 1,
+                explanation: "Enterokinase (brush border enzyme) activates trypsinogen → trypsin. Trypsin then activates all other proteases (chymotrypsinogen, procarboxypeptidase, proelastase).",
+                tip: "Enterokinase = Master key that starts the protease cascade. Trypsin = Worker that activates others."
+            },
+            {
+                id: 62,
+                topic: "Secretion",
+                category: "secretion",
+                question: "What percentage of bile salts are typically reabsorbed in the enterohepatic circulation?",
+                options: [
+                    "50%",
+                    "75%",
+                    "94%",
+                    "99%"
+                ],
+                answer: 2,
+                explanation: "Approximately 94% of bile salts are reabsorbed (50% passive in jejunum, 44% active in ileum). Only 5-10% reach colon for modification/excretion.",
+                tip: "94% = Efficient recycling. Daily loss = 0.2-0.4g, replaced by synthesis from cholesterol."
+            },
+            {
+                id: 63,
+                topic: "Secretion",
+                category: "secretion",
+                question: "Which salivary gland produces purely serous (watery, enzyme-rich) secretion?",
+                options: [
+                    "Parotid",
+                    "Submandibular",
+                    "Sublingual",
+                    "All produce mixed secretions"
+                ],
+                answer: 0,
+                explanation: "Parotid glands produce purely serous secretion rich in α-amylase. Submandibular (70% mucus) and sublingual (mainly mucus) are mixed.",
+                tip: "Parotid = Pure serous (think: Parotid = Ptyalin = Pure)."
+            },
+            {
+                id: 64,
+                topic: "Secretion",
+                category: "secretion",
+                question: "What is the primary function of the 'white bile' secreted by the gallbladder?",
+                options: [
+                    "Digest fat",
+                    "Protect gallbladder mucosa",
+                    "Concentrate bile salts",
+                    "Neutralize acid"
+                ],
+                answer: 1,
+                explanation: "Gallbladder mucous glands secrete viscous 'white bile' (mucus) that protects the mucosa from concentrated bile salts and provides lubrication.",
+                tip: "White bile = Mucus protector. Like mucus in stomach protects from acid."
+            },
+            {
+                id: 65,
+                topic: "Secretion",
+                category: "secretion",
+                question: "Which phase of gastric secretion is mediated primarily by histamine release from ECL cells?",
+                options: [
+                    "Cephalic phase",
+                    "Gastric phase",
+                    "Intestinal phase",
+                    "Basal phase"
+                ],
+                answer: 1,
+                explanation: "During the gastric phase, gastrin and ACh stimulate histamine release from ECL cells. Histamine potently stimulates parietal cells via H₂ receptors.",
+                tip: "Gastric phase = Gastrin → ECL cells → Histamine → Parietal cells (H₂ receptors). H₂ blockers work here."
+            },
+            
+            // DIGESTION QUESTIONS (15)
+            {
+                id: 66,
+                topic: "Digestion",
+                category: "digestion",
+                question: "What is the end product of carbohydrate digestion that is actually absorbed?",
+                options: [
+                    "Disaccharides",
+                    "Monosaccharides",
+                    "Polysaccharides",
+                    "Oligosaccharides"
+                ],
+                answer: 1,
+                explanation: "Only monosaccharides (glucose, galactose, fructose) are absorbed. Disaccharides are hydrolyzed at the brush border before absorption.",
+                tip: "Carbs must be single sugars to cross intestinal wall. Disaccharides too big."
+            },
+            {
+                id: 67,
+                topic: "Digestion",
+                category: "digestion",
+                question: "Which enzyme is responsible for hydrolyzing α-1,6 bonds in starch-derived dextrins?",
+                options: [
+                    "α-amylase",
+                    "Maltase",
+                    "Isomaltase (α-dextrinase)",
+                    "Sucrase"
+                ],
+                answer: 2,
+                explanation: "Isomaltase (α-dextrinase) hydrolyzes α-1,6 glycosidic bonds in limit dextrins, which α-amylase cannot cleave. It's a brush border enzyme.",
+                tip: "α-amylase cuts α-1,4 bonds only. Isomaltase cuts α-1,6 bonds (branch points)."
+            },
+            {
+                id: 68,
+                topic: "Digestion",
+                category: "digestion",
+                question: "What is the primary site of protein digestion, and which enzyme initiates it?",
+                options: [
+                    "Stomach; pepsin",
+                    "Duodenum; trypsin",
+                    "Jejunum; chymotrypsin",
+                    "Ileum; carboxypeptidase"
+                ],
+                answer: 0,
+                explanation: "Protein digestion begins in the stomach with pepsin, which cleaves proteins into large polypeptides. Pancreatic proteases continue digestion in the duodenum.",
+                tip: "Protein digestion: Stomach starts (pepsin), Small intestine finishes (pancreatic proteases)."
+            },
+            {
+                id: 69,
+                topic: "Digestion",
+                category: "digestion",
+                question: "Which component is ESSENTIAL for micelle formation during fat digestion?",
+                options: [
+                    "Pancreatic lipase",
+                    "Colipase",
+                    "Bile salts",
+                    "Cholesterol esterase"
+                ],
+                answer: 2,
+                explanation: "Bile salts are amphipathic molecules essential for micelle formation. They solubilize fat digestion products for delivery to the brush border.",
+                tip: "No bile salts = No micelles = Fat malabsorption (steatorrhea)."
+            },
+            {
+                id: 70,
+                topic: "Digestion",
+                category: "digestion",
+                question: "What is the primary product of triglyceride digestion by pancreatic lipase?",
+                options: [
+                    "Glycerol + 3 fatty acids",
+                    "2-monoglyceride + 2 fatty acids",
+                    "1,2-diglyceride + 1 fatty acid",
+                    "Complete hydrolysis to glycerol backbone"
+                ],
+                answer: 1,
+                explanation: "Pancreatic lipase hydrolyzes triglycerides at positions 1 and 3, producing 2-monoglycerides and 2 fatty acids. Position 2 is resistant.",
+                tip: "Lipase cuts outer bonds (1 and 3), leaves middle (2) as monoglyceride."
+            },
+            {
+                id: 71,
+                topic: "Digestion",
+                category: "digestion",
+                question: "Which disaccharidase deficiency is most common worldwide?",
+                options: [
+                    "Sucrase deficiency",
+                    "Lactase deficiency",
+                    "Maltase deficiency",
+                    "Isomaltase deficiency"
+                ],
+                answer: 1,
+                explanation: "Lactase deficiency (adult-type hypolactasia) affects approximately 65% of adults worldwide, with highest prevalence in Asian, African, and Hispanic populations.",
+                tip: "Lactase = Milk sugar enzyme. Most mammals lose it after weaning. Northern Europeans kept it due to dairy farming."
+            },
+            {
+                id: 72,
+                topic: "Digestion",
+                category: "digestion",
+                question: "What is the role of colipase in fat digestion?",
+                options: [
+                    "Emulsifies fat globules",
+                    "Activates pancreatic lipase",
+                    "Anchors lipase to the lipid-water interface",
+                    "Forms micelles with bile salts"
+                ],
+                answer: 2,
+                explanation: "Colipase anchors pancreatic lipase to the lipid-water interface, especially in the presence of bile salts that would otherwise displace lipase.",
+                tip: "Colipase = Co-lipase = Works WITH lipase. Binds both lipase and lipid surface."
+            },
+            {
+                id: 73,
+                topic: "Digestion",
+                category: "digestion",
+                question: "Which pancreatic enzyme is NOT secreted as a zymogen?",
+                options: [
+                    "Trypsin",
+                    "Chymotrypsin",
+                    "Pancreatic lipase",
+                    "Elastase"
+                ],
+                answer: 2,
+                explanation: "Pancreatic lipase is secreted in active form. All pancreatic proteases are secreted as inactive zymogens to prevent autodigestion.",
+                tip: "Lipase active, proteases inactive. Lipase digests fat (not pancreas), proteases digest protein (could digest pancreas)."
+            },
+            {
+                id: 74,
+                topic: "Digestion",
+                category: "digestion",
+                question: "What is the final step in protein digestion at the brush border?",
+                options: [
+                    "Trypsin action on polypeptides",
+                    "Aminopeptidase removal of N-terminal amino acids",
+                    "Carboxypeptidase removal of C-terminal amino acids",
+                    "Enterokinase activation of trypsinogen"
+                ],
+                answer: 1,
+                explanation: "Aminopeptidases at the brush border remove N-terminal amino acids from oligopeptides. Carboxypeptidases (pancreatic) remove C-terminal amino acids.",
+                tip: "Amino-peptidase = Attacks amino (N-terminal) end. Carboxy-peptidase = Attacks carboxyl (C-terminal) end."
+            },
+            {
+                id: 75,
+                topic: "Digestion",
+                category: "digestion",
+                question: "Which carbohydrate is NOT digestible by human enzymes and serves as dietary fiber?",
+                options: [
+                    "Starch",
+                    "Cellulose",
+                    "Glycogen",
+                    "Maltose"
+                ],
+                answer: 1,
+                explanation: "Cellulose (β-1,4 linked glucose) is not digestible by human enzymes. We lack cellulase. It serves as insoluble fiber, adding bulk to feces.",
+                tip: "Cellulose = Cell walls = Fiber. Humans can't digest β linkages, only α linkages."
+            },
+            {
+                id: 76,
+                topic: "Digestion",
+                category: "digestion",
+                question: "What is the optimal pH for pepsin activity, and what happens above pH 5?",
+                options: [
+                    "pH 1-2; irreversibly denatured above pH 5",
+                    "pH 3-4; reversibly inactivated above pH 5",
+                    "pH 6-7; works best at neutral pH",
+                    "pH 8-9; requires alkaline environment"
+                ],
+                answer: 0,
+                explanation: "Pepsin has optimal activity at pH 1-2 (stomach acidity). Above pH 5, it is irreversibly denatured, which protects the duodenum.",
+                tip: "Pepsin = Stomach enzyme = Acid-loving. Dies in alkaline duodenum."
+            },
+            {
+                id: 77,
+                topic: "Digestion",
+                category: "digestion",
+                question: "Which enzyme initiates the activation cascade of pancreatic proteases?",
+                options: [
+                    "Trypsin (autoactivation)",
+                    "Enterokinase (brush border)",
+                    "Chymotrypsin",
+                    "Carboxypeptidase"
+                ],
+                answer: 1,
+                explanation: "Enterokinase (enteropeptidase), a brush border enzyme, converts trypsinogen to trypsin. Trypsin then activates other zymogens.",
+                tip: "Enterokinase = Key that starts the protease cascade. Only on brush border (safe location)."
+            },
+            {
+                id: 78,
+                topic: "Digestion",
+                category: "digestion",
+                question: "What is the primary product of nucleic acid digestion that is absorbed?",
+                options: [
+                    "Nucleic acids",
+                    "Nucleotides",
+                    "Nucleosides and bases",
+                    "Complete DNA/RNA strands"
+                ],
+                answer: 2,
+                explanation: "Nucleic acids are digested to nucleosides (sugar + base) and free bases, which are then absorbed via specific transporters.",
+                tip: "Nucleic acids → Nucleotides → Nucleosides → Absorption. Like peeling an onion."
+            },
+            {
+                id: 79,
+                topic: "Digestion",
+                category: "digestion",
+                question: "Which statement about cholesterol digestion is correct?",
+                options: [
+                    "Cholesterol esters are absorbed directly",
+                    "Cholesterol esterase hydrolyzes esters to free cholesterol",
+                    "Cholesterol requires pepsin for digestion",
+                    "Cholesterol digestion occurs only in stomach"
+                ],
+                answer: 1,
+                explanation: "Cholesterol esterase hydrolyzes cholesterol esters to free cholesterol + fatty acids. Free cholesterol is then incorporated into micelles for absorption.",
+                tip: "Cholesterol esterase = Unlocks esterified cholesterol. Like lipase for triglycerides."
+            },
+            {
+                id: 80,
+                topic: "Digestion",
+                category: "digestion",
+                question: "What happens to salivary amylase in the stomach?",
+                options: [
+                    "Continues starch digestion at optimal pH",
+                    "Is activated by stomach acid",
+                    "Is inactivated by low pH (<4.5)",
+                    "Converts to pepsin for protein digestion"
+                ],
+                answer: 2,
+                explanation: "Salivary amylase (ptyalin) is inactivated by stomach acid when pH drops below 4.5. Pancreatic amylase continues starch digestion in the duodenum.",
+                tip: "Salivary amylase = Mouth only. Stomach acid stops it. Pancreatic amylase takes over in intestine."
+            },
+            
+            // HORMONES QUESTIONS (10)
+            {
+                id: 81,
+                topic: "Hormones",
+                category: "hormones",
+                question: "Which GI hormone is unique in being stimulated by ALL THREE macronutrients (carbohydrates, fats, proteins)?",
+                options: [
+                    "Gastrin",
+                    "Secretin",
+                    "Cholecystokinin (CCK)",
+                    "Glucose-dependent insulinotropic peptide (GIP)"
+                ],
+                answer: 3,
+                explanation: "GIP is stimulated by glucose, fatty acids, AND amino acids. Other hormones have more specific stimuli (gastrin: proteins, CCK: fats/proteins, secretin: acid).",
+                tip: "GIP = Generalist. Responds to Glucose, (fatty acids), proteins. Others are specialists."
+            },
+            {
+                id: 82,
+                topic: "Hormones",
+                category: "hormones",
+                question: "What is the primary function of motilin, and when is it released?",
+                options: [
+                    "Stimulates acid secretion after meals",
+                    "Initiates migrating motor complexes during fasting",
+                    "Contracts gallbladder after fatty meals",
+                    "Stimulates pancreatic enzyme secretion"
+                ],
+                answer: 1,
+                explanation: "Motilin is released cyclically during fasting and initiates phase III of the migrating motor complex (MMC), which clears residual material from the GI tract.",
+                tip: "Motilin = MOTILITY during fasting. MMC = Motilin-Mediated Cleansing."
+            },
+            {
+                id: 83,
+                topic: "Hormones",
+                category: "hormones",
+                question: "Which hormone mediates the 'incretin effect' - greater insulin response to oral vs intravenous glucose?",
+                options: [
+                    "Glucagon",
+                    "Gastrin",
+                    "GIP and GLP-1",
+                    "Secretin"
+                ],
+                answer: 2,
+                explanation: "GIP and GLP-1 are incretin hormones released from the intestine in response to nutrients. They amplify glucose-stimulated insulin secretion.",
+                tip: "Incretin effect = INTESTINE increases insulin. GIP and GLP-1 are the main incretins."
+            },
+            {
+                id: 84,
+                topic: "Hormones",
+                category: "hormones",
+                question: "What is the primary effect of somatostatin on GI function?",
+                options: [
+                    "Stimulates acid and enzyme secretion",
+                    "Inhibits secretion and motility (brake function)",
+                    "Contracts smooth muscle",
+                    "Stimulates hunger"
+                ],
+                answer: 1,
+                explanation: "Somatostatin is the universal inhibitor of GI function: inhibits acid secretion, pancreatic secretion, gallbladder contraction, motility, and absorption.",
+                tip: "Somatostatin = Stop/statin. Brake pedal of GI tract."
+            },
+            {
+                id: 85,
+                topic: "Hormones",
+                category: "hormones",
+                question: "Which hormone stimulates growth of the gastric mucosa and is trophic to the pancreas?",
+                options: [
+                    "Secretin",
+                    "Cholecystokinin",
+                    "Gastrin",
+                    "Motilin"
+                ],
+                answer: 2,
+                explanation: "Gastrin stimulates growth of the gastric mucosa (especially parietal cells) and is trophic to the pancreas and small intestine mucosa.",
+                tip: "Gastrin = Growth hormone for stomach. Also stimulates acid."
+            },
+            {
+                id: 86,
+                topic: "Hormones",
+                category: "hormones",
+                question: "What stimulates CCK release, and what is its primary effect on the gallbladder?",
+                options: [
+                    "Acid; relaxation",
+                    "Fat/protein; contraction",
+                    "Carbohydrates; storage",
+                    "Distension; inhibition"
+                ],
+                answer: 1,
+                explanation: "CCK is released by fat and protein digestion products. Its primary effects are gallbladder contraction and sphincter of Oddi relaxation.",
+                tip: "CCK = CholeCystoKinin = Chole (bile) Cysto (bladder) Kinin (moves) = Moves gallbladder."
+            },
+            {
+                id: 87,
+                topic: "Hormones",
+                category: "hormones",
+                question: "Which hormone is released from the stomach during fasting and stimulates hunger?",
+                options: [
+                    "Leptin",
+                    "Ghrelin",
+                    "Peptide YY",
+                    "GLP-1"
+                ],
+                answer: 1,
+                explanation: "Ghrelin is released from the stomach during fasting and is a potent appetite stimulant (orexigenic). Levels drop after meals.",
+                tip: "Ghrelin = Growling hunger hormone. Empty stomach makes it."
+            },
+            {
+                id: 88,
+                topic: "Hormones",
+                category: "hormones",
+                question: "What is the relationship between secretin and pancreatic bicarbonate secretion?",
+                options: [
+                    "Secretin inhibits bicarbonate secretion",
+                    "Secretin stimulates enzyme-rich, not bicarbonate secretion",
+                    "Secretin stimulates bicarbonate-rich secretion",
+                    "Secretin has no effect on pancreas"
+                ],
+                answer: 2,
+                explanation: "Secretin stimulates pancreatic ductal cells to secrete bicarbonate-rich fluid, which neutralizes acidic chyme in the duodenum.",
+                tip: "Secretin = Secretes bicarbonate. Acid in duodenum → Secretin → Bicarbonate."
+            },
+            {
+                id: 89,
+                topic: "Hormones",
+                category: "hormones",
+                question: "Which hormone is primarily responsible for the ileal brake phenomenon?",
+                options: [
+                    "Gastrin",
+                    "Secretin",
+                    "Peptide YY (PYY)",
+                    "Motilin"
+                ],
+                answer: 2,
+                explanation: "PYY is released from L cells in the ileum and colon in response to nutrients. It slows gastric emptying and intestinal transit (ileal brake).",
+                tip: "PYY = Put Your foot on the brake (ileal brake). Released when nutrients reach ileum."
+            },
+            {
+                id: 90,
+                topic: "Hormones",
+                category: "hormones",
+                question: "What is the primary mechanism by which GLP-1 affects blood glucose?",
+                options: [
+                    "Stimulates glucagon release",
+                    "Inhibits insulin secretion",
+                    "Stimulates insulin and inhibits glucagon",
+                    "Directly increases glucose uptake"
+                ],
+                answer: 2,
+                explanation: "GLP-1 stimulates glucose-dependent insulin secretion, inhibits glucagon secretion, slows gastric emptying, and promotes satiety - multiple anti-diabetic effects.",
+                tip: "GLP-1 = Good for diabetes: Increases insulin, decreases glucagon, slows stomach, reduces appetite."
+            }
+        ];
+
+        // DOM Elements
+        const questionsArea = document.getElementById('questions-area');
+        const currentQuestionEl = document.getElementById('current-question');
+        const totalQuestionsEl = document.getElementById('total-questions');
+        const currentAccuracyEl = document.getElementById('current-accuracy');
+        const progressFillEl = document.getElementById('progress-fill');
+        const resultsContainer = document.getElementById('results-container');
+        const finalScoreEl = document.getElementById('final-score');
+        const correctCountEl = document.getElementById('correct-count');
+        const incorrectCountEl = document.getElementById('incorrect-count');
+        const markedCountEl = document.getElementById('marked-count');
+        const resultsMessageEl = document.getElementById('results-message');
+        const restartBtn = document.getElementById('restart-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const timerEl = document.getElementById('timer');
+        const questionButtons = document.getElementById('question-buttons');
+        const catBtns = document.querySelectorAll('.cat-btn');
+        
+        // Stats elements
+        const scoreEl = document.getElementById('score');
+        const answeredEl = document.getElementById('answered');
+        const correctEl = document.getElementById('correct');
+        const markedEl = document.getElementById('marked');
+        const percentageEl = document.getElementById('percentage');
+
+        // Exam State
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let markedQuestions = new Array(questions.length).fill(false);
+        let score = 0;
+        let answeredCount = 0;
+        let correctCount = 0;
+        let markedCount = 0;
+        let examCompleted = false;
+        let timer = 90 * 60; // 90 minutes in seconds
+        let timerInterval;
+
+        // Initialize the exam
+        function initExam() {
+            totalQuestionsEl.textContent = questions.length;
+            createQuestionButtons();
+            createQuestionContainers();
+            showQuestion(currentQuestionIndex);
+            updateProgress();
+            updateStats();
+            startTimer();
+            
+            // Event listeners for category buttons
+            catBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    catBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    filterQuestions(btn.dataset.category);
+                });
+            });
+            
+            // Event listener for reset button
+            resetBtn.addEventListener('click', resetExam);
+        }
+
+        // Create question navigation buttons
+        function createQuestionButtons() {
+            questionButtons.innerHTML = '';
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'q-btn';
+                btn.textContent = index + 1;
+                btn.dataset.index = index;
+                
+                btn.addEventListener('click', () => {
+                    showQuestion(index);
+                });
+                
+                questionButtons.appendChild(btn);
+            });
+        }
+
+        // Create all question containers
+        function createQuestionContainers() {
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                questionDiv.id = `question-${index}`;
+                
+                questionDiv.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">${index + 1}</div>
+                        <div class="question-topic">${q.topic}</div>
+                    </div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-container">
+                        ${q.options.map((option, optIndex) => `
+                            <div class="option" data-option="${optIndex}">
+                                <div class="option-label">${String.fromCharCode(65 + optIndex)}</div>
+                                <div class="option-text">${option}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback-container" id="feedback-${index}">
+                        <div class="feedback-header">
+                            <div class="feedback-icon"></div>
+                            <div class="feedback-title"></div>
+                        </div>
+                        <div class="feedback-explanation">
+                            <div class="feedback-subtitle"><i class="fas fa-lightbulb"></i> Explanation</div>
+                            <p id="explanation-${index}"></p>
+                        </div>
+                        <div class="feedback-tip">
+                            <div class="feedback-subtitle"><i class="fas fa-brain"></i> Memorization Tip</div>
+                            <p id="tip-${index}"></p>
+                        </div>
+                    </div>
+                    <div class="navigation">
+                        <button class="btn btn-prev" id="prev-${index}" ${index === 0 ? 'disabled' : ''}>
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn btn-mark" id="mark-${index}">
+                            <i class="fas fa-bookmark"></i> Mark for Review
+                        </button>
+                        <button class="btn btn-next" id="next-${index}">
+                            ${index === questions.length - 1 ? 'Submit Exam' : 'Next Question'}
+                        </button>
+                    </div>
+                `;
+                
+                questionsArea.appendChild(questionDiv);
+                
+                // Add event listeners for this question
+                setTimeout(() => {
+                    // Option selection
+                    const options = questionDiv.querySelectorAll('.option');
+                    options.forEach(option => {
+                        option.addEventListener('click', () => selectOption(index, parseInt(option.dataset.option)));
+                    });
+                    
+                    // Navigation buttons
+                    const prevBtn = document.getElementById(`prev-${index}`);
+                    const nextBtn = document.getElementById(`next-${index}`);
+                    const markBtn = document.getElementById(`mark-${index}`);
+                    
+                    prevBtn.addEventListener('click', () => showQuestion(index - 1));
+                    
+                    markBtn.addEventListener('click', () => toggleMark(index));
+                    
+                    if (index === questions.length - 1) {
+                        nextBtn.addEventListener('click', submitExam);
+                    } else {
+                        nextBtn.addEventListener('click', () => {
+                            showQuestion(index + 1);
+                        });
+                    }
+                }, 0);
+            });
+        }
+
+        // Show a specific question
+        function showQuestion(index) {
+            // Hide all questions
+            document.querySelectorAll('.question-container').forEach(q => {
+                q.classList.remove('active');
+            });
+            
+            // Show the requested question
+            const questionEl = document.getElementById(`question-${index}`);
+            questionEl.classList.add('active');
+            
+            // Update current question index
+            currentQuestionIndex = index;
+            currentQuestionEl.textContent = index + 1;
+            
+            // Update progress
+            updateProgress();
+            
+            // Update mark button
+            const markBtn = document.getElementById(`mark-${index}`);
+            markBtn.innerHTML = markedQuestions[index] ? 
+                '<i class="fas fa-bookmark"></i> Unmark Question' : 
+                '<i class="fas fa-bookmark"></i> Mark for Review';
+            
+            // Restore previous selection if any
+            if (userAnswers[index] !== null) {
+                const options = questionEl.querySelectorAll('.option');
+                options.forEach(opt => {
+                    if (parseInt(opt.dataset.option) === userAnswers[index]) {
+                        opt.classList.add('selected');
+                    }
+                });
+                
+                // If feedback was already shown, restore it
+                if (document.getElementById(`feedback-${index}`).classList.contains('show')) {
+                    showFeedback(index, userAnswers[index]);
+                }
+            }
+            
+            // Update question button state
+            updateQuestionButtons();
+            
+            // Scroll to top of question
+            window.scrollTo({ top: questionEl.offsetTop - 100, behavior: 'smooth' });
+        }
+
+        // Select an option for a question
+        function selectOption(questionIndex, optionIndex) {
+            const questionEl = document.getElementById(`question-${questionIndex}`);
+            const options = questionEl.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Add selected class to clicked option
+            options[optionIndex].classList.add('selected');
+            
+            // Save user's answer
+            userAnswers[questionIndex] = optionIndex;
+            
+            // Show feedback immediately
+            showFeedback(questionIndex, optionIndex);
+            
+            // Update stats
+            updateStats();
+            
+            // Update question button
+            updateQuestionButtons();
+        }
+
+        // Show feedback for a question
+        function showFeedback(questionIndex, selectedOption) {
+            const question = questions[questionIndex];
+            const feedbackEl = document.getElementById(`feedback-${questionIndex}`);
+            const feedbackIcon = feedbackEl.querySelector('.feedback-icon');
+            const feedbackTitle = feedbackEl.querySelector('.feedback-title');
+            const explanationEl = document.getElementById(`explanation-${questionIndex}`);
+            const tipEl = document.getElementById(`tip-${questionIndex}`);
+            
+            // Check if answer is correct
+            const isCorrect = selectedOption === question.answer;
+            
+            // Update feedback styling and content
+            feedbackEl.className = `feedback-container ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}`;
+            feedbackEl.classList.add('show');
+            
+            feedbackIcon.innerHTML = isCorrect ? 
+                '<i class="fas fa-check-circle" style="color: #27ae60;"></i>' : 
+                '<i class="fas fa-times-circle" style="color: #e74c3c;"></i>';
+            
+            feedbackTitle.textContent = isCorrect ? 
+                'Correct! Well done.' : 
+                `Incorrect. The correct answer is ${String.fromCharCode(65 + question.answer)}: ${question.options[question.answer]}`;
+            
+            explanationEl.textContent = question.explanation;
+            tipEl.textContent = question.tip;
+            
+            // Highlight correct/incorrect options
+            const options = document.querySelectorAll(`#question-${questionIndex} .option`);
+            options.forEach((opt, idx) => {
+                if (idx === question.answer) {
+                    opt.classList.add('correct');
+                } else if (idx === selectedOption && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+        }
+
+        // Toggle mark for a question
+        function toggleMark(questionIndex) {
+            markedQuestions[questionIndex] = !markedQuestions[questionIndex];
+            markedCount = markedQuestions.filter(m => m).length;
+            
+            // Update mark button
+            const markBtn = document.getElementById(`mark-${questionIndex}`);
+            markBtn.innerHTML = markedQuestions[questionIndex] ? 
+                '<i class="fas fa-bookmark"></i> Unmark Question' : 
+                '<i class="fas fa-bookmark"></i> Mark for Review';
+            
+            // Update stats
+            updateStats();
+            
+            // Update question button
+            updateQuestionButtons();
+        }
+
+        // Update question navigation buttons
+        function updateQuestionButtons() {
+            document.querySelectorAll('.q-btn').forEach((btn, index) => {
+                btn.classList.remove('active', 'answered', 'incorrect', 'marked');
+                
+                if (index === currentQuestionIndex) btn.classList.add('active');
+                if (markedQuestions[index]) btn.classList.add('marked');
+                
+                if (userAnswers[index] !== null) {
+                    const isCorrect = userAnswers[index] === questions[index].answer;
+                    btn.classList.add(isCorrect ? 'answered' : 'incorrect');
+                }
+            });
+        }
+
+        // Update progress bar and stats
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressFillEl.style.width = `${progress}%`;
+            
+            // Calculate current accuracy
+            const answeredQuestions = userAnswers.filter(answer => answer !== null).length;
+            const correctAnswers = userAnswers.filter((answer, idx) => answer === questions[idx].answer).length;
+            
+            if (answeredQuestions > 0) {
+                const accuracy = Math.round((correctAnswers / answeredQuestions) * 100);
+                currentAccuracyEl.textContent = `${accuracy}%`;
+            } else {
+                currentAccuracyEl.textContent = '0%';
+            }
+        }
+
+        // Update stats display
+        function updateStats() {
+            answeredCount = userAnswers.filter(answer => answer !== null).length;
+            correctCount = userAnswers.filter((answer, idx) => 
+                answer !== null && answer === questions[idx].answer
+            ).length;
+            markedCount = markedQuestions.filter(m => m).length;
+            
+            // Calculate score (10 points per correct answer)
+            score = correctCount * 10;
+            
+            // Calculate accuracy percentage
+            const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+            
+            // Update stats display
+            scoreEl.textContent = score;
+            answeredEl.textContent = `${answeredCount}/${questions.length}`;
+            correctEl.textContent = correctCount;
+            markedEl.textContent = markedCount;
+            percentageEl.textContent = `${accuracy}%`;
+        }
+
+        // Start the timer
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timer--;
+                
+                const minutes = Math.floor(timer / 60);
+                const seconds = timer % 60;
+                
+                timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timer <= 0) {
+                    clearInterval(timerInterval);
+                    alert('Time is up! Submitting your exam...');
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        // Filter questions by category
+        function filterQuestions(category) {
+            if (category === 'all') {
+                // Show all questions
+                document.querySelectorAll('.question-container').forEach(q => {
+                    q.style.display = 'block';
+                });
+                document.querySelectorAll('.q-btn').forEach(btn => {
+                    btn.style.display = 'flex';
+                });
+                return;
+            }
+            
+            // Show only questions of selected category
+            document.querySelectorAll('.question-container').forEach((q, index) => {
+                if (questions[index].category === category) {
+                    q.style.display = 'block';
+                } else {
+                    q.style.display = 'none';
+                }
+            });
+            
+            // Show only buttons of selected category
+            document.querySelectorAll('.q-btn').forEach((btn, index) => {
+                if (questions[index].category === category) {
+                    btn.style.display = 'flex';
+                } else {
+                    btn.style.display = 'none';
+                }
+            });
+            
+            // Show first question of filtered category
+            const firstIndex = questions.findIndex(q => q.category === category);
+            if (firstIndex !== -1) {
+                showQuestion(firstIndex);
+            }
+        }
+
+        // Submit the exam
+        function submitExam() {
+            if (!examCompleted) {
+                examCompleted = true;
+                clearInterval(timerInterval);
+                
+                // Calculate final results
+                const totalQuestions = questions.length;
+                const correctAnswers = userAnswers.filter((answer, idx) => 
+                    answer !== null && answer === questions[idx].answer
+                ).length;
+                const incorrectAnswers = userAnswers.filter((answer, idx) => 
+                    answer !== null && answer !== questions[idx].answer
+                ).length;
+                const skippedQuestions = userAnswers.filter(answer => answer === null).length;
+                const markedQuestionsCount = markedQuestions.filter(m => m).length;
+                
+                const finalScore = Math.round((correctAnswers / totalQuestions) * 100);
+                
+                // Update results display
+                finalScoreEl.textContent = `${finalScore}%`;
+                correctCountEl.textContent = correctAnswers;
+                incorrectCountEl.textContent = incorrectAnswers;
+                markedCountEl.textContent = markedQuestionsCount;
+                
+                // Generate results message
+                let message = '';
+                if (finalScore >= 90) {
+                    message = 'Outstanding! You have mastered the GI system physiology. Your knowledge is at an expert level suitable for clinical practice.';
+                } else if (finalScore >= 80) {
+                    message = 'Excellent work! You have a comprehensive understanding of GI anatomy, physiology, and regulation. Review the few questions you missed to perfect your knowledge.';
+                } else if (finalScore >= 70) {
+                    message = 'Good job! You have a solid understanding of GI system concepts. Focus on the areas where you missed questions to strengthen your knowledge.';
+                } else if (finalScore >= 60) {
+                    message = 'You have a basic understanding but should review the material more thoroughly. Pay special attention to secretion, digestion, and hormonal regulation topics.';
+                } else {
+                    message = 'You need to review the GI system material comprehensively. Start with anatomy and physiology basics before moving to more complex topics like motility and hormonal regulation.';
+                }
+                
+                resultsMessageEl.textContent = message;
+                
+                // Show results screen
+                document.querySelectorAll('.question-container').forEach(q => {
+                    q.style.display = 'none';
+                });
+                document.querySelector('.question-nav').style.display = 'none';
+                document.querySelector('.stats-container').style.display = 'none';
+                document.querySelector('.progress-container').style.display = 'none';
+                resultsContainer.classList.add('show');
+                
+                // Scroll to results
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Reset exam
+        function resetExam() {
+            if (confirm('Are you sure you want to reset the exam? All progress will be lost.')) {
+                // Reset state
+                currentQuestionIndex = 0;
+                userAnswers = new Array(questions.length).fill(null);
+                markedQuestions = new Array(questions.length).fill(false);
+                score = 0;
+                answeredCount = 0;
+                correctCount = 0;
+                markedCount = 0;
+                examCompleted = false;
+                
+                // Reset timer
+                clearInterval(timerInterval);
+                timer = 90 * 60;
+                startTimer();
+                
+                // Reset UI
+                document.querySelectorAll('.question-container').forEach(q => {
+                    q.style.display = 'block';
+                    const questionIndex = parseInt(q.id.split('-')[1]);
+                    
+                    // Reset options
+                    const options = q.querySelectorAll('.option');
+                    options.forEach(opt => {
+                        opt.classList.remove('selected', 'correct', 'incorrect');
+                    });
+                    
+                    // Hide feedback
+                    const feedback = document.getElementById(`feedback-${questionIndex}`);
+                    feedback.classList.remove('show', 'feedback-correct', 'feedback-incorrect');
+                    
+                    // Reset mark button
+                    const markBtn = document.getElementById(`mark-${questionIndex}`);
+                    markBtn.innerHTML = '<i class="fas fa-bookmark"></i> Mark for Review';
+                });
+                
+                // Show all elements
+                document.querySelector('.question-nav').style.display = 'block';
+                document.querySelector('.stats-container').style.display = 'flex';
+                document.querySelector('.progress-container').style.display = 'block';
+                
+                // Hide results
+                resultsContainer.classList.remove('show');
+                
+                // Show first question
+                showQuestion(0);
+                updateProgress();
+                updateStats();
+                updateQuestionButtons();
+                
+                // Reset category filter
+                catBtns.forEach(b => b.classList.remove('active'));
+                document.querySelector('.cat-btn[data-category="all"]').classList.add('active');
+                filterQuestions('all');
+            }
+        }
+
+        // Event listeners
+        restartBtn.addEventListener('click', resetExam);
+
+        // Initialize exam when page loads
+        document.addEventListener('DOMContentLoaded', initExam);
+    </script>
+</body>
+  </html>
