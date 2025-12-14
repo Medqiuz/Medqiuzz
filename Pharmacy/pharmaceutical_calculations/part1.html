@@ -3,576 +3,1436 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharmaceutical Calculations Quiz - Part 1</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Pharmaceutical Calculations Practice Exam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9fc;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h2 {
+            color: #2980b9;
+            margin: 25px 0 15px 0;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
+        h3 {
+            color: #16a085;
+            margin: 20px 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .question {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e1e8ed;
+        }
+        
+        .question-number {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            margin-right: 10px;
+            font-weight: bold;
+            line-height: 30px;
+        }
+        
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            margin-left: 40px;
+        }
+        
+        .option {
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #f0f7ff;
+        }
+        
+        .option.selected {
+            background-color: #e3f2fd;
+            border: 1px solid #2196f3;
+        }
+        
+        .option.correct {
+            background-color: #e8f5e9;
+            border: 1px solid #4caf50;
+        }
+        
+        .option.incorrect {
+            background-color: #ffebee;
+            border: 1px solid #f44336;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+        }
+        
+        .feedback.correct-feedback {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            color: #2e7d32;
+        }
+        
+        .feedback.incorrect-feedback {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            color: #c62828;
+        }
+        
+        .workout-problem {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e1e8ed;
+        }
+        
+        .workout-number {
+            display: inline-block;
+            background-color: #9c27b0;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            margin-right: 10px;
+            font-weight: bold;
+            line-height: 30px;
+        }
+        
+        .show-answer-btn {
+            background-color: #9c27b0;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: background-color 0.2s;
+        }
+        
+        .show-answer-btn:hover {
+            background-color: #7b1fa2;
+        }
+        
+        .answer {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f3e5f5;
+            border-radius: 6px;
+            border-left: 4px solid #9c27b0;
+            display: none;
+        }
+        
+        .formula {
+            background-color: #f1f8e9;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            font-weight: bold;
+            border: 1px dashed #7cb342;
+        }
+        
+        .score-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+        }
+        
+        .score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2196f3;
+            margin: 10px 0;
+        }
+        
+        .submit-btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 20px 0;
+            transition: background-color 0.2s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #388e3c;
+        }
+        
+        .reset-btn {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px;
+            transition: background-color 0.2s;
+        }
+        
+        .reset-btn:hover {
+            background-color: #f57c00;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .options {
+                margin-left: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="quiz-container">
-        <div class="header">
-            <h1>💊 Pharmaceutical Calculations Quiz</h1>
-            <div class="subtitle">Part 1: Basic Concepts & Measurements (Questions 1-40)</div>
+    <div class="container">
+        <h1>Pharmaceutical Calculations Practice Exam</h1>
+        
+        <div class="score-container">
+            <h3>Your Score</h3>
+            <div class="score">0/40</div>
+            <button class="submit-btn" onclick="calculateScore()">Calculate My Score</button>
+            <button class="reset-btn" onclick="resetExam()">Reset Exam</button>
         </div>
-
-        <div class="progress-bar">
-            <div class="progress" id="progress"></div>
-        </div>
-
-        <div class="question-counter" id="questionCounter">Question 1 of 40</div>
-
-        <div class="question-card">
-            <div class="question-text" id="questionText"></div>
+        
+        <div class="section">
+            <h2>Part 1: Multiple Choice Questions (40 Questions)</h2>
+            <p>Select the correct answer for each question. Feedback will appear immediately.</p>
             
-            <div class="options-container" id="optionsContainer"></div>
+            <!-- Chapter 1 Questions -->
+            <h3>Chapter 1: Fundamentals of Measurement and Calculations</h3>
             
-            <div class="explanation" id="explanation"></div>
+            <!-- Question 1 -->
+            <div class="question">
+                <div class="question-number">1</div>
+                <div class="question-text">How many significant figures are in the measurement 0.05060 g?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 1, 'A')">A) 3</div>
+                    <div class="option" onclick="selectOption(this, 1, 'B')">B) 4</div>
+                    <div class="option" onclick="selectOption(this, 1, 'C')">C) 5</div>
+                    <div class="option" onclick="selectOption(this, 1, 'D')">D) 6</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback1">
+                    <strong>Correct Answer: B) 4</strong><br>
+                    Explanation: The zeros before 5 are not significant (they only show decimal placement), but the zero between 5 and 6 is significant, and the final zero after 6 is also significant. So we have: 5, 0, 6, 0 = 4 significant figures.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect1">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="question">
+                <div class="question-number">2</div>
+                <div class="question-text">A Class A prescription balance has a sensitivity requirement of 6 mg. What is the minimum amount that should be weighed to keep the percentage error at or below 5%?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 2, 'A')">A) 60 mg</div>
+                    <div class="option" onclick="selectOption(this, 2, 'B')">B) 100 mg</div>
+                    <div class="option" onclick="selectOption(this, 2, 'C')">C) 120 mg</div>
+                    <div class="option" onclick="selectOption(this, 2, 'D')">D) 150 mg</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback2">
+                    <strong>Correct Answer: C) 120 mg</strong><br>
+                    Explanation: Minimum weighable amount = (Sensitivity requirement × 100) / Maximum % error = (6 mg × 100) / 5 = 600/5 = 120 mg.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect2"></div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="question">
+                <div class="question-number">3</div>
+                <div class="question-text">A pharmacist measured 25 mL of a liquid using a 100-mL cylindrical graduate. If there was a 1 mm error in reading the meniscus, approximately what volume error would this represent?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 3, 'A')">A) 0.125 mL</div>
+                    <div class="option" onclick="selectOption(this, 3, 'B')">B) 0.25 mL</div>
+                    <div class="option" onclick="selectOption(this, 3, 'C')">C) 0.5 mL</div>
+                    <div class="option" onclick="selectOption(this, 3, 'D')">D) 1.0 mL</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback3">
+                    <strong>Correct Answer: A) 0.125 mL</strong><br>
+                    Explanation: According to USP, ±1 mm meniscus reading error causes ~0.5 mL error in a 100-mL cylindrical graduate. Since we're measuring 25 mL (1/4 of 100 mL), the error would be approximately 0.5 mL ÷ 4 = 0.125 mL.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect3"></div>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="question">
+                <div class="question-number">4</div>
+                <div class="question-text">If 50 mL of glycerin weighs 62.5 g, what is its specific gravity?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 4, 'A')">A) 0.8</div>
+                    <div class="option" onclick="selectOption(this, 4, 'B')">B) 1.0</div>
+                    <div class="option" onclick="selectOption(this, 4, 'C')">C) 1.25</div>
+                    <div class="option" onclick="selectOption(this, 4, 'D')">D) 1.5</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback4">
+                    <strong>Correct Answer: C) 1.25</strong><br>
+                    Explanation: Specific gravity = Weight of substance / Weight of equal volume of water. 50 mL of water weighs 50 g. So sp gr = 62.5 g / 50 g = 1.25.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect4"></div>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="question">
+                <div class="question-number">5</div>
+                <div class="question-text">What is the specific volume of a liquid with a specific gravity of 0.8?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 5, 'A')">A) 0.8 mL/g</div>
+                    <div class="option" onclick="selectOption(this, 5, 'B')">B) 1.0 mL/g</div>
+                    <div class="option" onclick="selectOption(this, 5, 'C')">C) 1.25 mL/g</div>
+                    <div class="option" onclick="selectOption(this, 5, 'D')">D) 1.5 mL/g</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback5">
+                    <strong>Correct Answer: C) 1.25 mL/g</strong><br>
+                    Explanation: Specific volume and specific gravity are reciprocals. Specific volume = 1 / Specific gravity = 1 / 0.8 = 1.25 mL/g.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect5"></div>
+            </div>
+            
+            <!-- Question 6 -->
+            <div class="question">
+                <div class="question-number">6</div>
+                <div class="question-text">A pharmacist needs to weigh 10 mg of a potent drug using a balance with a sensitivity requirement of 5 mg. Using the aliquot method with lactose as diluent and a multiple of 20, what total weight of drug-diluent mixture should be prepared if the aliquot portion is set at 150 mg?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 6, 'A')">A) 1,000 mg</div>
+                    <div class="option" onclick="selectOption(this, 6, 'B')">B) 2,000 mg</div>
+                    <div class="option" onclick="selectOption(this, 6, 'C')">C) 3,000 mg</div>
+                    <div class="option" onclick="selectOption(this, 6, 'D')">D) 4,000 mg</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback6">
+                    <strong>Correct Answer: C) 3,000 mg</strong><br>
+                    Explanation: Multiple quantity = 10 mg × 20 = 200 mg. Aliquot portion = 150 mg. Total mixture = Aliquot portion × Multiple = 150 mg × 20 = 3,000 mg.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect6"></div>
+            </div>
+            
+            <!-- Question 7 -->
+            <div class="question">
+                <div class="question-number">7</div>
+                <div class="question-text">If a 250 mL volumetric flask weighs 150 g when empty and 400 g when filled with water, what is the volume of the flask?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 7, 'A')">A) 200 mL</div>
+                    <div class="option" onclick="selectOption(this, 7, 'B')">B) 250 mL</div>
+                    <div class="option" onclick="selectOption(this, 7, 'C')">C) 300 mL</div>
+                    <div class="option" onclick="selectOption(this, 7, 'D')">D) 350 mL</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback7">
+                    <strong>Correct Answer: B) 250 mL</strong><br>
+                    Explanation: Weight of water = 400 g - 150 g = 250 g. Since density of water is 1 g/mL, volume = 250 mL.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect7"></div>
+            </div>
+            
+            <!-- Question 8 -->
+            <div class="question">
+                <div class="question-number">8</div>
+                <div class="question-text">Which of the following measurements has the greatest number of significant figures?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 8, 'A')">A) 0.0050 g</div>
+                    <div class="option" onclick="selectOption(this, 8, 'B')">B) 5.00 g</div>
+                    <div class="option" onclick="selectOption(this, 8, 'C')">C) 500 g</div>
+                    <div class="option" onclick="selectOption(this, 8, 'D')">D) 0.500 g</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback8">
+                    <strong>Correct Answer: B) 5.00 g</strong><br>
+                    Explanation: A) 0.0050 g has 2 significant figures; B) 5.00 g has 3; C) 500 g has 1 (trailing zeros without decimal are not significant); D) 0.500 g has 3. Both B and D have 3, but the question asks for the greatest number.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect8"></div>
+            </div>
+            
+            <!-- Question 9 -->
+            <div class="question">
+                <div class="question-number">9</div>
+                <div class="question-text">A pycnometer weighs 25.50 g when empty, 75.60 g when filled with water, and 80.10 g when filled with an unknown liquid. What is the specific gravity of the unknown liquid?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 9, 'A')">A) 0.90</div>
+                    <div class="option" onclick="selectOption(this, 9, 'B')">B) 1.09</div>
+                    <div class="option" onclick="selectOption(this, 9, 'C')">C) 1.14</div>
+                    <div class="option" onclick="selectOption(this, 9, 'D')">D) 1.25</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback9">
+                    <strong>Correct Answer: B) 1.09</strong><br>
+                    Explanation: Weight of water = 75.60 - 25.50 = 50.10 g. Weight of liquid = 80.10 - 25.50 = 54.60 g. Specific gravity = 54.60 / 50.10 = 1.09.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect9"></div>
+            </div>
+            
+            <!-- Question 10 -->
+            <div class="question">
+                <div class="question-number">10</div>
+                <div class="question-text">When using the aliquot method to measure 0.8 mL of a liquid with a 10-mL graduate calibrated in 1-mL divisions, which multiple would be most appropriate?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 10, 'A')">A) 2</div>
+                    <div class="option" onclick="selectOption(this, 10, 'B')">B) 4</div>
+                    <div class="option" onclick="selectOption(this, 10, 'C')">C) 5</div>
+                    <div class="option" onclick="selectOption(this, 10, 'D')">D) 10</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback10">
+                    <strong>Correct Answer: C) 5</strong><br>
+                    Explanation: With a 10-mL graduate, measuring less than 2 mL is inaccurate. Using a multiple of 5: 0.8 mL × 5 = 4 mL, which can be measured accurately. Then dilute to a measurable volume and take 1/5 aliquot.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect10"></div>
+            </div>
+            
+            <!-- Chapter 2 Questions -->
+            <h3>Chapter 2: Percentage Calculations</h3>
+            
+            <!-- Question 11 -->
+            <div class="question">
+                <div class="question-number">11</div>
+                <div class="question-text">How many grams of sodium chloride are needed to prepare 2.5 L of a 0.9% w/v normal saline solution?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 11, 'A')">A) 2.25 g</div>
+                    <div class="option" onclick="selectOption(this, 11, 'B')">B) 22.5 g</div>
+                    <div class="option" onclick="selectOption(this, 11, 'C')">C) 225 g</div>
+                    <div class="option" onclick="selectOption(this, 11, 'D')">D) 2,250 g</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback11">
+                    <strong>Correct Answer: B) 22.5 g</strong><br>
+                    Explanation: 0.9% w/v means 0.9 g in 100 mL. For 2.5 L (2500 mL): (0.9 g/100 mL) × 2500 mL = 22.5 g.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect11"></div>
+            </div>
+            
+            <!-- Question 12 -->
+            <div class="question">
+                <div class="question-number">12</div>
+                <div class="question-text">What is the percentage strength (v/v) of a solution prepared by dissolving 50 mL of ethanol in enough water to make 250 mL of solution?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 12, 'A')">A) 5%</div>
+                    <div class="option" onclick="selectOption(this, 12, 'B')">B) 10%</div>
+                    <div class="option" onclick="selectOption(this, 12, 'C')">C) 20%</div>
+                    <div class="option" onclick="selectOption(this, 12, 'D')">D) 25%</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback12">
+                    <strong>Correct Answer: C) 20%</strong><br>
+                    Explanation: % v/v = (Volume of solute / Total volume) × 100 = (50 mL / 250 mL) × 100 = 20%.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect12"></div>
+            </div>
+            
+            <!-- Question 13 -->
+            <div class="question">
+                <div class="question-number">13</div>
+                <div class="question-text">Convert a 1:5,000 w/v solution to mg/mL concentration.</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 13, 'A')">A) 0.02 mg/mL</div>
+                    <div class="option" onclick="selectOption(this, 13, 'B')">B) 0.2 mg/mL</div>
+                    <div class="option" onclick="selectOption(this, 13, 'C')">C) 2 mg/mL</div>
+                    <div class="option" onclick="selectOption(this, 13, 'D')">D) 20 mg/mL</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback13">
+                    <strong>Correct Answer: B) 0.2 mg/mL</strong><br>
+                    Explanation: 1:5,000 means 1 g in 5,000 mL = 1,000 mg in 5,000 mL = 0.2 mg/mL.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect13"></div>
+            </div>
+            
+            <!-- Question 14 -->
+            <div class="question">
+                <div class="question-number">14</div>
+                <div class="question-text">How many milligrams of active ingredient are in 15 mL of a 2.5% w/v solution?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 14, 'A')">A) 37.5 mg</div>
+                    <div class="option" onclick="selectOption(this, 14, 'B')">B) 375 mg</div>
+                    <div class="option" onclick="selectOption(this, 14, 'C')">C) 3,750 mg</div>
+                    <div class="option" onclick="selectOption(this, 14, 'D')">D) 37,500 mg</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback14">
+                    <strong>Correct Answer: B) 375 mg</strong><br>
+                    Explanation: 2.5% w/v = 2.5 g/100 mL = 2,500 mg/100 mL = 25 mg/mL. For 15 mL: 25 mg/mL × 15 mL = 375 mg.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect14"></div>
+            </div>
+            
+            <!-- Question 15 -->
+            <div class="question">
+                <div class="question-number">15</div>
+                <div class="question-text">What is the ratio strength of a 0.02% w/v solution?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 15, 'A')">A) 1:50</div>
+                    <div class="option" onclick="selectOption(this, 15, 'B')">B) 1:500</div>
+                    <div class="option" onclick="selectOption(this, 15, 'C')">C) 1:5,000</div>
+                    <div class="option" onclick="selectOption(this, 15, 'D')">D) 1:50,000</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback15">
+                    <strong>Correct Answer: C) 1:5,000</strong><br>
+                    Explanation: 0.02% = 0.02 g/100 mL = 0.2 g/1,000 mL = 1 g/5,000 mL = 1:5,000.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect15"></div>
+            </div>
+            
+            <!-- Question 16 -->
+            <div class="question">
+                <div class="question-number">16</div>
+                <div class="question-text">How many milliliters of a 10% w/v solution are needed to prepare 500 mL of a 0.5% w/v solution?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 16, 'A')">A) 5 mL</div>
+                    <div class="option" onclick="selectOption(this, 16, 'B')">B) 25 mL</div>
+                    <div class="option" onclick="selectOption(this, 16, 'C')">C) 50 mL</div>
+                    <div class="option" onclick="selectOption(this, 16, 'D')">D) 100 mL</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback16">
+                    <strong>Correct Answer: B) 25 mL</strong><br>
+                    Explanation: Using C₁V₁ = C₂V₂: (10%) × V₁ = (0.5%) × 500 mL. V₁ = (0.5 × 500) / 10 = 250/10 = 25 mL.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect16"></div>
+            </div>
+            
+            <!-- Question 17 -->
+            <div class="question">
+                <div class="question-number">17</div>
+                <div class="question-text">If 1.5 g of drug is dissolved in 50 mL of solution, what is the concentration in mg/mL?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 17, 'A')">A) 3 mg/mL</div>
+                    <div class="option" onclick="selectOption(this, 17, 'B')">B) 30 mg/mL</div>
+                    <div class="option" onclick="selectOption(this, 17, 'C')">C) 75 mg/mL</div>
+                    <div class="option" onclick="selectOption(this, 17, 'D')">D) 300 mg/mL</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback17">
+                    <strong>Correct Answer: B) 30 mg/mL</strong><br>
+                    Explanation: 1.5 g = 1,500 mg. Concentration = 1,500 mg / 50 mL = 30 mg/mL.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect17"></div>
+            </div>
+            
+            <!-- Question 18 -->
+            <div class="question">
+                <div class="question-number">18</div>
+                <div class="question-text">What is the percentage strength (w/w) of an ointment containing 12.5 g of active ingredient in 250 g of total ointment?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 18, 'A')">A) 0.5%</div>
+                    <div class="option" onclick="selectOption(this, 18, 'B')">B) 5%</div>
+                    <div class="option" onclick="selectOption(this, 18, 'C')">C) 12.5%</div>
+                    <div class="option" onclick="selectOption(this, 18, 'D')">D) 20%</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback18">
+                    <strong>Correct Answer: B) 5%</strong><br>
+                    Explanation: % w/w = (Weight of solute / Total weight) × 100 = (12.5 g / 250 g) × 100 = 5%.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect18"></div>
+            </div>
+            
+            <!-- Question 19 -->
+            <div class="question">
+                <div class="question-number">19</div>
+                <div class="question-text">How many grams of a 2.5% w/w hydrocortisone cream should be used to obtain 15 mg of hydrocortisone?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 19, 'A')">A) 0.06 g</div>
+                    <div class="option" onclick="selectOption(this, 19, 'B')">B) 0.6 g</div>
+                    <div class="option" onclick="selectOption(this, 19, 'C')">C) 6 g</div>
+                    <div class="option" onclick="selectOption(this, 19, 'D')">D) 60 g</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback19">
+                    <strong>Correct Answer: B) 0.6 g</strong><br>
+                    Explanation: 2.5% w/w = 2.5 g hydrocortisone in 100 g cream = 25 mg/g. To get 15 mg: 15 mg ÷ 25 mg/g = 0.6 g.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect19"></div>
+            </div>
+            
+            <!-- Question 20 -->
+            <div class="question">
+                <div class="question-number">20</div>
+                <div class="question-text">Express 250 ppm in percentage strength.</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 20, 'A')">A) 0.0025%</div>
+                    <div class="option" onclick="selectOption(this, 20, 'B')">B) 0.025%</div>
+                    <div class="option" onclick="selectOption(this, 20, 'C')">C) 0.25%</div>
+                    <div class="option" onclick="selectOption(this, 20, 'D')">D) 2.5%</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback20">
+                    <strong>Correct Answer: B) 0.025%</strong><br>
+                    Explanation: 250 ppm = 250 parts per 1,000,000 = 250/1,000,000 × 100 = 0.025%.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect20"></div>
+            </div>
+            
+            <!-- Chapter 3 Questions -->
+            <h3>Chapter 3: Calculations of Doses and Formulation</h3>
+            
+            <!-- Question 21 -->
+            <div class="question">
+                <div class="question-number">21</div>
+                <div class="question-text">If the adult dose of a drug is 500 mg, what would be the approximate dose for a child with a body surface area of 0.65 m²? (Average adult BSA = 1.73 m²)</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 21, 'A')">A) 94 mg</div>
+                    <div class="option" onclick="selectOption(this, 21, 'B')">B) 188 mg</div>
+                    <div class="option" onclick="selectOption(this, 21, 'C')">C) 250 mg</div>
+                    <div class="option" onclick="selectOption(this, 21, 'D')">D) 375 mg</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback21">
+                    <strong>Correct Answer: B) 188 mg</strong><br>
+                    Explanation: Child dose = (Child's BSA / Adult BSA) × Adult dose = (0.65 / 1.73) × 500 mg = 0.376 × 500 = 188 mg.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect21"></div>
+            </div>
+            
+            <!-- Question 22 -->
+            <div class="question">
+                <div class="question-number">22</div>
+                <div class="question-text">A medication order calls for 5 mcg/kg/min of dopamine for a 70 kg patient. What is the dose in mg per hour?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 22, 'A')">A) 0.21 mg/hr</div>
+                    <div class="option" onclick="selectOption(this, 22, 'B')">B) 2.1 mg/hr</div>
+                    <div class="option" onclick="selectOption(this, 22, 'C')">C) 21 mg/hr</div>
+                    <div class="option" onclick="selectOption(this, 22, 'D')">D) 210 mg/hr</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback22">
+                    <strong>Correct Answer: C) 21 mg/hr</strong><br>
+                    Explanation: Dose = 5 mcg/kg/min × 70 kg = 350 mcg/min = 0.35 mg/min. Per hour: 0.35 mg/min × 60 min/hr = 21 mg/hr.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect22"></div>
+            </div>
+            
+            <!-- Question 23 -->
+            <div class="question">
+                <div class="question-number">23</div>
+                <div class="question-text">If a dropper delivers 0.05 mL per drop, how many drops would be needed to administer 2.5 mL of medication?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 23, 'A')">A) 25 drops</div>
+                    <div class="option" onclick="selectOption(this, 23, 'B')">B) 40 drops</div>
+                    <div class="option" onclick="selectOption(this, 23, 'C')">C) 50 drops</div>
+                    <div class="option" onclick="selectOption(this, 23, 'D')">D) 75 drops</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback23">
+                    <strong>Correct Answer: C) 50 drops</strong><br>
+                    Explanation: Number of drops = Total volume / Volume per drop = 2.5 mL / 0.05 mL/drop = 50 drops.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect23"></div>
+            </div>
+            
+            <!-- Question 24 -->
+            <div class="question">
+                <div class="question-number">24</div>
+                <div class="question-text">A patient is prescribed 15 mL of medication to be taken 3 times daily for 10 days. How many fluid ounces should be dispensed?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 24, 'A')">A) 5 fl oz</div>
+                    <div class="option" onclick="selectOption(this, 24, 'B')">B) 10 fl oz</div>
+                    <div class="option" onclick="selectOption(this, 24, 'C')">C) 15 fl oz</div>
+                    <div class="option" onclick="selectOption(this, 24, 'D')">D) 20 fl oz</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback24">
+                    <strong>Correct Answer: C) 15 fl oz</strong><br>
+                    Explanation: Total volume = 15 mL × 3 times/day × 10 days = 450 mL. 1 fl oz ≈ 30 mL, so 450 mL ÷ 30 mL/fl oz = 15 fl oz.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect24"></div>
+            </div>
+            
+            <!-- Question 25 -->
+            <div class="question">
+                <div class="question-number">25</div>
+                <div class="question-text">The recommended pediatric dose of ampicillin is 25 mg/kg/day divided into 4 equal doses. What would be the single dose for a 44 lb child?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 25, 'A')">A) 62.5 mg</div>
+                    <div class="option" onclick="selectOption(this, 25, 'B')">B) 125 mg</div>
+                    <div class="option" onclick="selectOption(this, 25, 'C')">C) 250 mg</div>
+                    <div class="option" onclick="selectOption(this, 25, 'D')">D) 500 mg</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback25">
+                    <strong>Correct Answer: B) 125 mg</strong><br>
+                    Explanation: 44 lb ÷ 2.2 = 20 kg. Total daily dose = 25 mg/kg × 20 kg = 500 mg. Divided into 4 doses: 500 mg ÷ 4 = 125 mg per dose.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect25"></div>
+            </div>
+            
+            <!-- Question 26 -->
+            <div class="question">
+                <div class="question-number">26</div>
+                <div class="question-text">A formula for 1,000 mL of an elixir contains 250 mL of alcohol. What is the percentage strength (v/v) of alcohol?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 26, 'A')">A) 5%</div>
+                    <div class="option" onclick="selectOption(this, 26, 'B')">B) 15%</div>
+                    <div class="option" onclick="selectOption(this, 26, 'C')">C) 25%</div>
+                    <div class="option" onclick="selectOption(this, 26, 'D')">D) 50%</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback26">
+                    <strong>Correct Answer: C) 25%</strong><br>
+                    Explanation: % v/v = (Volume of alcohol / Total volume) × 100 = (250 mL / 1000 mL) × 100 = 25%.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect26"></div>
+            </div>
+            
+            <!-- Question 27 -->
+            <div class="question">
+                <div class="question-number">27</div>
+                <div class="question-text">If a medication is available as 125 mg/5 mL, how many milliliters are needed for a 375 mg dose?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 27, 'A')">A) 5 mL</div>
+                    <div class="option" onclick="selectOption(this, 27, 'B')">B) 10 mL</div>
+                    <div class="option" onclick="selectOption(this, 27, 'C')">C) 15 mL</div>
+                    <div class="option" onclick="selectOption(this, 27, 'D')">D) 20 mL</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback27">
+                    <strong>Correct Answer: C) 15 mL</strong><br>
+                    Explanation: Concentration = 125 mg/5 mL = 25 mg/mL. For 375 mg: 375 mg ÷ 25 mg/mL = 15 mL.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect27"></div>
+            </div>
+            
+            <!-- Question 28 -->
+            <div class="question">
+                <div class="question-number">28</div>
+                <div class="question-text">A patient weighing 176 lb is to receive 1.5 mg/kg of a drug. What is the total dose in mg?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 28, 'A')">A) 60 mg</div>
+                    <div class="option" onclick="selectOption(this, 28, 'B')">B) 120 mg</div>
+                    <div class="option" onclick="selectOption(this, 28, 'C')">C) 180 mg</div>
+                    <div class="option" onclick="selectOption(this, 28, 'D')">D) 240 mg</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback28">
+                    <strong>Correct Answer: B) 120 mg</strong><br>
+                    Explanation: 176 lb ÷ 2.2 = 80 kg. Dose = 1.5 mg/kg × 80 kg = 120 mg.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect28"></div>
+            </div>
+            
+            <!-- Question 29 -->
+            <div class="question">
+                <div class="question-number">29</div>
+                <div class="question-text">How many 250 mg capsules are needed to provide a 2 g dose?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 29, 'A')">A) 4</div>
+                    <div class="option" onclick="selectOption(this, 29, 'B')">B) 6</div>
+                    <div class="option" onclick="selectOption(this, 29, 'C')">C) 8</div>
+                    <div class="option" onclick="selectOption(this, 29, 'D')">D) 10</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback29">
+                    <strong>Correct Answer: C) 8</strong><br>
+                    Explanation: 2 g = 2000 mg. Number of capsules = 2000 mg ÷ 250 mg/capsule = 8 capsules.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect29"></div>
+            </div>
+            
+            <!-- Question 30 -->
+            <div class="question">
+                <div class="question-number">30</div>
+                <div class="question-text">A cough syrup contains 10 mg of dextromethorphan per 5 mL. The recommended dose for a 6-year-old is 7.5 mg. How many teaspoons (1 tsp = 5 mL) should be administered?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 30, 'A')">A) 1/4 tsp</div>
+                    <div class="option" onclick="selectOption(this, 30, 'B')">B) 1/2 tsp</div>
+                    <div class="option" onclick="selectOption(this, 30, 'C')">C) 3/4 tsp</div>
+                    <div class="option" onclick="selectOption(this, 30, 'D')">D) 1 tsp</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback30">
+                    <strong>Correct Answer: C) 3/4 tsp</strong><br>
+                    Explanation: Concentration = 10 mg/5 mL = 2 mg/mL. For 7.5 mg: 7.5 mg ÷ 2 mg/mL = 3.75 mL. Since 1 tsp = 5 mL, 3.75 mL = 3.75/5 = 0.75 tsp = 3/4 tsp.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect30"></div>
+            </div>
+            
+            <!-- Chapter 4 Questions -->
+            <h3>Chapter 4: Dilution and Concentration</h3>
+            
+            <!-- Question 31 -->
+            <div class="question">
+                <div class="question-number">31</div>
+                <div class="question-text">If 100 mL of a 10% w/v solution is diluted to 500 mL, what is the new concentration?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 31, 'A')">A) 1%</div>
+                    <div class="option" onclick="selectOption(this, 31, 'B')">B) 2%</div>
+                    <div class="option" onclick="selectOption(this, 31, 'C')">C) 3%</div>
+                    <div class="option" onclick="selectOption(this, 31, 'D')">D) 5%</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback31">
+                    <strong>Correct Answer: B) 2%</strong><br>
+                    Explanation: Using C₁V₁ = C₂V₂: (10%) × 100 mL = C₂ × 500 mL. C₂ = (10 × 100) / 500 = 1000/500 = 2%.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect31"></div>
+            </div>
+            
+            <!-- Question 32 -->
+            <div class="question">
+                <div class="question-number">32</div>
+                <div class="question-text">How many milliliters of a 1:50 w/v stock solution are needed to prepare 1 L of a 1:500 w/v solution?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 32, 'A')">A) 10 mL</div>
+                    <div class="option" onclick="selectOption(this, 32, 'B')">B) 20 mL</div>
+                    <div class="option" onclick="selectOption(this, 32, 'C')">C) 50 mL</div>
+                    <div class="option" onclick="selectOption(this, 32, 'D')">D) 100 mL</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback32">
+                    <strong>Correct Answer: D) 100 mL</strong><br>
+                    Explanation: 1:50 = 2% = 20 mg/mL. 1:500 = 0.2% = 2 mg/mL. Using C₁V₁ = C₂V₂: (20 mg/mL) × V₁ = (2 mg/mL) × 1000 mL. V₁ = 2000/20 = 100 mL.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect32"></div>
+            </div>
+            
+            <!-- Question 33 -->
+            <div class="question">
+                <div class="question-number">33</div>
+                <div class="question-text">What is the final concentration when 200 mL of a 5% solution is mixed with 300 mL of a 10% solution?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 33, 'A')">A) 6%</div>
+                    <div class="option" onclick="selectOption(this, 33, 'B')">B) 7%</div>
+                    <div class="option" onclick="selectOption(this, 33, 'C')">C) 8%</div>
+                    <div class="option" onclick="selectOption(this, 33, 'D')">D) 9%</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback33">
+                    <strong>Correct Answer: C) 8%</strong><br>
+                    Explanation: Using alligation medial: Total solute = (5% × 200 mL) + (10% × 300 mL) = 10 g + 30 g = 40 g. Total volume = 500 mL. Concentration = (40 g/500 mL) × 100 = 8%.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect33"></div>
+            </div>
+            
+            <!-- Question 34 -->
+            <div class="question">
+                <div class="question-number">34</div>
+                <div class="question-text">In what proportion should 95% alcohol and 50% alcohol be mixed to obtain 70% alcohol?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 34, 'A')">A) 1:1</div>
+                    <div class="option" onclick="selectOption(this, 34, 'B')">B) 2:1</div>
+                    <div class="option" onclick="selectOption(this, 34, 'C')">C) 3:2</div>
+                    <div class="option" onclick="selectOption(this, 34, 'D')">D) 4:5</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback34">
+                    <strong>Correct Answer: D) 4:5</strong><br>
+                    Explanation: Using alligation alternate: 95% → 20 parts (70-50), 50% → 25 parts (95-70). Ratio = 20:25 = 4:5.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect34"></div>
+            </div>
+            
+            <!-- Question 35 -->
+            <div class="question">
+                <div class="question-number">35</div>
+                <div class="question-text">How much water should be added to 250 mL of a 20% w/v solution to make it a 5% w/v solution?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 35, 'A')">A) 250 mL</div>
+                    <div class="option" onclick="selectOption(this, 35, 'B')">B) 500 mL</div>
+                    <div class="option" onclick="selectOption(this, 35, 'C')">C) 750 mL</div>
+                    <div class="option" onclick="selectOption(this, 35, 'D')">D) 1000 mL</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback35">
+                    <strong>Correct Answer: C) 750 mL</strong><br>
+                    Explanation: Amount of solute = 20% × 250 mL = 50 g. For 5% solution: 50 g = 5% of total volume. Total volume = 50 g ÷ 0.05 = 1000 mL. Water to add = 1000 mL - 250 mL = 750 mL.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect35"></div>
+            </div>
+            
+            <!-- Question 36 -->
+            <div class="question">
+                <div class="question-number">36</div>
+                <div class="question-text">What is the percentage strength of a 1:100 trituration?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 36, 'A')">A) 0.1%</div>
+                    <div class="option" onclick="selectOption(this, 36, 'B')">B) 1%</div>
+                    <div class="option" onclick="selectOption(this, 36, 'C')">C) 10%</div>
+                    <div class="option" onclick="selectOption(this, 36, 'D')">D) 100%</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback36">
+                    <strong>Correct Answer: B) 1%</strong><br>
+                    Explanation: 1:100 means 1 part in 100 parts = 1/100 × 100 = 1%.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect36"></div>
+            </div>
+            
+            <!-- Question 37 -->
+            <div class="question">
+                <div class="question-number">37</div>
+                <div class="question-text">How many grams of a 1:10 trituration are needed to obtain 50 mg of active ingredient?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 37, 'A')">A) 0.05 g</div>
+                    <div class="option" onclick="selectOption(this, 37, 'B')">B) 0.5 g</div>
+                    <div class="option" onclick="selectOption(this, 37, 'C')">C) 5 g</div>
+                    <div class="option" onclick="selectOption(this, 37, 'D')">D) 50 g</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback37">
+                    <strong>Correct Answer: B) 0.5 g</strong><br>
+                    Explanation: 1:10 trituration contains 1 part drug in 10 parts mixture = 10%. For 50 mg (0.05 g) drug: 0.05 g ÷ 0.10 = 0.5 g of trituration.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect37"></div>
+            </div>
+            
+            <!-- Question 38 -->
+            <div class="question">
+                <div class="question-number">38</div>
+                <div class="question-text">What is the specific gravity of a mixture containing 200 mL of liquid A (sp gr 1.2) and 300 mL of liquid B (sp gr 0.8)?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 38, 'A')">A) 0.92</div>
+                    <div class="option" onclick="selectOption(this, 38, 'B')">B) 0.96</div>
+                    <div class="option" onclick="selectOption(this, 38, 'C')">C) 1.00</div>
+                    <div class="option" onclick="selectOption(this, 38, 'D')">D) 1.04</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback38">
+                    <strong>Correct Answer: B) 0.96</strong><br>
+                    Explanation: Weight of A = 200 mL × 1.2 = 240 g. Weight of B = 300 mL × 0.8 = 240 g. Total weight = 480 g. Total volume = 500 mL. Sp gr of mixture = 480 g/500 mL = 0.96.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect38"></div>
+            </div>
+            
+            <!-- Question 39 -->
+            <div class="question">
+                <div class="question-number">39</div>
+                <div class="question-text">How many milliliters of a 30% w/v solution are needed to prepare 60 mL of a 5% w/v solution?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 39, 'A')">A) 5 mL</div>
+                    <div class="option" onclick="selectOption(this, 39, 'B')">B) 10 mL</div>
+                    <div class="option" onclick="selectOption(this, 39, 'C')">C) 15 mL</div>
+                    <div class="option" onclick="selectOption(this, 39, 'D')">D) 20 mL</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback39">
+                    <strong>Correct Answer: B) 10 mL</strong><br>
+                    Explanation: Using C₁V₁ = C₂V₂: (30%) × V₁ = (5%) × 60 mL. V₁ = (5 × 60) / 30 = 300/30 = 10 mL.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect39"></div>
+            </div>
+            
+            <!-- Question 40 -->
+            <div class="question">
+                <div class="question-number">40</div>
+                <div class="question-text">A pharmacist mixes 100 g of 10% ointment, 200 g of 15% ointment, and 300 g of 20% ointment. What is the percentage strength of the mixture?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 40, 'A')">A) 12.5%</div>
+                    <div class="option" onclick="selectOption(this, 40, 'B')">B) 15%</div>
+                    <div class="option" onclick="selectOption(this, 40, 'C')">C) 16.7%</div>
+                    <div class="option" onclick="selectOption(this, 40, 'D')">D) 18%</div>
+                </div>
+                <div class="feedback correct-feedback" id="feedback40">
+                    <strong>Correct Answer: C) 16.7%</strong><br>
+                    Explanation: Total active = (0.10 × 100) + (0.15 × 200) + (0.20 × 300) = 10 g + 30 g + 60 g = 100 g. Total weight = 600 g. Percentage = (100 g/600 g) × 100 = 16.7%.
+                </div>
+                <div class="feedback incorrect-feedback" id="feedback-incorrect40"></div>
+            </div>
         </div>
-
-        <div class="navigation">
-            <button class="nav-btn prev-btn" onclick="previousQuestion()">← Previous</button>
-            <button class="nav-btn next-btn" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        
+        <div class="section">
+            <h2>Part 2: Workout Problems (20 Problems)</h2>
+            <p>Solve these problems and click "Show Answer" to check your work.</p>
+            
+            <!-- Problem 1 -->
+            <div class="workout-problem">
+                <div class="workout-number">1</div>
+                <div class="question-text">A prescription balance has a sensitivity requirement of 6 mg. Explain how you would weigh 15 mg of atropine sulfate with an error not greater than 5%, using lactose as the diluent.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(1)">Show Answer</button>
+                <div class="answer" id="answer1">
+                    <p><strong>Solution:</strong></p>
+                    <p>Step 1: Calculate minimum weighable amount:</p>
+                    <p>Minimum weight = (Sensitivity × 100) / % error = (6 mg × 100) / 5 = 120 mg</p>
+                    <p>Step 2: Select a multiple so that multiple × 15 mg ≥ 120 mg</p>
+                    <p>120 mg ÷ 15 mg = 8, so use multiple of 8 (or higher)</p>
+                    <p>If multiple = 8: Weigh 15 mg × 8 = 120 mg of atropine sulfate</p>
+                    <p>Step 3: Dilute with lactose. If we set aliquot portion = 150 mg (≥ 120 mg):</p>
+                    <p>Total mixture = Aliquot × Multiple = 150 mg × 8 = 1200 mg</p>
+                    <p>Lactose needed = 1200 mg - 120 mg = 1080 mg</p>
+                    <p>Step 4: Weigh 150 mg of the mixture (contains 15 mg atropine sulfate)</p>
+                </div>
+            </div>
+            
+            <!-- Problem 2 -->
+            <div class="workout-problem">
+                <div class="workout-number">2</div>
+                <div class="question-text">If 500 g of cottonseed oil measures 550 mL, what is its specific gravity?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(2)">Show Answer</button>
+                <div class="answer" id="answer2">
+                    <p><strong>Solution:</strong></p>
+                    <p>Specific gravity = Weight of substance / Weight of equal volume of water</p>
+                    <p>550 mL of water weighs 550 g</p>
+                    <p>Specific gravity = 500 g / 550 g = 0.909</p>
+                </div>
+            </div>
+            
+            <!-- Problem 3 -->
+            <div class="workout-problem">
+                <div class="workout-number">3</div>
+                <div class="question-text">If chloroform has a specific gravity of 1.476, what is its specific volume?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(3)">Show Answer</button>
+                <div class="answer" id="answer3">
+                    <p><strong>Solution:</strong></p>
+                    <p>Specific volume = 1 / Specific gravity</p>
+                    <p>Specific volume = 1 / 1.476 = 0.677 mL/g</p>
+                </div>
+            </div>
+            
+            <!-- Problem 4 -->
+            <div class="workout-problem">
+                <div class="workout-number">4</div>
+                <div class="question-text">How many milliliters of a 20% w/v solution would contain 5 g of solute?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(4)">Show Answer</button>
+                <div class="answer" id="answer4">
+                    <p><strong>Solution:</strong></p>
+                    <p>20% w/v = 20 g in 100 mL</p>
+                    <p>For 5 g: (100 mL / 20 g) × 5 g = 25 mL</p>
+                </div>
+            </div>
+            
+            <!-- Problem 5 -->
+            <div class="workout-problem">
+                <div class="workout-number">5</div>
+                <div class="question-text">Calculate the weight, in grams, of 3 fluid ounces of a liquid having a specific gravity of 0.950.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(5)">Show Answer</button>
+                <div class="answer" id="answer5">
+                    <p><strong>Solution:</strong></p>
+                    <p>3 fl oz × 30 mL/fl oz = 90 mL</p>
+                    <p>Weight = Volume × Specific gravity</p>
+                    <p>Weight of water = 90 g</p>
+                    <p>Weight of liquid = 90 g × 0.950 = 85.5 g</p>
+                </div>
+            </div>
+            
+            <!-- Problem 6 -->
+            <div class="workout-problem">
+                <div class="workout-number">6</div>
+                <div class="question-text">A patient weighing 154 lb is to receive a drug at 2 mg/kg. How many milligrams should be administered?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(6)">Show Answer</button>
+                <div class="answer" id="answer6">
+                    <p><strong>Solution:</strong></p>
+                    <p>154 lb ÷ 2.2 = 70 kg</p>
+                    <p>Dose = 2 mg/kg × 70 kg = 140 mg</p>
+                </div>
+            </div>
+            
+            <!-- Problem 7 -->
+            <div class="workout-problem">
+                <div class="workout-number">7</div>
+                <div class="question-text">How many grams of 5% w/w hydrocortisone ointment can be made from 10 g of hydrocortisone powder?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(7)">Show Answer</button>
+                <div class="answer" id="answer7">
+                    <p><strong>Solution:</strong></p>
+                    <p>5% w/w means 5 g hydrocortisone in 100 g ointment</p>
+                    <p>For 10 g hydrocortisone: (100 g ointment / 5 g HC) × 10 g HC = 200 g ointment</p>
+                </div>
+            </div>
+            
+            <!-- Problem 8 -->
+            <div class="workout-problem">
+                <div class="workout-number">8</div>
+                <div class="question-text">Convert 1:2,500 w/v to percentage strength.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(8)">Show Answer</button>
+                <div class="answer" id="answer8">
+                    <p><strong>Solution:</strong></p>
+                    <p>1:2,500 = 1 g in 2,500 mL</p>
+                    <p>Percentage = (1 g / 2,500 mL) × 100 = 0.04%</p>
+                </div>
+            </div>
+            
+            <!-- Problem 9 -->
+            <div class="workout-problem">
+                <div class="workout-number">9</div>
+                <div class="question-text">How many milligrams of a 1:100 trituration are needed to obtain 2 mg of active ingredient?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(9)">Show Answer</button>
+                <div class="answer" id="answer9">
+                    <p><strong>Solution:</strong></p>
+                    <p>1:100 trituration = 1% = 1 mg active in 100 mg trituration</p>
+                    <p>For 2 mg active: 2 mg × 100 = 200 mg of trituration</p>
+                </div>
+            </div>
+            
+            <!-- Problem 10 -->
+            <div class="workout-problem">
+                <div class="workout-number">10</div>
+                <div class="question-text">If 120 mL of a solution contains 1.8 g of drug, what is the percentage strength (w/v)?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(10)">Show Answer</button>
+                <div class="answer" id="answer10">
+                    <p><strong>Solution:</strong></p>
+                    <p>% w/v = (Weight in g / Volume in mL) × 100</p>
+                    <p>% w/v = (1.8 g / 120 mL) × 100 = 1.5%</p>
+                </div>
+            </div>
+            
+            <!-- Problem 11 -->
+            <div class="workout-problem">
+                <div class="workout-number">11</div>
+                <div class="question-text">How many milliliters of water should be added to 300 mL of a 25% w/v solution to make it a 10% w/v solution?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(11)">Show Answer</button>
+                <div class="answer" id="answer11">
+                    <p><strong>Solution:</strong></p>
+                    <p>Amount of drug = 25% × 300 mL = 75 g</p>
+                    <p>For 10% solution: 75 g = 10% of total volume</p>
+                    <p>Total volume = 75 g ÷ 0.10 = 750 mL</p>
+                    <p>Water to add = 750 mL - 300 mL = 450 mL</p>
+                </div>
+            </div>
+            
+            <!-- Problem 12 -->
+            <div class="workout-problem">
+                <div class="workout-number">12</div>
+                <div class="question-text">A drug is available as 125 mg/mL. How many milliliters are needed for a 0.5 g dose?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(12)">Show Answer</button>
+                <div class="answer" id="answer12">
+                    <p><strong>Solution:</strong></p>
+                    <p>0.5 g = 500 mg</p>
+                    <p>Volume = 500 mg ÷ 125 mg/mL = 4 mL</p>
+                </div>
+            </div>
+            
+            <!-- Problem 13 -->
+            <div class="workout-problem">
+                <div class="workout-number">13</div>
+                <div class="question-text">Calculate the dose for a 3-year-old child if the adult dose is 500 mg. (Use Young's rule: Child dose = [Age/(Age+12)] × Adult dose)</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(13)">Show Answer</button>
+                <div class="answer" id="answer13">
+                    <p><strong>Solution:</strong></p>
+                    <p>Child dose = [3/(3+12)] × 500 mg = (3/15) × 500 mg = 0.2 × 500 mg = 100 mg</p>
+                </div>
+            </div>
+            
+            <!-- Problem 14 -->
+            <div class="workout-problem">
+                <div class="workout-number">14</div>
+                <div class="question-text">In what proportion should 90% alcohol and 50% alcohol be mixed to obtain 70% alcohol?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(14)">Show Answer</button>
+                <div class="answer" id="answer14">
+                    <p><strong>Solution:</strong></p>
+                    <p>Using alligation alternate:</p>
+                    <p>90% → 20 parts (70-50)</p>
+                    <p>50% → 20 parts (90-70)</p>
+                    <p>Ratio = 20:20 = 1:1</p>
+                </div>
+            </div>
+            
+            <!-- Problem 15 -->
+            <div class="workout-problem">
+                <div class="workout-number">15</div>
+                <div class="question-text">A patient is to receive 1.5 L of intravenous fluid over 12 hours. What is the flow rate in mL/hour?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(15)">Show Answer</button>
+                <div class="answer" id="answer15">
+                    <p><strong>Solution:</strong></p>
+                    <p>1.5 L = 1500 mL</p>
+                    <p>Flow rate = 1500 mL ÷ 12 hours = 125 mL/hour</p>
+                </div>
+            </div>
+            
+            <!-- Problem 16 -->
+            <div class="workout-problem">
+                <div class="workout-number">16</div>
+                <div class="question-text">How many grams of a 10% w/w and a 25% w/w ointment should be mixed to prepare 300 g of a 15% w/w ointment?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(16)">Show Answer</button>
+                <div class="answer" id="answer16">
+                    <p><strong>Solution:</strong></p>
+                    <p>Using alligation alternate:</p>
+                    <p>10% → 10 parts (25-15)</p>
+                    <p>25% → 5 parts (15-10)</p>
+                    <p>Total parts = 15</p>
+                    <p>10% ointment: (10/15) × 300 g = 200 g</p>
+                    <p>25% ointment: (5/15) × 300 g = 100 g</p>
+                </div>
+            </div>
+            
+            <!-- Problem 17 -->
+            <div class="workout-problem">
+                <div class="workout-number">17</div>
+                <div class="question-text">If a cough syrup contains 15 mg of dextromethorphan per 5 mL, and the dose is 30 mg, how many teaspoons should be administered? (1 tsp = 5 mL)</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(17)">Show Answer</button>
+                <div class="answer" id="answer17">
+                    <p><strong>Solution:</strong></p>
+                    <p>Concentration = 15 mg/5 mL = 3 mg/mL</p>
+                    <p>For 30 mg: 30 mg ÷ 3 mg/mL = 10 mL</p>
+                    <p>10 mL ÷ 5 mL/tsp = 2 tsp</p>
+                </div>
+            </div>
+            
+            <!-- Problem 18 -->
+            <div class="workout-problem">
+                <div class="workout-number">18</div>
+                <div class="question-text">A medication order is for 750 mg of a drug to be infused over 6 hours. The drug is available as 1 g in 250 mL. What is the infusion rate in mL/hour?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(18)">Show Answer</button>
+                <div class="answer" id="answer18">
+                    <p><strong>Solution:</strong></p>
+                    <p>Concentration: 1 g in 250 mL = 1000 mg in 250 mL = 4 mg/mL</p>
+                    <p>Volume for 750 mg: 750 mg ÷ 4 mg/mL = 187.5 mL</p>
+                    <p>Infusion rate: 187.5 mL ÷ 6 hours = 31.25 mL/hour</p>
+                </div>
+            </div>
+            
+            <!-- Problem 19 -->
+            <div class="workout-problem">
+                <div class="workout-number">19</div>
+                <div class="question-text">Calculate the volume of a liquid with specific gravity 0.875 that weighs 350 g.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(19)">Show Answer</button>
+                <div class="answer" id="answer19">
+                    <p><strong>Solution:</strong></p>
+                    <p>Weight of equal volume of water = 350 g ÷ 0.875 = 400 g</p>
+                    <p>Volume = 400 mL (since 1 g water = 1 mL)</p>
+                    <p>Alternatively: Volume = Weight / Specific gravity = 350 g / 0.875 = 400 mL</p>
+                </div>
+            </div>
+            
+            <!-- Problem 20 -->
+            <div class="workout-problem">
+                <div class="workout-number">20</div>
+                <div class="question-text">A prescription calls for 0.5% w/w hydrocortisone ointment. How many grams of 2.5% w/w hydrocortisone ointment should be mixed with white petrolatum to prepare 60 g of 0.5% ointment?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(20)">Show Answer</button>
+                <div class="answer" id="answer20">
+                    <p><strong>Solution:</strong></p>
+                    <p>Using C₁V₁ = C₂V₂ for mixing ointments:</p>
+                    <p>(2.5%) × X g = (0.5%) × 60 g</p>
+                    <p>X = (0.5 × 60) / 2.5 = 30/2.5 = 12 g of 2.5% ointment</p>
+                    <p>White petrolatum needed = 60 g - 12 g = 48 g</p>
+                </div>
+            </div>
         </div>
-
-        <div class="score-display" id="scoreDisplay"></div>
+        
+        <div class="score-container">
+            <h3>Final Score</h3>
+            <div class="score">0/40</div>
+            <button class="submit-btn" onclick="calculateScore()">Calculate My Score</button>
+            <button class="reset-btn" onclick="resetExam()">Reset Exam</button>
+        </div>
     </div>
 
     <script>
-        const pharmaQuestions = [
-            {
-                question: "1. Which of the following best defines 'accuracy' in pharmaceutical measurements?",
-                options: [
-                    "Closeness of measured value to true value",
-                    "Consistency of repeated measurements",
-                    "Smallest division of an instrument",
-                    "Difference between two measurements"
-                ],
-                correct: 0,
-                explanation: "Accuracy indicates how near a measurement is to the actual or accepted standard."
-            },
-            {
-                question: "2. Significant figures in a measurement reflect:",
-                options: [
-                    "Precision and reliability of the measurement",
-                    "Only the estimated digit",
-                    "The error in measurement",
-                    "The type of instrument used"
-                ],
-                correct: 0,
-                explanation: "Significant figures include all certain digits plus one estimated digit."
-            },
-            {
-                question: "3. A balance has a sensitivity of 0.1 mg. What does this mean?",
-                options: [
-                    "It can detect a minimum weight change of 0.1 mg",
-                    "It measures only in grams",
-                    "It can weigh up to 100 mg",
-                    "It has 0.1% error"
-                ],
-                correct: 0,
-                explanation: "Sensitivity is the smallest mass change the balance can detect."
-            },
-            {
-                question: "4. If a solution has a density of 1.2 g/mL, what is its specific gravity?",
-                options: [
-                    "1.2",
-                    "0.8",
-                    "1.0",
-                    "1.5"
-                ],
-                correct: 0,
-                explanation: "Specific gravity = density of substance / density of water (1 g/mL at 4°C)."
-            },
-            {
-                question: "5. Aliquot method is used for:",
-                options: [
-                    "Accurately weighing small quantities by dilution",
-                    "Measuring large volumes directly",
-                    "Calculating percentage solutions",
-                    "Determining specific gravity"
-                ],
-                correct: 0,
-                explanation: "Ensures precise measurement of very small amounts by first making a larger measurable solution."
-            },
-            {
-                question: "6. Convert 0.5% w/v solution to mg/mL:",
-                options: [
-                    "5 mg/mL",
-                    "0.5 mg/mL",
-                    "50 mg/mL",
-                    "500 mg/mL"
-                ],
-                correct: 0,
-                explanation: "0.5% w/v = 0.5 g/100 mL = 5 mg/mL."
-            },
-            {
-                question: "7. What is 1 ppm in mg/L for an aqueous solution?",
-                options: [
-                    "1 mg/L",
-                    "10 mg/L",
-                    "0.1 mg/L",
-                    "100 mg/L"
-                ],
-                correct: 0,
-                explanation: "In water, 1 ppm equals 1 mg per liter."
-            },
-            {
-                question: "8. A pediatric patient weighing 15 kg requires a drug dose of 10 mg/kg/day. The total daily dose is:",
-                options: [
-                    "150 mg",
-                    "10 mg",
-                    "25 mg",
-                    "100 mg"
-                ],
-                correct: 0,
-                explanation: "Dose = 10 mg × 15 kg = 150 mg/day."
-            },
-            {
-                question: "9. To prepare 200 mL of 2% w/v solution, how much drug is required?",
-                options: [
-                    "4 g",
-                    "2 g",
-                    "0.4 g",
-                    "20 g"
-                ],
-                correct: 0,
-                explanation: "2% w/v = 2 g/100 mL → for 200 mL: 2 × 2 = 4 g."
-            },
-            {
-                question: "10. A liquid contains 50 mg/mL. To prepare 100 mL of 1:10 dilution, the final concentration is:",
-                options: [
-                    "5 mg/mL",
-                    "10 mg/mL",
-                    "0.5 mg/mL",
-                    "50 mg/mL"
-                ],
-                correct: 0,
-                explanation: "1:10 dilution reduces concentration 10-fold."
-            },
-            {
-                question: "11. Drug dosage based on body surface area (BSA) is preferred over body weight in:",
-                options: [
-                    "Chemotherapy drugs",
-                    "Antibiotics",
-                    "Analgesics",
-                    "Vitamins"
-                ],
-                correct: 0,
-                explanation: "BSA correlates better with metabolic mass and toxicity profile."
-            },
-            {
-                question: "12. The formula for calculating BSA using Mosteller method is:",
-                options: [
-                    "√(Height(cm) × Weight(kg)/3600)",
-                    "Weight(kg) × 70",
-                    "Height(cm)/Weight(kg)",
-                    "(Height + Weight)/2"
-                ],
-                correct: 0,
-                explanation: "Standard method for BSA estimation."
-            },
-            {
-                question: "13. In alligation alternate, to mix two solutions of different strengths, the proportion of each is calculated based on:",
-                options: [
-                    "Difference between each strength and the desired strength",
-                    "Sum of concentrations",
-                    "Average volume",
-                    "Equal volume always"
-                ],
-                correct: 0,
-                explanation: "Ensures target concentration is achieved."
-            },
-            {
-                question: "14. Specific gravity of a mixture is defined as:",
-                options: [
-                    "Total weight of mixture / total volume",
-                    "Volume of water displaced",
-                    "Mass per mole",
-                    "Density × 100"
-                ],
-                correct: 0,
-                explanation: "Represents density relative to water."
-            },
-            {
-                question: "15. Triturations are used for:",
-                options: [
-                    "Reducing particle size of solid drugs",
-                    "Dissolving drugs in water",
-                    "Preparing intravenous solutions",
-                    "Sterilization"
-                ],
-                correct: 0,
-                explanation: "Helps in uniform mixing and absorption."
-            },
-            {
-                question: "16. A drug solution is labeled 0.2% w/v. How many mg are in 50 mL?",
-                options: [
-                    "100 mg",
-                    "10 mg",
-                    "1 mg",
-                    "200 mg"
-                ],
-                correct: 0,
-                explanation: "0.2 g/100 mL = 2 mg/mL; 50 mL × 2 mg/mL = 100 mg."
-            },
-            {
-                question: "17. A patient requires 500 mg of drug. Available stock solution is 250 mg/5 mL. The volume to administer is:",
-                options: [
-                    "10 mL",
-                    "5 mL",
-                    "2 mL",
-                    "20 mL"
-                ],
-                correct: 0,
-                explanation: "(500 mg × 5 mL)/250 mg = 10 mL."
-            },
-            {
-                question: "18. If a drug requires 2 mg/kg and patient weighs 70 kg, the total dose is:",
-                options: [
-                    "140 mg",
-                    "70 mg",
-                    "100 mg",
-                    "200 mg"
-                ],
-                correct: 0,
-                explanation: "Dose = 2 × 70 = 140 mg."
-            },
-            {
-                question: "19. To prepare 500 mL of 0.1% w/v solution, how much drug is needed?",
-                options: [
-                    "0.5 g",
-                    "5 g",
-                    "50 mg",
-                    "1 g"
-                ],
-                correct: 0,
-                explanation: "0.1 g/100 mL → 0.5 g/500 mL."
-            },
-            {
-                question: "20. A 10 mL solution contains 50 mg of drug. Strength in mg/mL is:",
-                options: [
-                    "5 mg/mL",
-                    "0.5 mg/mL",
-                    "50 mg/mL",
-                    "10 mg/mL"
-                ],
-                correct: 0,
-                explanation: "50 mg / 10 mL = 5 mg/mL."
-            },
-            {
-                question: "21. A 2% w/v solution contains how many grams in 250 mL?",
-                options: [
-                    "5 g",
-                    "2 g",
-                    "4 g",
-                    "0.5 g"
-                ],
-                correct: 0,
-                explanation: "2 g per 100 mL → 250 mL: (2 × 250)/100 = 5 g."
-            },
-            {
-                question: "22. If 0.25 g of a drug is dissolved in 50 mL, the % w/v is:",
-                options: [
-                    "0.5%",
-                    "0.25%",
-                    "0.05%",
-                    "1%"
-                ],
-                correct: 0,
-                explanation: "(0.25 g / 50 mL) × 100 = 0.5%."
-            },
-            {
-                question: "23. Parts per million (ppm) is equivalent to:",
-                options: [
-                    "mg/L in water solutions",
-                    "mg/mL in water solutions",
-                    "g/L in water solutions",
-                    "g/mL in water solutions"
-                ],
-                correct: 0,
-                explanation: "Standard conversion in aqueous solutions."
-            },
-            {
-                question: "24. Specific volume is defined as:",
-                options: [
-                    "Reciprocal of density",
-                    "Mass per unit volume",
-                    "Volume per mole",
-                    "Weight of solute per solution"
-                ],
-                correct: 0,
-                explanation: "Specific volume = 1/density."
-            },
-            {
-                question: "25. Accuracy of a balance is expressed in:",
-                options: [
-                    "± error from true value",
-                    "mL",
-                    "kg only",
-                    "Percentage concentration"
-                ],
-                correct: 0,
-                explanation: "Shows closeness to true measurement."
-            },
-            {
-                question: "26. A 5 mg/mL solution is diluted to 1 mg/mL. The dilution factor is:",
-                options: [
-                    "5",
-                    "1",
-                    "0.2",
-                    "10"
-                ],
-                correct: 0,
-                explanation: "5 ÷ 1 = 5; stock solution diluted 5 times."
-            },
-            {
-                question: "27. The aliquot method is particularly useful for weighing:",
-                options: [
-                    "Very small quantities (<10 mg)",
-                    "Large quantities (>1 g)",
-                    "Volatile liquids",
-                    "Powders only"
-                ],
-                correct: 0,
-                explanation: "Ensures accuracy by making a measurable solution."
-            },
-            {
-                question: "28. For a patient weighing 60 kg, prescribed drug 15 mg/kg/day, the total daily dose is:",
-                options: [
-                    "900 mg",
-                    "150 mg",
-                    "600 mg",
-                    "90 mg"
-                ],
-                correct: 0,
-                explanation: "15 × 60 = 900 mg/day."
-            },
-            {
-                question: "29. To prepare 250 mL of 0.5% solution, required drug amount is:",
-                options: [
-                    "1.25 g",
-                    "0.5 g",
-                    "2.5 g",
-                    "5 g"
-                ],
-                correct: 0,
-                explanation: "0.5 g/100 mL → 250 mL: (0.5 × 250)/100 = 1.25 g."
-            },
-            {
-                question: "30. A mixture of 20% and 10% solutions is needed to make 100 mL of 15% solution. Volume of 20% solution is:",
-                options: [
-                    "50 mL",
-                    "25 mL",
-                    "75 mL",
-                    "40 mL"
-                ],
-                correct: 0,
-                explanation: "Using alligation method: (20−15)/(15−10) = 5/5 = 1:1 → 50 mL each."
-            },
-            {
-                question: "31. Drug dosage based on BSA uses formula:",
-                options: [
-                    "Dose = (BSA of patient / 1.73) × standard dose",
-                    "Dose = Weight × 10",
-                    "Dose = Height × 2",
-                    "Dose = BSA × weight"
-                ],
-                correct: 0,
-                explanation: "Adjusts adult dose for individual BSA."
-            },
-            {
-                question: "32. Specific gravity of alcohol is 0.8. 100 mL weighs:",
-                options: [
-                    "80 g",
-                    "100 g",
-                    "120 g",
-                    "200 g"
-                ],
-                correct: 0,
-                explanation: "100 mL × 0.8 g/mL = 80 g."
-            },
-            {
-                question: "33. Triturations are performed to:",
-                options: [
-                    "Reduce particle size",
-                    "Dissolve solid in liquid",
-                    "Sterilize drug",
-                    "Increase density"
-                ],
-                correct: 0,
-                explanation: "For better homogeneity and absorption."
-            },
-            {
-                question: "34. The formula for % w/v is:",
-                options: [
-                    "(Weight of solute in g / Volume of solution in mL) × 100",
-                    "(Weight / Weight) × 100",
-                    "(Volume / Volume) × 100",
-                    "Weight × Volume × 100"
-                ],
-                correct: 0,
-                explanation: "Standard percentage weight per volume."
-            },
-            {
-                question: "35. A solution has 2 mg/mL, patient requires 10 mg. Volume needed is:",
-                options: [
-                    "5 mL",
-                    "10 mL",
-                    "2 mL",
-                    "20 mL"
-                ],
-                correct: 0,
-                explanation: "10 mg ÷ 2 mg/mL = 5 mL."
-            },
-            {
-                question: "36. Alligation medial is used for:",
-                options: [
-                    "Calculating mean strength of mixture",
-                    "Calculating doses",
-                    "Measuring volume",
-                    "Preparing stock solution"
-                ],
-                correct: 0,
-                explanation: "Combines multiple solutions to find average concentration."
-            },
-            {
-                question: "37. To prepare 200 mL of 3% w/v solution, required amount of solute is:",
-                options: [
-                    "6 g",
-                    "3 g",
-                    "0.6 g",
-                    "2 g"
-                ],
-                correct: 0,
-                explanation: "3 g/100 mL → 200 mL: (3 × 200)/100 = 6 g."
-            },
-            {
-                question: "38. Drug dosage based on age is less accurate than dosage based on:",
-                options: [
-                    "Body weight or BSA",
-                    "Gender",
-                    "Blood type",
-                    "Height alone"
-                ],
-                correct: 0,
-                explanation: "Age-based dosing is approximate; weight/BSA gives individualized dosing."
-            },
-            {
-                question: "39. A 5 mL dropper delivers 0.05 mL per drop. How many drops for 1 mL?",
-                options: [
-                    "20",
-                    "50",
-                    "10",
-                    "100"
-                ],
-                correct: 0,
-                explanation: "1 ÷ 0.05 = 20 drops."
-            },
-            {
-                question: "40. The dilution factor needed to prepare 0.1% solution from 1% stock is:",
-                options: [
-                    "10",
-                    "1",
-                    "0.1",
-                    "5"
-                ],
-                correct: 0,
-                explanation: "Stock diluted 10 times to achieve target concentration."
+        // Store correct answers for MCQs
+        const correctAnswers = {
+            1: 'B',
+            2: 'C',
+            3: 'A',
+            4: 'C',
+            5: 'C',
+            6: 'C',
+            7: 'B',
+            8: 'B',
+            9: 'B',
+            10: 'C',
+            11: 'B',
+            12: 'C',
+            13: 'B',
+            14: 'B',
+            15: 'C',
+            16: 'B',
+            17: 'B',
+            18: 'B',
+            19: 'B',
+            20: 'B',
+            21: 'B',
+            22: 'C',
+            23: 'C',
+            24: 'C',
+            25: 'B',
+            26: 'C',
+            27: 'C',
+            28: 'B',
+            29: 'C',
+            30: 'C',
+            31: 'B',
+            32: 'D',
+            33: 'C',
+            34: 'D',
+            35: 'C',
+            36: 'B',
+            37: 'B',
+            38: 'B',
+            39: 'B',
+            40: 'C'
+        };
+        
+        // Store explanations for incorrect answers
+        const explanations = {
+            1: "Remember: Leading zeros before non-zero digits are never significant. Trailing zeros after a decimal point are always significant.",
+            2: "Minimum weighable amount = (Sensitivity requirement × 100) / Maximum % error = (6 mg × 100) / 5 = 120 mg.",
+            3: "For a cylindrical graduate, the error is proportional to the volume measured relative to the graduate's capacity.",
+            4: "Specific gravity = Weight of substance / Weight of equal volume of water. 50 mL water = 50 g.",
+            5: "Specific volume and specific gravity are reciprocals: Specific volume = 1 / Specific gravity.",
+            6: "Total mixture weight = Aliquot portion weight × Multiple. Aliquot should be ≥ minimum weighable amount.",
+            7: "Weight of water = Final weight - Empty weight. Volume equals weight in grams since density of water is 1 g/mL.",
+            8: "Trailing zeros without a decimal point are not significant. With a decimal point, all trailing zeros are significant.",
+            9: "Specific gravity = (Weight of liquid - Weight of empty) / (Weight of water - Weight of empty).",
+            10: "Choose a multiple that gives a measurable volume (≥2 mL for a 10-mL graduate).",
+            11: "For % w/v: (grams/100 mL) × volume in mL = grams needed.",
+            12: "% v/v = (mL solute / total mL) × 100.",
+            13: "1:5,000 = 1 g/5,000 mL = 1,000 mg/5,000 mL = 0.2 mg/mL.",
+            14: "% w/v to mg/mL: Multiply % by 10. 2.5% = 2.5 × 10 = 25 mg/mL.",
+            15: "Ratio to percentage: 1:10,000 = 1/10,000 = 0.0001 = 0.01% (not 0.02%).",
+            16: "C₁V₁ = C₂V₂: (10%)V₁ = (0.5%)500 mL → V₁ = (0.5×500)/10 = 25 mL.",
+            17: "1.5 g = 1,500 mg. 1,500 mg / 50 mL = 30 mg/mL.",
+            18: "% w/w = (g solute / total g) × 100 = (12.5/250)×100 = 5%.",
+            19: "2.5% = 2.5 g/100 g = 25 mg/g. 15 mg ÷ 25 mg/g = 0.6 g.",
+            20: "ppm to %: Divide by 10,000. 250 ppm = 250/10,000 = 0.025%.",
+            21: "Child dose = (Child BSA / Adult BSA) × Adult dose = (0.65/1.73)×500 = 188 mg.",
+            22: "5 mcg/kg/min × 70 kg = 350 mcg/min = 0.35 mg/min × 60 = 21 mg/hr.",
+            23: "Drops = Total volume / Volume per drop = 2.5 mL / 0.05 mL/drop = 50 drops.",
+            24: "Total volume = 15 mL × 3 × 10 = 450 mL ÷ 30 mL/oz = 15 fl oz.",
+            25: "44 lb ÷ 2.2 = 20 kg. Daily dose = 25 mg/kg × 20 kg = 500 mg ÷ 4 = 125 mg/dose.",
+            26: "% v/v = (250 mL/1000 mL)×100 = 25%.",
+            27: "125 mg/5 mL = 25 mg/mL. 375 mg ÷ 25 mg/mL = 15 mL.",
+            28: "176 lb ÷ 2.2 = 80 kg. Dose = 1.5 mg/kg × 80 kg = 120 mg.",
+            29: "2 g = 2000 mg. 2000 mg ÷ 250 mg/capsule = 8 capsules.",
+            30: "10 mg/5 mL = 2 mg/mL. 7.5 mg ÷ 2 mg/mL = 3.75 mL = 3.75/5 tsp = 0.75 tsp.",
+            31: "C₁V₁ = C₂V₂: (10%)100 mL = C₂(500 mL) → C₂ = 2%.",
+            32: "1:50 = 2% = 20 mg/mL. 1:500 = 0.2% = 2 mg/mL. (20)V₁ = (2)1000 → V₁ = 100 mL.",
+            33: "Total drug = (5%×200) + (10%×300) = 10g + 30g = 40g. % = (40g/500mL)×100 = 8%.",
+            34: "Alligation: 95%→20, 50%→25. Ratio = 20:25 = 4:5.",
+            35: "Drug = 20%×250 = 50g. For 5%: 50g = 5% of V → V=1000mL. Add 1000-250=750mL.",
+            36: "1:100 = 1 part in 100 = 1%.",
+            37: "1:10 = 10%. For 50mg (0.05g): 0.05g ÷ 0.10 = 0.5g trituration.",
+            38: "Weight A = 200×1.2=240g. Weight B = 300×0.8=240g. Total=480g/500mL=0.96.",
+            39: "C₁V₁ = C₂V₂: (30%)V₁ = (5%)60 → V₁ = (5×60)/30 = 10 mL.",
+            40: "Total drug = (0.10×100)+(0.15×200)+(0.20×300)=10+30+60=100g. %=100g/600g×100=16.7%."
+        };
+        
+        // Track user's answers
+        let userAnswers = {};
+        
+        function selectOption(optionElement, questionNum, selectedOption) {
+            // Remove selected class from all options in this question
+            const options = optionElement.parentElement.children;
+            for (let opt of options) {
+                opt.classList.remove('selected', 'correct', 'incorrect');
             }
-        ];
-
-        let currentQuestion = 0;
-        let userAnswers = new Array(pharmaQuestions.length).fill(null);
-        let score = 0;
-
-        function loadQuestion() {
-            const question = pharmaQuestions[currentQuestion];
-            document.getElementById('questionText').textContent = question.question;
             
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
+            // Add selected class to clicked option
+            optionElement.classList.add('selected');
             
-            question.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'option-btn';
-                button.textContent = option;
-                
-                if (userAnswers[currentQuestion] === index) {
-                    button.classList.add(question.correct === index ? 'correct' : 'wrong');
-                }
-                
-                button.onclick = () => selectOption(index);
-                optionsContainer.appendChild(button);
-            });
+            // Store user's answer
+            userAnswers[questionNum] = selectedOption;
             
-            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${pharmaQuestions.length}`;
-            document.getElementById('progress').style.width = `${((currentQuestion + 1) / pharmaQuestions.length) * 100}%`;
+            // Show immediate feedback
+            const correctOption = correctAnswers[questionNum];
+            const feedbackCorrect = document.getElementById(`feedback${questionNum}`);
+            const feedbackIncorrect = document.getElementById(`feedback-incorrect${questionNum}`);
             
-            document.querySelector('.prev-btn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
-            document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
-            
-            const explanation = document.getElementById('explanation');
-            if (userAnswers[currentQuestion] !== null) {
-                explanation.textContent = question.explanation;
-                explanation.classList.add('show');
+            if (selectedOption === correctOption) {
+                optionElement.classList.add('correct');
+                feedbackCorrect.style.display = 'block';
+                feedbackIncorrect.style.display = 'none';
             } else {
-                explanation.classList.remove('show');
-            }
-        }
-
-        function selectOption(optionIndex) {
-            userAnswers[currentQuestion] = optionIndex;
-            const question = pharmaQuestions[currentQuestion];
-            const options = document.querySelectorAll('.option-btn');
-            
-            options.forEach((button, index) => {
-                button.classList.remove('correct', 'wrong');
-                if (index === question.correct) {
-                    button.classList.add('correct');
-                } else if (index === optionIndex && optionIndex !== question.correct) {
-                    button.classList.add('wrong');
+                optionElement.classList.add('incorrect');
+                feedbackCorrect.style.display = 'none';
+                feedbackIncorrect.style.display = 'block';
+                feedbackIncorrect.innerHTML = `<strong>Incorrect. The correct answer is ${correctOption}.</strong><br>${explanations[questionNum]}`;
+                
+                // Also highlight the correct answer
+                for (let opt of options) {
+                    if (opt.textContent.startsWith(correctOption)) {
+                        opt.classList.add('correct');
+                    }
                 }
-            });
-            
-            document.getElementById('explanation').textContent = question.explanation;
-            document.getElementById('explanation').classList.add('show');
-            document.getElementById('nextBtn').disabled = false;
-        }
-
-        function nextQuestion() {
-            if (currentQuestion < pharmaQuestions.length - 1) {
-                currentQuestion++;
-                loadQuestion();
-            } else {
-                calculateScore();
             }
         }
-
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                loadQuestion();
-            }
-        }
-
+        
         function calculateScore() {
-            score = 0;
-            pharmaQuestions.forEach((question, index) => {
-                if (userAnswers[index] === question.correct) {
+            let score = 0;
+            const totalQuestions = 40;
+            
+            // Calculate score
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (userAnswers[i] === correctAnswers[i]) {
                     score++;
                 }
+            }
+            
+            // Update score display
+            document.querySelectorAll('.score').forEach(el => {
+                el.textContent = `${score}/${totalQuestions}`;
             });
             
-            const scoreDisplay = document.getElementById('scoreDisplay');
-            scoreDisplay.innerHTML = `
-                <h3>Quiz Completed! 🎉</h3>
-                <p>Your score: <strong>${score}/${pharmaQuestions.length}</strong> (${Math.round((score/pharmaQuestions.length)*100)}%)</p>
-                <p>${score === pharmaQuestions.length ? 'Perfect score! Excellent work! 🏆' : 
-                    score >= pharmaQuestions.length * 0.7 ? 'Great job! Keep practicing! 👍' : 
-                    'Keep studying! You\'ll improve! 💪'}</p>
-            `;
-            scoreDisplay.style.display = 'block';
+            // Show percentage
+            const percentage = (score / totalQuestions * 100).toFixed(1);
+            alert(`Your score: ${score}/${totalQuestions} (${percentage}%)`);
         }
-
-        loadQuestion();
+        
+        function resetExam() {
+            // Clear all selections
+            userAnswers = {};
+            
+            // Remove all selection classes
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Hide all feedback
+            document.querySelectorAll('.feedback').forEach(fb => {
+                fb.style.display = 'none';
+            });
+            
+            // Hide all workout answers
+            document.querySelectorAll('.answer').forEach(ans => {
+                ans.style.display = 'none';
+            });
+            
+            // Reset score display
+            document.querySelectorAll('.score').forEach(el => {
+                el.textContent = '0/40';
+            });
+        }
+        
+        function toggleAnswer(problemNum) {
+            const answerElement = document.getElementById(`answer${problemNum}`);
+            const button = event.target;
+            
+            if (answerElement.style.display === 'block') {
+                answerElement.style.display = 'none';
+                button.textContent = 'Show Answer';
+            } else {
+                answerElement.style.display = 'block';
+                button.textContent = 'Hide Answer';
+            }
+        }
     </script>
 </body>
-</html>
+    </html>
