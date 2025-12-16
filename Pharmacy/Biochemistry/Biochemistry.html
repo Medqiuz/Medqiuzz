@@ -3,1194 +3,977 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharmacy Exam - Chapters 1 & 2</title>
+    <title>Biochemistry | Pharmacy Year 2 | MedQuiz</title>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            text-align: center;
-            color: #7f8c8d;
-            margin-bottom: 30px;
-        }
-        .screen {
-            display: none;
-        }
-        .active {
-            display: block;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-right: 10px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-        button:disabled {
-            background-color: #bdc3c7;
-            cursor: not-allowed;
-        }
-        .btn-primary {
-            background-color: #2ecc71;
-        }
-        .btn-primary:hover {
-            background-color: #27ae60;
-        }
-        .btn-secondary {
-            background-color: #95a5a6;
-        }
-        .btn-secondary:hover {
-            background-color: #7f8c8d;
-        }
-        .timer {
-            font-size: 18px;
-            font-weight: bold;
-            text-align: right;
-            margin-bottom: 15px;
-            color: #e74c3c;
-        }
-        .question {
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
-        .question-number {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-        .options {
-            margin-left: 20px;
-        }
-        .option {
-            margin-bottom: 10px;
-            padding: 8px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .option:hover {
-            background-color: #ecf0f1;
-        }
-        .option.selected {
-            background-color: #d5edf7;
-            border: 1px solid #3498db;
-        }
-        .correct {
-            background-color: #d4edda;
-            border: 1px solid #c3e6cb;
-        }
-        .incorrect {
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-        }
-        .feedback {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-        }
-        .feedback.correct {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .feedback.incorrect {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        .explanation {
-            margin-top: 10px;
-            font-style: italic;
-        }
-        .progress {
-            margin-bottom: 15px;
-        }
-        .progress-bar {
-            height: 10px;
-            background-color: #ecf0f1;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background-color: #3498db;
-            width: 0%;
-            transition: width 0.3s;
-        }
-        .results {
-            text-align: center;
-            margin-top: 30px;
-        }
-        .score {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .review-options {
-            margin-top: 20px;
-        }
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        .attempt-info {
-            background-color: #e8f4fd;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+/* Root colors - Biochemistry Theme */
+:root {
+    --primary: #9c27b0;
+    --primary-dark: #7b1fa2;
+    --secondary: #673ab7;
+    --accent: #e91e63;
+    --light-bg: #faf5ff;
+    --card-bg: #ffffff;
+    --text-dark: #2c2c2c;
+    --text-light: #5d5d5d;
+    --success: #4caf50;
+    --molecule-color: #00bcd4;
+    --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--accent) 0%, #ff4081 100%);
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Body */
+body {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    border-radius: 10px;
+}
+
+/* Header - Sticky */
+.dashboard-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--gradient-primary);
+    color: #fff;
+    padding: 18px 25px;
+    flex-wrap: wrap;
+    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.25);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-header .header-content span {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-icon {
+    font-size: 2rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.dashboard-header .header-subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dashboard-header .header-subtitle .path-item {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.nav-btn {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--primary);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-btn:hover {
+    background-color: #fff;
+    color: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    padding: 20px 25px;
+    font-size: 0.95rem;
+    background-color: var(--light-bg);
+    position: sticky;
+    top: 80px;
+    z-index: 99;
+    backdrop-filter: blur(10px);
+    background-color: rgba(249, 245, 255, 0.9);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: var(--primary);
+    transition: all 0.2s;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.breadcrumb a:hover {
+    color: var(--primary-dark);
+    background-color: rgba(156, 39, 176, 0.1);
+    text-decoration: none;
+}
+
+.breadcrumb .separator {
+    margin: 0 8px;
+    color: var(--text-light);
+    font-weight: 300;
+}
+
+/* Overview card */
+.department-overview {
+    padding: 15px 25px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.overview-card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    border-left: 6px solid var(--primary);
+    transition: transform 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.overview-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%239c27b0' opacity='0.05' d='M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50'%3E%3C/path%3E%3C/svg%3E");
+    background-size: contain;
+    opacity: 0.5;
+}
+
+.overview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.overview-card h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.overview-card p {
+    color: var(--text-light);
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    max-width: 800px;
+    line-height: 1.7;
+}
+
+/* Stats */
+.subject-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    text-align: center;
+    padding: 20px;
+    border-radius: 16px;
+    background-color: rgba(156, 39, 176, 0.05);
+    min-width: 120px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-primary);
+}
+
+.stat:hover {
+    background-color: rgba(156, 39, 176, 0.1);
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin-bottom: 5px;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Category title */
+.category-title {
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+    font-size: 1.5rem;
+    margin: 30px 25px 25px;
+    gap: 15px;
+    color: var(--text-dark);
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(156, 39, 176, 0.15);
+}
+
+.category-icon {
+    font-size: 1.8rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Parts grid */
+.parts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 0 25px 50px;
+}
+
+.part-card {
+    background-color: var(--card-bg);
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.part-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+    transition: height 0.3s;
+}
+
+.part-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(156, 39, 176, 0.15);
+}
+
+.part-card:hover::before {
+    height: 6px;
+}
+
+/* Part header */
+.part-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.part-header h4 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.4;
+    flex: 1;
+}
+
+.part-card p {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin: 15px 0 20px;
+    line-height: 1.6;
+    flex: 1;
+}
+
+.part-badge {
+    background: var(--gradient-accent);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+}
+
+/* Part info */
+.part-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.part-info span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.info-icon {
+    font-size: 1.2rem;
+}
+
+/* Protection overlay */
+.protection-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.protection-modal {
+    background-color: #fff;
+    padding: 40px 45px;
+    border-radius: 24px;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    animation: modalAppear 0.6s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.protection-modal h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.protection-modal p {
+    color: var(--text-light);
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.protection-modal .btn-primary {
+    background: var(--gradient-primary);
+    color: #fff;
+    padding: 16px 40px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(156, 39, 176, 0.4);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.protection-modal .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(156, 39, 176, 0.5);
+}
+
+/* Footer */
+.dashboard-footer {
+    background: var(--gradient-primary);
+    color: #fff;
+    padding: 30px 25px;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
+    margin-top: 40px;
+    box-shadow: 0 -5px 20px rgba(156, 39, 176, 0.2);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+.footer-links a:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.footer-copyright {
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+/* Floating molecule animation */
+.floating-molecule {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.1;
+    animation: floatAround 20s linear infinite;
+}
+
+@keyframes floatAround {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(100px, 100px) rotate(90deg); }
+    50% { transform: translate(0, 200px) rotate(180deg); }
+    75% { transform: translate(-100px, 100px) rotate(270deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .parts-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 20px 15px;
+        position: relative;
+    }
+    
+    .header-content {
+        width: 100%;
+    }
+    
+    .nav-btn {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+    }
+    
+    .subject-stats {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    
+    .stat {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .parts-grid {
+        grid-template-columns: 1fr;
+        padding: 0 15px 30px;
+        gap: 25px;
+    }
+    
+    .overview-card, .breadcrumb, .category-title {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .overview-card h2 {
+        font-size: 1.7rem;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .protection-modal {
+        padding: 30px 20px;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    .part-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .part-badge {
+        align-self: flex-start;
+    }
+    
+    .overview-card {
+        padding: 25px 20px;
+    }
+}
+
+/* Ensure all links have consistent cursor */
+a {
+    cursor: pointer;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading animation */
+.loading-spinner {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+}
+
+.loading-spinner.active {
+    display: block;
+}
+
+/* Card hover effects */
+.part-card .molecule-icon {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    font-size: 2.5rem;
+    opacity: 0.1;
+    transition: opacity 0.3s;
+}
+
+.part-card:hover .molecule-icon {
+    opacity: 0.2;
+}
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Pharmacy Exam</h1>
-        <div class="subtitle">Chapters 1 & 2</div>
-        
-        <!-- Welcome Screen -->
-        <div id="welcome-screen" class="screen active">
-          <a href="https://t.me/yerotechno"><h1>MedQuiz</h1></a>
-            <h2>Welcome to the Pharmacy Exam</h2>
-            <p>This exam covers Chapters 1 & 2 of the Pharmacy course material.</p>
-            <p>You will have 60 minutes to complete 50 questions.</p>
-            <div id="first-attempt-info" class="attempt-info" style="display:none;">
-                <p><strong>First Attempt Mode</strong></p>
-                <p>Your results will be submitted to the <del>instructor.</del></p>
-            </div>
-            <div id="practice-attempt-info" class="attempt-info" style="display:none;">
-                <p><strong>Practice Mode</strong></p>
-                <p>Your results will not be submitted you can practice now</p>
-            </div>
-            <button id="start-exam-btn" class="btn-primary">Start Exam</button>
+
+<!-- Protection -->
+<div id="protection-overlay" class="protection-overlay" style="display:none;">
+    <div class="protection-modal">
+        <h3><i class="fas fa-lock"></i> Access Required</h3>
+        <p>Please login to access Biochemistry course materials</p>
+        <button onclick="window.location.href='../../dashboard.html'" class="btn-primary">
+            <i class="fas fa-sign-in-alt"></i> Go to Dashboard
+        </button>
+    </div>
+</div>
+
+<!-- Floating molecules for visual effect -->
+<div class="floating-molecule" style="top:10%; left:5%; animation-delay: 0s;">🧬</div>
+<div class="floating-molecule" style="top:20%; right:8%; animation-delay: 5s;">⚗️</div>
+<div class="floating-molecule" style="bottom:30%; left:10%; animation-delay: 10s;">🧪</div>
+<div class="floating-molecule" style="bottom:20%; right:15%; animation-delay: 15s;">🔬</div>
+
+<!-- Header -->
+<header class="dashboard-header">
+    <div class="header-content">
+        <span><span class="header-icon">🧬</span> Biochemistry</span>
+        <div class="header-subtitle">
+            <span class="path-item">Pharmacy</span>
+            <i class="fas fa-chevron-right"></i>
+            <span class="path-item">Year 2</span>
+            <i class="fas fa-chevron-right"></i>
+            <span class="path-item">Session 1</span>
         </div>
-        
-        <!-- Student Information Screen -->
-        <div id="student-info-screen" class="screen">
-            <h2>Student Information</h2>
-            <form id="student-form">
-                <div class="form-group">
-                    <label for="student-name">Full Name:</label>
-                    <input type="text" id="student-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="student-id">Student ID:</label>
-                    <input type="text" id="student-id" required>
-                </div>
-                <button type="button" id="continue-exam-btn" class="btn-primary">Continue to Exam</button>
-            </form>
-        </div>
-        
-        <!-- Exam Screen -->
-        <div id="exam-screen" class="screen">
-            <div class="timer" id="timer">Time Remaining: 60:00</div>
-            <div class="progress">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
-                </div>
-                <div id="question-counter">Question 1 of 50</div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number" id="question-number">Question 1</div>
-                <div id="question-text"></div>
-                <div class="options" id="options-container"></div>
-                <div class="feedback" id="feedback"></div>
-            </div>
-            
-            <div class="navigation">
-                <button id="prev-btn" disabled>Previous</button>
-                <button id="next-btn">Next</button>
-                <button id="submit-exam-btn" class="btn-primary" style="display:none;">Submit Exam</button>
-            </div>
-        </div>
-        
-        <!-- Results Screen -->
-        <div id="results-screen" class="screen">
-            <h2>Exam Results</h2>
-            <div class="results">
-                <div class="score" id="score-display"></div>
-                <div id="results-details"></div>
-                
-                <div class="review-options">
-                    <h3>Review Options</h3>
-                    <p>Would you like to review the questions with feedback?</p>
-                    <button id="immediate-feedback-btn">Immediate Feedback</button>
-                    <button id="end-feedback-btn">Feedback at the End</button>
-                    <button id="retry-exam-btn" class="btn-secondary">Retry Exam (Practice)</button>
-                </div>
+    </div>
+    <button onclick="goBackToSession1()" class="nav-btn">
+        <i class="fas fa-arrow-left"></i> Back to Session 1
+    </button>
+</header>
+
+<!-- Breadcrumb -->
+<div class="dashboard-container">
+    <div class="breadcrumb">
+        <a href="../../dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+        <span class="separator">/</span>
+        <a href="../pharmacy.html"><i class="fas fa-pills"></i> Pharmacy</a>
+        <span class="separator">/</span>
+        <a href="../year2.html"><i class="fas fa-graduation-cap"></i> Year 2</a>
+        <span class="separator">/</span>
+        <a href="../session1.html"><i class="fas fa-book-open"></i> Session 1</a>
+        <span class="separator">/</span>
+        <span style="color: var(--primary); font-weight: 700;"><i class="fas fa-dna"></i> Biochemistry</span>
+    </div>
+
+    <!-- Overview -->
+    <div class="department-overview">
+        <div class="overview-card">
+            <h2><i class="fas fa-dna"></i> Biochemistry</h2>
+            <p>Study of chemical processes within living organisms. Explore the molecular mechanisms that underlie all cellular functions, from metabolism and gene expression to protein synthesis and signal transduction.</p>
+
+            <div class="subject-stats">
+                <div class="stat"><div class="stat-number">11</div><div class="stat-label">Modules</div></div>
+                <div class="stat"><div class="stat-number">240+</div><div class="stat-label">Questions</div></div>
+                <div class="stat"><div class="stat-number">100%</div><div class="stat-label">Complete</div></div>
+                <div class="stat"><div class="stat-number">9</div><div class="stat-label">Exams</div></div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Questions data for Chapters 1 & 2
-        const questions = [
-            {
-                question: "What does the sig code q6h mean?",
-                options: [
-                    "A) at 6 A.M",
-                    "B) Every 6 hours",
-                    "C) at 6 P.M",
-                    "D) six times a day"
-                ],
-                correctAnswer: 1,
-                explanation: "q6h means every 6 hours."
-            },
-            {
-                question: "What does PRN mean?",
-                options: [
-                    "A) Immediately",
-                    "B) As needed",
-                    "C) Rectally",
-                    "D) after a meal"
-                ],
-                correctAnswer: 1,
-                explanation: "PRN is an abbreviation for 'pro re nata', which means 'as needed'."
-            },
-            {
-                question: "The route of administration sig code for topical patch is ___",
-                options: [
-                    "A) SC",
-                    "B) IM",
-                    "C) ID",
-                    "D) TD"
-                ],
-                correctAnswer: 3,
-                explanation: "TD stands for transdermal, which refers to topical patches."
-            },
-            {
-                question: "Which one of the following abbreviations is NOT a liquid?",
-                options: [
-                    "A) Susp",
-                    "B) Supp",
-                    "C) Syr",
-                    "D) Sol"
-                ],
-                correctAnswer: 1,
-                explanation: "Supp stands for suppository, which is a solid dosage form."
-            },
-            {
-                question: "Which sig code means 'Under the tongue'?",
-                options: [
-                    "A) SL",
-                    "B) PO",
-                    "C) IM",
-                    "D) AU"
-                ],
-                correctAnswer: 0,
-                explanation: "SL stands for sublingual, which means under the tongue."
-            },
-            {
-                question: "What does 'i gtt OS' mean?",
-                options: [
-                    "A) One drop into the left ear",
-                    "B) One drop into the right eye",
-                    "C) One drop into the right ear",
-                    "D) One drop into the left eye"
-                ],
-                correctAnswer: 3,
-                explanation: "i means one, gtt means drop, OS means left eye."
-            },
-            {
-                question: "What does 'ii gtts AD' mean?",
-                options: [
-                    "A) Two drops into the left ear",
-                    "B) Two drops into the right eye",
-                    "C) Two drops into the right ear",
-                    "D) Two drops into the left eye"
-                ],
-                correctAnswer: 1,
-                explanation: "ii means two, gtts means drops, AD means right ear."
-            },
-            {
-                question: "Which Sig code is not the frequency of 'once a day'?",
-                options: [
-                    "A) qAM",
-                    "B) qPM",
-                    "C) qid",
-                    "D) qHS"
-                ],
-                correctAnswer: 2,
-                explanation: "qid means four times a day, not once a day."
-            },
-            {
-                question: "What is the sig code for 'I capsule by mouth twice a day'?",
-                options: [
-                    "A) I cap PO QID",
-                    "B) I cap PO QD",
-                    "C) I cap PO BID",
-                    "D) I cap PO TID"
-                ],
-                correctAnswer: 2,
-                explanation: "BID means twice a day."
-            },
-            {
-                question: "A prescription for Ciprodex® otic may contain the sig code:",
-                options: [
-                    "A) AU",
-                    "B) OD",
-                    "C) IM",
-                    "D) PO"
-                ],
-                correctAnswer: 0,
-                explanation: "AU means both ears, which is appropriate for an otic (ear) medication."
-            },
-            {
-                question: "What is the sig code for 'under the skin'?",
-                options: [
-                    "A) SQ",
-                    "B) IV",
-                    "C) IM",
-                    "D) ID"
-                ],
-                correctAnswer: 0,
-                explanation: "SQ or SC stands for subcutaneous, which means under the skin."
-            },
-            {
-                question: "Which of the following is not a topical product?",
-                options: [
-                    "A) Ung",
-                    "B) cr",
-                    "C) lot",
-                    "D) Inh"
-                ],
-                correctAnswer: 3,
-                explanation: "Inh stands for inhalation, which is not a topical product."
-            },
-            {
-                question: "What does 'íi tab PO HS' mean?",
-                options: [
-                    "A) 2 tablets by mouth with food",
-                    "B) 2 tablets by mouth at bedtime",
-                    "C) 11 tablets by mouth each week",
-                    "D) 2 tablets under tongue now"
-                ],
-                correctAnswer: 1,
-                explanation: "ii means two, PO means by mouth, HS means at bedtime."
-            },
-            {
-                question: "'Give the amount needed' is indicated by which sig code?",
-                options: [
-                    "A) DAW",
-                    "B) NR",
-                    "C) QS",
-                    "D) UD"
-                ],
-                correctAnswer: 2,
-                explanation: "QS stands for 'quantum satis' which means 'the amount needed'."
-            },
-            {
-                question: "A sig code reads 2 BID x7d. What does x7d mean?",
-                options: [
-                    "A) Seven times a day",
-                    "B) For seven days",
-                    "C) For seven doses",
-                    "D) Dispense seven doses"
-                ],
-                correctAnswer: 1,
-                explanation: "x7d means for seven days."
-            },
-            {
-                question: "What does 'ív tab pc' mean?",
-                options: [
-                    "A) Take six tablets after meals",
-                    "B) Take four tablets after meals",
-                    "C) Take six tablets before meals",
-                    "D) Take four tablets before meals"
-                ],
-                correctAnswer: 1,
-                explanation: "ív means four, tab means tablets, pc means after meals."
-            },
-            {
-                question: "What are the four parts of prescription?",
-                options: [
-                    "A) Superscription, Inscription, Subscription, Signature",
-                    "B) Header, Body, Footer, Signature",
-                    "C) Patient info, Drug info, Directions, Date",
-                    "D) Rx, Drug name, Quantity, Instructions"
-                ],
-                correctAnswer: 0,
-                explanation: "The four parts of prescription are: Superscription, Inscription, Subscription, and Signature."
-            },
-            {
-                question: "Which of the following is NOT one of the four parts of a prescription?",
-                options: [
-                    "A) Superscription",
-                    "B) Inscription",
-                    "C) Subscription",
-                    "D) Authentication"
-                ],
-                correctAnswer: 3,
-                explanation: "The four parts are Superscription, Inscription, Subscription, and Signature."
-            },
-            {
-                question: "The symbol Rx in a prescription stands for:",
-                options: [
-                    "A) Recipe",
-                    "B) Right",
-                    "C) Prescription",
-                    "D) Treatment"
-                ],
-                correctAnswer: 0,
-                explanation: "Rx is an abbreviation for 'recipe,' the Latin for 'take'."
-            },
-            {
-                question: "Which part of the prescription contains the directions to the patient?",
-                options: [
-                    "A) Superscription",
-                    "B) Inscription",
-                    "C) Subscription",
-                    "D) Signature"
-                ],
-                correctAnswer: 3,
-                explanation: "The Signature contains directions to the patient on how to take the medication."
-            },
-            {
-                question: "Which type of drugs may not be dispensed by a pharmacist without a prescription?",
-                options: [
-                    "A) OTC drugs",
-                    "B) Legend drugs",
-                    "C) Controlled drugs",
-                    "D) All of the above"
-                ],
-                correctAnswer: 1,
-                explanation: "Legend drugs require a prescription from a physician."
-            },
-            {
-                question: "What is the color of prescription paper for narcotic drugs in Ethiopia?",
-                options: [
-                    "A) White",
-                    "B) Blue",
-                    "C) Red",
-                    "D) Yellow"
-                ],
-                correctAnswer: 2,
-                explanation: "Narcotic drugs prescription has Red color."
-            },
-            {
-                question: "Psychotropic substance prescriptions in Ethiopia have which color?",
-                options: [
-                    "A) White",
-                    "B) Blue",
-                    "C) Red",
-                    "D) Yellow"
-                ],
-                correctAnswer: 1,
-                explanation: "Psychotropic substance prescription has Blue color."
-            },
-            {
-                question: "Which of the following is a narcotic drug?",
-                options: [
-                    "A) Diazepam",
-                    "B) Codeine",
-                    "C) Phenobarbitone",
-                    "D) Ibuprofen"
-                ],
-                correctAnswer: 1,
-                explanation: "Codeine is a narcotic drug."
-            },
-            {
-                question: "Which of the following is a psychotropic substance?",
-                options: [
-                    "A) Morphine",
-                    "B) Codeine",
-                    "C) Diazepam",
-                    "D) Methadone"
-                ],
-                correctAnswer: 2,
-                explanation: "Diazepam is a psychotropic substance."
-            },
-            {
-                question: "How long should conventional (ordinary) prescription records be maintained?",
-                options: [
-                    "A) 1 year",
-                    "B) 2 years",
-                    "C) 5 years",
-                    "D) 10 years"
-                ],
-                correctAnswer: 1,
-                explanation: "Conventional prescription records should be maintained for 2 years."
-            },
-            {
-                question: "How long should controlled substance prescription records be maintained?",
-                options: [
-                    "A) 1 year",
-                    "B) 2 years",
-                    "C) 5 years",
-                    "D) 10 years"
-                ],
-                correctAnswer: 2,
-                explanation: "Controlled substance prescription records should be maintained for at least 5 years."
-            },
-            {
-                question: "The healthcare system in Ethiopia was founded in:",
-                options: [
-                    "A) 1908",
-                    "B) 1952",
-                    "C) 1963",
-                    "D) 1974"
-                ],
-                correctAnswer: 0,
-                explanation: "The healthcare system in Ethiopia was founded in 1908."
-            },
-            {
-                question: "Basic health service in Ethiopia was founded in:",
-                options: [
-                    "A) 1908",
-                    "B) 1952",
-                    "C) 1963",
-                    "D) 1974"
-                ],
-                correctAnswer: 1,
-                explanation: "Basic health service in Ethiopia was founded in 1952."
-            },
-            {
-                question: "The first national health policy and strategy in Ethiopia was developed in:",
-                options: [
-                    "A) 1908",
-                    "B) 1952",
-                    "C) 1963",
-                    "D) 1974"
-                ],
-                correctAnswer: 2,
-                explanation: "The first national health policy and strategy was developed in 1963 with the second five-year development plan."
-            },
-            {
-                question: "The Alma-Ata declaration aimed for Health For All (HFA) by:",
-                options: [
-                    "A) 1978",
-                    "B) 1985",
-                    "C) 1990",
-                    "D) 2000"
-                ],
-                correctAnswer: 3,
-                explanation: "The Alma-Ata declaration aimed for Health For All by 2000."
-            },
-            {
-                question: "The current Ethiopian health policy gives priority to:",
-                options: [
-                    "A) Urban population",
-                    "B) Rural and unprivileged urban population",
-                    "C) Children and elderly",
-                    "D) All of the above"
-                ],
-                correctAnswer: 1,
-                explanation: "The current Ethiopian health policy gives priority to the rural and unprivileged urban population."
-            },
-            {
-                question: "Which of the following is NOT one of the three pillars of the Ethiopian health sector?",
-                options: [
-                    "A) Service provider",
-                    "B) Service purchaser",
-                    "C) Health regulator",
-                    "D) Health insurance"
-                ],
-                correctAnswer: 3,
-                explanation: "The three pillars are Service provider, Service purchaser, and Health regulator."
-            },
-            {
-                question: "Which of the following is part of the service provider pillar in Ethiopia?",
-                options: [
-                    "A) FMOH",
-                    "B) EHNRI",
-                    "C) PFSA",
-                    "D) All of the above"
-                ],
-                correctAnswer: 3,
-                explanation: "All of these are part of the service provider pillar."
-            },
-            {
-                question: "Which of the following is part of the health regulator pillar in Ethiopia?",
-                options: [
-                    "A) FMHACA",
-                    "B) PFSA",
-                    "C) HAPCO",
-                    "D) EHNRI"
-                ],
-                correctAnswer: 0,
-                explanation: "FMHACA is part of the health regulator pillar."
-            },
-            {
-                question: "The Health Service Extension Package in Ethiopia focuses on all EXCEPT:",
-                options: [
-                    "A) Hygiene and Environmental Sanitation",
-                    "B) Disease Prevention and Control",
-                    "C) Surgical interventions",
-                    "D) Family Health Service"
-                ],
-                correctAnswer: 2,
-                explanation: "The Health Service Extension Package does not include surgical interventions."
-            },
-            {
-                question: "Which of the following is NOT a component of the Essential Health Service Package?",
-                options: [
-                    "A) To enhance effectiveness of health sector programs",
-                    "B) To promote standardization of essential service",
-                    "C) To serve as management tool",
-                    "D) To provide specialized surgical procedures"
-                ],
-                correctAnswer: 3,
-                explanation: "Providing specialized surgical procedures is not a component of the Essential Health Service Package."
-            },
-            {
-                question: "The first pharmacy in Ethiopia serving the general public was established in:",
-                options: [
-                    "A) 1908",
-                    "B) 1911",
-                    "C) 1930",
-                    "D) 1961"
-                ],
-                correctAnswer: 1,
-                explanation: "'Pharmazie la Gorgie' was established in November 1911 by Dr. Merab."
-            },
-            {
-                question: "The first legislation regulating pharmacy in Ethiopia was promulgated in:",
-                options: [
-                    "A) 1908",
-                    "B) 1911",
-                    "C) 1930",
-                    "D) 1961"
-                ],
-                correctAnswer: 2,
-                explanation: "The first legislation was promulgated in July 18, 1930."
-            },
-            {
-                question: "The School of Pharmacy in Addis Ababa University was established in:",
-                options: [
-                    "A) 1908",
-                    "B) 1911",
-                    "C) 1930",
-                    "D) 1961-1962"
-                ],
-                correctAnswer: 3,
-                explanation: "The School of Pharmacy was established in 1961-1962 (1954 EC)."
-            },
-            {
-                question: "The Ethiopian Pharmaceutical Association (EPA) was formed in:",
-                options: [
-                    "A) 1930",
-                    "B) 1961",
-                    "C) 1974",
-                    "D) 2001"
-                ],
-                correctAnswer: 2,
-                explanation: "EPA was formed officially in November 1974 with 40 members."
-            },
-            {
-                question: "Which of the following is NOT a type of pharmacy setting in Ethiopia?",
-                options: [
-                    "A) Pharmacy",
-                    "B) Drug store",
-                    "C) Rural drug vendors",
-                    "D) Online pharmacy"
-                ],
-                correctAnswer: 3,
-                explanation: "Online pharmacy is not mentioned as a type of pharmacy setting in Ethiopia."
-            },
-            {
-                question: "A pharmacy in Ethiopia must be managed by:",
-                options: [
-                    "A) A registered and licensed pharmacist",
-                    "B) A registered druggist",
-                    "C) A pharmacy technician",
-                    "D) Any health professional"
-                ],
-                correctAnswer: 0,
-                explanation: "A pharmacy must be managed under the responsibility of a registered and licensed pharmacist."
-            },
-            {
-                question: "A drug store in Ethiopia must be managed by:",
-                options: [
-                    "A) A registered and licensed pharmacist",
-                    "B) A registered druggist",
-                    "C) A pharmacy technician",
-                    "D) Any health professional"
-                ],
-                correctAnswer: 1,
-                explanation: "A drug store must be managed under the responsibility of a registered druggist."
-            },
-            {
-                question: "Rural drug vendors in Ethiopia must be managed by:",
-                options: [
-                    "A) A registered and licensed pharmacist",
-                    "B) A registered druggist",
-                    "C) A pharmacy technician",
-                    "D) Any health professional"
-                ],
-                correctAnswer: 2,
-                explanation: "Rural drug vendors must be managed under the responsibility of a registered pharmacy technician."
-            },
-            {
-                question: "The minimum experience required for a pharmacist to manage a pharmacy in Ethiopia is:",
-                options: [
-                    "A) 1 year",
-                    "B) 2 years",
-                    "C) 3 years",
-                    "D) 5 years"
-                ],
-                correctAnswer: 2,
-                explanation: "A minimum experience of three years is required."
-            },
-            {
-                question: "A pharmacy in Ethiopia can only be established where there is at least:",
-                options: [
-                    "A) One health center",
-                    "B) One hospital giving services to the public",
-                    "C) One clinic",
-                    "D) One health post"
-                ],
-                correctAnswer: 1,
-                explanation: "A pharmacy can only be established where there is at least one hospital giving services to the public."
-            },
-            {
-                question: "A drug store in Ethiopia can be established where there is at least:",
-                options: [
-                    "A) One health center",
-                    "B) One hospital giving services to the public",
-                    "C) One clinic",
-                    "D) One health post"
-                ],
-                correctAnswer: 0,
-                explanation: "A drug store can be established where there is at least one health center giving service."
-            },
-            {
-                question: "Which of the following is NOT a common department of pharmacy?",
-                options: [
-                    "A) Pharmacology and therapeutics",
-                    "B) Pharmacognosy",
-                    "C) Pharmaceutics",
-                    "D) Pharmacy administration"
-                ],
-                correctAnswer: 3,
-                explanation: "Pharmacy administration is not listed as a common department of pharmacy."
-            },
-            {
-                question: "Which department deals with how drugs interact within biological systems?",
-                options: [
-                    "A) Pharmacology and therapeutics",
-                    "B) Pharmacognosy",
-                    "C) Pharmaceutics",
-                    "D) Pharmaceutical chemistry"
-                ],
-                correctAnswer: 0,
-                explanation: "Pharmacology and therapeutics deals with how drugs interact within biological systems."
-            },
-            {
-                question: "Which department deals with the study of natural products?",
-                options: [
-                    "A) Pharmacology and therapeutics",
-                    "B) Pharmacognosy",
-                    "C) Pharmaceutics",
-                    "D) Pharmaceutical chemistry"
-                ],
-                correctAnswer: 1,
-                explanation: "Pharmacognosy is the study of natural products."
-            },
-            {
-                question: "Which department deals with the conversion of chemicals into medications?",
-                options: [
-                    "A) Pharmacology and therapeutics",
-                    "B) Pharmacognosy",
-                    "C) Pharmaceutics",
-                    "D) Pharmaceutical chemistry"
-                ],
-                correctAnswer: 2,
-                explanation: "Pharmaceutics deals with the conversion of chemicals into medications."
-            },
-            {
-                question: "Which department is involved in the synthesis and quality control of drugs?",
-                options: [
-                    "A) Pharmacology and therapeutics",
-                    "B) Pharmacognosy",
-                    "C) Pharmaceutics",
-                    "D) Pharmaceutical chemistry"
-                ],
-                correctAnswer: 3,
-                explanation: "Pharmaceutical chemistry is involved in the synthesis and quality control of drugs."
+    <!-- Parts -->
+    <div class="category-title">
+        <span class="category-icon"><i class="fas fa-atom"></i></span> 
+        <h1>Course Modules</h1>
+    </div>
+
+    <div class="parts-grid">
+        <a href="Note1.html" class="part-card">
+            <div class="part-header">
+                <h4>Note 1: Amino Acids & Protein Structure</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>Comprehensive guide to amino acid chemistry, peptide bonds, and protein structure hierarchies</p>
+            <div class="part-info">
+                <span><i class="fas fa-book info-icon"></i> Detailed Notes</span>
+                <span><i class="fas fa-clock info-icon"></i> 45 min read</span>
+            </div>
+            <div class="molecule-icon">🧬</div>
+        </a>
+        
+        <a href="note2.html" class="part-card">
+            <div class="part-header">
+                <h4>Note 2: Enzymes & Catalysis</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>Enzyme kinetics, mechanisms, inhibition, and regulation of metabolic pathways</p>
+            <div class="part-info">
+                <span><i class="fas fa-vial info-icon"></i> Enzyme Theory</span>
+                <span><i class="fas fa-chart-line info-icon"></i> Kinetics</span>
+            </div>
+            <div class="molecule-icon">⚗️</div>
+        </a>
+        
+        <a href="Part1.html" class="part-card">
+            <div class="part-header">
+                <h4>Part 1: Biomolecules Fundamentals</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>Carbohydrates, lipids, nucleic acids - structure, function and clinical correlations</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 60 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 55 min</span>
+            </div>
+            <div class="molecule-icon">🍬</div>
+        </a>
+
+        <a href="Part2.html" class="part-card">
+            <div class="part-header">
+                <h4>Part 2: Metabolic Pathways I</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>Glycolysis, gluconeogenesis, TCA cycle, and glycogen metabolism with regulation</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 65+ Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 60 min</span>
+            </div>
+            <div class="molecule-icon">🔥</div>
+        </a>
+
+        <a href="part3.html" class="part-card">
+            <div class="part-header">
+                <h4>Part 3: Metabolic Pathways II</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>Oxidative phosphorylation, electron transport chain, and ATP synthesis mechanisms</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 50 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 50 min</span>
+            </div>
+            <div class="molecule-icon">⚡</div>
+        </a>
+
+        <a href="Part4.html" class="part-card">
+            <div class="part-header">
+                <h4>Part 4: Lipid Metabolism</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>Fatty acid synthesis & oxidation, cholesterol metabolism, and lipid transport</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 55+ Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 60 min</span>
+            </div>
+            <div class="molecule-icon">🩸</div>
+        </a>
+        
+        <a href="Part5.html" class="part-card">
+            <div class="part-header">
+                <h4>Part 5: Nitrogen Metabolism</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>Amino acid metabolism, urea cycle, nucleotide synthesis and degradation</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 45 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 50 min</span>
+            </div>
+            <div class="molecule-icon">🧪</div>
+        </a>
+        
+        <a href="Part6.html" class="part-card">
+            <div class="part-header">
+                <h4>Part 6: Molecular Biology Basics</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>DNA replication, transcription, translation, and regulation of gene expression</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 60 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 55 min</span>
+            </div>
+            <div class="molecule-icon">🧬</div>
+        </a> 
+        
+        <a href="Part7.html" class="part-card">
+            <div class="part-header">
+                <h4>Part 7: Clinical Biochemistry</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>Diagnostic enzymes, organ function tests, and biochemical basis of diseases</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 50 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 50 min</span>
+            </div>
+            <div class="molecule-icon">🏥</div>
+        </a>
+        
+        <a href="part8.html" class="part-card">
+            <div class="part-header">
+                <h4>Part 8: Vitamins & Minerals</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>Coenzymes, vitamins, essential minerals and their biochemical functions</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 40 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 45 min</span>
+            </div>
+            <div class="molecule-icon">💊</div>
+        </a>
+        
+        <a href="Part9.html" class="part-card">
+            <div class="part-header">
+                <h4>Part 9: Comprehensive Final Exam</h4>
+                <div class="part-badge">Available</div>
+            </div>
+            <p>Complete biochemistry review with high-yield questions from all topics</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 100+ Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 90 min</span>
+            </div>
+            <div class="molecule-icon">🏆</div>
+        </a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="dashboard-footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <i class="fas fa-dna"></i> MedQuiz Biochemistry
+        </div>
+        <div class="footer-links">
+            <a href="../../dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="../pharmacy.html"><i class="fas fa-pills"></i> Pharmacy</a>
+            <a href="../../about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="../../contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="../../privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2023 MedQuiz. All rights reserved. | Pharmacy Year 2 - Biochemistry Module
+        </div>
+    </div>
+</footer>
+
+<!-- Loading Spinner -->
+<div id="loading-spinner" class="loading-spinner" style="display:none;">
+    <div style="font-size: 3rem; color: var(--primary);">
+        <i class="fas fa-atom fa-spin"></i>
+    </div>
+</div>
+
+<script src="../../auth.js"></script>
+<script src="../../script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Check authentication
+    if (!window.authSystem || !window.authSystem.isAuthenticated()) {
+        document.getElementById('protection-overlay').style.display = 'flex';
+    }
+    
+    // Add loading animation for links
+    const links = document.querySelectorAll('.part-card, .nav-btn, .breadcrumb a');
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (this.getAttribute('href') && !this.getAttribute('href').startsWith('#')) {
+                document.getElementById('loading-spinner').style.display = 'block';
             }
-        ];
+        });
+    });
+    
+    // Remove loading spinner when page is fully loaded
+    window.addEventListener('load', function() {
+        document.getElementById('loading-spinner').style.display = 'none';
+    });
+});
 
-        // Application state
-        let currentQuestionIndex = 0;
-        let userAnswers = new Array(questions.length).fill(null);
-        let timer;
-        let timeLeft = 60 * 60; // 60 minutes in seconds
-        let examStarted = false;
-        let studentName = "";
-        let studentId = "";
-        let feedbackMode = null; // 'immediate' or 'end'
-        let isFirstAttempt = true;
-        let isPracticeMode = false;
+function goBackToSession1() {
+    document.getElementById('loading-spinner').style.display = 'block';
+    setTimeout(() => {
+        window.location.href = '../session1.html';
+    }, 300);
+}
 
-        // Check if user has already completed first attempt
-        function checkFirstAttemptStatus() {
-            const firstAttemptCompleted = localStorage.getItem('pharmacyExamFirstAttemptCompleted');
-            if (firstAttemptCompleted === 'true') {
-                isFirstAttempt = false;
-                studentName = localStorage.getItem('pharmacyExamStudentName') || '';
-                studentId = localStorage.getItem('pharmacyExamStudentId') || '';
-            }
+// Add floating animation to cards on scroll
+window.addEventListener('scroll', function() {
+    const cards = document.querySelectorAll('.part-card');
+    cards.forEach((card, index) => {
+        const cardTop = card.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (cardTop < windowHeight - 100) {
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
         }
+    });
+});
 
-        // DOM elements
-        const welcomeScreen = document.getElementById('welcome-screen');
-        const studentInfoScreen = document.getElementById('student-info-screen');
-        const examScreen = document.getElementById('exam-screen');
-        const resultsScreen = document.getElementById('results-screen');
-        const startExamBtn = document.getElementById('start-exam-btn');
-        const continueExamBtn = document.getElementById('continue-exam-btn');
-        const timerElement = document.getElementById('timer');
-        const questionNumberElement = document.getElementById('question-number');
-        const questionTextElement = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-        const feedbackElement = document.getElementById('feedback');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const submitExamBtn = document.getElementById('submit-exam-btn');
-        const progressFill = document.getElementById('progress-fill');
-        const questionCounter = document.getElementById('question-counter');
-        const scoreDisplay = document.getElementById('score-display');
-        const resultsDetails = document.getElementById('results-details');
-        const immediateFeedbackBtn = document.getElementById('immediate-feedback-btn');
-        const endFeedbackBtn = document.getElementById('end-feedback-btn');
-        const retryExamBtn = document.getElementById('retry-exam-btn');
-        const firstAttemptInfo = document.getElementById('first-attempt-info');
-        const practiceAttemptInfo = document.getElementById('practice-attempt-info');
+// Initialize card animations
+window.addEventListener('load', function() {
+    const cards = document.querySelectorAll('.part-card');
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
+    
+    // Trigger scroll event to animate cards in view
+    setTimeout(() => {
+        window.dispatchEvent(new Event('scroll'));
+    }, 300);
+});
+</script>
 
-        // Event listeners
-        startExamBtn.addEventListener('click', startExam);
-        continueExamBtn.addEventListener('click', continueToExam);
-        prevBtn.addEventListener('click', showPreviousQuestion);
-        nextBtn.addEventListener('click', showNextQuestion);
-        submitExamBtn.addEventListener('click', submitExam);
-        immediateFeedbackBtn.addEventListener('click', () => startReview('immediate'));
-        endFeedbackBtn.addEventListener('click', () => startReview('end'));
-        retryExamBtn.addEventListener('click', retryExam);
-
-        // Initialize
-        checkFirstAttemptStatus();
-        updateWelcomeScreen();
-
-        function updateWelcomeScreen() {
-            if (isFirstAttempt) {
-                firstAttemptInfo.style.display = 'block';
-                practiceAttemptInfo.style.display = 'none';
-            } else {
-                firstAttemptInfo.style.display = 'none';
-                practiceAttemptInfo.style.display = 'block';
-            }
-        }
-
-        function startExam() {
-            if (isFirstAttempt) {
-                // First attempt - show student info screen
-                welcomeScreen.classList.remove('active');
-                studentInfoScreen.classList.add('active');
-            } else {
-                // Not first attempt - go directly to exam in practice mode
-                isPracticeMode = true;
-                studentName = localStorage.getItem('pharmacyExamStudentName') || 'Practice User';
-                studentId = localStorage.getItem('pharmacyExamStudentId') || 'Practice ID';
-                welcomeScreen.classList.remove('active');
-                examScreen.classList.add('active');
-                examStarted = true;
-                loadQuestion(currentQuestionIndex);
-                startTimer();
-            }
-        }
-
-        function continueToExam() {
-            studentName = document.getElementById('student-name').value;
-            studentId = document.getElementById('student-id').value;
-            
-            if (!studentName || !studentId) {
-                alert('Please enter your name and ID');
-                return;
-            }
-            
-            // Store student info for future use
-            localStorage.setItem('pharmacyExamStudentName', studentName);
-            localStorage.setItem('pharmacyExamStudentId', studentId);
-            
-            studentInfoScreen.classList.remove('active');
-            examScreen.classList.add('active');
-            examStarted = true;
-            
-            loadQuestion(currentQuestionIndex);
-            startTimer();
-        }
-
-        function loadQuestion(index) {
-            // Update progress bar
-            const progress = ((index + 1) / questions.length) * 100;
-            progressFill.style.width = `${progress}%`;
-            questionCounter.textContent = `Question ${index + 1} of ${questions.length}`;
-            
-            // Update question number and text
-            questionNumberElement.textContent = `Question ${index + 1}`;
-            questionTextElement.textContent = questions[index].question;
-            
-            // Clear previous options
-            optionsContainer.innerHTML = '';
-            
-            // Add new options
-            questions[index].options.forEach((option, optionIndex) => {
-                const optionElement = document.createElement('div');
-                optionElement.className = 'option';
-                if (userAnswers[index] === optionIndex) {
-                    optionElement.classList.add('selected');
-                }
-                optionElement.textContent = option;
-                optionElement.addEventListener('click', () => selectOption(optionIndex));
-                optionsContainer.appendChild(optionElement);
-            });
-            
-            // Update navigation buttons
-            prevBtn.disabled = index === 0;
-            nextBtn.disabled = index === questions.length - 1;
-            
-            // Show submit button if on last question
-            if (index === questions.length - 1) {
-                submitExamBtn.style.display = 'inline-block';
-                nextBtn.style.display = 'none';
-            } else {
-                submitExamBtn.style.display = 'none';
-                nextBtn.style.display = 'inline-block';
-            }
-            
-            // Show/hide feedback based on mode
-            if (feedbackMode === 'immediate' && userAnswers[index] !== null) {
-                showFeedback(index);
-            } else {
-                feedbackElement.style.display = 'none';
-            }
-        }
-
-        function selectOption(optionIndex) {
-            userAnswers[currentQuestionIndex] = optionIndex;
-            loadQuestion(currentQuestionIndex);
-            
-            if (feedbackMode === 'immediate') {
-                showFeedback(currentQuestionIndex);
-            }
-        }
-
-        function showFeedback(index) {
-            const question = questions[index];
-            const userAnswer = userAnswers[index];
-            
-            feedbackElement.textContent = '';
-            feedbackElement.className = 'feedback';
-            
-            if (userAnswer === null) {
-                feedbackElement.style.display = 'none';
-                return;
-            }
-            
-            if (userAnswer === question.correctAnswer) {
-                feedbackElement.textContent = 'Correct!';
-                feedbackElement.classList.add('correct');
-            } else {
-                feedbackElement.textContent = 'Incorrect!';
-                feedbackElement.classList.add('incorrect');
-            }
-            
-            const explanation = document.createElement('div');
-            explanation.className = 'explanation';
-            explanation.textContent = question.explanation;
-            feedbackElement.appendChild(explanation);
-            
-            feedbackElement.style.display = 'block';
-            
-            // Update option colors
-            const options = optionsContainer.getElementsByClassName('option');
-            for (let i = 0; i < options.length; i++) {
-                options[i].classList.remove('correct', 'incorrect');
-                if (i === question.correctAnswer) {
-                    options[i].classList.add('correct');
-                } else if (i === userAnswer && i !== question.correctAnswer) {
-                    options[i].classList.add('incorrect');
-                }
-            }
-        }
-
-        function showPreviousQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                loadQuestion(currentQuestionIndex);
-            }
-        }
-
-        function showNextQuestion() {
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                loadQuestion(currentQuestionIndex);
-            }
-        }
-
-        function startTimer() {
-            updateTimerDisplay();
-            timer = setInterval(updateTimer, 1000);
-        }
-
-        function updateTimer() {
-            timeLeft--;
-            updateTimerDisplay();
-            
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                submitExam();
-            }
-        }
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            timerElement.textContent = `Time Remaining: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        }
-
-        function submitExam() {
-            clearInterval(timer);
-            examStarted = false;
-            
-            // Calculate score
-            let score = 0;
-            questions.forEach((question, index) => {
-                if (userAnswers[index] === question.correctAnswer) {
-                    score++;
-                }
-            });
-            
-            const percentage = (score / questions.length) * 100;
-            
-            // Display results
-            scoreDisplay.textContent = `Your Score: ${score}/${questions.length} (${percentage.toFixed(1)}%)`;
-            
-            let detailsHtml = `<p>Student: ${studentName} (ID: ${studentId})</p>`;
-            detailsHtml += `<p>Date: ${new Date().toLocaleDateString()}</p>`;
-            detailsHtml += `<p>Mode: ${isPracticeMode ? 'Practice' : (isFirstAttempt ? 'First Attempt' : 'Review')}</p>`;
-            resultsDetails.innerHTML = detailsHtml;
-            
-            // Submit to Formspree only on first attempt
-            if (isFirstAttempt && !isPracticeMode) {
-                submitToFormspree(score, percentage);
-                // Mark first attempt as completed
-                localStorage.setItem('pharmacyExamFirstAttemptCompleted', 'true');
-                isFirstAttempt = false;
-            }
-            
-            // Show results screen
-            examScreen.classList.remove('active');
-            resultsScreen.classList.add('active');
-        }
-
-        function submitToFormspree(score, percentage) {
-            const formData = new FormData();
-            formData.append('student_name', studentName);
-            formData.append('student_id', studentId);
-            formData.append('score', `${score}/${questions.length}`);
-            formData.append('percentage', `${percentage.toFixed(1)}%`);
-            formData.append('date', new Date().toLocaleDateString());
-            
-            fetch('https://formspree.io/f/manayznq', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Results submitted successfully');
-                } else {
-                    console.error('Failed to submit results');
-                }
-            })
-            .catch(error => {
-                console.error('Error submitting results:', error);
-            });
-        }
-
-        function startReview(mode) {
-            feedbackMode = mode;
-            currentQuestionIndex = 0;
-            
-            resultsScreen.classList.remove('active');
-            examScreen.classList.add('active');
-            
-            loadQuestion(currentQuestionIndex);
-            
-            // Update navigation for review mode
-            if (mode === 'immediate') {
-                // In immediate feedback mode, we'll show feedback after each selection
-                // No need to change navigation
-            } else {
-                // In end feedback mode, we'll only show feedback at the end
-                // We'll add a "Show Results" button at the end
-                submitExamBtn.textContent = 'Show Results';
-                submitExamBtn.style.display = 'none';
-                nextBtn.style.display = 'inline-block';
-            }
-        }
-
-        function retryExam() {
-            // Reset exam state
-            currentQuestionIndex = 0;
-            userAnswers = new Array(questions.length).fill(null);
-            timeLeft = 60 * 60; // Reset to 60 minutes
-            feedbackMode = null;
-            isPracticeMode = true;
-            
-            // Go to welcome screen
-            resultsScreen.classList.remove('active');
-            welcomeScreen.classList.add('active');
-            updateWelcomeScreen();
-        }
-    </script>
 </body>
-  </html>
+</html>
