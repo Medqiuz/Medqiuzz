@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protein Metabolism Exam - Part 1 | Biochemistry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --correct: #2ecc71;
+            --incorrect: #e74c3c;
+            --warning: #f39c12;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+            --border-color: #ecf0f1;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            min-height: calc(100vh - 40px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .exam-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #34495e 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .exam-header h1 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .exam-header h1 i {
+            color: var(--correct);
+        }
+
+        .exam-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 15px;
+            border-radius: 10px;
+            min-width: 100px;
+        }
+
+        .info-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            padding: 0 2rem;
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary), #1abc9c);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-bottom: 10px;
+        }
+
+        /* Main Content */
+        .exam-content {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+        }
+
+        /* Questions Panel */
+        .questions-panel {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .question-number i {
+            font-size: 1.3rem;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .options-container {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .option {
+            padding: 18px 20px;
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .option:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            border-color: #bdc3c7;
+        }
+
+        .option.selected {
+            border-color: var(--secondary);
+            background: #e3f2fd;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+        }
+
+        .option.correct {
+            border-color: var(--correct);
+            background: #d5f4e6;
+        }
+
+        .option.incorrect {
+            border-color: var(--incorrect);
+            background: #fde8e8;
+        }
+
+        .option-label {
+            background: var(--secondary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+
+        .option.correct .option-label {
+            background: var(--correct);
+        }
+
+        .option.incorrect .option-label {
+            background: var(--incorrect);
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: 1.05rem;
+        }
+
+        /* Feedback Section - FIXED: Always show when answer selected */
+        .feedback-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: #f8f9fa;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-container.show {
+            display: block;
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .feedback-header.correct {
+            color: var(--correct);
+        }
+
+        .feedback-header.incorrect {
+            color: var(--incorrect);
+        }
+
+        .feedback-explanation {
+            line-height: 1.6;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        /* Navigation - FIXED: Added Previous button */
+        .navigation-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(41, 128, 185, 0.3);
+        }
+
+        .nav-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .nav-btn.prev-btn {
+            background: #7f8c8d;
+        }
+
+        .nav-btn.prev-btn:hover {
+            background: #636e72;
+        }
+
+        .nav-btn.next-btn {
+            background: var(--correct);
+        }
+
+        .nav-btn.next-btn:hover {
+            background: #27ae60;
+        }
+
+        .nav-btn.finish-btn {
+            background: var(--primary);
+        }
+
+        .nav-btn.finish-btn:hover {
+            background: #1a252f;
+        }
+
+        /* Stats Panel */
+        .stats-panel {
+            width: 300px;
+            padding: 2rem;
+            background: #f8f9fa;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stats-panel h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .score-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .score-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin: 10px 0;
+        }
+
+        .score-label {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .question-status {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            background: #ecf0f1;
+            color: var(--dark-text);
+        }
+
+        .question-status.answered {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .question-status.correct {
+            background: var(--correct);
+            color: white;
+        }
+
+        .question-status.incorrect {
+            background: var(--incorrect);
+            color: white;
+        }
+
+        .question-status.current {
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+            transform: scale(1.1);
+        }
+
+        .question-status:hover {
+            transform: scale(1.1);
+        }
+
+        .legend {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .legend h4 {
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        /* Results Modal */
+        .results-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .results-modal.show {
+            display: flex;
+        }
+
+        .results-content {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .results-content h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .final-score {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 1.5rem 0;
+            background: linear-gradient(135deg, var(--secondary), var(--correct));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 2rem 0;
+        }
+
+        .result-stat {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-top: 5px;
+        }
+
+        .results-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .result-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .result-btn.review {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .result-btn.restart {
+            background: var(--correct);
+            color: white;
+        }
+
+        .result-btn.close {
+            background: var(--primary);
+            color: white;
+        }
+
+        .result-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Timer */
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+
+        .timer-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer.warning {
+            background: rgba(243, 156, 18, 0.3);
+        }
+
+        .timer.critical {
+            background: rgba(231, 76, 60, 0.3);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .exam-content {
+                flex-direction: column;
+            }
+            
+            .stats-panel {
+                width: 100%;
+                order: -1;
+                padding: 1.5rem;
+            }
+            
+            .questions-panel {
+                border-right: none;
+                border-top: 1px solid var(--border-color);
+            }
+            
+            .questions-grid {
+                grid-template-columns: repeat(10, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .exam-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.5rem;
+            }
+            
+            .exam-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .info-item {
+                min-width: 80px;
+                padding: 8px 10px;
+            }
+            
+            .questions-panel, .progress-container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 15px;
+            }
+            
+            .results-content {
+                padding: 2rem;
+            }
+            
+            .results-stats {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .results-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-radius: 10px;
+            }
+            
+            .exam-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .questions-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            
+            .question-status {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            
+            .option-label {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="exam-header">
+            <h1><i class="fas fa-vial"></i> Protein Metabolism Exam - Part 1</h1>
+            <div class="exam-info">
+                <div class="info-item">
+                    <div class="info-value" id="current-question">1</div>
+                    <div class="info-label">Question</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-value" id="score">0</div>
+                    <div class="info-label">Score</div>
+                </div>
+                <div class="timer" id="timer">
+                    <i class="fas fa-clock"></i>
+                    <div class="timer-value">60:00</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-text">
+                <span>Progress: <span id="progress-percent">0%</span></span>
+                <span><span id="answered-count">0</span> of 60 answered</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="exam-content">
+            <!-- Questions Panel -->
+            <div class="questions-panel" id="questions-panel">
+                <!-- Questions will be inserted here by JavaScript -->
+            </div>
+
+            <!-- Stats Panel -->
+            <div class="stats-panel">
+                <h3><i class="fas fa-chart-bar"></i> Exam Progress</h3>
+                
+                <div class="score-container">
+                    <div class="score-value" id="panel-score">0</div>
+                    <div class="score-label">Current Score</div>
+                </div>
+                
+                <h4>Question Navigator</h4>
+                <div class="questions-grid" id="questions-grid">
+                    <!-- Question status indicators will be inserted here -->
+                </div>
+                
+                <div class="legend">
+                    <h4>Legend</h4>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #ecf0f1;"></div>
+                        <span>Not Answered</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--secondary);"></div>
+                        <span>Answered</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--correct);"></div>
+                        <span>Correct</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--incorrect);"></div>
+                        <span>Incorrect</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: white; border: 2px solid var(--secondary);"></div>
+                        <span>Current</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div class="results-modal" id="results-modal">
+        <div class="results-content">
+            <h2><i class="fas fa-trophy"></i> Exam Completed!</h2>
+            <div class="final-score" id="final-score">0%</div>
+            <p>You have completed Part 1 of the Protein Metabolism Exam</p>
+            
+            <div class="results-stats">
+                <div class="result-stat">
+                    <div class="result-value" id="final-correct">0</div>
+                    <div class="result-label">Correct Answers</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-value" id="final-incorrect">0</div>
+                    <div class="result-label">Incorrect Answers</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-value" id="final-skipped">0</div>
+                    <div class="result-label">Skipped</div>
+                </div>
+            </div>
+            
+            <div class="results-buttons">
+                <button class="result-btn review" id="review-btn">
+                    <i class="fas fa-redo"></i> Review Exam
+                </button>
+                <button class="result-btn restart" id="restart-btn">
+                    <i class="fas fa-play-circle"></i> Restart Exam
+                </button>
+                <button class="result-btn close" id="close-btn">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Exam Questions Database - 60 Questions
+        const questions = [
+            {
+                id: 1,
+                question: "Which of the following enzymes is responsible for the initial breakdown of dietary proteins in the stomach?",
+                options: [
+                    "Trypsin",
+                    "Pepsin",
+                    "Chymotrypsin",
+                    "Carboxypeptidase"
+                ],
+                correct: 1,
+                explanation: "Pepsin is the primary proteolytic enzyme in the stomach. It is secreted as pepsinogen and activated by HCl. Pepsin breaks down proteins into large peptides by cleaving peptide bonds involving aromatic amino acids (phenylalanine, tryptophan, tyrosine)."
+            },
+            {
+                id: 2,
+                question: "Which amino acids are NOT glucogenic?",
+                options: [
+                    "Leucine and lysine",
+                    "Alanine and serine",
+                    "Aspartate and asparagine",
+                    "Glutamate and glutamine"
+                ],
+                correct: 0,
+                explanation: "Leucine and lysine are purely ketogenic amino acids. Their carbon skeletons are converted to acetyl-CoA or acetoacetate and cannot be converted to glucose. In contrast, glucogenic amino acids can be converted to glucose via gluconeogenesis."
+            },
+            {
+                id: 3,
+                question: "The urea cycle produces urea from ammonia and carbon dioxide. Where in the cell does the first reaction of the urea cycle occur?",
+                options: [
+                    "Cytosol",
+                    "Mitochondrial matrix",
+                    "Endoplasmic reticulum",
+                    "Nucleus"
+                ],
+                correct: 1,
+                explanation: "The first two reactions of the urea cycle occur in the mitochondrial matrix: (1) Formation of carbamoyl phosphate by carbamoyl phosphate synthetase I, and (2) Formation of citrulline by ornithine transcarbamoylase. The remaining three reactions occur in the cytosol."
+            },
+            {
+                id: 4,
+                question: "A patient presents with musty body odor, fair skin, and intellectual disability. Which enzyme deficiency is most likely?",
+                options: [
+                    "Homogentisate oxidase",
+                    "Phenylalanine hydroxylase",
+                    "Tyrosinase",
+                    "Cystathionine β-synthase"
+                ],
+                correct: 1,
+                explanation: "These are classic symptoms of phenylketonuria (PKU), caused by deficiency of phenylalanine hydroxylase. This leads to accumulation of phenylalanine and its metabolites, causing musty odor, hypopigmentation (due to tyrosine deficiency), and intellectual disability if untreated."
+            },
+            {
+                id: 5,
+                question: "Which of the following transport mechanisms is primarily responsible for amino acid absorption in the small intestine?",
+                options: [
+                    "Simple diffusion",
+                    "Facilitated diffusion",
+                    "Active transport (Na+-dependent symport)",
+                    "Passive transport through channels"
+                ],
+                correct: 2,
+                explanation: "Amino acids are primarily absorbed in the small intestine via active transport mechanisms that are Na+-dependent (symport). Different carrier proteins transport specific groups of amino acids (neutral, basic, acidic, imino acids). This ATP-dependent process ensures efficient absorption against concentration gradients."
+            },
+            {
+                id: 6,
+                question: "In protein turnover, what percentage of total body protein is degraded and resynthesized daily in a healthy adult?",
+                options: [
+                    "0.1-0.5%",
+                    "1-2%",
+                    "5-10%",
+                    "15-20%"
+                ],
+                correct: 1,
+                explanation: "Approximately 1-2% of total body protein is turned over daily in a healthy adult. This means about 300-400g of protein is degraded and resynthesized each day. Different proteins have different half-lives, from minutes (regulatory enzymes) to years (structural proteins)."
+            },
+            {
+                id: 7,
+                question: "Which of the following is NOT a function of the ubiquitin-proteasome system?",
+                options: [
+                    "Degradation of abnormal proteins",
+                    "Regulation of cell cycle proteins",
+                    "Digestion of extracellular proteins",
+                    "Processing of antigen presentation"
+                ],
+                correct: 2,
+                explanation: "The ubiquitin-proteasome system degrades intracellular proteins, not extracellular proteins. It is responsible for: (1) degrading abnormal/misfolded proteins, (2) regulating cell cycle proteins (cyclins), (3) processing antigens for MHC class I presentation, and (4) controlling levels of regulatory proteins."
+            },
+            {
+                id: 8,
+                question: "Which vitamin is required as a cofactor for transamination reactions?",
+                options: [
+                    "Vitamin B1 (Thiamine)",
+                    "Vitamin B6 (Pyridoxine)",
+                    "Vitamin B12 (Cobalamin)",
+                    "Vitamin C (Ascorbic acid)"
+                ],
+                correct: 1,
+                explanation: "Vitamin B6 (pyridoxine) is converted to pyridoxal phosphate (PLP), which serves as a cofactor for transaminases (aminotransferases). PLP forms a Schiff base with the amino group, facilitating transfer to α-ketoglutarate. Deficiencies can affect amino acid metabolism."
+            },
+            {
+                id: 9,
+                question: "A newborn presents with vomiting, lethargy, and hyperammonemia. Which urea cycle enzyme deficiency is most common and X-linked?",
+                options: [
+                    "Carbamoyl phosphate synthetase I",
+                    "Ornithine transcarbamoylase",
+                    "Argininosuccinate synthetase",
+                    "Arginase"
+                ],
+                correct: 1,
+                explanation: "Ornithine transcarbamoylase (OTC) deficiency is the most common urea cycle disorder and is X-linked. It presents with severe hyperammonemia in males, while females may have variable symptoms. CPS-I deficiency is also severe but autosomal recessive."
+            },
+            {
+                id: 10,
+                question: "Which of the following amino acids serves as the major ammonia carrier from peripheral tissues to the liver?",
+                options: [
+                    "Alanine",
+                    "Glutamine",
+                    "Aspartate",
+                    "Glutamate"
+                ],
+                correct: 1,
+                explanation: "Glutamine is the major non-toxic carrier of ammonia. In peripheral tissues, glutamine synthetase combines ammonia with glutamate to form glutamine. In the liver, glutaminase releases ammonia for urea synthesis. Alanine also transports ammonia via the glucose-alanine cycle."
+            },
+            {
+                id: 11,
+                question: "In maple syrup urine disease, which branched-chain amino acids accumulate?",
+                options: [
+                    "Alanine, glycine, serine",
+                    "Phenylalanine, tyrosine, tryptophan",
+                    "Leucine, isoleucine, valine",
+                    "Methionine, cysteine, homocysteine"
+                ],
+                correct: 2,
+                explanation: "Maple syrup urine disease results from deficiency of branched-chain α-ketoacid dehydrogenase complex, leading to accumulation of leucine, isoleucine, and valine (and their ketoacids). The condition is named for the characteristic maple syrup odor of urine."
+            },
+            {
+                id: 12,
+                question: "Which enzyme catalyzes the rate-limiting step in catecholamine synthesis?",
+                options: [
+                    "Tyrosine hydroxylase",
+                    "DOPA decarboxylase",
+                    "Dopamine β-hydroxylase",
+                    "Phenylethanolamine N-methyltransferase"
+                ],
+                correct: 0,
+                explanation: "Tyrosine hydroxylase converts tyrosine to L-DOPA and is the rate-limiting enzyme in catecholamine synthesis. It requires tetrahydrobiopterin (BH4) as cofactor and is feedback-inhibited by catecholamines. Deficiency causes rare forms of parkinsonism."
+            },
+            {
+                id: 13,
+                question: "What is the primary nitrogenous waste product in humans?",
+                options: [
+                    "Ammonia",
+                    "Uric acid",
+                    "Urea",
+                    "Creatinine"
+                ],
+                correct: 2,
+                explanation: "Urea is the primary nitrogenous waste product in humans, accounting for 80-90% of excreted nitrogen. It is less toxic than ammonia and requires less water for excretion. Humans are ureotelic, while birds are uricotelic (excrete uric acid), and fish are ammonotelic (excrete ammonia)."
+            },
+            {
+                id: 14,
+                question: "Which of the following is a symptom of homocystinuria?",
+                options: [
+                    "Maple syrup odor in urine",
+                    "Black urine on standing",
+                    "Ectopia lentis (dislocated lens)",
+                    "White hair and skin"
+                ],
+                correct: 2,
+                explanation: "Ectopia lentis (lens dislocation) is a hallmark of homocystinuria, along with marfanoid habitus, osteoporosis, intellectual disability, and thromboembolism. It results from cystathionine β-synthase deficiency or defects in homocysteine remethylation."
+            },
+            {
+                id: 15,
+                question: "Which amino acid is the precursor for serotonin synthesis?",
+                options: [
+                    "Tyrosine",
+                    "Tryptophan",
+                    "Histidine",
+                    "Phenylalanine"
+                ],
+                correct: 1,
+                explanation: "Tryptophan is converted to 5-hydroxytryptophan by tryptophan hydroxylase (rate-limiting step), then to serotonin (5-hydroxytryptamine) by aromatic L-amino acid decarboxylase. Serotonin is a neurotransmitter involved in mood, sleep, and appetite regulation."
+            },
+            {
+                id: 16,
+                question: "What is the function of creatine phosphate in muscle tissue?",
+                options: [
+                    "Oxygen storage",
+                    "ATP regeneration",
+                    "Calcium binding",
+                    "Glucose storage"
+                ],
+                correct: 1,
+                explanation: "Creatine phosphate serves as a high-energy phosphate reservoir in muscle and brain. Creatine kinase transfers phosphate from creatine phosphate to ADP, rapidly regenerating ATP during intense exercise. Creatinine is the breakdown product excreted by kidneys."
+            },
+            {
+                id: 17,
+                question: "Which amino acid undergoes transamination to form oxaloacetate?",
+                options: [
+                    "Alanine",
+                    "Aspartate",
+                    "Glutamate",
+                    "Serine"
+                ],
+                correct: 1,
+                explanation: "Aspartate undergoes transamination with α-ketoglutarate to form oxaloacetate and glutamate, catalyzed by aspartate aminotransferase (AST). Oxaloacetate can enter gluconeogenesis or the TCA cycle. AST is an important clinical marker for liver and heart damage."
+            },
+            {
+                id: 18,
+                question: "What is the normal blood ammonia concentration?",
+                options: [
+                    "10-20 µM",
+                    "30-60 µM",
+                    "100-150 µM",
+                    "200-300 µM"
+                ],
+                correct: 1,
+                explanation: "Normal blood ammonia concentration is 30-60 µM (micro molar). Levels above 80 µM are considered hyperammonemia and can cause neurotoxicity. Ammonia is toxic to the CNS because it depletes α-ketoglutarate, inhibits the TCA cycle, and alters neurotransmitter balance."
+            },
+            {
+                id: 19,
+                question: "Which enzyme deficiency causes alkaptonuria?",
+                options: [
+                    "Phenylalanine hydroxylase",
+                    "Homogentisate oxidase",
+                    "Tyrosinase",
+                    "Cystathionine β-synthase"
+                ],
+                correct: 1,
+                explanation: "Alkaptonuria results from homogentisate oxidase deficiency, causing accumulation of homogentisic acid. This oxidizes to form a black polymer, leading to: (1) black urine on standing, (2) ochronosis (dark connective tissue), and (3) arthritis. It was described by Garrod as an 'inborn error of metabolism.'"
+            },
+            {
+                id: 20,
+                question: "Which amino acid is both glucogenic and ketogenic?",
+                options: [
+                    "Leucine",
+                    "Lysine",
+                    "Isoleucine",
+                    "Alanine"
+                ],
+                correct: 2,
+                explanation: "Isoleucine is both glucogenic and ketogenic. Some carbons enter the TCA cycle as succinyl-CoA (glucogenic), while others become acetyl-CoA (ketogenic). Other dual-purpose amino acids include phenylalanine, tyrosine, and tryptophan. Leucine and lysine are purely ketogenic."
+            },
+            {
+                id: 21,
+                question: "What is the primary site of urea synthesis in the body?",
+                options: [
+                    "Kidneys",
+                    "Liver",
+                    "Muscle",
+                    "Brain"
+                ],
+                correct: 1,
+                explanation: "The liver is the primary site of urea synthesis via the urea cycle. The kidneys excrete urea but cannot synthesize it. In liver failure, ammonia accumulates (hyperammonemia) causing hepatic encephalopathy. Some urea cycle enzymes are also present in other tissues for arginine synthesis."
+            },
+            {
+                id: 22,
+                question: "Which of the following is NOT an endopeptidase?",
+                options: [
+                    "Pepsin",
+                    "Trypsin",
+                    "Chymotrypsin",
+                    "Aminopeptidase"
+                ],
+                correct: 3,
+                explanation: "Aminopeptidase is an exopeptidase that removes amino acids from the N-terminus of peptides. Endopeptidases (like pepsin, trypsin, chymotrypsin) cleave internal peptide bonds. Exopeptidases complete digestion by removing terminal amino acids after endopeptidase action."
+            },
+            {
+                id: 23,
+                question: "What is the role of N-acetylglutamate in the urea cycle?",
+                options: [
+                    "Allosteric inhibitor of CPS-I",
+                    "Allosteric activator of CPS-I",
+                    "Substrate for arginase",
+                    "Inhibitor of ornithine transcarbamoylase"
+                ],
+                correct: 1,
+                explanation: "N-acetylglutamate is an essential allosteric activator of carbamoyl phosphate synthetase I (CPS-I), the first enzyme of the urea cycle. It is synthesized from glutamate and acetyl-CoA by N-acetylglutamate synthase. Its levels increase with protein intake, activating urea synthesis."
+            },
+            {
+                id: 24,
+                question: "Which amino acid is the precursor for melatonin synthesis?",
+                options: [
+                    "Tyrosine",
+                    "Tryptophan",
+                    "Histidine",
+                    "Phenylalanine"
+                ],
+                correct: 1,
+                explanation: "Melatonin is synthesized from tryptophan via serotonin. The pathway is: Tryptophan → 5-Hydroxytryptophan → Serotonin → N-Acetylserotonin → Melatonin. Melatonin regulates circadian rhythms and is produced by the pineal gland in response to darkness."
+            },
+            {
+                id: 25,
+                question: "What is the clinical significance of elevated serum ALT (alanine aminotransferase)?",
+                options: [
+                    "Muscle damage",
+                    "Liver damage",
+                    "Kidney damage",
+                    "Heart damage"
+                ],
+                correct: 1,
+                explanation: "ALT is primarily found in liver cytosol and is a specific marker for hepatocellular damage. Elevated ALT indicates liver injury from hepatitis, drugs, alcohol, etc. AST is also elevated in liver damage but is less specific (also found in heart, muscle)."
+            },
+            {
+                id: 26,
+                question: "Which of the following is a characteristic of positive nitrogen balance?",
+                options: [
+                    "Nitrogen intake < nitrogen excretion",
+                    "Nitrogen intake = nitrogen excretion",
+                    "Nitrogen intake > nitrogen excretion",
+                    "Negative nitrogen excretion"
+                ],
+                correct: 2,
+                explanation: "Positive nitrogen balance occurs when nitrogen intake exceeds excretion, indicating net protein synthesis. This occurs during growth, pregnancy, recovery from illness, and athletic training. Negative balance (intake < excretion) indicates tissue breakdown (starvation, trauma)."
+            },
+            {
+                id: 27,
+                question: "What is the primary mechanism for ammonia detoxification in the brain?",
+                options: [
+                    "Urea synthesis",
+                    "Glutamine synthesis",
+                    "Alanine synthesis",
+                    "Creatinine synthesis"
+                ],
+                correct: 1,
+                explanation: "The brain lacks a complete urea cycle. Instead, it detoxifies ammonia by combining it with glutamate to form glutamine via glutamine synthetase. Glutamine is then transported to the liver for urea synthesis. This prevents ammonia neurotoxicity in the CNS."
+            },
+            {
+                id: 28,
+                question: "Which vitamin deficiency can cause homocystinemia?",
+                options: [
+                    "Vitamin B6",
+                    "Vitamin B12",
+                    "Folate",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Deficiencies of vitamin B6 (cofactor for cystathionine β-synthase), vitamin B12 (cofactor for methionine synthase), or folate (provides methyl groups for homocysteine remethylation) can all cause homocystinemia. This increases cardiovascular risk even without genetic defects."
+            },
+            {
+                id: 29,
+                question: "What is the function of enterokinase in protein digestion?",
+                options: [
+                    "Activates pepsinogen",
+                    "Activates trypsinogen",
+                    "Cleaves peptides to amino acids",
+                    "Hydrolyzes dietary proteins"
+                ],
+                correct: 1,
+                explanation: "Enterokinase (enteropeptidase) is a brush border enzyme that converts trypsinogen to trypsin by removing a hexapeptide. Trypsin then activates other pancreatic zymogens (chymotrypsinogen, procarboxypeptidase, proelastase). This cascade ensures enzymes are only active in the intestine."
+            },
+            {
+                id: 30,
+                question: "Which amino acid is the precursor for nitric oxide (NO) synthesis?",
+                options: [
+                    "Arginine",
+                    "Lysine",
+                    "Histidine",
+                    "Cysteine"
+                ],
+                correct: 0,
+                explanation: "Arginine is converted to nitric oxide (NO) and citrulline by nitric oxide synthase (NOS). NO is a potent vasodilator, neurotransmitter, and antimicrobial agent. Nitroglycerin works by releasing NO. Asymmetric dimethylarginine (ADMA) inhibits NOS and is a cardiovascular risk factor."
+            },
+            {
+                id: 31,
+                question: "What is the typical daily protein requirement for a healthy adult (g/kg body weight)?",
+                options: [
+                    "0.3-0.4 g/kg",
+                    "0.8-1.0 g/kg",
+                    "1.5-2.0 g/kg",
+                    "2.5-3.0 g/kg"
+                ],
+                correct: 1,
+                explanation: "The RDA for protein is 0.8 g/kg/day for healthy adults. Requirements increase during growth (children: 1.2-1.5 g/kg), pregnancy/lactation (1.1 g/kg), recovery from illness, and athletic training. Excessive protein (>2 g/kg) may stress kidneys in susceptible individuals."
+            },
+            {
+                id: 32,
+                question: "Which enzyme is deficient in albinism?",
+                options: [
+                    "Phenylalanine hydroxylase",
+                    "Tyrosinase",
+                    "Homogentisate oxidase",
+                    "DOPA decarboxylase"
+                ],
+                correct: 1,
+                explanation: "Albinism results from tyrosinase deficiency or defects in melanin synthesis/transport. Tyrosinase converts tyrosine to DOPA and then to dopaquinone in melanin synthesis. Symptoms include white hair/skin, photophobia, nystagmus, and decreased visual acuity due to lack of retinal pigment."
+            },
+            {
+                id: 33,
+                question: "What is the primary function of glutathione?",
+                options: [
+                    "Energy storage",
+                    "Antioxidant defense",
+                    "Nitrogen transport",
+                    "Neurotransmitter synthesis"
+                ],
+                correct: 1,
+                explanation: "Glutathione (γ-glutamyl-cysteinyl-glycine) is the major cellular antioxidant. It reduces peroxides and free radicals, with glutathione peroxidase converting H₂O₂ to H₂O. Oxidized glutathione (GSSG) is reduced by glutathione reductase using NADPH. Deficiency causes oxidative stress."
+            },
+            {
+                id: 34,
+                question: "Which of the following amino acids is essential in humans?",
+                options: [
+                    "Alanine",
+                    "Glutamate",
+                    "Methionine",
+                    "Serine"
+                ],
+                correct: 2,
+                explanation: "Methionine is an essential amino acid that must be obtained from diet. The 9 essential amino acids are: histidine, isoleucine, leucine, lysine, methionine, phenylalanine, threonine, tryptophan, and valine. Conditionally essential amino acids may become essential during illness or in prematurity."
+            },
+            {
+                id: 35,
+                question: "What is the glucose-alanine cycle?",
+                options: [
+                    "Glucose conversion to alanine in liver",
+                    "Alanine conversion to glucose in muscle",
+                    "Ammonia transport from muscle to liver",
+                    "Urea synthesis from alanine"
+                ],
+                correct: 2,
+                explanation: "The glucose-alanine cycle transports ammonia from muscle to liver. In muscle, pyruvate accepts amino groups via transamination to form alanine. Alanine travels to liver, where it is transaminated back to pyruvate (used for gluconeogenesis) and ammonia (enters urea cycle). This provides glucose to muscle during exercise."
+            },
+            {
+                id: 36,
+                question: "Which of the following is a symptom of Hartnup disease?",
+                options: [
+                    "Hyperammonemia",
+                    "Pellagra-like symptoms",
+                    "Maple syrup odor",
+                    "Black urine"
+                ],
+                correct: 1,
+                explanation: "Hartnup disease is caused by defective neutral amino acid transport in kidney and intestine. Tryptophan malabsorption leads to niacin deficiency, causing pellagra-like symptoms (diarrhea, dermatitis, dementia). Treatment includes niacin supplementation and high-protein diet."
+            },
+            {
+                id: 37,
+                question: "What is the role of pepstatin in pharmacology?",
+                options: [
+                    "Activates pepsin",
+                    "Inhibits pepsin",
+                    "Stimulates gastric secretion",
+                    "Protects gastric mucosa"
+                ],
+                correct: 1,
+                explanation: "Pepstatin is a potent inhibitor of pepsin and other aspartic proteases. It is derived from Streptomyces and has been used to study pepsin function and develop anti-ulcer drugs. Modern proton pump inhibitors (omeprazole) are more effective for acid suppression."
+            },
+            {
+                id: 38,
+                question: "Which amino acid is the precursor for histamine?",
+                options: [
+                    "Histidine",
+                    "Tyrosine",
+                    "Tryptophan",
+                    "Phenylalanine"
+                ],
+                correct: 0,
+                explanation: "Histamine is synthesized from histidine by histidine decarboxylase. It acts as a neurotransmitter, gastric acid secretagogue, and inflammatory mediator. Antihistamines block H1 receptors (allergies) or H2 receptors (gastric acid). Mast cells store histamine for immediate release."
+            },
+            {
+                id: 39,
+                question: "What is the function of proteasomes in protein degradation?",
+                options: [
+                    "Lysosomal digestion",
+                    "Ubiquitin-independent degradation",
+                    "Degradation of ubiquitinated proteins",
+                    "Extracellular protein digestion"
+                ],
+                correct: 2,
+                explanation: "The 26S proteasome degrades polyubiquitinated proteins. It consists of a 20S catalytic core and 19S regulatory caps. Proteins are unfolded, deubiquitinated, and cleaved into peptides. Proteasome inhibitors (bortezomib) are used in cancer therapy to induce apoptosis."
+            },
+            {
+                id: 40,
+                question: "Which amino acid derivative is deficient in Parkinson's disease?",
+                options: [
+                    "Serotonin",
+                    "Dopamine",
+                    "Norepinephrine",
+                    "GABA"
+                ],
+                correct: 1,
+                explanation: "Parkinson's disease involves degeneration of dopaminergic neurons in substantia nigra, causing dopamine deficiency. Symptoms include tremor, rigidity, bradykinesia. Treatment includes L-DOPA (dopamine precursor that crosses BBB), dopamine agonists, and MAO-B inhibitors."
+            },
+            {
+                id: 41,
+                question: "What is the significance of the N-end rule in protein degradation?",
+                options: [
+                    "Determines protein localization",
+                    "Predicts protein half-life",
+                    "Regulates protein synthesis",
+                    "Controls protein folding"
+                ],
+                correct: 1,
+                explanation: "The N-end rule states that a protein's N-terminal amino acid influences its half-life. Destabilizing residues (Arg, Lys, Leu, Phe, Trp, Tyr) signal rapid degradation via ubiquitination. Stabilizing residues (Met, Ser, Ala, Thr, Val) confer longer half-lives. E3 ligases recognize these signals."
+            },
+            {
+                id: 42,
+                question: "Which enzyme is responsible for converting phenylalanine to tyrosine?",
+                options: [
+                    "Phenylalanine decarboxylase",
+                    "Phenylalanine hydroxylase",
+                    "Tyrosine aminotransferase",
+                    "Tyrosinase"
+                ],
+                correct: 1,
+                explanation: "Phenylalanine hydroxylase (PAH) converts phenylalanine to tyrosine using tetrahydrobiopterin (BH4) as cofactor. Deficiency causes PKU. BH4 is also cofactor for tyrosine hydroxylase and tryptophan hydroxylase. BH4 deficiency causes neurotransmitter deficiencies without hyperphenylalaninemia."
+            },
+            {
+                id: 43,
+                question: "What is the primary site of creatinine production?",
+                options: [
+                    "Liver",
+                    "Kidneys",
+                    "Muscle",
+                    "Pancreas"
+                ],
+                correct: 2,
+                explanation: "Creatinine is produced non-enzymatically from creatine phosphate in muscle at a constant rate proportional to muscle mass. It is filtered by kidneys and not reabsorbed. Serum creatinine and creatinine clearance are standard tests for renal function. Levels are higher in males and athletes."
+            },
+            {
+                id: 44,
+                question: "Which of the following is a feature of kwashiorkor?",
+                options: [
+                    "Severe muscle wasting",
+                    "Edema and fatty liver",
+                    "Both A and B",
+                    "Neither A nor B"
+                ],
+                correct: 1,
+                explanation: "Kwashiorkor is protein malnutrition with adequate calories, characterized by edema, fatty liver, skin lesions, and apathy. Marasmus is calorie and protein deficiency with severe muscle wasting. Both cause growth retardation and immune deficiency. Kwashiorkor has higher mortality."
+            },
+            {
+                id: 45,
+                question: "What is the role of SAM (S-adenosylmethionine) in metabolism?",
+                options: [
+                    "Ammonia transport",
+                    "Methyl group donor",
+                    "Antioxidant",
+                    "Energy storage"
+                ],
+                correct: 1,
+                explanation: "SAM is the major methyl group donor in methylation reactions (DNA, RNA, proteins, phospholipids, neurotransmitters). It is synthesized from methionine and ATP. After donating methyl, it becomes S-adenosylhomocysteine, then homocysteine. SAM is used clinically for depression and liver disease."
+            },
+            {
+                id: 46,
+                question: "Which amino acid is the precursor for GABA (gamma-aminobutyric acid)?",
+                options: [
+                    "Glutamate",
+                    "Glutamine",
+                    "Aspartate",
+                    "Glycine"
+                ],
+                correct: 0,
+                explanation: "GABA is synthesized from glutamate by glutamate decarboxylase (GAD), which requires vitamin B6. GABA is the major inhibitory neurotransmitter in the brain. GAD antibodies are found in type 1 diabetes and stiff-person syndrome. Benzodiazepines enhance GABA action."
+            },
+            {
+                id: 47,
+                question: "What is the function of calpains in protein degradation?",
+                options: [
+                    "Lysosomal digestion",
+                    "Calcium-dependent proteolysis",
+                    "Ubiquitin tagging",
+                    "Extracellular matrix remodeling"
+                ],
+                correct: 1,
+                explanation: "Calpains are calcium-dependent cysteine proteases that regulate specific proteolysis in response to calcium signals. They are inhibited by calpastatin. Calpains are involved in cell signaling, apoptosis, and muscle protein turnover. Overactivation occurs in ischemia and neurodegenerative diseases."
+            },
+            {
+                id: 48,
+                question: "Which amino acid is involved in the synthesis of purine nucleotides?",
+                options: [
+                    "Glycine",
+                    "Aspartate",
+                    "Glutamine",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Multiple amino acids contribute to purine synthesis: glycine (entire molecule), aspartate (N1), glutamine (N3, N9). Additionally, formate (from folate) provides C2, C8. Purine salvage uses hypoxanthine-guanine phosphoribosyltransferase (HGPRT). Deficiency causes Lesch-Nyhan syndrome."
+            },
+            {
+                id: 49,
+                question: "What is the significance of elevated blood urea nitrogen (BUN)?",
+                options: [
+                    "Liver dysfunction",
+                    "Renal dysfunction",
+                    "High protein intake",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Elevated BUN can indicate: (1) Renal dysfunction (reduced excretion), (2) High protein intake or catabolism (increased production), (3) Dehydration (pre-renal azotemia), (4) GI bleeding (blood protein digested). BUN:creatinine ratio helps distinguish causes (>20 suggests pre-renal, <10 suggests renal)."
+            },
+            {
+                id: 50,
+                question: "Which enzyme catalyzes the committed step in urea synthesis?",
+                options: [
+                    "Ornithine transcarbamoylase",
+                    "Carbamoyl phosphate synthetase I",
+                    "Argininosuccinate synthetase",
+                    "Arginase"
+                ],
+                correct: 1,
+                explanation: "Carbamoyl phosphate synthetase I (CPS-I) catalyzes the committed step: NH₃ + CO₂ + 2ATP → carbamoyl phosphate. It is mitochondrial, requires N-acetylglutamate, and is regulated by substrate availability. Deficiency causes severe hyperammonemia in neonates."
+            },
+            {
+                id: 51,
+                question: "What is the role of zinc in protein digestion?",
+                options: [
+                    "Cofactor for pepsin",
+                    "Cofactor for carboxypeptidase",
+                    "Activator of trypsin",
+                    "Inhibitor of elastase"
+                ],
+                correct: 1,
+                explanation: "Zinc is a cofactor for carboxypeptidase A and B (exopeptidases that remove C-terminal amino acids). Zinc deficiency impairs protein digestion, growth, and immune function. Other zinc metalloenzymes include carbonic anhydrase, alcohol dehydrogenase, and superoxide dismutase."
+            },
+            {
+                id: 52,
+                question: "Which amino acid is a precursor for carnitine synthesis?",
+                options: [
+                    "Lysine",
+                    "Methionine",
+                    "Both A and B",
+                    "Neither A nor B"
+                ],
+                correct: 2,
+                explanation: "Carnitine is synthesized from lysine (provides carbon skeleton) and methionine (provides methyl groups). Carnitine transports long-chain fatty acids into mitochondria for β-oxidation. Deficiency causes muscle weakness, hypoglycemia, and cardiomyopathy. It is conditionally essential in prematurity and dialysis."
+            },
+            {
+                id: 53,
+                question: "What is the function of γ-glutamyl cycle?",
+                options: [
+                    "Ammonia transport",
+                    "Amino acid transport across membranes",
+                    "Glutathione synthesis",
+                    "Urea synthesis"
+                ],
+                correct: 1,
+                explanation: "The γ-glutamyl cycle transports amino acids across cell membranes. γ-Glutamyl transpeptidase transfers γ-glutamyl from glutathione to amino acid, forming γ-glutamyl-amino acid (transported in). The cycle regenerates glutathione. Serum GGT is elevated in liver disease and alcohol abuse."
+            },
+            {
+                id: 54,
+                question: "Which amino acid is involved in the synthesis of phosphatidylcholine?",
+                options: [
+                    "Serine",
+                    "Methionine",
+                    "Both A and B",
+                    "Neither A nor B"
+                ],
+                correct: 2,
+                explanation: "Phosphatidylcholine (lecithin) synthesis involves: (1) Serine provides the backbone via phosphatidylserine decarboxylation, and (2) Methionine (as SAM) provides methyl groups for phosphatidylethanolamine methylation. Choline can also come from diet. Phosphatidylcholine is essential for membranes and lipoprotein structure."
+            },
+            {
+                id: 55,
+                question: "What is the significance of orotic aciduria in urea cycle disorders?",
+                options: [
+                    "Primary defect in pyrimidine synthesis",
+                    "Secondary to OTC deficiency",
+                    "Both A and B",
+                    "Neither A nor B"
+                ],
+                correct: 1,
+                explanation: "Orotic aciduria occurs secondarily in ornithine transcarbamoylase (OTC) deficiency. Carbamoyl phosphate accumulates in mitochondria, leaks to cytosol, and enters pyrimidine synthesis, producing excess orotic acid. Primary orotic aciduria is due to UMP synthase deficiency. Orotic acid in urine helps diagnose OTC deficiency."
+            },
+            {
+                id: 56,
+                question: "Which amino acid is the precursor for melanin?",
+                options: [
+                    "Tyrosine",
+                    "Tryptophan",
+                    "Phenylalanine",
+                    "Histidine"
+                ],
+                correct: 0,
+                explanation: "Melanin is synthesized from tyrosine via DOPA and dopaquinone, catalyzed by tyrosinase. Eumelanin (black/brown) and pheomelanin (red/yellow) differ based on cysteine incorporation. Melanin protects against UV radiation. Albinism results from tyrosinase deficiency or melanocyte defects."
+            },
+            {
+                id: 57,
+                question: "What is the role of autophagy in protein turnover?",
+                options: [
+                    "Degradation of extracellular proteins",
+                    "Lysosomal degradation of organelles",
+                    "Proteasomal degradation",
+                    "Calpain-mediated proteolysis"
+                ],
+                correct: 1,
+                explanation: "Autophagy is lysosomal degradation of damaged organelles and long-lived proteins. It is essential for cellular homeostasis, nutrient recycling, and removal of protein aggregates. Impaired autophagy occurs in aging and neurodegenerative diseases. The 2016 Nobel Prize was awarded for autophagy research."
+            },
+            {
+                id: 58,
+                question: "Which amino acid is a precursor for polyamine synthesis?",
+                options: [
+                    "Ornithine",
+                    "Arginine",
+                    "Methionine",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Polyamines (spermidine, spermine) are synthesized from ornithine (via ornithine decarboxylase, ODC) and methionine (as decarboxylated SAM). They stabilize DNA, promote cell growth, and are elevated in cancer. ODC is rate-limiting and highly regulated (short half-life). DFMO inhibits ODC."
+            },
+            {
+                id: 59,
+                question: "What is the function of angiotensin-converting enzyme (ACE)?",
+                options: [
+                    "Converts angiotensin I to II",
+                    "Inactivates bradykinin",
+                    "Both A and B",
+                    "Neither A nor B"
+                ],
+                correct: 2,
+                explanation: "ACE is a dipeptidyl carboxypeptidase that: (1) converts angiotensin I to vasoconstrictor angiotensin II, and (2) inactivates vasodilator bradykinin. ACE inhibitors (captopril, enalapril) lower blood pressure and are renoprotective. ACE is also found in granulomas (sarcoidosis)."
+            },
+            {
+                id: 60,
+                question: "Which vitamin is required for the conversion of homocysteine to methionine?",
+                options: [
+                    "Vitamin B6",
+                    "Vitamin B12",
+                    "Folate",
+                    "Both B and C"
+                ],
+                correct: 3,
+                explanation: "Homocysteine remethylation to methionine requires: (1) Vitamin B12 as cofactor for methionine synthase, and (2) Folate as 5-methyl-THF (methyl donor). Deficiencies cause megaloblastic anemia and hyperhomocysteinemia (cardiovascular risk). Betaine can also remethylate homocysteine via betaine-homocysteine methyltransferase."
+            }
+        ];
+
+        // Exam State
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let timeLeft = 60 * 60; // 60 minutes in seconds
+        let timerInterval;
+        let examCompleted = false;
+
+        // DOM Elements
+        const questionsPanel = document.getElementById('questions-panel');
+        const questionsGrid = document.getElementById('questions-grid');
+        const currentQuestionElement = document.getElementById('current-question');
+        const scoreElement = document.getElementById('score');
+        const panelScoreElement = document.getElementById('panel-score');
+        const progressFill = document.getElementById('progress-fill');
+        const progressPercent = document.getElementById('progress-percent');
+        const answeredCount = document.getElementById('answered-count');
+        const timerElement = document.getElementById('timer');
+        const timerValue = timerElement.querySelector('.timer-value');
+        const resultsModal = document.getElementById('results-modal');
+        const finalScoreElement = document.getElementById('final-score');
+        const finalCorrectElement = document.getElementById('final-correct');
+        const finalIncorrectElement = document.getElementById('final-incorrect');
+        const finalSkippedElement = document.getElementById('final-skipped');
+
+        // Initialize Exam
+        function initExam() {
+            // Render questions
+            questions.forEach((q, index) => {
+                // Create question container
+                const questionContainer = document.createElement('div');
+                questionContainer.className = `question-container ${index === 0 ? 'active' : ''}`;
+                questionContainer.id = `question-${index}`;
+                
+                // Question number
+                const questionNumber = document.createElement('div');
+                questionNumber.className = 'question-number';
+                questionNumber.innerHTML = `<i class="fas fa-question-circle"></i> Question ${q.id}`;
+                
+                // Question text
+                const questionText = document.createElement('div');
+                questionText.className = 'question-text';
+                questionText.textContent = q.question;
+                
+                // Options container
+                const optionsContainer = document.createElement('div');
+                optionsContainer.className = 'options-container';
+                
+                // Options
+                q.options.forEach((option, optIndex) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'option';
+                    optionElement.dataset.option = optIndex;
+                    
+                    const optionLabel = document.createElement('div');
+                    optionLabel.className = 'option-label';
+                    optionLabel.textContent = String.fromCharCode(65 + optIndex); // A, B, C, D
+                    
+                    const optionText = document.createElement('div');
+                    optionText.className = 'option-text';
+                    optionText.textContent = option;
+                    
+                    optionElement.appendChild(optionLabel);
+                    optionElement.appendChild(optionText);
+                    
+                    optionElement.addEventListener('click', () => selectOption(index, optIndex));
+                    optionsContainer.appendChild(optionElement);
+                });
+                
+                // Feedback container
+                const feedbackContainer = document.createElement('div');
+                feedbackContainer.className = 'feedback-container';
+                feedbackContainer.id = `feedback-${index}`;
+                
+                const feedbackHeader = document.createElement('div');
+                feedbackHeader.className = 'feedback-header';
+                
+                const feedbackExplanation = document.createElement('div');
+                feedbackExplanation.className = 'feedback-explanation';
+                
+                feedbackContainer.appendChild(feedbackHeader);
+                feedbackContainer.appendChild(feedbackExplanation);
+                
+                // Navigation - FIXED: Added Previous button for all except first question
+                const navigationContainer = document.createElement('div');
+                navigationContainer.className = 'navigation-container';
+                
+                // Previous button (not for first question)
+                if (index > 0) {
+                    const prevButton = document.createElement('button');
+                    prevButton.className = 'nav-btn prev-btn';
+                    prevButton.innerHTML = '<i class="fas fa-arrow-left"></i> Previous';
+                    prevButton.addEventListener('click', () => prevQuestion());
+                    navigationContainer.appendChild(prevButton);
+                } else {
+                    // Add empty div to maintain flex spacing
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.style.width = '120px'; // Match button width
+                    navigationContainer.appendChild(emptyDiv);
+                }
+                
+                // Next/Finish button
+                if (index < questions.length - 1) {
+                    const nextButton = document.createElement('button');
+                    nextButton.className = 'nav-btn next-btn';
+                    nextButton.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+                    nextButton.addEventListener('click', () => nextQuestion());
+                    navigationContainer.appendChild(nextButton);
+                } else {
+                    const finishButton = document.createElement('button');
+                    finishButton.className = 'nav-btn finish-btn';
+                    finishButton.innerHTML = '<i class="fas fa-flag-checkered"></i> Finish Exam';
+                    finishButton.addEventListener('click', finishExam);
+                    finishButton.id = 'finish-btn';
+                    navigationContainer.appendChild(finishButton);
+                }
+                
+                // Assemble question
+                questionContainer.appendChild(questionNumber);
+                questionContainer.appendChild(questionText);
+                questionContainer.appendChild(optionsContainer);
+                questionContainer.appendChild(feedbackContainer);
+                questionContainer.appendChild(navigationContainer);
+                
+                questionsPanel.appendChild(questionContainer);
+            });
+            
+            // Render question grid
+            questions.forEach((q, index) => {
+                const statusElement = document.createElement('div');
+                statusElement.className = 'question-status';
+                statusElement.textContent = q.id;
+                statusElement.dataset.question = index;
+                statusElement.addEventListener('click', () => goToQuestion(index));
+                
+                if (index === 0) {
+                    statusElement.classList.add('current');
+                }
+                
+                questionsGrid.appendChild(statusElement);
+            });
+            
+            // Update progress
+            updateProgress();
+            
+            // Start timer
+            startTimer();
+            
+            // Add event listener for review button
+            document.getElementById('review-btn').addEventListener('click', reviewExam);
+            document.getElementById('restart-btn').addEventListener('click', restartExam);
+            document.getElementById('close-btn').addEventListener('click', () => {
+                resultsModal.classList.remove('show');
+            });
+        }
+
+        // Select an option - FIXED: Now shows explanation immediately
+        function selectOption(questionIndex, optionIndex) {
+            if (examCompleted) return;
+            
+            const question = questions[questionIndex];
+            const optionElements = document.querySelectorAll(`#question-${questionIndex} .option`);
+            const feedbackContainer = document.getElementById(`feedback-${questionIndex}`);
+            const feedbackHeader = feedbackContainer.querySelector('.feedback-header');
+            const feedbackExplanation = feedbackContainer.querySelector('.feedback-explanation');
+            
+            // Remove selected class from all options
+            optionElements.forEach(opt => {
+                opt.classList.remove('selected');
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            // Add selected class to clicked option
+            optionElements[optionIndex].classList.add('selected');
+            
+            // Check if already answered
+            const previouslyAnswered = userAnswers[questionIndex] !== null;
+            
+            // Store answer
+            userAnswers[questionIndex] = optionIndex;
+            
+            // If not previously answered, increment answered count
+            if (!previouslyAnswered) {
+                answered++;
+                updateProgress();
+            }
+            
+            // Check if correct
+            const isCorrect = optionIndex === question.correct;
+            
+            // Update score if not previously answered
+            if (!previouslyAnswered && isCorrect) {
+                score++;
+                updateScore();
+            }
+            
+            // If previously answered incorrectly and now correct, adjust score
+            if (previouslyAnswered && userAnswers[questionIndex] !== question.correct && isCorrect) {
+                score++;
+                updateScore();
+            }
+            
+            // If previously answered correctly and now incorrect, adjust score
+            if (previouslyAnswered && userAnswers[questionIndex] === question.correct && !isCorrect) {
+                score--;
+                updateScore();
+            }
+            
+            // Show feedback - FIXED: Now shows immediately
+            optionElements[optionIndex].classList.add(isCorrect ? 'correct' : 'incorrect');
+            
+            // Highlight correct answer if wrong
+            if (!isCorrect) {
+                optionElements[question.correct].classList.add('correct');
+            }
+            
+            // Update question status in grid
+            updateQuestionStatus(questionIndex);
+            
+            // Show feedback explanation - FIXED: Now shows immediately
+            feedbackHeader.innerHTML = isCorrect ? 
+                `<i class="fas fa-check-circle"></i> Correct!` : 
+                `<i class="fas fa-times-circle"></i> Incorrect`;
+            feedbackHeader.className = `feedback-header ${isCorrect ? 'correct' : 'incorrect'}`;
+            
+            feedbackExplanation.textContent = question.explanation;
+            feedbackContainer.classList.add('show');
+            
+            // Scroll to feedback if it's not visible
+            setTimeout(() => {
+                feedbackContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 300);
+        }
+
+        // Navigate to previous question - NEW FUNCTION
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                // Hide current question
+                document.getElementById(`question-${currentQuestion}`).classList.remove('active');
+                
+                // Update current question status
+                document.querySelector(`.question-status[data-question="${currentQuestion}"]`).classList.remove('current');
+                
+                // Show previous question
+                currentQuestion--;
+                document.getElementById(`question-${currentQuestion}`).classList.add('active');
+                
+                // Update current question status
+                document.querySelector(`.question-status[data-question="${currentQuestion}"]`).classList.add('current');
+                
+                // Update current question display
+                currentQuestionElement.textContent = currentQuestion + 1;
+                
+                // Scroll to top of questions panel
+                questionsPanel.scrollTop = 0;
+            }
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                // Hide current question
+                document.getElementById(`question-${currentQuestion}`).classList.remove('active');
+                
+                // Update current question status
+                document.querySelector(`.question-status[data-question="${currentQuestion}"]`).classList.remove('current');
+                
+                // Show next question
+                currentQuestion++;
+                document.getElementById(`question-${currentQuestion}`).classList.add('active');
+                
+                // Update current question status
+                document.querySelector(`.question-status[data-question="${currentQuestion}"]`).classList.add('current');
+                
+                // Update current question display
+                currentQuestionElement.textContent = currentQuestion + 1;
+                
+                // Scroll to top of questions panel
+                questionsPanel.scrollTop = 0;
+            }
+        }
+
+        // Go to specific question
+        function goToQuestion(index) {
+            // Hide current question
+            document.getElementById(`question-${currentQuestion}`).classList.remove('active');
+            document.querySelector(`.question-status[data-question="${currentQuestion}"]`).classList.remove('current');
+            
+            // Show selected question
+            currentQuestion = index;
+            document.getElementById(`question-${currentQuestion}`).classList.add('active');
+            document.querySelector(`.question-status[data-question="${currentQuestion}"]`).classList.add('current');
+            
+            // Update current question display
+            currentQuestionElement.textContent = currentQuestion + 1;
+            
+            // Scroll to top of questions panel
+            questionsPanel.scrollTop = 0;
+        }
+
+        // Update question status in grid
+        function updateQuestionStatus(questionIndex) {
+            const statusElement = document.querySelector(`.question-status[data-question="${questionIndex}"]`);
+            const question = questions[questionIndex];
+            
+            if (userAnswers[questionIndex] !== null) {
+                const isCorrect = userAnswers[questionIndex] === question.correct;
+                statusElement.classList.add('answered');
+                statusElement.classList.toggle('correct', isCorrect);
+                statusElement.classList.toggle('incorrect', !isCorrect);
+            } else {
+                statusElement.classList.remove('answered', 'correct', 'incorrect');
+            }
+        }
+
+        // Update progress
+        function updateProgress() {
+            const percent = Math.round((answered / questions.length) * 100);
+            progressFill.style.width = `${percent}%`;
+            progressPercent.textContent = `${percent}%`;
+            answeredCount.textContent = answered;
+        }
+
+        // Update score
+        function updateScore() {
+            scoreElement.textContent = score;
+            panelScoreElement.textContent = score;
+        }
+
+        // Start timer
+        function startTimer() {
+            updateTimerDisplay();
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finishExam();
+                }
+            }, 1000);
+        }
+
+        // Update timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerValue.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update timer styling based on time remaining
+            timerElement.classList.remove('warning', 'critical');
+            if (timeLeft <= 10 * 60) { // 10 minutes left
+                timerElement.classList.add('warning');
+            }
+            if (timeLeft <= 5 * 60) { // 5 minutes left
+                timerElement.classList.add('critical');
+            }
+        }
+
+        // Finish exam
+        function finishExam() {
+            examCompleted = true;
+            clearInterval(timerInterval);
+            
+            // Calculate final score
+            const correctAnswers = questions.reduce((count, q, index) => {
+                return count + (userAnswers[index] === q.correct ? 1 : 0);
+            }, 0);
+            
+            const incorrectAnswers = questions.reduce((count, q, index) => {
+                return count + (userAnswers[index] !== null && userAnswers[index] !== q.correct ? 1 : 0);
+            }, 0);
+            
+            const skipped = questions.length - answered;
+            
+            const percentage = Math.round((correctAnswers / questions.length) * 100);
+            
+            // Update modal
+            finalScoreElement.textContent = `${percentage}%`;
+            finalCorrectElement.textContent = correctAnswers;
+            finalIncorrectElement.textContent = incorrectAnswers;
+            finalSkippedElement.textContent = skipped;
+            
+            // Show modal
+            resultsModal.classList.add('show');
+            
+            // Disable option selection
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+        }
+
+        // Review exam
+        function reviewExam() {
+            resultsModal.classList.remove('show');
+            examCompleted = false;
+            
+            // Go to first question
+            goToQuestion(0);
+            
+            // Enable option selection
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.style.pointerEvents = 'auto';
+            });
+            
+            // Show all feedback for answered questions
+            questions.forEach((q, index) => {
+                if (userAnswers[index] !== null) {
+                    const feedbackContainer = document.getElementById(`feedback-${index}`);
+                    const feedbackHeader = feedbackContainer.querySelector('.feedback-header');
+                    const feedbackExplanation = feedbackContainer.querySelector('.feedback-explanation');
+                    
+                    const isCorrect = userAnswers[index] === q.correct;
+                    feedbackHeader.innerHTML = isCorrect ? 
+                        `<i class="fas fa-check-circle"></i> Correct!` : 
+                        `<i class="fas fa-times-circle"></i> Incorrect`;
+                    feedbackHeader.className = `feedback-header ${isCorrect ? 'correct' : 'incorrect'}`;
+                    
+                    feedbackExplanation.textContent = q.explanation;
+                    feedbackContainer.classList.add('show');
+                }
+            });
+        }
+
+        // Restart exam
+        function restartExam() {
+            if (!confirm('Are you sure you want to restart the exam? All progress will be lost.')) {
+                return;
+            }
+            
+            // Reset state
+            currentQuestion = 0;
+            score = 0;
+            answered = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            timeLeft = 60 * 60;
+            examCompleted = false;
+            
+            // Reset UI
+            resultsModal.classList.remove('show');
+            
+            // Reset questions
+            document.querySelectorAll('.question-container').forEach((container, index) => {
+                container.classList.remove('active');
+                if (index === 0) container.classList.add('active');
+                
+                // Reset options
+                container.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                    opt.style.pointerEvents = 'auto';
+                });
+                
+                // Hide feedback
+                const feedbackContainer = document.getElementById(`feedback-${index}`);
+                feedbackContainer.classList.remove('show');
+            });
+            
+            // Reset grid
+            document.querySelectorAll('.question-status').forEach((status, index) => {
+                status.classList.remove('answered', 'correct', 'incorrect', 'current');
+                if (index === 0) status.classList.add('current');
+            });
+            
+            // Reset displays
+            currentQuestionElement.textContent = '1';
+            scoreElement.textContent = '0';
+            panelScoreElement.textContent = '0';
+            updateProgress();
+            
+            // Restart timer
+            clearInterval(timerInterval);
+            startTimer();
+            
+            // Go to first question
+            goToQuestion(0);
+        }
+
+        // Initialize exam when page loads
+        window.addEventListener('DOMContentLoaded', initExam);
+    </script>
+</body>
+  </html>2
