@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physiology | Pharmacy Year 2 | MedQuiz</title>
+    <title>Biochemistry | Pharmacy Year 2 | MedQuiz</title>
     <style>
-/* Root colors */
+/* Root colors - Biochemistry Theme */
 :root {
-    --primary: #0077cc;
-    --primary-dark: #005fa3;
-    --secondary: #6a11cb;
-    --light-bg: #f9fafc;
+    --primary: #9c27b0;
+    --primary-dark: #7b1fa2;
+    --secondary: #673ab7;
+    --accent: #e91e63;
+    --light-bg: #faf5ff;
     --card-bg: #ffffff;
-    --text-dark: #333;
-    --text-light: #555;
-    --success: #2ecc71;
+    --text-dark: #2c2c2c;
+    --text-light: #5d5d5d;
+    --success: #4caf50;
+    --molecule-color: #00bcd4;
+    --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--accent) 0%, #ff4081 100%);
 }
 
 /* Reset */
@@ -22,7 +26,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 /* Body */
@@ -31,52 +35,96 @@ body {
     color: var(--text-dark);
     min-height: 100vh;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
-/* Header */
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    border-radius: 10px;
+}
+
+/* Header - Sticky */
 .dashboard-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    background: var(--gradient-primary);
     color: #fff;
     padding: 18px 25px;
-    border-radius: 0 0 15px 15px;
     flex-wrap: wrap;
-    box-shadow: 0 4px 12px rgba(0, 119, 204, 0.15);
+    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.25);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .dashboard-header .header-content span {
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: 1.8rem;
+    font-weight: 800;
     letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-icon {
+    font-size: 2rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
 .dashboard-header .header-subtitle {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: rgba(255, 255, 255, 0.9);
-    margin-top: 5px;
+    margin-top: 8px;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
 }
 
-.logout-btn {
+.dashboard-header .header-subtitle .path-item {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.nav-btn {
     background-color: rgba(255, 255, 255, 0.9);
     color: var(--primary);
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 700;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-.logout-btn:hover {
+
+.nav-btn:hover {
     background-color: #fff;
     color: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Breadcrumb */
@@ -84,18 +132,27 @@ body {
     padding: 20px 25px;
     font-size: 0.95rem;
     background-color: var(--light-bg);
+    position: sticky;
+    top: 80px;
+    z-index: 99;
+    backdrop-filter: blur(10px);
+    background-color: rgba(249, 245, 255, 0.9);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .breadcrumb a {
     text-decoration: none;
     color: var(--primary);
-    transition: color 0.2s;
-    font-weight: 500;
+    transition: all 0.2s;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
 }
 
 .breadcrumb a:hover {
     color: var(--primary-dark);
-    text-decoration: underline;
+    background-color: rgba(156, 39, 176, 0.1);
+    text-decoration: none;
 }
 
 .breadcrumb .separator {
@@ -107,107 +164,157 @@ body {
 /* Overview card */
 .department-overview {
     padding: 15px 25px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .overview-card {
     background-color: var(--card-bg);
-    border-radius: 18px;
-    padding: 25px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-    margin-bottom: 25px;
-    border-left: 5px solid var(--primary);
-    transition: transform 0.3s ease;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    border-left: 6px solid var(--primary);
+    transition: transform 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.overview-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%239c27b0' opacity='0.05' d='M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50'%3E%3C/path%3E%3C/svg%3E");
+    background-size: contain;
+    opacity: 0.5;
 }
 
 .overview-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
 .overview-card h2 {
-    font-size: 1.8rem;
-    margin-bottom: 12px;
+    font-size: 2rem;
+    margin-bottom: 15px;
     color: var(--primary);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .overview-card p {
     color: var(--text-light);
-    margin-bottom: 20px;
-    font-size: 1.05rem;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
     max-width: 800px;
+    line-height: 1.7;
 }
 
 /* Stats */
 .subject-stats {
     display: flex;
     gap: 30px;
-    margin-top: 20px;
+    margin-top: 25px;
+    flex-wrap: wrap;
 }
 
 .stat {
     text-align: center;
-    padding: 15px;
-    border-radius: 12px;
-    background-color: rgba(0, 119, 204, 0.05);
-    min-width: 100px;
-    transition: background-color 0.3s;
+    padding: 20px;
+    border-radius: 16px;
+    background-color: rgba(156, 39, 176, 0.05);
+    min-width: 120px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-primary);
 }
 
 .stat:hover {
-    background-color: rgba(0, 119, 204, 0.1);
+    background-color: rgba(156, 39, 176, 0.1);
+    transform: translateY(-5px);
 }
 
 .stat-number {
-    font-size: 1.8rem;
-    font-weight: 800;
+    font-size: 2.2rem;
+    font-weight: 900;
     color: var(--primary);
     margin-bottom: 5px;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .stat-label {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-light);
-    font-weight: 500;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Category title */
 .category-title {
     display: flex;
     align-items: center;
-    font-weight: 700;
-    font-size: 1.3rem;
-    margin: 30px 25px 20px;
-    gap: 10px;
+    font-weight: 800;
+    font-size: 1.5rem;
+    margin: 30px 25px 25px;
+    gap: 15px;
     color: var(--text-dark);
-    padding-bottom: 10px;
-    border-bottom: 2px solid rgba(0, 119, 204, 0.1);
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(156, 39, 176, 0.15);
+}
+
+.category-icon {
+    font-size: 1.8rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Parts grid */
 .parts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-    padding: 0 25px 40px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 0 25px 50px;
 }
 
 .part-card {
     background-color: var(--card-bg);
-    border-radius: 16px;
-    padding: 22px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     text-decoration: none;
     color: var(--text-dark);
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    border-top: 4px solid transparent;
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .part-card::before {
@@ -217,18 +324,17 @@ body {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
-    opacity: 0;
-    transition: opacity 0.3s;
+    background: var(--gradient-primary);
+    transition: height 0.3s;
 }
 
 .part-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(156, 39, 176, 0.15);
 }
 
 .part-card:hover::before {
-    opacity: 1;
+    height: 6px;
 }
 
 /* Part header */
@@ -236,13 +342,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     gap: 10px;
 }
 
 .part-header h4 {
-    font-size: 1.15rem;
-    font-weight: 700;
+    font-size: 1.3rem;
+    font-weight: 800;
     color: var(--text-dark);
     line-height: 1.4;
     flex: 1;
@@ -250,40 +356,45 @@ body {
 
 .part-card p {
     color: var(--text-light);
-    font-size: 0.95rem;
-    margin: 10px 0 15px;
-    line-height: 1.5;
+    font-size: 1rem;
+    margin: 15px 0 20px;
+    line-height: 1.6;
     flex: 1;
 }
 
 .part-badge {
-    background: linear-gradient(135deg, var(--success) 0%, #27ae60 100%);
+    background: var(--gradient-accent);
     color: #fff;
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
 }
 
 /* Part info */
 .part-info {
     display: flex;
     justify-content: space-between;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--text-light);
-    margin-top: 15px;
-    padding-top: 15px;
+    margin-top: 20px;
+    padding-top: 18px;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .part-info span {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-weight: 500;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.info-icon {
+    font-size: 1.2rem;
 }
 
 /* Protection overlay */
@@ -293,103 +404,189 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.92);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
 }
 
 .protection-modal {
     background-color: #fff;
-    padding: 35px 40px;
-    border-radius: 20px;
+    padding: 40px 45px;
+    border-radius: 24px;
     text-align: center;
-    max-width: 420px;
+    max-width: 450px;
     width: 90%;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    animation: modalAppear 0.5s ease-out;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    animation: modalAppear 0.6s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @keyframes modalAppear {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-30px) scale(0.95);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
 .protection-modal h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
     color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.protection-modal p {
+    color: var(--text-light);
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.protection-modal .btn-primary {
+    background: var(--gradient-primary);
+    color: #fff;
+    padding: 16px 40px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(156, 39, 176, 0.4);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.protection-modal .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(156, 39, 176, 0.5);
+}
+
+/* Footer */
+.dashboard-footer {
+    background: var(--gradient-primary);
+    color: #fff;
+    padding: 30px 25px;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
+    margin-top: 40px;
+    box-shadow: 0 -5px 20px rgba(156, 39, 176, 0.2);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
 
-.protection-modal p {
-    color: var(--text-light);
-    margin-bottom: 25px;
-    font-size: 1.05rem;
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+    flex-wrap: wrap;
 }
 
-.protection-modal .btn-primary {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+.footer-links a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+.footer-links a:hover {
     color: #fff;
-    padding: 12px 30px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 119, 204, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.protection-modal .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 119, 204, 0.4);
+.footer-copyright {
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+/* Floating molecule animation */
+.floating-molecule {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.1;
+    animation: floatAround 20s linear infinite;
+}
+
+@keyframes floatAround {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(100px, 100px) rotate(90deg); }
+    50% { transform: translate(0, 200px) rotate(180deg); }
+    75% { transform: translate(-100px, 100px) rotate(270deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+    .parts-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
     .dashboard-header {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
         text-align: center;
         padding: 20px 15px;
+        position: relative;
     }
     
     .header-content {
         width: 100%;
     }
     
-    .logout-btn {
+    .nav-btn {
         width: 100%;
-        max-width: 200px;
+        max-width: 250px;
+        justify-content: center;
     }
     
     .subject-stats {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
         align-items: center;
     }
     
     .stat {
         width: 100%;
-        max-width: 200px;
+        max-width: 250px;
     }
     
     .parts-grid {
         grid-template-columns: 1fr;
         padding: 0 15px 30px;
-        gap: 20px;
+        gap: 25px;
     }
     
     .overview-card, .breadcrumb, .category-title {
@@ -398,38 +595,37 @@ body {
     }
     
     .overview-card h2 {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
     }
 }
 
 @media (max-width: 480px) {
     .protection-modal {
-        padding: 25px 20px;
+        padding: 30px 20px;
     }
     
     .stat-number {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
     
     .part-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 15px;
     }
     
     .part-badge {
         align-self: flex-start;
     }
-}
-
-/* Fix for nested headings in cards */
-.part-card h1,
-.part-card h2 {
-    display: inline;
-    font-size: inherit;
-    font-weight: inherit;
-    margin: 0;
-    padding: 0;
+    
+    .overview-card {
+        padding: 25px 20px;
+    }
 }
 
 /* Ensure all links have consistent cursor */
@@ -441,158 +637,277 @@ a {
 html {
     scroll-behavior: smooth;
 }
+
+/* Loading animation */
+.loading-spinner {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+}
+
+.loading-spinner.active {
+    display: block;
+}
+
+/* Card hover effects */
+.part-card .molecule-icon {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    font-size: 2.5rem;
+    opacity: 0.1;
+    transition: opacity 0.3s;
+}
+
+.part-card:hover .molecule-icon {
+    opacity: 0.2;
+}
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
 <!-- Protection -->
 <div id="protection-overlay" class="protection-overlay" style="display:none;">
     <div class="protection-modal">
-        <h3>🔒 Access Required</h3>
-        <p>Please login to access this content</p>
-        <button onclick="window.location.href='../../dashboard.html'" class="btn-primary">Go to Dashboard</button>
+        <h3><i class="fas fa-lock"></i> Access Required</h3>
+        <p>Please login to access Biochemistry course materials</p>
+        <button onclick="window.location.href='../../dashboard.html'" class="btn-primary">
+            <i class="fas fa-sign-in-alt"></i> Go to Dashboard
+        </button>
     </div>
 </div>
+
+<!-- Floating molecules for visual effect -->
+<div class="floating-molecule" style="top:10%; left:5%; animation-delay: 0s;">🧬</div>
+<div class="floating-molecule" style="top:20%; right:8%; animation-delay: 5s;">⚗️</div>
+<div class="floating-molecule" style="bottom:30%; left:10%; animation-delay: 10s;">🧪</div>
+<div class="floating-molecule" style="bottom:20%; right:15%; animation-delay: 15s;">🔬</div>
 
 <!-- Header -->
 <header class="dashboard-header">
     <div class="header-content">
-        <span>Physiology</span>
-        <div class="header-subtitle">Pharmacy → Year 2 → Session 1</div>
+        <span><span class="header-icon">🧬</span> Biochemistry</span>
+        <div class="header-subtitle">
+            <span class="path-item">Pharmacy</span>
+            <i class="fas fa-chevron-right"></i>
+            <span class="path-item">Year 2</span>
+            <i class="fas fa-chevron-right"></i>
+            <span class="path-item">Session 1</span>
+        </div>
     </div>
-    <button onclick="goBackToSession1()" class="logout-btn">Back to Session 1</button>
+    <button onclick="goBackToSession1()" class="nav-btn">
+        <i class="fas fa-arrow-left"></i> Back to Session 1
+    </button>
 </header>
 
 <!-- Breadcrumb -->
 <div class="dashboard-container">
     <div class="breadcrumb">
-        <a href="../../dashboard.html">Dashboard</a>
-        <span class="separator">></span>
-        <a href="../pharmacy.html">Pharmacy</a>
-        <span class="separator">></span>
-        <a href="../year2.html">Year 2</a>
-        <span class="separator">></span>
-        <a href="../session1.html">Session 1</a>
-        <span class="separator">></span>
-        <span>Physiology</span>
+        <a href="../../dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+        <span class="separator">/</span>
+        <a href="../pharmacy.html"><i class="fas fa-pills"></i> Pharmacy</a>
+        <span class="separator">/</span>
+        <a href="../year2.html"><i class="fas fa-graduation-cap"></i> Year 2</a>
+        <span class="separator">/</span>
+        <a href="../session1.html"><i class="fas fa-book-open"></i> Session 1</a>
+        <span class="separator">/</span>
+        <span style="color: var(--primary); font-weight: 700;"><i class="fas fa-dna"></i> Biochemistry</span>
     </div>
 
     <!-- Overview -->
     <div class="department-overview">
         <div class="overview-card">
-            <h2>🫀 Physiology</h2>
-            <p>Study of normal body functions across major organ systems.</p>
+            <h2><i class="fas fa-dna"></i> Biochemistry</h2>
+            <p>Study of chemical processes within living organisms. Explore the molecular mechanisms that underlie all cellular functions, from metabolism and gene expression to protein synthesis and signal transduction.</p>
 
             <div class="subject-stats">
-                <div class="stat"><div class="stat-number">10+</div><div class="stat-label">Parts</div></div>
-                <div class="stat"><div class="stat-number">200+</div><div class="stat-label">Questions</div></div>
+                <div class="stat"><div class="stat-number">11</div><div class="stat-label">Modules</div></div>
+                <div class="stat"><div class="stat-number">240+</div><div class="stat-label">Questions</div></div>
                 <div class="stat"><div class="stat-number">100%</div><div class="stat-label">Complete</div></div>
+                <div class="stat"><div class="stat-number">9</div><div class="stat-label">Exams</div></div>
             </div>
         </div>
     </div>
 
     <!-- Parts -->
-    <div class="category-title"><span><h1>📚</h1></span> Course Parts</div>
+    <div class="category-title">
+        <span class="category-icon"><i class="fas fa-atom"></i></span> 
+        <h1>Course Modules</h1>
+    </div>
 
     <div class="parts-grid">
         <a href="Note1.html" class="part-card">
             <div class="part-header">
-                <h4>Short Note: A Comprehensive Guide GIT</h4>
+                <h4>Note 1: Amino Acids & Protein Structure</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>Detailed notes on gastrointestinal system physiology</p>
-            <div class="part-info"><span>🔬 Note 1</span><span>⏱ Reading</span></div>
+            <p>Comprehensive guide to amino acid chemistry, peptide bonds, and protein structure hierarchies</p>
+            <div class="part-info">
+                <span><i class="fas fa-book info-icon"></i> Detailed Notes</span>
+                <span><i class="fas fa-clock info-icon"></i> 45 min read</span>
+            </div>
+            <div class="molecule-icon">🧬</div>
         </a>
         
         <a href="note2.html" class="part-card">
             <div class="part-header">
-                <h4>Short Note 2:  comprehensive Endocrine Mastery</h4>
+                <h4>Note 2: Enzymes & Catalysis</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>Comprehensive endocrine system notes and concepts</p>
-            <div class="part-info"><span>🔬 Note 2</span><span> Endocrine System</span></div>
+            <p>Enzyme kinetics, mechanisms, inhibition, and regulation of metabolic pathways</p>
+            <div class="part-info">
+                <span><i class="fas fa-vial info-icon"></i> Enzyme Theory</span>
+                <span><i class="fas fa-chart-line info-icon"></i> Kinetics</span>
+            </div>
+            <div class="molecule-icon">⚗️</div>
         </a>
         
         <a href="Part1.html" class="part-card">
             <div class="part-header">
-                <h4>Part 1: GIT ECT exam</h4>
+                <h4>Part 1: Biomolecules Fundamentals</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>Multiple choice exam on gastrointestinal physiology</p>
-            <div class="part-info"><span>🔬 70 Qs</span><span>⏱ 65 min</span></div>
+            <p>Carbohydrates, lipids, nucleic acids - structure, function and clinical correlations</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 60 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 55 min</span>
+            </div>
+            <div class="molecule-icon">🍬</div>
         </a>
 
         <a href="Part2.html" class="part-card">
             <div class="part-header">
-                <h4>Part 2: GIT secretory function </h4>
+                <h4>Part 2: Metabolic Pathways I</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>Advanced gastrointestinal system examination</p>
-            <div class="part-info"><span>🔬 50+ Qs</span><span>⏱ 1 hr</span></div>
+            <p>Glycolysis, gluconeogenesis, TCA cycle, and glycogen metabolism with regulation</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 65+ Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 60 min</span>
+            </div>
+            <div class="molecule-icon">🔥</div>
         </a>
 
         <a href="part3.html" class="part-card">
             <div class="part-header">
-                <h4>Part 3: Endocrine Basics</h4>
+                <h4>Part 3: Metabolic Pathways II</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>Hormone Basics & Pituitary Gland</p>
-            <div class="part-info"><span>🔬 40 Qs</span><span>⏱ 50 min</span></div>
+            <p>Oxidative phosphorylation, electron transport chain, and ATP synthesis mechanisms</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 50 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 50 min</span>
+            </div>
+            <div class="molecule-icon">⚡</div>
         </a>
 
         <a href="Part4.html" class="part-card">
             <div class="part-header">
-                <h4>Part 4: Endocrine Advanced</h4>
+                <h4>Part 4: Lipid Metabolism</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>Thyroid & Adrenal Glands</p>
-            <div class="part-info"><span>🔬 60+ Qs</span><span>⏱ 60 min</span></div>
+            <p>Fatty acid synthesis & oxidation, cholesterol metabolism, and lipid transport</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 55+ Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 60 min</span>
+            </div>
+            <div class="molecule-icon">🩸</div>
         </a>
         
         <a href="Part5.html" class="part-card">
             <div class="part-header">
-                <h4>Part 5: Endocrine Systems</h4>
+                <h4>Part 5: Nitrogen Metabolism</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>Parathyroid gland, calcium homeostasis, endocrine pancreas and diabetes</p>
-            <div class="part-info"><span>🔬 40 Qs</span><span>⏱ 50 min</span></div>
+            <p>Amino acid metabolism, urea cycle, nucleotide synthesis and degradation</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 45 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 50 min</span>
+            </div>
+            <div class="molecule-icon">🧪</div>
         </a>
         
         <a href="Part6.html" class="part-card">
             <div class="part-header">
-                <h4>Part 6:GIT secretory function exam2</h4>
+                <h4>Part 6: Molecular Biology Basics</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>Kidney, filtration, GI motility, digestion</p>
-            <div class="part-info"><span>🔬 40 Qs</span><span>⏱ 50 min</span></div>
+            <p>DNA replication, transcription, translation, and regulation of gene expression</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 60 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 55 min</span>
+            </div>
+            <div class="molecule-icon">🧬</div>
         </a> 
         
         <a href="Part7.html" class="part-card">
             <div class="part-header">
-                <h4>Part 7:GIT Digestion and absorbtion</h4>
+                <h4>Part 7: Clinical Biochemistry</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>Advanced renal and gastrointestinal physiology</p>
-            <div class="part-info"><span>🔬 40 Qs</span><span>⏱ 50 min</span></div>
+            <p>Diagnostic enzymes, organ function tests, and biochemical basis of diseases</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 50 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 50 min</span>
+            </div>
+            <div class="molecule-icon">🏥</div>
         </a>
         
         <a href="part8.html" class="part-card">
             <div class="part-header">
-                <h4> complete GIT system note </h4>
+                <h4>Part 8: Vitamins & Minerals</h4>
                 <div class="part-badge">Available</div>
             </div>
-            <p>physiology</p>
-            <div class="part-info"><span>🔬 note3</span><span>⏱ Complete GIT</span></div>
+            <p>Coenzymes, vitamins, essential minerals and their biochemical functions</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 40 Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 45 min</span>
+            </div>
+            <div class="molecule-icon">💊</div>
         </a>
         
         <a href="Part9.html" class="part-card">
             <div class="part-header">
-                <h4>Comprehensive GI system exam </h4>
-                <div class="part-badge">available</div>
+                <h4>Part 9: Comprehensive Final Exam</h4>
+                <div class="part-badge">Available</div>
             </div>
-            <p>High-yield revision notes, diagrams, key points,</p>
-            <div class="part-info"><span>90+ question</span><span>⏱ 90 min</span></div>
+            <p>Complete biochemistry review with high-yield questions from all topics</p>
+            <div class="part-info">
+                <span><i class="fas fa-question-circle info-icon"></i> 100+ Qs</span>
+                <span><i class="fas fa-clock info-icon"></i> 90 min</span>
+            </div>
+            <div class="molecule-icon">🏆</div>
         </a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="dashboard-footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <i class="fas fa-dna"></i> MedQuiz Biochemistry
+        </div>
+        <div class="footer-links">
+            <a href="../../dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="../pharmacy.html"><i class="fas fa-pills"></i> Pharmacy</a>
+            <a href="../../about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="../../contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="../../privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2023 MedQuiz. All rights reserved. | Pharmacy Year 2 - Biochemistry Module
+        </div>
+    </div>
+</footer>
+
+<!-- Loading Spinner -->
+<div id="loading-spinner" class="loading-spinner" style="display:none;">
+    <div style="font-size: 3rem; color: var(--primary);">
+        <i class="fas fa-atom fa-spin"></i>
     </div>
 </div>
 
@@ -600,13 +915,64 @@ html {
 <script src="../../script.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Check authentication
     if (!window.authSystem || !window.authSystem.isAuthenticated()) {
         document.getElementById('protection-overlay').style.display = 'flex';
     }
+    
+    // Add loading animation for links
+    const links = document.querySelectorAll('.part-card, .nav-btn, .breadcrumb a');
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (this.getAttribute('href') && !this.getAttribute('href').startsWith('#')) {
+                document.getElementById('loading-spinner').style.display = 'block';
+            }
+        });
+    });
+    
+    // Remove loading spinner when page is fully loaded
+    window.addEventListener('load', function() {
+        document.getElementById('loading-spinner').style.display = 'none';
+    });
 });
+
 function goBackToSession1() {
-    window.location.href = '../session1.html';
+    document.getElementById('loading-spinner').style.display = 'block';
+    setTimeout(() => {
+        window.location.href = '../session1.html';
+    }, 300);
 }
+
+// Add floating animation to cards on scroll
+window.addEventListener('scroll', function() {
+    const cards = document.querySelectorAll('.part-card');
+    cards.forEach((card, index) => {
+        const cardTop = card.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (cardTop < windowHeight - 100) {
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        }
+    });
+});
+
+// Initialize card animations
+window.addEventListener('load', function() {
+    const cards = document.querySelectorAll('.part-card');
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
+    
+    // Trigger scroll event to animate cards in view
+    setTimeout(() => {
+        window.dispatchEvent(new Event('scroll'));
+    }, 300);
+});
 </script>
 
 </body>
