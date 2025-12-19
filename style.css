@@ -751,93 +751,7 @@ footer {
     .footer-section h4 {
         color: #63b3ed;
     }
-    /* Header - Mobile Optimized */
-.header {
-    background: #ffffff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 0;
-    margin-bottom: 20px;
-    border-bottom: 3px solid #4299e1;
-}
-
-/* Header top row with logout button */
-.header-top {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 8px 15px;
-    background: #f7fafc;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.logout-btn {
-    background: linear-gradient(135deg, #f56565 0%, #ed8936 100%);
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    min-height: 36px;
-    transition: all 0.2s;
-    box-shadow: 0 2px 5px rgba(237, 137, 54, 0.3);
-    margin-right: auto; /* Pushes to left */
-}
-
-.logout-btn:active {
-    transform: scale(0.95);
-}
-
-/* Logo container to fill horizontal space */
-.header-logo-container {
-    width: 100%;
-    padding: 10px 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #4299e1 0%, #2b6cb0 100%);
-}
-
-.logo {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    max-height: 80px;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    border: 3px solid white;
-}
-
-/* Header content/subtitle */
-.header-content {
-    padding: 10px 15px;
-    background: #ffffff;
-    text-align: center;
-    border-top: 1px solid #e2e8f0;
-}
-
-.header-subtitle {
-    font-size: 0.85rem;
-    color: #4a5568;
-    font-weight: 500;
-    line-height: 1.4;
-}
-
-/* Tablet and larger screens */
-@media (min-width: 481px) and (max-width: 768px) {
-    .header {
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .header-top {
-        padding: 10px 20px;
-    }
+        }
     
     .header-logo-container {
         padding: 15px 20px;
@@ -920,4 +834,103 @@ footer {
         padding-right: max(15px, env(safe-area-inset-right));
     }
         }
+/* Alternative Header Layout */
+.header {
+    background: #ffffff;
+    padding: 0;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #4299e1 0%, #2b6cb0 100%);
+}
+
+.logout-btn {
+    background: linear-gradient(135deg, #f56565 0%, #ed8936 100%);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 36px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(237, 137, 54, 0.3);
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.logout-btn:active {
+    transform: scale(0.95);
+}
+
+.logo-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    max-height: 60px;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border: 3px solid white;
+}
+
+.header-subtitle {
+    background: #ffffff;
+    padding: 10px 15px;
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.85rem;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (min-width: 481px) {
+    .header-main {
+        padding: 12px 20px;
+    }
+    
+    .logo {
+        max-width: 350px;
+        max-height: 80px;
+    }
+    
+    .header-subtitle {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .header-main {
+        padding: 15px 30px;
+    }
+    
+    .logo {
+        max-width: 400px;
+        max-height: 100px;
+    }
+    
+    .header-subtitle {
+        padding: 15px 30px;
+        font-size: 1rem;
+    }
+}
   }
