@@ -3,532 +3,1523 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microbiology Study Guide - Pathology Focus</title>
+    <title>Immunopathology Quiz | Chapter 7</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        /* style.css - Universal quiz styling */
+:root {
+    --primary: #3498db;
+    --secondary: #2c3e50;
+    --success: #2ecc71;
+    --danger: #e74c3c;
+    --warning: #f39c12;
+    --light: #ecf0f1;
+    --dark: #34495e;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
 
-        :root {
-            --primary: #1a6eb5;
-            --primary-dark: #0c3a6b;
-            --secondary: #2ecc71;
-            --light: #f5f9fc;
-            --dark: #333;
-            --gray: #777;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: var(--dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 20px;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
 
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 30px 0;
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
+header {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
 
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
 
-        .header-text {
-            flex: 1;
-            min-width: 300px;
-        }
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
+.quiz-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background-color: var(--light);
+    border-bottom: 1px solid #ddd;
+}
 
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
+.timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--danger);
+}
 
-        .microbe-icon {
-            width: 150px;
-            height: 150px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            margin-left: 20px;
-        }
+.progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .section {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        }
+.progress-bar {
+    width: 200px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
 
-        h2 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #eaeaea;
-        }
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary);
+    width: 0%;
+    transition: var(--transition);
+}
 
-        h3 {
-            color: var(--primary-dark);
-            margin: 20px 0 10px;
-        }
+.quiz-container {
+    padding: 30px;
+}
 
-        .concept-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
+.question-container {
+    margin-bottom: 30px;
+}
 
-        .concept-card {
-            background: #f0f7ff;
-            border-left: 4px solid var(--primary);
-            padding: 20px;
-            border-radius: 5px;
-            transition: transform 0.3s ease;
-        }
+.question-number {
+    font-size: 1.1rem;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
 
-        .concept-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
+.question-text {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
 
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
+.options-container {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 25px;
+}
 
-        .video-card {
-            background: #f8f9fa;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+.option {
+    padding: 15px;
+    background-color: var(--light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
 
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%;
-        }
+.option:hover {
+    background-color: #e0e7ee;
+    transform: translateY(-2px);
+}
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+.option.selected {
+    border-color: var(--primary);
+    background-color: rgba(52, 152, 219, 0.1);
+}
 
-        .video-info {
-            padding: 15px;
-        }
+.option.correct {
+    border-color: var(--success);
+    background-color: rgba(46, 204, 113, 0.1);
+}
 
-        .video-info h4 {
-            margin-bottom: 10px;
-            color: var(--primary-dark);
-        }
+.option.incorrect {
+    border-color: var(--danger);
+    background-color: rgba(231, 76, 60, 0.1);
+}
 
-        .channel-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+.explanation-container {
+    padding: 20px;
+    background-color: rgba(52, 152, 219, 0.05);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: none;
+}
 
-        .channel-table th, .channel-table td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
+.explanation-title {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
 
-        .channel-table th {
-            background-color: var(--primary);
-            color: white;
-        }
+.memory-tip {
+    background-color: rgba(243, 156, 18, 0.1);
+    padding: 15px;
+    border-left: 4px solid var(--warning);
+    margin-top: 15px;
+    border-radius: 0 8px 8px 0;
+}
 
-        .channel-table tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+.memory-tip-title {
+    font-weight: 600;
+    color: var(--warning);
+    margin-bottom: 5px;
+}
 
-        .channel-table tr:hover {
-            background-color: #e9ecef;
-        }
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
 
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
 
-        .tip-card {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-            border-top: 4px solid var(--primary);
-        }
+.btn-prev {
+    background-color: var(--light);
+    color: var(--dark);
+}
 
-        .tip-card h4 {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+.btn-next {
+    background-color: var(--primary);
+    color: white;
+}
 
-        .tip-icon {
-            margin-right: 10px;
-            color: var(--primary);
-        }
+.btn-submit {
+    background-color: var(--success);
+    color: white;
+    display: none;
+}
 
-        .key-points {
-            background: #e8f4fc;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-        }
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
 
-        .key-points ul {
-            margin-left: 20px;
-        }
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-            color: var(--gray);
-            font-size: 0.9rem;
-            border-top: 1px solid #eaeaea;
-        }
+.results-container {
+    padding: 30px;
+    text-align: center;
+    display: none;
+}
 
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .microbe-icon {
-                margin: 20px 0 0 0;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .channel-table {
-                display: block;
-                overflow-x: auto;
-            }
-        }
+.results-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--secondary);
+}
+
+.score {
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 20px 0;
+}
+
+.score-text {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+.summary {
+    text-align: left;
+    background-color: var(--light);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.summary-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--secondary);
+}
+
+.restart-btn {
+    background-color: var(--primary);
+    color: white;
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+}
+
+.question-review {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.review-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.review-question {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.review-answer {
+    margin-bottom: 5px;
+}
+
+.correct-answer {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.user-answer {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .quiz-info {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .progress-bar {
+        width: 100%;
+    }
+
+    .question-text {
+        font-size: 1.2rem;
+    }
+
+    .navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+/* Welcome page styling */
+.welcome-container {
+    padding: 40px;
+    text-align: center;
+}
+
+.quiz-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.quiz-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.quiz-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.quiz-card h3 {
+    color: var(--secondary);
+    margin-bottom: 15px;
+}
+
+.quiz-card p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.quiz-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: var(--dark);
+}
+
+.btn-start {
+    background-color: var(--primary);
+    color: white;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.back-btn {
+    background-color: var(--light);
+    color: var(--dark);
+    margin-top: 20px;
+}
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="header-text">
-                    <h1>Microbiology Study Guide</h1>
-                    <p class="subtitle">Part 6: Pathology Fundamentals & Study Resources</p>
+    <div class="container">
+        <header>
+            <h1>Chapter 7: Immunopathology Quiz</h1>
+            <p>General Pathology | Health Science Students</p>
+        </header>
+
+        <div class="quiz-info">
+            <div class="timer">Time: <span id="time">65:00</span></div>
+            <div class="progress">
+                <span>Progress:</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
                 </div>
-                <div class="microbe-icon">
-                    🦠
-                </div>
+                <span id="progress-text">0/65</span>
             </div>
         </div>
-    </header>
 
-    <div class="container">
-        <section class="section">
-            <h2>Introduction to Pathology</h2>
-            <p>Pathology is the study of disease and the bridge between science and medicine. It underpins every aspect of patient care, from diagnostic testing and treatment advice to using cutting-edge genetic technologies [citation:5].</p>
-            
-            <div class="key-points">
-                <h3>Key Pathology Concepts:</h3>
-                <ul>
-                    <li><strong>Etiology:</strong> The cause of disease (genetic, infectious, environmental)</li>
-                    <li><strong>Pathogenesis:</strong> The mechanism of disease development</li>
-                    <li><strong>Morphologic changes:</strong> Structural alterations in cells and tissues</li>
-                    <li><strong>Clinical manifestations:</strong> Signs and symptoms of disease</li>
-                </ul>
+        <div class="quiz-container" id="quiz-container">
+            <div class="question-container">
+                <div class="question-number" id="question-number">Question 1 of 65</div>
+                <div class="question-text" id="question-text"></div>
+                <div class="options-container" id="options-container"></div>
             </div>
-            
-            <div class="concept-grid">
-                <div class="concept-card">
-                    <h3>Anatomical Pathology</h3>
-                    <p>Focuses on examining organs, tissues, and whole bodies to diagnose disease. Includes surgical pathology, cytopathology, and forensic pathology [citation:10].</p>
-                </div>
-                
-                <div class="concept-card">
-                    <h3>Clinical Pathology</h3>
-                    <p>Diagnosis of disease through laboratory analysis of bodily fluids and tissues. Includes hematology, microbiology, and chemical pathology [citation:7].</p>
-                </div>
-                
-                <div class="concept-card">
-                    <h3>Molecular Pathology</h3>
-                    <p>Examines molecules within organs, tissues or bodily fluids. Leads to personalized medicine through genetic analysis and predictive biomarkers [citation:7].</p>
+
+            <div class="explanation-container" id="explanation-container">
+                <div class="explanation-title">Explanation</div>
+                <div id="explanation-text"></div>
+                <div class="memory-tip" id="memory-tip">
+                    <div class="memory-tip-title">Memory Tip</div>
+                    <div id="memory-tip-text"></div>
                 </div>
             </div>
-        </section>
 
-        <section class="section">
-            <h2>Recommended Pathology YouTube Channels</h2>
-            <p>These verified educational channels provide high-quality pathology content perfect for medical students:</p>
-            
-            <table class="channel-table">
-                <thead>
-                    <tr>
-                        <th>Channel Name</th>
-                        <th>Creator/Organization</th>
-                        <th>Subscribers</th>
-                        <th>Content Focus</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Osmosis from Elsevier</strong></td>
-                        <td>Elsevier Medical Education</td>
-                        <td>3.6M</td>
-                        <td>Visual explanations of pathophysiology and medical topics [citation:9]</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ilovepathology</strong></td>
-                        <td>Dr. Vijay Shankar S, MD</td>
-                        <td>235K</td>
-                        <td>Simplified pathology concepts with clear visual explanations [citation:2][citation:9]</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Pathology Simplified</strong></td>
-                        <td>Dr. Seema Puri, PhD</td>
-                        <td>55.6K</td>
-                        <td>Compact, comprehensive pathology topics in simplified form [citation:2][citation:9]</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Pathology Master</strong></td>
-                        <td>Dr. Parth Goswami, MBBS, MD</td>
-                        <td>16.4K</td>
-                        <td>Fundamental and detailed pathology discussions for MBBS and PG students [citation:2][citation:9]</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Jerad Gardner, MD</strong></td>
-                        <td>Dr. Jerad Gardner</td>
-                        <td>84.5K</td>
-                        <td>Dermatopathology and soft tissue/bone pathology with case-based learning [citation:2][citation:9]</td>
-                    </tr>
-                    <tr>
-                        <td><strong>The Royal College of Pathologists</strong></td>
-                        <td>Royal College of Pathologists</td>
-                        <td>31.5K</td>
-                        <td>Professional pathology education and organizational updates [citation:2][citation:9]</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <section class="section">
-            <h2>Featured Educational Videos</h2>
-            <p>These embedded videos from reputable channels demonstrate key pathology concepts:</p>
-            
-            <div class="video-grid">
-                <div class="video-card">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLYcNq4ZAlfq9S-yaVDS_ZJhesv1WO2O1M" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <h4>General Pathology Playlist</h4>
-                        <p>Comprehensive pathology fundamentals from ilovepathology channel.</p>
-                    </div>
-                </div>
-                
-                <div class="video-card">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/videoseries?list=PL6MNEobxsqHMptMCrQOaCF3h0oNAIR7_k" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <h4>Pathophysiology Basics</h4>
-                        <p>Osmosis explanations of disease mechanisms and processes.</p>
-                    </div>
-                </div>
-                
-                <div class="video-card">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/videoseries?list=PL6gxJ9cAJl-bpz9E9xQqgK4_2CJvJ4I0w" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <h4>Inflammation & Healing</h4>
-                        <p>Detailed coverage of inflammatory processes and tissue repair.</p>
-                    </div>
-                </div>
+            <div class="navigation">
+                <button class="btn-prev" id="prev-btn" disabled>Previous</button>
+                <button class="btn-next" id="next-btn">Next Question</button>
+                <button class="btn-submit" id="submit-btn">Submit Quiz</button>
             </div>
-        </section>
+        </div>
 
-        <section class="section">
-            <h2>Pathology Study Strategies</h2>
-            <p>Effective learning techniques specifically for mastering pathology concepts [citation:6]:</p>
-            
-            <div class="tips-grid">
-                <div class="tip-card">
-                    <h4><span class="tip-icon">🎯</span>Concept Mapping</h4>
-                    <p>Create visual diagrams to connect disease concepts with their etiology, pathogenesis, and clinical manifestations.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <h4><span class="tip-icon">📚</span>Active Learning</h4>
-                    <p>Use practice quizzes, flashcards, and case studies rather than passive reading to reinforce knowledge.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <h4><span class="tip-icon">🔬</span>Visual Recognition</h4>
-                    <p>Study gross and microscopic images to develop pattern recognition for different disease processes.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <h4><span class="tip-icon">🔄</span>Clinical Correlation</h4>
-                    <p>Connect pathological findings with clinical presentations to understand real-world applications.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <h4><span class="tip-icon">📝</span>Structured Notes</h4>
-                    <p>Organize topics with subheadings: etiology, pathogenesis, morphology, clinical features, and treatment.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <h4><span class="tip-icon">👥</span>Group Study</h4>
-                    <p>Collaborate with peers to discuss challenging topics and explain concepts to reinforce understanding.</p>
-                </div>
-            </div>
-        </section>
+        <div class="results-container" id="results-container">
+            <h2 class="results-title">Quiz Results</h2>
+            <div class="score" id="score">0/65</div>
+            <div class="score-text" id="score-text"></div>
 
-        <section class="section">
-            <h2>Digital Resources & Tools</h2>
-            <p>Supplement your pathology studies with these recommended digital resources [citation:6]:</p>
-            
-            <div class="concept-grid">
-                <div class="concept-card">
-                    <h3>Online Platforms</h3>
-                    <ul>
-                        <li>Pathology Outlines</li>
-                        <li>WebPath Pathology Tutorials</li>
-                        <li>Elsevier ExpertPath</li>
-                        <li>Histology Guide</li>
-                    </ul>
-                </div>
-                
-                <div class="concept-card">
-                    <h3>Textbook References</h3>
-                    <ul>
-                        <li>Robbins Basic Pathology</li>
-                        <li>Pathoma Fundamentals</li>
-                        <li>Rosai and Ackerman's Surgical Pathology</li>
-                        <li>WHO Classification of Tumors</li>
-                    </ul>
-                </div>
-                
-                <div class="concept-card">
-                    <h3>Mobile Applications</h3>
-                    <ul>
-                        <li>Pathology flashcard apps</li>
-                        <li>Virtual microscopy apps</li>
-                        <li>DPMA Pathology App</li>
-                        <li>Question bank applications</li>
-                    </ul>
-                </div>
+            <div class="summary">
+                <div class="summary-title">Performance Summary</div>
+                <p>Total Questions: <span id="total-questions">65</span></p>
+                <p>Correct Answers: <span id="correct-answers">0</span></p>
+                <p>Incorrect Answers: <span id="incorrect-answers">0</span></p>
+                <p>Percentage: <span id="percentage">0%</span></p>
+                <p>Time Taken: <span id="time-taken">65:00</span></p>
             </div>
-        </section>
 
-        <section class="section">
-            <h2>High-Yield Review Checklist</h2>
-            <p>Based on pathology education best practices, prioritize these topics [citation:6]:</p>
-            
-            <div class="key-points">
-                <ul>
-                    <li>✓ Cellular adaptations and injury patterns</li>
-                    <li>✓ Acute and chronic inflammation processes</li>
-                    <li>✓ Neoplasia classification and carcinogenesis</li>
-                    <li>✓ Hemostasis disorders and hematopathology</li>
-                    <li>✓ Systemic pathology by organ systems</li>
-                    <li>✓ Gross and microscopic morphology recognition</li>
-                    <li>✓ Laboratory diagnostic interpretation</li>
-                    <li>✓ Molecular pathology fundamentals</li>
-                    <li>✓ Clinical-pathological correlations</li>
-                    <li>✓ Recent advances in digital pathology</li>
-                </ul>
+            <div class="question-review" id="question-review">
+                <h3>Question Review</h3>
+                <!-- Review content will be generated by JavaScript -->
             </div>
-        </section>
+
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <p>Microbiology Study Guide - Part 6: Pathology Resources | Educational Use for Medical Students</p>
-            <p>References: The Royal College of Pathologists, Lumea Digital Pathology Guides, Wikipedia Pathology, McGill University Pathology</p>
-        </div>
-    </footer>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add animation to concept cards on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
+        // Immunopathology Chapter 7 Questions (65 questions)
+        const questions = [
+            {
+                question: "According to Gell and Coombs classification, how many types of hypersensitivity reactions are there?",
+                options: [
+                    "Two types",
+                    "Three types",
+                    "Four types",
+                    "Five types"
+                ],
+                correct: 2,
+                explanation: "Hypersensitivity reactions are classified into four types (I, II, III, and IV) based on the mechanism of immune recognition and inflammatory mediators involved.",
+                memoryTip: "Gell and Coombs = 4 types of hypersensitivity (I-IV)."
+            },
+            {
+                question: "Which type of hypersensitivity reaction is mediated by IgE antibodies bound to mast cells?",
+                options: [
+                    "Type I",
+                    "Type II",
+                    "Type III",
+                    "Type IV"
+                ],
+                correct: 0,
+                explanation: "Type I hypersensitivity (anaphylactic/immediate) involves IgE antibodies bound to mast cells or basophils, leading to rapid degranulation upon antigen exposure.",
+                memoryTip: "Type I = Immediate, IgE, Mast cells."
+            },
+            {
+                question: "Which cells are central to the development of Type I hypersensitivity reactions?",
+                options: [
+                    "Neutrophils and macrophages",
+                    "Mast cells and basophils",
+                    "T-lymphocytes only",
+                    "Eosinophils only"
+                ],
+                correct: 1,
+                explanation: "Mast cells and basophils armed with cytophilic IgE antibodies are central to Type I reactions, releasing preformed and newly synthesized mediators upon antigen exposure.",
+                memoryTip: "Type I: Mast cells & Basophils = KEY players."
+            },
+            {
+                question: "Which mediator is responsible for the late phase of Type I hypersensitivity reactions?",
+                options: [
+                    "Histamine only",
+                    "Leukotrienes and cytokines",
+                    "IgG antibodies",
+                    "Complement proteins"
+                ],
+                correct: 1,
+                explanation: "The late phase (4-8 hours after exposure) is mediated by leukotrienes, platelet-activating factor, TNF-α, and cytokines that recruit eosinophils, neutrophils, and monocytes.",
+                memoryTip: "Late phase = Leukotrienes, Cytokines, Cell recruitment."
+            },
+            {
+                question: "What is the prototype example of Type I hypersensitivity in the respiratory tract?",
+                options: [
+                    "Rheumatoid arthritis",
+                    "Bronchial asthma",
+                    "Systemic lupus erythematosus",
+                    "Myasthenia gravis"
+                ],
+                correct: 1,
+                explanation: "Bronchial asthma is a classic example of Type I hypersensitivity affecting the respiratory tract, characterized by bronchoconstriction, edema, and mucus secretion.",
+                memoryTip: "Asthma = Type I hypersensitivity in lungs."
+            },
+            {
+                question: "Which type of hypersensitivity involves antibody-mediated cellular dysfunction without causing cell injury?",
+                options: [
+                    "Type I",
+                    "Type II",
+                    "Type III",
+                    "Type IV"
+                ],
+                correct: 1,
+                explanation: "Type II hypersensitivity includes antibody-mediated cellular dysfunction where antibodies against cell surface receptors impair function without inflammation (e.g., myasthenia gravis).",
+                memoryTip: "Type II = Antibodies against receptors → dysfunction."
+            },
+            {
+                question: "In Type II hypersensitivity, what mechanism involves complement-mediated lysis of target cells?",
+                options: [
+                    "Antibody-dependent cell-mediated cytotoxicity (ADCC)",
+                    "Opsonization by C3b",
+                    "Direct lysis by membrane attack complex (C5-9)",
+                    "Cellular dysfunction without injury"
+                ],
+                correct: 2,
+                explanation: "Complement-dependent direct lysis occurs when antibodies bind to cell surface antigens, activating complement and forming membrane attack complex (C5-9) that disrupts cell membranes.",
+                memoryTip: "Type II: Complement MAC (C5-9) → cell lysis."
+            },
+            {
+                question: "Which disease is an example of Type II hypersensitivity involving antibody-mediated cellular dysfunction?",
+                options: [
+                    "Systemic lupus erythematosus",
+                    "Graves disease",
+                    "Tuberculin reaction",
+                    "Serum sickness"
+                ],
+                correct: 1,
+                explanation: "Graves disease involves antibodies against TSH receptors that stimulate thyroid cells (cellular dysfunction), a Type II hypersensitivity mechanism.",
+                memoryTip: "Graves disease = Type II, anti-TSH receptor antibodies."
+            },
+            {
+                question: "What is the primary mechanism of tissue injury in Type III hypersensitivity?",
+                options: [
+                    "Direct T-cell cytotoxicity",
+                    "Immune complex deposition and complement activation",
+                    "IgE-mediated mast cell degranulation",
+                    "Antibody-mediated phagocytosis"
+                ],
+                correct: 1,
+                explanation: "Type III hypersensitivity involves antigen-antibody complex deposition in tissues, leading to complement activation, neutrophil recruitment, and inflammatory tissue damage.",
+                memoryTip: "Type III = Immune complexes + Complement → inflammation."
+            },
+            {
+                question: "Which of the following is a systemic immune complex disease?",
+                options: [
+                    "Arthus reaction",
+                    "Serum sickness",
+                    "Contact dermatitis",
+                    "Tuberculin reaction"
+                ],
+                correct: 1,
+                explanation: "Serum sickness is a systemic immune complex disease resulting from circulating antigen-antibody complexes depositing in multiple tissues (e.g., blood vessels, kidneys, joints).",
+                memoryTip: "Serum sickness = Systemic Type III hypersensitivity."
+            },
+            {
+                question: "What is the Arthus reaction?",
+                options: [
+                    "A localized Type III hypersensitivity in skin",
+                    "A systemic Type I reaction",
+                    "A Type IV reaction to tuberculin",
+                    "An antibody deficiency disorder"
+                ],
+                correct: 0,
+                explanation: "The Arthus reaction is a localized Type III hypersensitivity (immune complex vasculitis) in the skin, occurring 4-8 hours after antigen inoculation in sensitized individuals.",
+                memoryTip: "Arthus reaction = Local skin Type III (immune complex vasculitis)."
+            },
+            {
+                question: "Which type of hypersensitivity is also called delayed-type hypersensitivity?",
+                options: [
+                    "Type I",
+                    "Type II",
+                    "Type III",
+                    "Type IV"
+                ],
+                correct: 3,
+                explanation: "Type IV hypersensitivity is cell-mediated and delayed (24-72 hours), involving sensitized T-lymphocytes rather than antibodies.",
+                memoryTip: "Type IV = Delayed, T-cell mediated."
+            },
+            {
+                question: "What is the typical time frame for a Type IV hypersensitivity reaction to manifest?",
+                options: [
+                    "Within minutes",
+                    "4-8 hours",
+                    "24-72 hours",
+                    "1 week"
+                ],
+                correct: 2,
+                explanation: "Type IV (delayed-type) hypersensitivity reactions typically manifest 24-72 hours after antigen exposure, as seen in tuberculin skin tests.",
+                memoryTip: "Type IV = 24-72 hours (delayed)."
+            },
+            {
+                question: "Which cells are primarily involved in Type IV hypersensitivity reactions?",
+                options: [
+                    "B-lymphocytes and plasma cells",
+                    "Mast cells and basophils",
+                    "Sensitized T-lymphocytes",
+                    "Neutrophils and eosinophils"
+                ],
+                correct: 2,
+                explanation: "Type IV hypersensitivity is mediated by sensitized T-lymphocytes (CD4+ TH1 cells and CD8+ cytotoxic T cells) that recognize antigens and release cytokines or directly kill cells.",
+                memoryTip: "Type IV = T-cells (CD4+ TH1, CD8+ CTLs)."
+            },
+            {
+                question: "What is the prototype example of Type IV hypersensitivity?",
+                options: [
+                    "Bronchial asthma",
+                    "Myasthenia gravis",
+                    "Tuberculin skin reaction",
+                    "Autoimmune hemolytic anemia"
+                ],
+                correct: 2,
+                explanation: "The tuberculin skin test (Mantoux test) is a classic example of Type IV hypersensitivity, where intradermal tuberculin induces a localized delayed reaction in sensitized individuals.",
+                memoryTip: "Tuberculin test = Type IV prototype."
+            },
+            {
+                question: "How do cytotoxic T-lymphocytes (CTLs) kill target cells in Type IV hypersensitivity?",
+                options: [
+                    "By producing IgE antibodies",
+                    "By releasing histamine",
+                    "Via perforin-granzyme and Fas-FasL pathways",
+                    "By forming immune complexes"
+                ],
+                correct: 2,
+                explanation: "CTLs kill target cells through perforin-granzyme dependent killing (pore formation and apoptosis) and Fas-Fas ligand dependent apoptosis.",
+                memoryTip: "CTL killing: Perforin-Granzyme & Fas-FasL."
+            },
+            {
+                question: "What is immunologic tolerance?",
+                options: [
+                    "An exaggerated immune response to antigens",
+                    "Lack of immune response to specific antigens",
+                    "Autoantibody production against self-tissues",
+                    "Deficiency in immune cell production"
+                ],
+                correct: 1,
+                explanation: "Immunologic tolerance is a state where the immune system does not react to specific antigens, crucial for preventing autoimmune responses to self-antigens.",
+                memoryTip: "Tolerance = No immune response to specific antigens."
+            },
+            {
+                question: "Central tolerance primarily occurs in:",
+                options: [
+                    "Peripheral tissues",
+                    "Lymph nodes and spleen",
+                    "Bone marrow and thymus",
+                    "Mucosal surfaces"
+                ],
+                correct: 2,
+                explanation: "Central tolerance occurs in primary lymphoid organs (bone marrow for B-cells, thymus for T-cells), where immature lymphocytes reactive to self-antigens are eliminated (clonal deletion).",
+                memoryTip: "Central tolerance = Bone marrow & Thymus (clonal deletion)."
+            },
+            {
+                question: "What mechanism maintains peripheral tolerance by inducing apoptosis of activated T-cells?",
+                options: [
+                    "Clonal deletion in thymus",
+                    "Activation-induced cell death (Fas-FasL)",
+                    "Molecular mimicry",
+                    "Polyclonal B-cell activation"
+                ],
+                correct: 1,
+                explanation: "Activation-induced cell death via Fas-Fas ligand interaction induces apoptosis of activated T-cells, dampening immune responses and maintaining peripheral tolerance.",
+                memoryTip: "Peripheral tolerance: Fas-FasL → T-cell apoptosis."
+            },
+            {
+                question: "Which mechanism can break peripheral T-cell anergy?",
+                options: [
+                    "Lack of co-stimulatory signals",
+                    "Upregulation of B7-1 on APCs",
+                    "Defective Fas-FasL signaling",
+                    "Clonal deletion in thymus"
+                ],
+                correct: 1,
+                explanation: "Upregulation of co-stimulatory molecules (e.g., B7-1) on antigen-presenting cells provides the second signal needed to activate T-cells, breaking anergy.",
+                memoryTip: "Break anergy = B7-1 upregulation on APCs."
+            },
+            {
+                question: "What is autoimmunity?",
+                options: [
+                    "Immune response against foreign pathogens",
+                    "Lack of immune response to infections",
+                    "Immune response against self-antigens",
+                    "Overactive immune response to allergens"
+                ],
+                correct: 2,
+                explanation: "Autoimmunity is an immune response directed against the body's own tissues (autoantigens), leading to tissue injury and autoimmune diseases.",
+                memoryTip: "Autoimmunity = Immune attack on self."
+            },
+            {
+                question: "Which genetic factor is strongly associated with autoimmune diseases?",
+                options: [
+                    "Blood type O",
+                    "HLA class II antigens",
+                    "Mitochondrial DNA mutations",
+                    "Y chromosome genes"
+                ],
+                correct: 1,
+                explanation: "Certain HLA class II alleles (e.g., HLA-DR, HLA-DQ) are strongly linked to autoimmune diseases like rheumatoid arthritis, type 1 diabetes, and SLE.",
+                memoryTip: "Autoimmunity link = HLA class II genes."
+            },
+            {
+                question: "Molecular mimicry refers to:",
+                options: [
+                    "Similarity between self and microbial antigens",
+                    "Identical T-cell receptors on different cells",
+                    "Copying of antibody structures",
+                    "Mimicking of immune cell functions"
+                ],
+                correct: 0,
+                explanation: "Molecular mimicry occurs when microbial antigens share epitopes with self-antigens, leading to cross-reactive immune responses that attack host tissues.",
+                memoryTip: "Molecular mimicry = Microbe resembles self → cross-reaction."
+            },
+            {
+                question: "Which infectious agent is associated with molecular mimicry in rheumatic fever?",
+                options: [
+                    "Mycobacterium tuberculosis",
+                    "Streptococcus pyogenes",
+                    "Epstein-Barr virus",
+                    "HIV"
+                ],
+                correct: 1,
+                explanation: "Streptococcal M protein shares epitopes with cardiac myosin, leading to cross-reactive antibodies that cause rheumatic heart disease.",
+                memoryTip: "Rheumatic fever = Strep M protein mimics cardiac myosin."
+            },
+            {
+                question: "What is the effect of polyclonal B-cell activation in autoimmunity?",
+                options: [
+                    "Decreases antibody production",
+                    "Activates self-reactive B-cells nonspecifically",
+                    "Enhances T-cell tolerance",
+                    "Prevents autoantibody formation"
+                ],
+                correct: 1,
+                explanation: "Polyclonal B-cell activation by microbes (e.g., EBV, endotoxins) nonspecifically activates B-cells, including those producing autoantibodies, breaking tolerance.",
+                memoryTip: "Polyclonal B activation = Nonspecific autoantibody production."
+            },
+            {
+                question: "Release of sequestered antigens can lead to autoimmunity because:",
+                options: [
+                    "They are recognized as foreign by the immune system",
+                    "They suppress immune responses",
+                    "They mimic microbial antigens",
+                    "They only activate T-cells"
+                ],
+                correct: 0,
+                explanation: "Antigens sequestered from the immune system during development (e.g., lens proteins, sperm) are recognized as foreign if released, triggering autoimmune responses.",
+                memoryTip: "Sequestered antigens = Hidden self → foreign if exposed."
+            },
+            {
+                question: "Which autoimmune disease is organ-specific?",
+                options: [
+                    "Systemic lupus erythematosus",
+                    "Hashimoto's thyroiditis",
+                    "Rheumatoid arthritis",
+                    "Systemic sclerosis"
+                ],
+                correct: 1,
+                explanation: "Hashimoto's thyroiditis is an organ-specific autoimmune disease targeting the thyroid gland, while others listed are systemic (non-organ-specific).",
+                memoryTip: "Organ-specific: Hashimoto's (thyroid). Systemic: SLE, RA."
+            },
+            {
+                question: "What is the female-to-male ratio in systemic lupus erythematosus?",
+                options: [
+                    "1:1",
+                    "2:1",
+                    "5:1",
+                    "9:1"
+                ],
+                correct: 3,
+                explanation: "SLE predominantly affects women of childbearing age, with a female-to-male ratio of approximately 9:1, suggesting hormonal influences.",
+                memoryTip: "SLE: Female:Male = 9:1 (hormonal link)."
+            },
+            {
+                question: "Which autoantibody is virtually present in 100% of SLE patients?",
+                options: [
+                    "Anti-dsDNA",
+                    "Anti-Sm",
+                    "Antinuclear antibody (ANA)",
+                    "Anti-histone"
+                ],
+                correct: 2,
+                explanation: "Antinuclear antibodies (ANA) are sensitive markers found in nearly 100% of SLE patients, though not specific (seen in other autoimmune diseases).",
+                memoryTip: "SLE: ANA = 100% sensitive, not specific."
+            },
+            {
+                question: "Which antibody is highly specific for SLE?",
+                options: [
+                    "ANA",
+                    "Anti-dsDNA",
+                    "Rheumatoid factor",
+                    "Anti-acetylcholine receptor"
+                ],
+                correct: 1,
+                explanation: "Anti-double-stranded DNA (anti-dsDNA) antibodies are highly specific for SLE and correlate with disease activity, especially lupus nephritis.",
+                memoryTip: "Anti-dsDNA = Highly specific for SLE."
+            },
+            {
+                question: "What is the most common cause of death in SLE patients?",
+                options: [
+                    "Skin involvement",
+                    "Neuropsychiatric disease",
+                    "Renal failure",
+                    "Infections"
+                ],
+                correct: 2,
+                explanation: "Renal failure from lupus nephritis is a leading cause of death in SLE, emphasizing the importance of monitoring kidney function.",
+                memoryTip: "SLE mortality: Renal failure #1."
+            },
+            {
+                question: "Which hypersensitivity mechanism is primarily involved in SLE tissue injury?",
+                options: [
+                    "Type I",
+                    "Type II",
+                    "Type III",
+                    "Type IV"
+                ],
+                correct: 2,
+                explanation: "Type III hypersensitivity (immune complex deposition) is the main mechanism in SLE, causing vasculitis, glomerulonephritis, and other visceral lesions.",
+                memoryTip: "SLE injury = Type III (immune complexes)."
+            },
+            {
+                question: "What are LE cells?",
+                options: [
+                    "B-cells producing autoantibodies",
+                    "Neutrophils that have phagocytosed denatured nuclei",
+                    "Cytotoxic T-cells attacking skin",
+                    "Mast cells degranulating in SLE"
+                ],
+                correct: 1,
+                explanation: "LE cells are neutrophils or macrophages that have phagocytosed denatured nuclear material (hematoxylin bodies) opsonized by antinuclear antibodies.",
+                memoryTip: "LE cells = Phagocytes with ingested nuclei (SLE)."
+            },
+            {
+                question: "Which renal lesion in SLE has the worst prognosis?",
+                options: [
+                    "Mesangial glomerulonephritis (Class II)",
+                    "Focal proliferative GN (Class III)",
+                    "Diffuse proliferative GN (Class IV)",
+                    "Membranous GN (Class V)"
+                ],
+                correct: 2,
+                explanation: "Diffuse proliferative glomerulonephritis (Class IV) is the most severe form of lupus nephritis, often leading to renal failure without treatment.",
+                memoryTip: "SLE worst kidney: Class IV (Diffuse proliferative GN)."
+            },
+            {
+                question: "What is the characteristic skin rash in SLE?",
+                options: [
+                    "Palmar erythema",
+                    "Butterfly rash on face",
+                    "Psoriatic plaques",
+                    "Target lesions"
+                ],
+                correct: 1,
+                explanation: "The classic butterfly (malar) rash over the cheeks and nose is characteristic of SLE, often exacerbated by sunlight.",
+                memoryTip: "SLE rash = Butterfly (malar) distribution."
+            },
+            {
+                question: "Which cardiovascular manifestation is typical in SLE?",
+                options: [
+                    "Libman-Sacks endocarditis",
+                    "Infective endocarditis",
+                    "Rheumatic valvulitis",
+                    "Atherosclerosis only"
+                ],
+                correct: 0,
+                explanation: "Libman-Sacks endocarditis is non-bacterial verrucous vegetations on heart valves in SLE, distinct from infective or rheumatic causes.",
+                memoryTip: "SLE heart: Libman-Sacks endocarditis (non-bacterial vegetations)."
+            },
+            {
+                question: "Primary immunodeficiency diseases are usually:",
+                options: [
+                    "Acquired later in life",
+                    "Genetically determined",
+                    "Caused by infections",
+                    "Due to drug toxicity"
+                ],
+                correct: 1,
+                explanation: "Primary immunodeficiencies are inherited (genetic) disorders presenting early in life, affecting development or function of immune components.",
+                memoryTip: "Primary immunodeficiency = Genetic, early onset."
+            },
+            {
+                question: "Which primary immunodeficiency affects only B-cells?",
+                options: [
+                    "DiGeorge syndrome",
+                    "Severe combined immunodeficiency (SCID)",
+                    "X-linked agammaglobulinemia",
+                    "Chronic granulomatous disease"
+                ],
+                correct: 2,
+                explanation: "X-linked agammaglobulinemia (Bruton's) is a B-cell deficiency with absent immunoglobulins, leading to recurrent bacterial infections after maternal antibody wanes.",
+                memoryTip: "X-linked agammaglobulinemia = B-cell deficiency (no antibodies)."
+            },
+            {
+                question: "DiGeorge syndrome results from:",
+                options: [
+                    "Defective NADPH oxidase",
+                    "Thymic aplasia",
+                    "B-cell maturation arrest",
+                    "Complement deficiency"
+                ],
+                correct: 1,
+                explanation: "DiGeorge syndrome is a T-cell deficiency due to thymic aplasia/hypoplasia from abnormal development of third and fourth pharyngeal pouches.",
+                memoryTip: "DiGeorge = Thymic aplasia → T-cell deficiency."
+            },
+            {
+                question: "Severe combined immunodeficiency (SCID) involves:",
+                options: [
+                    "B-cell deficiency only",
+                    "T-cell deficiency only",
+                    "Both T and B cell deficiencies",
+                    "Phagocyte defect only"
+                ],
+                correct: 2,
+                explanation: "SCID is a combined immunodeficiency with severe defects in both T and B lymphocyte development/function, leading to profound susceptibility to infections.",
+                memoryTip: "SCID = Severe Combined (T & B cells) Immunodeficiency."
+            },
+            {
+                question: "Secondary immunodeficiencies can result from all EXCEPT:",
+                options: [
+                    "HIV infection",
+                    "Malnutrition",
+                    "Chemotherapy",
+                    "Genetic mutation at birth"
+                ],
+                correct: 3,
+                explanation: "Genetic mutations at birth cause primary immunodeficiencies. Secondary immunodeficiencies are acquired from infections, malnutrition, drugs, etc.",
+                memoryTip: "Secondary = Acquired (HIV, malnutrition, drugs). Primary = Genetic."
+            },
+            {
+                question: "Splenectomy increases susceptibility to infections by:",
+                options: [
+                    "Viruses only",
+                    "Intracellular bacteria",
+                    "Encapsulated bacteria",
+                    "Fungi only"
+                ],
+                correct: 2,
+                explanation: "Splenectomy impairs clearance of encapsulated bacteria (e.g., Streptococcus pneumoniae, Haemophilus influenzae) due to loss of phagocytic function and IgM production.",
+                memoryTip: "Splenectomy → Risk of encapsulated bacteria (pneumococcus)."
+            },
+            {
+                question: "What percentage of the world's HIV infections are in developing countries?",
+                options: [
+                    "30%",
+                    "50%",
+                    "70%",
+                    "Over 90%"
+                ],
+                correct: 3,
+                explanation: "Over 90% of HIV infections occur in developing countries, with sub-Saharan Africa bearing the greatest burden.",
+                memoryTip: "HIV: >90% in developing countries."
+            },
+            {
+                question: "What is the most common mode of HIV transmission worldwide?",
+                options: [
+                    "Homosexual contact",
+                    "Heterosexual contact",
+                    "Intravenous drug use",
+                    "Mother-to-child"
+                ],
+                correct: 1,
+                explanation: "Heterosexual transmission accounts for approximately 75% of HIV infections globally, especially in Africa.",
+                memoryTip: "HIV transmission: Heterosexual #1 worldwide."
+            },
+            {
+                question: "Which cells are the primary targets of HIV?",
+                options: [
+                    "Red blood cells",
+                    "Platelets",
+                    "CD4+ T-helper cells",
+                    "Neutrophils"
+                ],
+                correct: 2,
+                explanation: "HIV primarily infects CD4+ T-helper cells via binding to CD4 receptor and co-receptors (CCR5 or CXCR4), leading to their depletion.",
+                memoryTip: "HIV targets = CD4+ T-cells (helper cells)."
+            },
+            {
+                question: "What is the function of HIV reverse transcriptase?",
+                options: [
+                    "Integrates viral DNA into host genome",
+                    "Converts viral RNA to DNA",
+                    "Cleaves viral polyproteins",
+                    "Binds to CD4 receptor"
+                ],
+                correct: 1,
+                explanation: "Reverse transcriptase is an RNA-dependent DNA polymerase that converts single-stranded HIV RNA into double-stranded DNA, a key step in viral replication.",
+                memoryTip: "Reverse transcriptase = RNA → DNA (unique to retroviruses)."
+            },
+            {
+                question: "Which HIV glycoprotein binds to the CD4 receptor?",
+                options: [
+                    "gp41",
+                    "gp120",
+                    "p24",
+                    "p17"
+                ],
+                correct: 1,
+                explanation: "gp120 is the surface glycoprotein that binds to CD4 receptors on target cells, initiating viral entry.",
+                memoryTip: "gp120 binds CD4; gp41 mediates fusion."
+            },
+            {
+                question: "Macrophage-tropic (M-tropic) HIV strains use which co-receptor?",
+                options: [
+                    "CXCR4",
+                    "CCR5",
+                    "CD8",
+                    "CD28"
+                ],
+                correct: 1,
+                explanation: "M-tropic HIV strains use CCR5 co-receptor to infect macrophages and primary T-cells. T-tropic strains use CXCR4.",
+                memoryTip: "M-tropic = CCR5; T-tropic = CXCR4."
+            },
+            {
+                question: "What is the primary mechanism of CD4+ T-cell loss in HIV infection?",
+                options: [
+                    "Direct viral cytopathic effect",
+                    "Apoptosis of uninfected cells",
+                    "Syncytia formation",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Multiple mechanisms contribute: direct viral killing, syncytia formation, apoptosis of uninfected cells (by gp120 binding), and immune-mediated destruction.",
+                memoryTip: "CD4 loss = Direct killing + Syncytia + Apoptosis + Immune attack."
+            },
+            {
+                question: "During which phase of HIV infection is viremia highest?",
+                options: [
+                    "Early acute phase",
+                    "Middle chronic phase",
+                    "Final crisis phase",
+                    "Clinical latency only"
+                ],
+                correct: 0,
+                explanation: "Viremia peaks during the early acute phase (4-8 weeks post-infection), followed by partial control by immune responses and establishment of a viral set point.",
+                memoryTip: "Highest viremia = Early acute phase."
+            },
+            {
+                question: "What is the typical CD4+ T-cell count when AIDS is diagnosed?",
+                options: [
+                    "<200 cells/μL",
+                    "200-500 cells/μL",
+                    "500-800 cells/μL",
+                    ">800 cells/μL"
+                ],
+                correct: 0,
+                explanation: "AIDS is defined by CDC as HIV infection with CD4+ T-cell count <200 cells/μL or occurrence of AIDS-defining illnesses.",
+                memoryTip: "AIDS diagnosis: CD4 < 200 cells/μL."
+            },
+            {
+                question: "Which opportunistic infection is common in AIDS patients?",
+                options: [
+                    "Pneumocystis jirovecii pneumonia",
+                    "Streptococcal pharyngitis",
+                    "Herpes simplex type 1 (oral)",
+                    "Varicella zoster (chickenpox)"
+                ],
+                correct: 0,
+                explanation: "Pneumocystis jirovecii pneumonia (PCP) is a classic opportunistic infection in AIDS patients with low CD4 counts, often the initial AIDS-defining illness.",
+                memoryTip: "AIDS: PCP = common opportunistic infection."
+            },
+            {
+                question: "Which malignancy is AIDS-defining?",
+                options: [
+                    "Basal cell carcinoma",
+                    "Kaposi sarcoma",
+                    "Colon adenocarcinoma",
+                    "Melanoma"
+                ],
+                correct: 1,
+                explanation: "Kaposi sarcoma (associated with HHV-8) is an AIDS-defining malignancy, along with non-Hodgkin lymphoma and cervical carcinoma.",
+                memoryTip: "AIDS malignancies: Kaposi sarcoma, NHL, Cervical CA."
+            },
+            {
+                question: "HIV-infected macrophages serve as reservoirs because:",
+                options: [
+                    "They are resistant to cytopathic effects",
+                    "They produce large amounts of virus",
+                    "They are easily killed by CD8+ T-cells",
+                    "They do not express CD4"
+                ],
+                correct: 0,
+                explanation: "Macrophages are relatively resistant to HIV cytopathic effects, allowing persistent viral production and serving as long-term reservoirs, especially in brain and lungs.",
+                memoryTip: "Macrophages = HIV reservoirs (resistant to killing)."
+            },
+            {
+                question: "Which cytokine is pivotal in activating HIV transcription from latent provirus?",
+                options: [
+                    "IL-4",
+                    "IL-10",
+                    "TNF-α",
+                    "TGF-β"
+                ],
+                correct: 2,
+                explanation: "TNF-α activates NF-κB, which binds to HIV promoter (LTR), enhancing viral transcription and reactivation from latency.",
+                memoryTip: "HIV reactivation: TNF-α → NF-κB → viral transcription."
+            },
+            {
+                question: "What is the cause of neurological symptoms in AIDS?",
+                options: [
+                    "Direct neuronal infection by HIV",
+                    "Toxins released by infected macrophages",
+                    "Opportunistic CNS infections only",
+                    "Both toxins from macrophages and opportunistic infections"
+                ],
+                correct: 3,
+                explanation: "Neurologic damage results from HIV-infected macrophages releasing neurotoxic factors (cytokines, nitric oxide) and opportunistic infections (toxoplasmosis, cryptococcosis).",
+                memoryTip: "AIDS dementia: Macrophage toxins + Opportunistic infections."
+            },
+            {
+                question: "Which test is used to monitor HIV disease progression?",
+                options: [
+                    "Complete blood count",
+                    "CD4+ T-cell count and viral load",
+                    "Liver function tests",
+                    "Serum creatinine"
+                ],
+                correct: 1,
+                explanation: "CD4+ T-cell count (immune status) and HIV RNA viral load (replication activity) are key markers for disease progression and treatment efficacy.",
+                memoryTip: "HIV monitoring: CD4 count + Viral load."
+            },
+            {
+                question: "What is the approximate risk of HIV transmission from mother to child without intervention?",
+                options: [
+                    "5%",
+                    "15%",
+                    "25-30%",
+                    "50%"
+                ],
+                correct: 2,
+                explanation: "Without antiretroviral therapy, 25-30% of HIV-positive mothers transmit the virus to their infants (during pregnancy, delivery, or breastfeeding).",
+                memoryTip: "Mother-to-child HIV transmission = 25-30% without treatment."
+            },
+            {
+                question: "Which HIV gene encodes reverse transcriptase?",
+                options: [
+                    "gag",
+                    "pol",
+                    "env",
+                    "tat"
+                ],
+                correct: 1,
+                explanation: "pol gene encodes viral enzymes: reverse transcriptase, protease, and integrase, essential for replication.",
+                memoryTip: "pol = Polymerase (reverse transcriptase), Protease, Integrase."
+            },
+            {
+                question: "What is the role of HIV protease?",
+                options: [
+                    "Binds to CD4 receptor",
+                    "Cleaves viral polyproteins into functional units",
+                    "Integrates viral DNA into host genome",
+                    "Converts RNA to DNA"
+                ],
+                correct: 1,
+                explanation: "Protease cleaves gag and gag-pol polyproteins into individual functional proteins (e.g., p24, reverse transcriptase) during viral maturation.",
+                memoryTip: "HIV protease = Cleaves viral polyproteins (maturation)."
+            },
+            {
+                question: "Which cells are responsible for killing HIV-infected cells?",
+                options: [
+                    "B-cells",
+                    "CD8+ cytotoxic T-lymphocytes",
+                    "Neutrophils",
+                    "Eosinophils"
+                ],
+                correct: 1,
+                explanation: "CD8+ cytotoxic T-lymphocytes (CTLs) recognize and kill HIV-infected cells, playing a crucial role in controlling viral replication.",
+                memoryTip: "Anti-HIV CTLs = CD8+ T-cells."
+            },
+            {
+                question: "What is the primary defect in chronic granulomatous disease?",
+                options: [
+                    "T-cell deficiency",
+                    "B-cell deficiency",
+                    "Defective phagocyte oxidative burst",
+                    "Complement deficiency"
+                ],
+                correct: 2,
+                explanation: "Chronic granulomatous disease results from defects in NADPH oxidase, impairing phagocyte production of reactive oxygen species needed to kill catalase-positive organisms.",
+                memoryTip: "Chronic granulomatous disease = NADPH oxidase defect → no oxidative burst."
+            },
+            {
+                question: "Which complement deficiency increases susceptibility to Neisseria infections?",
+                options: [
+                    "C1",
+                    "C3",
+                    "C5-C9 (MAC)",
+                    "C4"
+                ],
+                correct: 2,
+                explanation: "Deficiencies in terminal complement components (C5-C9, membrane attack complex) impair lysis of Neisseria bacteria, leading to recurrent meningococcal or gonococcal infections.",
+                memoryTip: "Terminal complement deficiency → Neisseria infections."
+            },
+            {
+                question: "In Type I hypersensitivity, which mediator causes bronchospasm and increased mucus?",
+                options: [
+                    "Histamine",
+                    "Prostaglandin D2",
+                    "Leukotriene C4",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Histamine, prostaglandin D2, and leukotrienes (C4, D4) all contribute to bronchoconstriction and mucus hypersecretion in asthma.",
+                memoryTip: "Asthma mediators: Histamine, PGD2, Leukotrienes → bronchospasm + mucus."
+            },
+            {
+                question: "What is the function of eosinophils in Type I hypersensitivity?",
+                options: [
+                    "Produce IgE",
+                    "Release major basic protein damaging tissues",
+                    "Activate complement",
+                    "Present antigens to T-cells"
+                ],
+                correct: 1,
+                explanation: "Eosinophils release major basic protein, eosinophil cationic protein, and other toxins that damage tissues, especially in late-phase reactions.",
+                memoryTip: "Eosinophils = Tissue damage in late phase (major basic protein)."
+            },
+            {
+                question: "In Type II hypersensitivity, opsonization by C3b leads to:",
+                options: [
+                    "Direct cell lysis",
+                    "Enhanced phagocytosis",
+                    "Antibody-dependent cellular cytotoxicity",
+                    "Cellular dysfunction"
+                ],
+                correct: 1,
+                explanation: "C3b coats target cells, enhancing phagocytosis via C3b receptors on macrophages and neutrophils (opsonophagocytosis).",
+                memoryTip: "C3b = Opsonin → enhances phagocytosis."
+            },
+            {
+                question: "Which disease involves antibodies against acetylcholine receptors?",
+                options: [
+                    "Myasthenia gravis",
+                    "Graves disease",
+                    "Pernicious anemia",
+                    "Goodpasture syndrome"
+                ],
+                correct: 0,
+                explanation: "Myasthenia gravis is caused by antibodies against acetylcholine receptors at neuromuscular junctions, impairing muscle contraction.",
+                memoryTip: "Myasthenia gravis = Anti-ACh receptor antibodies (Type II)."
+            },
+            {
+                question: "Goodpasture syndrome targets which antigen?",
+                options: [
+                    "Basement membrane collagen (type IV)",
+                    "Acetylcholine receptor",
+                    "TSH receptor",
+                    "Intrinsic factor"
+                ],
+                correct: 0,
+                explanation: "Goodpasture syndrome involves anti-glomerular basement membrane antibodies (against type IV collagen), causing glomerulonephritis and pulmonary hemorrhage.",
+                memoryTip: "Goodpasture = Anti-GBM (type IV collagen) → lung/kidney."
+            },
+            {
+                question: "In SLE, antibodies against which nuclear antigen are highly specific?",
+                options: [
+                    "Sm antigen",
+                    "Histones",
+                    "SS-A/Ro",
+                    "SS-B/La"
+                ],
+                correct: 0,
+                explanation: "Anti-Smith (anti-Sm) antibodies are highly specific for SLE (though less sensitive), directed against small nuclear ribonucleoproteins.",
+                memoryTip: "Anti-Sm = Highly specific for SLE."
+            }
+        ];
 
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
+        // DOM elements
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results-container');
+        const questionNumber = document.getElementById('question-number');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const memoryTipText = document.getElementById('memory-tip-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+        const timeDisplay = document.getElementById('time');
+        const scoreDisplay = document.getElementById('score');
+        const scoreText = document.getElementById('score-text');
+        const totalQuestions = document.getElementById('total-questions');
+        const correctAnswers = document.getElementById('correct-answers');
+        const incorrectAnswers = document.getElementById('incorrect-answers');
+        const percentage = document.getElementById('percentage');
+        const timeTaken = document.getElementById('time-taken');
+        const questionReview = document.getElementById('question-review');
+        const restartBtn = document.getElementById('restart-btn');
 
-            // Observe concept cards and tip cards
-            document.querySelectorAll('.concept-card, .tip-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                observer.observe(card);
+        // Quiz state
+        let currentQuestion = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let score = 0;
+        let timer;
+        let timeLeft = 65 * 60; // 65 minutes in seconds
+        let quizCompleted = false;
+
+        // Initialize quiz
+        function initQuiz() {
+            displayQuestion();
+            startTimer();
+            updateProgress();
+        }
+
+        // Display current question
+        function displayQuestion() {
+            const question = questions[currentQuestion];
+            questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            questionText.textContent = question.question;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[currentQuestion] === index) {
+                    optionElement.classList.add('selected');
+                }
+                optionElement.textContent = option;
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionElement);
             });
+            
+            // Show/hide explanation
+            if (userAnswers[currentQuestion] !== null) {
+                showExplanation();
+            } else {
+                explanationContainer.style.display = 'none';
+            }
+            
+            // Update button states
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.disabled = false;
+            submitBtn.style.display = currentQuestion === questions.length - 1 ? 'block' : 'none';
+        }
 
-            // Add hover effect to table rows
-            const tableRows = document.querySelectorAll('.channel-table tr');
-            tableRows.forEach(row => {
-                row.addEventListener('mouseenter', function() {
-                    this.style.backgroundColor = '#e3f2fd';
-                });
-                row.addEventListener('mouseleave', function() {
-                    if (this.rowIndex % 2 === 0) {
-                        this.style.backgroundColor = '#f2f2f2';
-                    } else {
-                        this.style.backgroundColor = 'white';
-                    }
-                });
+        // Select an option
+        function selectOption(index) {
+            if (quizCompleted) return;
+            
+            userAnswers[currentQuestion] = index;
+            
+            // Update UI
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => option.classList.remove('selected'));
+            options[index].classList.add('selected');
+            
+            showExplanation();
+        }
+
+        // Show explanation for current question
+        function showExplanation() {
+            const question = questions[currentQuestion];
+            explanationText.textContent = question.explanation;
+            memoryTipText.textContent = question.memoryTip;
+            explanationContainer.style.display = 'block';
+            
+            // Highlight correct/incorrect answers
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                option.classList.remove('correct', 'incorrect');
+                if (index === question.correct) {
+                    option.classList.add('correct');
+                } else if (index === userAnswers[currentQuestion] && index !== question.correct) {
+                    option.classList.add('incorrect');
+                }
             });
-        });
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+                updateProgress();
+            }
+        }
+
+        // Navigate to previous question
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+                updateProgress();
+            }
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `${currentQuestion + 1}/${questions.length}`;
+        }
+
+        // Start timer
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        // Submit quiz
+        function submitQuiz() {
+            clearInterval(timer);
+            quizCompleted = true;
+            
+            // Calculate score
+            score = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    score++;
+                }
+            }
+            
+            // Display results
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            scoreDisplay.textContent = `${score}/${questions.length}`;
+            totalQuestions.textContent = questions.length;
+            correctAnswers.textContent = score;
+            incorrectAnswers.textContent = questions.length - score;
+            percentage.textContent = `${((score / questions.length) * 100).toFixed(1)}%`;
+            
+            const minutesTaken = Math.floor((65 * 60 - timeLeft) / 60);
+            const secondsTaken = (65 * 60 - timeLeft) % 60;
+            timeTaken.textContent = `${minutesTaken.toString().padStart(2, '0')}:${secondsTaken.toString().padStart(2, '0')}`;
+            
+            // Set score text
+            if (score >= questions.length * 0.8) {
+                scoreText.textContent = "Excellent! You have mastered Immunopathology (Chapter 7).";
+            } else if (score >= questions.length * 0.6) {
+                scoreText.textContent = "Good job! You have a solid understanding of Immunopathology.";
+            } else if (score >= questions.length * 0.5) {
+                scoreText.textContent = "You passed! Review the explanations to strengthen your knowledge.";
+            } else {
+                scoreText.textContent = "You need more study. Review Chapter 7 material and try again.";
+            }
+            
+            // Generate question review
+            generateQuestionReview();
+        }
+
+        // Generate question review
+        function generateQuestionReview() {
+            questionReview.innerHTML = '<h3>Question Review</h3>';
+            
+            questions.forEach((question, index) => {
+                const reviewItem = document.createElement('div');
+                reviewItem.className = 'review-item';
+                
+                const reviewQuestion = document.createElement('div');
+                reviewQuestion.className = 'review-question';
+                reviewQuestion.textContent = `${index + 1}. ${question.question}`;
+                
+                const userAnswer = document.createElement('div');
+                userAnswer.className = 'review-answer';
+                if (userAnswers[index] !== null) {
+                    userAnswer.innerHTML = `Your answer: <span class="user-answer">${question.options[userAnswers[index]]}</span>`;
+                } else {
+                    userAnswer.innerHTML = `Your answer: <span class="user-answer">Not answered</span>`;
+                }
+                
+                const correctAnswer = document.createElement('div');
+                correctAnswer.className = 'review-answer';
+                correctAnswer.innerHTML = `Correct answer: <span class="correct-answer">${question.options[question.correct]}</span>`;
+                
+                reviewItem.appendChild(reviewQuestion);
+                reviewItem.appendChild(userAnswer);
+                reviewItem.appendChild(correctAnswer);
+                
+                questionReview.appendChild(reviewItem);
+            });
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            score = 0;
+            timeLeft = 65 * 60;
+            quizCompleted = false;
+            
+            quizContainer.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            
+            initQuiz();
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', prevQuestion);
+        nextBtn.addEventListener('click', nextQuestion);
+        submitBtn.addEventListener('click', submitQuiz);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        // Start the quiz
+        initQuiz();
     </script>
 </body>
-</html>
+        </html>
