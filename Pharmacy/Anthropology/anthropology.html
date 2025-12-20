@@ -1,1 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthropology Quiz | Chapters 4-7</title>
+    <style>
+        /* style.css - Universal quiz styling */
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .quiz-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background-color: var(--light);
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .timer {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--danger);
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-bar {
+            width: 150px;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: var(--transition);
+        }
+
+        .quiz-container {
+            padding: 20px;
+        }
+
+        .question-container {
+            margin-bottom: 25px;
+        }
+
+        .question-number {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .options-container {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            padding: 12px 15px;
+            background-color: var(--light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .option:hover {
+            background-color: #e0e7ee;
+            transform: translateY(-2px);
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background-color: rgba(39, 174, 96, 0.1);
+        }
+
+        .option.incorrect {
+            border-color: var(--danger);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+        .explanation-container {
+            padding: 15px;
+            background-color: rgba(52, 152, 219, 0.05);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .explanation-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .memory-tip {
+            background-color: rgba(243, 156, 18, 0.1);
+            padding: 12px;
+            border-left: 4px solid var(--warning);
+            margin-top: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .memory-tip-title {
+            font-weight: 600;
+            color: var(--warning);
+            margin-bottom: 5px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+        }
+
+        .btn-prev {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        .btn-next {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-submit {
+            background-color: var(--success);
+            color: white;
+            display: none;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .results-container {
+            padding: 25px;
+            text-align: center;
+            display: none;
+        }
+
+        .results-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 15px 0;
+        }
+
+        .score-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .summary {
+            text-align: left;
+            background-color: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .summary-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .summary p {
+            margin: 8px 0;
+        }
+
+        .restart-btn {
+            background-color: var(--primary);
+            color: white;
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            width: auto;
+        }
+
+        .question-review {
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .review-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .review-question {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .review-answer {
+            margin-bottom: 5px;
+        }
+
+        .correct-answer {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .user-answer {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .progress {
+                justify-content: center;
+            }
+            
+            .progress-bar {
+                width: 100%;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .navigation {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+
+        /* Chapter selector */
+        .chapter-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .chapter-btn {
+            padding: 8px 15px;
+            background-color: var(--light);
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .chapter-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Anthropology Quiz | Chapters 4-7</h1>
+            <p>Social Anthropology | Haramaya University</p>
+            <div class="chapter-selector">
+                <button class="chapter-btn active" data-chapter="all">All Chapters</button>
+                <button class="chapter-btn" data-chapter="4">Chapter 4</button>
+                <button class="chapter-btn" data-chapter="5">Chapter 5</button>
+                <button class="chapter-btn" data-chapter="6">Chapter 6</button>
+                <button class="chapter-btn" data-chapter="7">Chapter 7</button>
+            </div>
+        </header>
+
+        <div class="quiz-info">
+            <div class="timer">Time: <span id="time">70:00</span></div>
+            <div class="progress">
+                <span>Progress:</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="progress-text">0/75</span>
+            </div>
+        </div>
+
+        <div class="quiz-container" id="quiz-container">
+            <div class="question-container">
+                <div class="question-number" id="question-number">Question 1 of 75</div>
+                <div class="question-text" id="question-text"></div>
+                <div class="options-container" id="options-container"></div>
+            </div>
+
+            <div class="explanation-container" id="explanation-container">
+                <div class="explanation-title">Explanation</div>
+                <div id="explanation-text"></div>
+                <div class="memory-tip" id="memory-tip">
+                    <div class="memory-tip-title">Key Concept</div>
+                    <div id="memory-tip-text"></div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="btn-prev" id="prev-btn" disabled>Previous</button>
+                <button class="btn-next" id="next-btn">Next Question</button>
+                <button class="btn-submit" id="submit-btn">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div class="results-container" id="results-container">
+            <h2 class="results-title">Quiz Results</h2>
+            <div class="score" id="score">0/75</div>
+            <div class="score-text" id="score-text"></div>
+
+            <div class="summary">
+                <div class="summary-title">Performance Summary</div>
+                <p>Total Questions: <span id="total-questions">75</span></p>
+                <p>Correct Answers: <span id="correct-answers">0</span></p>
+                <p>Incorrect Answers: <span id="incorrect-answers">0</span></p>
+                <p>Percentage: <span id="percentage">0%</span></p>
+                <p>Time Taken: <span id="time-taken">70:00</span></p>
+            </div>
+
+            <div class="question-review" id="question-review">
+                <h3>Question Review</h3>
+                <!-- Review content will be generated by JavaScript -->
+            </div>
+
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // Anthropology Chapters 4-7 Questions (75 questions)
+        const questions = [
+            // Chapter 4: Marginalized, Minorities, and Vulnerable Groups
+            {
+                question: "Why do people marginalize others?",
+                options: [
+                    "The marginalized people are considered as insignificant",
+                    "Social interactions with marginalized people are mostly considered as impure",
+                    "Marginalized people are socially believed as peripheral",
+                    "All of the above statements are answers"
+                ],
+                correct: 3,
+                explanation: "Marginalization occurs due to multiple factors including perceived insignificance, impurity beliefs, and peripheral social status of marginalized groups.",
+                memoryTip: "Remember: Marginalization is multi-dimensional - social, cultural, and spatial factors all contribute.",
+                chapter: 4
+            },
+            {
+                question: "Due to his job preference as a pottery worker, Mr. Kuwamin placed on the periphery part of the market. What kind of marginalization he faced?",
+                options: [
+                    "Economic marginalization",
+                    "Spatial marginalization",
+                    "Cultural marginalization",
+                    "Social marginalization"
+                ],
+                correct: 1,
+                explanation: "Spatial marginalization refers to physical segregation or placement in peripheral areas, often affecting craft workers like potters.",
+                memoryTip: "Spatial = Physical location; Economic = Financial; Cultural = Beliefs/values; Social = Relationships",
+                chapter: 4
+            },
+            {
+                question: "Which statement is correct about Social marginalization that craft-workers are facing?",
+                options: [
+                    "Stereotypes manifested through negative labels",
+                    "An exclusion from certain production and exchange activities",
+                    "Exclusion from major networks that connect the community",
+                    "Intentional exclusion of craft workers from the central areas"
+                ],
+                correct: 0,
+                explanation: "Social marginalization of craft workers often involves negative stereotyping and labeling that affects their social status and interactions.",
+                memoryTip: "Social marginalization involves stigma, negative labels, and exclusion from social networks.",
+                chapter: 4
+            },
+            {
+                question: "Which groups are mostly marginalized in Ethiopian societies?",
+                options: [
+                    "Females",
+                    "Handcraft occupational groups",
+                    "Children",
+                    "People with disabilities",
+                    "All are answers"
+                ],
+                correct: 4,
+                explanation: "Multiple groups face marginalization in Ethiopian societies including women, craft workers, children, and people with disabilities due to various social, economic, and cultural factors.",
+                memoryTip: "Marginalization affects multiple overlapping groups - intersectionality is important.",
+                chapter: 4
+            },
+            {
+                question: "Gender-based marginalization could be best explained in:",
+                options: [
+                    "It is arising from socio-cultural norms",
+                    "It involves an inclusion of girls and women in wide range of opportunities",
+                    "It includes customary practices that work for the health and safety of women",
+                    "It is a marginalization of people who engage in craftworks"
+                ],
+                correct: 0,
+                explanation: "Gender-based marginalization primarily arises from socio-cultural norms and practices that disadvantage certain genders.",
+                memoryTip: "Gender marginalization = Socially constructed norms creating unequal opportunities.",
+                chapter: 4
+            },
+            {
+                question: "What is vulnerability?",
+                options: [
+                    "A situation in which individuals/groups are exposed to possibilities of harm, attack, and mistreatment",
+                    "The process of making a group less important",
+                    "Being part of a minority group",
+                    "Having less economic power than others"
+                ],
+                correct: 0,
+                explanation: "Vulnerability refers to the state of being exposed to risks, harm, or mistreatment, often due to social, economic, or political factors.",
+                memoryTip: "Vulnerability = Exposure to risk/harm; Marginalization = Pushing to periphery.",
+                chapter: 4
+            },
+            {
+                question: "Child girls are exposed to double marginalization and discrimination because of:",
+                options: [
+                    "Their age only",
+                    "Their gender only",
+                    "Both their age and gender",
+                    "Their economic status only"
+                ],
+                correct: 2,
+                explanation: "Child girls face intersectional marginalization due to both their age (being children) and gender (being female), compounding their vulnerability.",
+                memoryTip: "Intersectionality = Multiple identities creating compounded discrimination.",
+                chapter: 4
+            },
+            {
+                question: "Which statement is true about marginalized occupational groups?",
+                options: [
+                    "They are highly respected in society",
+                    "They often face spatial and social segregation",
+                    "They have equal access to resources and opportunities",
+                    "They dominate political decision-making"
+                ],
+                correct: 1,
+                explanation: "Occupational groups like craft workers often face both spatial segregation (being placed in peripheral areas) and social segregation (exclusion from social networks).",
+                memoryTip: "Craft workers = Often spatially and socially marginalized.",
+                chapter: 4
+            },
+            {
+                question: "What is age-based vulnerability?",
+                options: [
+                    "Discrimination based on chronological age",
+                    "Vulnerability that affects only the elderly",
+                    "A biological condition unrelated to social factors",
+                    "A temporary phase in human development"
+                ],
+                correct: 0,
+                explanation: "Age-based vulnerability refers to discrimination and marginalization based on a person's age, affecting both children and the elderly.",
+                memoryTip: "Ageism = Discrimination based on age; affects both young and old.",
+                chapter: 4
+            },
+            {
+                question: "Religious and ethnic minorities often face:",
+                options: [
+                    "Exclusion from political participation",
+                    "Limited access to resources and services",
+                    "Cultural discrimination and stereotyping",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Religious and ethnic minorities typically face multiple forms of marginalization including political exclusion, resource limitations, and cultural discrimination.",
+                memoryTip: "Minority groups = Multiple overlapping forms of marginalization.",
+                chapter: 4
+            },
+            {
+                question: "Human rights approaches to marginalization emphasize:",
+                options: [
+                    "Punishing marginalized groups",
+                    "Inclusiveness and equal rights for all",
+                    "Maintaining traditional hierarchies",
+                    "Separating different social groups"
+                ],
+                correct: 1,
+                explanation: "Human rights approaches focus on inclusiveness, equality, and ensuring all people enjoy fundamental rights regardless of their social position.",
+                memoryTip: "Human rights = Universal, inalienable, equal for all.",
+                chapter: 4
+            },
+            {
+                question: "Which is NOT a characteristic of marginalized groups?",
+                options: [
+                    "Limited access to decision-making",
+                    "Equal representation in government",
+                    "Social stigma and negative stereotypes",
+                    "Economic disadvantages"
+                ],
+                correct: 1,
+                explanation: "Marginalized groups typically have limited rather than equal representation in government and decision-making processes.",
+                memoryTip: "Marginalization = Exclusion from power, resources, and representation.",
+                chapter: 4
+            },
+            {
+                question: "The concept of 'inclusiveness' in anthropology refers to:",
+                options: [
+                    "Creating systems that include all social groups",
+                    "Focusing only on majority groups",
+                    "Maintaining traditional exclusionary practices",
+                    "Separating different cultural groups"
+                ],
+                correct: 0,
+                explanation: "Inclusiveness involves creating social, political, and economic systems that include and benefit all groups in society.",
+                memoryTip: "Inclusive = Including everyone; Exclusive = Leaving people out.",
+                chapter: 4
+            },
+            {
+                question: "Which factor contributes to the vulnerability of elderly people?",
+                options: [
+                    "Decreased physical capacity",
+                    "Social isolation",
+                    "Economic dependency",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Elderly vulnerability results from multiple factors including physical decline, social isolation, and economic dependence.",
+                memoryTip: "Aging = Multi-dimensional vulnerability (physical, social, economic).",
+                chapter: 4
+            },
+            {
+                question: "Cultural marginalization involves:",
+                options: [
+                    "Devaluation of a group's cultural practices",
+                    "Physical segregation of a group",
+                    "Economic exploitation only",
+                    "Political exclusion only"
+                ],
+                correct: 0,
+                explanation: "Cultural marginalization refers to the devaluation, stigmatization, or suppression of a group's cultural practices, beliefs, and values.",
+                memoryTip: "Cultural marginalization = Devaluing cultural practices and identities.",
+                chapter: 4
+            },
+            {
+                question: "Economic marginalization typically results in:",
+                options: [
+                    "Limited access to employment opportunities",
+                    "Lower wages for similar work",
+                    "Exclusion from credit and financial services",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Economic marginalization manifests through multiple channels including employment barriers, wage discrimination, and financial exclusion.",
+                memoryTip: "Economic marginalization = Multiple barriers to economic participation.",
+                chapter: 4
+            },
+            {
+                question: "Spatial marginalization of craft workers often leads to:",
+                options: [
+                    "Better market access",
+                    "Physical isolation from mainstream economic activities",
+                    "Increased social integration",
+                    "Higher political participation"
+                ],
+                correct: 1,
+                explanation: "Spatial marginalization physically isolates groups from mainstream economic and social activities, limiting their opportunities.",
+                memoryTip: "Spatial segregation = Physical separation = Limited opportunities.",
+                chapter: 4
+            },
+            {
+                question: "Which statement about female genital cutting is CORRECT?",
+                options: [
+                    "It is practiced only in Ethiopia",
+                    "It has no health consequences",
+                    "It is a culturally embedded practice with health risks",
+                    "It is supported by all women in practicing communities"
+                ],
+                correct: 2,
+                explanation: "Female genital cutting is a culturally embedded practice in some societies that carries significant health risks and is increasingly contested.",
+                memoryTip: "FGC = Cultural practice with serious health implications; changing attitudes.",
+                chapter: 4
+            },
+            {
+                question: "Marginalized occupational groups often develop:",
+                options: [
+                    "Strong internal solidarity networks",
+                    "Complete isolation from each other",
+                    "Dominance over other social groups",
+                    "No distinct cultural practices"
+                ],
+                correct: 0,
+                explanation: "Facing external marginalization, occupational groups often develop strong internal solidarity networks for mutual support.",
+                memoryTip: "Marginalization often strengthens in-group solidarity.",
+                chapter: 4
+            },
+            {
+                question: "The anthropological perspective on marginalization emphasizes:",
+                options: [
+                    "Blaming marginalized groups for their situation",
+                    "Understanding the historical and cultural context of exclusion",
+                    "Ignoring power dynamics in society",
+                    "Focusing only on economic factors"
+                ],
+                correct: 1,
+                explanation: "Anthropology seeks to understand marginalization within its historical, cultural, and social context, examining power dynamics and social structures.",
+                memoryTip: "Anthropology = Contextual understanding of social phenomena.",
+                chapter: 4
+            },
+
+            // Chapter 5: Identity, Inter-Ethnic Relations and Multiculturalism
+            {
+                question: "Even if they are distributed across the world, the land of Israel has a large place on the heart of Jewish peoples. Which features of ethnic group can describe more the above statement?",
+                options: [
+                    "A link with a homeland",
+                    "A myth of common ancestry",
+                    "Shared historical memories",
+                    "Having one or more elements of common culture"
+                ],
+                correct: 0,
+                explanation: "The statement emphasizes attachment to a specific territory or homeland, which is a key feature of ethnic identity for many groups.",
+                memoryTip: "Ethnicity features: Common ancestry, culture, language, history, homeland attachment.",
+                chapter: 5
+            },
+            {
+                question: "Which one is odd about aspects of ethnic identity?",
+                options: [
+                    "Speaking an ethnic language",
+                    "Participation in ethnic personal networks",
+                    "Attitudes and feelings of individual",
+                    "Participation in ethnic voluntary associations"
+                ],
+                correct: 2,
+                explanation: "While attitudes and feelings are internal aspects, the other options represent external, observable behaviors and practices related to ethnic identity.",
+                memoryTip: "Ethnic identity has both internal (feelings) and external (behavior) dimensions.",
+                chapter: 5
+            },
+            {
+                question: "Which is NOT an indicator of the external aspect of ethnic identity?",
+                options: [
+                    "Participation in ethnic institutional organizations",
+                    "Participation in ethnic personal networks",
+                    "Having certain ideas, attitudes and feelings for a given ethnicity",
+                    "Speaking an ethnic language and practicing ethnic traditions"
+                ],
+                correct: 2,
+                explanation: "Ideas, attitudes and feelings represent internal psychological aspects, while the other options are external behavioral manifestations.",
+                memoryTip: "External = Observable behaviors; Internal = Psychological states.",
+                chapter: 5
+            },
+            {
+                question: "According to anthropologists, which one is FALSE about ethnicity?",
+                options: [
+                    "Ethnicity is centrally a matter of shared meanings",
+                    "Ethnicity is a matter of cultural differentiation",
+                    "Ethnicity is externalized in personal self-identification",
+                    "Ethnicity is internalized in the person's psychological affairs"
+                ],
+                correct: 2,
+                explanation: "Ethnicity involves both internal identification and external ascription; it's not merely externalized self-identification.",
+                memoryTip: "Ethnicity = Both self-identification AND external categorization.",
+                chapter: 5
+            },
+            {
+                question: "An ethnic group should predominantly consist the following features EXCEPT:",
+                options: [
+                    "Shared historical memories",
+                    "A sense of solidarity",
+                    "A common proper name",
+                    "Having a consanguineal kinship network is must"
+                ],
+                correct: 3,
+                explanation: "While many ethnic groups emphasize kinship, it's not an absolute requirement. Ethnicity can be based on various forms of connection.",
+                memoryTip: "Ethnicity features: Name, ancestry myth, history, culture, territory, solidarity.",
+                chapter: 5
+            },
+            {
+                question: "Which statement about primordialist approach to ethnicity is CORRECT?",
+                options: [
+                    "Ethnicity is ascribed status and membership is fixed",
+                    "Ethnicity is situationally defined depending on rational calculations",
+                    "Ethnicity is something negotiated and constructed in everyday life",
+                    "Ethnicity is based only on economic interests"
+                ],
+                correct: 0,
+                explanation: "Primordialism views ethnicity as fixed, natural, and based on deep historical bonds that are largely unchangeable.",
+                memoryTip: "Primordialism = Ethnicity is fixed, natural, based on deep bonds.",
+                chapter: 5
+            },
+            {
+                question: "The instrumentalist (situational) theory of ethnicity emphasizes:",
+                options: [
+                    "Ethnicity as a rational calculation of advantage",
+                    "Ethnicity as biologically determined",
+                    "Ethnicity as fixed and unchanging",
+                    "Ethnicity as purely cultural without political dimensions"
+                ],
+                correct: 0,
+                explanation: "Instrumentalism views ethnicity as a tool used by groups to mobilize for political or economic advantage in specific situations.",
+                memoryTip: "Instrumentalism = Ethnicity as political tool for mobilization.",
+                chapter: 5
+            },
+            {
+                question: "Constructivism holds that:",
+                options: [
+                    "Ethnicity is constructed and ethnic identities are not singular nor fixed",
+                    "Ethnicity is biologically determined",
+                    "Ethnic boundaries are immutable",
+                    "Common ancestry alone determines ethnicity"
+                ],
+                correct: 0,
+                explanation: "Constructivism views ethnicity as socially constructed, fluid, and context-dependent rather than fixed or biologically determined.",
+                memoryTip: "Constructivism = Ethnicity is socially constructed, fluid, contextual.",
+                chapter: 5
+            },
+            {
+                question: "Internal aspects of ethnic identity are:",
+                options: [
+                    "Interconnected with external behavior",
+                    "Completely separate from external behavior",
+                    "Only relevant for anthropological study",
+                    "Unimportant for understanding ethnicity"
+                ],
+                correct: 0,
+                explanation: "Internal aspects (feelings, attitudes) and external aspects (behaviors, practices) of ethnic identity are interconnected and influence each other.",
+                memoryTip: "Ethnic identity = Interaction between internal states and external behaviors.",
+                chapter: 5
+            },
+            {
+                question: "Race is considered by anthropologists as:",
+                options: [
+                    "A biological reality with clear boundaries",
+                    "A cultural or social construct",
+                    "A scientific classification of human diversity",
+                    "A fixed genetic category"
+                ],
+                correct: 1,
+                explanation: "Anthropologists view race as a social construct created by people, not a biological reality with clear scientific boundaries.",
+                memoryTip: "Race = Social construct, not biological reality.",
+                chapter: 5
+            },
+            {
+                question: "Which is true about human hereditary physical traits?",
+                options: [
+                    "They are distributed on the basis of clear racial boundaries",
+                    "They show continuous variation without clear boundaries",
+                    "They determine cultural capabilities",
+                    "They are fixed within racial categories"
+                ],
+                correct: 1,
+                explanation: "Human physical traits show continuous variation across geographical regions without clear boundaries separating supposed 'races'.",
+                memoryTip: "Human variation = Continuous, not categorical; no clear racial boundaries.",
+                chapter: 5
+            },
+            {
+                question: "Multiculturalism in Ethiopia involves:",
+                options: [
+                    "Recognition and accommodation of cultural diversity",
+                    "Assimilation of all groups into one culture",
+                    "Dominance of one ethnic culture over others",
+                    "Elimination of cultural differences"
+                ],
+                correct: 0,
+                explanation: "Multiculturalism recognizes and accommodates cultural diversity rather than promoting assimilation or dominance.",
+                memoryTip: "Multiculturalism = Recognition + Accommodation of diversity.",
+                chapter: 5
+            },
+            {
+                question: "Ethnic boundaries refer to:",
+                options: [
+                    "Physical boundaries between ethnic territories",
+                    "Social distinctions that define who belongs to an ethnic group",
+                    "Legal restrictions on ethnic interactions",
+                    "Economic divisions between ethnic groups"
+                ],
+                correct: 1,
+                explanation: "Ethnic boundaries are social and symbolic distinctions that define membership and differentiate between ethnic groups.",
+                memoryTip: "Ethnic boundaries = Social distinctions defining group membership.",
+                chapter: 5
+            },
+            {
+                question: "Which theory views ethnicity as 'politically architected tool that politicians consume for divide and rule'?",
+                options: [
+                    "Primordial approach",
+                    "Instrumentalist approach",
+                    "Biological approach",
+                    "Cultural approach"
+                ],
+                correct: 1,
+                explanation: "This description matches instrumentalism, which views ethnicity as a political tool used for mobilization and control.",
+                memoryTip: "Instrumentalism = Ethnicity as political tool for elite interests.",
+                chapter: 5
+            },
+            {
+                question: "The self-image of people towards their own ethnic group is part of:",
+                options: [
+                    "Cognitive dimension of ethnic identity",
+                    "Affective dimension of ethnic identity",
+                    "Behavioral dimension only",
+                    "Economic dimension of ethnicity"
+                ],
+                correct: 1,
+                explanation: "Self-image and emotional attachment to one's ethnic group fall under the affective (emotional) dimension of ethnic identity.",
+                memoryTip: "Affective dimension = Feelings, emotions, attachments.",
+                chapter: 5
+            },
+            {
+                question: "Which is odd about the current anthropological situation in Ethiopia?",
+                options: [
+                    "Ethnicism",
+                    "Ethnic warfare",
+                    "Ethnocentrism",
+                    "Ethno-cultural diversity"
+                ],
+                correct: 3,
+                explanation: "Ethno-cultural diversity is a demographic fact, while the other terms refer to problematic social or political phenomena.",
+                memoryTip: "Diversity = Fact; Ethnicism/Warfare/Ethnocentrism = Problems.",
+                chapter: 5
+            },
+            {
+                question: "Ethnic and racial conflicts often arise in reaction to:",
+                options: [
+                    "Prejudice or discrimination",
+                    "Biological differences",
+                    "Genetic incompatibility",
+                    "Natural competition"
+                ],
+                correct: 0,
+                explanation: "Such conflicts typically arise from social factors like prejudice, discrimination, and competition over resources, not biological differences.",
+                memoryTip: "Ethnic conflict = Social/political causes, not biological ones.",
+                chapter: 5
+            },
+            {
+                question: "A manner in which persons, on account of their ethnic origin, locate themselves psychologically in relation to one or more social systems is called:",
+                options: [
+                    "Ethnic identification",
+                    "Ethnic categorization",
+                    "Ethnic mobilization",
+                    "Ethnic assimilation"
+                ],
+                correct: 0,
+                explanation: "Ethnic identification refers to how individuals psychologically position themselves in relation to social systems based on their ethnic origin.",
+                memoryTip: "Identification = Psychological positioning; Categorization = External labeling.",
+                chapter: 5
+            },
+            {
+                question: "The different racial classifications that exist today are often:",
+                options: [
+                    "Based on scientific criteria and common good",
+                    "Not based on scientific criteria and common good",
+                    "Biologically accurate and fixed",
+                    "Universally accepted by all anthropologists"
+                ],
+                correct: 1,
+                explanation: "Racial classifications are social constructs often not based on scientific criteria and may serve particular interests rather than common good.",
+                memoryTip: "Racial categories = Social constructs, not scientific facts.",
+                chapter: 5
+            },
+            {
+                question: "Which statement about ethnicity is CORRECT according to anthropological perspective?",
+                options: [
+                    "It is fixed at birth and cannot change",
+                    "It can be situational and change over time",
+                    "It is determined solely by ancestry",
+                    "It has no political dimensions"
+                ],
+                correct: 1,
+                explanation: "Anthropology recognizes that ethnicity can be situational, context-dependent, and change over time through various social processes.",
+                memoryTip: "Ethnicity = Fluid, situational, changeable (not fixed).",
+                chapter: 5
+            },
+
+            // Chapter 6: Customary and Local Governance Systems and Peace Making
+            {
+                question: "Which statement is correct about customary conflict resolution institutions in Ethiopia?",
+                options: [
+                    "High involvement of elders at different stages of conflict resolution",
+                    "Preference and respect for elders incline to be based on dishonesty and bias",
+                    "Indigenous dispute resolution practices focuses on punishment not restoring social relationships",
+                    "Entirely, indigenous justice systems are similar irrespective of differences in location"
+                ],
+                correct: 0,
+                explanation: "Elders play a central role in most Ethiopian customary conflict resolution systems, guiding the process at various stages.",
+                memoryTip: "Elders = Central to customary conflict resolution in Ethiopia.",
+                chapter: 6
+            },
+            {
+                question: "Which indigenous system of governance is correctly matched with elders' council?",
+                options: [
+                    "Gadaa → Guriti",
+                    "Baalle → Songo Hayyicha",
+                    "Dere Woga → Hulla Hayyicha",
+                    "Dere Woga → Cimuma"
+                ],
+                correct: 3,
+                explanation: "In the Gamo's Dere Woga system, Cimuma refers to the council of elders responsible for dispute resolution and governance.",
+                memoryTip: "Dere Woga (Gamo) → Cimuma = Elders' council.",
+                chapter: 6
+            },
+            {
+                question: "Which one is FALSE about Gadaa system?",
+                options: [
+                    "The Gadaa system is an age grading institution of the Oromo",
+                    "The role of religion is high in Gadaa system",
+                    "Abba Gadaa is the father of law in Gadaa System",
+                    "Gadaa is called a democratic system of governance"
+                ],
+                correct: 1,
+                explanation: "The role of religion is actually relatively low in the Gadaa system compared to other aspects; it's primarily a political and social institution.",
+                memoryTip: "Gadaa = Political/social age-grade system with low religious role.",
+                chapter: 6
+            },
+            {
+                question: "Which customary governance system has decentralized power structure?",
+                options: [
+                    "Gadaa",
+                    "Baalle",
+                    "Jaarsa Biyyaa",
+                    "Dere Woga"
+                ],
+                correct: 3,
+                explanation: "The Dere Woga system of the Gamo people has a decentralized structure with power distributed among different levels and councils.",
+                memoryTip: "Dere Woga = Decentralized; Gadaa = More centralized age-grade system.",
+                chapter: 6
+            },
+            {
+                question: "What is the general assembly and highest body of Gedeo's indigenous system of governance?",
+                options: [
+                    "Luuba",
+                    "Roga",
+                    "Ya'a",
+                    "Baalle"
+                ],
+                correct: 2,
+                explanation: "In the Gedeo system, Ya'a is the general assembly and supreme decision-making body.",
+                memoryTip: "Gedeo: Ya'a = General assembly (highest body).",
+                chapter: 6
+            },
+            {
+                question: "In Dere Woga indigenous justice system of Gamo community, which administrative unit is in charge of resolving minor conflicts at village level?",
+                options: [
+                    "Dere Dubusha",
+                    "Sub-Dere dubusha",
+                    "Guia Dubusha",
+                    "Dere Cima"
+                ],
+                correct: 2,
+                explanation: "Guia Dubusha handles minor conflicts at the village level in the Gamo's Dere Woga system.",
+                memoryTip: "Guia Dubusha = Village-level conflict resolution (Gamo).",
+                chapter: 6
+            },
+            {
+                question: "Which is a body of rules, norms, and moral values serving as framework for human conduct and social interactions?",
+                options: [
+                    "Dere Cima",
+                    "Dere Woga",
+                    "Dubusha",
+                    "Guia Dubusha"
+                ],
+                correct: 1,
+                explanation: "Dere Woga refers to the comprehensive system of customary law governing social conduct in Gamo society.",
+                memoryTip: "Dere Woga = Customary law system (rules, norms, values).",
+                chapter: 6
+            },
+            {
+                question: "Women's peace-making institutions include all EXCEPT:",
+                options: [
+                    "Don kachel",
+                    "Deberte",
+                    "Abbogereb",
+                    "Yakaa"
+                ],
+                correct: 2,
+                correct: 3,
+                explanation: "Yakaa is a Sidama women's association, not specifically a peace-making institution. Abbogereb is actually an inter-ethnic conflict resolution institution.",
+                memoryTip: "Women's peace institutions vary by ethnic group; know specific examples.",
+                chapter: 6
+            },
+            {
+                question: "Indigenous institutions of dispute resolution and peace-making are:",
+                options: [
+                    "Not very effective to resolve dispute and restore peace",
+                    "Very effective for resolving disputes and restoring peace between different ethnic groups",
+                    "Only effective within single ethnic groups",
+                    "Completely replaced by modern legal systems"
+                ],
+                correct: 1,
+                explanation: "Indigenous institutions have proven effective for resolving disputes and restoring peace, often incorporating restorative justice principles.",
+                memoryTip: "Indigenous conflict resolution = Often effective, restorative justice approach.",
+                chapter: 6
+            },
+            {
+                question: "Legal pluralism refers to:",
+                options: [
+                    "The existence of multiple legal systems in one society",
+                    "Only state law being recognized",
+                    "Complete separation of customary and state law",
+                    "The dominance of religious law over all others"
+                ],
+                correct: 0,
+                explanation: "Legal pluralism recognizes the coexistence and interaction of multiple legal systems (customary, religious, state) within a society.",
+                memoryTip: "Legal pluralism = Multiple legal systems coexisting.",
+                chapter: 6
+            },
+            {
+                question: "Which is true about the Gadaa system?",
+                options: [
+                    "It is an egalitarian system of governance",
+                    "It is only a religious institution",
+                    "It excludes younger generations from participation",
+                    "It has no conflict resolution mechanisms"
+                ],
+                correct: 0,
+                explanation: "Gadaa is characterized by relatively egalitarian principles with power rotating among different age sets.",
+                memoryTip: "Gadaa = Egalitarian, age-grade, rotational leadership.",
+                chapter: 6
+            },
+            {
+                question: "The administrative hierarchies in Balle system of Gedeo people in ascending order is:",
+                options: [
+                    "Roga → Abbaa Gadaa → Hulla Hayyicha → Songo Hayyicha",
+                    "Abbaa Gadaa → Roga → Hulla Hayyicha → Songo Hayyicha",
+                    "Hulla Hayyicha → Songo Hayyicha → Roga → Abbaa Gadaa",
+                    "Songo Hayyicha → Hulla Hayyicha → Roga → Abbaa Gadaa"
+                ],
+                correct: 3,
+                explanation: "In the Gedeo Balle system, the hierarchy ascends from Songo Hayyicha to Hulla Hayyicha to Roga to Abbaa Gadaa.",
+                memoryTip: "Gedeo hierarchy: Songo → Hulla → Roga → Abbaa Gadaa (ascending).",
+                chapter: 6
+            },
+            {
+                question: "Which represents an inter-ethnic conflict resolution institution?",
+                options: [
+                    "Abba Gadaa",
+                    "Jaarsa Biyyaa",
+                    "Dere Cima",
+                    "Guia Dubusha"
+                ],
+                correct: 1,
+                explanation: "Jaarsa Biyyaa is an institution for resolving conflicts between different ethnic groups in some Ethiopian societies.",
+                memoryTip: "Jaarsa Biyyaa = Inter-ethnic conflict resolution institution.",
+                chapter: 6
+            },
+            {
+                question: "Women's role in conflict resolution and peacemaking in Ethiopian societies is often:",
+                options: [
+                    "Non-existent or minimal",
+                    "Limited to supporting roles only",
+                    "Significant through various institutions and practices",
+                    "Only recognized in modern times"
+                ],
+                correct: 2,
+                explanation: "Women play significant roles in conflict resolution through various traditional institutions, though often under-recognized.",
+                memoryTip: "Women = Active participants in traditional peacemaking.",
+                chapter: 6
+            },
+            {
+                question: "Which statement about customary courts is CORRECT?",
+                options: [
+                    "They only handle criminal cases",
+                    "They serve to resolve disputes and maintain social harmony",
+                    "They are completely separate from community values",
+                    "They have been entirely replaced by state courts"
+                ],
+                correct: 1,
+                explanation: "Customary courts primarily aim to resolve disputes and restore social harmony rather than merely punishing offenders.",
+                memoryTip: "Customary courts = Dispute resolution + Social harmony restoration.",
+                chapter: 6
+            },
+            {
+                question: "The relatively egalitarian distribution of customary political power underpins institutions that:",
+                options: [
+                    "Promote social hierarchy",
+                    "Promote social harmony in Ethiopia",
+                    "Create ethnic conflicts",
+                    "Centralize power in few individuals"
+                ],
+                correct: 1,
+                explanation: "Egalitarian power distribution in many Ethiopian customary systems supports institutions that promote social harmony.",
+                memoryTip: "Egalitarian power distribution → Social harmony promotion.",
+                chapter: 6
+            },
+            {
+                question: "Intra-ethnic conflict resolution institutions focus on:",
+                options: [
+                    "Conflicts between different ethnic groups",
+                    "Conflicts within the same ethnic group",
+                    "Only criminal offenses",
+                    "Only land disputes"
+                ],
+                correct: 1,
+                explanation: "Intra-ethnic institutions handle conflicts within the same ethnic group, while inter-ethnic institutions handle conflicts between groups.",
+                memoryTip: "Intra = Within group; Inter = Between groups.",
+                chapter: 6
+            },
+            {
+                question: "Which is a key feature of indigenous conflict resolution?",
+                options: [
+                    "Focus on punishment and retribution",
+                    "Restoration of relationships and social harmony",
+                    "Formal legal procedures only",
+                    "Exclusion of community participation"
+                ],
+                correct: 1,
+                explanation: "Indigenous systems typically emphasize restoring relationships and social harmony rather than purely punishing offenders.",
+                memoryTip: "Indigenous justice = Restorative, not retributive.",
+                chapter: 6
+            },
+            {
+                question: "Customary law of Gedeo people is known as:",
+                options: [
+                    "Seera",
+                    "Dere Woga",
+                    "Baalle",
+                    "Gadaa"
+                ],
+                correct: 0,
+                explanation: "Seera refers to the customary law system of the Gedeo people.",
+                memoryTip: "Gedeo customary law = Seera.",
+                chapter: 6
+            },
+            {
+                question: "The council of elders in Gamo people's system is called:",
+                options: [
+                    "Dere Cima",
+                    "Dere Woga",
+                    "Dubusha",
+                    "Guia Dubusha"
+                ],
+                correct: 0,
+                explanation: "Dere Cima refers to the council of elders in the Gamo customary governance system.",
+                memoryTip: "Gamo elders' council = Dere Cima.",
+                chapter: 6
+            },
+
+            // Chapter 7: Indigenous Knowledge Systems and Practices
+            {
+                question: "How does bio-cultural evolution help humanity evolve to the current stage?",
+                options: [
+                    "The use of clothes helped human bodies to survive in harsher environments",
+                    "The increased consumption of proteins negatively affected human anatomy",
+                    "The emergence of cultural artifacts hindered human biological evolution",
+                    "None of the above statements are answers"
+                ],
+                correct: 0,
+                explanation: "Bio-cultural evolution involves the interaction between biological and cultural factors, such as using clothing to adapt to environments.",
+                memoryTip: "Bio-cultural evolution = Interaction of biology and culture in human adaptation.",
+                chapter: 7
+            },
+            {
+                question: "Which refers to a cultural area where high mobility of people is its major characteristic?",
+                options: [
+                    "Enset Culture",
+                    "Pastoral culture",
+                    "Plough culture",
+                    "Cultural area"
+                ],
+                correct: 1,
+                explanation: "Pastoral cultures are characterized by high mobility as people move with their herds in search of pasture and water.",
+                memoryTip: "Pastoralism = High mobility with herds; Agriculture = More settled.",
+                chapter: 7
+            },
+            {
+                question: "Which is NOT true about bio-cultural animal?",
+                options: [
+                    "Human relying on instinct rather than cultural information",
+                    "The dual nature of human being",
+                    "Cultural artifacts allow human bodies to survive in environments they wouldn't normally survive in",
+                    "Humans survive by using both their biology and cultural information"
+                ],
+                correct: 0,
+                explanation: "Humans rely heavily on cultural information and learning rather than primarily on instinct.",
+                memoryTip: "Humans = Culture-dependent; Not instinct-driven like many animals.",
+                chapter: 7
+            },
+            {
+                question: "Which cultural area is characterized by mobility of people and herds?",
+                options: [
+                    "Enset Culture",
+                    "Pastoralist Culture",
+                    "Plough Culture",
+                    "Mixed Culture"
+                ],
+                correct: 1,
+                explanation: "Pastoralist cultures involve seasonal movement with livestock herds between grazing areas.",
+                memoryTip: "Pastoralism = Seasonal mobility with livestock.",
+                chapter: 7
+            },
+            {
+                question: "Cosmological view of human origin is considered as:",
+                options: [
+                    "Human being evolved from non-human primates",
+                    "A belief that is ritually transmitted from generation to generation",
+                    "Humanity is the result of day-to-day evolution",
+                    "Human beings evolved from supernatural power"
+                ],
+                correct: 1,
+                explanation: "Cosmological views are cultural beliefs about origins that are transmitted through rituals and traditions across generations.",
+                memoryTip: "Cosmology = Cultural beliefs about origins, ritually transmitted.",
+                chapter: 7
+            },
+            {
+                question: "Indigenous Knowledge Systems (IKS) refer to:",
+                options: [
+                    "Only modern scientific knowledge",
+                    "Knowledge systems developed by indigenous communities over generations",
+                    "Knowledge imported from Western countries",
+                    "Academic knowledge produced in universities"
+                ],
+                correct: 1,
+                explanation: "IKS are knowledge systems developed and sustained by indigenous communities through long-term interaction with their environment.",
+                memoryTip: "IKS = Local, community-based, intergenerational knowledge.",
+                chapter: 7
+            },
+            {
+                question: "The significance of indigenous knowledge includes:",
+                options: [
+                    "It is irrelevant for modern development",
+                    "It provides sustainable solutions adapted to local conditions",
+                    "It should be completely replaced by modern science",
+                    "It has no practical applications today"
+                ],
+                correct: 1,
+                explanation: "Indigenous knowledge often contains sustainable practices adapted to local environments and conditions.",
+                memoryTip: "IKS value = Locally adapted, sustainable solutions.",
+                chapter: 7
+            },
+            {
+                question: "Indigenous knowledge and development:",
+                options: [
+                    "Are completely incompatible",
+                    "Can be integrated for sustainable development",
+                    "Should be kept completely separate",
+                    "Have no relationship with each other"
+                ],
+                correct: 1,
+                explanation: "Integrating indigenous knowledge with modern approaches can lead to more sustainable and culturally appropriate development.",
+                memoryTip: "IKS + Modern knowledge = Sustainable, appropriate development.",
+                chapter: 7
+            },
+            {
+                question: "Preservation of Indigenous Knowledge faces challenges due to:",
+                options: [
+                    "Globalization and cultural homogenization",
+                    "Lack of documentation and transmission",
+                    "Disrespect and devaluation by dominant knowledge systems",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "IKS preservation faces multiple challenges including globalization, poor documentation, and devaluation by dominant knowledge systems.",
+                memoryTip: "IKS challenges: Globalization, poor documentation, devaluation.",
+                chapter: 7
+            },
+            {
+                question: "The erosion of Indigenous Knowledge Systems results from:",
+                options: [
+                    "Cultural continuity and transmission",
+                    "Modern education ignoring local knowledge",
+                    "Integration with modern science",
+                    "Documentation and preservation efforts"
+                ],
+                correct: 1,
+                explanation: "Erosion occurs when modern education and development paradigms ignore or devalue local knowledge systems.",
+                memoryTip: "IKS erosion = Modern systems ignoring/devaluing local knowledge.",
+                chapter: 7
+            },
+            {
+                question: "Cosmology deals with:",
+                options: [
+                    "Only astronomical phenomena",
+                    "The supernatural forces that formed human beings and the planet",
+                    "Biological evolution of species",
+                    "Economic systems of societies"
+                ],
+                correct: 1,
+                explanation: "Cosmology in anthropological context refers to cultural beliefs about the creation of humans and the world by supernatural forces.",
+                memoryTip: "Cosmology = Cultural beliefs about creation/origins.",
+                chapter: 7
+            },
+            {
+                question: "Which is a key characteristic of indigenous knowledge?",
+                options: [
+                    "It is static and unchanging",
+                    "It is orally transmitted and experiential",
+                    "It is only written in formal documents",
+                    "It is universal and identical across all cultures"
+                ],
+                correct: 1,
+                explanation: "Indigenous knowledge is typically transmitted orally through experience and practice rather than formal written documents.",
+                memoryTip: "IKS transmission = Oral, experiential, intergenerational.",
+                chapter: 7
+            },
+            {
+                question: "The dual nature of human being in bio-cultural evolution refers to:",
+                options: [
+                    "Biological and cultural dimensions interacting",
+                    "Good and evil aspects of human nature",
+                    "Individual and social dimensions only",
+                    "Past and present human forms"
+                ],
+                correct: 0,
+                explanation: "Human evolution involves both biological changes and cultural developments that interact and influence each other.",
+                memoryTip: "Human duality = Biological being + Cultural being.",
+                chapter: 7
+            },
+            {
+                question: "Which statement about cultural areas is CORRECT?",
+                options: [
+                    "They have rigid, fixed boundaries",
+                    "They represent clusters of related cultures in geographical regions",
+                    "They are determined solely by environmental factors",
+                    "They are identical to political boundaries"
+                ],
+                correct: 1,
+                explanation: "Cultural areas are geographical regions where related cultures share similar traits and adaptations.",
+                memoryTip: "Cultural area = Geographic region with related cultures.",
+                chapter: 7
+            },
+            {
+                question: "The process that increases likelihood of survival for an organism is:",
+                options: [
+                    "Natural selection",
+                    "Survival of the fittest",
+                    "Adaptation",
+                    "Evolution"
+                ],
+                correct: 2,
+                explanation: "Adaptation refers to traits or behaviors that increase an organism's chances of survival in its environment.",
+                memoryTip: "Adaptation = Traits increasing survival chances.",
+                chapter: 7
+            },
+            {
+                question: "Modern human species is scientifically known as:",
+                options: [
+                    "Homo sapiens",
+                    "Homo erectus",
+                    "Homo habilis",
+                    "Australopithecus"
+                ],
+                correct: 0,
+                explanation: "Modern humans belong to the species Homo sapiens.",
+                memoryTip: "Modern humans = Homo sapiens.",
+                chapter: 7
+            },
+            {
+                question: "Cultural artifacts in human evolution:",
+                options: [
+                    "Hindered biological evolution",
+                    "Allowed survival in diverse environments",
+                    "Had no impact on human development",
+                    "Only appeared in modern times"
+                ],
+                correct: 1,
+                explanation: "Cultural artifacts (tools, clothing, shelter) enabled humans to survive in environments they couldn't inhabit biologically.",
+                memoryTip: "Cultural artifacts = Tools for environmental adaptation.",
+                chapter: 7
+            },
+            {
+                question: "The state of species' offspring being somewhat dissimilar with siblings and parents is:",
+                options: [
+                    "Replication",
+                    "Selection",
+                    "Variation",
+                    "Survival of the fittest"
+                ],
+                correct: 2,
+                explanation: "Variation refers to differences among individuals of the same species, which provides raw material for evolution.",
+                memoryTip: "Variation = Differences among individuals (evolution's raw material).",
+                chapter: 7
+            },
+            {
+                question: "Represent communities highly dependent on herds and cattle for living:",
+                options: [
+                    "Agricultural societies",
+                    "Industrial societies",
+                    "Pastoral societies",
+                    "Horticultural societies"
+                ],
+                correct: 2,
+                explanation: "Pastoral societies rely primarily on livestock herding for subsistence, with high mobility and herd dependence.",
+                memoryTip: "Pastoral societies = Herd-dependent, mobile.",
+                chapter: 7
+            },
+            {
+                question: "Which is NOT a purpose of customary courts?",
+                options: [
+                    "Resolving disputes between community members",
+                    "Maintaining social harmony and order",
+                    "Punishing offenders with prison sentences",
+                    "Restoring relationships between conflicting parties"
+                ],
+                correct: 2,
+                explanation: "Customary courts typically focus on restoration and compensation rather than formal prison punishments.",
+                memoryTip: "Customary courts = Restorative justice, not punitive imprisonment.",
+                chapter: 7
+            }
+        ];
+
+        // DOM elements
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results-container');
+        const questionNumber = document.getElementById('question-number');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const memoryTipText = document.getElementById('memory-tip-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+        const timeDisplay = document.getElementById('time');
+        const scoreDisplay = document.getElementById('score');
+        const scoreText = document.getElementById('score-text');
+        const totalQuestions = document.getElementById('total-questions');
+        const correctAnswers = document.getElementById('correct-answers');
+        const incorrectAnswers = document.getElementById('incorrect-answers');
+        const percentage = document.getElementById('percentage');
+        const timeTaken = document.getElementById('time-taken');
+        const questionReview = document.getElementById('question-review');
+        const restartBtn = document.getElementById('restart-btn');
+        const chapterBtns = document.querySelectorAll('.chapter-btn');
+
+        // Quiz state
+        let currentQuestion = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let score = 0;
+        let timer;
+        let timeLeft = 70 * 60; // 70 minutes in seconds
+        let quizCompleted = false;
+        let filteredQuestions = [...questions];
+        let currentChapter = 'all';
+
+        // Initialize quiz
+        function initQuiz() {
+            filterQuestionsByChapter(currentChapter);
+            displayQuestion();
+            startTimer();
+            updateProgress();
+        }
+
+        // Filter questions by chapter
+        function filterQuestionsByChapter(chapter) {
+            if (chapter === 'all') {
+                filteredQuestions = [...questions];
+            } else {
+                filteredQuestions = questions.filter(q => q.chapter == chapter);
+            }
+            currentQuestion = 0;
+            userAnswers = new Array(filteredQuestions.length).fill(null);
+            updateProgress();
+        }
+
+        // Display current question
+        function displayQuestion() {
+            if (currentQuestion >= filteredQuestions.length) return;
+            
+            const question = filteredQuestions[currentQuestion];
+            questionNumber.textContent = `Question ${currentQuestion + 1} of ${filteredQuestions.length}`;
+            questionText.textContent = question.question;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[currentQuestion] === index) {
+                    optionElement.classList.add('selected');
+                }
+                optionElement.textContent = option;
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Show/hide explanation
+            if (userAnswers[currentQuestion] !== null) {
+                showExplanation();
+            } else {
+                explanationContainer.style.display = 'none';
+            }
+            
+            // Update button states
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.disabled = false;
+            submitBtn.style.display = currentQuestion === filteredQuestions.length - 1 ? 'block' : 'none';
+            nextBtn.style.display = currentQuestion === filteredQuestions.length - 1 ? 'none' : 'block';
+        }
+
+        // Select an option
+        function selectOption(index) {
+            if (quizCompleted) return;
+            
+            userAnswers[currentQuestion] = index;
+            
+            // Update UI
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => option.classList.remove('selected'));
+            options[index].classList.add('selected');
+            
+            showExplanation();
+        }
+
+        // Show explanation for current question
+        function showExplanation() {
+            const question = filteredQuestions[currentQuestion];
+            explanationText.textContent = question.explanation;
+            memoryTipText.textContent = question.memoryTip;
+            explanationContainer.style.display = 'block';
+            
+            // Highlight correct/incorrect answers
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                option.classList.remove('correct', 'incorrect');
+                if (index === question.correct) {
+                    option.classList.add('correct');
+                } else if (index === userAnswers[currentQuestion] && index !== question.correct) {
+                    option.classList.add('incorrect');
+                }
+            });
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestion < filteredQuestions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+                updateProgress();
+            }
+        }
+
+        // Navigate to previous question
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+                updateProgress();
+            }
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / filteredQuestions.length) * 100;
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `${currentQuestion + 1}/${filteredQuestions.length}`;
+            totalQuestions.textContent = filteredQuestions.length;
+        }
+
+        // Start timer
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        // Submit quiz
+        function submitQuiz() {
+            clearInterval(timer);
+            quizCompleted = true;
+            
+            // Calculate score
+            score = 0;
+            for (let i = 0; i < filteredQuestions.length; i++) {
+                if (userAnswers[i] === filteredQuestions[i].correct) {
+                    score++;
+                }
+            }
+            
+            // Display results
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            scoreDisplay.textContent = `${score}/${filteredQuestions.length}`;
+            correctAnswers.textContent = score;
+            incorrectAnswers.textContent = filteredQuestions.length - score;
+            percentage.textContent = `${((score / filteredQuestions.length) * 100).toFixed(1)}%`;
+            
+            const minutesTaken = Math.floor((70 * 60 - timeLeft) / 60);
+            const secondsTaken = (70 * 60 - timeLeft) % 60;
+            timeTaken.textContent = `${minutesTaken.toString().padStart(2, '0')}:${secondsTaken.toString().padStart(2, '0')}`;
+            
+            // Set score text
+            if (score >= filteredQuestions.length * 0.8) {
+                scoreText.textContent = "Excellent! You have mastered Anthropology Chapters 4-7.";
+            } else if (score >= filteredQuestions.length * 0.6) {
+                scoreText.textContent = "Good job! You have a solid understanding of the material.";
+            } else if (score >= filteredQuestions.length * 0.5) {
+                scoreText.textContent = "You passed! Review the explanations to strengthen your knowledge.";
+            } else {
+                scoreText.textContent = "You need more study. Review Chapters 4-7 material and try again.";
+            }
+            
+            // Generate question review
+            generateQuestionReview();
+        }
+
+        // Generate question review
+        function generateQuestionReview() {
+            questionReview.innerHTML = '<h3>Question Review</h3>';
+            
+            filteredQuestions.forEach((question, index) => {
+                const reviewItem = document.createElement('div');
+                reviewItem.className = 'review-item';
+                
+                const reviewQuestion = document.createElement('div');
+                reviewQuestion.className = 'review-question';
+                reviewQuestion.textContent = `${index + 1}. ${question.question}`;
+                
+                const userAnswer = document.createElement('div');
+                userAnswer.className = 'review-answer';
+                if (userAnswers[index] !== null) {
+                    userAnswer.innerHTML = `Your answer: <span class="user-answer">${question.options[userAnswers[index]]}</span>`;
+                } else {
+                    userAnswer.innerHTML = `Your answer: <span class="user-answer">Not answered</span>`;
+                }
+                
+                const correctAnswer = document.createElement('div');
+                correctAnswer.className = 'review-answer';
+                correctAnswer.innerHTML = `Correct answer: <span class="correct-answer">${question.options[question.correct]}</span>`;
+                
+                reviewItem.appendChild(reviewQuestion);
+                reviewItem.appendChild(userAnswer);
+                reviewItem.appendChild(correctAnswer);
+                
+                questionReview.appendChild(reviewItem);
+            });
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = new Array(filteredQuestions.length).fill(null);
+            score = 0;
+            timeLeft = 70 * 60;
+            quizCompleted = false;
+            
+            quizContainer.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            
+            initQuiz();
+        }
+
+        // Chapter selection
+        chapterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                chapterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter questions
+                currentChapter = btn.dataset.chapter;
+                filterQuestionsByChapter(currentChapter);
+                
+                // Reset quiz state
+                currentQuestion = 0;
+                userAnswers = new Array(filteredQuestions.length).fill(null);
+                score = 0;
+                quizCompleted = false;
+                
+                // Update display
+                displayQuestion();
+                updateProgress();
+            });
+        });
+
+        // Event listeners
+        prevBtn.addEventListener('click', prevQuestion);
+        nextBtn.addEventListener('click', nextQuestion);
+        submitBtn.addEventListener('click', submitQuiz);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        // Start the quiz
+        initQuiz();
+    </script>
+</body>
+  </html>
