@@ -16,26 +16,26 @@ body {
 /* Pharmacy Header */
 .pharmacy-header {
     background: white;
-    border-radius: 15px;
-    padding: 20px;
-    margin: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-radius: 7px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 8px 13px rgba(0,0,0,0.15);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-left: 6px solid #4CAF50;
+    border-left: 1px solid #4CAF50;
 }
 
 .pharmacy-logo {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: linear-gradient(135deg, #4CAF50, #2E7D32);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.0rem;
     font-weight: bold;
 }
 
@@ -78,15 +78,15 @@ body {
 
 /* Pharmacy Container */
 .pharmacy-container {
-    max-width: 1200px;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
 }
 
 /* Pharmacy Breadcrumb */
 .pharmacy-breadcrumb {
     background: white;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 15px 25px;
     margin-bottom: 25px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -114,7 +114,7 @@ body {
 
 /* Pharmacy Overview */
 .pharmacy-overview {
-    margin-bottom: 35px;
+    margin-bottom: 18px;
 }
 
 .pharmacy-overview-card {
@@ -127,7 +127,7 @@ body {
 
 .pharmacy-overview-card h2 {
     color: #2E7D32;
-    margin-bottom: 15px;
+    margin-bottom: 7px;
     font-size: 2rem;
     text-align: center;
 }
@@ -136,7 +136,7 @@ body {
     color: #666;
     font-size: 1.1rem;
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     line-height: 1.7;
 }
 
@@ -152,7 +152,7 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 18px;
-    padding: 20px;
+    padding: 13px;
     background: #f8fff8;
     border-radius: 12px;
     border: 2px solid #E8F5E8;
@@ -187,26 +187,26 @@ body {
 
 /* Pharmacy Years Section */
 .pharmacy-years-section {
-    margin: 40px 0;
+    margin: 20px 0;
 }
 
 .pharmacy-section-title {
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 200;
     color: white;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .pharmacy-section-title span {
-    margin-right: 12px;
+    margin-right: 6px;
 }
 
 /* Year Cards Grid */
 .pharmacy-year-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 25px;
 }
 
