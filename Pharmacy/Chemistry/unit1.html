@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1: Stereochemistry Quiz</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .quiz-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 25px;
+            background-color: var(--light);
+            border-bottom: 1px solid #ddd;
+        }
+
+        .timer {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--danger);
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: var(--transition);
+        }
+
+        .quiz-container {
+            padding: 30px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .options-container {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            padding: 15px;
+            background-color: var(--light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .option:hover {
+            background-color: #e0e7ee;
+            transform: translateY(-2px);
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+
+        .option.incorrect {
+            border-color: var(--danger);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+        .explanation-container {
+            padding: 20px;
+            background-color: rgba(52, 152, 219, 0.05);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .explanation-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .memory-tip {
+            background-color: rgba(243, 156, 18, 0.1);
+            padding: 15px;
+            border-left: 4px solid var(--warning);
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .memory-tip-title {
+            font-weight: 600;
+            color: var(--warning);
+            margin-bottom: 5px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-prev {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        .btn-next {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-submit {
+            background-color: var(--success);
+            color: white;
+            display: none;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .results-container {
+            padding: 30px;
+            text-align: center;
+            display: none;
+        }
+
+        .results-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .score {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+
+        .score-text {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+        }
+
+        .summary {
+            text-align: left;
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .summary-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .restart-btn {
+            background-color: var(--primary);
+            color: white;
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+
+        .question-review {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .review-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .review-question {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .review-answer {
+            margin-bottom: 5px;
+        }
+
+        .correct-answer {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .user-answer {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-info {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .progress-bar {
+                width: 100%;
+            }
+
+            .question-text {
+                font-size: 1.2rem;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Chapter 1: Stereochemistry Quiz</h1>
+            <p>Natural Products Chemistry | Pharmacy Students</p>
+        </header>
+
+        <div class="quiz-info">
+            <div class="timer">Time: <span id="time">65:00</span></div>
+            <div class="progress">
+                <span>Progress:</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="progress-text">0/65</span>
+            </div>
+        </div>
+
+        <div class="quiz-container" id="quiz-container">
+            <div class="question-container">
+                <div class="question-number" id="question-number">Question 1 of 65</div>
+                <div class="question-text" id="question-text"></div>
+                <div class="options-container" id="options-container"></div>
+            </div>
+
+            <div class="explanation-container" id="explanation-container">
+                <div class="explanation-title">Explanation</div>
+                <div id="explanation-text"></div>
+                <div class="memory-tip" id="memory-tip">
+                    <div class="memory-tip-title">Memory Tip</div>
+                    <div id="memory-tip-text"></div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="btn-prev" id="prev-btn" disabled>Previous</button>
+                <button class="btn-next" id="next-btn">Next Question</button>
+                <button class="btn-submit" id="submit-btn">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div class="results-container" id="results-container">
+            <h2 class="results-title">Quiz Results</h2>
+            <div class="score" id="score">0/65</div>
+            <div class="score-text" id="score-text"></div>
+
+            <div class="summary">
+                <div class="summary-title">Performance Summary</div>
+                <p>Total Questions: <span id="total-questions">65</span></p>
+                <p>Correct Answers: <span id="correct-answers">0</span></p>
+                <p>Incorrect Answers: <span id="incorrect-answers">0</span></p>
+                <p>Percentage: <span id="percentage">0%</span></p>
+                <p>Time Taken: <span id="time-taken">65:00</span></p>
+            </div>
+
+            <div class="question-review" id="question-review">
+                <h3>Question Review</h3>
+                <!-- Review content will be generated by JavaScript -->
+            </div>
+
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // Stereochemistry Questions (65 questions)
+        const questions = [
+            {
+                question: "What is the primary focus of Natural Products Chemistry?",
+                options: [
+                    "Study of synthetic drugs",
+                    "Study of small organic molecules, especially secondary metabolites",
+                    "Study of inorganic compounds in nature",
+                    "Study of pharmaceutical formulations"
+                ],
+                correct: 1,
+                explanation: "Natural products chemistry focuses on studying small organic molecules, especially secondary metabolites, produced by organisms like bacteria, fungi, and plants.",
+                memoryTip: "Natural Products = Secondary metabolites from living organisms."
+            },
+            {
+                question: "Which of the following is NOT a type of isomer?",
+                options: [
+                    "Structural isomers",
+                    "Stereoisomers",
+                    "Conformational isomers",
+                    "Reactive isomers"
+                ],
+                correct: 3,
+                explanation: "Isomer types include structural, stereoisomers (conformational and configurational). 'Reactive isomers' is not a recognized category.",
+                memoryTip: "Isomer types: Structural & Stereoisomers (Conformational/Configurational)."
+            },
+            {
+                question: "What distinguishes enantiomers from diastereomers?",
+                options: [
+                    "Enantiomers are mirror images; diastereomers are not",
+                    "Diastereomers are mirror images; enantiomers are not",
+                    "Both are superimposable",
+                    "Both have same physical properties"
+                ],
+                correct: 0,
+                explanation: "Enantiomers are non-superimposable mirror images. Diastereomers are stereoisomers that are not mirror images.",
+                memoryTip: "Enantiomers = Mirror images; Diastereomers = NOT mirror images."
+            },
+            {
+                question: "Which carbon is chiral in bromochlorofluoromethane?",
+                options: [
+                    "Yes, it has four different groups",
+                    "No, it has duplicate groups",
+                    "Only if it's in a ring",
+                    "Only in specific conformations"
+                ],
+                correct: 0,
+                explanation: "Bromochlorofluoromethane has four different atoms (Br, Cl, F, H) attached to carbon, making it chiral.",
+                memoryTip: "Chiral carbon = Four different groups/atoms attached."
+            },
+            {
+                question: "What is the most stable conformation of cyclohexane?",
+                options: [
+                    "Boat conformation",
+                    "Chair conformation",
+                    "Twist-boat conformation",
+                    "Half-chair conformation"
+                ],
+                correct: 1,
+                explanation: "The chair conformation is most stable due to staggered C-H bonds and minimal steric strain.",
+                memoryTip: "Cyclohexane: Chair conformation = Most stable (staggered bonds)."
+            },
+            {
+                question: "How many stereoisomers are possible for a molecule with 3 chiral centers?",
+                options: [
+                    "4",
+                    "6",
+                    "8",
+                    "10"
+                ],
+                correct: 2,
+                explanation: "Maximum stereoisomers = 2ⁿ where n = chiral centers. 2³ = 8.",
+                memoryTip: "Stereoisomers formula: 2ⁿ (n = chiral centers)."
+            },
+            {
+                question: "Which system uses R and S to designate configuration?",
+                options: [
+                    "Fischer projection",
+                    "D/L system",
+                    "Cahn-Ingold-Prelog system",
+                    "E/Z system"
+                ],
+                correct: 2,
+                explanation: "The Cahn-Ingold-Prelog (CIP) system uses R (rectus) and S (sinister) to assign absolute configuration.",
+                memoryTip: "R/S system = Cahn-Ingold-Prelog rules."
+            },
+            {
+                question: "What is optical activity?",
+                options: [
+                    "Ability to absorb UV light",
+                    "Ability to rotate plane-polarized light",
+                    "Ability to fluoresce",
+                    "Ability to conduct electricity"
+                ],
+                correct: 1,
+                explanation: "Optical activity is the ability of a chiral molecule to rotate the plane of polarized light.",
+                memoryTip: "Optical activity = Rotation of plane-polarized light."
+            },
+            {
+                question: "Which drug had different enantiomers causing sedation vs. teratogenicity?",
+                options: [
+                    "Ibuprofen",
+                    "Thalidomide",
+                    "Naproxen",
+                    "Morphine"
+                ],
+                correct: 1,
+                explanation: "Thalidomide: (R)-enantiomer = sedative, (S)-enantiomer = teratogenic (birth defects).",
+                memoryTip: "Thalidomide tragedy = R (sedative) vs. S (teratogenic)."
+            },
+            {
+                question: "What is a racemic mixture?",
+                options: [
+                    "Pure enantiomer",
+                    "Equal mixture of enantiomers",
+                    "Mixture of diastereomers",
+                    "Achiral compound"
+                ],
+                correct: 1,
+                explanation: "Racemic mixture = 50:50 mixture of two enantiomers, optically inactive.",
+                memoryTip: "Racemic = Equal enantiomers (no net optical rotation)."
+            },
+            {
+                question: "Which amino acid is achiral?",
+                options: [
+                    "Alanine",
+                    "Glycine",
+                    "Leucine",
+                    "Valine"
+                ],
+                correct: 1,
+                explanation: "Glycine has two H atoms on the alpha-carbon, so it's achiral (no chiral center).",
+                memoryTip: "Only achiral amino acid = Glycine (R = H)."
+            },
+            {
+                question: "What is the priority order for Cahn-Ingold-Prelog rules?",
+                options: [
+                    "Atomic number of attached atoms",
+                    "Molecular weight of groups",
+                    "Number of hydrogen atoms",
+                    "Bond strength"
+                ],
+                correct: 0,
+                explanation: "Priority is based on atomic number of atoms directly attached to chiral center (higher atomic number = higher priority).",
+                memoryTip: "CIP priority: Higher atomic number = Higher priority."
+            },
+            {
+                question: "Which conformation of ethane has the highest energy?",
+                options: [
+                    "Staggered",
+                    "Eclipsed",
+                    "Gauche",
+                    "Anti"
+                ],
+                correct: 1,
+                explanation: "Eclipsed conformation has highest torsional strain due to repulsion between electron clouds.",
+                memoryTip: "Ethane: Eclipsed = Highest energy (torsional strain)."
+            },
+            {
+                question: "What is specific rotation formula?",
+                options: [
+                    "[α] = α / (c × l)",
+                    "[α] = α × c × l",
+                    "[α] = α + c + l",
+                    "[α] = α - c - l"
+                ],
+                correct: 0,
+                explanation: "Specific rotation [α] = observed rotation (α) / (concentration × path length).",
+                memoryTip: "Specific rotation: [α] = α / (c × l)."
+            },
+            {
+                question: "Which natural product is the source of morphine?",
+                options: [
+                    "Willow tree",
+                    "Poppy plant",
+                    "Cinchona tree",
+                    "Artemisia annua"
+                ],
+                correct: 1,
+                explanation: "Morphine is isolated from Papaver somniferum (opium poppy).",
+                memoryTip: "Morphine source = Opium poppy (Papaver somniferum)."
+            },
+            {
+                question: "What type of isomers are cis- and trans-2-butene?",
+                options: [
+                    "Enantiomers",
+                    "Diastereomers",
+                    "Constitutional isomers",
+                    "Conformational isomers"
+                ],
+                correct: 1,
+                explanation: "Cis-trans isomers are diastereomers (stereoisomers that are not mirror images).",
+                memoryTip: "Cis-trans = Diastereomers (geometric isomers)."
+            },
+            {
+                question: "Which enzyme target distinguishes between enantiomers?",
+                options: [
+                    "All enzymes",
+                    "Only hydrolytic enzymes",
+                    "Chiral active sites",
+                    "No enzymes distinguish"
+                ],
+                correct: 2,
+                explanation: "Enzymes with chiral active sites can distinguish between enantiomers (chiral discrimination).",
+                memoryTip: "Enzymes with chiral active sites = Enantioselective."
+            },
+            {
+                question: "What is the D/L system based on?",
+                options: [
+                    "Rotation of light",
+                    "Comparison to glyceraldehyde",
+                    "Atomic priority",
+                    "Molecular weight"
+                ],
+                correct: 1,
+                explanation: "D/L system compares configuration to glyceraldehyde (D = -OH on right, L = -OH on left in Fischer projection).",
+                memoryTip: "D/L system = Based on glyceraldehyde configuration."
+            },
+            {
+                question: "Which drug is marketed as a racemic mixture?",
+                options: [
+                    "L-Dopa",
+                    "S-Naproxen",
+                    "Racemic ibuprofen",
+                    "Penicillin G"
+                ],
+                correct: 2,
+                explanation: "Ibuprofen is marketed as racemic mixture (Advil, Motrin). Only S-enantiomer is active.",
+                memoryTip: "Racemic drugs: Ibuprofen, thalidomide, salbutamol."
+            },
+            {
+                question: "What is a plane of symmetry?",
+                options: [
+                    "Divides molecule into superimposable halves",
+                    "Only in chiral molecules",
+                    "Causes optical activity",
+                    "Present in all organic compounds"
+                ],
+                correct: 0,
+                explanation: "Plane of symmetry divides molecule into two identical mirror halves. Achiral molecules have it.",
+                memoryTip: "Plane of symmetry = Molecule can be divided into mirror halves (achiral)."
+            },
+            {
+                question: "Which is an example of positional isomerism?",
+                options: [
+                    "Butane vs isobutane",
+                    "1-propanol vs 2-propanol",
+                    "Ethanol vs dimethyl ether",
+                    "Acetone vs propanal"
+                ],
+                correct: 1,
+                explanation: "1-propanol and 2-propanol differ in position of -OH group (positional isomers).",
+                memoryTip: "Positional isomers = Same functional group, different position."
+            },
+            {
+                question: "What is the biological significance of chirality?",
+                options: [
+                    "Only affects physical properties",
+                    "Enzyme active sites are chiral",
+                    "No biological significance",
+                    "Only important for synthetic drugs"
+                ],
+                correct: 1,
+                explanation: "Biological systems are chiral (enzymes, receptors), so enantiomers interact differently.",
+                memoryTip: "Biology is chiral → Enantiomers have different effects."
+            },
+            {
+                question: "How to separate enantiomers?",
+                options: [
+                    "Distillation",
+                    "Chiral chromatography",
+                    "Filtration",
+                    "Decantation"
+                ],
+                correct: 1,
+                explanation: "Chiral chromatography uses chiral stationary phases to separate enantiomers.",
+                memoryTip: "Separate enantiomers: Chiral chromatography or chiral resolving agents."
+            },
+            {
+                question: "Which is NOT a conformational isomer?",
+                options: [
+                    "Staggered ethane",
+                    "Eclipsed ethane",
+                    "Cis-2-butene",
+                    "Chair cyclohexane"
+                ],
+                correct: 2,
+                explanation: "Cis-2-butene is configurational (geometric) isomer, not conformational.",
+                memoryTip: "Conformational isomers = Rotation around single bonds (e.g., ethane, cyclohexane)."
+            },
+            {
+                question: "What is the effect of (S)-enantiomer of naproxen?",
+                options: [
+                    "Anti-inflammatory",
+                    "Liver toxin",
+                    "Sedative",
+                    "No effect"
+                ],
+                correct: 0,
+                explanation: "(S)-naproxen is active anti-inflammatory. (R)-enantiomer is liver toxin.",
+                memoryTip: "Naproxen: S = anti-inflammatory, R = liver toxin."
+            },
+            {
+                question: "Which describes E/Z isomerism?",
+                options: [
+                    "Same side = E, opposite = Z",
+                    "Same side = Z, opposite = E",
+                    "Based on molecular weight",
+                    "Only for cyclic compounds"
+                ],
+                correct: 1,
+                explanation: "Z (zusammen) = higher priority groups on same side; E (entgegen) = opposite sides.",
+                memoryTip: "Z = Same side (zusammen), E = Opposite (entgegen)."
+            },
+            {
+                question: "What is bioprospecting?",
+                options: [
+                    "Synthesizing new drugs",
+                    "Searching for natural products in nature",
+                    "Testing drug toxicity",
+                    "Studying drug metabolism"
+                ],
+                correct: 1,
+                explanation: "Bioprospecting = searching nature for novel bioactive compounds.",
+                memoryTip: "Bioprospecting = Natural product discovery in nature."
+            },
+            {
+                question: "Which is a secondary metabolite?",
+                options: [
+                    "Glucose",
+                    "Alkaloids",
+                    "Amino acids",
+                    "Fatty acids"
+                ],
+                correct: 1,
+                explanation: "Alkaloids are secondary metabolites (not essential for growth, often bioactive).",
+                memoryTip: "Secondary metabolites: Alkaloids, terpenoids, flavonoids (often medicinal)."
+            },
+            {
+                question: "What causes torsional strain?",
+                options: [
+                    "Bond stretching",
+                    "Electron cloud repulsion in eclipsed conformations",
+                    "Angle compression",
+                    "Steric hindrance"
+                ],
+                correct: 1,
+                explanation: "Torsional strain = repulsion between electron clouds in eclipsed conformations.",
+                memoryTip: "Torsional strain = Eclipsed bond repulsion."
+            },
+            {
+                question: "Which drug is derived from Artemisia annua?",
+                options: [
+                    "Quinine",
+                    "Artemisinin",
+                    "Morphine",
+                    "Penicillin"
+                ],
+                correct: 1,
+                explanation: "Artemisinin (antimalarial) is from Artemisia annua (sweet wormwood).",
+                memoryTip: "Artemisinin source = Artemisia annua (antimalarial)."
+            },
+            {
+                question: "What is the Kolbe-Schmitt reaction used for?",
+                options: [
+                    "Synthesizing aspirin from phenol",
+                    "Extracting natural products",
+                    "Separating enantiomers",
+                    "Measuring optical rotation"
+                ],
+                correct: 0,
+                explanation: "Kolbe-Schmitt reaction converts phenol to salicylic acid, precursor to aspirin.",
+                memoryTip: "Kolbe-Schmitt: Phenol → Salicylic acid → Aspirin."
+            },
+            {
+                question: "Which statement about chiral molecules is true?",
+                options: [
+                    "They have plane of symmetry",
+                    "They are superimposable on mirror image",
+                    "They are optically active",
+                    "They have no stereocenters"
+                ],
+                correct: 2,
+                explanation: "Chiral molecules are optically active (rotate plane-polarized light).",
+                memoryTip: "Chiral = Optically active (unless racemic)."
+            },
+            {
+                question: "What is the role of lovastatin?",
+                options: [
+                    "Antibiotic",
+                    "Cholesterol-lowering",
+                    "Analgesic",
+                    "Antimalarial"
+                ],
+                correct: 1,
+                explanation: "Lovastatin (from fungus) inhibits HMG-CoA reductase, lowering cholesterol.",
+                memoryTip: "Lovastatin = First statin (cholesterol-lowering)."
+            },
+            {
+                question: "Which is an axial position in cyclohexane?",
+                options: [
+                    "Parallel to ring plane",
+                    "Perpendicular to ring axis",
+                    "Equatorial",
+                    "In plane of ring"
+                ],
+                correct: 1,
+                explanation: "Axial positions are perpendicular to ring axis (vertical). Equatorial are around equator.",
+                memoryTip: "Axial = Up/down (perpendicular); Equatorial = Around waist (in plane)."
+            },
+            {
+                question: "What is the maximum stereoisomers for cholesterol (8 chiral centers)?",
+                options: [
+                    "64",
+                    "128",
+                    "256",
+                    "512"
+                ],
+                correct: 2,
+                explanation: "2ⁿ = 2⁸ = 256 possible stereoisomers, but nature produces only one.",
+                memoryTip: "Cholesterol: 8 chiral centers → 256 possible stereoisomers."
+            },
+            {
+                question: "Which is true about enantiomers?",
+                options: [
+                    "Different melting points",
+                    "Same interaction with chiral receptors",
+                    "Rotate light equally but opposite",
+                    "Different chemical reactivity"
+                ],
+                correct: 2,
+                explanation: "Enantiomers have identical physical properties except optical rotation (equal but opposite).",
+                memoryTip: "Enantiomers: Same physical properties, opposite optical rotation."
+            },
+            {
+                question: "What is the significance of salicin?",
+                options: [
+                    "Source of penicillin",
+                    "Precursor to aspirin",
+                    "Anticancer drug",
+                    "Cholesterol-lowering"
+                ],
+                correct: 1,
+                explanation: "Salicin from willow bark is metabolized to salicylic acid, precursor to aspirin.",
+                memoryTip: "Salicin (willow bark) → Salicylic acid → Aspirin."
+            },
+            {
+                question: "Which is NOT a type of constitutional isomer?",
+                options: [
+                    "Chain isomers",
+                    "Positional isomers",
+                    "Functional isomers",
+                    "Geometric isomers"
+                ],
+                correct: 3,
+                explanation: "Geometric isomers are stereoisomers, not constitutional isomers.",
+                memoryTip: "Constitutional isomers: Chain, Positional, Functional. Geometric = Stereoisomer."
+            },
+            {
+                question: "What does specific rotation measure?",
+                options: [
+                    "Concentration",
+                    "Temperature effect",
+                    "Optical rotation per unit path length & concentration",
+                    "Molecular weight"
+                ],
+                correct: 2,
+                explanation: "Specific rotation [α] = standardized optical rotation (corrected for concentration and path length).",
+                memoryTip: "Specific rotation = Standardized optical rotation value."
+            },
+            {
+                question: "Which drug example shows enantiomers with different smells?",
+                options: [
+                    "Ibuprofen",
+                    "Carvone",
+                    "Thalidomide",
+                    "Propranolol"
+                ],
+                correct: 1,
+                explanation: "(R)-carvone = spearmint, (S)-carvone = caraway seeds.",
+                memoryTip: "Carvone enantiomers: R = spearmint, S = caraway."
+            },
+            {
+                question: "What is a meso compound?",
+                options: [
+                    "Chiral and optically active",
+                    "Achiral despite chiral centers",
+                    "Racemic mixture",
+                    "Diastereomer only"
+                ],
+                correct: 1,
+                explanation: "Meso compounds have chiral centers but are achiral due to internal symmetry plane.",
+                memoryTip: "Meso compound = Chiral centers but achiral (internal symmetry)."
+            },
+            {
+                question: "Which is an example of functional isomerism?",
+                options: [
+                    "Propanal vs acetone",
+                    "1-butene vs 2-butene",
+                    "Butane vs isobutane",
+                    "Cis- vs trans-2-butene"
+                ],
+                correct: 0,
+                explanation: "Propanal (aldehyde) and acetone (ketone) are functional isomers (C₃H₆O).",
+                memoryTip: "Functional isomers = Different functional groups (e.g., aldehyde vs ketone)."
+            },
+            {
+                question: "What is the source of paclitaxel?",
+                options: [
+                    "Catharanthus roseus",
+                    "Taxus brevifolia",
+                    "Artemisia annua",
+                    "Penicillium sp."
+                ],
+                correct: 1,
+                explanation: "Paclitaxel (Taxol) is from Pacific yew tree (Taxus brevifolia).",
+                memoryTip: "Paclitaxel source = Pacific yew (Taxus brevifolia) - anticancer."
+            },
+            {
+                question: "Which is true about β-blocker enantiomers?",
+                options: [
+                    "D-isomer more potent",
+                    "L-isomer more potent",
+                    "Equal potency",
+                    "Only racemic mixtures work"
+                ],
+                correct: 1,
+                explanation: "For β-blockers, L-isomer (levorotatory) is more potent at blocking β-receptors.",
+                memoryTip: "β-blockers: L-isomer (S-configuration) more potent."
+            },
+            {
+                question: "What is the purpose of chiral resolution?",
+                options: [
+                    "Synthesize racemic mixtures",
+                    "Separate enantiomers",
+                    "Destroy chiral centers",
+                    "Create meso compounds"
+                ],
+                correct: 1,
+                explanation: "Chiral resolution = separating racemic mixture into individual enantiomers.",
+                memoryTip: "Chiral resolution = Separation of enantiomers."
+            },
+            {
+                question: "Which describes erythromycin?",
+                options: [
+                    "From Streptomyces griseus",
+                    "Macrolide antibiotic",
+                    "Antifungal",
+                    "Synthetic drug"
+                ],
+                correct: 1,
+                explanation: "Erythromycin is macrolide antibiotic from Saccharopolyspora erythraea.",
+                memoryTip: "Erythromycin = Macrolide antibiotic from bacteria."
+            },
+            {
+                question: "What is the relationship between D/L and +/-?",
+                options: [
+                    "D always +, L always -",
+                    "No correlation",
+                    "D always -, L always +",
+                    "Only for sugars"
+                ],
+                correct: 1,
+                explanation: "D/L refers to configuration; +/- refers to rotation direction. No direct correlation.",
+                memoryTip: "D/L ≠ +/- (no correlation between configuration and rotation direction)."
+            },
+            {
+                question: "Which drug is single enantiomer (not racemic)?",
+                options: [
+                    "Ibuprofen",
+                    "Salbutamol",
+                    "L-Dopa",
+                    "Propranolol"
+                ],
+                correct: 2,
+                explanation: "L-Dopa (levodopa) is marketed as single enantiomer for Parkinson's. D-enantiomer toxic.",
+                memoryTip: "L-Dopa = Single enantiomer drug (D-isomer toxic)."
+            },
+            {
+                question: "What is the significance of ergometrine?",
+                options: [
+                    "Antibiotic",
+                    "Uterine contraction (postpartum hemorrhage)",
+                    "Analgesic",
+                    "Antimalarial"
+                ],
+                correct: 1,
+                explanation: "Ergometrine (from Claviceps) causes uterine contraction, used to control postpartum bleeding.",
+                memoryTip: "Ergometrine = Uterine contractor (postpartum hemorrhage)."
+            },
+            {
+                question: "Which is NOT a method to visualize conformers?",
+                options: [
+                    "Newman projection",
+                    "Fischer projection",
+                    "Sawhorse representation",
+                    "Wedge-dash"
+                ],
+                correct: 1,
+                explanation: "Fischer projection shows configuration, not conformation. Newman, sawhorse, wedge-dash show 3D.",
+                memoryTip: "Conformation visualization: Newman, Sawhorse, Wedge-dash, Ball-stick."
+            },
+            {
+                question: "What is the role of natural products in drug discovery?",
+                options: [
+                    "Only historical significance",
+                    "Provide lead compounds",
+                    "All drugs are natural",
+                    "No role in modern medicine"
+                ],
+                correct: 1,
+                explanation: "Natural products provide lead compounds for drug development (>50% of drugs are natural-derived).",
+                memoryTip: "Natural products = Source of lead compounds for drug discovery."
+            },
+            {
+                question: "Which compound shows geometric isomerism?",
+                options: [
+                    "Butane",
+                    "2-butene",
+                    "Ethane",
+                    "Cyclohexane"
+                ],
+                correct: 1,
+                explanation: "2-butene has restricted rotation (double bond) → cis/trans (geometric) isomers.",
+                memoryTip: "Geometric isomerism = Double bonds or rigid rings (e.g., alkenes, cyclic compounds)."
+            },
+            {
+                question: "What is the significance of the 1,3-diaxial interaction?",
+                options: [
+                    "Stabilizes equatorial substituents",
+                    "Causes strain in axial substituents",
+                    "Only in boat conformation",
+                    "Increases ring flexibility"
+                ],
+                correct: 1,
+                explanation: "1,3-diaxial interactions cause steric strain for axial substituents on cyclohexane.",
+                memoryTip: "1,3-diaxial interaction = Steric strain for axial groups (equatorial preferred)."
+            },
+            {
+                question: "Which is a chiral object example?",
+                options: [
+                    "Sphere",
+                    "Cube",
+                    "Hand",
+                    "Circle"
+                ],
+                correct: 2,
+                explanation: "Hands are chiral (non-superimposable mirror images). Sphere, cube, circle are achiral.",
+                memoryTip: "Chiral objects: Hands, shoes, gloves (non-superimposable mirror images)."
+            },
+            {
+                question: "What is the effect of (S)-enantiomer of thalidomide?",
+                options: [
+                    "Sedative",
+                    "Teratogenic",
+                    "Anti-inflammatory",
+                    "No effect"
+                ],
+                correct: 1,
+                explanation: "(S)-thalidomide causes birth defects (teratogenic). (R)-enantiomer is sedative.",
+                memoryTip: "Thalidomide: S = teratogenic, R = sedative."
+            },
+            {
+                question: "Which is true about specific rotation?",
+                options: [
+                    "Independent of concentration",
+                    "Depends on wavelength",
+                    "Same for all enantiomers",
+                    "Unaffected by temperature"
+                ],
+                correct: 1,
+                explanation: "Specific rotation depends on wavelength (usually sodium D-line), temperature, solvent.",
+                memoryTip: "Specific rotation depends: λ (wavelength), T (temp), solvent, concentration."
+            },
+            {
+                question: "What is the source of streptomycin?",
+                options: [
+                    "Penicillium notatum",
+                    "Streptomyces griseus",
+                    "Catharanthus roseus",
+                    "Artemisia annua"
+                ],
+                correct: 1,
+                explanation: "Streptomycin (antibiotic) is from Streptomyces griseus soil bacteria.",
+                memoryTip: "Streptomycin source = Streptomyces griseus (soil bacteria)."
+            },
+            {
+                question: "Which is a property of diastereomers?",
+                options: [
+                    "Same physical properties",
+                    "Different physical properties",
+                    "Mirror images",
+                    "Identical biological activity"
+                ],
+                correct: 1,
+                explanation: "Diastereomers have different physical properties (m.p., b.p., solubility).",
+                memoryTip: "Diastereomers = Different physical properties."
+            },
+            {
+                question: "What is the purpose of polarimeter?",
+                options: [
+                    "Measure pH",
+                    "Measure optical rotation",
+                    "Separate enantiomers",
+                    "Determine molecular weight"
+                ],
+                correct: 1,
+                explanation: "Polarimeter measures angle of optical rotation (α) of chiral compounds.",
+                memoryTip: "Polarimeter = Measures optical rotation angle."
+            },
+            {
+                question: "Which drug is derived from Catharanthus roseus?",
+                options: [
+                    "Paclitaxel",
+                    "Vinblastine",
+                    "Artemisinin",
+                    "Morphine"
+                ],
+                correct: 1,
+                explanation: "Vinblastine (anticancer) is from Catharanthus roseus (Madagascar periwinkle).",
+                memoryTip: "Vinblastine source = Catharanthus roseus (anticancer)."
+            },
+            {
+                question: "What is the relationship between R/S and D/L?",
+                options: [
+                    "R always D",
+                    "S always L",
+                    "No direct relationship",
+                    "Only for amino acids"
+                ],
+                correct: 2,
+                explanation: "R/S (CIP) and D/L (Fischer) are different naming systems with no direct correlation.",
+                memoryTip: "R/S ≠ D/L (different naming systems)."
+            },
+            {
+                question: "Which is an example of chain isomerism?",
+                options: [
+                    "1-propanol vs 2-propanol",
+                    "Butane vs isobutane",
+                    "Propanal vs acetone",
+                    "Cis- vs trans-2-butene"
+                ],
+                correct: 1,
+                explanation: "Butane (linear) vs isobutane (branched) are chain isomers (same formula, different carbon skeleton).",
+                memoryTip: "Chain isomers = Different carbon skeleton (e.g., butane vs isobutane)."
+            },
+            {
+                question: "What is the significance of natural product therapy in traditional medicine?",
+                options: [
+                    "No longer used",
+                    "Only in Western medicine",
+                    "Integral part of ancient systems",
+                    "Only for minor ailments"
+                ],
+                correct: 2,
+                explanation: "Natural products integral to traditional medicine (Chinese, Ayurvedic, Egyptian) for millennia.",
+                memoryTip: "Traditional medicine = Based on natural products (plants, minerals, animals)."
+            },
+            {
+                question: "Which is NOT a fungal metabolite?",
+                options: [
+                    "Penicillin",
+                    "Lovastatin",
+                    "Ergometrine",
+                    "Morphine"
+                ],
+                correct: 3,
+                explanation: "Morphine is from poppy plant (not fungus). Others are fungal metabolites.",
+                memoryTip: "Fungal metabolites: Penicillin, lovastatin, ergometrine, griseofulvin."
+            },
+            {
+                question: "What determines priority in CIP rules for double bonds?",
+                options: [
+                    "Treat as duplicated atoms",
+                    "Ignore double bonds",
+                    "Based on molecular weight",
+                    "Random assignment"
+                ],
+                correct: 0,
+                explanation: "For double bonds in CIP: treat as if both atoms are duplicated (phantom atoms method).",
+                memoryTip: "CIP for double bonds: Treat as duplicated atoms."
+            }
+        ];
+
+        // DOM elements
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results-container');
+        const questionNumber = document.getElementById('question-number');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationText = document.getElementById('explanation-text');
+        const memoryTipText = document.getElementById('memory-tip-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+        const timeDisplay = document.getElementById('time');
+        const scoreDisplay = document.getElementById('score');
+        const scoreText = document.getElementById('score-text');
+        const totalQuestions = document.getElementById('total-questions');
+        const correctAnswers = document.getElementById('correct-answers');
+        const incorrectAnswers = document.getElementById('incorrect-answers');
+        const percentage = document.getElementById('percentage');
+        const timeTaken = document.getElementById('time-taken');
+        const questionReview = document.getElementById('question-review');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Quiz state
+        let currentQuestion = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let score = 0;
+        let timer;
+        let timeLeft = 65 * 60; // 65 minutes in seconds
+        let quizCompleted = false;
+
+        // Initialize quiz
+        function initQuiz() {
+            displayQuestion();
+            startTimer();
+            updateProgress();
+        }
+
+        // Display current question
+        function displayQuestion() {
+            const question = questions[currentQuestion];
+            questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            questionText.textContent = question.question;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[currentQuestion] === index) {
+                    optionElement.classList.add('selected');
+                }
+                optionElement.textContent = option;
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Show/hide explanation
+            if (userAnswers[currentQuestion] !== null) {
+                showExplanation();
+            } else {
+                explanationContainer.style.display = 'none';
+            }
+            
+            // Update button states
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.disabled = false;
+            submitBtn.style.display = currentQuestion === questions.length - 1 ? 'block' : 'none';
+        }
+
+        // Select an option
+        function selectOption(index) {
+            if (quizCompleted) return;
+            
+            userAnswers[currentQuestion] = index;
+            
+            // Update UI
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => option.classList.remove('selected'));
+            options[index].classList.add('selected');
+            
+            showExplanation();
+        }
+
+        // Show explanation for current question
+        function showExplanation() {
+            const question = questions[currentQuestion];
+            explanationText.textContent = question.explanation;
+            memoryTipText.textContent = question.memoryTip;
+            explanationContainer.style.display = 'block';
+            
+            // Highlight correct/incorrect answers
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                option.classList.remove('correct', 'incorrect');
+                if (index === question.correct) {
+                    option.classList.add('correct');
+                } else if (index === userAnswers[currentQuestion] && index !== question.correct) {
+                    option.classList.add('incorrect');
+                }
+            });
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+                updateProgress();
+            }
+        }
+
+        // Navigate to previous question
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+                updateProgress();
+            }
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `${currentQuestion + 1}/${questions.length}`;
+        }
+
+        // Start timer
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        // Submit quiz
+        function submitQuiz() {
+            clearInterval(timer);
+            quizCompleted = true;
+            
+            // Calculate score
+            score = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    score++;
+                }
+            }
+            
+            // Display results
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            scoreDisplay.textContent = `${score}/${questions.length}`;
+            totalQuestions.textContent = questions.length;
+            correctAnswers.textContent = score;
+            incorrectAnswers.textContent = questions.length - score;
+            percentage.textContent = `${((score / questions.length) * 100).toFixed(1)}%`;
+            
+            const minutesTaken = Math.floor((65 * 60 - timeLeft) / 60);
+            const secondsTaken = (65 * 60 - timeLeft) % 60;
+            timeTaken.textContent = `${minutesTaken.toString().padStart(2, '0')}:${secondsTaken.toString().padStart(2, '0')}`;
+            
+            // Set score text
+            if (score >= questions.length * 0.8) {
+                scoreText.textContent = "Excellent! You have mastered Stereochemistry (Chapter 1).";
+            } else if (score >= questions.length * 0.6) {
+                scoreText.textContent = "Good job! You have a solid understanding of Stereochemistry.";
+            } else if (score >= questions.length * 0.5) {
+                scoreText.textContent = "You passed! Review the explanations to strengthen your knowledge.";
+            } else {
+                scoreText.textContent = "You need more study. Review Chapter 1 material and try again.";
+            }
+            
+            // Generate question review
+            generateQuestionReview();
+        }
+
+        // Generate question review
+        function generateQuestionReview() {
+            questionReview.innerHTML = '<h3>Question Review</h3>';
+            
+            questions.forEach((question, index) => {
+                const reviewItem = document.createElement('div');
+                reviewItem.className = 'review-item';
+                
+                const reviewQuestion = document.createElement('div');
+                reviewQuestion.className = 'review-question';
+                reviewQuestion.textContent = `${index + 1}. ${question.question}`;
+                
+                const userAnswer = document.createElement('div');
+                userAnswer.className = 'review-answer';
+                if (userAnswers[index] !== null) {
+                    userAnswer.innerHTML = `Your answer: <span class="user-answer">${question.options[userAnswers[index]]}</span>`;
+                } else {
+                    userAnswer.innerHTML = `Your answer: <span class="user-answer">Not answered</span>`;
+                }
+                
+                const correctAnswer = document.createElement('div');
+                correctAnswer.className = 'review-answer';
+                correctAnswer.innerHTML = `Correct answer: <span class="correct-answer">${question.options[question.correct]}</span>`;
+                
+                reviewItem.appendChild(reviewQuestion);
+                reviewItem.appendChild(userAnswer);
+                reviewItem.appendChild(correctAnswer);
+                
+                questionReview.appendChild(reviewItem);
+            });
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            score = 0;
+            timeLeft = 65 * 60;
+            quizCompleted = false;
+            
+            quizContainer.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            
+            initQuiz();
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', prevQuestion);
+        nextBtn.addEventListener('click', nextQuestion);
+        submitBtn.addEventListener('click', submitQuiz);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        // Start the quiz
+        initQuiz();
+    </script>
+</body>
+                  </html>0
