@@ -1,223 +1,2164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parasitology Part 6 | Summary & References | MedQuiz</title>
-  <style>
-    :root {
-      --primary: #0077cc;
-      --primary-dark: #005fa3;
-      --secondary: #6a11cb;
-      --light-bg: #f9fafc;
-      --card-bg: #ffffff;
-      --text-dark: #333;
-      --text-light: #555;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: var(--light-bg);
-      color: var(--text-dark);
-      line-height: 1.6;
-    }
-
-    .dashboard-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: var(--primary);
-      color: #fff;
-      padding: 15px 25px;
-      border-radius: 0 0 15px 15px;
-    }
-
-    .dashboard-header .header-content span {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-
-    .logout-btn {
-      background-color: #fff;
-      color: var(--primary);
-      padding: 8px 16px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .logout-btn:hover {
-      background-color: var(--primary-dark);
-      color: #fff;
-    }
-
-    .breadcrumb {
-      padding: 15px 25px;
-      font-size: 0.9rem;
-    }
-
-    .breadcrumb a {
-      text-decoration: none;
-      color: var(--primary);
-    }
-
-    .section-card {
-      background: var(--card-bg);
-      padding: 20px;
-      margin: 20px;
-      border-radius: 15px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    }
-
-    h2 {
-      margin-bottom: 10px;
-      color: var(--primary-dark);
-    }
-
-    .image-box {
-      text-align: center;
-      margin: 15px 0;
-    }
-
-    .image-box img {
-      width: 100%;
-      max-width: 600px;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-    }
-
-    iframe {
-      width: 100%;
-      height: 315px;
-      border-radius: 10px;
-      margin: 10px 0;
-    }
-
-    ul {
-      margin-left: 20px;
-    }
-
-    .tips-box {
-      background: #e8f4ff;
-      border-left: 5px solid var(--primary);
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
-
-    .reference-box {
-      background: #f1ecff;
-      border-left: 5px solid var(--secondary);
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Protozoology - Complete Exam</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --medium-text: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark-text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .exam-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .category-tabs {
+            display: flex;
+            background-color: #ecf0f1;
+            border-bottom: 2px solid #ddd;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .tab.active {
+            background-color: white;
+            color: var(--primary-color);
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .tab:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .exam-content {
+            padding: 30px;
+            min-height: 500px;
+        }
+        
+        .category-content {
+            display: none;
+        }
+        
+        .category-content.active {
+            display: block;
+        }
+        
+        .progress-container {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .question-container {
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .question-text {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .options-container {
+            margin-bottom: 15px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: white;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #f0f7ff;
+            border-color: #b3d7ff;
+        }
+        
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: var(--primary-color);
+        }
+        
+        .option.correct {
+            background-color: #d4edda;
+            border-color: var(--success-color);
+        }
+        
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: var(--danger-color);
+        }
+        
+        .option-letter {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background-color: #ecf0f1;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .option.selected .option-letter {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .option.correct .option-letter {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .option.incorrect .option-letter {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .option-text {
+            flex: 1;
+            padding-top: 5px;
+        }
+        
+        .feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .feedback.correct {
+            background-color: #d4edda;
+            border-left: 4px solid var(--success-color);
+            color: #155724;
+        }
+        
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            border-left: 4px solid var(--danger-color);
+            color: #721c24;
+        }
+        
+        .feedback-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+        
+        .explanation {
+            font-size: 0.95rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #219653;
+        }
+        
+        .score-board {
+            padding: 40px;
+            text-align: center;
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .score-title {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .score-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+        
+        .score-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .score-item {
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .score-label {
+            font-size: 0.9rem;
+            color: var(--medium-text);
+            margin-bottom: 5px;
+        }
+        
+        .score-number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .correct-count {
+            color: var(--success-color);
+        }
+        
+        .incorrect-count {
+            color: var(--danger-color);
+        }
+        
+        .unanswered-count {
+            color: var(--warning-color);
+        }
+        
+        .performance-meter {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        
+        .meter-background {
+            fill: none;
+            stroke: #ecf0f1;
+            stroke-width: 10;
+        }
+        
+        .meter-progress {
+            fill: none;
+            stroke: var(--primary-color);
+            stroke-width: 10;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 1s;
+        }
+        
+        .meter-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .meter-label {
+            text-align: center;
+            color: var(--medium-text);
+            margin-top: 10px;
+        }
+        
+        .review-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+            display: none;
+        }
+        
+        .review-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .review-question {
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .review-question.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid var(--success-color);
+        }
+        
+        .review-question.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid var(--danger-color);
+        }
+        
+        .review-question.unanswered {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid var(--warning-color);
+        }
+        
+        .review-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+            }
+            
+            .exam-content {
+                padding: 15px;
+            }
+            
+            .score-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .category-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <header>
+            <h1>Medical Protozoology Complete Exam</h1>
 
-  <header class="dashboard-header">
-    <div class="header-content">
-      <span>Parasitology</span>
-      <div class="header-subtitle">Part 6 — Summary & References</div>
+
+        </header>
+        
+        <div class="category-tabs">
+            <button class="tab active" data-category="part1">Part 1: Introduction (25 Q)</button><br>
+            <button class="tab" data-category="part2">Part 2: Sarcomastigophora (30 Q)</button><br>
+            <button class="tab" data-category="part3">Part 3: Apicomplexa (30 Q)</button>
+            <button class="tab" data-category="part4">Part 4: Ciliates (15 Q)</button>
+        </div>
+        
+        <div class="exam-content">
+            <!-- Progress and Navigation -->
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-header">
+                    <span id="categoryTitle">Part 1: Introduction to Protozoa</span>
+                    <span id="progressText">Question 1 of 25</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <!-- Questions will be dynamically loaded here -->
+            <div id="questionsContainer"></div>
+            
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="prevBtn">← Previous Question</button>
+                <div>
+                    <button class="btn btn-success" id="markReviewBtn">Mark for Review</button>
+                    <button class="btn btn-primary" id="nextBtn">Next Question →</button>
+                </div>
+                <button class="btn btn-success" id="submitCategoryBtn">Submit Category</button>
+            </div>
+            
+            <!-- Score Board -->
+            <div class="score-board" id="scoreBoard">
+                <div class="score-title">Your Exam Results</div>
+                <div class="performance-meter">
+                    <svg width="200" height="200" viewBox="0 0 200 200">
+                        <circle class="meter-background" cx="100" cy="100" r="90"></circle>
+                        <circle class="meter-progress" cx="100" cy="100" r="90" 
+                                stroke-dasharray="565.48" stroke-dashoffset="565.48" id="meterProgress"></circle>
+                    </svg>
+                    <div class="meter-text" id="meterText">0%</div>
+                </div>
+                <div class="meter-label">Overall Score</div>
+                
+                <div class="score-details">
+                    <div class="score-item">
+                        <div class="score-label">Correct Answers</div>
+                        <div class="score-number correct-count" id="correctCount">0</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">Incorrect Answers</div>
+                        <div class="score-number incorrect-count" id="incorrectCount">0</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">Unanswered</div>
+                        <div class="score-number unanswered-count" id="unansweredCount">0</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <button class="btn btn-primary" id="reviewAnswersBtn">Review All Answers</button>
+                    <button class="btn btn-success" id="restartExamBtn">Restart Exam</button>
+                </div>
+            </div>
+            
+            <!-- Review Section -->
+            <div class="review-section" id="reviewSection">
+                <div class="review-title">Question Review</div>
+                <div class="review-grid" id="reviewGrid"></div>
+            </div>
+        </div>
     </div>
-    <button onclick="goBack()" class="logout-btn">Back</button>
-  </header>
 
-  <div class="breadcrumb">
-    <a href="../../dashboard.html">Dashboard</a> &gt;
-    <a href="../pharmacy.html">Pharmacy</a> &gt;
-    <a href="../year2.html">Year 2</a> &gt;
-    <a href="../session1.html">Session 1</a> &gt;
-    Part 6
-  </div>
+    <script>
+        // =============================================
+        // COMPLETE EXAM DATA - 100+ QUESTIONS
+        // =============================================
+        
+        const examData = {
+            part1: {
+                title: "Part 1: Introduction to Protozoa",
+                questions: [
+                    {
+                        id: 1,
+                        question: "What are protozoa?",
+                        options: [
+                            "Multicellular eukaryotes with tissues",
+                            "Single-celled, microscopic eukaryotes with a true nucleus",
+                            "Prokaryotic organisms without a nucleus",
+                            "Multicellular parasites visible to the naked eye"
+                        ],
+                        correct: "B",
+                        explanation: "Protozoa are single-celled, microscopic eukaryotes with a true nucleus and internal structures. They are found in water, soil, and inside hosts."
+                    },
+                    {
+                        id: 2,
+                        question: "Which of the following is NOT a medically important protozoan disease?",
+                        options: [
+                            "Malaria",
+                            "Amoebiasis",
+                            "Tuberculosis",
+                            "Giardiasis"
+                        ],
+                        correct: "C",
+                        explanation: "Tuberculosis is caused by Mycobacterium tuberculosis, a bacterium, not a protozoan."
+                    },
+                    {
+                        id: 3,
+                        question: "Which reproduction method involves the nucleus dividing multiple times before the cell splits into many new parasites?",
+                        options: [
+                            "Binary fission",
+                            "Conjugation",
+                            "Schizogony",
+                            "Gamete fusion"
+                        ],
+                        correct: "C",
+                        explanation: "Schizogony (multiple fission) is characteristic of Apicomplexa like Plasmodium."
+                    },
+                    {
+                        id: 4,
+                        question: "What is the characteristic locomotion method of amoebae?",
+                        options: [
+                            "Flagella",
+                            "Cilia",
+                            "Pseudopodia",
+                            "Gliding"
+                        ],
+                        correct: "C",
+                        explanation: "Amoebae move using pseudopodia - temporary cytoplasmic extensions."
+                    },
+                    {
+                        id: 5,
+                        question: "Which protozoan structure allows survival outside a host and transmission?",
+                        options: [
+                            "Trophozoite",
+                            "Cyst or oocyst",
+                            "Gametocyte",
+                            "Sporozoite"
+                        ],
+                        correct: "B",
+                        explanation: "Cysts/oocysts are resistant stages that survive in the environment."
+                    },
+                    {
+                        id: 6,
+                        question: "How many major groups of medically important protozoa are typically classified?",
+                        options: ["2", "3", "4", "5"],
+                        correct: "C",
+                        explanation: "Four groups: Sarcomastigophora, Apicomplexa, Ciliophora, Microspora."
+                    },
+                    {
+                        id: 7,
+                        question: "Which phylum contains organisms that move by means of flagella?",
+                        options: [
+                            "Sarcomastigophora",
+                            "Apicomplexa",
+                            "Ciliophora",
+                            "Microspora"
+                        ],
+                        correct: "A",
+                        explanation: "Sarcomastigophora includes Mastigophora (flagellates)."
+                    },
+                    {
+                        id: 8,
+                        question: "Which of the following is an obligate intracellular parasite with complex life cycles?",
+                        options: [
+                            "Phylum Sarcomastigophora",
+                            "Phylum Apicomplexa",
+                            "Phylum Ciliophora",
+                            "Phylum Microspora"
+                        ],
+                        correct: "B",
+                        explanation: "Apicomplexa are obligate intracellular parasites with complex life cycles."
+                    },
+                    {
+                        id: 9,
+                        question: "Which protozoan is the only ciliate known to regularly infect humans?",
+                        options: [
+                            "Entamoeba histolytica",
+                            "Giardia lamblia",
+                            "Balantidium coli",
+                            "Trichomonas vaginalis"
+                        ],
+                        correct: "C",
+                        explanation: "Balantidium coli is the only human-infecting ciliate."
+                    },
+                    {
+                        id: 10,
+                        question: "Microsporidia are often opportunistic pathogens in which patient population?",
+                        options: [
+                            "Athletes",
+                            "Elderly patients",
+                            "HIV/AIDS or immunocompromised patients",
+                            "Pregnant women"
+                        ],
+                        correct: "C",
+                        explanation: "Microsporidia are opportunistic in immunocompromised patients."
+                    },
+                    {
+                        id: 11,
+                        question: "Which disease has the highest global case burden according to the notes?",
+                        options: [
+                            "Amoebiasis (50 million cases)",
+                            "Malaria (282 million cases)",
+                            "Giardiasis (280 million cases)",
+                            "Leishmaniasis (1 million cases)"
+                        ],
+                        correct: "B",
+                        explanation: "Malaria has 282 million cases, the highest burden."
+                    },
+                    {
+                        id: 12,
+                        question: "What is the primary reason protozoa are medically important?",
+                        options: [
+                            "They are aesthetically displeasing",
+                            "They cause major diseases with complex life cycles",
+                            "They are easy to culture in laboratories",
+                            "They are used in vaccine production"
+                        ],
+                        correct: "B",
+                        explanation: "They cause major diseases, have complex life cycles, and are challenging to treat."
+                    },
+                    {
+                        id: 13,
+                        question: "Which sexual reproduction method involves exchange of genetic material between two organisms?",
+                        options: [
+                            "Binary fission",
+                            "Conjugation",
+                            "Schizogony",
+                            "Endodyogeny"
+                        ],
+                        correct: "B",
+                        explanation: "Conjugation involves genetic exchange between two organisms."
+                    },
+                    {
+                        id: 14,
+                        question: "What do Apicomplexa parasites use for host cell invasion?",
+                        options: [
+                            "Pseudopodia",
+                            "Flagella",
+                            "Apical complex (rhoptries, micronemes)",
+                            "Cilia"
+                        ],
+                        correct: "C",
+                        explanation: "Apicomplexa use the apical complex for host cell invasion."
+                    },
+                    {
+                        id: 15,
+                        question: "Which of the following is NOT a habitat for medically important protozoa?",
+                        options: [
+                            "Intestine",
+                            "Blood",
+                            "Urogenital tract",
+                            "Bone marrow only (not other tissues)"
+                        ],
+                        correct: "D",
+                        explanation: "Protozoa can inhabit many tissues, not just bone marrow."
+                    },
+                    {
+                        id: 16,
+                        question: "Which protozoan disease causes the third highest number of deaths from parasitic diseases?",
+                        options: [
+                            "Malaria",
+                            "Amoebiasis",
+                            "Giardiasis",
+                            "Toxoplasmosis"
+                        ],
+                        correct: "B",
+                        explanation: "Amoebiasis causes 100,000 deaths annually, third highest."
+                    },
+                    {
+                        id: 17,
+                        question: "What characteristic feature do ciliates possess that other protozoa lack?",
+                        options: [
+                            "Two types of nuclei (macronucleus and micronucleus)",
+                            "Ability to form cysts",
+                            "Obligate intracellular lifestyle",
+                            "Complex life cycles with sexual and asexual stages"
+                        ],
+                        correct: "A",
+                        explanation: "Ciliates have both macronucleus and micronucleus."
+                    },
+                    {
+                        id: 18,
+                        question: "Which of these is a free-living pathogenic amoeba?",
+                        options: [
+                            "Entamoeba coli",
+                            "Naegleria species",
+                            "Entamoeba histolytica",
+                            "Giardia lamblia"
+                        ],
+                        correct: "B",
+                        explanation: "Naegleria are free-living pathogenic amoebae."
+                    },
+                    {
+                        id: 19,
+                        question: "What is the primary reservoir for Balantidium coli?",
+                        options: ["Humans", "Cats", "Pigs", "Dogs"],
+                        correct: "C",
+                        explanation: "Pigs are the primary reservoir for B. coli."
+                    },
+                    {
+                        id: 20,
+                        question: "Which of these protozoan groups is often vector-borne?",
+                        options: [
+                            "Phylum Apicomplexa",
+                            "Phylum Ciliophora",
+                            "Both A and B",
+                            "None of the above"
+                        ],
+                        correct: "A",
+                        explanation: "Apicomplexa are often vector-borne (e.g., malaria via mosquitoes)."
+                    },
+                    {
+                        id: 21,
+                        question: "Which locomotion method is characteristic of flagellates?",
+                        options: ["Pseudopodia", "Flagella", "Cilia", "Gliding"],
+                        correct: "B",
+                        explanation: "Flagellates move using flagella."
+                    },
+                    {
+                        id: 22,
+                        question: "Approximately how many people are infected with Giardia lamblia globally?",
+                        options: [
+                            "1 million",
+                            "50 million",
+                            "280 million",
+                            "500 million"
+                        ],
+                        correct: "C",
+                        explanation: "Giardia infects approximately 280 million people globally."
+                    },
+                    {
+                        id: 23,
+                        question: "Which of the following is NOT a key pathogen in the phylum Apicomplexa?",
+                        options: [
+                            "Plasmodium species",
+                            "Toxoplasma gondii",
+                            "Cryptosporidium species",
+                            "Trypanosoma species"
+                        ],
+                        correct: "D",
+                        explanation: "Trypanosoma is a flagellate, not an apicomplexan."
+                    },
+                    {
+                        id: 24,
+                        question: "What is the typical size range of most medically important protozoa?",
+                        options: [
+                            "1-10 mm (visible to naked eye)",
+                            "10-100 μm (microscopic)",
+                            "100-1000 μm (barely visible)",
+                            "1-10 cm (clearly visible)"
+                        ],
+                        correct: "B",
+                        explanation: "Most are 10-100 μm, requiring microscopy."
+                    },
+                    {
+                        id: 25,
+                        question: "Which statement about protozoan cysts is TRUE?",
+                        options: [
+                            "They are the active, feeding stage",
+                            "They are susceptible to destruction outside the host",
+                            "They allow survival in the environment and transmission",
+                            "They are only found in Apicomplexa"
+                        ],
+                        correct: "C",
+                        explanation: "Cysts are resistant stages for environmental survival and transmission."
+                    }
+                ]
+            },
+            part2: {
+                title: "Part 2: Sarcomastigophora",
+                questions: [
+                    {
+                        id: 26,
+                        question: "What is the causative agent of amoebic dysentery?",
+                        options: [
+                            "Entamoeba coli",
+                            "Entamoeba histolytica",
+                            "Entamoeba dispar",
+                            "Naegleria fowleri"
+                        ],
+                        correct: "B",
+                        explanation: "Entamoeba histolytica causes amoebic dysentery."
+                    },
+                    {
+                        id: 27,
+                        question: "What is the infective stage of Entamoeba histolytica?",
+                        options: [
+                            "Trophozoite",
+                            "Mature cyst with 4 nuclei",
+                            "Mature cyst with 1 nucleus",
+                            "Sporozoite"
+                        ],
+                        correct: "B",
+                        explanation: "Mature cyst with 4 nuclei is the infective stage."
+                    },
+                    {
+                        id: 28,
+                        question: "Which is a diagnostic feature of E. histolytica trophozoites?",
+                        options: [
+                            "Presence of ingested red blood cells",
+                            "Multiple nuclei (4-8)",
+                            "Banana-shaped appearance",
+                            "Undulating membrane"
+                        ],
+                        correct: "A",
+                        explanation: "Ingested RBCs (erythrophagocytosis) is diagnostic."
+                    },
+                    {
+                        id: 29,
+                        question: "What is the characteristic shape of amoebic ulcers?",
+                        options: [
+                            "Round with raised edges",
+                            "Linear along intestinal folds",
+                            "Flask-shaped with narrow neck and broad base",
+                            "Star-shaped with multiple points"
+                        ],
+                        correct: "C",
+                        explanation: "Amoebic ulcers are flask-shaped."
+                    },
+                    {
+                        id: 30,
+                        question: "Which virulence factor helps E. histolytica adhere to colonic epithelial cells?",
+                        options: [
+                            "Amoebapore",
+                            "Gal/GalNAc lectin",
+                            "Cysteine proteinase",
+                            "Hemolysin"
+                        ],
+                        correct: "B",
+                        explanation: "Gal/GalNAc lectin is an adhesin."
+                    },
+                    {
+                        id: 31,
+                        question: "What is the most common form of extraintestinal amebiasis?",
+                        options: [
+                            "Pulmonary amebiasis",
+                            "Cutaneous amebiasis",
+                            "Amebic liver abscess",
+                            "Cerebral amebiasis"
+                        ],
+                        correct: "C",
+                        explanation: "Amebic liver abscess is most common."
+                    },
+                    {
+                        id: 32,
+                        question: "Which is NOT a non-pathogenic intestinal amoeba?",
+                        options: [
+                            "Entamoeba coli",
+                            "Entamoeba dispar",
+                            "Entamoeba histolytica",
+                            "Endolimax nana"
+                        ],
+                        correct: "C",
+                        explanation: "E. histolytica is pathogenic."
+                    },
+                    {
+                        id: 33,
+                        question: "How many people are infected with E. histolytica worldwide?",
+                        options: [
+                            "10 million",
+                            "50 million",
+                            "500 million",
+                            "1 billion"
+                        ],
+                        correct: "C",
+                        explanation: "500 million people infected worldwide."
+                    },
+                    {
+                        id: 34,
+                        question: "What percentage of E. histolytica infections are asymptomatic?",
+                        options: ["10-20%", "30-40%", "50-60%", "80-90%"],
+                        correct: "D",
+                        explanation: "80-90% of infections are asymptomatic."
+                    },
+                    {
+                        id: 35,
+                        question: "Which drug is used for asymptomatic E. histolytica carriers?",
+                        options: [
+                            "Metronidazole",
+                            "Tinidazole",
+                            "Iodoquinol",
+                            "Chloroquine"
+                        ],
+                        correct: "C",
+                        explanation: "Iodoquinol is a luminal amebicide for carriers."
+                    },
+                    {
+                        id: 36,
+                        question: "What is the primary mode of transmission for Giardia lamblia?",
+                        options: [
+                            "Mosquito bite",
+                            "Sexual contact",
+                            "Fecal-oral route",
+                            "Airborne droplets"
+                        ],
+                        correct: "C",
+                        explanation: "Fecal-oral transmission via cysts."
+                    },
+                    {
+                        id: 37,
+                        question: "Which structure does Giardia use to attach to intestinal mucosa?",
+                        options: [
+                            "Pseudopodia",
+                            "Ventral sucking disc",
+                            "Flagella",
+                            "Cilia"
+                        ],
+                        correct: "B",
+                        explanation: "Ventral sucking disc for attachment."
+                    },
+                    {
+                        id: 38,
+                        question: "What is a characteristic symptom of chronic giardiasis?",
+                        options: [
+                            "Bloody diarrhea",
+                            "Steatorrhea (greasy stools)",
+                            "Rice-water stools",
+                            "Neurological symptoms"
+                        ],
+                        correct: "B",
+                        explanation: "Steatorrhea due to fat malabsorption."
+                    },
+                    {
+                        id: 39,
+                        question: "Which flagellate causes trichomoniasis?",
+                        options: [
+                            "Giardia lamblia",
+                            "Trichomonas vaginalis",
+                            "Trypanosoma cruzi",
+                            "Leishmania donovani"
+                        ],
+                        correct: "B",
+                        explanation: "Trichomonas vaginalis causes trichomoniasis."
+                    },
+                    {
+                        id: 40,
+                        question: "What is unique about Trichomonas vaginalis life cycle?",
+                        options: [
+                            "Has both cyst and trophozoite stages",
+                            "Only has trophozoite stage (no cyst)",
+                            "Has sporozoite stage",
+                            "Has merozoite stage"
+                        ],
+                        correct: "B",
+                        explanation: "Only trophozoite stage exists."
+                    },
+                    {
+                        id: 41,
+                        question: "Which describes 'strawberry cervix'?",
+                        options: [
+                            "Cervical cancer appearance",
+                            "Punctate hemorrhages in trichomoniasis",
+                            "Cervical ulcer in syphilis",
+                            "Normal cervical appearance"
+                        ],
+                        correct: "B",
+                        explanation: "Punctate hemorrhages in trichomoniasis."
+                    },
+                    {
+                        id: 42,
+                        question: "What is the vector for Leishmania transmission?",
+                        options: [
+                            "Mosquito",
+                            "Tsetse fly",
+                            "Sandfly",
+                            "Triatomine bug"
+                        ],
+                        correct: "C",
+                        explanation: "Sandfly (Phlebotomus/Lutzomyia)."
+                    },
+                    {
+                        id: 43,
+                        question: "Which Leishmania species causes visceral leishmaniasis (Kala-azar)?",
+                        options: [
+                            "L. tropica",
+                            "L. major",
+                            "L. donovani",
+                            "L. braziliensis"
+                        ],
+                        correct: "C",
+                        explanation: "L. donovani causes visceral leishmaniasis."
+                    },
+                    {
+                        id: 44,
+                        question: "What is the characteristic feature of Kala-azar?",
+                        options: [
+                            "Skin ulcers",
+                            "Hepatosplenomegaly",
+                            "Mucosal destruction",
+                            "Neurological symptoms"
+                        ],
+                        correct: "B",
+                        explanation: "Hepatosplenomegaly is characteristic."
+                    },
+                    {
+                        id: 45,
+                        question: "Which form of Leishmania is found in human macrophages?",
+                        options: [
+                            "Promastigote",
+                            "Amastigote",
+                            "Trypomastigote",
+                            "Epimastigote"
+                        ],
+                        correct: "B",
+                        explanation: "Amastigote form in macrophages."
+                    },
+                    {
+                        id: 46,
+                        question: "What is the vector for African trypanosomiasis?",
+                        options: [
+                            "Mosquito",
+                            "Tsetse fly",
+                            "Sandfly",
+                            "Triatomine bug"
+                        ],
+                        correct: "B",
+                        explanation: "Tsetse fly transmits African trypanosomiasis."
+                    },
+                    {
+                        id: 47,
+                        question: "Which Trypanosoma causes chronic sleeping sickness?",
+                        options: [
+                            "T. b. gambiense",
+                            "T. b. rhodesiense",
+                            "T. cruzi",
+                            "T. vivax"
+                        ],
+                        correct: "A",
+                        explanation: "T. b. gambiense causes chronic form."
+                    },
+                    {
+                        id: 48,
+                        question: "What is Winterbottom's sign?",
+                        options: [
+                            "Enlarged liver",
+                            "Posterior cervical lymphadenopathy",
+                            "Splenomegaly",
+                            "Skin rash"
+                        ],
+                        correct: "B",
+                        explanation: "Posterior cervical lymphadenopathy in trypanosomiasis."
+                    },
+                    {
+                        id: 49,
+                        question: "Which form of Trypanosoma is found in human blood?",
+                        options: [
+                            "Promastigote",
+                            "Amastigote",
+                            "Trypomastigote",
+                            "Epimastigote"
+                        ],
+                        correct: "C",
+                        explanation: "Trypomastigote in human blood."
+                    },
+                    {
+                        id: 50,
+                        question: "What is the vector for Chagas disease?",
+                        options: [
+                            "Mosquito",
+                            "Tsetse fly",
+                            "Sandfly",
+                            "Triatomine bug"
+                        ],
+                        correct: "D",
+                        explanation: "Triatomine bug transmits T. cruzi."
+                    },
+                    {
+                        id: 51,
+                        question: "What is Romaña's sign?",
+                        options: [
+                            "Unilateral eye swelling in Chagas disease",
+                            "Cervical lymphadenopathy",
+                            "Hepatosplenomegaly",
+                            "Skin ulcer"
+                        ],
+                        correct: "A",
+                        explanation: "Unilateral eye swelling in acute Chagas disease."
+                    },
+                    {
+                        id: 52,
+                        question: "Which is a common chronic complication of Chagas disease?",
+                        options: [
+                            "Liver cirrhosis",
+                            "Dilated cardiomyopathy",
+                            "Renal failure",
+                            "Pulmonary fibrosis"
+                        ],
+                        correct: "B",
+                        explanation: "Dilated cardiomyopathy is common."
+                    },
+                    {
+                        id: 53,
+                        question: "What is the treatment for giardiasis?",
+                        options: [
+                            "Chloroquine",
+                            "Metronidazole",
+                            "Amphotericin B",
+                            "Sodium stibogluconate"
+                        ],
+                        correct: "B",
+                        explanation: "Metronidazole or tinidazole for giardiasis."
+                    },
+                    {
+                        id: 54,
+                        question: "What is the treatment for trichomoniasis?",
+                        options: [
+                            "Chloroquine",
+                            "Metronidazole",
+                            "Amphotericin B",
+                            "Sodium stibogluconate"
+                        ],
+                        correct: "B",
+                        explanation: "Metronidazole for trichomoniasis."
+                    },
+                    {
+                        id: 55,
+                        question: "What is the first-line treatment for visceral leishmaniasis?",
+                        options: [
+                            "Chloroquine",
+                            "Metronidazole",
+                            "Liposomal amphotericin B",
+                            "Sodium stibogluconate"
+                        ],
+                        correct: "C",
+                        explanation: "Liposomal amphotericin B is first-line."
+                    }
+                ]
+            },
+            part3: {
+                title: "Part 3: Apicomplexa (Sporozoa)",
+                questions: [
+                    {
+                        id: 56,
+                        question: "Which Plasmodium species causes the most severe malaria?",
+                        options: [
+                            "P. vivax",
+                            "P. falciparum",
+                            "P. malariae",
+                            "P. ovale"
+                        ],
+                        correct: "B",
+                        explanation: "P. falciparum causes severe, life-threatening malaria."
+                    },
+                    {
+                        id: 57,
+                        question: "What is the infective stage injected by mosquitoes?",
+                        options: [
+                            "Trophozoite",
+                            "Sporozoite",
+                            "Merozoite",
+                            "Gametocyte"
+                        ],
+                        correct: "B",
+                        explanation: "Sporozoites are injected by mosquitoes."
+                    },
+                    {
+                        id: 58,
+                        question: "Which Plasmodium species has hypnozoites?",
+                        options: [
+                            "P. falciparum only",
+                            "P. vivax and P. ovale",
+                            "P. malariae only",
+                            "All Plasmodium species"
+                        ],
+                        correct: "B",
+                        explanation: "P. vivax and P. ovale have dormant liver hypnozoites."
+                    },
+                    {
+                        id: 59,
+                        question: "What is the diagnostic stage of malaria in blood?",
+                        options: [
+                            "Sporozoite",
+                            "Trophozoite, schizont, gametocyte",
+                            "Oocyst",
+                            "Hypnozoite"
+                        ],
+                        correct: "B",
+                        explanation: "Blood-stage trophozoites, schizonts, gametocytes."
+                    },
+                    {
+                        id: 60,
+                        question: "Which RBCs does P. vivax preferentially infect?",
+                        options: [
+                            "All ages",
+                            "Young RBCs (reticulocytes)",
+                            "Old RBCs",
+                            "Only fetal RBCs"
+                        ],
+                        correct: "B",
+                        explanation: "P. vivax prefers young RBCs."
+                    },
+                    {
+                        id: 61,
+                        question: "What is the fever pattern in P. malariae infection?",
+                        options: [
+                            "Daily fever",
+                            "Every 48 hours (tertian)",
+                            "Every 72 hours (quartan)",
+                            "Irregular fever"
+                        ],
+                        correct: "C",
+                        explanation: "Quartan malaria (every 72 hours)."
+                    },
+                    {
+                        id: 62,
+                        question: "Which Plasmodium species causes 'blackwater fever'?",
+                        options: [
+                            "P. vivax",
+                            "P. falciparum",
+                            "P. malariae",
+                            "P. ovale"
+                        ],
+                        correct: "B",
+                        explanation: "P. falciparum can cause blackwater fever (hemoglobinuria)."
+                    },
+                    {
+                        id: 63,
+                        question: "What causes periodic fever in malaria?",
+                        options: [
+                            "Toxin release from liver",
+                            "Synchronous RBC rupture",
+                            "Mosquito bite reactions",
+                            "Immune complex deposition"
+                        ],
+                        correct: "B",
+                        explanation: "Synchronous RBC rupture releases pyrogens."
+                    },
+                    {
+                        id: 64,
+                        question: "Which cytokine is primarily responsible for malaria fever?",
+                        options: [
+                            "Interleukin-1",
+                            "Tumor Necrosis Factor-alpha",
+                            "Interferon-gamma",
+                            "Interleukin-6"
+                        ],
+                        correct: "B",
+                        explanation: "TNF-α is the major pyrogen in malaria."
+                    },
+                    {
+                        id: 65,
+                        question: "What is the gold standard for malaria diagnosis?",
+                        options: [
+                            "Rapid diagnostic test",
+                            "Blood culture",
+                            "Microscopy of thick and thin smears",
+                            "PCR"
+                        ],
+                        correct: "C",
+                        explanation: "Microscopy is the gold standard."
+                    },
+                    {
+                        id: 66,
+                        question: "What is the first-line treatment for uncomplicated P. falciparum malaria?",
+                        options: [
+                            "Chloroquine",
+                            "Artemisinin-based combination therapy (ACT)",
+                            "Quinine",
+                            "Primaquine"
+                        ],
+                        correct: "B",
+                        explanation: "ACT is first-line for P. falciparum."
+                    },
+                    {
+                        id: 67,
+                        question: "Which drug is used for radical cure of P. vivax?",
+                        options: [
+                            "Chloroquine",
+                            "Artemisinin",
+                            "Primaquine",
+                            "Quinine"
+                        ],
+                        correct: "C",
+                        explanation: "Primaquine kills hypnozoites."
+                    },
+                    {
+                        id: 68,
+                        question: "What is severe malaria primarily caused by?",
+                        options: [
+                            "P. vivax",
+                            "P. falciparum",
+                            "P. malariae",
+                            "P. ovale"
+                        ],
+                        correct: "B",
+                        explanation: "P. falciparum causes severe malaria."
+                    },
+                    {
+                        id: 69,
+                        question: "What is cerebral malaria?",
+                        options: [
+                            "Brain abscess from malaria",
+                            "Sequestration of infected RBCs in brain capillaries",
+                            "Meningitis complicating malaria",
+                            "Malaria toxin affecting brain cells"
+                        ],
+                        correct: "B",
+                        explanation: "Sequestration of parasitized RBCs in cerebral vasculature."
+                    },
+                    {
+                        id: 70,
+                        question: "What is rosetting in P. falciparum malaria?",
+                        options: [
+                            "Formation of malaria pigment",
+                            "Infected RBCs binding to uninfected RBCs",
+                            "Gametocyte formation",
+                            "Liver stage multiplication"
+                        ],
+                        correct: "B",
+                        explanation: "Infected RBCs bind to uninfected RBCs, blocking microcirculation."
+                    },
+                    {
+                        id: 71,
+                        question: "What protein mediates cytoadherence in P. falciparum?",
+                        options: [
+                            "MSP-1",
+                            "PfEMP1",
+                            "CSP",
+                            "AMA-1"
+                        ],
+                        correct: "B",
+                        explanation: "PfEMP1 mediates cytoadherence to endothelial cells."
+                    },
+                    {
+                        id: 72,
+                        question: "What percentage of RBC infection is considered severe in P. falciparum malaria?",
+                        options: [
+                            ">1%",
+                            ">5%",
+                            ">10%",
+                            ">20%"
+                        ],
+                        correct: "B",
+                        explanation: ">5% parasitemia is considered severe."
+                    },
+                    {
+                        id: 73,
+                        question: "Which is NOT a complication of severe falciparum malaria?",
+                        options: [
+                            "Cerebral malaria",
+                            "Severe anemia",
+                            "Acute respiratory distress syndrome",
+                            "Osteomyelitis"
+                        ],
+                        correct: "D",
+                        explanation: "Osteomyelitis is not a malaria complication."
+                    },
+                    {
+                        id: 74,
+                        question: "What is the definitive host for Toxoplasma gondii?",
+                        options: ["Humans", "Cats", "Dogs", "Rodents"],
+                        correct: "B",
+                        explanation: "Cats are the definitive host."
+                    },
+                    {
+                        id: 75,
+                        question: "How is toxoplasmosis most commonly acquired?",
+                        options: [
+                            "Mosquito bite",
+                            "Ingestion of undercooked meat",
+                            "Sexual transmission",
+                            "Blood transfusion only"
+                        ],
+                        correct: "B",
+                        explanation: "Ingestion of undercooked meat containing tissue cysts."
+                    },
+                    {
+                        id: 76,
+                        question: "What is the congenital toxoplasmosis triad?",
+                        options: [
+                            "Fever, rash, lymphadenopathy",
+                            "Chorioretinitis, hydrocephalus, intracranial calcifications",
+                            "Hepatosplenomegaly, jaundice, anemia",
+                            "Pneumonia, diarrhea, weight loss"
+                        ],
+                        correct: "B",
+                        explanation: "Classic triad of congenital toxoplasmosis."
+                    },
+                    {
+                        id: 77,
+                        question: "What is the treatment for toxoplasmosis in immunocompromised patients?",
+                        options: [
+                            "Chloroquine",
+                            "Pyrimethamine + sulfadiazine",
+                            "Metronidazole",
+                            "Amphotericin B"
+                        ],
+                        correct: "B",
+                        explanation: "Pyrimethamine + sulfadiazine + folinic acid."
+                    },
+                    {
+                        id: 78,
+                        question: "What is the most common symptom of cryptosporidiosis?",
+                        options: [
+                            "Bloody diarrhea",
+                            "Watery diarrhea",
+                            "Constipation",
+                            "Vomiting without diarrhea"
+                        ],
+                        correct: "B",
+                        explanation: "Watery diarrhea is characteristic."
+                    },
+                    {
+                        id: 79,
+                        question: "How is Cryptosporidium diagnosed?",
+                        options: [
+                            "Blood smear",
+                            "Stool acid-fast stain",
+                            "Serology",
+                            "Urine antigen test"
+                        ],
+                        correct: "B",
+                        explanation: "Acid-fast stain of stool shows oocysts."
+                    },
+                    {
+                        id: 80,
+                        question: "What is the treatment for cryptosporidiosis?",
+                        options: [
+                            "Metronidazole",
+                            "Nitazoxanide",
+                            "Chloroquine",
+                            "No specific treatment"
+                        ],
+                        correct: "B",
+                        explanation: "Nitazoxanide is the treatment."
+                    },
+                    {
+                        id: 81,
+                        question: "Which apicomplexan causes diarrhea in AIDS patients?",
+                        options: [
+                            "Plasmodium",
+                            "Toxoplasma",
+                            "Cryptosporidium",
+                            "Babesia"
+                        ],
+                        correct: "C",
+                        explanation: "Cryptosporidium causes severe diarrhea in AIDS."
+                    },
+                    {
+                        id: 82,
+                        question: "What is Isospora belli?",
+                        options: [
+                            "A flagellate",
+                            "An amoeba",
+                            "An apicomplexan causing diarrhea",
+                            "A ciliate"
+                        ],
+                        correct: "C",
+                        explanation: "Apicomplexan causing isosporiasis."
+                    },
+                    {
+                        id: 83,
+                        question: "How is malaria prevented?",
+                        options: [
+                            "Vaccine only",
+                            "Insecticide-treated bed nets",
+                            "Only drug prophylaxis",
+                            "No effective prevention"
+                        ],
+                        correct: "B",
+                        explanation: "Insecticide-treated bed nets are key for prevention."
+                    },
+                    {
+                        id: 84,
+                        question: "What is the malaria vaccine called?",
+                        options: [
+                            "RTS,S/AS01",
+                            "BCG",
+                            "MMR",
+                            "HPV vaccine"
+                        ],
+                        correct: "A",
+                        explanation: "RTS,S/AS01 is the malaria vaccine."
+                    },
+                    {
+                        id: 85,
+                        question: "Which drug resistance is emerging in P. falciparum in Southeast Asia?",
+                        options: [
+                            "Chloroquine resistance",
+                            "Artemisinin resistance",
+                            "Quinine resistance",
+                            "Primaquine resistance"
+                        ],
+                        correct: "B",
+                        explanation: "Artemisinin resistance is emerging."
+                    }
+                ]
+            },
+            part4: {
+                title: "Part 4: Ciliates",
+                questions: [
+                    {
+                        id: 86,
+                        question: "What is the only ciliate that regularly infects humans?",
+                        options: [
+                            "Entamoeba histolytica",
+                            "Giardia lamblia",
+                            "Balantidium coli",
+                            "Trichomonas vaginalis"
+                        ],
+                        correct: "C",
+                        explanation: "Balantidium coli is the only human-infecting ciliate."
+                    },
+                    {
+                        id: 87,
+                        question: "What is the size range of B. coli trophozoites?",
+                        options: [
+                            "10-20 μm",
+                            "20-30 μm",
+                            "50-200 μm",
+                            "300-500 μm"
+                        ],
+                        correct: "C",
+                        explanation: "50-200 μm, making it the largest protozoan parasite."
+                    },
+                    {
+                        id: 88,
+                        question: "What is the primary reservoir for B. coli?",
+                        options: ["Humans", "Cats", "Pigs", "Dogs"],
+                        correct: "C",
+                        explanation: "Pigs are the primary reservoir."
+                    },
+                    {
+                        id: 89,
+                        question: "How is B. coli transmitted?",
+                        options: [
+                            "Mosquito bite",
+                            "Fecal-oral route",
+                            "Sexual contact",
+                            "Airborne droplets"
+                        ],
+                        correct: "B",
+                        explanation: "Fecal-oral transmission via cysts."
+                    },
+                    {
+                        id: 90,
+                        question: "What is the infective stage of B. coli?",
+                        options: [
+                            "Trophozoite",
+                            "Cyst",
+                            "Sporozoite",
+                            "Merozoite"
+                        ],
+                        correct: "B",
+                        explanation: "Cyst is the infective stage."
+                    },
+                    {
+                        id: 91,
+                        question: "Which structure do B. coli use for locomotion?",
+                        options: [
+                            "Pseudopodia",
+                            "Flagella",
+                            "Cilia",
+                            "Gliding"
+                        ],
+                        correct: "C",
+                        explanation: "Cilia cover the body for locomotion."
+                    },
+                    {
+                        id: 92,
+                        question: "What unique nuclear feature do ciliates have?",
+                        options: [
+                            "Single nucleus",
+                            "Two nuclei: macronucleus and micronucleus",
+                            "Multiple nuclei (4-8)",
+                            "No true nucleus"
+                        ],
+                        correct: "B",
+                        explanation: "Macronucleus and micronucleus."
+                    },
+                    {
+                        id: 93,
+                        question: "What disease does B. coli cause?",
+                        options: [
+                            "Balantidiasis",
+                            "Amebiasis",
+                            "Giardiasis",
+                            "Trichomoniasis"
+                        ],
+                        correct: "A",
+                        explanation: "Causes balantidiasis."
+                    },
+                    {
+                        id: 94,
+                        question: "What are the clinical features of balantidiasis?",
+                        options: [
+                            "Often asymptomatic",
+                            "Always symptomatic with bloody diarrhea",
+                            "Neurological symptoms only",
+                            "Skin rash only"
+                        ],
+                        correct: "A",
+                        explanation: "Often asymptomatic; can cause diarrhea/dysentery."
+                    },
+                    {
+                        id: 95,
+                        question: "How is B. coli diagnosed?",
+                        options: [
+                            "Blood smear",
+                            "Stool microscopy for trophozoites/cysts",
+                            "Serology",
+                            "PCR only"
+                        ],
+                        correct: "B",
+                        explanation: "Stool microscopy shows trophozoites or cysts."
+                    },
+                    {
+                        id: 96,
+                        question: "What is the treatment for balantidiasis?",
+                        options: [
+                            "Metronidazole",
+                            "Tetracycline",
+                            "Chloroquine",
+                            "Amphotericin B"
+                        ],
+                        correct: "B",
+                        explanation: "Tetracycline is first-line."
+                    },
+                    {
+                        id: 97,
+                        question: "Which animal is most associated with B. coli transmission to humans?",
+                        options: ["Cattle", "Pigs", "Dogs", "Cats"],
+                        correct: "B",
+                        explanation: "Pigs are the main reservoir."
+                    },
+                    {
+                        id: 98,
+                        question: "What is the shape of B. coli cysts?",
+                        options: [
+                            "Round",
+                            "Oval",
+                            "Kidney-shaped",
+                            "Banana-shaped"
+                        ],
+                        correct: "A",
+                        explanation: "Cysts are spherical."
+                    },
+                    {
+                        id: 99,
+                        question: "Where does B. coli primarily reside in humans?",
+                        options: [
+                            "Small intestine",
+                            "Large intestine (cecum/colon)",
+                            "Liver",
+                            "Bloodstream"
+                        ],
+                        correct: "B",
+                        explanation: "Large intestine, especially cecum and colon."
+                    },
+                    {
+                        id: 100,
+                        question: "What makes B. coli unique among human protozoan parasites?",
+                        options: [
+                            "It is the smallest",
+                            "It is the only ciliate",
+                            "It has only asexual reproduction",
+                            "It is the only blood parasite"
+                        ],
+                        correct: "B",
+                        explanation: "Only ciliate that infects humans."
+                    }
+                ]
+            }
+        };
 
-  <div class="section-card">
-    <h2>🧬 High‑Yield Parasitology Summary</h2>
-    <p>Part 6 reviews the most important parasitology topics for exams: classification, life cycles, hosts, and clinical relevance.</p>
+        // =============================================
+        // EXAM STATE MANAGEMENT
+        // =============================================
+        
+        let currentCategory = 'part1';
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let markedForReview = {};
+        let examScores = {
+            part1: { correct: 0, incorrect: 0, unanswered: 25 },
+            part2: { correct: 0, incorrect: 0, unanswered: 30 },
+            part3: { correct: 0, incorrect: 0, unanswered: 30 },
+            part4: { correct: 0, incorrect: 0, unanswered: 15 }
+        };
 
-    <h3>📌 Protozoa</h3>
-    <ul>
-      <li><strong>Plasmodium spp</strong> – malaria: sporozoite → liver → RBCs (merozoite) → gametocyte → mosquito</li>
-      <li><strong>Entamoeba histolytica</strong> – causes amoebic dysentery, trophozoite and cyst forms</li>
-      <li><strong>Leishmania donovani</strong> – kala-azar; visceral involvement</li>
-      <li><strong>Toxoplasma gondii</strong> – tissue cysts (bradyzoites), tachyzoites, oocysts</li>
-    </ul>
+        // Initialize user answers
+        Object.keys(examData).forEach(category => {
+            userAnswers[category] = new Array(examData[category].questions.length).fill(null);
+            markedForReview[category] = new Array(examData[category].questions.length).fill(false);
+        });
 
-    <h3>📌 Helminths</h3>
-    <ul>
-      <li><strong>Ascaris lumbricoides</strong> – migrates via lungs → GI tract</li>
-      <li><strong>Hookworm</strong> – causes iron-deficiency anemia by feeding on intestinal mucosa</li>
-      <li><strong>Schistosoma</strong> – blood flukes; different species cause urinary or intestinal schistosomiasis</li>
-      <li><strong>Enterobius vermicularis</strong> – pinworm; perianal itching, eggs laid outside host</li>
-    </ul>
+        // =============================================
+        // DOM ELEMENTS
+        // =============================================
+        
+        const tabs = document.querySelectorAll('.tab');
+        const questionsContainer = document.getElementById('questionsContainer');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const categoryTitle = document.getElementById('categoryTitle');
+        const scoreBoard = document.getElementById('scoreBoard');
+        const reviewSection = document.getElementById('reviewSection');
+        const reviewGrid = document.getElementById('reviewGrid');
+        const progressContainer = document.getElementById('progressContainer');
 
-    <h3>📌 Arthropods / Vectors</h3>
-    <ul>
-      <li><strong>Anopheles mosquito</strong> – vector for malaria (Plasmodium)</li>
-      <li><strong>Sandfly</strong> – transmits Leishmania species</li>
-    </ul>
+        // =============================================
+        // INITIALIZATION
+        // =============================================
+        
+        function initExam() {
+            // Set up tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const category = tab.dataset.category;
+                    switchCategory(category);
+                });
+            });
+            
+            // Set up navigation buttons
+            document.getElementById('prevBtn').addEventListener('click', () => navigateQuestion(-1));
+            document.getElementById('nextBtn').addEventListener('click', () => navigateQuestion(1));
+            document.getElementById('submitCategoryBtn').addEventListener('click', submitCategory);
+            document.getElementById('markReviewBtn').addEventListener('click', toggleMarkForReview);
+            document.getElementById('reviewAnswersBtn').addEventListener('click', showReviewSection);
+            document.getElementById('restartExamBtn').addEventListener('click', restartExam);
+            
+            // Load first category
+            switchCategory('part1');
+        }
 
-    <div class="image-box">
-      <!-- Use real parasitology images from Wikimedia Commons -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Schistosoma_life_cycle_diagram.png" alt="Schistosoma Life Cycle">
-      <p><em>Schistosoma life cycle (Wikimedia Commons)</em></p>
-    </div>
-  </div>
+        // =============================================
+        // CATEGORY MANAGEMENT
+        // =============================================
+        
+        function switchCategory(category) {
+            // Update active tab
+            tabs.forEach(tab => {
+                if (tab.dataset.category === category) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            // Update current category
+            currentCategory = category;
+            currentQuestionIndex = 0;
+            
+            // Update UI
+            categoryTitle.textContent = examData[category].title;
+            
+            // Load first question
+            loadQuestion();
+            
+            // Show/hide appropriate sections
+            scoreBoard.style.display = 'none';
+            reviewSection.style.display = 'none';
+            progressContainer.style.display = 'block';
+            document.querySelector('.action-buttons').style.display = 'flex';
+        }
 
-  <div class="section-card">
-    <h2>🎥 Recommended Videos</h2>
+        // =============================================
+        // QUESTION LOADING AND DISPLAY
+        // =============================================
+        
+        function loadQuestion() {
+            const questions = examData[currentCategory].questions;
+            const question = questions[currentQuestionIndex];
+            
+            // Update progress
+            updateProgress();
+            
+            // Create question HTML
+            let optionsHtml = '';
+            question.options.forEach((option, index) => {
+                const optionLetter = String.fromCharCode(65 + index); // A, B, C, D
+                const userAnswer = userAnswers[currentCategory][currentQuestionIndex];
+                const isSelected = userAnswer === optionLetter;
+                const isCorrect = optionLetter === question.correct;
+                const isIncorrect = isSelected && userAnswer !== question.correct;
+                
+                let optionClass = 'option';
+                if (isSelected) optionClass += ' selected';
+                if (isCorrect && userAnswer !== null) optionClass += ' correct';
+                if (isIncorrect) optionClass += ' incorrect';
+                
+                optionsHtml += `
+                    <div class="${optionClass}" data-option="${optionLetter}">
+                        <div class="option-letter">${optionLetter}</div>
+                        <div class="option-text">${option}</div>
+                    </div>
+                `;
+            });
+            
+            // Check if marked for review
+            const isMarked = markedForReview[currentCategory][currentQuestionIndex];
+            const markButtonText = isMarked ? '✓ Marked for Review' : 'Mark for Review';
+            
+            // Create question HTML
+            const questionHtml = `
+                <div class="question-container">
+                    <div class="question-number">${question.id}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options-container">${optionsHtml}</div>
+                    <div class="feedback" id="feedback${question.id}"></div>
+                </div>
+            `;
+            
+            // Update container
+            questionsContainer.innerHTML = questionHtml;
+            
+            // Update mark button
+            document.getElementById('markReviewBtn').textContent = markButtonText;
+            document.getElementById('markReviewBtn').style.backgroundColor = isMarked ? '#f39c12' : '';
+            
+            // Set up option selection
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', handleOptionSelect);
+            });
+            
+            // Show feedback if already answered
+            if (userAnswers[currentCategory][currentQuestionIndex] !== null) {
+                showFeedback();
+            }
+        }
+        
+        function updateProgress() {
+            const questions = examData[currentCategory].questions;
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        }
 
-    <!-- Malaria life cycle video -->
-    0  
-    <iframe src="https://www.youtube.com/embed/ByfdvMOrwhs" allowfullscreen></iframe>
-    <p><strong>Biological Cycle of Malaria</strong> – detailed, animated life cycle of Plasmodium. 1</p>
+        // =============================================
+        // ANSWER HANDLING
+        // =============================================
+        
+        function handleOptionSelect(event) {
+            const optionElement = event.currentTarget;
+            const selectedOption = optionElement.dataset.option;
+            
+            // Save answer
+            userAnswers[currentCategory][currentQuestionIndex] = selectedOption;
+            
+            // Update visual selection
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            optionElement.classList.add('selected');
+            
+            // Show feedback
+            showFeedback();
+            
+            // Update scores
+            updateScores();
+        }
+        
+        function showFeedback() {
+            const question = examData[currentCategory].questions[currentQuestionIndex];
+            const userAnswer = userAnswers[currentCategory][currentQuestionIndex];
+            const feedbackElement = document.getElementById(`feedback${question.id}`);
+            
+            if (!userAnswer) return;
+            
+            // Mark correct and incorrect options
+            document.querySelectorAll('.option').forEach(option => {
+                const optionLetter = option.dataset.option;
+                option.classList.remove('correct', 'incorrect');
+                
+                if (optionLetter === question.correct) {
+                    option.classList.add('correct');
+                } else if (optionLetter === userAnswer && userAnswer !== question.correct) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // Show feedback message
+            if (userAnswer === question.correct) {
+                feedbackElement.className = 'feedback correct';
+                feedbackElement.innerHTML = `
+                    <div class="feedback-title">Correct!</div>
+                    <div class="explanation">${question.explanation}</div>
+                `;
+            } else {
+                feedbackElement.className = 'feedback incorrect';
+                feedbackElement.innerHTML = `
+                    <div class="feedback-title">Incorrect. The correct answer is ${question.correct}.</div>
+                    <div class="explanation">${question.explanation}</div>
+                `;
+            }
+            
+            feedbackElement.style.display = 'block';
+        }
+        
+        function toggleMarkForReview() {
+            markedForReview[currentCategory][currentQuestionIndex] = 
+                !markedForReview[currentCategory][currentQuestionIndex];
+            
+            const isMarked = markedForReview[currentCategory][currentQuestionIndex];
+            document.getElementById('markReviewBtn').textContent = 
+                isMarked ? '✓ Marked for Review' : 'Mark for Review';
+            document.getElementById('markReviewBtn').style.backgroundColor = 
+                isMarked ? '#f39c12' : '';
+        }
 
-    <!-- Protozoa classification video -->
-    <iframe src="https://www.youtube.com/embed/XS5nIPe1df8" allowfullscreen></iframe>
-    <p><strong>Protozoa Life Cycle & Classification</strong> – covers protozoan parasite groups. 2</p>
-  </div>
+        // =============================================
+        // NAVIGATION
+        // =============================================
+        
+        function navigateQuestion(direction) {
+            const questions = examData[currentCategory].questions;
+            const newIndex = currentQuestionIndex + direction;
+            
+            if (newIndex >= 0 && newIndex < questions.length) {
+                currentQuestionIndex = newIndex;
+                loadQuestion();
+            }
+        }
 
-  <div class="section-card">
-    <h2>📝 Exam Tips & Study Strategy</h2>
-    <div class="tips-box">
-      <ul>
-        <li>Focus on <strong>infective vs diagnostic stages</strong> for each parasite.</li>
-        <li>Draw life cycle diagrams repeatedly — they are heavily tested.</li>
-        <li>Use mnemonic devices to remember vectors and hosts.</li>
-        <li>Link clinical symptoms to life cycle stages (e.g., malaria fever cycles).</li>
-        <li>Use flashcards for parasite species, life cycles, and pathology.</li>
-      </ul>
-    </div>
-  </div>
+        // =============================================
+        // SCORE CALCULATION
+        // =============================================
+        
+        function updateScores() {
+            const category = currentCategory;
+            const questions = examData[category].questions;
+            
+            let correct = 0;
+            let incorrect = 0;
+            let unanswered = 0;
+            
+            userAnswers[category].forEach((answer, index) => {
+                if (answer === null) {
+                    unanswered++;
+                } else if (answer === questions[index].correct) {
+                    correct++;
+                } else {
+                    incorrect++;
+                }
+            });
+            
+            examScores[category] = { correct, incorrect, unanswered };
+        }
+        
+        function calculateOverallScore() {
+            let totalCorrect = 0;
+            let totalIncorrect = 0;
+            let totalUnanswered = 0;
+            let totalQuestions = 0;
+            
+            Object.keys(examScores).forEach(category => {
+                totalCorrect += examScores[category].correct;
+                totalIncorrect += examScores[category].incorrect;
+                totalUnanswered += examScores[category].unanswered;
+                totalQuestions += examData[category].questions.length;
+            });
+            
+            const percentage = Math.round((totalCorrect / totalQuestions) * 100);
+            
+            return {
+                totalCorrect,
+                totalIncorrect,
+                totalUnanswered,
+                totalQuestions,
+                percentage
+            };
+        }
 
-  <div class="section-card">
-    <h2>📚 References & Further Reading</h2>
-    <div class="reference-box">
-      <ul>
-        <li><a href="https://www.cdc.gov/parasites" target="_blank">CDC Parasites – Parasites A–Z</a></li>
-        <li><a href="https://www.who.int/malaria" target="_blank">WHO – Malaria</a></li>
-        <li><a href="https://vetmed.uodiyala.edu.iq/wp-content/uploads/2023/02/nemaatoda-%D9%85%D8%AD%D8%A7%D8%B6%D8%B1%D8%A7%D8%AA-%D8%A7%D9%84%D8%A7%D8%B3%D8%B7%D9%88%D8%A7%D9%86%D9%8A%D8%A7%D8%AA.pdf" target="_blank">Parasitology PDF Notes</a> 3</li>
-        <li><a href="https://parasitesandvectors.biomedcentral.com/articles/10.1186/s13071-020-04445-z" target="_blank">Life‑Cycle of Toxoplasma gondii (animation + review)</a> 4</li>
-        <li><a href="https://commons.wikimedia.org/wiki/Category:Parasitology" target="_blank">Wikimedia Commons – Parasitology Images</a> 5</li>
-      </ul>
-    </div>
-  </div>
+        // =============================================
+        // SUBMISSION AND REVIEW
+        // =============================================
+        
+        function submitCategory() {
+            updateScores();
+            const overall = calculateOverallScore();
+            
+            // Update score board
+            document.getElementById('correctCount').textContent = overall.totalCorrect;
+            document.getElementById('incorrectCount').textContent = overall.totalIncorrect;
+            document.getElementById('unansweredCount').textContent = overall.totalUnanswered;
+            document.getElementById('meterText').textContent = `${overall.percentage}%`;
+            
+            // Update progress circle
+            const circumference = 565.48; // 2 * π * 90
+            const offset = circumference - (overall.percentage / 100) * circumference;
+            document.getElementById('meterProgress').style.strokeDashoffset = offset;
+            
+            // Show score board
+            scoreBoard.style.display = 'block';
+            progressContainer.style.display = 'none';
+            document.querySelector('.action-buttons').style.display = 'none';
+        }
+        
+        function showReviewSection() {
+            reviewGrid.innerHTML = '';
+            
+            Object.keys(examData).forEach(category => {
+                examData[category].questions.forEach((question, index) => {
+                    const answer = userAnswers[category][index];
+                    let status = 'unanswered';
+                    let statusText = 'Unanswered';
+                    
+                    if (answer !== null) {
+                        status = answer === question.correct ? 'correct' : 'incorrect';
+                        statusText = answer === question.correct ? 'Correct' : 'Incorrect';
+                    }
+                    
+                    const reviewQuestion = document.createElement('div');
+                    reviewQuestion.className = `review-question ${status}`;
+                    reviewQuestion.textContent = `Q${question.id}`;
+                    reviewQuestion.title = `${statusText}: ${question.question.substring(0, 50)}...`;
+                    
+                    reviewQuestion.addEventListener('click', () => {
+                        switchCategory(category);
+                        currentQuestionIndex = index;
+                        loadQuestion();
+                        scoreBoard.style.display = 'none';
+                        reviewSection.style.display = 'none';
+                        progressContainer.style.display = 'block';
+                        document.querySelector('.action-buttons').style.display = 'flex';
+                    });
+                    
+                    reviewGrid.appendChild(reviewQuestion);
+                });
+            });
+            
+            reviewSection.style.display = 'block';
+        }
+        
+        function restartExam() {
+            // Reset all answers
+            Object.keys(examData).forEach(category => {
+                userAnswers[category] = new Array(examData[category].questions.length).fill(null);
+                markedForReview[category] = new Array(examData[category].questions.length).fill(false);
+                examScores[category] = {
+                    correct: 0,
+                    incorrect: 0,
+                    unanswered: examData[category].questions.length
+                };
+            });
+            
+            // Reset to first category
+            switchCategory('part1');
+        }
 
-  <script>
-    function goBack() {
-      window.history.back();
-    }
-  </script>
-
+        // =============================================
+        // INITIALIZE EXAM
+        // =============================================1
+        
+        document.addEventListener('DOMContentLoaded', initExam);
+    </script>
 </body>
-</html>
+  </html>
