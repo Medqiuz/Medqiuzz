@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sarcodina (Amoebae) - Medical Protozoology CBT</title>
+
+<style>
+body{font-family:Arial;background:#eef2f5;margin:20px}
+h1{text-align:center}
+#scoreBox{
+ position:fixed;top:10px;right:10px;
+ background:#000;color:#fff;
+ padding:10px 15px;border-radius:8px
+}
+.question{
+ background:#fff;padding:15px;margin-bottom:15px;
+ border-radius:8px;box-shadow:0 0 6px rgba(0,0,0,.1)
+}
+.options label{
+ display:block;margin:5px 0;padding:4px;
+ border-radius:4px;cursor:pointer
+}
+.correct{background:#d4edda;color:green;font-weight:bold}
+.wrong{background:#f8d7da;color:red}
+.feedback{font-weight:bold;margin-top:6px}
+.explanation{display:none;font-size:14px}
+.level{font-size:13px;color:#555}
+</style>
+
+<script>
+let score=0,answered={};
+function check(q,c){
+ if(answered[q])return;
+ let o=document.getElementsByName(q),
+ f=document.getElementById(q+"_f"),
+ e=document.getElementById(q+"_e");
+ o.forEach(x=>{
+  let l=x.parentElement;
+  if(x.value===c)l.classList.add("correct");
+  if(x.checked&&x.value!==c){l.classList.add("wrong");f.innerHTML="✖ Incorrect – correct answer highlighted in green";}
+  if(x.checked&&x.value===c){f.innerHTML="✔ Correct";score++;}
+  x.disabled=true;
+ });
+ answered[q]=1;
+ e.style.display="block";
+ document.getElementById("score").innerHTML=score;
+}
+</script>
+</head>
+
+<body>
+
+<div id="scoreBox">Score: <span id="score">0</span> / 35</div>
+<h1>Sarcodina (Amoebae) - Medical Protozoology Examination</h1>
+
+<!-- ================= GENERAL CHARACTERISTICS (1-5) ================= -->
+
+<!-- Q1 -->
+<div class="question"><p class="level">Conceptual</p><b>1. Sarcodina is a subphylum characterized by movement using:</b>
+<div class="options">
+<label><input type="radio" name="q1" value="A" onclick="check('q1','C')"> Flagella</label>
+<label><input type="radio" name="q1" value="B" onclick="check('q1','C')"> Cilia</label>
+<label><input type="radio" name="q1" value="C" onclick="check('q1','C')"> Pseudopodia</label>
+<label><input type="radio" name="q1" value="D" onclick="check('q1','C')"> Axostyle</label>
+</div><div id="q1_f" class="feedback"></div><div id="q1_e" class="explanation">Sarcodina (amoebae) move using pseudopodia (temporary cytoplasmic extensions).</div></div>
+
+<!-- Q2 -->
+<div class="question"><p class="level">Conceptual</p><b>2. Which of the following best describes the nutritional mode of Sarcodina?</b>
+<div class="options">
+<label><input type="radio" name="q2" value="A" onclick="check('q2','B')"> Photosynthetic</label>
+<label><input type="radio" name="q2" value="B" onclick="check('q2','B')"> Holozoic (ingestion of particles)</label>
+<label><input type="radio" name="q2" value="C" onclick="check('q2','B')"> Saprophytic</label>
+<label><input type="radio" name="q2" value="D" onclick="check('q2','B')"> Parasitic only</label>
+</div><div id="q2_f"></div><div id="q2_e" class="explanation">Sarcodina exhibit holozoic nutrition - they ingest food particles, including bacteria and host cells.</div></div>
+
+<!-- Q3 -->
+<div class="question"><p class="level">Contextual</p><b>3. A patient presents with chronic diarrhea. Stool examination reveals motile organisms with ingested RBCs. Which subphylum does this organism belong to?</b>
+<div class="options">
+<label><input type="radio" name="q3" value="A" onclick="check('q3','C')"> Mastigophora</label>
+<label><input type="radio" name="q3" value="B" onclick="check('q3','C')"> Ciliophora</label>
+<label><input type="radio" name="q3" value="C" onclick="check('q3','C')"> Sarcodina</label>
+<label><input type="radio" name="q3" value="D" onclick="check('q3','C')"> Apicomplexa</label>
+</div><div id="q3_f"></div><div id="q3_e" class="explanation">Ingested RBCs in motile organisms are characteristic of Entamoeba histolytica, which belongs to Sarcodina.</div></div>
+
+<!-- Q4 -->
+<div class="question"><p class="level">Conceptual</p><b>4. Which of the following is NOT a common habitat for pathogenic Sarcodina?</b>
+<div class="options">
+<label><input type="radio" name="q4" value="A" onclick="check('q4','D')"> Intestinal lumen and wall</label>
+<label><input type="radio" name="q4" value="B" onclick="check('q4','D')"> Liver tissue</label>
+<label><input type="radio" name="q4" value="C" onclick="check('q4','D')"> Brain tissue</label>
+<label><input type="radio" name="q4" value="D" onclick="check('q4','D')"> Pulmonary alveoli</label>
+</div><div id="q4_f"></div><div id="q4_e" class="explanation">While Sarcodina can infect intestines, liver, brain, and eyes, they are not typically found in pulmonary alveoli as primary pathogens.</div></div>
+
+<!-- Q5 -->
+<div class="question"><p class="level">Contextual</p><b>5. Which characteristic structure allows amoebae to move and capture food?</b>
+<div class="options">
+<label><input type="radio" name="q5" value="A" onclick="check('q5','C')"> Contractile vacuoles</label>
+<label><input type="radio" name="q5" value="B" onclick="check('q5','C')"> Kinetoplasts</label>
+<label><input type="radio" name="q5" value="C" onclick="check('q5','C')"> Pseudopodia</label>
+<label><input type="radio" name="q5" value="D" onclick="check('q5','C')"> Axostyles</label>
+</div><div id="q5_f"></div><div id="q5_e" class="explanation">Pseudopodia are temporary cytoplasmic extensions used for both movement (creeping) and food capture (phagocytosis).</div></div>
+
+<!-- ================= ENTAMOEBA HISTOLYTICA - BASIC (6-10) ================= -->
+
+<!-- Q6 -->
+<div class="question"><p class="level">Conceptual</p><b>6. Which of the following is the primary pathogenic intestinal amoeba?</b>
+<div class="options">
+<label><input type="radio" name="q6" value="A" onclick="check('q6','B')"> Entamoeba coli</label>
+<label><input type="radio" name="q6" value="B" onclick="check('q6','B')"> Entamoeba histolytica</label>
+<label><input type="radio" name="q6" value="C" onclick="check('q6','B')"> Entamoeba dispar</label>
+<label><input type="radio" name="q6" value="D" onclick="check('q6','B')"> Iodamoeba buetschlii</label>
+</div><div id="q6_f"></div><div id="q6_e" class="explanation">Entamoeba histolytica is the primary pathogenic species causing amoebic dysentery and extraintestinal infections.</div></div>
+
+<!-- Q7 -->
+<div class="question"><p class="level">Contextual</p><b>7. A laboratory technician examines a stool sample and observes motile organisms with ingested red blood cells. Which stage of E. histolytica is this?</b>
+<div class="options">
+<label><input type="radio" name="q7" value="A" onclick="check('q7','B')"> Cyst</label>
+<label><input type="radio" name="q7" value="B" onclick="check('q7','B')"> Trophozoite</label>
+<label><input type="radio" name="q7" value="C" onclick="check('q7','B')"> Precyst</label>
+<label><input type="radio" name="q7" value="D" onclick="check('q7','B')"> Metacyst</label>
+</div><div id="q7_f"></div><div id="q7_e" class="explanation">Trophozoites are the motile, feeding stage and the presence of ingested RBCs is diagnostic for E. histolytica.</div></div>
+
+<!-- Q8 -->
+<div class="question"><p class="level">Conceptual</p><b>8. How many nuclei are found in a mature Entamoeba histolytica cyst?</b>
+<div class="options">
+<label><input type="radio" name="q8" value="A" onclick="check('q8','D')"> 1</label>
+<label><input type="radio" name="q8" value="B" onclick="check('q8','D')"> 2</label>
+<label><input type="radio" name="q8" value="C" onclick="check('q8','D')"> 3</label>
+<label><input type="radio" name="q8" value="D" onclick="check('q8','D')"> 4</label>
+</div><div id="q8_f"></div><div id="q8_e" class="explanation">Mature E. histolytica cysts are tetranucleated (4 nuclei), which is the infective stage.</div></div>
+
+<!-- Q9 -->
+<div class="question"><p class="level">Contextual</p><b>9. A traveler returns from a tropical region with bloody diarrhea. Which form of E. histolytica would most likely be found in their diarrheic stool?</b>
+<div class="options">
+<label><input type="radio" name="q9" value="A" onclick="check('q9','C')"> Quadrinucleated cyst</label>
+<label><input type="radio" name="q9" value="B" onclick="check('q9','C')"> Binucleated cyst</label>
+<label><input type="radio" name="q9" value="C" onclick="check('q9','C')"> Trophozoite with ingested RBCs</label>
+<label><input type="radio" name="q9" value="D" onclick="check('q9','C')"> Encysted trophozoite</label>
+</div><div id="q9_f"></div><div id="q9_e" class="explanation">In acute dysentery, motile trophozoites with ingested RBCs are found in liquid stools. Cysts are found in formed stools of carriers.</div></div>
+
+<!-- Q10 -->
+<div class="question"><p class="level">Conceptual</p><b>10. What is the primary mode of transmission for Entamoeba histolytica?</b>
+<div class="options">
+<label><input type="radio" name="q10" value="A" onclick="check('q10','B')"> Vector-borne (mosquito)</label>
+<label><input type="radio" name="q10" value="B" onclick="check('q10','B')"> Fecal-oral (ingestion of cysts)</label>
+<label><input type="radio" name="q10" value="C" onclick="check('q10','B')"> Direct skin penetration</label>
+<label><input type="radio" name="q10" value="D" onclick="check('q10','B')"> Respiratory droplets</label>
+</div><div id="q10_f"></div><div id="q10_e" class="explanation">E. histolytica is transmitted via the fecal-oral route through ingestion of mature (tetranucleated) cysts.</div></div>
+
+<!-- ================= ENTAMOEBA HISTOLYTICA - PATHOGENESIS (11-15) ================= -->
+
+<!-- Q11 -->
+<div class="question"><p class="level">Conceptual</p><b>11. Which virulence factor of E. histolytica is primarily responsible for adherence to colonic epithelial cells?</b>
+<div class="options">
+<label><input type="radio" name="q11" value="A" onclick="check('q11','B')"> Amoebapore</label>
+<label><input type="radio" name="q11" value="B" onclick="check('q11','B')"> Gal/GalNAc lectin</label>
+<label><input type="radio" name="q11" value="C" onclick="check('q11','B')"> Cysteine proteinase</label>
+<label><input type="radio" name="q11" value="D" onclick="check('q11','B')"> Phospholipase</label>
+</div><div id="q11_f"></div><div id="q11_e" class="explanation">Gal/GalNAc lectin acts as an adhesin, helping trophozoites adhere to colonic epithelial cells and preventing expulsion by peristalsis.</div></div>
+
+<!-- Q12 -->
+<div class="question"><p class="level">Contextual</p><b>12. A patient with amoebic dysentery develops a liver abscess. How do trophozoites reach the liver?</b>
+<div class="options">
+<label><input type="radio" name="q12" value="A" onclick="check('q12','C')"> Via the lymphatic system</label>
+<label><input type="radio" name="q12" value="B" onclick="check('q12','C')"> Through direct extension from colon</label>
+<label><input type="radio" name="q12" value="C" onclick="check('q12','C')"> Via the portal circulation</label>
+<label><input type="radio" name="q12" value="D" onclick="check('q12','C')"> Hematogenous spread through arterial blood</label>
+</div><div id="q12_f"></div><div id="q12_e" class="explanation">Trophozoites invade intestinal blood vessels and are carried to the liver via the portal venous system.</div></div>
+
+<!-- Q13 -->
+<div class="question"><p class="level">Conceptual</p><b>13. What is the characteristic shape of intestinal ulcers caused by E. histolytica?</b>
+<div class="options">
+<label><input type="radio" name="q13" value="A" onclick="check('q13','D')"> Linear ulcers</label>
+<label><input type="radio" name="q13" value="B" onclick="check('q13','D')"> Circular punched-out ulcers</label>
+<label><input type="radio" name="q13" value="C" onclick="check('q13','D')"> Serpiginous ulcers</label>
+<label><input type="radio" name="q13" value="D" onclick="check('q13','D')"> Flask-shaped ulcers</label>
+</div><div id="q13_f"></div><div id="q13_e" class="explanation">Amoebic ulcers are flask-shaped with narrow neck at mucosal surface and broad base extending into submucosa.</div></div>
+
+<!-- Q14 -->
+<div class="question"><p class="level">Contextual</p><b>14. Which virulence factor of E. histolytica directly lyses host cells by forming pores in their membranes?</b>
+<div class="options">
+<label><input type="radio" name="q14" value="A" onclick="check('q14','C')"> Gal/GalNAc lectin</label>
+<label><input type="radio" name="q14" value="B" onclick="check('q14','C')"> Cysteine proteinases</label>
+<label><input type="radio" name="q14" value="C" onclick="check('q14','C')"> Amoebapores</label>
+<label><input type="radio" name="q14" value="D" onclick="check('q14','C')"> Collagenase</label>
+</div><div id="q14_f"></div><div id="q14_e" class="explanation">Amoebapores are pore-forming peptides that insert into host cell membranes, causing cell lysis and direct cytotoxicity.</div></div>
+
+<!-- Q15 -->
+<div class="question"><p class="level">Conceptual</p><b>15. Which of the following is a key diagnostic feature that differentiates pathogenic E. histolytica from non-pathogenic E. dispar?</b>
+<div class="options">
+<label><input type="radio" name="q15" value="A" onclick="check('q15','D')"> Presence of cysts in stool</label>
+<label><input type="radio" name="q15" value="B" onclick="check('q15','D')"> Number of nuclei in cysts</label>
+<label><input type="radio" name="q15" value="C" onclick="check('q15','D')"> Size of trophozoites</label>
+<label><input type="radio" name="q15" value="D" onclick="check('q15','D')"> Ingestion of red blood cells by trophozoites</label>
+</div><div id="q15_f"></div><div id="q15_e" class="explanation">E. histolytica trophozoites ingest RBCs (erythrophagocytosis), while non-pathogenic E. dispar does not.</div></div>
+
+<!-- ================= ENTAMOEBA HISTOLYTICA - CLINICAL & DIAGNOSIS (16-20) ================= -->
+
+<!-- Q16 -->
+<div class="question"><p class="level">Contextual</p><b>16. A patient presents with right upper quadrant pain, fever, and tender hepatomegaly. Ultrasound reveals a solitary lesion in the right lobe of liver with "chocolate-colored" aspirate. What is the most likely diagnosis?</b>
+<div class="options">
+<label><input type="radio" name="q16" value="A" onclick="check('q16','C')"> Pyogenic liver abscess</label>
+<label><input type="radio" name="q16" value="B" onclick="check('q16','C')"> Hepatocellular carcinoma</label>
+<label><input type="radio" name="q16" value="C" onclick="check('q16','C')"> Amoebic liver abscess</label>
+<label><input type="radio" name="q16" value="D" onclick="check('q16','C')"> Hepatic hydatid cyst</label>
+</div><div id="q16_f"></div><div id="q16_e" class="explanation">Amoebic liver abscess typically presents with right upper quadrant pain, fever, and tender hepatomegaly. The abscess contains chocolate-colored necrotic material (not true pus).</div></div>
+
+<!-- Q17 -->
+<div class="question"><p class="level">Conceptual</p><b>17. Which lobe of the liver is most commonly affected in amoebic liver abscess?</b>
+<div class="options">
+<label><input type="radio" name="q17" value="A" onclick="check('q17','B')"> Left lobe</label>
+<label><input type="radio" name="q17" value="B" onclick="check('q17','B')"> Right lobe</label>
+<label><input type="radio" name="q17" value="C" onclick="check('q17','B')"> Caudate lobe</label>
+<label><input type="radio" name="q17" value="D" onclick="check('q17','B')"> Quadrate lobe</label>
+</div><div id="q17_f"></div><div id="q17_e" class="explanation">The right lobe of the liver is most commonly affected (80-90% of cases), possibly due to streaming of portal blood flow.</div></div>
+
+<!-- Q18 -->
+<div class="question"><p class="level">Contextual</p><b>18. A patient with suspected amoebic liver abscess has stool examinations negative for E. histolytica. What explains this finding?</b>
+<div class="options">
+<label><input type="radio" name="q18" value="A" onclick="check('q18','C')"> Incorrect diagnosis</label>
+<label><input type="radio" name="q18" value="B" onclick="check('q18','C')"> Laboratory error</label>
+<label><input type="radio" name="q18" value="C" onclick="check('q18','C')"> Amoeba-free stools are common in extraintestinal disease</label>
+<label><input type="radio" name="q18" value="D" onclick="check('q18','C')"> Patient was treated before stool collection</label>
+</div><div id="q18_f"></div><div id="q18_e" class="explanation">In extraintestinal amoebiasis (like liver abscess), stools are often negative for E. histolytica as the infection is localized outside the intestine.</div></div>
+
+<!-- Q19 -->
+<div class="question"><p class="level">Conceptual</p><b>19. What is the first-line treatment for invasive amoebiasis (colitis or liver abscess)?</b>
+<div class="options">
+<label><input type="radio" name="q19" value="A" onclick="check('q19','B')"> Tetracycline</label>
+<label><input type="radio" name="q19" value="B" onclick="check('q19','B')"> Metronidazole</label>
+<label><input type="radio" name="q19" value="C" onclick="check('q19','B')"> Iodoquinol</label>
+<label><input type="radio" name="q19" value="D" onclick="check('q19','B')"> Paromomycin</label>
+</div><div id="q19_f"></div><div id="q19_e" class="explanation">Metronidazole (or tinidazole) is the tissue amebicide for invasive disease, followed by a luminal agent to eradicate intestinal cysts.</div></div>
+
+<!-- Q20 -->
+<div class="question"><p class="level">Contextual</p><b>20. Which diagnostic method would be most appropriate for confirming extraintestinal amoebiasis when stool examination is negative?</b>
+<div class="options">
+<label><input type="radio" name="q20" value="A" onclick="check('q20','D')"> Repeat stool microscopy</label>
+<label><input type="radio" name="q20" value="B" onclick="check('q20','D')"> Stool culture</label>
+<label><input type="radio" name="q20" value="C" onclick="check('q20','D')"> Antigen detection in stool</label>
+<label><input type="radio" name="q20" value="D" onclick="check('q20','D')"> Serology (antibody detection)</label>
+</div><div id="q20_f"></div><div id="q20_e" class="explanation">Serological tests (antibody detection) are highly sensitive for extraintestinal amoebiasis and show high antibody titers even when stool exams are negative.</div></div>
+
+<!-- ================= NON-PATHOGENIC INTESTINAL AMOEBAS (21-25) ================= -->
+
+<!-- Q21 -->
+<div class="question"><p class="level">Conceptual</p><b>21. Which non-pathogenic amoeba resides in the oral cavity and is associated with poor dental hygiene?</b>
+<div class="options">
+<label><input type="radio" name="q21" value="A" onclick="check('q21','B')"> Entamoeba coli</label>
+<label><input type="radio" name="q21" value="B" onclick="check('q21','B')"> Entamoeba gingivalis</label>
+<label><input type="radio" name="q21" value="C" onclick="check('q21','B')"> Iodamoeba buetschlii</label>
+<label><input type="radio" name="q21" value="D" onclick="check('q21','B')"> Endolimax nana</label>
+</div><div id="q21_f"></div><div id="q21_e" class="explanation">Entamoeba gingivalis is found in the oral cavity, particularly in gingival pockets and tonsillar crypts, associated with poor oral hygiene.</div></div>
+
+<!-- Q22 -->
+<div class="question"><p class="level">Contextual</p><b>22. A stool examination reveals cysts with 8 nuclei. Which non-pathogenic amoeba is most likely?</b>
+<div class="options">
+<label><input type="radio" name="q22" value="A" onclick="check('q22','D')"> Entamoeba histolytica</label>
+<label><input type="radio" name="q22" value="B" onclick="check('q22','D')"> Entamoeba hartmanni</label>
+<label><input type="radio" name="q22" value="C" onclick="check('q22','D')"> Endolimax nana</label>
+<label><input type="radio" name="q22" value="D" onclick="check('q22','D')"> Entamoeba coli</label>
+</div><div id="q22_f"></div><div id="q22_e" class="explanation">Entamoeba coli mature cysts typically have 8 nuclei (sometimes up to 16), compared to E. histolytica which has 4 nuclei.</div></div>
+
+<!-- Q23 -->
+<div class="question"><p class="level">Conceptual</p><b>23. Which non-pathogenic intestinal amoeba is morphologically identical to E. histolytica but does not ingest RBCs?</b>
+<div class="options">
+<label><input type="radio" name="q23" value="A" onclick="check('q23','C')"> Entamoeba coli</label>
+<label><input type="radio" name="q23" value="B" onclick="check('q23','C')"> Entamoeba hartmanni</label>
+<label><input type="radio" name="q23" value="C" onclick="check('q23','C')"> Entamoeba dispar</label>
+<label><input type="radio" name="q23" value="D" onclick="check('q23','C')"> Iodamoeba buetschlii</label>
+</div><div id="q23_f"></div><div id="q23_e" class="explanation">Entamoeba dispar is morphologically identical to E. histolytica but is non-pathogenic and does not ingest red blood cells.</div></div>
+
+<!-- Q24 -->
+<div class="question"><p class="level">Contextual</p><b>24. A cyst with a large glycogen vacuole that stains brown with iodine is characteristic of:</b>
+<div class="options">
+<label><input type="radio" name="q24" value="A" onclick="check('q24','D')"> Entamoeba histolytica</label>
+<label><input type="radio" name="q24" value="B" onclick="check('q24','D')"> Entamoeba coli</label>
+<label><input type="radio" name="q24" value="C" onclick="check('q24','D')"> Endolimax nana</label>
+<label><input type="radio" name="q24" value="D" onclick="check('q24','D')"> Iodamoeba buetschlii</label>
+</div><div id="q24_f"></div><div id="q24_e" class="explanation">Iodamoeba buetschlii cysts contain a large glycogen vacuole that stains brown with iodine, giving the parasite its name.</div></div>
+
+<!-- Q25 -->
+<div class="question"><p class="level">Conceptual</p><b>25. Which non-pathogenic amoeba is the smallest intestinal amoeba?</b>
+<div class="options">
+<label><input type="radio" name="q25" value="A" onclick="check('q25','D')"> Entamoeba hartmanni</label>
+<label><input type="radio" name="q25" value="B" onclick="check('q25','D')"> Entamoeba coli</label>
+<label><input type="radio" name="q25" value="C" onclick="check('q25','D')"> Iodamoeba buetschlii</label>
+<label><input type="radio" name="q25" value="D" onclick="check('q25','D')"> Endolimax nana</label>
+</div><div id="q25_f"></div><div id="q25_e" class="explanation">Endolimax nana is the smallest intestinal amoeba, with trophozoites measuring 6-12 μm and cysts 5-10 μm.</div></div>
+
+<!-- ================= FREE-LIVING PATHOGENIC AMOEBAS (26-30) ================= -->
+
+<!-- Q26 -->
+<div class="question"><p class="level">Conceptual</p><b>26. Which free-living amoeba causes primary amoebic meningoencephalitis (PAM), often fatal within days?</b>
+<div class="options">
+<label><input type="radio" name="q26" value="A" onclick="check('q26','B')"> Acanthamoeba species</label>
+<label><input type="radio" name="q26" value="B" onclick="check('q26','B')"> Naegleria fowleri</label>
+<label><input type="radio" name="q26" value="C" onclick="check('q26','B')"> Balamuthia mandrillaris</label>
+<label><input type="radio" name="q26" value="D" onclick="check('q26','B')"> Sappinia species</label>
+</div><div id="q26_f"></div><div id="q26_e" class="explanation">Naegleria fowleri causes rapidly fatal primary amoebic meningoencephalitis (PAM), typically in healthy young individuals after swimming in warm fresh water.</div></div>
+
+<!-- Q27 -->
+<div class="question"><p class="level">Contextual</p><b>27. A healthy young man develops sudden severe headache, fever, vomiting, and stiff neck 5 days after swimming in a warm lake. CSF shows motile amoebae. What is the most likely pathogen?</b>
+<div class="options">
+<label><input type="radio" name="q27" value="A" onclick="check('q27','C')"> Acanthamoeba castellanii</label>
+<label><input type="radio" name="q27" value="B" onclick="check('q27','C')"> Entamoeba histolytica</label>
+<label><input type="radio" name="q27" value="C" onclick="check('q27','C')"> Naegleria fowleri</label>
+<label><input type="radio" name="q27" value="D" onclick="check('q27','C')"> Balamuthia mandrillaris</label>
+</div><div id="q27_f"></div><div id="q27_e" class="explanation">This is classic presentation of primary amoebic meningoencephalitis (PAM) caused by Naegleria fowleri, with rapid onset after swimming in warm fresh water.</div></div>
+
+<!-- Q28 -->
+<div class="question"><p class="level">Conceptual</p><b>28. Which free-living amoeba causes granulomatous amoebic encephalitis (GAE) and amoebic keratitis?</b>
+<div class="options">
+<label><input type="radio" name="q28" value="A" onclick="check('q28','B')"> Naegleria fowleri</label>
+<label><input type="radio" name="q28" value="B" onclick="check('q28','B')"> Acanthamoeba species</label>
+<label><input type="radio" name="q28" value="C" onclick="check('q28','B')"> Entamoeba histolytica</label>
+<label><input type="radio" name="q28" value="D" onclick="check('q28','B')"> Entamoeba gingivalis</label>
+</div><div id="q28_f"></div><div id="q28_e" class="explanation">Acanthamoeba species cause granulomatous amoebic encephalitis (GAE) in immunocompromised individuals and amoebic keratitis in contact lens wearers.</div></div>
+
+<!-- Q29 -->
+<div class="question"><p class="level">Contextual</p><b>29. A contact lens wearer presents with severe eye pain, photophobia, and corneal ulceration. Which amoeba should be suspected?</b>
+<div class="options">
+<label><input type="radio" name="q29" value="A" onclick="check('q29','C')"> Naegleria fowleri</label>
+<label><input type="radio" name="q29" value="B" onclick="check('q29','C')"> Entamoeba histolytica</label>
+<label><input type="radio" name="q29" value="C" onclick="check('q29','C')"> Acanthamoeba species</label>
+<label><input type="radio" name="q29" value="D" onclick="check('q29','C')"> Balamuthia mandrillaris</label>
+</div><div id="q29_f"></div><div id="q29_e" class="explanation">Acanthamoeba keratitis is associated with contact lens use, especially with improper cleaning or use of tap water for rinsing.</div></div>
+
+<!-- Q30 -->
+<div class="question"><p class="level">Conceptual</p><b>30. What is the unique characteristic of Naegleria that distinguishes it from other amoebae?</b>
+<div class="options">
+<label><input type="radio" name="q30" value="A" onclick="check('q30','D')"> It has both amoeboid and flagellated forms</label>
+<label><input type="radio" name="q30" value="B" onclick="check('q30','D')"> It forms resistant cysts in tissues</label>
+<label><input type="radio" name="q30" value="C" onclick="check('q30','D')"> It is exclusively intracellular</label>
+<label><input type="radio" name="q30" value="D" onclick="check('q30','D')"> It causes only intestinal infections</label>
+</div><div id="q30_f"></div><div id="q30_e" class="explanation">Naegleria can exist in three forms: trophozoite (amoeboid), flagellate, and cyst. The transformation to flagellate form in water is unique among pathogenic amoebae.</div></div>
+
+<!-- ================= ADVANCED CONCEPTUAL QUESTIONS (31-35) ================= -->
+
+<!-- Q31 -->
+<div class="question"><p class="level">Conceptual</p><b>31. Which virulence factor of E. histolytica degrades extracellular matrix and mucus layer, facilitating tissue invasion?</b>
+<div class="options">
+<label><input type="radio" name="q31" value="A" onclick="check('q31','C')"> Gal/GalNAc lectin</label>
+<label><input type="radio" name="q31" value="B" onclick="check('q31','C')"> Amoebapore</label>
+<label><input type="radio" name="q31" value="C" onclick="check('q31','C')"> Cysteine proteinases</label>
+<label><input type="radio" name="q31" value="D" onclick="check('q31','C')"> Phospholipase A</label>
+</div><div id="q31_f"></div><div id="q31_e" class="explanation">Cysteine proteinases degrade the mucus layer, extracellular matrix components (collagen, fibronectin), and immunoglobulins, facilitating tissue invasion.</div></div>
+
+<!-- Q32 -->
+<div class="question"><p class="level">Contextual</p><b>32. A patient with amoebic liver abscess develops chest pain and cough. What is the most likely complication?</b>
+<div class="options">
+<label><input type="radio" name="q32" value="A" onclick="check('q32','D')"> Pulmonary embolism</label>
+<label><input type="radio" name="q32" value="B" onclick="check('q32','D')"> Bacterial pneumonia</label>
+<label><input type="radio" name="q32" value="C" onclick="check('q32','D')"> Tuberculosis reactivation</label>
+<label><input type="radio" name="q32" value="D" onclick="check('q32','D')"> Pleuropulmonary amoebiasis (rupture through diaphragm)</label>
+</div><div id="q32_f"></div><div id="q32_e" class="explanation">Amoebic liver abscess, especially in the right lobe, can rupture through the diaphragm causing pleuropulmonary amoebiasis with cough, chest pain, and dyspnea.</div></div>
+
+<!-- Q33 -->
+<div class="question"><p class="level">Conceptual</p><b>33. What is "ameboma" in intestinal amoebiasis?</b>
+<div class="options">
+<label><input type="radio" name="q33" value="A" onclick="check('q33','C')"> A type of liver abscess</label>
+<label><input type="radio" name="q33" value="B" onclick="check('q33','C')"> Cerebral amoebic infection</label>
+<label><input type="radio" name="q33" value="C" onclick="check('q33','C')"> Inflammatory thickening of intestinal wall resembling tumor</label>
+<label><input type="radio" name="q33" value="D" onclick="check('q33','C')"> Cutaneous ulceration</label>
+</div><div id="q33_f"></div><div id="q33_e" class="explanation">Ameboma is a rare complication where chronic inflammation causes granulomatous thickening of the intestinal wall, which can mimic colonic cancer on imaging.</div></div>
+
+<!-- Q34 -->
+<div class="question"><p class="level">Contextual</p><b>34. Why are E. histolytica cysts resistant to normal water treatment methods?</b>
+<div class="options">
+<label><input type="radio" name="q34" value="A" onclick="check('q34','D')"> They have a thick chitinous wall</label>
+<label><input type="radio" name="q34" value="B" onclick="check('q34','D')"> They produce heat-shock proteins</label>
+<label><input type="radio" name="q34" value="C" onclick="check('q34','D')"> They are intracellular during cyst stage</label>
+<label><input type="radio" name="q34" value="D" onclick="check('q34','D')"> They have a thick wall and can survive chlorine and temperature extremes</label>
+</div><div id="q34_f"></div><div id="q34_e" class="explanation">Mature cysts have a thick wall that allows survival in the environment: resistant to normal chlorine concentrations, gastric acid, and temperatures up to 55°C.</div></div>
+
+<!-- Q35 -->
+<div class="question"><p class="level">Conceptual</p><b>35. Which of the following statements about pathogenic vs non-pathogenic intestinal amoebae is CORRECT?</b>
+<div class="options">
+<label><input type="radio" name="q35" value="A" onclick="check('q35','D')"> All Entamoeba species are pathogenic</label>
+<label><input type="radio" name="q35" value="B" onclick="check('q35','D')"> Only E. histolytica forms cysts</label>
+<label><input type="radio" name="q35" value="C" onclick="check('q35','D')"> Non-pathogenic amoebae never cause symptoms</label>
+<label><input type="radio" name="q35" value="D" onclick="check('q35','D')"> E. histolytica is the only intestinal amoeba that ingests RBCs</label>
+</div><div id="q35_f"></div><div id="q35_e" class="explanation">E. histolytica is distinguished from non-pathogenic intestinal amoebae by its ability to ingest red blood cells (erythrophagocytosis).</div></div>
+
+<!-- Q36 -->
+<div class="question"><p class="level">Contextual</p><b>36. A patient returns from a tropical country with asymptomatic E. histolytica cysts in stool. What is the appropriate management?</b>
+<div class="options">
+<label><input type="radio" name="q36" value="A" onclick="check('q36','D')"> No treatment needed</label>
+<label><input type="radio" name="q36" value="B" onclick="check('q36','D')"> Metronidazole alone</label>
+<label><input type="radio" name="q36" value="C" onclick="check('q36','D')"> Surgical intervention</label>
+<label><input type="radio" name="q36" value="D" onclick="check('q36','D')"> Luminal amebicide (iodoquinol, paromomycin, or diloxanide furoate)</label>
+</div><div id="q36_f"></div><div id="q36_e" class="explanation">Asymptomatic cyst passers should be treated with luminal amebicides to eliminate intestinal infection and prevent transmission, even if asymptomatic.</div></div>
+
+<p style="text-align:center;font-weight:bold">END OF EXAM ✔ Total Questions: 36</p>
+
+</body>
+                              </html>
