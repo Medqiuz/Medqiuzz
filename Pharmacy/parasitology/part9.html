@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Medical Protozoology - Complete CBT</title>
+
+<style>
+body{font-family:Arial;background:#eef2f5;margin:20px}
+h1{text-align:center}
+#scoreBox{
+ position:fixed;top:10px;right:10px;
+ background:#000;color:#fff;
+ padding:10px 15px;border-radius:8px
+}
+.question{
+ background:#fff;padding:15px;margin-bottom:15px;
+ border-radius:8px;box-shadow:0 0 6px rgba(0,0,0,.1)
+}
+.options label{
+ display:block;margin:5px 0;padding:4px;
+ border-radius:4px;cursor:pointer
+}
+.correct{background:#d4edda;color:green;font-weight:bold}
+.wrong{background:#f8d7da;color:red}
+.feedback{font-weight:bold;margin-top:6px}
+.explanation{display:none;font-size:14px}
+.level{font-size:13px;color:#555}
+</style>
+
+<script>
+let score=0,answered={};
+function check(q,c){
+ if(answered[q])return;
+ let o=document.getElementsByName(q),
+ f=document.getElementById(q+"_f"),
+ e=document.getElementById(q+"_e");
+ o.forEach(x=>{
+  let l=x.parentElement;
+  if(x.value===c)l.classList.add("correct");
+  if(x.checked&&x.value!==c){l.classList.add("wrong");f.innerHTML="✖ Incorrect – correct answer highlighted in green";}
+  if(x.checked&&x.value===c){f.innerHTML="✔ Correct";score++;}
+  x.disabled=true;
+ });
+ answered[q]=1;
+ e.style.display="block";
+ document.getElementById("score").innerHTML=score;
+}
+</script>
+</head>
+
+<body>
+
+<div id="scoreBox">Score: <span id="score">0</span> / 100</div>
+<h1>Medical Protozoology - Complete Examination</h1>
+
+<!-- ================= INTRODUCTION (1-25) ================= -->
+
+<div class="question"><p class="level">Moderate</p><b>1. Protozoa are classified as eukaryotes because they:</b>
+<div class="options">
+<label><input type="radio" name="q1" value="A" onclick="check('q1','C')"> Lack mitochondria</label>
+<label><input type="radio" name="q1" value="B" onclick="check('q1','C')"> Are multicellular</label>
+<label><input type="radio" name="q1" value="C" onclick="check('q1','C')"> Have a true nucleus</label>
+<label><input type="radio" name="q1" value="D" onclick="check('q1','C')"> Contain spores</label>
+</div><div id="q1_f" class="feedback"></div><div id="q1_e" class="explanation">Protozoa are unicellular eukaryotes with membrane-bound nuclei.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>2. Which protozoan disease has the highest global burden?</b>
+<div class="options">
+<label><input type="radio" name="q2" value="A" onclick="check('q2','B')"> Amoebiasis</label>
+<label><input type="radio" name="q2" value="B" onclick="check('q2','B')"> Malaria</label>
+<label><input type="radio" name="q2" value="C" onclick="check('q2','B')"> Balantidiasis</label>
+<label><input type="radio" name="q2" value="D" onclick="check('q2','B')"> Giardiasis</label>
+</div><div id="q2_f"></div><div id="q2_e" class="explanation">Malaria caused by Plasmodium affects hundreds of millions annually.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>3. Which structure is used by amoebae for both feeding and movement?</b>
+<div class="options">
+<label><input type="radio" name="q3" value="A" onclick="check('q3','D')"> Cilia</label>
+<label><input type="radio" name="q3" value="B" onclick="check('q3','D')"> Flagella</label>
+<label><input type="radio" name="q3" value="C" onclick="check('q3','D')"> Axoneme</label>
+<label><input type="radio" name="q3" value="D" onclick="check('q3','D')"> Pseudopodia</label>
+</div><div id="q3_f"></div><div id="q3_e" class="explanation">Pseudopodia allow creeping motion and engulfing food.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>4. Which life-cycle stage is primarily responsible for environmental survival?</b>
+<div class="options">
+<label><input type="radio" name="q4" value="A" onclick="check('q4','C')"> Trophozoite</label>
+<label><input type="radio" name="q4" value="B" onclick="check('q4','C')"> Gametocyte</label>
+<label><input type="radio" name="q4" value="C" onclick="check('q4','C')"> Cyst</label>
+<label><input type="radio" name="q4" value="D" onclick="check('q4','C')"> Sporozoite</label>
+</div><div id="q4_f"></div><div id="q4_e" class="explanation">Cysts are resistant forms enabling transmission and survival.</div></div>
+
+<div class="question"><p class="level">High</p><b>5. Which protozoa lack visible locomotor organelles in adult stages?</b>
+<div class="options">
+<label><input type="radio" name="q5" value="A" onclick="check('q5','B')"> Flagellates</label>
+<label><input type="radio" name="q5" value="B" onclick="check('q5','B')"> Apicomplexa</label>
+<label><input type="radio" name="q5" value="C" onclick="check('q5','B')"> Amoebae</label>
+<label><input type="radio" name="q5" value="D" onclick="check('q5','B')"> Ciliates</label>
+</div><div id="q5_f"></div><div id="q5_e" class="explanation">Apicomplexa rely on gliding and host/vector transmission.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>6. The causative agent of amoebic dysentery is:</b>
+<div class="options">
+<label><input type="radio" name="q6" value="A" onclick="check('q6','B')"> Giardia lamblia</label>
+<label><input type="radio" name="q6" value="B" onclick="check('q6','B')"> Entamoeba histolytica</label>
+<label><input type="radio" name="q6" value="C" onclick="check('q6','B')"> Entamoeba coli</label>
+<label><input type="radio" name="q6" value="D" onclick="check('q6','B')"> Naegleria fowleri</label>
+</div><div id="q6_f"></div><div id="q6_e" class="explanation">Entamoeba histolytica causes amoebic dysentery.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>7. Which organ is most commonly affected in extraintestinal amebiasis?</b>
+<div class="options">
+<label><input type="radio" name="q7" value="A" onclick="check('q7','B')"> Lung</label>
+<label><input type="radio" name="q7" value="B" onclick="check('q7','B')"> Liver</label>
+<label><input type="radio" name="q7" value="C" onclick="check('q7','B')"> Brain</label>
+<label><input type="radio" name="q7" value="D" onclick="check('q7','B')"> Skin</label>
+</div><div id="q7_f"></div><div id="q7_e" class="explanation">Amebic liver abscess is most common.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>8. The infective stage of Giardia lamblia is:</b>
+<div class="options">
+<label><input type="radio" name="q8" value="A" onclick="check('q8','B')"> Trophozoite</label>
+<label><input type="radio" name="q8" value="B" onclick="check('q8','B')"> Cyst</label>
+<label><input type="radio" name="q8" value="C" onclick="check('q8','B')"> Sporozoite</label>
+<label><input type="radio" name="q8" value="D" onclick="check('q8','B')"> Merozoite</label>
+</div><div id="q8_f"></div><div id="q8_e" class="explanation">Giardia cysts are resistant forms transmitted via contaminated water/food.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>9. Trichomonas vaginalis differs from other protozoa because it:</b>
+<div class="options">
+<label><input type="radio" name="q9" value="A" onclick="check('q9','D')"> Forms cysts</label>
+<label><input type="radio" name="q9" value="B" onclick="check('q9','D')"> Has sexual reproduction</label>
+<label><input type="radio" name="q9" value="C" onclick="check('q9','D')"> Is intracellular</label>
+<label><input type="radio" name="q9" value="D" onclick="check('q9','D')"> Only exists as trophozoite</label>
+</div><div id="q9_f"></div><div id="q9_e" class="explanation">T. vaginalis has no cyst stage; transmission occurs directly.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>10. Which vector transmits African trypanosomiasis?</b>
+<div class="options">
+<label><input type="radio" name="q10" value="A" onclick="check('q10','B')"> Mosquito</label>
+<label><input type="radio" name="q10" value="B" onclick="check('q10','B')"> Tsetse fly</label>
+<label><input type="radio" name="q10" value="C" onclick="check('q10','B')"> Sandfly</label>
+<label><input type="radio" name="q10" value="D" onclick="check('q10','B')"> Triatomine bug</label>
+</div><div id="q10_f"></div><div id="q10_e" class="explanation">Tsetse flies transmit Trypanosoma brucei.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>11. The causative agent of visceral leishmaniasis is:</b>
+<div class="options">
+<label><input type="radio" name="q11" value="A" onclick="check('q11','C')"> Leishmania tropica</label>
+<label><input type="radio" name="q11" value="B" onclick="check('q11','C')"> Leishmania major</label>
+<label><input type="radio" name="q11" value="C" onclick="check('q11','C')"> Leishmania donovani</label>
+<label><input type="radio" name="q11" value="D" onclick="check('q11','C')"> Leishmania braziliensis</label>
+</div><div id="q11_f"></div><div id="q11_e" class="explanation">L. donovani causes visceral leishmaniasis (kala-azar).</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>12. Which Plasmodium species causes the most severe malaria?</b>
+<div class="options">
+<label><input type="radio" name="q12" value="A" onclick="check('q12','B')"> P. vivax</label>
+<label><input type="radio" name="q12" value="B" onclick="check('q12','B')"> P. falciparum</label>
+<label><input type="radio" name="q12" value="C" onclick="check('q12','B')"> P. malariae</label>
+<label><input type="radio" name="q12" value="D" onclick="check('q12','B')"> P. ovale</label>
+</div><div id="q12_f"></div><div id="q12_e" class="explanation">P. falciparum causes severe, life-threatening malaria.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>13. The infective stage injected by mosquitoes in malaria is:</b>
+<div class="options">
+<label><input type="radio" name="q13" value="A" onclick="check('q13','B')"> Merozoite</label>
+<label><input type="radio" name="q13" value="B" onclick="check('q13','B')"> Sporozoite</label>
+<label><input type="radio" name="q13" value="C" onclick="check('q13','B')"> Trophozoite</label>
+<label><input type="radio" name="q13" value="D" onclick="check('q13','B')"> Gametocyte</label>
+</div><div id="q13_f"></div><div id="q13_e" class="explanation">Sporozoites enter human blood from mosquito salivary glands.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>14. Which Plasmodium species has dormant liver stages (hypnozoites)?</b>
+<div class="options">
+<label><input type="radio" name="q14" value="A" onclick="check('q14','B')"> P. falciparum only</label>
+<label><input type="radio" name="q14" value="B" onclick="check('q14','B')"> P. vivax and P. ovale</label>
+<label><input type="radio" name="q14" value="C" onclick="check('q14','B')"> P. malariae only</label>
+<label><input type="radio" name="q14" value="D" onclick="check('q14','B')"> All species</label>
+</div><div id="q14_f"></div><div id="q14_e" class="explanation">Hypnozoites cause relapses in P. vivax and P. ovale infections.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>15. The gold standard for malaria diagnosis is:</b>
+<div class="options">
+<label><input type="radio" name="q15" value="A" onclick="check('q15','C')"> Rapid diagnostic test</label>
+<label><input type="radio" name="q15" value="B" onclick="check('q15','C')"> PCR</label>
+<label><input type="radio" name="q15" value="C" onclick="check('q15','C')"> Microscopy of blood smears</label>
+<label><input type="radio" name="q15" value="D" onclick="check('q15','C')"> Serology</label>
+</div><div id="q15_f"></div><div id="q15_e" class="explanation">Thick and thin blood smear microscopy remains the gold standard.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>16. The definitive host of Toxoplasma gondii is:</b>
+<div class="options">
+<label><input type="radio" name="q16" value="A" onclick="check('q16','B')"> Human</label>
+<label><input type="radio" name="q16" value="B" onclick="check('q16','B')"> Cat</label>
+<label><input type="radio" name="q16" value="C" onclick="check('q16','B')"> Pig</label>
+<label><input type="radio" name="q16" value="D" onclick="check('q16','B')"> Dog</label>
+</div><div id="q16_f"></div><div id="q16_e" class="explanation">Cats are the definitive host where sexual reproduction occurs.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>17. Cryptosporidium is diagnosed by:</b>
+<div class="options">
+<label><input type="radio" name="q17" value="A" onclick="check('q17','B')"> Blood smear</label>
+<label><input type="radio" name="q17" value="B" onclick="check('q17','B')"> Acid-fast stain of stool</label>
+<label><input type="radio" name="q17" value="C" onclick="check('q17','B')"> Urine antigen</label>
+<label><input type="radio" name="q17" value="D" onclick="check('q17','B')"> Sputum culture</label>
+</div><div id="q17_f"></div><div id="q17_e" class="explanation">Cryptosporidium oocysts stain acid-fast red in stool samples.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>18. The only ciliate that regularly infects humans is:</b>
+<div class="options">
+<label><input type="radio" name="q18" value="A" onclick="check('q18','C')"> Entamoeba histolytica</label>
+<label><input type="radio" name="q18" value="B" onclick="check('q18','C')"> Giardia lamblia</label>
+<label><input type="radio" name="q18" value="C" onclick="check('q18','C')"> Balantidium coli</label>
+<label><input type="radio" name="q18" value="D" onclick="check('q18','C')"> Trichomonas vaginalis</label>
+</div><div id="q18_f"></div><div id="q18_e" class="explanation">B. coli is the only human-infecting ciliate.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>19. What unique nuclear feature do ciliates possess?</b>
+<div class="options">
+<label><input type="radio" name="q19" value="A" onclick="check('q19','B')"> Single nucleus</label>
+<label><input type="radio" name="q19" value="B" onclick="check('q19','B')"> Macronucleus and micronucleus</label>
+<label><input type="radio" name="q19" value="C" onclick="check('q19','B')"> 4-8 nuclei</label>
+<label><input type="radio" name="q19" value="D" onclick="check('q19','B')"> No true nucleus</label>
+</div><div id="q19_f"></div><div id="q19_e" class="explanation">Ciliates have a macronucleus (metabolic) and micronucleus (genetic).</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>20. Which drug treats giardiasis?</b>
+<div class="options">
+<label><input type="radio" name="q20" value="A" onclick="check('q20','B')"> Chloroquine</label>
+<label><input type="radio" name="q20" value="B" onclick="check('q20','B')"> Metronidazole</label>
+<label><input type="radio" name="q20" value="C" onclick="check('q20','B')"> Amphotericin B</label>
+<label><input type="radio" name="q20" value="D" onclick="check('q20','B')"> Primaquine</label>
+</div><div id="q20_f"></div><div id="q20_e" class="explanation">Metronidazole or tinidazole are standard treatments for giardiasis.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>21. Artemisinin-based combination therapy (ACT) is first-line for:</b>
+<div class="options">
+<label><input type="radio" name="q21" value="A" onclick="check('q21','B')"> Amoebiasis</label>
+<label><input type="radio" name="q21" value="B" onclick="check('q21','B')"> P. falciparum malaria</label>
+<label><input type="radio" name="q21" value="C" onclick="check('q21','B')"> Toxoplasmosis</label>
+<label><input type="radio" name="q21" value="D" onclick="check('q21','B')"> Leishmaniasis</label>
+</div><div id="q21_f"></div><div id="q21_e" class="explanation">ACT is WHO-recommended first-line for uncomplicated P. falciparum malaria.</div></div>
+
+<div class="question"><p class="level">High</p><b>22. A farmer presents with dysentery and history of pig exposure. Stool shows large ciliated trophozoites. Which feature confirms the diagnosis?</b>
+<div class="options">
+<label><input type="radio" name="q22" value="A" onclick="check('q22','D')"> Absence of nucleus</label>
+<label><input type="radio" name="q22" value="B" onclick="check('q22','D')"> Flagellar tuft</label>
+<label><input type="radio" name="q22" value="C" onclick="check('q22','D')"> Intracellular habitat</label>
+<label><input type="radio" name="q22" value="D" onclick="check('q22','D')"> Macronucleus and micronucleus</label>
+</div><div id="q22_f"></div><div id="q22_e" class="explanation">Balantidium coli is the only human ciliate with two nuclei.</div></div>
+
+<div class="question"><p class="level">High</p><b>23. Sexual reproduction by conjugation is seen in:</b>
+<div class="options">
+<label><input type="radio" name="q23" value="A" onclick="check('q23','C')"> Amoebae</label>
+<label><input type="radio" name="q23" value="B" onclick="check('q23','C')"> Flagellates</label>
+<label><input type="radio" name="q23" value="C" onclick="check('q23','C')"> Ciliates</label>
+<label><input type="radio" name="q23" value="D" onclick="check('q23','C')"> Microsporidia</label>
+</div><div id="q23_f"></div><div id="q23_e" class="explanation">Ciliates exchange genetic material via conjugation.</div></div>
+
+<div class="question"><p class="level">High</p><b>24. Which virulence factor allows E. histolytica to adhere to colonic mucosa?</b>
+<div class="options">
+<label><input type="radio" name="q24" value="A" onclick="check('q24','B')"> Amoebapore</label>
+<label><input type="radio" name="q24" value="B" onclick="check('q24','B')"> Gal/GalNAc lectin</label>
+<label><input type="radio" name="q24" value="C" onclick="check('q24','B')"> Cysteine proteinase</label>
+<label><input type="radio" name="q24" value="D" onclick="check('q24','B')"> Hemolysin</label>
+</div><div id="q24_f"></div><div id="q24_e" class="explanation">Gal/GalNAc lectin mediates adherence to intestinal epithelial cells.</div></div>
+
+<div class="question"><p class="level">High</p><b>25. Which is diagnostic for E. histolytica trophozoites?</b>
+<div class="options">
+<label><input type="radio" name="q25" value="A" onclick="check('q25','A')"> Ingested red blood cells</label>
+<label><input type="radio" name="q25" value="B" onclick="check('q25','A')"> Multiple nuclei</label>
+<label><input type="radio" name="q25" value="C" onclick="check('q25','A')"> Banana shape</label>
+<label><input type="radio" name="q25" value="D" onclick="check('q25','A')"> Undulating membrane</label>
+</div><div id="q25_f"></div><div id="q25_e" class="explanation">Erythrophagocytosis (ingested RBCs) is pathognomonic for E. histolytica.</div></div>
+
+<!-- ================= HIGH LEVEL QUESTIONS (26-50) ================= -->
+
+<div class="question"><p class="level">High</p><b>26. What percentage of E. histolytica infections are asymptomatic?</b>
+<div class="options">
+<label><input type="radio" name="q26" value="A" onclick="check('q26','D')"> 10-20%</label>
+<label><input type="radio" name="q26" value="B" onclick="check('q26','D')"> 30-40%</label>
+<label><input type="radio" name="q26" value="C" onclick="check('q26','D')"> 50-60%</label>
+<label><input type="radio" name="q26" value="D" onclick="check('q26','D')"> 80-90%</label>
+</div><div id="q26_f"></div><div id="q26_e" class="explanation">Most infections are asymptomatic; only 10-20% develop invasive disease.</div></div>
+
+<div class="question"><p class="level">High</p><b>27. What is Winterbottom's sign in trypanosomiasis?</b>
+<div class="options">
+<label><input type="radio" name="q27" value="A" onclick="check('q27','B')"> Enlarged liver</label>
+<label><input type="radio" name="q27" value="B" onclick="check('q27','B')"> Posterior cervical lymphadenopathy</label>
+<label><input type="radio" name="q27" value="C" onclick="check('q27','B')"> Splenomegaly</label>
+<label><input type="radio" name="q27" value="D" onclick="check('q27','B')"> Skin rash</label>
+</div><div id="q27_f"></div><div id="q27_e" class="explanation">Characteristic swelling of posterior cervical lymph nodes in African trypanosomiasis.</div></div>
+
+<div class="question"><p class="level">High</p><b>28. What is Romaña's sign in Chagas disease?</b>
+<div class="options">
+<label><input type="radio" name="q28" value="A" onclick="check('q28','A')"> Unilateral eye swelling</label>
+<label><input type="radio" name="q28" value="B" onclick="check('q28','A')"> Cervical lymphadenopathy</label>
+<label><input type="radio" name="q28" value="C" onclick="check('q28','A')"> Hepatosplenomegaly</label>
+<label><input type="radio" name="q28" value="D" onclick="check('q28','A')"> Skin ulcer</label>
+</div><div id="q28_f"></div><div id="q28_e" class="explanation">Unilateral periorbital edema when T. cruzi enters via conjunctiva.</div></div>
+
+<div class="question"><p class="level">High</p><b>29. Which form of Leishmania is found in human macrophages?</b>
+<div class="options">
+<label><input type="radio" name="q29" value="A" onclick="check('q29','B')"> Promastigote</label>
+<label><input type="radio" name="q29" value="B" onclick="check('q29','B')"> Amastigote</label>
+<label><input type="radio" name="q29" value="C" onclick="check('q29','B')"> Trypomastigote</label>
+<label><input type="radio" name="q29" value="D" onclick="check('q29','B')"> Epimastigote</label>
+</div><div id="q29_f"></div><div id="q29_e" class="explanation">Amastigotes are intracellular forms within macrophages.</div></div>
+
+<div class="question"><p class="level">High</p><b>30. What is the fever pattern in P. malariae infection?</b>
+<div class="options">
+<label><input type="radio" name="q30" value="A" onclick="check('q30','C')"> Daily fever</label>
+<label><input type="radio" name="q30" value="B" onclick="check('q30','C')"> Every 48 hours (tertian)</label>
+<label><input type="radio" name="q30" value="C" onclick="check('q30','C')"> Every 72 hours (quartan)</label>
+<label><input type="radio" name="q30" value="D" onclick="check('q30','C')"> Irregular fever</label>
+</div><div id="q30_f"></div><div id="q30_e" class="explanation">P. malariae causes quartan malaria with 72-hour fever cycles.</div></div>
+
+<div class="question"><p class="level">High</p><b>31. What causes periodic fever in malaria?</b>
+<div class="options">
+<label><input type="radio" name="q31" value="A" onclick="check('q31','B')"> Toxin release from liver</label>
+<label><input type="radio" name="q31" value="B" onclick="check('q31','B')"> Synchronous RBC rupture</label>
+<label><input type="radio" name="q31" value="C" onclick="check('q31','B')"> Mosquito bite reactions</label>
+<label><input type="radio" name="q31" value="D" onclick="check('q31','B')"> Immune complex deposition</label>
+</div><div id="q31_f"></div><div id="q31_e" class="explanation">Simultaneous rupture of infected RBCs releases pyrogens causing fever spikes.</div></div>
+
+<div class="question"><p class="level">High</p><b>32. Which cytokine is primarily responsible for malaria fever?</b>
+<div class="options">
+<label><input type="radio" name="q32" value="A" onclick="check('q32','B')"> Interleukin-1</label>
+<label><input type="radio" name="q32" value="B" onclick="check('q32','B')"> TNF-alpha</label>
+<label><input type="radio" name="q32" value="C" onclick="check('q32','B')"> Interferon-gamma</label>
+<label><input type="radio" name="q32" value="D" onclick="check('q32','B')"> Interleukin-6</label>
+</div><div id="q32_f"></div><div id="q32_e" class="explanation">Tumor Necrosis Factor-alpha is the major endogenous pyrogen in malaria.</div></div>
+
+<div class="question"><p class="level">High</p><b>33. What is cerebral malaria primarily caused by?</b>
+<div class="options">
+<label><input type="radio" name="q33" value="A" onclick="check('q33','B')"> Brain abscess</label>
+<label><input type="radio" name="q33" value="B" onclick="check('q33','B')"> Sequestration in brain capillaries</label>
+<label><input type="radio" name="q33" value="C" onclick="check('q33','B')"> Meningitis</label>
+<label><input type="radio" name="q33" value="D" onclick="check('q33','B')"> Neurotoxins</label>
+</div><div id="q33_f"></div><div id="q33_e" class="explanation">P. falciparum-infected RBCs sequester in cerebral microvasculature via cytoadherence.</div></div>
+
+<div class="question"><p class="level">High</p><b>34. What protein mediates cytoadherence in P. falciparum?</b>
+<div class="options">
+<label><input type="radio" name="q34" value="A" onclick="check('q34','B')"> MSP-1</label>
+<label><input type="radio" name="q34" value="B" onclick="check('q34','B')"> PfEMP1</label>
+<label><input type="radio" name="q34" value="C" onclick="check('q34','B')"> CSP</label>
+<label><input type="radio" name="q34" value="D" onclick="check('q34','B')"> AMA-1</label>
+</div><div id="q34_f"></div><div id="q34_e" class="explanation">P. falciparum erythrocyte membrane protein 1 (PfEMP1) binds endothelial receptors.</div></div>
+
+<div class="question"><p class="level">High</p><b>35. The congenital toxoplasmosis triad includes:</b>
+<div class="options">
+<label><input type="radio" name="q35" value="A" onclick="check('q35','B')"> Fever, rash, lymphadenopathy</label>
+<label><input type="radio" name="q35" value="B" onclick="check('q35','B')"> Chorioretinitis, hydrocephalus, intracranial calcifications</label>
+<label><input type="radio" name="q35" value="C" onclick="check('q35','B')"> Hepatosplenomegaly, jaundice, anemia</label>
+<label><input type="radio" name="q35" value="D" onclick="check('q35','B')"> Pneumonia, diarrhea, weight loss</label>
+</div><div id="q35_f"></div><div id="q35_e" class="explanation">Classic triad of congenital toxoplasmosis.</div></div>
+
+<div class="question"><p class="level">High</p><b>36. Which drug combination treats toxoplasmosis in immunocompromised patients?</b>
+<div class="options">
+<label><input type="radio" name="q36" value="A" onclick="check('q36','B')"> Chloroquine + primaquine</label>
+<label><input type="radio" name="q36" value="B" onclick="check('q36','B')"> Pyrimethamine + sulfadiazine</label>
+<label><input type="radio" name="q36" value="C" onclick="check('q36','B')"> Metronidazole + tinidazole</label>
+<label><input type="radio" name="q36" value="D" onclick="check('q36','B')"> Amphotericin B + flucytosine</label>
+</div><div id="q36_f"></div><div id="q36_e" class="explanation">Pyrimethamine-sulfadiazine with folinic acid is standard therapy.</div></div>
+
+<div class="question"><p class="level">High</p><b>37. What is the treatment for cryptosporidiosis?</b>
+<div class="options">
+<label><input type="radio" name="q37" value="A" onclick="check('q37','B')"> Metronidazole</label>
+<label><input type="radio" name="q37" value="B" onclick="check('q37','B')"> Nitazoxanide</label>
+<label><input type="radio" name="q37" value="C" onclick="check('q37','B')"> Chloroquine</label>
+<label><input type="radio" name="q37" value="D" onclick="check('q37','B')"> No specific treatment</label>
+</div><div id="q37_f"></div><div id="q37_e" class="explanation">Nitazoxanide is FDA-approved for cryptosporidiosis.</div></div>
+
+<div class="question"><p class="level">High</p><b>38. What is Isospora belli?</b>
+<div class="options">
+<label><input type="radio" name="q38" value="A" onclick="check('q38','C')"> A flagellate</label>
+<label><input type="radio" name="q38" value="B" onclick="check('q38','C')"> An amoeba</label>
+<label><input type="radio" name="q38" value="C" onclick="check('q38','C')"> An apicomplexan causing diarrhea</label>
+<label><input type="radio" name="q38" value="D" onclick="check('q38','C')"> A ciliate</label>
+</div><div id="q38_f"></div><div id="q38_e" class="explanation">I. belli is an apicomplexan parasite causing isosporiasis, especially in AIDS patients.</div></div>
+
+<div class="question"><p class="level">High</p><b>39. What is the malaria vaccine called?</b>
+<div class="options">
+<label><input type="radio" name="q39" value="A" onclick="check('q39','A')"> RTS,S/AS01</label>
+<label><input type="radio" name="q39" value="B" onclick="check('q39','A')"> BCG</label>
+<label><input type="radio" name="q39" value="C" onclick="check('q39','A')"> MMR</label>
+<label><input type="radio" name="q39" value="D" onclick="check('q39','A')"> HPV vaccine</label>
+</div><div id="q39_f"></div><div id="q39_e" class="explanation">RTS,S/AS01 (Mosquirix) is the first WHO-recommended malaria vaccine.</div></div>
+
+<div class="question"><p class="level">High</p><b>40. Which drug resistance is emerging in P. falciparum in Southeast Asia?</b>
+<div class="options">
+<label><input type="radio" name="q40" value="A" onclick="check('q40','B')"> Chloroquine resistance</label>
+<label><input type="radio" name="q40" value="B" onclick="check('q40','B')"> Artemisinin resistance</label>
+<label><input type="radio" name="q40" value="C" onclick="check('q40','B')"> Quinine resistance</label>
+<label><input type="radio" name="q40" value="D" onclick="check('q40','B')"> Primaquine resistance</label>
+</div><div id="q40_f"></div><div id="q40_e" class="explanation">Artemisinin partial resistance (delayed parasite clearance) is spreading in Southeast Asia.</div></div>
+
+<div class="question"><p class="level">High</p><b>41. What is the primary reservoir for Balantidium coli?</b>
+<div class="options">
+<label><input type="radio" name="q41" value="A" onclick="check('q41','C')"> Humans</label>
+<label><input type="radio" name="q41" value="B" onclick="check('q41','C')"> Cats</label>
+<label><input type="radio" name="q41" value="C" onclick="check('q41','C')"> Pigs</label>
+<label><input type="radio" name="q41" value="D" onclick="check('q41','C')"> Dogs</label>
+</div><div id="q41_f"></div><div id="q41_e" class="explanation">Pigs are the primary reservoir; human infections often occur in pig farmers.</div></div>
+
+<div class="question"><p class="level">High</p><b>42. What is the treatment for balantidiasis?</b>
+<div class="options">
+<label><input type="radio" name="q42" value="A" onclick="check('q42','B')"> Metronidazole</label>
+<label><input type="radio" name="q42" value="B" onclick="check('q42','B')"> Tetracycline</label>
+<label><input type="radio" name="q42" value="C" onclick="check('q42','B')"> Chloroquine</label>
+<label><input type="radio" name="q42" value="D" onclick="check('q42','B')"> Amphotericin B</label>
+</div><div id="q42_f"></div><div id="q42_e" class="explanation">Tetracycline is first-line; metronidazole is an alternative.</div></div>
+
+<div class="question"><p class="level">High</p><b>43. Which describes 'strawberry cervix' in trichomoniasis?</b>
+<div class="options">
+<label><input type="radio" name="q43" value="A" onclick="check('q43','B')"> Cervical cancer appearance</label>
+<label><input type="radio" name="q43" value="B" onclick="check('q43','B')"> Punctate hemorrhages</label>
+<label><input type="radio" name="q43" value="C" onclick="check('q43','B')"> Cervical ulcer in syphilis</label>
+<label><input type="radio" name="q43" value="D" onclick="check('q43','B')"> Normal cervical appearance</label>
+</div><div id="q43_f"></div><div id="q43_e" class="explanation">Colpitis macularis: punctate hemorrhages on cervix resembling strawberry.</div></div>
+
+<div class="question"><p class="level">High</p><b>44. Which is a common chronic complication of Chagas disease?</b>
+<div class="options">
+<label><input type="radio" name="q44" value="A" onclick="check('q44','B')"> Liver cirrhosis</label>
+<label><input type="radio" name="q44" value="B" onclick="check('q44','B')"> Dilated cardiomyopathy</label>
+<label><input type="radio" name="q44" value="C" onclick="check('q44','B')"> Renal failure</label>
+<label><input type="radio" name="q44" value="D" onclick="check('q44','B')"> Pulmonary fibrosis</label>
+</div><div id="q44_f"></div><div id="q44_e" class="explanation">Chronic Chagas disease often causes cardiomyopathy and megacolon/megaesophagus.</div></div>
+
+<div class="question"><p class="level">High</p><b>45. First-line treatment for visceral leishmaniasis is:</b>
+<div class="options">
+<label><input type="radio" name="q45" value="A" onclick="check('q45','C')"> Chloroquine</label>
+<label><input type="radio" name="q45" value="B" onclick="check('q45','C')"> Metronidazole</label>
+<label><input type="radio" name="q45" value="C" onclick="check('q45','C')"> Liposomal amphotericin B</label>
+<label><input type="radio" name="q45" value="D" onclick="check('q45','C')"> Sodium stibogluconate</label>
+</div><div id="q45_f"></div><div id="q45_e" class="explanation">Liposomal amphotericin B is now first-line due to efficacy and lower toxicity.</div></div>
+
+<div class="question"><p class="level">High</p><b>46. Which RBCs does P. vivax preferentially infect?</b>
+<div class="options">
+<label><input type="radio" name="q46" value="A" onclick="check('q46','B')"> All ages</label>
+<label><input type="radio" name="q46" value="B" onclick="check('q46','B')"> Young RBCs (reticulocytes)</label>
+<label><input type="radio" name="q46" value="C" onclick="check('q46','B')"> Old RBCs</label>
+<label><input type="radio" name="q46" value="D" onclick="check('q46','B')"> Only fetal RBCs</label>
+</div><div id="q46_f"></div><div id="q46_e" class="explanation">P. vivax preferentially invades reticulocytes expressing Duffy antigen.</div></div>
+
+<div class="question"><p class="level">High</p><b>47. Which Plasmodium species causes 'blackwater fever'?</b>
+<div class="options">
+<label><input type="radio" name="q47" value="A" onclick="check('q47','B')"> P. vivax</label>
+<label><input type="radio" name="q47" value="B" onclick="check('q47','B')"> P. falciparum</label>
+<label><input type="radio" name="q47" value="C" onclick="check('q47','B')"> P. malariae</label>
+<label><input type="radio" name="q47" value="D" onclick="check('q47','B')"> P. ovale</label>
+</div><div id="q47_f"></div><div id="q47_e" class="explanation">Blackwater fever (massive hemolysis with hemoglobinuria) occurs in P. falciparum.</div></div>
+
+<div class="question"><p class="level">High</p><b>48. What is rosetting in P. falciparum malaria?</b>
+<div class="options">
+<label><input type="radio" name="q48" value="A" onclick="check('q48','B')"> Formation of malaria pigment</label>
+<label><input type="radio" name="q48" value="B" onclick="check('q48','B')"> Infected RBCs binding to uninfected RBCs</label>
+<label><input type="radio" name="q48" value="C" onclick="check('q48','B')"> Gametocyte formation</label>
+<label><input type="radio" name="q48" value="D" onclick="check('q48','B')"> Liver stage multiplication</label>
+</div><div id="q48_f"></div><div id="q48_e" class="explanation">Rosetting contributes to microcirculatory obstruction and severe disease.</div></div>
+
+<div class="question"><p class="level">High</p><b>49. Which form of Trypanosoma is found in human blood?</b>
+<div class="options">
+<label><input type="radio" name="q49" value="A" onclick="check('q49','C')"> Promastigote</label>
+<label><input type="radio" name="q49" value="B" onclick="check('q49','C')"> Amastigote</label>
+<label><input type="radio" name="q49" value="C" onclick="check('q49','C')"> Trypomastigote</label>
+<label><input type="radio" name="q49" value="D" onclick="check('q49','C')"> Epimastigote</label>
+</div><div id="q49_f"></div><div id="q49_e" class="explanation">Trypomastigotes are the bloodstream form in human African trypanosomiasis.</div></div>
+
+<div class="question"><p class="level">High</p><b>50. Which Trypanosoma causes chronic sleeping sickness?</b>
+<div class="options">
+<label><input type="radio" name="q50" value="A" onclick="check('q50','A')"> T. b. gambiense</label>
+<label><input type="radio" name="q50" value="B" onclick="check('q50','A')"> T. b. rhodesiense</label>
+<label><input type="radio" name="q50" value="C" onclick="check('q50','A')"> T. cruzi</label>
+<label><input type="radio" name="q50" value="D" onclick="check('q50','A')"> T. vivax</label>
+</div><div id="q50_f"></div><div id="q50_e" class="explanation">T. b. gambiense causes chronic West African sleeping sickness.</div></div>
+
+<!-- ================= HIGHEST LEVEL QUESTIONS (51-75) ================= -->
+
+<div class="question"><p class="level">Highest</p><b>51. Which factor makes protozoan infections difficult to control globally?</b>
+<div class="options">
+<label><input type="radio" name="q51" value="A" onclick="check('q51','D')"> Simple life cycles</label>
+<label><input type="radio" name="q51" value="B" onclick="check('q51','D')"> Single host only</label>
+<label><input type="radio" name="q51" value="C" onclick="check('q51','D')"> Rapid diagnosis</label>
+<label><input type="radio" name="q51" value="D" onclick="check('q51','D')"> Immune evasion and complex cycles</label>
+</div><div id="q51_f"></div><div id="q51_e" class="explanation">Protozoa evade immunity via antigenic variation, intracellular location, and complex cycles involving vectors/reservoirs.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>52. What is schizogony in protozoan reproduction?</b>
+<div class="options">
+<label><input type="radio" name="q52" value="A" onclick="check('q52','C')"> Binary fission</label>
+<label><input type="radio" name="q52" value="B" onclick="check('q52','C')"> Conjugation</label>
+<label><input type="radio" name="q52" value="C" onclick="check('q52','C')"> Multiple nuclear divisions before cytokinesis</label>
+<label><input type="radio" name="q52" value="D" onclick="check('q52','C')"> Gamete fusion</label>
+</div><div id="q52_f"></div><div id="q52_e" class="explanation">Schizogony (multiple fission) produces many merozoites from one schizont.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>53. Which apicomplexan structure is essential for host cell invasion?</b>
+<div class="options">
+<label><input type="radio" name="q53" value="A" onclick="check('q53','C')"> Pseudopodia</label>
+<label><input type="radio" name="q53" value="B" onclick="check('q53','C')"> Flagella</label>
+<label><input type="radio" name="q53" value="C" onclick="check('q53','C')"> Apical complex (rhoptries, micronemes)</label>
+<label><input type="radio" name="q53" value="D" onclick="check('q53','C')"> Cilia</label>
+</div><div id="q53_f"></div><div id="q53_e" class="explanation">The apical complex contains specialized organelles for host cell penetration.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>54. Which is NOT a mechanism of drug resistance in malaria?</b>
+<div class="options">
+<label><input type="radio" name="q54" value="A" onclick="check('q54','D')"> PfCRT mutations (chloroquine)</label>
+<label><input type="radio" name="q54" value="B" onclick="check('q54','D')"> PfDHFR mutations (pyrimethamine)</label>
+<label><input type="radio" name="q54" value="C" onclick="check('q54','D')"> K13 propeller mutations (artemisinin)</label>
+<label><input type="radio" name="q54" value="D" onclick="check('q54','D')"> ATP synthase inhibition</label>
+</div><div id="q54_f"></div><div id="q54_e" class="explanation">ATP synthase is not a known target of current antimalarials; resistance involves target modification or drug efflux.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>55. What percentage of RBC infection is considered severe in P. falciparum malaria?</b>
+<div class="options">
+<label><input type="radio" name="q55" value="A" onclick="check('q55','B')"> >1%</label>
+<label><input type="radio" name="q55" value="B" onclick="check('q55','B')"> >5%</label>
+<label><input type="radio" name="q55" value="C" onclick="check('q55','B')"> >10%</label>
+<label><input type="radio" name="q55" value="D" onclick="check('q55','B')"> >20%</label>
+</div><div id="q55_f"></div><div id="q55_e" class="explanation">>5% parasitemia is a WHO criterion for severe malaria.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>56. Which is NOT a complication of severe falciparum malaria?</b>
+<div class="options">
+<label><input type="radio" name="q56" value="A" onclick="check('q56','D')"> Cerebral malaria</label>
+<label><input type="radio" name="q56" value="B" onclick="check('q56','D')"> Severe anemia</label>
+<label><input type="radio" name="q56" value="C" onclick="check('q56','D')"> Acute respiratory distress syndrome</label>
+<label><input type="radio" name="q56" value="D" onclick="check('q56','D')"> Osteomyelitis</label>
+</div><div id="q56_f"></div><div id="q56_e" class="explanation">Osteomyelitis is not a recognized complication of malaria.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>57. Which drug is used for radical cure of P. vivax?</b>
+<div class="options">
+<label><input type="radio" name="q57" value="A" onclick="check('q57','C')"> Chloroquine</label>
+<label><input type="radio" name="q57" value="B" onclick="check('q57','C')"> Artemisinin</label>
+<label><input type="radio" name="q57" value="C" onclick="check('q57','C')"> Primaquine</label>
+<label><input type="radio" name="q57" value="D" onclick="check('q57','C')"> Quinine</label>
+</div><div id="q57_f"></div><div id="q57_e" class="explanation">Primaquine kills hypnozoites to prevent relapses.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>58. Which apicomplexan causes diarrhea in AIDS patients?</b>
+<div class="options">
+<label><input type="radio" name="q58" value="A" onclick="check('q58','C')"> Plasmodium</label>
+<label><input type="radio" name="q58" value="B" onclick="check('q58','C')"> Toxoplasma</label>
+<label><input type="radio" name="q58" value="C" onclick="check('q58','C')"> Cryptosporidium</label>
+<label><input type="radio" name="q58" value="D" onclick="check('q58','C')"> Babesia</label>
+</div><div id="q58_f"></div><div id="q58_e" class="explanation">Cryptosporidium causes chronic, severe diarrhea in immunocompromised hosts.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>59. How is toxoplasmosis most commonly acquired?</b>
+<div class="options">
+<label><input type="radio" name="q59" value="A" onclick="check('q59','B')"> Mosquito bite</label>
+<label><input type="radio" name="q59" value="B" onclick="check('q59','B')"> Ingestion of undercooked meat</label>
+<label><input type="radio" name="q59" value="C" onclick="check('q59','B')"> Sexual transmission</label>
+<label><input type="radio" name="q59" value="D" onclick="check('q59','B')"> Blood transfusion only</label>
+</div><div id="q59_f"></div><div id="q59_e" class="explanation">Consumption of tissue cysts in undercooked meat is the most common route.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>60. Which is the most common symptom of cryptosporidiosis?</b>
+<div class="options">
+<label><input type="radio" name="q60" value="A" onclick="check('q60','B')"> Bloody diarrhea</label>
+<label><input type="radio" name="q60" value="B" onclick="check('q60','B')"> Watery diarrhea</label>
+<label><input type="radio" name="q60" value="C" onclick="check('q60','B')"> Constipation</label>
+<label><input type="radio" name="q60" value="D" onclick="check('q60','B')"> Vomiting without diarrhea</label>
+</div><div id="q60_f"></div><div id="q60_e" class="explanation">Profuse watery diarrhea is characteristic, often with abdominal cramps.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>61. What characteristic feature do free-living pathogenic amoebae (Naegleria) have?</b>
+<div class="options">
+<label><input type="radio" name="q61" value="A" onclick="check('q61','B')"> Only cyst stage</label>
+<label><input type="radio" name="q61" value="B" onclick="check('q61','B')"> Flagellate stage in water</label>
+<label><input type="radio" name="q61" value="C" onclick="check('q61','B')"> Transmission via mosquitoes</label>
+<label><input type="radio" name="q61" value="D" onclick="check('q61','B')"> Only infects immunocompromised</label>
+</div><div id="q61_f"></div><div id="q61_e" class="explanation">Naegleria can transform into flagellated forms in water environments.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>62. Which virulence factor of E. histolytica creates pores in target cells?</b>
+<div class="options">
+<label><input type="radio" name="q62" value="A" onclick="check('q62','A')"> Amoebapore</label>
+<label><input type="radio" name="q62" value="B" onclick="check('q62','A')"> Gal/GalNAc lectin</label>
+<label><input type="radio" name="q62" value="C" onclick="check('q62','A')"> Cysteine proteinase</label>
+<label><input type="radio" name="q62" value="D" onclick="check('q62','A')"> Hemolysin</label>
+</div><div id="q62_f"></div><div id="q62_e" class="explanation">Amoebapores form ion channels in target cell membranes.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>63. Which drug treats asymptomatic E. histolytica carriers?</b>
+<div class="options">
+<label><input type="radio" name="q63" value="A" onclick="check('q63','C')"> Metronidazole</label>
+<label><input type="radio" name="q63" value="B" onclick="check('q63','C')"> Tinidazole</label>
+<label><input type="radio" name="q63" value="C" onclick="check('q63','C')"> Iodoquinol</label>
+<label><input type="radio" name="q63" value="D" onclick="check('q63','C')"> Chloroquine</label>
+</div><div id="q63_f"></div><div id="q63_e" class="explanation">Luminal amebicides like iodoquinol eliminate intestinal carriage.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>64. Which structure does Giardia use for attachment?</b>
+<div class="options">
+<label><input type="radio" name="q64" value="A" onclick="check('q64','B')"> Pseudopodia</label>
+<label><input type="radio" name="q64" value="B" onclick="check('q64','B')"> Ventral sucking disc</label>
+<label><input type="radio" name="q64" value="C" onclick="check('q64','B')"> Flagella</label>
+<label><input type="radio" name="q64" value="D" onclick="check('q64','B')"> Cilia</label>
+</div><div id="q64_f"></div><div id="q64_e" class="explanation">The ventral sucking disc creates negative pressure for adherence to mucosa.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>65. What is a characteristic symptom of chronic giardiasis?</b>
+<div class="options">
+<label><input type="radio" name="q65" value="A" onclick="check('q65','B')"> Bloody diarrhea</label>
+<label><input type="radio" name="q65" value="B" onclick="check('q65','B')"> Steatorrhea (greasy stools)</label>
+<label><input type="radio" name="q65" value="C" onclick="check('q65','B')"> Rice-water stools</label>
+<label><input type="radio" name="q65" value="D" onclick="check('q65','B')"> Neurological symptoms</label>
+</div><div id="q65_f"></div><div id="q65_e" class="explanation">Fat malabsorption leads to steatorrhea and weight loss.</div></div>
+
+<!-- ================= ADDITIONAL QUESTIONS (66-100) ================= -->
+
+<div class="question"><p class="level">Moderate</p><b>66. Which vector transmits leishmaniasis?</b>
+<div class="options">
+<label><input type="radio" name="q66" value="A" onclick="check('q66','C')"> Mosquito</label>
+<label><input type="radio" name="q66" value="B" onclick="check('q66','C')"> Tsetse fly</label>
+<label><input type="radio" name="q66" value="C" onclick="check('q66','C')"> Sandfly</label>
+<label><input type="radio" name="q66" value="D" onclick="check('q66','C')"> Triatomine bug</label>
+</div><div id="q66_f"></div><div id="q66_e" class="explanation">Phlebotomus (Old World) and Lutzomyia (New World) sandflies.</div></div>
+
+<div class="question"><p class="level">High</p><b>67. What is the characteristic feature of visceral leishmaniasis (kala-azar)?</b>
+<div class="options">
+<label><input type="radio" name="q67" value="A" onclick="check('q67','B')"> Skin ulcers</label>
+<label><input type="radio" name="q67" value="B" onclick="check('q67','B')"> Hepatosplenomegaly</label>
+<label><input type="radio" name="q67" value="C" onclick="check('q67','B')"> Mucosal destruction</label>
+<label><input type="radio" name="q67" value="D" onclick="check('q67','B')"> Neurological symptoms</label>
+</div><div id="q67_f"></div><div id="q67_e" class="explanation">Massive enlargement of liver and spleen due to macrophage infiltration.</div></div>
+
+<div class="question"><p class="level">High</p><b>68. What is the vector for Chagas disease?</b>
+<div class="options">
+<label><input type="radio" name="q68" value="A" onclick="check('q68','D')"> Mosquito</label>
+<label><input type="radio" name="q68" value="B" onclick="check('q68','D')"> Tsetse fly</label>
+<label><input type="radio" name="q68" value="C" onclick="check('q68','D')"> Sandfly</label>
+<label><input type="radio" name="q68" value="D" onclick="check('q68','D')"> Triatomine bug</label>
+</div><div id="q68_f"></div><div id="q68_e" class="explanation">Reduviid bugs (kissing bugs) transmit T. cruzi through fecal contamination.</div></div>
+
+<div class="question"><p class="level">High</p><b>69. How is malaria prevented?</b>
+<div class="options">
+<label><input type="radio" name="q69" value="A" onclick="check('q69','B')"> Vaccine only</label>
+<label><input type="radio" name="q69" value="B" onclick="check('q69','B')"> Insecticide-treated bed nets</label>
+<label><input type="radio" name="q69" value="C" onclick="check('q69','B')"> Only drug prophylaxis</label>
+<label><input type="radio" name="q69" value="D" onclick="check('q69','B')"> No effective prevention</label>
+</div><div id="q69_f"></div><div id="q69_e" class="explanation">ITNs are highly effective for personal and community protection.</div></div>
+
+<div class="question"><p class="level">High</p><b>70. What is the size range of B. coli trophozoites?</b>
+<div class="options">
+<label><input type="radio" name="q70" value="A" onclick="check('q70','C')"> 10-20 μm</label>
+<label><input type="radio" name="q70" value="B" onclick="check('q70','C')"> 20-30 μm</label>
+<label><input type="radio" name="q70" value="C" onclick="check('q70','C')"> 50-200 μm</label>
+<label><input type="radio" name="q70" value="D" onclick="check('q70','C')"> 300-500 μm</label>
+</div><div id="q70_f"></div><div id="q70_e" class="explanation">B. coli is the largest protozoan parasite of humans, visible at low magnification.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>71. Which of these is NOT a medically important protozoan disease?</b>
+<div class="options">
+<label><input type="radio" name="q71" value="A" onclick="check('q71','C')"> Malaria</label>
+<label><input type="radio" name="q71" value="B" onclick="check('q71','C')"> Amoebiasis</label>
+<label><input type="radio" name="q71" value="C" onclick="check('q71','C')"> Tuberculosis</label>
+<label><input type="radio" name="q71" value="D" onclick="check('q71','C')"> Giardiasis</label>
+</div><div id="q71_f"></div><div id="q71_e" class="explanation">Tuberculosis is caused by Mycobacterium tuberculosis, a bacterium.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>72. Approximately how many people are infected with Giardia globally?</b>
+<div class="options">
+<label><input type="radio" name="q72" value="A" onclick="check('q72','C')"> 1 million</label>
+<label><input type="radio" name="q72" value="B" onclick="check('q72','C')"> 50 million</label>
+<label><input type="radio" name="q72" value="C" onclick="check('q72','C')"> 280 million</label>
+<label><input type="radio" name="q72" value="D" onclick="check('q72','C')"> 500 million</label>
+</div><div id="q72_f"></div><div id="q72_e" class="explanation">Giardia infects approximately 280 million people worldwide annually.</div></div>
+
+<div class="question"><p class="level">High</p><b>73. Which apicomplexan parasite has no cyst stage in humans?</b>
+<div class="options">
+<label><input type="radio" name="q73" value="A" onclick="check('q73','B')"> Toxoplasma</label>
+<label><input type="radio" name="q73" value="B" onclick="check('q73','B')"> Plasmodium</label>
+<label><input type="radio" name="q73" value="C" onclick="check('q73','B')"> Cryptosporidium</label>
+<label><input type="radio" name="q73" value="D" onclick="check('q73','B')"> Isospora</label>
+</div><div id="q73_f"></div><div id="q73_e" class="explanation">Plasmodium has no environmental cyst; transmission is directly via mosquitoes.</div></div>
+
+<div class="question"><p class="level">High</p><b>74. What is the primary mode of transmission for protozoan diarrhea?</b>
+<div class="options">
+<label><input type="radio" name="q74" value="A" onclick="check('q74','C')"> Mosquito bite</label>
+<label><input type="radio" name="q74" value="B" onclick="check('q74','C')"> Sexual contact</label>
+<label><input type="radio" name="q74" value="C" onclick="check('q74','C')"> Fecal-oral route</label>
+<label><input type="radio" name="q74" value="D" onclick="check('q74','C')"> Airborne droplets</label>
+</div><div id="q74_f"></div><div id="q74_e" class="explanation">Giardia, Entamoeba, Cryptosporidium spread via contaminated water/food.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>75. Which drug is contraindicated in G6PD-deficient patients with malaria?</b>
+<div class="options">
+<label><input type="radio" name="q75" value="A" onclick="check('q75','C')"> Chloroquine</label>
+<label><input type="radio" name="q75" value="B" onclick="check('q75','C')"> Artemisinin</label>
+<label><input type="radio" name="q75" value="C" onclick="check('q75','C')"> Primaquine</label>
+<label><input type="radio" name="q75" value="D" onclick="check('q75','C')"> Quinine</label>
+</div><div id="q75_f"></div><div id="q75_e" class="explanation">Primaquine can cause severe hemolysis in G6PD deficiency.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>76. Microsporidia are opportunistic pathogens in which patients?</b>
+<div class="options">
+<label><input type="radio" name="q76" value="A" onclick="check('q76','C')"> Athletes</label>
+<label><input type="radio" name="q76" value="B" onclick="check('q76','C')"> Elderly</label>
+<label><input type="radio" name="q76" value="C" onclick="check('q76','C')"> HIV/AIDS patients</label>
+<label><input type="radio" name="q76" value="D" onclick="check('q76','C')"> Pregnant women</label>
+</div><div id="q76_f"></div><div id="q76_e" class="explanation">Microsporidia cause chronic diarrhea in immunocompromised individuals.</div></div>
+
+<div class="question"><p class="level">High</p><b>77. What is the shape of amoebic ulcers in the colon?</b>
+<div class="options">
+<label><input type="radio" name="q77" value="A" onclick="check('q77','C')"> Round with raised edges</label>
+<label><input type="radio" name="q77" value="B" onclick="check('q77','C')"> Linear along folds</label>
+<label><input type="radio" name="q77" value="C" onclick="check('q77','C')"> Flask-shaped with narrow neck</label>
+<label><input type="radio" name="q77" value="D" onclick="check('q77','C')"> Star-shaped</label>
+</div><div id="q77_f"></div><div id="q77_e" class="explanation">Flask-shaped ulcers with undermined edges are characteristic of amebic colitis.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>78. Which is NOT a non-pathogenic intestinal amoeba?</b>
+<div class="options">
+<label><input type="radio" name="q78" value="A" onclick="check('q78','C')"> Entamoeba coli</label>
+<label><input type="radio" name="q78" value="B" onclick="check('q78','C')"> Entamoeba dispar</label>
+<label><input type="radio" name="q78" value="C" onclick="check('q78','C')"> Entamoeba histolytica</label>
+<label><input type="radio" name="q78" value="D" onclick="check('q78','C')"> Endolimax nana</label>
+</div><div id="q78_f"></div><div id="q78_e" class="explanation">E. histolytica is pathogenic; E. dispar is morphologically identical but non-pathogenic.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>79. How many people are infected with E. histolytica worldwide?</b>
+<div class="options">
+<label><input type="radio" name="q79" value="A" onclick="check('q79','C')"> 10 million</label>
+<label><input type="radio" name="q79" value="B" onclick="check('q79','C')"> 50 million</label>
+<label><input type="radio" name="q79" value="C" onclick="check('q79','C')"> 500 million</label>
+<label><input type="radio" name="q79" value="D" onclick="check('q79','C')"> 1 billion</label>
+</div><div id="q79_f"></div><div id="q79_e" class="explanation">Approximately 500 million people are infected globally, mostly asymptomatically.</div></div>
+
+<div class="question"><p class="level">High</p><b>80. What is the infective stage of Entamoeba histolytica?</b>
+<div class="options">
+<label><input type="radio" name="q80" value="A" onclick="check('q80','B')"> Trophozoite</label>
+<label><input type="radio" name="q80" value="B" onclick="check('q80','B')"> Mature cyst with 4 nuclei</label>
+<label><input type="radio" name="q80" value="C" onclick="check('q80','B')"> Mature cyst with 1 nucleus</label>
+<label><input type="radio" name="q80" value="D" onclick="check('q80','B')"> Sporozoite</label>
+</div><div id="q80_f"></div><div id="q80_e" class="explanation">Quadrinucleate cysts are resistant and infective when ingested.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>81. Which form of reproduction involves nuclear division multiple times before cytokinesis?</b>
+<div class="options">
+<label><input type="radio" name="q81" value="A" onclick="check('q81','C')"> Binary fission</label>
+<label><input type="radio" name="q81" value="B" onclick="check('q81','C')"> Conjugation</label>
+<label><input type="radio" name="q81" value="C" onclick="check('q81','C')"> Schizogony</label>
+<label><input type="radio" name="q81" value="D" onclick="check('q81','C')"> Gamete fusion</label>
+</div><div id="q81_f"></div><div id="q81_e" class="explanation">Schizogony produces multiple daughter cells (merozoites) from one parent cell.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>82. Which protozoan group moves using cilia?</b>
+<div class="options">
+<label><input type="radio" name="q82" value="A" onclick="check('q82','C')"> Amoebae</label>
+<label><input type="radio" name="q82" value="B" onclick="check('q82','C')"> Flagellates</label>
+<label><input type="radio" name="q82" value="C" onclick="check('q82','C')"> Ciliates</label>
+<label><input type="radio" name="q82" value="D" onclick="check('q82','C')"> Apicomplexa</label>
+</div><div id="q82_f"></div><div id="q82_e" class="explanation">Ciliates use coordinated ciliary beating for locomotion and feeding.</div></div>
+
+<div class="question"><p class="level">High</p><b>83. What is the typical size range of medically important protozoa?</b>
+<div class="options">
+<label><input type="radio" name="q83" value="A" onclick="check('q83','B')"> 1-10 mm</label>
+<label><input type="radio" name="q83" value="B" onclick="check('q83','B')"> 10-100 μm</label>
+<label><input type="radio" name="q83" value="C" onclick="check('q83','B')"> 100-1000 μm</label>
+<label><input type="radio" name="q83" value="D" onclick="check('q83','B')"> 1-10 cm</label>
+</div><div id="q83_f"></div><div id="q83_e" class="explanation">Most protozoa are microscopic, requiring 100-1000x magnification.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>84. Which statement about protozoan cysts is TRUE?</b>
+<div class="options">
+<label><input type="radio" name="q84" value="A" onclick="check('q84','C')"> They are the active, feeding stage</label>
+<label><input type="radio" name="q84" value="B" onclick="check('q84','C')"> They are easily destroyed outside host</label>
+<label><input type="radio" name="q84" value="C" onclick="check('q84','C')"> They allow environmental survival</label>
+<label><input type="radio" name="q84" value="D" onclick="check('q84','C')"> They are only in Apicomplexa</label>
+</div><div id="q84_f"></div><div id="q84_e" class="explanation">Cysts have protective walls for survival in harsh conditions between hosts.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>85. Which phylum contains organisms that move by flagella?</b>
+<div class="options">
+<label><input type="radio" name="q85" value="A" onclick="check('q85','A')"> Sarcomastigophora</label>
+<label><input type="radio" name="q85" value="B" onclick="check('q85','A')"> Apicomplexa</label>
+<label><input type="radio" name="q85" value="C" onclick="check('q85','A')"> Ciliophora</label>
+<label><input type="radio" name="q85" value="D" onclick="check('q85','A')"> Microspora</label>
+</div><div id="q85_f"></div><div id="q85_e" class="explanation">Sarcomastigophora includes Mastigophora (flagellates) and Sarcodina (amoebae).</div></div>
+
+<div class="question"><p class="level">High</p><b>86. Which is an obligate intracellular parasite with complex life cycles?</b>
+<div class="options">
+<label><input type="radio" name="q86" value="A" onclick="check('q86','B')"> Sarcomastigophora</label>
+<label><input type="radio" name="q86" value="B" onclick="check('q86','B')"> Apicomplexa</label>
+<label><input type="radio" name="q86" value="C" onclick="check('q86','B')"> Ciliophora</label>
+<label><input type="radio" name="q86" value="D" onclick="check('q86','B')"> Microspora</label>
+</div><div id="q86_f"></div><div id="q86_e" class="explanation">Apicomplexa like Plasmodium and Toxoplasma are obligate intracellular parasites.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>87. What is the diagnostic stage of malaria in blood?</b>
+<div class="options">
+<label><input type="radio" name="q87" value="A" onclick="check('q87','B')"> Sporozoite</label>
+<label><input type="radio" name="q87" value="B" onclick="check('q87','B')"> Trophozoite, schizont, gametocyte</label>
+<label><input type="radio" name="q87" value="C" onclick="check('q87','B')"> Oocyst</label>
+<label><input type="radio" name="q87" value="D" onclick="check('q87','B')"> Hypnozoite</label>
+</div><div id="q87_f"></div><div id="q87_e" class="explanation">Blood stages are visible on Giemsa-stained thin/thick smears.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>88. Which disease causes the third highest deaths from parasitic diseases?</b>
+<div class="options">
+<label><input type="radio" name="q88" value="A" onclick="check('q88','B')"> Malaria</label>
+<label><input type="radio" name="q88" value="B" onclick="check('q88','B')"> Amoebiasis</label>
+<label><input type="radio" name="q88" value="C" onclick="check('q88','B')"> Giardiasis</label>
+<label><input type="radio" name="q88" value="D" onclick="check('q88','B')"> Toxoplasmosis</label>
+</div><div id="q88_f"></div><div id="q88_e" class="explanation">Amoebiasis causes ~100,000 deaths annually, third after malaria and schistosomiasis.</div></div>
+
+<div class="question"><p class="level">High</p><b>89. What is the shape of B. coli cysts?</b>
+<div class="options">
+<label><input type="radio" name="q89" value="A" onclick="check('q89','A')"> Round</label>
+<label><input type="radio" name="q89" value="B" onclick="check('q89','A')"> Oval</label>
+<label><input type="radio" name="q89" value="C" onclick="check('q89','A')"> Kidney-shaped</label>
+<label><input type="radio" name="q89" value="D" onclick="check('q89','A')"> Banana-shaped</label>
+</div><div id="q89_f"></div><div id="q89_e" class="explanation">B. coli cysts are spherical with a thick, double-layered wall.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>90. Where does B. coli primarily reside in humans?</b>
+<div class="options">
+<label><input type="radio" name="q90" value="A" onclick="check('q90','B')"> Small intestine</label>
+<label><input type="radio" name="q90" value="B" onclick="check('q90','B')"> Large intestine (cecum/colon)</label>
+<label><input type="radio" name="q90" value="C" onclick="check('q90','B')"> Liver</label>
+<label><input type="radio" name="q90" value="D" onclick="check('q90','B')"> Bloodstream</label>
+</div><div id="q90_f"></div><div id="q90_e" class="explanation">B. coli trophozoites inhabit the lumen of the large intestine, especially cecum.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>91. What makes B. coli unique among human protozoan parasites?</b>
+<div class="options">
+<label><input type="radio" name="q91" value="A" onclick="check('q91','B')"> It is the smallest</label>
+<label><input type="radio" name="q91" value="B" onclick="check('q91','B')"> It is the only ciliate</label>
+<label><input type="radio" name="q91" value="C" onclick="check('q91','B')"> It has only asexual reproduction</label>
+<label><input type="radio" name="q91" value="D" onclick="check('q91','B')"> It is the only blood parasite</label>
+</div><div id="q91_f"></div><div id="q91_e" class="explanation">Balantidium coli is the only ciliated protozoan that parasitizes humans.</div></div>
+
+<div class="question"><p class="level">High</p><b>92. Which protozoan disease is often vector-borne?</b>
+<div class="options">
+<label><input type="radio" name="q92" value="A" onclick="check('q92','A')"> Malaria</label>
+<label><input type="radio" name="q92" value="B" onclick="check('q92','A')"> Giardiasis</label>
+<label><input type="radio" name="q92" value="C" onclick="check('q92','A')"> Amoebiasis</label>
+<label><input type="radio" name="q92" value="D" onclick="check('q92','A')"> Cryptosporidiosis</label>
+</div><div id="q92_f"></div><div id="q92_e" class="explanation">Malaria, leishmaniasis, trypanosomiasis are vector-borne; others are fecal-oral.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>93. Which locomotion method is characteristic of flagellates?</b>
+<div class="options">
+<label><input type="radio" name="q93" value="A" onclick="check('q93','B')"> Pseudopodia</label>
+<label><input type="radio" name="q93" value="B" onclick="check('q93','B')"> Flagella</label>
+<label><input type="radio" name="q93" value="C" onclick="check('q93','B')"> Cilia</label>
+<label><input type="radio" name="q93" value="D" onclick="check('q93','B')"> Gliding</label>
+</div><div id="q93_f"></div><div id="q93_e" class="explanation">Flagella are long, whip-like appendages for propulsion.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>94. Which is NOT a key pathogen in phylum Apicomplexa?</b>
+<div class="options">
+<label><input type="radio" name="q94" value="A" onclick="check('q94','D')"> Plasmodium</label>
+<label><input type="radio" name="q94" value="B" onclick="check('q94','D')"> Toxoplasma</label>
+<label><input type="radio" name="q94" value="C" onclick="check('q94','D')"> Cryptosporidium</label>
+<label><input type="radio" name="q94" value="D" onclick="check('q94','D')"> Trypanosoma</label>
+</div><div id="q94_f"></div><div id="q94_e" class="explanation">Trypanosoma is a flagellate (Sarcomastigophora), not an apicomplexan.</div></div>
+
+<div class="question"><p class="level">High</p><b>95. What is the primary reason protozoa are medically important?</b>
+<div class="options">
+<label><input type="radio" name="q95" value="A" onclick="check('q95','B')"> They are easy to culture</label>
+<label><input type="radio" name="q95" value="B" onclick="check('q95','B')"> They cause major diseases with complex cycles</label>
+<label><input type="radio" name="q95" value="C" onclick="check('q95','B')"> They are aesthetically displeasing</label>
+<label><input type="radio" name="q95" value="D" onclick="check('q95','B')"> They are used in vaccine production</label>
+</div><div id="q95_f"></div><div id="q95_e" class="explanation">Protozoa cause significant morbidity/mortality, have complex life cycles, and treatment challenges.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>96. Which sexual reproduction method involves genetic exchange between two organisms?</b>
+<div class="options">
+<label><input type="radio" name="q96" value="A" onclick="check('q96','B')"> Binary fission</label>
+<label><input type="radio" name="q96" value="B" onclick="check('q96','B')"> Conjugation</label>
+<label><input type="radio" name="q96" value="C" onclick="check('q96','B')"> Schizogony</label>
+<label><input type="radio" name="q96" value="D" onclick="check('q96','B')"> Endodyogeny</label>
+</div><div id="q96_f"></div><div id="q96_e" class="explanation">Conjugation involves temporary union and exchange of micronuclear material.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>97. Which is a free-living pathogenic amoeba?</b>
+<div class="options">
+<label><input type="radio" name="q97" value="A" onclick="check('q97','B')"> Entamoeba coli</label>
+<label><input type="radio" name="q97" value="B" onclick="check('q97','B')"> Naegleria species</label>
+<label><input type="radio" name="q97" value="C" onclick="check('q97','B')"> Entamoeba histolytica</label>
+<label><input type="radio" name="q97" value="D" onclick="check('q97','B')"> Giardia lamblia</label>
+</div><div id="q97_f"></div><div id="q97_e" class="explanation">Naegleria fowleri causes primary amebic meningoencephalitis from warm freshwater.</div></div>
+
+<div class="question"><p class="level">High</p><b>98. How many major groups of medically important protozoa are classified?</b>
+<div class="options">
+<label><input type="radio" name="q98" value="A" onclick="check('q98','C')"> 2</label>
+<label><input type="radio" name="q98" value="B" onclick="check('q98','C')"> 3</label>
+<label><input type="radio" name="q98" value="C" onclick="check('q98','C')"> 4</label>
+<label><input type="radio" name="q98" value="D" onclick="check('q98','C')"> 5</label>
+</div><div id="q98_f"></div><div id="q98_e" class="explanation">Four groups: Sarcomastigophora, Apicomplexa, Ciliophora, Microspora.</div></div>
+
+<div class="question"><p class="level">Highest</p><b>99. Which is NOT a habitat for medically important protozoa?</b>
+<div class="options">
+<label><input type="radio" name="q99" value="A" onclick="check('q99','D')"> Intestine</label>
+<label><input type="radio" name="q99" value="B" onclick="check('q99','D')"> Blood</label>
+<label><input type="radio" name="q99" value="C" onclick="check('q99','D')"> Urogenital tract</label>
+<label><input type="radio" name="q99" value="D" onclick="check('q99','D')"> Bone marrow only</label>
+</div><div id="q99_f"></div><div id="q99_e" class="explanation">Protozoa inhabit multiple tissues: intestine (Giardia), blood (Plasmodium), urogenital (Trichomonas), etc.</div></div>
+
+<div class="question"><p class="level">Moderate</p><b>100. What do Apicomplexa parasites use for host cell invasion?</b>
+<div class="options">
+<label><input type="radio" name="q100" value="A" onclick="check('q100','C')"> Pseudopodia</label>
+<label><input type="radio" name="q100" value="B" onclick="check('q100','C')"> Flagella</label>
+<label><input type="radio" name="q100" value="C" onclick="check('q100','C')"> Apical complex</label>
+<label><input type="radio" name="q100" value="D" onclick="check('q100','C')"> Cilia</label>
+</div><div id="q100_f"></div><div id="q100_e" class="explanation">The apical complex contains specialized organelles for host cell penetration.</div></div>
+
+<p style="text-align:center;font-weight:bold">END OF EXAM ✔ Total Questions: 100</p>
+
+</body>
+  </html>
