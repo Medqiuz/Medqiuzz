@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pharmacy Practice Exam | MedQuiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a6bb3;
+            --primary-dark: #0d4d8c;
+            --secondary: #4CAF50;
+            --danger: #f44336;
+            --warning: #ff9800;
+            --light: #f8fafc;
+            --dark: #333;
+            --gray: #666;
+            --border: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f9fc;
+            color: var(--dark);
+            line-height: 1.5;
+            overflow-x: hidden;
+            padding-bottom: 70px;
+        }
+        
+        /* App Header */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .app-logo {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        
+        .app-title h1 {
+            font-size: 1.2rem;
+            margin-bottom: 3px;
+        }
+        
+        .app-title p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        
+        .header-right {
+            text-align: right;
+        }
+        
+        .score-display {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            background-color: white;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-info {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .progress-bar {
+            flex-grow: 1;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary) 0%, #8BC34A 100%);
+            width: 2%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Question Container */
+        .question-container {
+            background-color: white;
+            margin: 15px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            padding-bottom: 15px;
+        }
+        
+        .question-header {
+            background-color: #e8f2fc;
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.4;
+            color: var(--dark);
+        }
+        
+        /* Options */
+        .options-container {
+            padding: 15px;
+        }
+        
+        .option {
+            padding: 15px;
+            margin-bottom: 12px;
+            background-color: #f8fafc;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover, .option:active {
+            background-color: #e8f2fc;
+            border-color: #b3d7ff;
+        }
+        
+        .option.selected {
+            border-color: var(--primary);
+            background-color: #e8f2fc;
+        }
+        
+        .option.correct {
+            border-color: var(--secondary);
+            background-color: #e8f5e9;
+        }
+        
+        .option.incorrect {
+            border-color: var(--danger);
+            background-color: #ffebee;
+        }
+        
+        .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            margin-right: 12px;
+            font-weight: bold;
+            color: #555;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+        
+        .option.selected .option-letter {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .option.correct .option-letter {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .option.incorrect .option-letter {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .option-text {
+            font-size: 1rem;
+        }
+        
+        /* Feedback Section */
+        .feedback-container {
+            background-color: #f9fbfe;
+            margin: 15px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            display: none;
+        }
+        
+        .feedback-container.active {
+            display: block;
+        }
+        
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .feedback-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .feedback-icon.correct {
+            background-color: #e8f5e9;
+            color: var(--secondary);
+        }
+        
+        .feedback-icon.incorrect {
+            background-color: #ffebee;
+            color: var(--danger);
+        }
+        
+        .feedback-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .explanation-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .explanation-text {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            line-height: 1.5;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .key-point {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .key-point-title {
+            color: #b38b00;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+            box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
+            z-index: 99;
+        }
+        
+        .nav-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+        }
+        
+        .nav-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-prev {
+            background-color: #f0f0f0;
+            color: var(--gray);
+        }
+        
+        .btn-next {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-submit {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Results Screen */
+        .results-screen {
+            background-color: white;
+            padding: 30px 20px;
+            min-height: 100vh;
+            display: none;
+        }
+        
+        .results-screen.active {
+            display: block;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .results-icon {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .results-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .results-subtitle {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--secondary) 0% 70%, #e0e0e0 70% 100%);
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .score-circle-inner {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .score-total {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .stat-box {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .result-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .action-btn {
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-review {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .btn-restart {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-home {
+            background-color: #f0f0f0;
+            color: var(--dark);
+        }
+        
+        /* Section Tabs */
+        .section-tabs {
+            display: flex;
+            overflow-x: auto;
+            background-color: white;
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border);
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .section-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .section-tab {
+            padding: 10px 20px;
+            white-space: nowrap;
+            background-color: #f0f7ff;
+            border-radius: 20px;
+            margin-right: 10px;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid #d0e5ff;
+            transition: all 0.3s;
+        }
+        
+        .section-tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Loading Spinner */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f0f0f0;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Media Queries for Larger Screens */
+        @media (min-width: 768px) {
+            body {
+                max-width: 768px;
+                margin: 0 auto;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --light: #1a1a1a;
+                --dark: #f0f0f0;
+                --gray: #aaa;
+                --border: #444;
+            }
+            
+            body {
+                background-color: #121212;
+                color: var(--dark);
+            }
+            
+            .question-container, .feedback-container, .progress-container, .nav-buttons, .results-screen, .section-tabs, .stat-box {
+                background-color: #222;
+            }
+            
+            .question-header {
+                background-color: #2a2a2a;
+            }
+            
+            .option {
+                background-color: #2a2a2a;
+                border-color: #444;
+            }
+            
+            .explanation-text {
+                background-color: #2a2a2a;
+            }
+            
+            .key-point {
+                background-color: #332a00;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+    
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="header-left">
+            <div class="app-logo">MQ</div>
+            <div class="app-title">
+                <h1>Pharmacy Practice Exam</h1>
+                <p>Chapter 3: Practice Areas</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="score-display" id="current-score-display">Score: 0</div>
+        </div>
+    </header>
+    
+    <!-- Section Tabs -->
+    <div class="section-tabs" id="section-tabs">
+        <!-- Tabs will be dynamically generated -->
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-info">Q <span id="current-q-num">1</span> of <span id="total-questions">50</span></div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-info" id="progress-percent">2%</div>
+    </div>
+    
+    <!-- Question Container -->
+    <div class="question-container" id="question-container">
+        <div class="question-header">
+            <div class="question-number" id="question-number">Question 1</div>
+            <div class="question-text" id="question-text"></div>
+        </div>
+        <div class="options-container" id="options-container">
+            <!-- Options will be dynamically generated -->
+        </div>
+    </div>
+    
+    <!-- Feedback Container -->
+    <div class="feedback-container" id="feedback-container">
+        <div class="feedback-header">
+            <div class="feedback-icon" id="feedback-icon"></div>
+            <div class="feedback-title" id="feedback-title"></div>
+        </div>
+        <div class="explanation-title">Detailed Explanation</div>
+        <div class="explanation-text" id="explanation-text"></div>
+        <div class="key-point">
+            <div class="key-point-title">Key Point to Remember</div>
+            <div id="key-point-text"></div>
+        </div>
+    </div>
+    
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn btn-prev" id="prev-btn" disabled>
+            <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Previous
+        </button>
+        <div>
+            <button class="nav-btn btn-next" id="next-btn">
+                Next <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+            </button>
+            <button class="nav-btn btn-submit" id="submit-btn" style="display: none;">
+                Submit Exam <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Results Screen -->
+    <div class="results-screen" id="results-screen">
+        <div class="results-header">
+            <div class="results-icon">🏆</div>
+            <h2 class="results-title">Exam Completed!</h2>
+            <p class="results-subtitle">Your performance summary</p>
+        </div>
+        
+        <div class="score-circle">
+            <div class="score-circle-inner">
+                <div class="score-value" id="final-score-value">0</div>
+                <div class="score-total">out of 50</div>
+            </div>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-value" id="correct-stat">0</div>
+                <div class="stat-label">Correct</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="incorrect-stat">0</div>
+                <div class="stat-label">Incorrect</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="percentage-stat">0%</div>
+                <div class="stat-label">Percentage</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="performance-stat">Poor</div>
+                <div class="stat-label">Performance</div>
+            </div>
+        </div>
+        
+        <div class="result-actions">
+            <button class="action-btn btn-review" id="review-btn">
+                <i class="fas fa-redo" style="margin-right: 10px;"></i> Review Incorrect Answers
+            </button>
+            <button class="action-btn btn-restart" id="restart-btn">
+                <i class="fas fa-sync-alt" style="margin-right: 10px;"></i> Restart Exam
+            </button>
+            <button class="action-btn btn-home" id="home-btn">
+                <i class="fas fa-home" style="margin-right: 10px;"></i> Return to Home
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Comprehensive Question Bank (50+ Questions)
+        const questionBank = [
+            // Section 1: Hospital Pharmacy (10 questions)
+            {
+                id: 1,
+                section: "Hospital Pharmacy",
+                question: "Which of the following is NOT a primary function of a hospital pharmacy?",
+                options: [
+                    "Patient care through diagnosis and treatment",
+                    "Procurement and storage of medications", 
+                    "Conducting medical research",
+                    "Providing health insurance services"
+                ],
+                correctAnswer: 3,
+                explanation: "Hospital pharmacies focus on patient care, medication management, and research. Providing health insurance services is handled by insurance companies or hospital administration departments.",
+                keyPoint: "Hospital pharmacy functions: patient care, medication management, education, research, public health."
+            },
+            {
+                id: 2,
+                section: "Hospital Pharmacy",
+                question: "What is the primary purpose of a Drug and Therapeutics Committee (DTC) in a hospital?",
+                options: [
+                    "To increase drug sales in the hospital",
+                    "To develop and implement drug policies and formularies",
+                    "To manage pharmacy staff schedules",
+                    "To conduct clinical trials for new drugs"
+                ],
+                correctAnswer: 1,
+                explanation: "The DTC develops, implements, and monitors drug policies and formularies. This includes medication selection, use protocols, adverse drug reaction monitoring, and promoting rational drug use.",
+                keyPoint: "DTC/PTC = Hospital committee for drug policy, formulary management, rational drug use."
+            },
+            {
+                id: 3,
+                section: "Hospital Pharmacy",
+                question: "Which of the following is NOT typically a function of hospital pharmacists in clinical pharmacy services?",
+                options: [
+                    "Participating in ward rounds with medical teams",
+                    "Conducting therapeutic drug monitoring",
+                    "Performing major surgical procedures",
+                    "Providing drug information to healthcare professionals"
+                ],
+                correctAnswer: 2,
+                explanation: "Hospital pharmacists provide clinical services like ward rounds, TDM, drug information, and ADR management. Performing major surgery is outside their scope.",
+                keyPoint: "Clinical pharmacy services: Ward rounds, TDM, drug information, counseling, ADR management."
+            },
+            {
+                id: 4,
+                section: "Hospital Pharmacy",
+                question: "What does 'DUE' stand for in hospital pharmacy practice?",
+                options: [
+                    "Drug Use Evaluation",
+                    "Dosage Unit Examination",
+                    "Direct Unit Estimation",
+                    "Daily Usage Examination"
+                ],
+                correctAnswer: 0,
+                explanation: "DUE = Drug Use Evaluation. Systematic review of drug therapy for appropriateness, safety, and effectiveness.",
+                keyPoint: "DUE = Drug Use Evaluation. Systematic criteria-based evaluation of drug therapy."
+            },
+            {
+                id: 5,
+                section: "Hospital Pharmacy",
+                question: "Which advantage do hospital pharmacists have over community pharmacists regarding patient care?",
+                options: [
+                    "Greater business ownership opportunities",
+                    "Direct access to patients' complete medical records",
+                    "More flexible working hours",
+                    "Higher income potential"
+                ],
+                correctAnswer: 1,
+                explanation: "Hospital pharmacists access complete medical records, enabling comprehensive medication review and direct influence on prescribing decisions.",
+                keyPoint: "Hospital pharmacist advantage: Complete medical record access for comprehensive medication review."
+            },
+            {
+                id: 6,
+                section: "Hospital Pharmacy",
+                question: "What is the primary purpose of a hospital formulary?",
+                options: [
+                    "To list all available drugs in the market",
+                    "To serve as a recipe book for compounding",
+                    "To provide a selected list of medications approved for use in the hospital",
+                    "To document patient medical histories"
+                ],
+                correctAnswer: 2,
+                explanation: "A hospital formulary is a continually updated list of medications approved for use in a particular hospital, guiding prescribing and promoting rational drug use.",
+                keyPoint: "Hospital formulary = Approved medication list for that hospital. Promotes rational, cost-effective drug use."
+            },
+            {
+                id: 7,
+                section: "Hospital Pharmacy",
+                question: "In which practice setting would a pharmacist most likely be involved in sterile compounding?",
+                options: [
+                    "Community pharmacy only",
+                    "Hospital pharmacy only",
+                    "Both hospital and specialized community pharmacies",
+                    "Pharmaceutical industry only"
+                ],
+                correctAnswer: 2,
+                explanation: "Sterile compounding is performed in both hospital pharmacies (for inpatients) and specialized community pharmacies (for outpatients, home infusion therapy).",
+                keyPoint: "Sterile compounding = Hospital AND specialized community pharmacies. Requires aseptic technique."
+            },
+            {
+                id: 8,
+                section: "Hospital Pharmacy",
+                question: "Which historical development marked the beginning of clinical pharmacy as a specialized practice area?",
+                options: [
+                    "The Apothecaries Act of 1815",
+                    "The establishment of the first pharmacy school",
+                    "The American Pharmaceutical Association's initiatives in the 1960s",
+                    "The discovery of penicillin"
+                ],
+                correctAnswer: 2,
+                explanation: "Clinical pharmacy emerged in the 1960s, driven by APA initiatives to increase pharmacist involvement in direct patient care.",
+                keyPoint: "Clinical pharmacy emergence = 1960s, driven by APA initiatives for direct patient care."
+            },
+            {
+                id: 9,
+                section: "Hospital Pharmacy",
+                question: "What is a key responsibility of hospital pharmacists in antimicrobial stewardship programs?",
+                options: [
+                    "Promoting increased use of all antibiotics",
+                    "Ensuring appropriate antibiotic selection, dosing, and duration",
+                    "Selling antibiotics without prescriptions",
+                    "Developing new antibiotics only"
+                ],
+                correctAnswer: 1,
+                explanation: "Pharmacists ensure appropriate antibiotic selection, optimal dosing, proper duration, and monitoring to combat antimicrobial resistance.",
+                keyPoint: "Antimicrobial stewardship pharmacist: Ensure appropriate antibiotic use to combat resistance."
+            },
+            {
+                id: 10,
+                section: "Hospital Pharmacy",
+                question: "Which committee in a hospital is responsible for medication safety and adverse event reporting?",
+                options: [
+                    "Pharmacy and Therapeutics Committee",
+                    "Infection Control Committee",
+                    "Medication Safety Committee",
+                    "All of the above"
+                ],
+                correctAnswer: 3,
+                explanation: "All these committees play roles in medication safety. PTC focuses on drug policies, Infection Control on preventing infections, and Medication Safety specifically on medication error prevention.",
+                keyPoint: "Multiple hospital committees address medication safety: PTC, Infection Control, Medication Safety Committee."
+            },
+            
+            // Section 2: Community Pharmacy (10 questions)
+            {
+                id: 11,
+                section: "Community Pharmacy",
+                question: "What is the primary focus of pharmaceutical care as defined in community pharmacy practice?",
+                options: [
+                    "Maximizing drug sales and profitability",
+                    "Responsible provision of drug therapy to achieve definite outcomes",
+                    "Compounding specialized medications only",
+                    "Managing pharmacy staff and inventory"
+                ],
+                correctAnswer: 1,
+                explanation: "Pharmaceutical care is 'the responsible provision of drug therapy for the purpose of achieving definite outcomes' - a patient-centered, outcomes-focused approach.",
+                keyPoint: "Pharmaceutical care = Patient-centered, outcomes-focused medication therapy management."
+            },
+            {
+                id: 12,
+                section: "Community Pharmacy",
+                question: "Which of the following services is typically NOT provided by community pharmacies?",
+                options: [
+                    "Dispensing prescription medications",
+                    "Conducting major surgical procedures",
+                    "Providing immunizations",
+                    "Health screening (blood pressure, glucose)"
+                ],
+                correctAnswer: 1,
+                explanation: "Community pharmacies provide prescription dispensing, immunizations, health screenings, and minor ailment treatment, but not major surgery.",
+                keyPoint: "Community pharmacy services: Dispensing, immunizations, screenings, MTM. NOT: Major surgery."
+            },
+            {
+                id: 13,
+                section: "Community Pharmacy",
+                question: "What is a key responsibility of community pharmacists in medication safety?",
+                options: [
+                    "Conducting complex surgeries",
+                    "Performing prospective drug utilization review",
+                    "Manufacturing all medications from scratch",
+                    "Providing dental care"
+                ],
+                correctAnswer: 1,
+                explanation: "Community pharmacists perform prospective DUR before dispensing to check for interactions, allergies, duplications, and appropriateness.",
+                keyPoint: "Prospective DUR = Community pharmacist safety check BEFORE dispensing medications."
+            },
+            {
+                id: 14,
+                section: "Community Pharmacy",
+                question: "In the context of community pharmacy, what does 'MTM' stand for?",
+                options: [
+                    "Medical Technology Management",
+                    "Medication Therapy Management",
+                    "Minor Treatment Methodology",
+                    "Mandatory Testing Measure"
+                ],
+                correctAnswer: 1,
+                explanation: "MTM = Medication Therapy Management. Comprehensive service to optimize therapeutic outcomes through medication review, care plans, and monitoring.",
+                keyPoint: "MTM = Medication Therapy Management. Comprehensive pharmacist service for optimizing drug therapy."
+            },
+            {
+                id: 15,
+                section: "Community Pharmacy",
+                question: "Which of the following is a unique challenge faced by community pharmacists compared to hospital pharmacists?",
+                options: [
+                    "Lack of access to any patient information",
+                    "Balancing professional responsibilities with business imperatives",
+                    "Inability to consult with other healthcare professionals",
+                    "No opportunity for patient counseling"
+                ],
+                correctAnswer: 1,
+                explanation: "Community pharmacists balance professional healthcare responsibilities with business imperatives, managing both patient care and retail profitability.",
+                keyPoint: "Community pharmacy dichotomy: Health professional + Retailer. Balance patient care with business."
+            },
+            {
+                id: 16,
+                section: "Community Pharmacy",
+                question: "Which service is increasingly being provided by community pharmacists in many countries?",
+                options: [
+                    "Major surgical procedures",
+                    "Radiology and imaging services",
+                    "Immunizations and vaccinations",
+                    "Hospital admission authority"
+                ],
+                correctAnswer: 2,
+                explanation: "Many countries now authorize community pharmacists to provide immunizations (flu, pneumonia, COVID-19 vaccines), expanding public access to preventive care.",
+                keyPoint: "Expanded community pharmacy services: Immunizations, health screenings, point-of-care testing."
+            },
+            {
+                id: 17,
+                section: "Community Pharmacy",
+                question: "What is the primary difference between a 'pharmacy' and a 'drug store' according to Ethiopian regulations?",
+                options: [
+                    "No significant difference - terms are interchangeable",
+                    "Pharmacies are managed by pharmacists, drug stores by druggists",
+                    "Drug stores can sell prescription drugs without restrictions",
+                    "Pharmacies cannot sell over-the-counter medications"
+                ],
+                correctAnswer: 1,
+                explanation: "In Ethiopia, a 'pharmacy' must be managed by a registered pharmacist, while a 'drug store' can be managed by a druggist (diploma holder).",
+                keyPoint: "Ethiopia: Pharmacy = Pharmacist-managed. Drug store = Druggist-managed."
+            },
+            {
+                id: 18,
+                section: "Community Pharmacy",
+                question: "Which of the following best describes the concept of 'pharmaceutical care'?",
+                options: [
+                    "Exclusively dispensing medications accurately",
+                    "A patient-centered, outcomes-oriented pharmacy practice",
+                    "Managing pharmacy inventory efficiently",
+                    "Compounding specialized medications only"
+                ],
+                correctAnswer: 1,
+                explanation: "Pharmaceutical care is patient-centered, outcomes-oriented practice where pharmacists work with patients and healthcare teams to achieve therapeutic goals.",
+                keyPoint: "Pharmaceutical care = Patient-centered, outcomes-focused practice for optimal therapy results."
+            },
+            {
+                id: 19,
+                section: "Community Pharmacy",
+                question: "What does 'OTC' stand for in pharmacy practice?",
+                options: [
+                    "Over-The-Counter",
+                    "Official Therapeutic Category",
+                    "Oral Tablet Consumption",
+                    "On-Time Counseling"
+                ],
+                correctAnswer: 0,
+                explanation: "OTC = Over-The-Counter medications that can be purchased without a prescription.",
+                keyPoint: "OTC = Over-The-Counter drugs available without prescription."
+            },
+            {
+                id: 20,
+                section: "Community Pharmacy",
+                question: "Which of the following is NOT a typical role of community pharmacists in public health?",
+                options: [
+                    "Providing smoking cessation counseling",
+                    "Administering vaccines",
+                    "Conducting cholesterol screenings",
+                    "Performing major surgery"
+                ],
+                correctAnswer: 3,
+                explanation: "Community pharmacists provide many public health services but do not perform major surgery, which is done in hospitals by surgeons.",
+                keyPoint: "Community pharmacy public health roles: Smoking cessation, immunizations, screenings, health education."
+            },
+            
+            // Section 3: Pharmacists in Industry (10 questions)
+            {
+                id: 21,
+                section: "Industry Pharmacy",
+                question: "Which department in a pharmaceutical company would be responsible for preparing New Drug Application (NDA) documents?",
+                options: [
+                    "Marketing Department",
+                    "Production Department",
+                    "Regulatory Affairs Department",
+                    "Sales Department"
+                ],
+                correctAnswer: 2,
+                explanation: "Regulatory Affairs prepares and submits NDAs to authorities, ensuring compliance and managing regulatory interactions.",
+                keyPoint: "Regulatory Affairs Department = Prepares NDAs, ensures regulatory compliance."
+            },
+            {
+                id: 22,
+                section: "Industry Pharmacy",
+                question: "In pharmaceutical industry, which department would be responsible for determining a drug's expiration date?",
+                options: [
+                    "Marketing Department",
+                    "Quality Control Department",
+                    "Sales Department",
+                    "Legal Department"
+                ],
+                correctAnswer: 1,
+                explanation: "Quality Control establishes stability testing protocols to determine expiration dates based on potency, purity, and safety data.",
+                keyPoint: "Quality Control Department = Stability testing → Expiration dating."
+            },
+            {
+                id: 23,
+                section: "Industry Pharmacy",
+                question: "What is the main purpose of Good Manufacturing Practice (GMP) in pharmaceutical industry?",
+                options: [
+                    "To maximize production speed regardless of quality",
+                    "To ensure consistent production and control of product quality",
+                    "To reduce documentation requirements for efficiency",
+                    "To allow flexibility in ingredient substitution"
+                ],
+                correctAnswer: 1,
+                explanation: "GMP is a quality assurance system ensuring pharmaceutical products are consistently produced and controlled according to quality standards.",
+                keyPoint: "GMP = Quality system for consistent production of safe, effective, quality drugs."
+            },
+            {
+                id: 24,
+                section: "Industry Pharmacy",
+                question: "What is the primary focus of pharmacoeconomics in the pharmaceutical industry?",
+                options: [
+                    "Maximizing drug prices regardless of value",
+                    "Evaluating the cost-effectiveness of medications",
+                    "Reducing production costs at the expense of quality",
+                    "Increasing sales through aggressive marketing"
+                ],
+                correctAnswer: 1,
+                explanation: "Pharmacoeconomics evaluates cost-effectiveness by comparing costs and outcomes of different drug therapies to determine value for money.",
+                keyPoint: "Pharmacoeconomics = Cost-effectiveness analysis of drugs. Compares costs vs. outcomes."
+            },
+            {
+                id: 25,
+                section: "Industry Pharmacy",
+                question: "In pharmaceutical industry, what does 'QC' stand for and what is its primary function?",
+                options: [
+                    "Quality Control - testing products to ensure they meet specifications",
+                    "Quantity Check - counting products for inventory",
+                    "Quick Circulation - speeding up distribution",
+                    "Quarterly Check - reviewing sales every three months"
+                ],
+                correctAnswer: 0,
+                explanation: "QC = Quality Control. Tests raw materials, in-process samples, and finished products against established specifications.",
+                keyPoint: "QC = Quality Control. Tests products against specifications."
+            },
+            {
+                id: 26,
+                section: "Industry Pharmacy",
+                question: "Which of the following best describes the role of a pharmacist in research and development (R&D)?",
+                options: [
+                    "Only conducting clinical trials on human subjects",
+                    "Exclusively marketing approved drugs",
+                    "Drug discovery, formulation development, and clinical trial design",
+                    "Managing pharmacy retail operations"
+                ],
+                correctAnswer: 2,
+                explanation: "Pharmacists in R&D work across drug development: discovery, formulation, preclinical testing, clinical trial design, and regulatory submissions.",
+                keyPoint: "R&D pharmacist roles: Drug discovery → Formulation → Preclinical → Clinical trials."
+            },
+            {
+                id: 27,
+                section: "Industry Pharmacy",
+                question: "What does 'NDA' stand for in pharmaceutical industry?",
+                options: [
+                    "New Drug Application",
+                    "National Drug Administration",
+                    "Novel Drug Assessment",
+                    "Non-Dispensing Authorization"
+                ],
+                correctAnswer: 0,
+                explanation: "NDA = New Drug Application, submitted to regulatory authorities for approval to market a new drug.",
+                keyPoint: "NDA = New Drug Application. Required for regulatory approval to market new drugs."
+            },
+            {
+                id: 28,
+                section: "Industry Pharmacy",
+                question: "Which department in a pharmaceutical company would handle post-marketing surveillance?",
+                options: [
+                    "Marketing Department",
+                    "Regulatory Affairs Department",
+                    "Pharmacovigilance Department",
+                    "Sales Department"
+                ],
+                correctAnswer: 2,
+                explanation: "Pharmacovigilance department monitors drug safety after marketing, collecting and assessing reports of adverse drug reactions.",
+                keyPoint: "Pharmacovigilance = Post-marketing drug safety monitoring and adverse event reporting."
+            },
+            {
+                id: 29,
+                section: "Industry Pharmacy",
+                question: "What is the purpose of Phase III clinical trials?",
+                options: [
+                    "To test drug safety in a small group of healthy volunteers",
+                    "To determine optimal dosing in patients",
+                    "To confirm effectiveness, monitor side effects, and compare to standard treatments",
+                    "To conduct post-marketing surveillance"
+                ],
+                correctAnswer: 2,
+                explanation: "Phase III trials confirm effectiveness, monitor adverse effects, compare to standard treatments, and collect information for safe use.",
+                keyPoint: "Phase III trials = Confirm effectiveness, monitor side effects, compare to standard treatments."
+            },
+            {
+                id: 30,
+                section: "Industry Pharmacy",
+                question: "Which regulatory concept requires maintaining records of controlled substance prescriptions for 5 years?",
+                options: [
+                    "Good Manufacturing Practice (GMP)",
+                    "Special prescription requirements for narcotics",
+                    "Over-the-counter drug regulations",
+                    "Compounding documentation standards"
+                ],
+                correctAnswer: 1,
+                explanation: "Special prescription requirements for controlled substances mandate 5-year record retention (vs 2 years for conventional prescriptions).",
+                keyPoint: "Controlled substance prescriptions: Must be kept for 5+ years."
+            },
+            
+            // Section 4: Government & Regulatory (10 questions)
+            {
+                id: 31,
+                section: "Government & Regulatory",
+                question: "Which regulatory body in Ethiopia is primarily responsible for drug registration and quality control?",
+                options: [
+                    "Ethiopian Pharmaceutical Association (EPA)",
+                    "Pharmaceutical Fund and Supply Agency (PFSA)",
+                    "Food, Medicine and Health Care Administration and Control Authority (FMHACA)",
+                    "Ministry of Health (MOH)"
+                ],
+                correctAnswer: 2,
+                explanation: "FMHACA is the primary regulatory agency for drug registration, quality control, and regulation of pharmaceuticals in Ethiopia.",
+                keyPoint: "FMHACA = Primary drug regulatory agency in Ethiopia."
+            },
+            {
+                id: 32,
+                section: "Government & Regulatory",
+                question: "Which of the following is NOT typically a role of pharmacists in government agencies?",
+                options: [
+                    "Drug policy formulation",
+                    "Pharmacy retail management",
+                    "Drug registration and approval",
+                    "Public health program design"
+                ],
+                correctAnswer: 1,
+                explanation: "Pharmacy retail management is a private sector function. Government pharmacists work on policy, regulation, public health programs, and quality control.",
+                keyPoint: "Government pharmacist roles: Policy, regulation, public health programs, quality control."
+            },
+            {
+                id: 33,
+                section: "Government & Regulatory",
+                question: "What is the primary role of the Pharmaceutical Fund and Supply Agency (PFSA) in Ethiopia?",
+                options: [
+                    "Drug regulation and quality control",
+                    "Pharmacy education and training",
+                    "Procurement and distribution of pharmaceuticals",
+                    "Clinical pharmacy service provision"
+                ],
+                correctAnswer: 2,
+                explanation: "PFSA handles procurement, storage, and distribution of pharmaceuticals to public health facilities, ensuring sustainable supply chain.",
+                keyPoint: "PFSA = Procurement, storage, distribution of drugs in Ethiopia."
+            },
+            {
+                id: 34,
+                section: "Government & Regulatory",
+                question: "What is the main purpose of the 'International Pharmaceutical Federation (FIP)'?",
+                options: [
+                    "To regulate drug prices globally",
+                    "To represent pharmacy practice worldwide and set global standards",
+                    "To manufacture pharmaceuticals for developing countries",
+                    "To conduct clinical trials for new drugs"
+                ],
+                correctAnswer: 1,
+                explanation: "FIP represents pharmacy practice worldwide, sets global standards, promotes best practices, and facilitates international collaboration.",
+                keyPoint: "FIP = Global pharmacy federation. Sets international standards, represents profession worldwide."
+            },
+            {
+                id: 35,
+                section: "Government & Regulatory",
+                question: "Which of the following is a component of the 'Seven-Star Pharmacist' concept developed by WHO/FIP?",
+                options: [
+                    "Caregiver",
+                    "Decision-maker",
+                    "Lifelong learner",
+                    "All of the above"
+                ],
+                correctAnswer: 3,
+                explanation: "The Seven-Star Pharmacist concept includes: Caregiver, Decision-maker, Communicator, Leader, Manager, Lifelong learner, and Teacher.",
+                keyPoint: "Seven-Star Pharmacist: Caregiver, Decision-maker, Communicator, Leader, Manager, Lifelong learner, Teacher."
+            },
+            {
+                id: 36,
+                section: "Government & Regulatory",
+                question: "What does 'EPA' stand for in Ethiopian pharmacy context?",
+                options: [
+                    "Ethiopian Pharmaceutical Association",
+                    "Ethiopian Pharmacy Authority",
+                    "Essential Pharmaceutical Agency",
+                    "Ethiopian Prescription Administration"
+                ],
+                correctAnswer: 0,
+                explanation: "EPA = Ethiopian Pharmaceutical Association, the professional association supporting pharmacy practice and education in Ethiopia.",
+                keyPoint: "EPA = Ethiopian Pharmaceutical Association. Professional body for pharmacists in Ethiopia."
+            },
+            {
+                id: 37,
+                section: "Government & Regulatory",
+                question: "Which of the following best describes the evolution of pharmacy practice over the last century?",
+                options: [
+                    "From product-focused to patient-focused practice",
+                    "From patient-focused to product-focused practice",
+                    "No significant change in practice focus",
+                    "From clinical focus to exclusively business focus"
+                ],
+                correctAnswer: 0,
+                explanation: "Pharmacy has evolved from product-focused (compounding/dispensing) to patient-focused (pharmaceutical care, clinical services).",
+                keyPoint: "Pharmacy evolution: Product-focused → Patient-focused (clinicalization of pharmacy)."
+            },
+            {
+                id: 38,
+                section: "Government & Regulatory",
+                question: "Which historical period saw the separation of pharmacy from medicine as legally distinct professions?",
+                options: [
+                    "Ancient Egyptian period",
+                    "Greek and Roman period",
+                    "Arabian period (8th century)",
+                    "Middle Ages (13th century)"
+                ],
+                correctAnswer: 3,
+                explanation: "Legal separation occurred in 1231 AD in Sicily under Emperor Frederick II, distinguishing physicians from apothecaries.",
+                keyPoint: "1231 AD: Frederick II legally separated pharmacy from medicine."
+            },
+            {
+                id: 39,
+                section: "Government & Regulatory",
+                question: "What was the significance of the Apothecaries Act of 1815?",
+                options: [
+                    "It prohibited apothecaries from practicing medicine",
+                    "It confirmed apothecaries as physicians with defined training requirements",
+                    "It established the first pharmacy school in Europe",
+                    "It separated pharmacy from medicine completely"
+                ],
+                correctAnswer: 1,
+                explanation: "The Apothecaries Act of 1815 formally recognized apothecaries as physicians and established training requirements for their practice.",
+                keyPoint: "Apothecaries Act 1815: Formalized apothecaries as physicians with required training."
+            },
+            {
+                id: 40,
+                section: "Government & Regulatory",
+                question: "In which year was the first pharmacy established in Ethiopia to serve the general public?",
+                options: [
+                    "1908",
+                    "1911",
+                    "1930",
+                    "1954"
+                ],
+                correctAnswer: 1,
+                explanation: "The first pharmacy serving the general public was 'Pharmazie la Gorgie', established in November 1911 by Dr. Merab.",
+                keyPoint: "First Ethiopian pharmacy: 'Pharmazie la Gorgie' (1911) by Dr. Merab."
+            },
+            
+            // Section 5: Historical & Evolution (10 questions)
+            {
+                id: 41,
+                section: "History & Evolution",
+                question: "What was the main contribution of Claudius Galen to pharmacy practice?",
+                options: [
+                    "Introduction of chemical synthesis of drugs",
+                    "Development of the first pharmacopoeia",
+                    "Definition of drugs as substances that bring about bodily changes",
+                    "Discovery of antibiotics"
+                ],
+                correctAnswer: 2,
+                explanation: "Claudius Galen defined a drug as 'anything that acts on the body to bring about a change' and introduced many new drugs.",
+                keyPoint: "Galen's definition: Drug = anything that acts on the body to bring about change."
+            },
+            {
+                id: 42,
+                section: "History & Evolution",
+                question: "Which historical figure is known as the 'father of medicine' and described 400 simple drugs?",
+                options: [
+                    "Dioscorides",
+                    "Hippocrates",
+                    "Paracelsus",
+                    "Avicenna"
+                ],
+                correctAnswer: 1,
+                explanation: "Hippocrates (460-377 BC) is the 'father of medicine' who described approximately 400 simple drugs and the humoral theory.",
+                keyPoint: "Hippocrates = Father of medicine. Humoral theory: Balance of 4 humors."
+            },
+            {
+                id: 43,
+                section: "History & Evolution",
+                question: "What does the 'doctrine of signature' advocated by Paracelsus refer to?",
+                options: [
+                    "The requirement for doctors to sign prescriptions",
+                    "The belief that God placed signs on healing substances indicating their use",
+                    "The need for pharmacists to sign compounded medications",
+                    "The theory that drugs should be classified by chemical structure"
+                ],
+                correctAnswer: 1,
+                explanation: "Paracelsus believed God placed visible signs on natural substances to indicate their medicinal uses (e.g., liverwort for liver diseases).",
+                keyPoint: "Doctrine of signature (Paracelsus): Natural substances resemble body parts → treat those parts."
+            },
+            {
+                id: 44,
+                section: "History & Evolution",
+                question: "What was the main contribution of the Arabian period to pharmacy development?",
+                options: [
+                    "Introduction of the first synthetic drugs",
+                    "Separation of pharmacy and medicine as distinct professions",
+                    "Development of novel preparations like syrups and alcoholic extracts",
+                    "Discovery of antibiotics"
+                ],
+                correctAnswer: 2,
+                explanation: "Arabian period contributed novel preparations like syrups, juleps, alcoholic extracts, and established first private drug stores.",
+                keyPoint: "Arabian period contributions: Syrups, alcoholic extracts, first private drug stores."
+            },
+            {
+                id: 45,
+                section: "History & Evolution",
+                question: "What was the significance of Dioscorides' work 'De materia medica'?",
+                options: [
+                    "It was the first book to describe chemical synthesis of drugs",
+                    "It served as a standard encyclopedia of drugs until the 16th century",
+                    "It introduced the concept of antibiotics",
+                    "It established the first pharmacy school curriculum"
+                ],
+                correctAnswer: 1,
+                explanation: "'De materia medica' described 500 plants and remedies and remained a standard drug reference for over 1,500 years.",
+                keyPoint: "Dioscorides' 'De materia medica' = Standard drug reference for 1,500+ years."
+            },
+            {
+                id: 46,
+                section: "History & Evolution",
+                question: "The term 'hospital' originates from which Latin word meaning 'a place where guests are received'?",
+                options: [
+                    "Hospitium",
+                    "Sanatorium",
+                    "Medicus",
+                    "Infirmarius"
+                ],
+                correctAnswer: 0,
+                explanation: "'Hospital' derives from Latin 'hospitium' meaning 'a place where guests are received', reflecting hospitals' historical role.",
+                keyPoint: "Hospital → Hospitium (Latin) = 'guest place'."
+            },
+            {
+                id: 47,
+                section: "History & Evolution",
+                question: "What is the meaning of 'Rx' symbol used in prescriptions?",
+                options: [
+                    "An abbreviation for 'recipe', Latin for 'take'",
+                    "Symbol of the Roman god Jupiter",
+                    "Representation of a serpent and bowl",
+                    "Medical cross symbol"
+                ],
+                correctAnswer: 0,
+                explanation: "Rx is an abbreviation for 'recipe', the Latin imperative for 'take', used at the beginning of prescriptions.",
+                keyPoint: "Rx = Abbreviation for 'recipe' (Latin for 'take')."
+            },
+            {
+                id: 48,
+                section: "History & Evolution",
+                question: "Who is considered the father of toxicology?",
+                options: [
+                    "Hippocrates",
+                    "Paracelsus",
+                    "Avicenna",
+                    "Dioscorides"
+                ],
+                correctAnswer: 1,
+                explanation: "Paracelsus (1493-1541) is considered the father of toxicology, famously stating 'the dose makes the poison'.",
+                keyPoint: "Paracelsus = Father of toxicology. 'The dose makes the poison'."
+            },
+            {
+                id: 49,
+                section: "History & Evolution",
+                question: "Which ancient civilization first established formal separation between physicians and pharmacists?",
+                options: [
+                    "Ancient Egypt",
+                    "Ancient Greece",
+                    "Arabian civilization",
+                    "Ancient Rome"
+                ],
+                correctAnswer: 2,
+                explanation: "Arabian civilization first established formal separation, with private drug stores appearing in Baghdad in the 8th century.",
+                keyPoint: "Arabian civilization first separated pharmacy from medicine as distinct professions."
+            },
+            {
+                id: 50,
+                section: "History & Evolution",
+                question: "What does 'pharmacognosy' mean?",
+                options: [
+                    "Study of drug interactions",
+                    "Study of natural products used as drugs",
+                    "Study of drug formulation",
+                    "Study of drug metabolism"
+                ],
+                correctAnswer: 1,
+                explanation: "Pharmacognosy is the study of natural products (plants, animals, minerals) used as drugs or for drug preparation.",
+                keyPoint: "Pharmacognosy = Study of natural products used as drugs."
+            },
+            
+            // Additional questions (to make it 55+)
+            {
+                id: 51,
+                section: "Hospital Pharmacy",
+                question: "Which of the following is a key component of clinical pharmacy services in hospitals?",
+                options: [
+                    "Therapeutic drug monitoring",
+                    "Pharmacy retail management",
+                    "Drug manufacturing only",
+                    "Insurance billing"
+                ],
+                correctAnswer: 0,
+                explanation: "Therapeutic drug monitoring (TDM) is a key clinical pharmacy service involving measuring drug levels to optimize dosing.",
+                keyPoint: "Therapeutic drug monitoring = Key clinical pharmacy service for optimizing drug dosing."
+            },
+            {
+                id: 52,
+                section: "Community Pharmacy",
+                question: "What is 'dispensing' in pharmacy practice?",
+                options: [
+                    "Prescribing medications to patients",
+                    "Preparing and providing medications to patients",
+                    "Manufacturing drugs in industry",
+                    "Researching new drug compounds"
+                ],
+                correctAnswer: 1,
+                explanation: "Dispensing involves preparing and providing medications to patients based on prescriptions, including labeling and counseling.",
+                keyPoint: "Dispensing = Preparing and providing medications to patients based on prescriptions."
+            },
+            {
+                id: 53,
+                section: "Industry Pharmacy",
+                question: "What is the purpose of Phase I clinical trials?",
+                options: [
+                    "To test effectiveness in patients",
+                    "To test safety and tolerability in healthy volunteers",
+                    "To compare with standard treatments",
+                    "To conduct post-marketing surveillance"
+                ],
+                correctAnswer: 1,
+                explanation: "Phase I trials test safety, tolerability, pharmacokinetics, and pharmacodynamics in a small group of healthy volunteers.",
+                keyPoint: "Phase I trials = Test safety and tolerability in healthy volunteers."
+            },
+            {
+                id: 54,
+                section: "Government & Regulatory",
+                question: "What does 'BPR' stand for in Ethiopian pharmacy context?",
+                options: [
+                    "Business Process Reengineering",
+                    "Basic Pharmaceutical Requirements",
+                    "Board of Pharmacy Registration",
+                    "Biological Product Regulation"
+                ],
+                correctAnswer: 0,
+                explanation: "BPR = Business Process Reengineering, introduced in the Ethiopian health sector to improve efficiency and service delivery.",
+                keyPoint: "BPR = Business Process Reengineering in Ethiopian health sector reforms."
+            },
+            {
+                id: 55,
+                section: "History & Evolution",
+                question: "What is the symbol of pharmacy and what does it represent?",
+                options: [
+                    "Red cross - medical care",
+                    "Caduceus - commerce",
+                    "Bowl of Hygieia with serpent - health and healing",
+                    "Mortar and pestle - compounding"
+                ],
+                correctAnswer: 2,
+                explanation: "The Bowl of Hygieia with a serpent is the traditional symbol of pharmacy, representing health, healing, and medicine.",
+                keyPoint: "Pharmacy symbol = Bowl of Hygieia with serpent, representing health and healing."
+            }
+        ];
+
+        // App State Variables
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questionBank.length).fill(null);
+        let score = 0;
+        let examCompleted = false;
+        let sections = [...new Set(questionBank.map(q => q.section))];
+
+        // DOM Elements
+        const loadingElement = document.getElementById('loading');
+        const questionContainerElement = document.getElementById('question-container');
+        const questionNumberElement = document.getElementById('question-number');
+        const questionTextElement = document.getElementById('question-text');
+        const optionsContainerElement = document.getElementById('options-container');
+        const feedbackContainerElement = document.getElementById('feedback-container');
+        const feedbackIconElement = document.getElementById('feedback-icon');
+        const feedbackTitleElement = document.getElementById('feedback-title');
+        const explanationTextElement = document.getElementById('explanation-text');
+        const keyPointTextElement = document.getElementById('key-point-text');
+        const progressFillElement = document.getElementById('progress-fill');
+        const currentQNumElement = document.getElementById('current-q-num');
+        const totalQuestionsElement = document.getElementById('total-questions');
+        const progressPercentElement = document.getElementById('progress-percent');
+        const currentScoreDisplayElement = document.getElementById('current-score-display');
+        const prevBtnElement = document.getElementById('prev-btn');
+        const nextBtnElement = document.getElementById('next-btn');
+        const submitBtnElement = document.getElementById('submit-btn');
+        const resultsScreenElement = document.getElementById('results-screen');
+        const finalScoreValueElement = document.getElementById('final-score-value');
+        const correctStatElement = document.getElementById('correct-stat');
+        const incorrectStatElement = document.getElementById('incorrect-stat');
+        const percentageStatElement = document.getElementById('percentage-stat');
+        const performanceStatElement = document.getElementById('performance-stat');
+        const reviewBtnElement = document.getElementById('review-btn');
+        const restartBtnElement = document.getElementById('restart-btn');
+        const homeBtnElement = document.getElementById('home-btn');
+        const sectionTabsElement = document.getElementById('section-tabs');
+
+        // Initialize the app
+        function initApp() {
+            // Hide loading screen
+            loadingElement.style.display = 'none';
+            
+            // Set total questions
+            totalQuestionsElement.textContent = questionBank.length;
+            
+            // Create section tabs
+            createSectionTabs();
+            
+            // Initialize the exam
+            initExam();
+            
+            // Add event listeners
+            addEventListeners();
+        }
+
+        // Create section tabs
+        function createSectionTabs() {
+            sectionTabsElement.innerHTML = '';
+            
+            sections.forEach((section, index) => {
+                const tab = document.createElement('div');
+                tab.className = 'section-tab';
+                if (index === 0) tab.classList.add('active');
+                tab.textContent = section;
+                tab.dataset.section = section;
+                
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Find first question in this section
+                    const firstQuestionIndex = questionBank.findIndex(q => q.section === section);
+                    if (firstQuestionIndex !== -1) {
+                        currentQuestionIndex = firstQuestionIndex;
+                        displayQuestion(currentQuestionIndex);
+                        updateNavigationButtons();
+                    }
+                });
+                
+                sectionTabsElement.appendChild(tab);
+            });
+        }
+
+        // Initialize the exam
+        function initExam() {
+            currentQuestionIndex = 0;
+            userAnswers.fill(null);
+            score = 0;
+            examCompleted = false;
+            
+            // Hide results screen, show question container
+            resultsScreenElement.classList.remove('active');
+            questionContainerElement.style.display = 'block';
+            feedbackContainerElement.classList.remove('active');
+            
+            // Update UI
+            updateProgress();
+            updateScoreDisplay();
+            displayQuestion(currentQuestionIndex);
+            updateNavigationButtons();
+            
+            // Reset section tabs
+            document.querySelectorAll('.section-tab').forEach((tab, index) => {
+                tab.classList.remove('active');
+                if (index === 0) tab.classList.add('active');
+            });
+        }
+
+        // Display a question
+        function displayQuestion(index) {
+            const question = questionBank[index];
+            
+            // Update question number and text
+            questionNumberElement.textContent = `Question ${index + 1}`;
+            questionTextElement.textContent = question.question;
+            currentQNumElement.textContent = index + 1;
+            
+            // Clear previous options
+            optionsContainerElement.innerHTML = '';
+            
+            // Create new options
+            const optionLetters = ['A', 'B', 'C', 'D'];
+            question.options.forEach((option, optionIndex) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[index] === optionIndex) {
+                    optionElement.classList.add('selected');
+                }
+                
+                optionElement.innerHTML = `
+                    <div class="option-letter">${optionLetters[optionIndex]}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                
+                optionElement.addEventListener('click', () => selectOption(optionIndex));
+                optionsContainerElement.appendChild(optionElement);
+            });
+            
+            // Hide feedback
+            feedbackContainerElement.classList.remove('active');
+            
+            // Update progress
+            updateProgress();
+            
+            // Update active section tab
+            updateActiveSectionTab(question.section);
+        }
+
+        // Update active section tab
+        function updateActiveSectionTab(section) {
+            document.querySelectorAll('.section-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.section === section) {
+                    tab.classList.add('active');
+                }
+            });
+        }
+
+        // Handle option selection
+        function selectOption(selectedIndex) {
+            if (examCompleted) return;
+            
+            const question = questionBank[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            options[selectedIndex].classList.add('selected');
+            
+            // Store user's answer
+            userAnswers[currentQuestionIndex] = selectedIndex;
+            
+            // Check if answer is correct and update score
+            const isCorrect = selectedIndex === question.correctAnswer;
+            if (isCorrect && userAnswers[currentQuestionIndex] !== selectedIndex) {
+                // Only increment if first time answering correctly
+                score++;
+                updateScoreDisplay();
+            }
+            
+            // Show feedback
+            showFeedback(isCorrect, question);
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+        }
+
+        // Show feedback for selected answer
+        function showFeedback(isCorrect, question) {
+            // Update feedback elements
+            feedbackIconElement.className = 'feedback-icon';
+            feedbackIconElement.classList.add(isCorrect ? 'correct' : 'incorrect');
+            feedbackIconElement.innerHTML = isCorrect ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>';
+            
+            feedbackTitleElement.textContent = isCorrect ? 'Correct Answer!' : 'Incorrect Answer';
+            explanationTextElement.textContent = question.explanation;
+            keyPointTextElement.textContent = question.keyPoint;
+            
+            // Show feedback container
+            feedbackContainerElement.classList.add('active');
+            
+            // Highlight correct/incorrect options
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                if (index === question.correctAnswer) {
+                    option.classList.add('correct');
+                } else if (index === userAnswers[currentQuestionIndex] && index !== question.correctAnswer) {
+                    option.classList.add('incorrect');
+                }
+            });
+        }
+
+        // Update progress bar and percentage
+        function updateProgress() {
+            const progressPercentage = ((currentQuestionIndex + 1) / questionBank.length) * 100;
+            progressFillElement.style.width = `${progressPercentage}%`;
+            progressPercentElement.textContent = `${Math.round(progressPercentage)}%`;
+        }
+
+        // Update score display
+        function updateScoreDisplay() {
+            currentScoreDisplayElement.textContent = `Score: ${score}`;
+        }
+
+        // Update navigation buttons state
+        function updateNavigationButtons() {
+            // Previous button
+            prevBtnElement.disabled = currentQuestionIndex === 0;
+            
+            // Next/Submit button
+            if (currentQuestionIndex === questionBank.length - 1) {
+                nextBtnElement.style.display = 'none';
+                submitBtnElement.style.display = 'flex';
+            } else {
+                nextBtnElement.style.display = 'flex';
+                submitBtnElement.style.display = 'none';
+            }
+            
+            // Disable next button if current question not answered
+            if (userAnswers[currentQuestionIndex] === null) {
+                nextBtnElement.disabled = true;
+                if (currentQuestionIndex === questionBank.length - 1) {
+                    submitBtnElement.disabled = true;
+                }
+            } else {
+                nextBtnElement.disabled = false;
+                if (currentQuestionIndex === questionBank.length - 1) {
+                    submitBtnElement.disabled = false;
+                }
+            }
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestionIndex < questionBank.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+                updateNavigationButtons();
+                
+                // Scroll to top of question
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Navigate to previous question
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+                updateNavigationButtons();
+                
+                // Scroll to top of question
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Calculate and display final results
+        function showResults() {
+            examCompleted = true;
+            
+            // Calculate final score
+            score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === questionBank[index].correctAnswer) {
+                    score++;
+                }
+            });
+            
+            // Calculate percentage
+            const percentage = Math.round((score / questionBank.length) * 100);
+            
+            // Determine performance level
+            let performanceLevel;
+            if (percentage >= 90) performanceLevel = "Excellent";
+            else if (percentage >= 80) performanceLevel = "Very Good";
+            else if (percentage >= 70) performanceLevel = "Good";
+            else if (percentage >= 60) performanceLevel = "Satisfactory";
+            else performanceLevel = "Needs Improvement";
+            
+            // Update results screen
+            finalScoreValueElement.textContent = score;
+            correctStatElement.textContent = score;
+            incorrectStatElement.textContent = questionBank.length - score;
+            percentageStatElement.textContent = `${percentage}%`;
+            performanceStatElement.textContent = performanceLevel;
+            
+            // Update score circle
+            updateScoreCircle(percentage);
+            
+            // Hide question container, show results screen
+            questionContainerElement.style.display = 'none';
+            feedbackContainerElement.classList.remove('active');
+            resultsScreenElement.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Update the score circle visualization
+        function updateScoreCircle(percentage) {
+            const scoreCircle = document.querySelector('.score-circle');
+            scoreCircle.style.background = `conic-gradient(var(--secondary) 0% ${percentage}%, #e0e0e0 ${percentage}% 100%)`;
+        }
+
+        // Review incorrect answers
+        function reviewIncorrectAnswers() {
+            // Find first incorrect answer
+            const firstIncorrectIndex = userAnswers.findIndex((answer, index) => 
+                answer !== questionBank[index].correctAnswer
+            );
+            
+            if (firstIncorrectIndex !== -1) {
+                // Go to first incorrect question
+                currentQuestionIndex = firstIncorrectIndex;
+                
+                // Show question container again
+                questionContainerElement.style.display = 'block';
+                resultsScreenElement.classList.remove('active');
+                
+                // Display the question
+                displayQuestion(currentQuestionIndex);
+                updateNavigationButtons();
+                
+                // Show feedback if question was answered
+                if (userAnswers[currentQuestionIndex] !== null) {
+                    const isCorrect = userAnswers[currentQuestionIndex] === questionBank[currentQuestionIndex].correctAnswer;
+                    showFeedback(isCorrect, questionBank[currentQuestionIndex]);
+                }
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // All answers are correct
+                alert("Congratulations! You answered all questions correctly!");
+                initExam();
+            }
+        }
+
+        // Add event listeners
+        function addEventListeners() {
+            prevBtnElement.addEventListener('click', prevQuestion);
+            nextBtnElement.addEventListener('click', nextQuestion);
+            submitBtnElement.addEventListener('click', showResults);
+            reviewBtnElement.addEventListener('click', reviewIncorrectAnswers);
+            restartBtnElement.addEventListener('click', initExam);
+            homeBtnElement.addEventListener('click', () => {
+                alert("Returning to home screen. In a real app, this would navigate to the main menu.");
+                initExam();
+            });
+            
+            // Add touch events for better mobile experience
+            document.addEventListener('touchstart', function() {}, {passive: true});
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate loading time
+            setTimeout(initApp, 1000);
+        });
+    </script>
+</body>
+  </html>
