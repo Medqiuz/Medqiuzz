@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Pharmacy | Pharmacy Year 1 | MedQuiz</title>
+    <style>
+        /* Internal CSS */
+
+        :root {
+            --primary: #0077cc;
+            --primary-dark: #005fa3;
+            --secondary: #6a11cb;
+            --light-bg: #f9fafc;
+            --card-bg: #ffffff;
+            --text-dark: #333;
+            --text-light: #555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary);
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 0 0 15px 15px;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-header .header-content span {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .dashboard-header .header-subtitle {
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            margin-top: 3px;
+        }
+
+        .logout-btn {
+            background-color: #fff;
+            color: var(--primary);
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--primary-dark);
+            color: #fff;
+        }
+
+        .breadcrumb {
+            padding: 15px 25px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: var(--primary);
+        }
+
+        .breadcrumb .separator {
+            margin: 0 5px;
+            color: var(--text-light);
+        }
+
+        .department-overview {
+            padding: 15px 25px;
+        }
+
+        .overview-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .overview-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .overview-card p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .subject-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .stat-number {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 20px 25px 10px;
+            gap: 8px;
+        }
+
+        .parts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 0 25px 30px;
+        }
+
+        .part-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 15px 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-left: 4px solid var(--primary);
+        }
+
+        .part-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .part-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .part-header h4 {
+            font-size: 1rem;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .part-badge {
+            background-color: var(--secondary);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+
+        .part-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+
+        .part-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin: 8px 0;
+            line-height: 1.4;
+        }
+
+        .protection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .protection-modal {
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .protection-modal h3 {
+            margin-bottom: 10px;
+        }
+
+        .protection-modal p {
+            margin-bottom: 15px;
+        }
+
+        .protection-modal .btn-primary {
+            background-color: var(--primary);
+            color: #fff;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .protection-modal .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .subject-stats {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            .parts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Protection overlay -->
+    <div id="protection-overlay" class="protection-overlay" style="display:none;">
+        <div class="protection-modal">
+            <h3>🔒 Access Required</h3>
+            <p>Please login to access this content</p>
+            <button onclick="window.location.href='../../dashboard.html'" class="btn-primary">Go to Dashboard</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <span>Introduction to Pharmacy</span>
+            <div class="header-subtitle">Pharmacy → Year 1 → Session 1</div>
+        </div>
+        <button onclick="goBackToSession1()" class="logout-btn">Back to Session 1</button>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="dashboard-container">
+        <div class="breadcrumb">
+            <a href="../../dashboard.html">Dashboard</a>
+            <span class="separator">></span>
+            <a href="../pharmacy.html">Pharmacy</a>
+            <span class="separator">></span>
+            <a href="../year1.html">Year 1</a>
+            <span class="separator">></span>
+            <a href="../session1.html">Session 1</a>
+            <span class="separator">></span>
+            <span>Introduction to Pharmacy</span>
+        </div>
+
+
+        <!-- Practice Exams -->
+        <div class="category-title">
+            <span>📝</span> Chapter Practice Exams
+        </div>
+
+        <div class="parts-grid">
+            <!-- Chapter 1 Practice -->
+            <a href="part1.html" class="part-card">
+                <div class="part-header">
+                    <h4>Chapter 1: Healthcare System Practice</h4>
+                    <div class="part-badge">Practice</div>
+                </div>
+                <div class="part-desc">Test your knowledge of Ethiopian healthcare system history and structure.</div>
+                <div class="part-info">
+                    <span>❓ 15 Questions</span>
+                    <span>⏱️ 20 minutes</span>
+                </div>
+            </a>
+
+            <!-- Chapter 2 Practice -->
+            <a href="part2.html" class="part-card">
+                <div class="part-header">
+                    <h4>Chapter 2: Prescription & Terminology Practice</h4>
+                    <div class="part-badge">Practice</div>
+                </div>
+                <div class="part-desc">Practice reading prescriptions and understanding medical abbreviations.</div>
+                <div class="part-info">
+                    <span>❓ 15 Questions</span>
+                    <span>⏱️ 20 minutes</span>
+                </div>
+            </a>
+
+            <!-- Chapter 3 Practice -->
+            <a href="part3.html" class="part-card">
+                <div class="part-header">
+                    <h4>Chapter 3: Pharmacy Practice Areas Practice</h4>
+                    <div class="part-badge">Practice</div>
+                </div>
+                <div class="part-desc">Questions on hospital, community, industry, and government pharmacy.</div>
+                <div class="part-info">
+                    <span>❓ 15 Questions</span>
+                    <span>⏱️ 20 minutes</span>
+                </div>
+            </a>
+
+            <!-- Chapter 4 Practice -->
+            <a href="part4.html" class="part-card">
+                <div class="part-header">
+                    <h4>Chapter 4: Pharmacist Roles Practice</h4>
+                    <div class="part-badge">Practice</div>
+                </div>
+                <div class="part-desc">Test your understanding of pharmacist roles and seven-star concept.</div>
+                <div class="part-info">
+                    <span>❓ 10 Questions</span>
+                    <span>⏱️ 15 minutes</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Final Exam -->
+        <div class="category-title">
+            <span>🏆</span> Comprehensive Assessment
+        </div>
+
+        <div class="parts-grid">
+            <!-- Final Exam -->
+            <a href="final.html" class="part-card" style="border-left: 4px solid #e74c3c;">
+                <div class="part-header">
+                    <h4>Final Comprehensive Exam</h4>
+                    <div class="part-badge" style="background-color: #e74c3c;">Final</div>
+                </div>
+                <div class="part-desc">Comprehensive exam covering all 4 chapters of Introduction to Pharmacy.</div>
+                <div class="part-info">
+                    <span>❓ 50 Questions</span>
+                    <span>⏱️ 60 minutes</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Mock authentication system
+        const authSystem = {
+            isAuthenticated: function() {
+                // Check localStorage for authentication status
+                // For demo: check if user is logged in
+                return localStorage.getItem('pharmacyLoggedIn') === 'true' || 
+                       sessionStorage.getItem('pharmacyLoggedIn') === 'true' ||
+                       true; // Remove this line for actual authentication
+            }
+        };
+        
+        window.authSystem = authSystem;
+    </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (!window.authSystem || !window.authSystem.isAuthenticated()) {
+                document.getElementById('protection-overlay').style.display = 'flex';
+            } else {
+                document.getElementById('protection-overlay').style.display = 'none';
+            }
+            
+            // Add click handlers for all cards (for demo purposes)
+            document.querySelectorAll('.part-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!window.authSystem || !window.authSystem.isAuthenticated()) {
+                        e.preventDefault();
+                        document.getElementById('protection-overlay').style.display = 'flex';
+                    }
+                });
+            });
+        });
+
+        function goBackToSession1() {
+            window.location.href = '../session1.html';
+        }
+        
+        // Demo login function (for testing)
+        function demoLogin() {
+            localStorage.setItem('pharmacyLoggedIn', 'true');
+            document.getElementById('protection-overlay').style.display = 'none';
+            alert('Demo login successful! You can now access all content.');
+        }
+    </script>
+</body>
+  </html>
