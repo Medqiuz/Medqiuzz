@@ -231,448 +231,473 @@
     </div>
 
     <script>
+        // Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
         const microbiologyQuestions = [
             {
                 question: "81. Streptococcus pyogenes (Group A) is characterized by:",
                 options: [
-                    "Beta-hemolysis on blood agar and sensitivity to bacitracin",
-                    "Alpha-hemolysis and optochin resistance", 
                     "Gamma-hemolysis and bile solubility",
+                    "Beta-hemolysis on blood agar and sensitivity to bacitracin",
+                    "Alpha-hemolysis and optochin resistance",
                     "Beta-hemolysis and resistance to bacitracin"
                 ],
-                correct: 0,
+                correct: 1,
                 explanation: "S. pyogenes shows complete hemolysis (beta-hemolysis) and is typically sensitive to bacitracin, helping differentiate it from other beta-hemolytic streptococci."
             },
             {
                 question: "82. The M protein of Streptococcus pyogenes:",
                 options: [
-                    "Protects against phagocytosis and is a major virulence factor",
-                    "Is a toxin that causes erythrogenic rash", 
+                    "Is a toxin that causes erythrogenic rash",
                     "Functions as a hemolysin",
-                    "Acts as an enzyme that breaks down blood clots"
+                    "Acts as an enzyme that breaks down blood clots",
+                    "Protects against phagocytosis and is a major virulence factor"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "M protein inhibits complement deposition and phagocytosis, making it a key virulence factor. Antibodies to M protein provide type-specific immunity."
             },
             {
                 question: "83. Acute rheumatic fever is a complication of:",
                 options: [
-                    "Streptococcus pyogenes pharyngitis",
-                    "Staphylococcus aureus skin infection", 
                     "Streptococcus pneumoniae pneumonia",
-                    "Enterococcus faecalis urinary tract infection"
+                    "Enterococcus faecalis urinary tract infection",
+                    "Staphylococcus aureus skin infection",
+                    "Streptococcus pyogenes pharyngitis"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Rheumatic fever follows untreated Group A streptococcal pharyngitis due to molecular mimicry between bacterial antigens and human heart tissue."
             },
             {
                 question: "84. Post-streptococcal glomerulonephritis is caused by:",
                 options: [
-                    "Immune complex deposition in glomeruli",
-                    "Direct bacterial invasion of kidneys", 
                     "Toxin-mediated damage to renal tubules",
+                    "Direct bacterial invasion of kidneys",
+                    "Immune complex deposition in glomeruli",
                     "Autoantibodies against glomerular basement membrane"
                 ],
-                correct: 0,
+                correct: 2,
                 explanation: "Antigen-antibody complexes deposit in glomeruli, activating complement and causing inflammation, typically after skin or throat infections with nephritogenic strains."
             },
             {
                 question: "85. The Dick test was historically used to detect:",
                 options: [
-                    "Susceptibility to scarlet fever",
-                    "Immunity to diphtheria", 
                     "Tuberculosis infection",
-                    "Syphilis antibodies"
+                    "Syphilis antibodies",
+                    "Immunity to diphtheria",
+                    "Susceptibility to scarlet fever"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "The Dick test involved intradermal injection of erythrogenic toxin to determine susceptibility to scarlet fever caused by toxin-producing S. pyogenes strains."
             },
             {
                 question: "86. Streptococcus agalactiae (Group B) is an important cause of:",
                 options: [
-                    "Neonatal sepsis and meningitis",
-                    "Community-acquired pneumonia in adults", 
                     "Food poisoning outbreaks",
-                    "Surgical site infections"
+                    "Surgical site infections",
+                    "Community-acquired pneumonia in adults",
+                    "Neonatal sepsis and meningitis"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Group B streptococcus colonizes the maternal genital tract and can cause severe infections in newborns, including sepsis, meningitis, and pneumonia."
             },
             {
                 question: "87. The CAMP test is used to identify:",
                 options: [
-                    "Streptococcus agalactiae (Group B)",
-                    "Streptococcus pyogenes (Group A)", 
                     "Streptococcus pneumoniae",
-                    "Enterococcus faecalis"
+                    "Streptococcus agalactiae (Group B)",
+                    "Enterococcus faecalis",
+                    "Streptococcus pyogenes (Group A)"
                 ],
-                correct: 0,
+                correct: 1,
                 explanation: "Group B streptococci produce CAMP factor that enhances the hemolysis of Staphylococcus aureus, creating an arrowhead-shaped zone of hemolysis."
             },
             {
                 question: "88. Streptococcus pneumoniae is characterized by:",
                 options: [
-                    "Alpha-hemolysis and bile solubility",
-                    "Beta-hemolysis and bacitracin sensitivity", 
                     "Gamma-hemolysis and optochin resistance",
-                    "Beta-hemolysis and CAMP positivity"
+                    "Beta-hemolysis and CAMP positivity",
+                    "Beta-hemolysis and bacitracin sensitivity",
+                    "Alpha-hemolysis and bile solubility"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "S. pneumoniae shows partial hemolysis (alpha-hemolysis) and is bile-soluble, distinguishing it from viridans streptococci which are bile-resistant."
             },
             {
                 question: "89. The Quellung reaction demonstrates:",
                 options: [
-                    "Capsular swelling of Streptococcus pneumoniae",
-                    "Coagulase production by Staphylococcus aureus", 
                     "Flagellar motility in bacteria",
-                    "Spore formation in Bacillus species"
+                    "Coagulase production by Staphylococcus aureus",
+                    "Spore formation in Bacillus species",
+                    "Capsular swelling of Streptococcus pneumoniae"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "When specific anticapsular antibody binds to the pneumococcal capsule, it appears swollen under the microscope - a positive Quellung reaction used for serotyping."
             },
             {
                 question: "90. Optochin susceptibility helps differentiate:",
                 options: [
-                    "Streptococcus pneumoniae from viridans streptococci",
-                    "Staphylococcus aureus from Staphylococcus epidermidis", 
                     "Group A from Group B streptococci",
-                    "E. coli from Klebsiella pneumoniae"
+                    "E. coli from Klebsiella pneumoniae",
+                    "Staphylococcus aureus from Staphylococcus epidermidis",
+                    "Streptococcus pneumoniae from viridans streptococci"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "S. pneumoniae is optochin-sensitive (inhibition zone >14mm), while viridans streptococci are resistant, helping distinguish these alpha-hemolytic organisms."
             },
             {
                 question: "91. The most common cause of community-acquired pneumonia in adults is:",
                 options: [
-                    "Streptococcus pneumoniae",
-                    "Staphylococcus aureus", 
+                    "Mycoplasma pneumoniae",
                     "Klebsiella pneumoniae",
-                    "Mycoplasma pneumoniae"
+                    "Staphylococcus aureus",
+                    "Streptococcus pneumoniae"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "S. pneumoniae accounts for approximately 50% of community-acquired bacterial pneumonia cases, especially in the elderly and those with underlying conditions."
             },
             {
                 question: "92. Viridans streptococci are commonly associated with:",
                 options: [
-                    "Subacute bacterial endocarditis",
-                    "Urinary tract infections", 
                     "Skin and soft tissue infections",
-                    "Gastroenteritis"
+                    "Gastroenteritis",
+                    "Urinary tract infections",
+                    "Subacute bacterial endocarditis"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Viridans streptococci, normal oral flora, can enter the bloodstream during dental procedures and adhere to damaged heart valves, causing subacute bacterial endocarditis."
             },
             {
                 question: "93. Streptococcus mutans is primarily associated with:",
                 options: [
-                    "Dental caries",
-                    "Pharyngitis", 
+                    "Meningitis",
+                    "Pharyngitis",
                     "Pneumonia",
-                    "Meningitis"
+                    "Dental caries"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "S. mutans metabolizes sucrose to produce glucan, enabling adherence to teeth and contributing significantly to dental plaque formation and cavities."
             },
             {
                 question: "94. Enterococcus species are characterized by:",
                 options: [
-                    "Growth in 6.5% NaCl and bile esculin hydrolysis",
-                    "Beta-hemolysis and bacitracin sensitivity", 
+                    "Catalase production and coagulase positivity",
                     "Alpha-hemolysis and optochin sensitivity",
-                    "Catalase production and coagulase positivity"
+                    "Beta-hemolysis and bacitracin sensitivity",
+                    "Growth in 6.5% NaCl and bile esculin hydrolysis"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Enterococci can grow in high salt concentrations (6.5% NaCl) and hydrolyze esculin in bile, distinguishing them from streptococci."
             },
             {
                 question: "95. Vancomycin-resistant Enterococcus (VRE) is most commonly:",
                 options: [
-                    "Enterococcus faecium",
-                    "Enterococcus faecalis", 
+                    "Enterococcus casseliflavus",
                     "Enterococcus gallinarum",
-                    "Enterococcus casseliflavus"
+                    "Enterococcus faecalis",
+                    "Enterococcus faecium"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "E. faecium shows higher rates of vancomycin resistance compared to E. faecalis, with VanA and VanB being the most clinically significant resistance types."
             },
             {
                 question: "96. Which streptococcal species requires pyridoxal for growth?",
                 options: [
-                    "Streptococcus pneumoniae",
-                    "Streptococcus pyogenes", 
+                    "Streptococcus agalactiae",
                     "Enterococcus faecalis",
-                    "Streptococcus agalactiae"
+                    "Streptococcus pyogenes",
+                    "Streptococcus pneumoniae"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "S. pneumoniae requires pyridoxal (vitamin B6) as a growth factor, which can be used in laboratory identification."
             },
             {
                 question: "97. The ASO (Anti-Streptolysin O) test detects antibodies against:",
                 options: [
-                    "Streptococcus pyogenes",
-                    "Staphylococcus aureus", 
+                    "Mycobacterium tuberculosis",
+                    "Staphylococcus aureus",
                     "Streptococcus pneumoniae",
-                    "Mycobacterium tuberculosis"
+                    "Streptococcus pyogenes"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "ASO titer measures antibodies against streptolysin O, an oxygen-labile hemolysin produced by S. pyogenes, useful in diagnosing recent streptococcal infections."
             },
             {
                 question: "98. Which complication is associated with Streptococcus pyogenes but not Streptococcus agalactiae?",
                 options: [
-                    "Acute rheumatic fever",
-                    "Neonatal sepsis", 
+                    "Urinary tract infections",
+                    "Neonatal sepsis",
                     "Postpartum endometritis",
-                    "Urinary tract infections"
+                    "Acute rheumatic fever"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Rheumatic fever specifically follows S. pyogenes infections due to antigenic mimicry, while S. agalactiae is more associated with neonatal and perinatal infections."
             },
             {
                 question: "99. Which test differentiates Group A from Group B streptococci?",
                 options: [
-                    "Bacitracin susceptibility",
-                    "Bile solubility", 
                     "Optochin susceptibility",
-                    "Coagulase test"
+                    "Bile solubility",
+                    "Coagulase test",
+                    "Bacitracin susceptibility"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Group A streptococci (S. pyogenes) are typically bacitracin-sensitive, while Group B (S. agalactiae) are resistant, providing a useful screening test."
             },
             {
                 question: "100. The 'viridans' group of streptococci gets its name from:",
                 options: [
-                    "Green discoloration on blood agar (alpha-hemolysis)",
-                    "Production of a green pigment", 
+                    "Their virulence factors",
+                    "Production of a green pigment",
                     "Association with vegetation on heart valves",
-                    "Their virulence factors"
+                    "Green discoloration on blood agar (alpha-hemolysis)"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Viridans streptococci produce partial hemolysis on blood agar, resulting in a greenish discoloration around colonies, hence the name 'viridans' (from Latin 'viridis' meaning green)."
             },
             {
                 question: "101. Which streptococcal species is most commonly associated with dental abscesses?",
                 options: [
-                    "Streptococcus anginosus group",
-                    "Streptococcus pyogenes", 
+                    "Streptococcus pneumoniae",
                     "Streptococcus agalactiae",
-                    "Streptococcus pneumoniae"
+                    "Streptococcus pyogenes",
+                    "Streptococcus anginosus group"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "The S. anginosus group (formerly S. milleri) is commonly isolated from dental abscesses and other purulent infections, despite being part of normal oral flora."
             },
             {
                 question: "102. Penicillin remains the drug of choice for:",
                 options: [
-                    "Streptococcus pyogenes infections",
-                    "Methicillin-resistant Staphylococcus aureus", 
+                    "Mycoplasma pneumoniae infections",
+                    "Methicillin-resistant Staphylococcus aureus",
                     "Enterococcus faecium infections",
-                    "Mycoplasma pneumoniae infections"
+                    "Streptococcus pyogenes infections"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "S. pyogenes remains uniformly susceptible to penicillin, making it the preferred treatment for streptococcal pharyngitis and other infections, preventing rheumatic fever."
             },
             {
                 question: "103. Which characteristic is unique to Streptococcus pneumoniae?",
                 options: [
-                    "Bile solubility",
-                    "Catalase production", 
+                    "Growth in 6.5% NaCl",
                     "Coagulase production",
-                    "Growth in 6.5% NaCl"
+                    "Catalase production",
+                    "Bile solubility"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Bile or sodium deoxycholate dissolves S. pneumoniae by activating autolytic enzymes, a property not shared by viridans streptococci."
             },
             {
                 question: "104. Scarlet fever is caused by:",
                 options: [
-                    "Erythrogenic toxin-producing Streptococcus pyogenes",
-                    "Toxic shock syndrome toxin-producing Staphylococcus aureus", 
+                    "Pyocyanin-producing Pseudomonas aeruginosa",
                     "Panton-Valentine leukocidin-producing Staphylococcus aureus",
-                    "Pyocyanin-producing Pseudomonas aeruginosa"
+                    "Toxic shock syndrome toxin-producing Staphylococcus aureus",
+                    "Erythrogenic toxin-producing Streptococcus pyogenes"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Scarlet fever results from infection with S. pyogenes strains that produce erythrogenic (pyrogenic) toxins, causing the characteristic rash and strawberry tongue."
             },
             {
                 question: "105. Which streptococcal species is a common cause of bovine mastitis?",
                 options: [
-                    "Streptococcus agalactiae",
-                    "Streptococcus pyogenes", 
+                    "Enterococcus faecalis",
                     "Streptococcus pneumoniae",
-                    "Enterococcus faecalis"
+                    "Streptococcus pyogenes",
+                    "Streptococcus agalactiae"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "S. agalactiae was historically an important cause of bovine mastitis, though human and bovine strains are typically distinct."
             },
             {
                 question: "106. The Lancefield classification of streptococci is based on:",
                 options: [
-                    "Cell wall carbohydrate antigens",
-                    "Hemolytic patterns on blood agar", 
+                    "Biochemical reactions",
+                    "Hemolytic patterns on blood agar",
                     "Genetic sequencing",
-                    "Biochemical reactions"
+                    "Cell wall carbohydrate antigens"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Rebecca Lancefield developed a serological classification system based on cell wall carbohydrate antigens (A, B, C, etc.), which remains clinically useful."
             },
             {
                 question: "107. Which streptococcal species is pyrrolidonyl arylamidase (PYR) positive?",
                 options: [
-                    "Streptococcus pyogenes and Enterococcus faecalis",
-                    "Streptococcus pneumoniae and Streptococcus agalactiae", 
                     "All viridans streptococci",
-                    "Only Group B streptococci"
+                    "Streptococcus pneumoniae and Streptococcus agalactiae",
+                    "Only Group B streptococci",
+                    "Streptococcus pyogenes and Enterococcus faecalis"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "PYR positivity helps identify S. pyogenes (Group A) and enterococci, providing a rapid screening test in clinical microbiology."
             },
             {
                 question: "108. Erysipelas is typically caused by:",
                 options: [
-                    "Streptococcus pyogenes",
-                    "Staphylococcus aureus", 
+                    "Clostridium perfringens",
                     "Pseudomonas aeruginosa",
-                    "Clostridium perfringens"
+                    "Staphylococcus aureus",
+                    "Streptococcus pyogenes"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Erysipelas is a superficial cellulitis with well-demarcated borders, usually caused by S. pyogenes entering through breaks in the skin."
             },
             {
                 question: "109. Which antibiotic should be avoided in streptococcal pharyngitis treatment?",
                 options: [
-                    "Sulfonamides",
-                    "Penicillin", 
+                    "Cephalexin",
                     "Amoxicillin",
-                    "Cephalexin"
+                    "Penicillin",
+                    "Sulfonamides"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Sulfonamides are bacteriostatic and do not eradicate streptococci from the pharynx, failing to prevent rheumatic fever, unlike bactericidal antibiotics like penicillin."
             },
             {
                 question: "110. Streptococcus bovis group is associated with:",
                 options: [
-                    "Colorectal cancer and endocarditis",
-                    "Neonatal meningitis", 
+                    "Pneumonia in the elderly",
+                    "Neonatal meningitis",
                     "Dental caries",
-                    "Pneumonia in the elderly"
+                    "Colorectal cancer and endocarditis"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "S. bovis bacteremia is strongly associated with colorectal neoplasms, and it's also a cause of endocarditis, particularly in older adults."
             },
             {
                 question: "111. Which streptococcal species produces hyaluronidase?",
                 options: [
-                    "Streptococcus pyogenes",
-                    "Streptococcus pneumoniae", 
+                    "All of the above",
+                    "Streptococcus pneumoniae",
                     "Streptococcus agalactiae",
-                    "All of the above"
+                    "Streptococcus pyogenes"
                 ],
-                correct: 3,
+                correct: 0,
                 explanation: "Many streptococcal species produce hyaluronidase, which breaks down hyaluronic acid in connective tissue, facilitating spread of infection."
             },
             {
                 question: "112. The drug of choice for enterococcal endocarditis is:",
                 options: [
-                    "Ampicillin plus gentamicin",
-                    "Penicillin alone", 
+                    "Ceftriaxone",
                     "Vancomycin alone",
-                    "Ceftriaxone"
+                    "Penicillin alone",
+                    "Ampicillin plus gentamicin"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Combination therapy with a cell wall-active agent (ampicillin or vancomycin) plus an aminoglycoside (gentamicin) provides synergistic bactericidal activity against enterococci."
             },
             {
                 question: "113. Which test helps differentiate streptococci from staphylococci?",
                 options: [
-                    "Catalase test",
-                    "Coagulase test", 
+                    "Bile esculin test",
                     "Oxidase test",
-                    "Bile esculin test"
+                    "Coagulase test",
+                    "Catalase test"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Catalase test is the primary differentiation: staphylococci are catalase-positive (produce bubbles with H₂O₂), while streptococci are catalase-negative."
             },
             {
                 question: "114. Necrotizing fasciitis can be caused by:",
                 options: [
+                    "All of the above",
                     "Streptococcus pyogenes",
-                    "Staphylococcus aureus", 
-                    "Clostridium perfringens",
-                    "All of the above"
+                    "Staphylococcus aureus",
+                    "Clostridium perfringens"
                 ],
-                correct: 3,
+                correct: 0,
                 explanation: "While S. pyogenes is classically associated with necrotizing fasciitis, polymicrobial infections including S. aureus and anaerobes are also common causes."
             },
             {
                 question: "115. Which streptococcal species is most likely to cause infections in patients with sickle cell disease?",
                 options: [
-                    "Streptococcus pneumoniae",
-                    "Streptococcus pyogenes", 
+                    "Enterococcus faecalis",
                     "Streptococcus agalactiae",
-                    "Enterococcus faecalis"
+                    "Streptococcus pyogenes",
+                    "Streptococcus pneumoniae"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Patients with functional asplenia (including sickle cell disease) have impaired clearance of encapsulated bacteria, making them highly susceptible to invasive pneumococcal disease."
             },
             {
                 question: "116. The 'halo' effect around Streptococcus pneumoniae colonies on blood agar is due to:",
                 options: [
-                    "Alpha-hemolysis",
-                    "Beta-hemolysis", 
+                    "Pigment production",
                     "Capsule production",
-                    "Pigment production"
+                    "Beta-hemolysis",
+                    "Alpha-hemolysis"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "S. pneumoniae produces partial hemolysis (alpha-hemolysis) resulting in a greenish zone around colonies, often with a depressed 'halo' appearance."
             },
             {
                 question: "117. Which streptococcal species is intrinsically resistant to vancomycin?",
                 options: [
-                    "None - all are typically susceptible",
-                    "Streptococcus pneumoniae", 
+                    "Enterococcus faecium",
                     "Streptococcus pyogenes",
-                    "Enterococcus faecium"
+                    "Streptococcus pneumoniae",
+                    "None - all are typically susceptible"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Unlike enterococci, streptococci do not have intrinsic vancomycin resistance, though acquired resistance has been reported rarely in S. pneumoniae."
             },
             {
                 question: "118. The most common cause of bacterial meningitis in adults is:",
                 options: [
-                    "Streptococcus pneumoniae",
-                    "Neisseria meningitidis", 
+                    "Listeria monocytogenes",
                     "Haemophilus influenzae",
-                    "Listeria monocytogenes"
+                    "Neisseria meningitidis",
+                    "Streptococcus pneumoniae"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "S. pneumoniae is the leading cause of bacterial meningitis in adults, especially those with risk factors like CSF leak, asplenia, or immunocompromise."
             },
             {
                 question: "119. Which streptococcal species is associated with 'greening' on chocolate agar?",
                 options: [
-                    "Viridans streptococci",
-                    "Streptococcus pyogenes", 
+                    "Streptococcus pneumoniae",
                     "Streptococcus agalactiae",
-                    "Streptococcus pneumoniae"
+                    "Streptococcus pyogenes",
+                    "Viridans streptococci"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Viridans streptococci produce green discoloration on both blood and chocolate agar due to alpha-hemolysis, though the effect may be less pronounced on chocolate agar."
             },
             {
                 question: "120. The recommended prophylaxis for Group B streptococcal disease in newborns is:",
                 options: [
-                    "Intrapartum penicillin for colonized mothers",
-                    "Postpartum antibiotics for all newborns", 
                     "Vaccination during pregnancy",
-                    "No prophylaxis is recommended"
+                    "Postpartum antibiotics for all newborns",
+                    "No prophylaxis is recommended",
+                    "Intrapartum penicillin for colonized mothers"
                 ],
-                correct: 0,
+                correct: 3,
                 explanation: "Screening pregnant women at 35-37 weeks and administering intrapartum penicillin to carriers significantly reduces neonatal Group B streptococcal disease."
             }
         ];
+
+        // Randomize the order of options for each question while keeping correct answers
+        microbiologyQuestions.forEach(question => {
+            // Save the correct answer text
+            const correctAnswer = question.options[question.correct];
+            
+            // Shuffle the options array
+            const shuffledOptions = shuffleArray([...question.options]);
+            
+            // Find the new position of the correct answer
+            const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+            
+            // Update the question object
+            question.options = shuffledOptions;
+            question.correct = newCorrectIndex;
+        });
 
         let currentQuestion = 0;
         let userAnswers = new Array(microbiologyQuestions.length).fill(null);
