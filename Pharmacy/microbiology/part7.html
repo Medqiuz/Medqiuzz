@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microbiology Exam Simulator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9fc;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .exam-info {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            flex-wrap: wrap;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            background-color: #e8f4fc;
+            padding: 10px 15px;
+            border-radius: 6px;
+            min-width: 120px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: #5d6d7e;
+        }
+        
+        .question-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .question-number {
+            font-size: 1.1rem;
+            color: #4a6491;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: #f8fafc;
+            border-color: #b8c4d5;
+        }
+        
+        .option.selected {
+            background-color: #e8f4fc;
+            border-color: #4a90e2;
+        }
+        
+        .option.correct {
+            background-color: #e7f7ef;
+            border-color: #2ecc71;
+        }
+        
+        .option.incorrect {
+            background-color: #fdeaea;
+            border-color: #e74c3c;
+        }
+        
+        .option-label {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            background-color: #edf2f7;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-weight: 600;
+        }
+        
+        .option.selected .option-label {
+            background-color: #4a90e2;
+            color: white;
+        }
+        
+        .option.correct .option-label {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .option.incorrect .option-label {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .feedback-container {
+            display: none;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .feedback-correct {
+            background-color: #e7f7ef;
+            border-left: 5px solid #2ecc71;
+        }
+        
+        .feedback-incorrect {
+            background-color: #fdeaea;
+            border-left: 5px solid #e74c3c;
+        }
+        
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feedback-title i {
+            margin-right: 8px;
+        }
+        
+        .correct-answer {
+            font-weight: 600;
+            color: #2ecc71;
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: #4a6491;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3a547e;
+        }
+        
+        .btn-secondary {
+            background-color: #e0e6ed;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d1d9e6;
+        }
+        
+        .btn-success {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+        
+        button:disabled {
+            background-color: #ecf0f1;
+            color: #95a5a6;
+            cursor: not-allowed;
+        }
+        
+        .progress-container {
+            margin: 25px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #edf2f7;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4a90e2, #2ecc71);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: #5d6d7e;
+        }
+        
+        .results-container {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .results-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .score-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #4a6491;
+            margin-bottom: 10px;
+        }
+        
+        .score-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #5d6d7e;
+        }
+        
+        .results-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .result-stat {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .result-label {
+            font-size: 0.9rem;
+            color: #5d6d7e;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .exam-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stats {
+                justify-content: space-between;
+            }
+            
+            .stat-box {
+                min-width: 45%;
+            }
+            
+            .question-container {
+                padding: 20px 15px;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .stat-box {
+                min-width: 100%;
+            }
+            
+            .option {
+                padding: 12px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Microbiology Exam Simulator</h1>
+            <div class="subtitle">55 Questions | Gram-positive & Gram-negative Bacteria | Virology | Mycology</div>
+        </header>
+        
+        <div class="exam-info">
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="currentQuestion">1</div>
+                    <div class="stat-label">Current Question</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="correctCount">0</div>
+                    <div class="stat-label">Correct</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="incorrectCount">0</div>
+                    <div class="stat-label">Incorrect</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="score">0%</div>
+                    <div class="stat-label">Score</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span>Progress</span>
+                <span id="progressText">1/55</span>
+            </div>
+        </div>
+        
+        <div id="questionContainer">
+            <!-- Question will be dynamically inserted here -->
+        </div>
+        
+        <div class="controls">
+            <button id="prevBtn" class="btn-secondary" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+            <button id="nextBtn" class="btn-primary">Next Question <i class="fas fa-arrow-right"></i></button>
+            <button id="submitBtn" class="btn-success" style="display: none;"><i class="fas fa-paper-plane"></i> Submit Exam</button>
+        </div>
+        
+        <div id="resultsContainer" class="results-container">
+            <!-- Results will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Questions data
+        const questions = [
+            {
+                question: "The arrangement of Staphylococcus on Gram stain is due to:",
+                options: [
+                    "Binary fission in one plane",
+                    "Binary fission in multiple planes",
+                    "Capsule formation",
+                    "Chain formation"
+                ],
+                correctAnswer: "Binary fission in multiple planes",
+                explanation: "Staphylococci divide in multiple planes, producing grape-like clusters."
+            },
+            {
+                question: "The test that differentiates Staphylococcus from Streptococcus is:",
+                options: [
+                    "Coagulase",
+                    "Oxidase",
+                    "Catalase",
+                    "Indole"
+                ],
+                correctAnswer: "Catalase",
+                explanation: "Staphylococci are catalase positive, streptococci are catalase negative."
+            },
+            {
+                question: "Protein A is found in:",
+                options: [
+                    "Streptococcus pyogenes",
+                    "Staphylococcus epidermidis",
+                    "Staphylococcus aureus",
+                    "Enterococcus faecalis"
+                ],
+                correctAnswer: "Staphylococcus aureus",
+                explanation: "Protein A binds Fc portion of IgG, inhibiting opsonization."
+            },
+            {
+                question: "Toxic shock syndrome is caused by:",
+                options: [
+                    "Enterotoxin",
+                    "Exfoliative toxin",
+                    "TSST-1",
+                    "Endotoxin"
+                ],
+                correctAnswer: "TSST-1",
+                explanation: "TSST-1 is a superantigen causing massive cytokine release."
+            },
+            {
+                question: "Novobiocin-resistant Staphylococcus is:",
+                options: [
+                    "S. aureus",
+                    "S. epidermidis",
+                    "S. saprophyticus",
+                    "S. haemolyticus"
+                ],
+                correctAnswer: "S. saprophyticus",
+                explanation: "Used in labs to identify S. saprophyticus."
+            },
+            {
+                question: "The most common cause of prosthetic valve endocarditis:",
+                options: [
+                    "S. aureus",
+                    "S. epidermidis",
+                    "S. pyogenes",
+                    "S. pneumoniae"
+                ],
+                correctAnswer: "S. epidermidis",
+                explanation: "CoNS adhere to prosthetic materials via biofilm formation."
+            },
+            {
+                question: "M protein is a virulence factor of:",
+                options: [
+                    "S. pneumoniae",
+                    "S. pyogenes",
+                    "S. agalactiae",
+                    "Enterococci"
+                ],
+                correctAnswer: "S. pyogenes",
+                explanation: "Prevents phagocytosis in Group A Streptococcus."
+            },
+            {
+                question: "Scarlet fever results from:",
+                options: [
+                    "Capsule",
+                    "Endotoxin",
+                    "Pyrogenic toxin",
+                    "Coagulase"
+                ],
+                correctAnswer: "Pyrogenic toxin",
+                explanation: "Erythrogenic toxin causes rash and fever."
+            },
+            {
+                question: "Lancet-shaped diplococci are characteristic of:",
+                options: [
+                    "S. pyogenes",
+                    "S. aureus",
+                    "S. pneumoniae",
+                    "Enterococcus"
+                ],
+                correctAnswer: "S. pneumoniae",
+                explanation: "Classic morphology of pneumococcus."
+            },
+            {
+                question: "Group B Streptococcus mainly causes:",
+                options: [
+                    "Pharyngitis",
+                    "Neonatal meningitis",
+                    "Dental caries",
+                    "Rheumatic fever"
+                ],
+                correctAnswer: "Neonatal meningitis",
+                explanation: "S. agalactiae is transmitted from mother to newborn."
+            },
+            {
+                question: "Which organism forms spores and causes anthrax?",
+                options: [
+                    "B. cereus",
+                    "B. anthracis",
+                    "C. perfringens",
+                    "C. tetani"
+                ],
+                correctAnswer: "B. anthracis",
+                explanation: "B. anthracis has a capsule and exotoxins."
+            },
+            {
+                question: "Gas gangrene is caused by:",
+                options: [
+                    "C. botulinum",
+                    "C. difficile",
+                    "C. tetani",
+                    "C. perfringens"
+                ],
+                correctAnswer: "C. perfringens",
+                explanation: "Produces alpha toxin causing myonecrosis."
+            },
+            {
+                question: "Drumstick appearance is seen in:",
+                options: [
+                    "C. botulinum",
+                    "C. perfringens",
+                    "C. tetani",
+                    "B. cereus"
+                ],
+                correctAnswer: "C. tetani",
+                explanation: "Terminal spores give tennis-racket shape."
+            },
+            {
+                question: "Botulism causes paralysis due to inhibition of:",
+                options: [
+                    "Glycine",
+                    "GABA",
+                    "Acetylcholine",
+                    "Dopamine"
+                ],
+                correctAnswer: "Acetylcholine",
+                explanation: "Blocks acetylcholine release at neuromuscular junction."
+            },
+            {
+                question: "Pseudomembranous colitis is caused by:",
+                options: [
+                    "C. perfringens",
+                    "C. tetani",
+                    "C. difficile",
+                    "B. cereus"
+                ],
+                correctAnswer: "C. difficile",
+                explanation: "Antibiotic use allows overgrowth producing toxins A and B."
+            },
+            {
+                question: "All Enterobacteriaceae are:",
+                options: [
+                    "Gram positive",
+                    "Obligate anaerobes",
+                    "Facultative anaerobes",
+                    "Acid fast"
+                ],
+                correctAnswer: "Facultative anaerobes",
+                explanation: "They ferment glucose and survive with or without oxygen."
+            },
+            {
+                question: "Lactose-fermenting organism:",
+                options: [
+                    "Salmonella",
+                    "Shigella",
+                    "E. coli",
+                    "Proteus"
+                ],
+                correctAnswer: "E. coli",
+                explanation: "Pink colonies on MacConkey agar."
+            },
+            {
+                question: "EHEC infection may lead to:",
+                options: [
+                    "Typhoid",
+                    "Hemolytic uremic syndrome",
+                    "Cholera",
+                    "Dysentery only"
+                ],
+                correctAnswer: "Hemolytic uremic syndrome",
+                explanation: "Shiga-like toxin damages kidneys."
+            },
+            {
+                question: "Widal test detects antibodies against:",
+                options: [
+                    "K antigen",
+                    "Vi antigen",
+                    "O and H antigens",
+                    "Capsule only"
+                ],
+                correctAnswer: "O and H antigens",
+                explanation: "Used in typhoid fever diagnosis."
+            },
+            {
+                question: "Non-motile Enterobacteriaceae:",
+                options: [
+                    "E. coli",
+                    "Salmonella",
+                    "Klebsiella",
+                    "Proteus"
+                ],
+                correctAnswer: "Klebsiella",
+                explanation: "Thick capsule, no flagella."
+            },
+            {
+                question: "Kidney-shaped diplococci indicate:",
+                options: [
+                    "S. pneumoniae",
+                    "N. meningitidis",
+                    "H. influenzae",
+                    "E. coli"
+                ],
+                correctAnswer: "N. meningitidis",
+                explanation: "Neisseria species morphology."
+            },
+            {
+                question: "Major virulence factor of N. meningitidis:",
+                options: [
+                    "Endospore",
+                    "Capsule",
+                    "Exotoxin",
+                    "Flagella"
+                ],
+                correctAnswer: "Capsule",
+                explanation: "Prevents phagocytosis."
+            },
+            {
+                question: "Waterhouse-Friderichsen syndrome involves:",
+                options: [
+                    "Liver failure",
+                    "Kidney failure",
+                    "Adrenal hemorrhage",
+                    "Brain abscess"
+                ],
+                correctAnswer: "Adrenal hemorrhage",
+                explanation: "Severe meningococcemia causes adrenal failure."
+            },
+            {
+                question: "Drug of choice for gonorrhea:",
+                options: [
+                    "Penicillin",
+                    "Ampicillin",
+                    "Ceftriaxone",
+                    "Vancomycin"
+                ],
+                correctAnswer: "Ceftriaxone",
+                explanation: "Due to widespread penicillin resistance."
+            },
+            {
+                question: "Acid-fastness is due to:",
+                options: [
+                    "Capsule",
+                    "Mycolic acids",
+                    "Spores",
+                    "Pili"
+                ],
+                correctAnswer: "Mycolic acids",
+                explanation: "Lipid-rich cell wall resists decolorization."
+            },
+            {
+                question: "Ziehl-Neelsen stain identifies:",
+                options: [
+                    "Gram-positive cocci",
+                    "Acid-fast bacilli",
+                    "Spores",
+                    "Capsules"
+                ],
+                correctAnswer: "Acid-fast bacilli",
+                explanation: "Used for Mycobacterium tuberculosis."
+            },
+            {
+                question: "Primary transmission of TB:",
+                options: [
+                    "Food",
+                    "Water",
+                    "Aerosol inhalation",
+                    "Skin contact"
+                ],
+                correctAnswer: "Aerosol inhalation",
+                explanation: "Spread via droplets."
+            },
+            {
+                question: "First-line anti-TB drug NOT included:",
+                options: [
+                    "Isoniazid",
+                    "Rifampin",
+                    "Ethambutol",
+                    "Ciprofloxacin"
+                ],
+                correctAnswer: "Ciprofloxacin",
+                explanation: "Ciprofloxacin is second-line."
+            },
+            {
+                question: "Leprosy organism cannot be cultured on:",
+                options: [
+                    "Blood agar",
+                    "LJ medium",
+                    "Artificial media",
+                    "All of the above"
+                ],
+                correctAnswer: "All of the above",
+                explanation: "M. leprae grows only in animals."
+            },
+            {
+                question: "Viruses are:",
+                options: [
+                    "Free-living organisms",
+                    "Obligate intracellular parasites",
+                    "Prokaryotes",
+                    "Fungi"
+                ],
+                correctAnswer: "Obligate intracellular parasites",
+                explanation: "Require host machinery."
+            },
+            {
+                question: "Enveloped viruses are:",
+                options: [
+                    "More resistant",
+                    "Killed by detergents",
+                    "Spread via fomites easily",
+                    "Stable in environment"
+                ],
+                correctAnswer: "Killed by detergents",
+                explanation: "Lipid envelope is fragile."
+            },
+            {
+                question: "Viral capsid is composed of:",
+                options: [
+                    "Lipids",
+                    "Polysaccharides",
+                    "Proteins",
+                    "RNA"
+                ],
+                correctAnswer: "Proteins",
+                explanation: "Protects viral genome."
+            },
+            {
+                question: "Cell wall of fungi contains:",
+                options: [
+                    "Peptidoglycan",
+                    "Chitin",
+                    "Mycolic acid",
+                    "Cellulose"
+                ],
+                correctAnswer: "Chitin",
+                explanation: "Chitin is unique to fungi."
+            },
+            {
+                question: "Dimorphic fungi exist as mold at:",
+                options: [
+                    "37°C",
+                    "25°C",
+                    "0°C",
+                    "60°C"
+                ],
+                correctAnswer: "25°C",
+                explanation: "Mold in environment, yeast in tissue."
+            },
+            {
+                question: "Most common superficial fungal infection:",
+                options: [
+                    "Sporotrichosis",
+                    "Tinea versicolor",
+                    "Histoplasmosis",
+                    "Blastomycosis"
+                ],
+                correctAnswer: "Tinea versicolor",
+                explanation: "Caused by Malassezia furfur."
+            },
+            {
+                question: "KOH mount is used to detect:",
+                options: [
+                    "Viruses",
+                    "Parasites",
+                    "Fungi",
+                    "Bacteria"
+                ],
+                correctAnswer: "Fungi",
+                explanation: "Dissolves keratin to visualize hyphae."
+            },
+            {
+                question: "Amphotericin B acts by binding to:",
+                options: [
+                    "Cholesterol",
+                    "Ergosterol",
+                    "Peptidoglycan",
+                    "DNA"
+                ],
+                correctAnswer: "Ergosterol",
+                explanation: "Creates pores in fungal membrane."
+            },
+            {
+                question: "Facultative anaerobe means:",
+                options: [
+                    "Requires oxygen only",
+                    "Cannot tolerate oxygen",
+                    "Grows with or without oxygen",
+                    "Produces spores"
+                ],
+                correctAnswer: "Grows with or without oxygen",
+                explanation: ""
+            },
+            {
+                question: "Nosocomial infections are commonly caused by:",
+                options: [
+                    "Viruses",
+                    "Protozoa",
+                    "Resistant bacteria",
+                    "Helminths"
+                ],
+                correctAnswer: "Resistant bacteria",
+                explanation: ""
+            },
+            {
+                question: "Biofilm formation is important in:",
+                options: [
+                    "S. epidermidis",
+                    "S. pyogenes",
+                    "S. pneumoniae",
+                    "N. gonorrhoeae"
+                ],
+                correctAnswer: "S. epidermidis",
+                explanation: ""
+            },
+            {
+                question: "Alpha hemolysis shows:",
+                options: [
+                    "Clear zone",
+                    "No hemolysis",
+                    "Green discoloration",
+                    "Black colonies"
+                ],
+                correctAnswer: "Green discoloration",
+                explanation: ""
+            },
+            {
+                question: "Normal flora of skin:",
+                options: [
+                    "S. aureus",
+                    "S. epidermidis",
+                    "S. pyogenes",
+                    "E. coli"
+                ],
+                correctAnswer: "S. epidermidis",
+                explanation: ""
+            },
+            {
+                question: "Enterotoxin causes:",
+                options: [
+                    "Tissue necrosis",
+                    "Fever only",
+                    "Food poisoning",
+                    "Paralysis"
+                ],
+                correctAnswer: "Food poisoning",
+                explanation: ""
+            },
+            {
+                question: "Bacitracin sensitivity identifies:",
+                options: [
+                    "Group B Strep",
+                    "Group A Strep",
+                    "Enterococcus",
+                    "Pneumococcus"
+                ],
+                correctAnswer: "Group A Strep",
+                explanation: ""
+            },
+            {
+                question: "Capsule helps bacteria by:",
+                options: [
+                    "Producing toxin",
+                    "Preventing phagocytosis",
+                    "Increasing motility",
+                    "Forming spores"
+                ],
+                correctAnswer: "Preventing phagocytosis",
+                explanation: ""
+            },
+            {
+                question: "Emetic food poisoning is associated with:",
+                options: [
+                    "Milk",
+                    "Meat",
+                    "Rice",
+                    "Eggs"
+                ],
+                correctAnswer: "Rice",
+                explanation: ""
+            },
+            {
+                question: "Neonatal eye infection at birth:",
+                options: [
+                    "TB",
+                    "Gonorrhea",
+                    "Syphilis",
+                    "Chlamydia only"
+                ],
+                correctAnswer: "Gonorrhea",
+                explanation: ""
+            },
+            {
+                question: "Acid-fast bacilli appear:",
+                options: [
+                    "Blue",
+                    "Green",
+                    "Red",
+                    "Yellow"
+                ],
+                correctAnswer: "Red",
+                explanation: ""
+            },
+            {
+                question: "Opportunistic fungal infections occur mainly in:",
+                options: [
+                    "Athletes",
+                    "Children",
+                    "Immunocompromised",
+                    "Pregnant women"
+                ],
+                correctAnswer: "Immunocompromised",
+                explanation: ""
+            },
+            {
+                question: "Sabouraud agar is used for:",
+                options: [
+                    "Bacteria",
+                    "Viruses",
+                    "Fungi",
+                    "Parasites"
+                ],
+                correctAnswer: "Fungi",
+                explanation: ""
+            },
+            {
+                question: "Endotoxin is part of:",
+                options: [
+                    "Gram-positive wall",
+                    "Gram-negative LPS",
+                    "Capsule",
+                    "Exotoxin"
+                ],
+                correctAnswer: "Gram-negative LPS",
+                explanation: ""
+            },
+            {
+                question: "Viruses lack:",
+                options: [
+                    "Protein",
+                    "Nucleic acid",
+                    "Ribosomes",
+                    "Capsid"
+                ],
+                correctAnswer: "Ribosomes",
+                explanation: ""
+            },
+            {
+                question: "Hyphae are:",
+                options: [
+                    "Spores",
+                    "Filaments of fungi",
+                    "Capsules",
+                    "Bacteria"
+                ],
+                correctAnswer: "Filaments of fungi",
+                explanation: ""
+            },
+            {
+                question: "Septate hyphae have:",
+                options: [
+                    "No cell division",
+                    "Cross walls",
+                    "Spores only",
+                    "Flagella"
+                ],
+                correctAnswer: "Cross walls",
+                explanation: ""
+            },
+            {
+                question: "The most effective TB control strategy:",
+                options: [
+                    "Vaccination only",
+                    "Isolation only",
+                    "DOT therapy",
+                    "Surgery"
+                ],
+                correctAnswer: "DOT therapy",
+                explanation: ""
+            }
+        ];
+
+        // App state
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let shuffledQuestions = [];
+        let questionAnswered = false;
+
+        // DOM elements
+        const questionContainer = document.getElementById('questionContainer');
+        const currentQuestionEl = document.getElementById('currentQuestion');
+        const correctCountEl = document.getElementById('correctCount');
+        const incorrectCountEl = document.getElementById('incorrectCount');
+        const scoreEl = document.getElementById('score');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        // Initialize the app
+        function init() {
+            // Shuffle the questions
+            shuffledQuestions = [...questions];
+            
+            // Randomize the order of options for each question
+            shuffledQuestions.forEach(q => {
+                // Store the correct answer
+                const correct = q.correctAnswer;
+                
+                // Shuffle the options
+                const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+                
+                // Update the question with shuffled options
+                q.options = shuffledOptions;
+                
+                // Update the correct answer index
+                q.correctAnswer = correct; // Still store the text, not index
+            });
+            
+            // Display first question
+            displayQuestion(currentQuestionIndex);
+            updateProgress();
+            updateStats();
+        }
+
+        // Display question at given index
+        function displayQuestion(index) {
+            const question = shuffledQuestions[index];
+            questionAnswered = userAnswers[index] !== null;
+            
+            // Create question HTML
+            let questionHTML = `
+                <div class="question-container">
+                    <div class="question-number">Question ${index + 1} of ${questions.length}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options-container" id="optionsContainer">
+            `;
+            
+            // Create options HTML
+            const optionLabels = ['A', 'B', 'C', 'D'];
+            question.options.forEach((option, i) => {
+                const isSelected = userAnswers[index] === option;
+                const isCorrect = question.correctAnswer === option;
+                let optionClass = "option";
+                
+                if (isSelected && questionAnswered) {
+                    optionClass += isCorrect ? " correct" : " incorrect";
+                } else if (isSelected) {
+                    optionClass += " selected";
+                }
+                
+                questionHTML += `
+                    <div class="${optionClass}" data-option="${option}">
+                        <div class="option-label">${optionLabels[i]}</div>
+                        <div class="option-text">${option}</div>
+                    </div>
+                `;
+            });
+            
+            questionHTML += `</div>`;
+            
+            // Add feedback if answered
+            if (questionAnswered) {
+                const isCorrect = userAnswers[index] === question.correctAnswer;
+                questionHTML += `
+                    <div class="feedback-container ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}">
+                        <div class="feedback-title">
+                            <i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                            ${isCorrect ? 'Correct!' : 'Incorrect!'}
+                        </div>
+                        ${!isCorrect ? `<div>Correct answer: <span class="correct-answer">${question.correctAnswer}</span></div>` : ''}
+                        <div class="explanation">${question.explanation}</div>
+                    </div>
+                `;
+            }
+            
+            questionHTML += `</div>`;
+            
+            // Update question container
+            questionContainer.innerHTML = questionHTML;
+            
+            // Add event listeners to options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', () => selectOption(option.dataset.option));
+            });
+            
+            // Update button states
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = !questionAnswered && index !== questions.length - 1;
+            
+            // Show/hide submit button
+            if (index === questions.length - 1 && questionAnswered) {
+                submitBtn.style.display = 'inline-block';
+                nextBtn.style.display = 'none';
+            } else {
+                submitBtn.style.display = 'none';
+                nextBtn.style.display = 'inline-block';
+            }
+            
+            // Show feedback if already answered
+            if (questionAnswered) {
+                document.querySelector('.feedback-container').style.display = 'block';
+            }
+            
+            // Update current question display
+            currentQuestionEl.textContent = index + 1;
+        }
+
+        // Select an option
+        function selectOption(selectedOption) {
+            if (questionAnswered) return;
+            
+            const question = shuffledQuestions[currentQuestionIndex];
+            const isCorrect = selectedOption === question.correctAnswer;
+            
+            // Store user's answer
+            userAnswers[currentQuestionIndex] = selectedOption;
+            
+            // Update counts
+            if (isCorrect) {
+                correctCount++;
+            } else {
+                incorrectCount++;
+            }
+            
+            questionAnswered = true;
+            
+            // Update display
+            displayQuestion(currentQuestionIndex);
+            updateStats();
+            updateProgress();
+            
+            // Enable next button if not last question
+            if (currentQuestionIndex < questions.length - 1) {
+                nextBtn.disabled = false;
+            } else {
+                submitBtn.style.display = 'inline-block';
+                nextBtn.style.display = 'none';
+            }
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `${currentQuestionIndex + 1}/${questions.length}`;
+        }
+
+        // Update stats
+        function updateStats() {
+            correctCountEl.textContent = correctCount;
+            incorrectCountEl.textContent = incorrectCount;
+            const score = questions.length > 0 ? Math.round((correctCount / questions.length) * 100) : 0;
+            scoreEl.textContent = `${score}%`;
+        }
+
+        // Show results
+        function showResults() {
+            const totalQuestions = questions.length;
+            const score = Math.round((correctCount / totalQuestions) * 100);
+            let resultIcon, resultMessage;
+            
+            if (score >= 80) {
+                resultIcon = '🏆';
+                resultMessage = 'Excellent! You have a strong grasp of microbiology concepts.';
+            } else if (score >= 60) {
+                resultIcon = '👍';
+                resultMessage = 'Good job! You have a solid understanding but could use some review.';
+            } else {
+                resultIcon = '📚';
+                resultMessage = 'Keep studying! Review the explanations and try again.';
+            }
+            
+            const resultsHTML = `
+                <div class="results-icon">${resultIcon}</div>
+                <div class="score-display">${score}%</div>
+                <div class="score-text">${resultMessage}</div>
+                
+                <div class="results-details">
+                    <div class="result-stat">
+                        <div class="result-value">${totalQuestions}</div>
+                        <div class="result-label">Total Questions</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-value">${correctCount}</div>
+                        <div class="result-label">Correct Answers</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-value">${incorrectCount}</div>
+                        <div class="result-label">Incorrect Answers</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-value">${totalQuestions - correctCount - incorrectCount}</div>
+                        <div class="result-label">Unanswered</div>
+                    </div>
+                </div>
+                
+                <button id="restartBtn" class="btn-primary"><i class="fas fa-redo"></i> Restart Exam</button>
+            `;
+            
+            resultsContainer.innerHTML = resultsHTML;
+            resultsContainer.style.display = 'block';
+            questionContainer.style.display = 'none';
+            document.querySelector('.controls').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            document.querySelector('.exam-info').style.display = 'none';
+            
+            // Add event listener to restart button
+            document.getElementById('restartBtn').addEventListener('click', restartExam);
+        }
+
+        // Restart exam
+        function restartExam() {
+            // Reset state
+            currentQuestionIndex = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            correctCount = 0;
+            incorrectCount = 0;
+            shuffledQuestions = [];
+            questionAnswered = false;
+            
+            // Reset UI
+            resultsContainer.style.display = 'none';
+            questionContainer.style.display = 'block';
+            document.querySelector('.controls').style.display = 'flex';
+            document.querySelector('.progress-container').style.display = 'block';
+            document.querySelector('.exam-info').style.display = 'flex';
+            
+            // Reinitialize
+            init();
+        }
+
+        // Event listeners for navigation
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+                updateProgress();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+                updateProgress();
+            }
+        });
+
+        submitBtn.addEventListener('click', () => {
+            // Check if all questions are answered
+            const unanswered = userAnswers.filter(answer => answer === null).length;
+            
+            if (unanswered > 0) {
+                if (confirm(`You have ${unanswered} unanswered questions. Submit anyway?`)) {
+                    showResults();
+                }
+            } else {
+                showResults();
+            }
+        });
+
+        // Initialize the app
+        init();
+    </script>
+</body>
+</html>
