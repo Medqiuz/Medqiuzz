@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heterocyclic Compounds Quiz - MedQuiz</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9ff;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            background-image: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 100, 0.15);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .quiz-info {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f3e5f5;
+            padding: 20px 30px;
+            border-bottom: 2px solid #e1bee7;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            text-align: center;
+            padding: 10px;
+            min-width: 150px;
+        }
+        
+        .info-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4a148c;
+            margin-bottom: 5px;
+        }
+        
+        .info-label {
+            font-size: 0.95rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .quiz-container {
+            padding: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.6rem;
+            color: #4a148c;
+            border-bottom: 3px solid #7b1fa2;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 30px;
+            background-color: #7b1fa2;
+            margin-right: 15px;
+            border-radius: 2px;
+        }
+        
+        .question-card {
+            background-color: #faf4ff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 6px solid #9c27b0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #9c27b0;
+            opacity: 0.3;
+        }
+        
+        .question-card.correct {
+            border-left-color: #27ae60;
+            background-color: #f0fff4;
+        }
+        
+        .question-card.correct::before {
+            background-color: #27ae60;
+        }
+        
+        .question-card.incorrect {
+            border-left-color: #e74c3c;
+            background-color: #fff5f5;
+        }
+        
+        .question-card.incorrect::before {
+            background-color: #e74c3c;
+        }
+        
+        .question-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .question-number {
+            background-color: #4a148c;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 18px;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+        }
+        
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            flex-grow: 1;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+        
+        .options-container {
+            padding-left: 54px;
+        }
+        
+        .option {
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .option:hover {
+            background-color: #f3e5f5;
+            border-color: #ce93d8;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .option.selected {
+            border-color: #9c27b0;
+            background-color: #f3e5f5;
+        }
+        
+        .option.correct {
+            border-color: #27ae60;
+            background-color: #d5f4e6;
+        }
+        
+        .option.incorrect {
+            border-color: #e74c3c;
+            background-color: #ffeaea;
+        }
+        
+        .option-label {
+            display: inline-block;
+            width: 32px;
+            font-weight: bold;
+            color: #4a148c;
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 1rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .feedback.correct {
+            background-color: #e8f7e8;
+            border-left: 5px solid #27ae60;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background-color: #ffebee;
+            border-left: 5px solid #e74c3c;
+            display: block;
+        }
+        
+        .feedback-header {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feedback-header.correct {
+            color: #27ae60;
+        }
+        
+        .feedback-header.incorrect {
+            color: #e74c3c;
+        }
+        
+        .explanation {
+            color: #444;
+            line-height: 1.6;
+        }
+        
+        .true-false-container {
+            display: flex;
+            gap: 20px;
+            padding-left: 54px;
+        }
+        
+        .tf-option {
+            flex: 1;
+            text-align: center;
+            padding: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        
+        .true-option {
+            background-color: #e8f7e8;
+            border: 3px solid #c8e6c9;
+            color: #27ae60;
+        }
+        
+        .false-option {
+            background-color: #ffebee;
+            border: 3px solid #ffcdd2;
+            color: #e74c3c;
+        }
+        
+        .true-option:hover, .true-option.selected {
+            background-color: #c8e6c9;
+            border-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(39, 174, 96, 0.2);
+        }
+        
+        .false-option:hover, .false-option.selected {
+            background-color: #ffcdd2;
+            border-color: #e74c3c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(231, 76, 60, 0.2);
+        }
+        
+        .results-summary {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #f3e5f5 0%, #e3f2fd 100%);
+            border-radius: 16px;
+            margin-top: 40px;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            border: 2px solid #e1bee7;
+        }
+        
+        .results-title {
+            font-size: 2rem;
+            color: #4a148c;
+            margin-bottom: 20px;
+        }
+        
+        .score-display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #7b1fa2;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .score-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .breakdown-item {
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            min-width: 150px;
+        }
+        
+        .breakdown-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4a148c;
+        }
+        
+        .breakdown-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .performance-text {
+            font-size: 1.2rem;
+            color: #444;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        .reset-btn {
+            background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(74, 20, 140, 0.3);
+        }
+        
+        .reset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(74, 20, 140, 0.4);
+        }
+        
+        .progress-bar-container {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 20px 0 30px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #7b1fa2 0%, #4a148c 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+            background-color: #faf4ff;
+        }
+        
+        .quick-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: #f3e5f5;
+            border: 1px solid #e1bee7;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .nav-btn:hover {
+            background-color: #e1bee7;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .info-item {
+                min-width: 100%;
+            }
+            
+            .true-false-container {
+                flex-direction: column;
+                padding-left: 0;
+            }
+            
+            .options-container {
+                padding-left: 0;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .question-number {
+                margin-bottom: 15px;
+            }
+            
+            .score-breakdown {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question-card {
+                padding: 20px;
+            }
+            
+            .score-display {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Heterocyclic Compounds Quiz</h1>
+            <div class="subtitle">Test your knowledge of heterocyclic compounds, their classification, properties, and medicinal applications</div>
+        </header>
+        
+        <div class="quiz-info">
+            <div class="info-item">
+                <div class="info-value">40</div>
+                <div class="info-label">Multiple Choice</div>
+            </div>
+            <div class="info-item">
+                <div class="info-value">10</div>
+                <div class="info-label">True/False</div>
+            </div>
+            <div class="info-item">
+                <div class="info-value" id="score-display">0</div>
+                <div class="info-label">Score</div>
+            </div>
+            <div class="info-item">
+                <div class="info-value" id="progress-display">0%</div>
+                <div class="info-label">Progress</div>
+            </div>
+        </div>
+        
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <h2 class="section-title">Part A: Multiple Choice Questions (1-40)</h2>
+            
+            <!-- Questions 1-40 will be inserted here by JavaScript -->
+            <div id="multiple-choice-questions"></div>
+            
+            <h2 class="section-title">Part B: True/False Questions (41-50)</h2>
+            
+            <!-- Questions 41-50 will be inserted here by JavaScript -->
+            <div id="true-false-questions"></div>
+            
+            <div class="quick-nav" id="quick-nav">
+                <!-- Quick navigation buttons will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="results-summary" id="results-summary">
+                <h3 class="results-title">Quiz Complete!</h3>
+                <p>You've answered all questions. Here's your performance:</p>
+                <div class="score-display" id="final-score">0/50</div>
+                
+                <div class="score-breakdown">
+                    <div class="breakdown-item">
+                        <div class="breakdown-value" id="mcq-score">0/40</div>
+                        <div class="breakdown-label">MCQ Score</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="breakdown-value" id="tf-score">0/10</div>
+                        <div class="breakdown-label">True/False Score</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="breakdown-value" id="percentage">0%</div>
+                        <div class="breakdown-label">Percentage</div>
+                    </div>
+                </div>
+                
+                <p class="performance-text" id="performance-text">Keep studying to improve your knowledge of heterocyclic compounds!</p>
+                <button class="reset-btn" id="reset-btn">Restart Quiz</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Prepared by MedQuiz | Heterocyclic Compounds Examination</p>
+            <p>Based on Chapter 8: Heterocyclic Compounds by Tadesse B. (PhD)</p>
+        </footer>
+    </div>
+
+    <script>
+        // Quiz data - Multiple Choice Questions (1-40)
+        const mcQuestions = [
+            {
+                number: 1,
+                question: "Heterocyclic compounds are cyclic compounds that contain:",
+                options: [
+                    { label: "A", text: "Only carbon atoms in the ring", correct: false },
+                    { label: "B", text: "One or more atoms other than carbon in the ring", correct: true },
+                    { label: "C", text: "Only nitrogen atoms in the ring", correct: false },
+                    { label: "D", text: "Only oxygen atoms in the ring", correct: false }
+                ],
+                explanation: "Heterocyclic compounds are cyclic compounds that have one or more atoms other than carbon in the ring, such as oxygen, nitrogen, or sulfur."
+            },
+            {
+                number: 2,
+                question: "Approximately what fraction of organic compounds are heterocyclic?",
+                options: [
+                    { label: "A", text: "One-tenth", correct: false },
+                    { label: "B", text: "One-fourth", correct: false },
+                    { label: "C", text: "One-third", correct: false },
+                    { label: "D", text: "Two-thirds", correct: true }
+                ],
+                explanation: "Almost two-thirds of organic compounds are heterocyclic compounds."
+            },
+            {
+                number: 3,
+                question: "Which of the following is NOT a common heteroatom in heterocyclic compounds?",
+                options: [
+                    { label: "A", text: "Oxygen (O)", correct: false },
+                    { label: "B", text: "Nitrogen (N)", correct: false },
+                    { label: "C", text: "Sulfur (S)", correct: false },
+                    { label: "D", text: "Phosphorus (P)", correct: true }
+                ],
+                explanation: "The most common heteroatoms in heterocyclic compounds are oxygen (O), nitrogen (N), and sulfur (S). Phosphorus is less common."
+            },
+            {
+                number: 4,
+                question: "Which of these drug molecules contains a heterocyclic structure?",
+                options: [
+                    { label: "A", text: "Artemisinin", correct: true },
+                    { label: "B", text: "Aspirin", correct: false },
+                    { label: "C", text: "Paracetamol", correct: false },
+                    { label: "D", text: "Ibuprofen", correct: false }
+                ],
+                explanation: "Artemisinin, taxol, vincristine, and vinblastine are examples of drug molecules that contain heterocyclic structures."
+            },
+            {
+                number: 5,
+                question: "Heterocyclic compounds that obey Hückel's rule are classified as:",
+                options: [
+                    { label: "A", text: "Aliphatic heterocyclic compounds", correct: false },
+                    { label: "B", text: "Aromatic heterocyclic compounds", correct: true },
+                    { label: "C", text: "Saturated heterocyclic compounds", correct: false },
+                    { label: "D", text: "Non-aromatic heterocyclic compounds", correct: false }
+                ],
+                explanation: "Aromatic heterocyclic compounds obey Hückel's rule: cyclic, planar, no sp³ hybridized atoms, and have (4n+2)π electrons."
+            },
+            {
+                number: 6,
+                question: "Which of the following is an example of an aliphatic heterocyclic compound?",
+                options: [
+                    { label: "A", text: "Pyridine", correct: false },
+                    { label: "B", text: "Tetrahydrofuran (THF)", correct: true },
+                    { label: "C", text: "Furan", correct: false },
+                    { label: "D", text: "Thiophene", correct: false }
+                ],
+                explanation: "Tetrahydrofuran (THF) is an aliphatic (non-aromatic) heterocyclic compound, while pyridine, furan, and thiophene are aromatic."
+            },
+            {
+                number: 7,
+                question: "What is the ring size of pyridine?",
+                options: [
+                    { label: "A", text: "3-membered", correct: false },
+                    { label: "B", text: "4-membered", correct: false },
+                    { label: "C", text: "5-membered", correct: false },
+                    { label: "D", text: "6-membered", correct: true }
+                ],
+                explanation: "Pyridine is a six-membered heterocyclic compound containing one nitrogen atom."
+            },
+            {
+                number: 8,
+                question: "Which heterocyclic compound contains a sulfur atom in a five-membered ring?",
+                options: [
+                    { label: "A", text: "Furan", correct: false },
+                    { label: "B", text: "Pyrrole", correct: false },
+                    { label: "C", text: "Thiophene", correct: true },
+                    { label: "D", text: "Pyridine", correct: false }
+                ],
+                explanation: "Thiophene is a five-membered aromatic heterocyclic compound containing a sulfur atom."
+            },
+            {
+                number: 9,
+                question: "What is the correct prefix for a nitrogen heteroatom in systematic nomenclature?",
+                options: [
+                    { label: "A", text: "Oxa-", correct: false },
+                    { label: "B", text: "Thia-", correct: false },
+                    { label: "C", text: "Aza-", correct: true },
+                    { label: "D", text: "Phospha-", correct: false }
+                ],
+                explanation: "In systematic nomenclature of heterocycles, 'aza-' is the prefix for nitrogen, 'oxa-' for oxygen, and 'thia-' for sulfur."
+            },
+            {
+                number: 10,
+                question: "Which of these heterocycles is an example of a fused or condensed heterocyclic compound?",
+                options: [
+                    { label: "A", text: "Pyridine", correct: false },
+                    { label: "B", text: "Quinoline", correct: true },
+                    { label: "C", text: "Pyrrole", correct: false },
+                    { label: "D", text: "Furan", correct: false }
+                ],
+                explanation: "Quinoline is an example of a fused or condensed heterocyclic compound, containing two fused rings."
+            },
+            {
+                number: 11,
+                question: "Which vitamin contains a heterocyclic structure?",
+                options: [
+                    { label: "A", text: "Vitamin A", correct: false },
+                    { label: "B", text: "Vitamin C", correct: false },
+                    { label: "C", text: "Vitamin B6 (Pyridoxine)", correct: true },
+                    { label: "D", text: "Vitamin D", correct: false }
+                ],
+                explanation: "Many vitamins are heterocyclic compounds. Vitamin B6 (pyridoxine) contains a pyridine ring."
+            },
+            {
+                number: 12,
+                question: "Which of these is a three-membered heterocyclic compound with one nitrogen atom?",
+                options: [
+                    { label: "A", text: "Aziridine", correct: true },
+                    { label: "B", text: "Oxirane", correct: false },
+                    { label: "C", text: "Thiirane", correct: false },
+                    { label: "D", text: "Azetidine", correct: false }
+                ],
+                explanation: "Aziridine is a three-membered heterocyclic compound containing one nitrogen atom. Oxirane contains oxygen, and thiirane contains sulfur."
+            },
+            {
+                number: 13,
+                question: "Which of the following is NOT a five-membered heterocyclic compound with one heteroatom?",
+                options: [
+                    { label: "A", text: "Furan", correct: false },
+                    { label: "B", text: "Pyrrole", correct: false },
+                    { label: "C", text: "Thiophene", correct: false },
+                    { label: "D", text: "Pyridine", correct: true }
+                ],
+                explanation: "Pyridine is a six-membered heterocycle, while furan, pyrrole, and thiophene are five-membered heterocycles with one heteroatom each."
+            },
+            {
+                number: 14,
+                question: "Which heterocyclic compound is found in chlorophyll and heme?",
+                options: [
+                    { label: "A", text: "Pyridine", correct: false },
+                    { label: "B", text: "Pyrrole", correct: true },
+                    { label: "C", text: "Furan", correct: false },
+                    { label: "D", text: "Thiophene", correct: false }
+                ],
+                explanation: "Porphyrins, which are tetrameric pyrrole derivatives, are found in chlorophyll-α and heme."
+            },
+            {
+                number: 15,
+                question: "What is the boiling point of pyrrole?",
+                options: [
+                    { label: "A", text: "31.3°C", correct: false },
+                    { label: "B", text: "84°C", correct: false },
+                    { label: "C", text: "115°C", correct: false },
+                    { label: "D", text: "130.5°C", correct: true }
+                ],
+                explanation: "Pyrrole boils at 130.5°C. Furan boils at 31.3°C, thiophene at approximately 84°C, and pyridine at 115°C."
+            },
+            {
+                number: 16,
+                question: "Which of these drugs contains a pyrrole nucleus?",
+                options: [
+                    { label: "A", text: "Atorvastatin", correct: true },
+                    { label: "B", text: "Ranitidine", correct: false },
+                    { label: "C", text: "Furosemide", correct: false },
+                    { label: "D", text: "Cefuroxime", correct: false }
+                ],
+                explanation: "Atorvastatin contains a pyrrole nucleus. Ranitidine contains a furan ring, furosemide contains a furan ring, and cefuroxime is a cephalosporin antibiotic."
+            },
+            {
+                number: 17,
+                question: "Which furan derivative is used as an antibacterial agent for urinary tract infections?",
+                options: [
+                    { label: "A", text: "Furazolidone", correct: false },
+                    { label: "B", text: "Nitrofurazone", correct: false },
+                    { label: "C", text: "Nitrofurantoin", correct: true },
+                    { label: "D", text: "Ranitidine", correct: false }
+                ],
+                explanation: "Nitrofurantoin is a nitrofuran antibacterial medication used to treat urinary tract infections."
+            },
+            {
+                number: 18,
+                question: "Which thiophene derivative is used as a local anesthetic in dental procedures?",
+                options: [
+                    { label: "A", text: "Tienilic acid", correct: false },
+                    { label: "B", text: "Pyrantel", correct: false },
+                    { label: "C", text: "Articaine", correct: true },
+                    { label: "D", text: "Cephalothin", correct: false }
+                ],
+                explanation: "Articaine is a local anesthetic containing a thiophene ring, used in dental procedures."
+            },
+            {
+                number: 19,
+                question: "What type of heterocyclic compound is pyridine?",
+                options: [
+                    { label: "A", text: "5-membered aromatic heterocycle", correct: false },
+                    { label: "B", text: "6-membered aromatic heterocycle", correct: true },
+                    { label: "C", text: "5-membered aliphatic heterocycle", correct: false },
+                    { label: "D", text: "6-membered aliphatic heterocycle", correct: false }
+                ],
+                explanation: "Pyridine is a six-membered aromatic heterocyclic compound containing one nitrogen atom."
+            },
+            {
+                number: 20,
+                question: "Which pyridine derivative is used as a first-line drug for tuberculosis?",
+                options: [
+                    { label: "A", text: "Ethionamide", correct: false },
+                    { label: "B", text: "Isoniazid", correct: true },
+                    { label: "C", text: "Pyridostigmine", correct: false },
+                    { label: "D", text: "Nicotine", correct: false }
+                ],
+                explanation: "Isoniazid (isonicotinic acid hydrazide) is an antibiotic used as a first-line treatment for tuberculosis."
+            },
+            {
+                number: 21,
+                question: "Which class of drugs containing pyridine structures are used to treat peptic ulcers and GERD?",
+                options: [
+                    { label: "A", text: "Beta-blockers", correct: false },
+                    { label: "B", text: "Proton pump inhibitors", correct: true },
+                    { label: "C", text: "Calcium channel blockers", correct: false },
+                    { label: "D", text: "ACE inhibitors", correct: false }
+                ],
+                explanation: "Proton pump inhibitors (omeprazole, pantoprazole, lansoprazole) contain pyridine structures and are used to treat peptic ulcer disease and GERD."
+            },
+            {
+                number: 22,
+                question: "Oxazole, imidazole, and thiazole are examples of:",
+                options: [
+                    { label: "A", text: "5-membered heterocycles with one heteroatom", correct: false },
+                    { label: "B", text: "5-membered heterocycles with two heteroatoms", correct: true },
+                    { label: "C", text: "6-membered heterocycles with one heteroatom", correct: false },
+                    { label: "D", text: "6-membered heterocycles with two heteroatoms", correct: false }
+                ],
+                explanation: "Oxazole, imidazole, and thiazole are 5-membered heterocyclic compounds containing two heteroatoms, one of which is always nitrogen."
+            },
+            {
+                number: 23,
+                question: "Which imidazole derivative is an important mediator of inflammation and allergic reactions?",
+                options: [
+                    { label: "A", text: "Metronidazole", correct: false },
+                    { label: "B", text: "Histamine", correct: true },
+                    { label: "C", text: "Clotrimazole", correct: false },
+                    { label: "D", text: "Tinidazole", correct: false }
+                ],
+                explanation: "Histamine contains an imidazole ring system and is an important mediator of inflammation, gastric acid secretion, and allergic reactions."
+            },
+            {
+                number: 24,
+                question: "Which thiazole derivative is an essential vitamin (Vitamin B1)?",
+                options: [
+                    { label: "A", text: "Famotidine", correct: false },
+                    { label: "B", text: "Thiamine", correct: true },
+                    { label: "C", text: "Meloxicam", correct: false },
+                    { label: "D", text: "Ceftriaxone", correct: false }
+                ],
+                explanation: "Thiamine (vitamin B1) contains a quaternized thiazole ring and is an essential vitamin."
+            },
+            {
+                number: 25,
+                question: "Which of these is a 1,2-azole heterocyclic compound?",
+                options: [
+                    { label: "A", text: "Imidazole", correct: false },
+                    { label: "B", text: "Oxazole", correct: false },
+                    { label: "C", text: "Thiazole", correct: false },
+                    { label: "D", text: "Isoxazole", correct: true }
+                ],
+                explanation: "Isoxazole, pyrazole, and isothiazole are 1,2-azoles (heteroatoms at positions 1 and 2), while imidazole, oxazole, and thiazole are 1,3-azoles."
+            },
+            {
+                number: 26,
+                question: "Which pyrazole derivative is a COX-2 selective NSAID?",
+                options: [
+                    { label: "A", text: "Celecoxib", correct: true },
+                    { label: "B", text: "Stanozolol", correct: false },
+                    { label: "C", text: "Leflunomide", correct: false },
+                    { label: "D", text: "Valdecoxib", correct: false }
+                ],
+                explanation: "Celecoxib is a COX-2 selective NSAID containing a pyrazole ring. Valdecoxib is also a COX-2 inhibitor but contains an isoxazole ring."
+            },
+            {
+                number: 27,
+                question: "Which isoxazole derivative is used as an immunosuppressive antirheumatic drug?",
+                options: [
+                    { label: "A", text: "Isoxaben", correct: false },
+                    { label: "B", text: "Leflunomide", correct: true },
+                    { label: "C", text: "Cycloserine", correct: false },
+                    { label: "D", text: "Gaboxadol", correct: false }
+                ],
+                explanation: "Leflunomide is an immunosuppressive disease-modifying antirheumatic drug (DMARD) containing an isoxazole ring."
+            },
+            {
+                number: 28,
+                question: "Phenothiazines are primarily known for their use as:",
+                options: [
+                    { label: "A", text: "Antibiotics", correct: false },
+                    { label: "B", text: "Antipsychotics", correct: true },
+                    { label: "C", text: "Antihypertensives", correct: false },
+                    { label: "D", text: "Antidiabetics", correct: false }
+                ],
+                explanation: "Phenothiazines are a class of drugs primarily known as first-generation antipsychotics, revolutionizing psychiatry."
+            },
+            {
+                number: 29,
+                question: "Which phenothiazine is used as an antiemetic for chemotherapy-induced nausea?",
+                options: [
+                    { label: "A", text: "Chlorpromazine", correct: false },
+                    { label: "B", text: "Prochlorperazine", correct: true },
+                    { label: "C", text: "Promethazine", correct: false },
+                    { label: "D", text: "Fluphenazine", correct: false }
+                ],
+                explanation: "Prochlorperazine is a phenothiazine used as an antiemetic for controlling severe nausea and vomiting, including that caused by chemotherapy."
+            },
+            {
+                number: 30,
+                question: "Which of these heterocyclic compounds is NOT aromatic?",
+                options: [
+                    { label: "A", text: "Pyridine", correct: false },
+                    { label: "B", text: "Pyrrole", correct: false },
+                    { label: "C", text: "Tetrahydrofuran", correct: true },
+                    { label: "D", text: "Thiophene", correct: false }
+                ],
+                explanation: "Tetrahydrofuran (THF) is an aliphatic (non-aromatic) heterocyclic compound, while pyridine, pyrrole, and thiophene are aromatic."
+            },
+            {
+                number: 31,
+                question: "Which systematic suffix is used for a saturated 5-membered ring containing nitrogen?",
+                options: [
+                    { label: "A", text: "-iridine", correct: false },
+                    { label: "B", text: "-olidine", correct: true },
+                    { label: "C", text: "-ole", correct: false },
+                    { label: "D", text: "-ine", correct: false }
+                ],
+                explanation: "For 5-membered rings with nitrogen: -ole for maximum unsaturation, -olidine for saturation. -iridine is for 3-membered saturated rings with nitrogen."
+            },
+            {
+                number: 32,
+                question: "In naming heterocycles with different heteroatoms, what determines the order of prefixes?",
+                options: [
+                    { label: "A", text: "Alphabetical order", correct: false },
+                    { label: "B", text: "Size of the atoms", correct: false },
+                    { label: "C", text: "Group number in periodic table, then atomic number", correct: true },
+                    { label: "D", text: "Boiling point of the elements", correct: false }
+                ],
+                explanation: "When more than one distinct heteroatom is present, prefixes are cited in descending order of group number in the periodic table. If in the same group, by increasing atomic number."
+            },
+            {
+                number: 33,
+                question: "Which of these biological molecules contains heterocyclic structures?",
+                options: [
+                    { label: "A", text: "Nucleic acids", correct: true },
+                    { label: "B", text: "Proteins", correct: false },
+                    { label: "C", text: "Lipids", correct: false },
+                    { label: "D", text: "Carbohydrates", correct: false }
+                ],
+                explanation: "Nucleic acids (DNA and RNA) contain heterocyclic bases (purines and pyrimidines)."
+            },
+            {
+                number: 34,
+                question: "What is the primary chemical characteristic of aromatic heterocycles?",
+                options: [
+                    { label: "A", text: "They contain only carbon atoms", correct: false },
+                    { label: "B", text: "They obey Hückel's rule", correct: true },
+                    { label: "C", text: "They are always saturated", correct: false },
+                    { label: "D", text: "They are always aliphatic", correct: false }
+                ],
+                explanation: "Aromatic heterocyclic compounds obey Hückel's rule: cyclic, planar, no sp³ hybridized atoms, and have (4n+2)π electrons."
+            },
+            {
+                number: 35,
+                question: "Which heterocyclic compound is commonly found in coal tar?",
+                options: [
+                    { label: "A", text: "Pyridine", correct: true },
+                    { label: "B", text: "Furan", correct: false },
+                    { label: "C", text: "Imidazole", correct: false },
+                    { label: "D", text: "Oxazole", correct: false }
+                ],
+                explanation: "Pyridine is found in coal tar and bone oil. Thiophene is also found in small amounts in coal tar."
+            },
+            {
+                number: 36,
+                question: "Which of these is a fused heterocyclic system containing both benzene and pyridine rings?",
+                options: [
+                    { label: "A", text: "Indole", correct: false },
+                    { label: "B", text: "Quinoline", correct: true },
+                    { label: "C", text: "Carbazole", correct: false },
+                    { label: "D", text: "Purine", correct: false }
+                ],
+                explanation: "Quinoline is a fused heterocyclic compound containing a benzene ring fused to a pyridine ring."
+            },
+            {
+                number: 37,
+                question: "Which heterocyclic compound is the parent structure of porphyrins like heme and chlorophyll?",
+                options: [
+                    { label: "A", text: "Pyridine", correct: false },
+                    { label: "B", text: "Pyrrole", correct: true },
+                    { label: "C", text: "Furan", correct: false },
+                    { label: "D", text: "Thiophene", correct: false }
+                ],
+                explanation: "Porphyrins are tetrameric pyrrole derivatives. Heme (in hemoglobin) and chlorophyll contain porphyrin structures."
+            },
+            {
+                number: 38,
+                question: "What is the approximate boiling point of furan?",
+                options: [
+                    { label: "A", text: "31.3°C", correct: true },
+                    { label: "B", text: "84°C", correct: false },
+                    { label: "C", text: "115°C", correct: false },
+                    { label: "D", text: "130.5°C", correct: false }
+                ],
+                explanation: "Furan has a boiling point of 31.3°C. It is a highly flammable, volatile liquid with a strong, ethereal odor."
+            },
+            {
+                number: 39,
+                question: "Which of these drugs contains a thiophene ring?",
+                options: [
+                    { label: "A", text: "Tienilic acid", correct: true },
+                    { label: "B", text: "Ranitidine", correct: false },
+                    { label: "C", text: "Atorvastatin", correct: false },
+                    { label: "D", text: "Isoniazid", correct: false }
+                ],
+                explanation: "Tienilic acid is a loop diuretic with uricosuric action that contains a thiophene ring. Ranitidine contains a furan ring, atorvastatin contains a pyrrole ring, and isoniazid contains a pyridine ring."
+            },
+            {
+                number: 40,
+                question: "Which application is NOT mentioned for heterocyclic compounds?",
+                options: [
+                    { label: "A", text: "Pharmaceuticals", correct: false },
+                    { label: "B", text: "Agrochemicals", correct: false },
+                    { label: "C", text: "Construction materials", correct: true },
+                    { label: "D", text: "Dyes and plastics", correct: false }
+                ],
+                explanation: "Heterocyclic compounds are used in pharmaceuticals, agrochemicals, dyes, plastics, corrosion inhibitors, sanitizers, and as starting materials in organic synthesis, but not specifically mentioned as construction materials."
+            }
+        ];
+
+        // True/False Questions (41-50)
+        const tfQuestions = [
+            { number: 41, question: "Heterocyclic compounds always contain nitrogen as the heteroatom.", answer: false, explanation: "Heterocyclic compounds can contain various heteroatoms including oxygen (O), nitrogen (N), sulfur (S), and others." },
+            { number: 42, question: "Almost two-thirds of organic compounds are heterocyclic compounds.", answer: true, explanation: "Approximately 2/3 of organic compounds are heterocyclic compounds." },
+            { number: 43, question: "Pyridine is an example of a five-membered heterocyclic compound.", answer: false, explanation: "Pyridine is a six-membered heterocyclic compound containing one nitrogen atom." },
+            { number: 44, question: "Aromatic heterocyclic compounds must obey Hückel's rule.", answer: true, explanation: "Aromatic heterocyclic compounds are cyclic, planar, have no sp³ hybridized atoms, and contain (4n+2)π electrons, following Hückel's rule." },
+            { number: 45, question: "Tetrahydrofuran (THF) is an aromatic heterocyclic compound.", answer: false, explanation: "Tetrahydrofuran (THF) is an aliphatic (non-aromatic) heterocyclic compound. It is saturated and does not obey Hückel's rule." },
+            { number: 46, question: "The prefix 'oxa-' is used for oxygen heteroatoms in systematic nomenclature.", answer: true, explanation: "In systematic nomenclature of heterocycles, 'oxa-' is the prefix for oxygen, 'aza-' for nitrogen, and 'thia-' for sulfur." },
+            { number: 47, question: "Pyrrole, furan, and thiophene are all five-membered aromatic heterocycles with one heteroatom.", answer: true, explanation: "Pyrrole (N), furan (O), and thiophene (S) are five-membered aromatic heterocycles, each with one heteroatom." },
+            { number: 48, question: "All vitamins are heterocyclic compounds.", answer: false, explanation: "While many vitamins contain heterocyclic structures (like vitamin B6), not all vitamins are necessarily heterocyclic compounds." },
+            { number: 49, question: "Phenothiazines are used only as antipsychotic drugs.", answer: false, explanation: "Phenothiazines are used as antipsychotics, antiemetics, antihistamines, and sedatives. They have multiple therapeutic applications." },
+            { number: 50, question: "Heterocyclic compounds have applications in pharmaceuticals, agrochemicals, and dyes.", answer: true, explanation: "Heterocyclic compounds are widely used in pharmaceuticals, agrochemicals, dyes, plastics, corrosion inhibitors, and sanitizers." }
+        ];
+
+        // Track user answers and score
+        let userAnswers = {};
+        let score = 0;
+        let totalQuestions = mcQuestions.length + tfQuestions.length;
+
+        // Initialize the quiz
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMCQuestions();
+            renderTFQuestions();
+            renderQuickNav();
+            updateScoreDisplay();
+            updateProgress();
+            
+            // Add event listener for reset button
+            document.getElementById('reset-btn').addEventListener('click', resetQuiz);
+        });
+
+        // Render multiple choice questions
+        function renderMCQuestions() {
+            const mcContainer = document.getElementById('multiple-choice-questions');
+            mcContainer.innerHTML = '';
+            
+            mcQuestions.forEach(q => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.id = `q${q.number}`;
+                
+                let optionsHTML = '';
+                q.options.forEach(opt => {
+                    optionsHTML += `
+                        <div class="option" data-question="${q.number}" data-option="${opt.label}">
+                            <span class="option-label">${opt.label}</span>
+                            <span class="option-text">${opt.text}</span>
+                        </div>
+                    `;
+                });
+                
+                questionCard.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">${q.number}</div>
+                        <div class="question-text">${q.question}</div>
+                    </div>
+                    <div class="options-container">
+                        ${optionsHTML}
+                    </div>
+                    <div class="feedback" id="feedback-${q.number}">
+                        <div class="feedback-header"></div>
+                        <div class="explanation">${q.explanation}</div>
+                    </div>
+                `;
+                
+                mcContainer.appendChild(questionCard);
+                
+                // Add event listeners to options
+                const options = questionCard.querySelectorAll('.option');
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        handleMCOptionClick(q.number, this.dataset.option);
+                    });
+                });
+            });
+        }
+
+        // Render true/false questions
+        function renderTFQuestions() {
+            const tfContainer = document.getElementById('true-false-questions');
+            tfContainer.innerHTML = '';
+            
+            tfQuestions.forEach(q => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.id = `q${q.number}`;
+                
+                questionCard.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">${q.number}</div>
+                        <div class="question-text">${q.question}</div>
+                    </div>
+                    <div class="true-false-container">
+                        <div class="tf-option true-option" data-question="${q.number}" data-answer="true">True</div>
+                        <div class="tf-option false-option" data-question="${q.number}" data-answer="false">False</div>
+                    </div>
+                    <div class="feedback" id="feedback-${q.number}">
+                        <div class="feedback-header"></div>
+                        <div class="explanation">${q.explanation}</div>
+                    </div>
+                `;
+                
+                tfContainer.appendChild(questionCard);
+                
+                // Add event listeners to true/false options
+                const trueOption = questionCard.querySelector('.true-option');
+                const falseOption = questionCard.querySelector('.false-option');
+                
+                trueOption.addEventListener('click', function() {
+                    handleTFOptionClick(q.number, true);
+                });
+                
+                falseOption.addEventListener('click', function() {
+                    handleTFOptionClick(q.number, false);
+                });
+            });
+        }
+
+        // Render quick navigation buttons
+        function renderQuickNav() {
+            const quickNav = document.getElementById('quick-nav');
+            quickNav.innerHTML = '';
+            
+            // Create buttons for each section
+            const sections = [
+                { label: "MCQs 1-10", start: 1, end: 10 },
+                { label: "MCQs 11-20", start: 11, end: 20 },
+                { label: "MCQs 21-30", start: 21, end: 30 },
+                { label: "MCQs 31-40", start: 31, end: 40 },
+                { label: "True/False 41-50", start: 41, end: 50 }
+            ];
+            
+            sections.forEach(section => {
+                const button = document.createElement('div');
+                button.className = 'nav-btn';
+                button.textContent = section.label;
+                button.addEventListener('click', function() {
+                    document.getElementById(`q${section.start}`).scrollIntoView({ behavior: 'smooth' });
+                });
+                quickNav.appendChild(button);
+            });
+        }
+
+        // Handle multiple choice option click
+        function handleMCOptionClick(questionNum, selectedOption) {
+            const question = mcQuestions.find(q => q.number === questionNum);
+            const questionCard = document.getElementById(`q${questionNum}`);
+            const feedback = document.getElementById(`feedback-${questionNum}`);
+            const feedbackHeader = feedback.querySelector('.feedback-header');
+            const allOptions = questionCard.querySelectorAll('.option');
+            
+            // Find correct option
+            const correctOption = question.options.find(opt => opt.correct);
+            
+            // Remove any existing selection
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            const selectedElement = questionCard.querySelector(`[data-option="${selectedOption}"]`);
+            selectedElement.classList.add('selected');
+            
+            // Check if answer is correct
+            const isCorrect = selectedOption === correctOption.label;
+            
+            // Update UI based on correctness
+            if (isCorrect) {
+                selectedElement.classList.add('correct');
+                questionCard.classList.add('correct');
+                questionCard.classList.remove('incorrect');
+                feedback.classList.add('correct');
+                feedback.classList.remove('incorrect');
+                feedbackHeader.className = 'feedback-header correct';
+                feedbackHeader.innerHTML = '<strong>✓ Correct!</strong>';
+                feedback.innerHTML = `<div class="feedback-header correct"><strong>✓ Correct!</strong></div><div class="explanation">${question.explanation}</div>`;
+            } else {
+                selectedElement.classList.add('incorrect');
+                questionCard.classList.add('incorrect');
+                questionCard.classList.remove('correct');
+                feedback.classList.add('incorrect');
+                feedback.classList.remove('correct');
+                feedbackHeader.className = 'feedback-header incorrect';
+                feedbackHeader.innerHTML = '<strong>✗ Incorrect</strong>';
+                feedback.innerHTML = `<div class="feedback-header incorrect"><strong>✗ Incorrect. The correct answer is ${correctOption.label}: ${correctOption.text}</strong></div><div class="explanation">${question.explanation}</div>`;
+                
+                // Also highlight the correct answer
+                const correctElement = questionCard.querySelector(`[data-option="${correctOption.label}"]`);
+                correctElement.classList.add('correct');
+            }
+            
+            // Store user answer
+            userAnswers[questionNum] = {
+                selected: selectedOption,
+                correct: correctOption.label,
+                isCorrect: isCorrect
+            };
+            
+            // Update score and progress
+            updateScore();
+            updateProgress();
+            checkQuizCompletion();
+        }
+
+        // Handle true/false option click
+        function handleTFOptionClick(questionNum, selectedAnswer) {
+            const question = tfQuestions.find(q => q.number === questionNum);
+            const questionCard = document.getElementById(`q${questionNum}`);
+            const feedback = document.getElementById(`feedback-${questionNum}`);
+            const feedbackHeader = feedback.querySelector('.feedback-header');
+            const trueOption = questionCard.querySelector('.true-option');
+            const falseOption = questionCard.querySelector('.false-option');
+            
+            // Remove any existing selection
+            trueOption.classList.remove('selected');
+            falseOption.classList.remove('selected');
+            
+            // Mark selected option
+            if (selectedAnswer) {
+                trueOption.classList.add('selected');
+            } else {
+                falseOption.classList.add('selected');
+            }
+            
+            // Check if answer is correct
+            const isCorrect = selectedAnswer === question.answer;
+            
+            // Update UI based on correctness
+            if (isCorrect) {
+                questionCard.classList.add('correct');
+                questionCard.classList.remove('incorrect');
+                feedback.classList.add('correct');
+                feedback.classList.remove('incorrect');
+                feedbackHeader.className = 'feedback-header correct';
+                feedbackHeader.innerHTML = '<strong>✓ Correct!</strong>';
+                feedback.innerHTML = `<div class="feedback-header correct"><strong>✓ Correct!</strong></div><div class="explanation">${question.explanation}</div>`;
+            } else {
+                questionCard.classList.add('incorrect');
+                questionCard.classList.remove('correct');
+                feedback.classList.add('incorrect');
+                feedback.classList.remove('correct');
+                feedbackHeader.className = 'feedback-header incorrect';
+                feedbackHeader.innerHTML = '<strong>✗ Incorrect</strong>';
+                const correctAnswerText = question.answer ? "True" : "False";
+                feedback.innerHTML = `<div class="feedback-header incorrect"><strong>✗ Incorrect. The correct answer is ${correctAnswerText}.</strong></div><div class="explanation">${question.explanation}</div>`;
+            }
+            
+            // Store user answer
+            userAnswers[questionNum] = {
+                selected: selectedAnswer,
+                correct: question.answer,
+                isCorrect: isCorrect
+            };
+            
+            // Update score and progress
+            updateScore();
+            updateProgress();
+            checkQuizCompletion();
+        }
+
+        // Update the score
+        function updateScore() {
+            score = 0;
+            for (const qNum in userAnswers) {
+                if (userAnswers[qNum].isCorrect) {
+                    score++;
+                }
+            }
+            updateScoreDisplay();
+        }
+
+        // Update the score display
+        function updateScoreDisplay() {
+            document.getElementById('score-display').textContent = score;
+        }
+
+        // Update progress bar and display
+        function updateProgress() {
+            const answeredCount = Object.keys(userAnswers).length;
+            const progressPercentage = Math.round((answeredCount / totalQuestions) * 100);
+            
+            document.getElementById('progress-display').textContent = `${progressPercentage}%`;
+            document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+        }
+
+        // Check if all questions are answered
+        function checkQuizCompletion() {
+            const answeredCount = Object.keys(userAnswers).length;
+            
+            if (answeredCount === totalQuestions) {
+                showResults();
+            }
+        }
+
+        // Show final results
+        function showResults() {
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const finalScoreElement = document.getElementById('final-score');
+            const performanceText = document.getElementById('performance-text');
+            
+            finalScoreElement.textContent = `${score}/${totalQuestions}`;
+            
+            // Calculate MCQ and TF scores
+            let mcqScore = 0;
+            let tfScore = 0;
+            
+            for (const qNum in userAnswers) {
+                const qNumInt = parseInt(qNum);
+                if (userAnswers[qNum].isCorrect) {
+                    if (qNumInt <= 40) {
+                        mcqScore++;
+                    } else {
+                        tfScore++;
+                    }
+                }
+            }
+            
+            document.getElementById('mcq-score').textContent = `${mcqScore}/40`;
+            document.getElementById('tf-score').textContent = `${tfScore}/10`;
+            document.getElementById('percentage').textContent = `${percentage}%`;
+            
+            // Set performance message based on score
+            let performanceMessage = '';
+            if (percentage >= 90) {
+                performanceMessage = "Outstanding! You have mastered heterocyclic compounds and their medicinal applications.";
+            } else if (percentage >= 80) {
+                performanceMessage = "Excellent work! You have a strong understanding of heterocyclic compounds and their significance in pharmacy.";
+            } else if (percentage >= 70) {
+                performanceMessage = "Good job! You have a solid foundation in heterocyclic chemistry.";
+            } else if (percentage >= 60) {
+                performanceMessage = "Fair understanding. Review the explanations to strengthen your knowledge of heterocyclic compounds.";
+            } else {
+                performanceMessage = "Keep studying! Review the explanations and try again to improve your score.";
+            }
+            
+            performanceText.textContent = performanceMessage;
+            
+            // Show results summary
+            document.getElementById('results-summary').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('results-summary').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Reset the quiz
+        function resetQuiz() {
+            userAnswers = {};
+            score = 0;
+            
+            // Reset all question cards
+            const allQuestionCards = document.querySelectorAll('.question-card');
+            allQuestionCards.forEach(card => {
+                card.classList.remove('correct', 'incorrect');
+                
+                // Reset options
+                const options = card.querySelectorAll('.option, .tf-option');
+                options.forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Hide feedback
+                const feedback = card.querySelector('.feedback');
+                if (feedback) {
+                    feedback.classList.remove('correct', 'incorrect');
+                    feedback.style.display = 'none';
+                }
+            });
+            
+            // Hide results
+            document.getElementById('results-summary').style.display = 'none';
+            
+            // Update score display and progress
+            updateScoreDisplay();
+            updateProgress();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+  </html>
