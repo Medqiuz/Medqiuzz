@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terpenes and Terpenoids Quiz - MedQuiz</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f7ff;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 150, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c6e91 0%, #4a90e2 100%);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .quiz-info {
+            display: flex;
+            justify-content: space-between;
+            background-color: #e8f4ff;
+            padding: 15px 30px;
+            border-bottom: 2px solid #d0e7ff;
+        }
+        
+        .info-item {
+            text-align: center;
+        }
+        
+        .info-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c6e91;
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .quiz-container {
+            padding: 25px 30px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #2c6e91;
+            border-bottom: 2px solid #e0f0ff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            margin-top: 25px;
+        }
+        
+        .question-card {
+            background-color: #f9fbff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #4a90e2;
+            transition: all 0.3s ease;
+        }
+        
+        .question-card.correct {
+            border-left-color: #4CAF50;
+            background-color: #f0fff0;
+        }
+        
+        .question-card.incorrect {
+            border-left-color: #f44336;
+            background-color: #fff5f5;
+        }
+        
+        .question-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .question-number {
+            background-color: #4a90e2;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+        
+        .options-container {
+            padding-left: 47px;
+        }
+        
+        .option {
+            margin-bottom: 10px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: #f0f7ff;
+            border-color: #a0c8ff;
+        }
+        
+        .option.selected {
+            border-color: #4a90e2;
+            background-color: #e8f2ff;
+        }
+        
+        .option.correct {
+            border-color: #4CAF50;
+            background-color: #e8f7e8;
+        }
+        
+        .option.incorrect {
+            border-color: #f44336;
+            background-color: #ffebee;
+        }
+        
+        .option-label {
+            display: inline-block;
+            width: 30px;
+            font-weight: bold;
+            color: #4a90e2;
+            margin-right: 10px;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background-color: #e8f7e8;
+            border-left: 4px solid #4CAF50;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            display: block;
+        }
+        
+        .explanation {
+            margin-top: 8px;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .true-false-container {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .tf-option {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .true-option {
+            background-color: #e8f7e8;
+            border: 2px solid #c8e6c9;
+            color: #2e7d32;
+        }
+        
+        .false-option {
+            background-color: #ffebee;
+            border: 2px solid #ffcdd2;
+            color: #c62828;
+        }
+        
+        .true-option:hover, .true-option.selected {
+            background-color: #c8e6c9;
+            border-color: #4CAF50;
+        }
+        
+        .false-option:hover, .false-option.selected {
+            background-color: #ffcdd2;
+            border-color: #f44336;
+        }
+        
+        .results-summary {
+            text-align: center;
+            padding: 20px;
+            background-color: #f0f7ff;
+            border-radius: 10px;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .results-title {
+            font-size: 1.5rem;
+            color: #2c6e91;
+            margin-bottom: 15px;
+        }
+        
+        .score-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #4a90e2;
+            margin: 20px 0;
+        }
+        
+        .reset-btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+        }
+        
+        .reset-btn:hover {
+            background-color: #2c6e91;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .true-false-container {
+                flex-direction: column;
+            }
+            
+            .options-container {
+                padding-left: 0;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .question-number {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Terpenes and Terpenoids Quiz</h1>
+            <div class="subtitle">Test your knowledge of terpene classification, structure, and properties</div>
+        </header>
+        
+        <div class="quiz-info">
+            <div class="info-item">
+                <div class="info-value">24</div>
+                <div class="info-label">Multiple Choice</div>
+            </div>
+            <div class="info-item">
+                <div class="info-value">30</div>
+                <div class="info-label">True/False</div>
+            </div>
+            <div class="info-item">
+                <div class="info-value" id="score-display">0</div>
+                <div class="info-label">Score</div>
+            </div>
+        </div>
+        
+        <div class="quiz-container">
+            <h2 class="section-title">Part A: Multiple Choice Questions</h2>
+            
+            <!-- Questions 1-24 will be inserted here by JavaScript -->
+            <div id="multiple-choice-questions"></div>
+            
+            <h2 class="section-title">Part B: True/False Questions</h2>
+            
+            <!-- Questions 25-54 will be inserted here by JavaScript -->
+            <div id="true-false-questions"></div>
+            
+            <div class="results-summary" id="results-summary">
+                <h3 class="results-title">Quiz Complete!</h3>
+                <p>You've answered all questions. Here's your performance:</p>
+                <div class="score-display" id="final-score">0/54</div>
+                <p id="performance-text">Keep studying to improve your knowledge of terpenes and terpenoids!</p>
+                <button class="reset-btn" id="reset-btn">Restart Quiz</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Prepared by MedQuiz | Terpenes and Terpenoids Examination</p>
+        </footer>
+    </div>
+
+    <script>
+        // Quiz data - Multiple Choice Questions (1-24)
+        const mcQuestions = [
+            {
+                number: 1,
+                question: "Terpenes are classified as:",
+                options: [
+                    { label: "A", text: "Primary metabolites", correct: false },
+                    { label: "B", text: "Secondary metabolites", correct: true },
+                    { label: "C", text: "Alkaloids", correct: false },
+                    { label: "D", text: "Glycosides", correct: false }
+                ],
+                explanation: "Terpenes are produced from enzymatic reactions of primary metabolites and are classified as secondary metabolites."
+            },
+            {
+                number: 2,
+                question: "The basic building unit of terpenes is:",
+                options: [
+                    { label: "A", text: "Acetyl-CoA", correct: false },
+                    { label: "B", text: "Mevalonic acid", correct: false },
+                    { label: "C", text: "Isoprene", correct: true },
+                    { label: "D", text: "Farnesyl pyrophosphate", correct: false }
+                ],
+                explanation: "Terpenes are composed of repeating five-carbon isoprene (C₅H₈) units."
+            },
+            {
+                number: 3,
+                question: "Chemically, isoprene is:",
+                options: [
+                    { label: "A", text: "1,3-pentadiene", correct: false },
+                    { label: "B", text: "2-methyl-1,3-butadiene", correct: true },
+                    { label: "C", text: "1-methyl-2-butene", correct: false },
+                    { label: "D", text: "Cyclopentene", correct: false }
+                ],
+                explanation: "Isoprene is chemically 2-methyl-1,3-butadiene."
+            },
+            {
+                number: 4,
+                question: "The general molecular formula of terpenes is:",
+                options: [
+                    { label: "A", text: "(C₂H₄)ₙ", correct: false },
+                    { label: "B", text: "(C₆H₆)ₙ", correct: false },
+                    { label: "C", text: "(C₅H₈)ₙ", correct: true },
+                    { label: "D", text: "(C₁₀H₁₆)ₙ", correct: false }
+                ],
+                explanation: "Terpenes follow the general formula (C₅H₈)ₙ."
+            },
+            {
+                number: 5,
+                question: "Terpenoids differ from terpenes because terpenoids:",
+                options: [
+                    { label: "A", text: "Are synthetic", correct: false },
+                    { label: "B", text: "Are hydrocarbons only", correct: false },
+                    { label: "C", text: "Contain oxygen or modified methyl groups", correct: true },
+                    { label: "D", text: "Exist only in animals", correct: false }
+                ],
+                explanation: "Terpenoids are oxygenated or structurally modified derivatives of terpenes."
+            },
+            {
+                number: 6,
+                question: "Which compound is the principal component of turpentine oil?",
+                options: [
+                    { label: "A", text: "Limonene", correct: false },
+                    { label: "B", text: "α-Pinene", correct: true },
+                    { label: "C", text: "Camphor", correct: false },
+                    { label: "D", text: "Menthol", correct: false }
+                ],
+                explanation: "α-Pinene is the main odorous hydrocarbon in turpentine."
+            },
+            {
+                number: 7,
+                question: "Who first proposed the isoprene rule?",
+                options: [
+                    { label: "A", text: "Ruzicka", correct: false },
+                    { label: "B", text: "Otto Wallach", correct: true },
+                    { label: "C", text: "Fischer", correct: false },
+                    { label: "D", text: "Kekulé", correct: false }
+                ],
+                explanation: "Otto Wallach proposed the isoprene rule in 1887."
+            },
+            {
+                number: 8,
+                question: "According to the isoprene rule, terpenes are formed mainly by:",
+                options: [
+                    { label: "A", text: "Head-to-head linkage", correct: false },
+                    { label: "B", text: "Tail-to-tail linkage", correct: false },
+                    { label: "C", text: "Head-to-tail linkage", correct: true },
+                    { label: "D", text: "Random linkage", correct: false }
+                ],
+                explanation: "Most terpenoids are formed by head-to-tail joining of isoprene units."
+            },
+            {
+                number: 9,
+                question: "Carbon 1 of isoprene is called the:",
+                options: [
+                    { label: "A", text: "Tail", correct: false },
+                    { label: "B", text: "Head", correct: true },
+                    { label: "C", text: "Bridge", correct: false },
+                    { label: "D", text: "Core", correct: false }
+                ],
+                explanation: "Carbon 1 is the 'head' and carbon 4 is the 'tail'."
+            },
+            {
+                number: 10,
+                question: "Which linkage is MOST common in natural terpenes?",
+                options: [
+                    { label: "A", text: "1–1", correct: false },
+                    { label: "B", text: "4–4", correct: false },
+                    { label: "C", text: "1–4", correct: true },
+                    { label: "D", text: "2–3", correct: false }
+                ],
+                explanation: "Head-to-tail (1–4) linkage predominates."
+            },
+            {
+                number: 11,
+                question: "β-Carotene is considered an irregular terpene because it:",
+                options: [
+                    { label: "A", text: "Is oxygenated", correct: false },
+                    { label: "B", text: "Violates head-to-tail linkage", correct: true },
+                    { label: "C", text: "Is synthetic", correct: false },
+                    { label: "D", text: "Is aromatic", correct: false }
+                ],
+                explanation: "β-Carotene shows tail-to-tail linkage, violating the isoprene rule."
+            },
+            {
+                number: 12,
+                question: "Hemiterpenoids contain how many carbon atoms?",
+                options: [
+                    { label: "A", text: "3", correct: false },
+                    { label: "B", text: "5", correct: true },
+                    { label: "C", text: "10", correct: false },
+                    { label: "D", text: "15", correct: false }
+                ],
+                explanation: "Hemiterpenoids consist of one isoprene unit (C₅)."
+            },
+            {
+                number: 13,
+                question: "Monoterpenoids contain:",
+                options: [
+                    { label: "A", text: "One isoprene unit", correct: false },
+                    { label: "B", text: "Two isoprene units", correct: true },
+                    { label: "C", text: "Three isoprene units", correct: false },
+                    { label: "D", text: "Four isoprene units", correct: false }
+                ],
+                explanation: "Monoterpenoids are made of two isoprene units (C₁₀)."
+            },
+            {
+                number: 14,
+                question: "Artemisinin is classified as a:",
+                options: [
+                    { label: "A", text: "Monoterpene", correct: false },
+                    { label: "B", text: "Sesquiterpene", correct: true },
+                    { label: "C", text: "Diterpene", correct: false },
+                    { label: "D", text: "Triterpene", correct: false }
+                ],
+                explanation: "Artemisinin contains three isoprene units (C₁₅)."
+            },
+            {
+                number: 15,
+                question: "Taxol (paclitaxel) belongs to which class?",
+                options: [
+                    { label: "A", text: "Sesquiterpenes", correct: false },
+                    { label: "B", text: "Diterpenes", correct: true },
+                    { label: "C", text: "Triterpenes", correct: false },
+                    { label: "D", text: "Tetraterpenes", correct: false }
+                ],
+                explanation: "Taxol is a diterpene with 20 carbons."
+            },
+            {
+                number: 16,
+                question: "Squalene is classified as a:",
+                options: [
+                    { label: "A", text: "Diterpene", correct: false },
+                    { label: "B", text: "Triterpene", correct: true },
+                    { label: "C", text: "Tetraterpene", correct: false },
+                    { label: "D", text: "Polyterpene", correct: false }
+                ],
+                explanation: "Squalene contains 30 carbons (6 isoprene units)."
+            },
+            {
+                number: 17,
+                question: "Lycopene belongs to:",
+                options: [
+                    { label: "A", text: "Triterpenes", correct: false },
+                    { label: "B", text: "Diterpenes", correct: false },
+                    { label: "C", text: "Tetraterpenes", correct: true },
+                    { label: "D", text: "Polyterpenes", correct: false }
+                ],
+                explanation: "Lycopene has 40 carbons (8 isoprene units)."
+            },
+            {
+                number: 18,
+                question: "The immediate precursor of most terpenoids is:",
+                options: [
+                    { label: "A", text: "Acetyl-CoA", correct: false },
+                    { label: "B", text: "Mevalonic acid", correct: false },
+                    { label: "C", text: "IPP", correct: true },
+                    { label: "D", text: "Farnesol", correct: false }
+                ],
+                explanation: "Isopentenyl pyrophosphate (IPP) is the universal building block."
+            },
+            {
+                number: 19,
+                question: "IPP is isomerized to:",
+                options: [
+                    { label: "A", text: "Geranyl PP", correct: false },
+                    { label: "B", text: "Farnesyl PP", correct: false },
+                    { label: "C", text: "DMAPP", correct: true },
+                    { label: "D", text: "Squalene", correct: false }
+                ],
+                explanation: "IPP is converted to dimethylallyl pyrophosphate (DMAPP)."
+            },
+            {
+                number: 20,
+                question: "Geranyl pyrophosphate is the precursor of:",
+                options: [
+                    { label: "A", text: "Sesquiterpenes", correct: false },
+                    { label: "B", text: "Monoterpenes", correct: true },
+                    { label: "C", text: "Diterpenes", correct: false },
+                    { label: "D", text: "Triterpenes", correct: false }
+                ],
+                explanation: "GPP leads to formation of monoterpenes."
+            },
+            {
+                number: 21,
+                question: "Which monoterpene is used as a decongestant?",
+                options: [
+                    { label: "A", text: "Limonene", correct: false },
+                    { label: "B", text: "Menthol", correct: true },
+                    { label: "C", text: "Camphor", correct: false },
+                    { label: "D", text: "Thymol", correct: false }
+                ],
+                explanation: "Menthol is widely used in decongestants and cough preparations."
+            },
+            {
+                number: 22,
+                question: "Which compound gives citrus its fragrance?",
+                options: [
+                    { label: "A", text: "Camphor", correct: false },
+                    { label: "B", text: "Limonene", correct: true },
+                    { label: "C", text: "Linalool", correct: false },
+                    { label: "D", text: "Thymol", correct: false }
+                ],
+                explanation: "D-Limonene is the major citrus peel fragrance."
+            },
+            {
+                number: 23,
+                question: "Linalool is best described as:",
+                options: [
+                    { label: "A", text: "Cyclic monoterpene", correct: false },
+                    { label: "B", text: "Acyclic monoterpene alcohol", correct: true },
+                    { label: "C", text: "Sesquiterpene ketone", correct: false },
+                    { label: "D", text: "Diterpene acid", correct: false }
+                ],
+                explanation: "Linalool is an acyclic monoterpene alcohol."
+            },
+            {
+                number: 24,
+                question: "Camphor is an example of a:",
+                options: [
+                    { label: "A", text: "Solid terpene", correct: true },
+                    { label: "B", text: "Polyterpene", correct: false },
+                    { label: "C", text: "Tetraterpene", correct: false },
+                    { label: "D", text: "Glycoside", correct: false }
+                ],
+                explanation: "Camphor is one of the few terpenes that exists as a solid."
+            }
+        ];
+
+        // True/False Questions (25-54)
+        const tfQuestions = [
+            { number: 25, question: "Terpenes are heavier than water.", answer: false, explanation: "They have low specific gravity and usually float on water." },
+            { number: 26, question: "Most terpenes are optically inactive.", answer: false, explanation: "Most terpenes are optically active." },
+            { number: 27, question: "Terpenes readily undergo addition reactions.", answer: true, explanation: "Due to the presence of double bonds." },
+            { number: 28, question: "Terpenes are resistant to oxidation.", answer: false, explanation: "Olefinic bonds make them easily oxidized." },
+            { number: 29, question: "On heating, terpenoids may yield isoprene.", answer: true, explanation: "Thermal decomposition often releases isoprene units." },
+            { number: 30, question: "All terpenes strictly obey the isoprene rule.", answer: false, explanation: "Irregular terpenes like β-carotene violate it." },
+            { number: 31, question: "Cyclic terpenes may contain cross-linkages.", answer: true, explanation: "Some linkages are neither 1-1 nor 1-4 nor 4-4." },
+            { number: 32, question: "Monoterpenes contain 15 carbon atoms.", answer: false, explanation: "They contain 10 carbons." },
+            { number: 33, question: "Sesquiterpenes are composed of three isoprene units.", answer: true, explanation: "3 × 5 = 15 carbons." },
+            { number: 34, question: "Diterpenes form the basis of vitamin A.", answer: true, explanation: "Vitamin A is derived from cleavage of tetraterpenes but is C₂₀-based." },
+            { number: 35, question: "Phytol is part of chlorophyll.", answer: true, explanation: "It forms the lipophilic side chain." },
+            { number: 36, question: "Squalene is formed by head-to-tail linkage.", answer: false, explanation: "It is formed by tail-to-tail linkage of farnesyl PP." },
+            { number: 37, question: "Carotenoids are tetraterpenes.", answer: true, explanation: "They contain eight isoprene units (C₄₀)." },
+            { number: 38, question: "β-Carotene is converted to vitamin A in the liver.", answer: true, explanation: "It is a provitamin A compound." },
+            { number: 39, question: "Lycopene has antioxidant properties.", answer: true, explanation: "It reduces oxidative damage linked to cancer and heart disease." },
+            { number: 40, question: "Terpenoids have no pharmaceutical importance.", answer: false, explanation: "They are used as anticancer, antimicrobial, anti-inflammatory agents." },
+            { number: 41, question: "Artemisinin is an antimalarial drug.", answer: true, explanation: "It is a sesquiterpene lactone used against malaria." },
+            { number: 42, question: "Paclitaxel is used in cancer chemotherapy.", answer: true, explanation: "It is effective against breast, ovarian, and lung cancer." },
+            { number: 43, question: "Terpenes are commonly used in perfumes and cosmetics.", answer: true, explanation: "Due to their aromatic and volatile nature." },
+            { number: 44, question: "Menthol is used in respiratory medicines.", answer: true, explanation: "It acts as a decongestant and soothing agent." },
+            { number: 45, question: "Terpenoids show antimicrobial activity.", answer: true, explanation: "Many terpenoids exhibit antibacterial, antifungal, and antiviral effects." },
+            { number: 46, question: "Terpenoids are limited to plant sources only.", answer: false, explanation: "They also occur in animals, fungi, insects, and marine organisms." },
+            { number: 47, question: "Natural rubber is a polyterpene.", answer: true, explanation: "It consists of long chains of isoprene units." },
+            { number: 48, question: "Ginkgolides have cardioprotective effects.", answer: true, explanation: "They inhibit platelet-activating factor." },
+            { number: 49, question: "Terpenes are used as pesticides in agriculture.", answer: true, explanation: "They act as natural defensive compounds." },
+            { number: 50, question: "Terpenoids generally have fewer functional groups than terpenes.", answer: false, explanation: "Terpenoids are more functionalized and oxygenated." },
+            { number: 51, question: "Mevalonic acid is a key precursor in terpene biosynthesis.", answer: true, explanation: "It leads to IPP formation." },
+            { number: 52, question: "Geraniol is a monoterpenoid alcohol.", answer: true, explanation: "It results from hydrolysis of geranyl pyrophosphate." },
+            { number: 53, question: "Linalool exists as enantiomers.", answer: true, explanation: "It has (R) and (S) forms with different odors." },
+            { number: 54, question: "Terpenes are non-combustible compounds.", answer: false, explanation: "They are highly combustible hydrocarbons." }
+        ];
+
+        // Track user answers and score
+        let userAnswers = {};
+        let score = 0;
+        let totalQuestions = mcQuestions.length + tfQuestions.length;
+
+        // Initialize the quiz
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMCQuestions();
+            renderTFQuestions();
+            updateScoreDisplay();
+            
+            // Add event listener for reset button
+            document.getElementById('reset-btn').addEventListener('click', resetQuiz);
+        });
+
+        // Render multiple choice questions
+        function renderMCQuestions() {
+            const mcContainer = document.getElementById('multiple-choice-questions');
+            mcContainer.innerHTML = '';
+            
+            mcQuestions.forEach(q => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.id = `q${q.number}`;
+                
+                let optionsHTML = '';
+                q.options.forEach(opt => {
+                    optionsHTML += `
+                        <div class="option" data-question="${q.number}" data-option="${opt.label}">
+                            <span class="option-label">${opt.label}</span>
+                            <span class="option-text">${opt.text}</span>
+                        </div>
+                    `;
+                });
+                
+                questionCard.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">${q.number}</div>
+                        <div class="question-text">${q.question}</div>
+                    </div>
+                    <div class="options-container">
+                        ${optionsHTML}
+                    </div>
+                    <div class="feedback" id="feedback-${q.number}">
+                        <div class="explanation">${q.explanation}</div>
+                    </div>
+                `;
+                
+                mcContainer.appendChild(questionCard);
+                
+                // Add event listeners to options
+                const options = questionCard.querySelectorAll('.option');
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        handleMCOptionClick(q.number, this.dataset.option);
+                    });
+                });
+            });
+        }
+
+        // Render true/false questions
+        function renderTFQuestions() {
+            const tfContainer = document.getElementById('true-false-questions');
+            tfContainer.innerHTML = '';
+            
+            tfQuestions.forEach(q => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.id = `q${q.number}`;
+                
+                questionCard.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">${q.number}</div>
+                        <div class="question-text">${q.question}</div>
+                    </div>
+                    <div class="true-false-container">
+                        <div class="tf-option true-option" data-question="${q.number}" data-answer="true">True</div>
+                        <div class="tf-option false-option" data-question="${q.number}" data-answer="false">False</div>
+                    </div>
+                    <div class="feedback" id="feedback-${q.number}">
+                        <div class="explanation">${q.explanation}</div>
+                    </div>
+                `;
+                
+                tfContainer.appendChild(questionCard);
+                
+                // Add event listeners to true/false options
+                const trueOption = questionCard.querySelector('.true-option');
+                const falseOption = questionCard.querySelector('.false-option');
+                
+                trueOption.addEventListener('click', function() {
+                    handleTFOptionClick(q.number, true);
+                });
+                
+                falseOption.addEventListener('click', function() {
+                    handleTFOptionClick(q.number, false);
+                });
+            });
+        }
+
+        // Handle multiple choice option click
+        function handleMCOptionClick(questionNum, selectedOption) {
+            const question = mcQuestions.find(q => q.number === questionNum);
+            const questionCard = document.getElementById(`q${questionNum}`);
+            const feedback = document.getElementById(`feedback-${questionNum}`);
+            const allOptions = questionCard.querySelectorAll('.option');
+            
+            // Find correct option
+            const correctOption = question.options.find(opt => opt.correct);
+            
+            // Remove any existing selection
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            const selectedElement = questionCard.querySelector(`[data-option="${selectedOption}"]`);
+            selectedElement.classList.add('selected');
+            
+            // Check if answer is correct
+            const isCorrect = selectedOption === correctOption.label;
+            
+            // Update UI based on correctness
+            if (isCorrect) {
+                selectedElement.classList.add('correct');
+                questionCard.classList.add('correct');
+                questionCard.classList.remove('incorrect');
+                feedback.classList.add('correct');
+                feedback.classList.remove('incorrect');
+                feedback.innerHTML = `<strong>Correct!</strong><div class="explanation">${question.explanation}</div>`;
+            } else {
+                selectedElement.classList.add('incorrect');
+                questionCard.classList.add('incorrect');
+                questionCard.classList.remove('correct');
+                feedback.classList.add('incorrect');
+                feedback.classList.remove('correct');
+                feedback.innerHTML = `<strong>Incorrect. The correct answer is ${correctOption.label}: ${correctOption.text}</strong><div class="explanation">${question.explanation}</div>`;
+                
+                // Also highlight the correct answer
+                const correctElement = questionCard.querySelector(`[data-option="${correctOption.label}"]`);
+                correctElement.classList.add('correct');
+            }
+            
+            // Store user answer
+            userAnswers[questionNum] = {
+                selected: selectedOption,
+                correct: correctOption.label,
+                isCorrect: isCorrect
+            };
+            
+            // Update score
+            updateScore();
+            checkQuizCompletion();
+        }
+
+        // Handle true/false option click
+        function handleTFOptionClick(questionNum, selectedAnswer) {
+            const question = tfQuestions.find(q => q.number === questionNum);
+            const questionCard = document.getElementById(`q${questionNum}`);
+            const feedback = document.getElementById(`feedback-${questionNum}`);
+            const trueOption = questionCard.querySelector('.true-option');
+            const falseOption = questionCard.querySelector('.false-option');
+            
+            // Remove any existing selection
+            trueOption.classList.remove('selected');
+            falseOption.classList.remove('selected');
+            
+            // Mark selected option
+            if (selectedAnswer) {
+                trueOption.classList.add('selected');
+            } else {
+                falseOption.classList.add('selected');
+            }
+            
+            // Check if answer is correct
+            const isCorrect = selectedAnswer === question.answer;
+            
+            // Update UI based on correctness
+            if (isCorrect) {
+                questionCard.classList.add('correct');
+                questionCard.classList.remove('incorrect');
+                feedback.classList.add('correct');
+                feedback.classList.remove('incorrect');
+                feedback.innerHTML = `<strong>Correct!</strong><div class="explanation">${question.explanation}</div>`;
+            } else {
+                questionCard.classList.add('incorrect');
+                questionCard.classList.remove('correct');
+                feedback.classList.add('incorrect');
+                feedback.classList.remove('correct');
+                const correctAnswerText = question.answer ? "True" : "False";
+                feedback.innerHTML = `<strong>Incorrect. The correct answer is ${correctAnswerText}.</strong><div class="explanation">${question.explanation}</div>`;
+            }
+            
+            // Store user answer
+            userAnswers[questionNum] = {
+                selected: selectedAnswer,
+                correct: question.answer,
+                isCorrect: isCorrect
+            };
+            
+            // Update score
+            updateScore();
+            checkQuizCompletion();
+        }
+
+        // Update the score
+        function updateScore() {
+            score = 0;
+            for (const qNum in userAnswers) {
+                if (userAnswers[qNum].isCorrect) {
+                    score++;
+                }
+            }
+            updateScoreDisplay();
+        }
+
+        // Update the score display
+        function updateScoreDisplay() {
+            document.getElementById('score-display').textContent = score;
+        }
+
+        // Check if all questions are answered
+        function checkQuizCompletion() {
+            const answeredCount = Object.keys(userAnswers).length;
+            
+            if (answeredCount === totalQuestions) {
+                showResults();
+            }
+        }
+
+        // Show final results
+        function showResults() {
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const finalScoreElement = document.getElementById('final-score');
+            const performanceText = document.getElementById('performance-text');
+            
+            finalScoreElement.textContent = `${score}/${totalQuestions} (${percentage}%)`;
+            
+            // Set performance message based on score
+            let performanceMessage = '';
+            if (percentage >= 90) {
+                performanceMessage = "Excellent! You have a comprehensive understanding of terpenes and terpenoids.";
+            } else if (percentage >= 75) {
+                performanceMessage = "Very good! You have a solid understanding of terpenes and terpenoids.";
+            } else if (percentage >= 60) {
+                performanceMessage = "Good effort! Review the explanations to strengthen your knowledge.";
+            } else {
+                performanceMessage = "Keep studying! Review the explanations and try again.";
+            }
+            
+            performanceText.textContent = performanceMessage;
+            
+            // Show results summary
+            document.getElementById('results-summary').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('results-summary').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Reset the quiz
+        function resetQuiz() {
+            userAnswers = {};
+            score = 0;
+            
+            // Reset all question cards
+            const allQuestionCards = document.querySelectorAll('.question-card');
+            allQuestionCards.forEach(card => {
+                card.classList.remove('correct', 'incorrect');
+                
+                // Reset options
+                const options = card.querySelectorAll('.option, .tf-option');
+                options.forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Hide feedback
+                const feedback = card.querySelector('.feedback');
+                if (feedback) {
+                    feedback.classList.remove('correct', 'incorrect');
+                    feedback.style.display = 'none';
+                }
+            });
+            
+            // Hide results
+            document.getElementById('results-summary').style.display = 'none';
+            
+            // Update score display
+            updateScoreDisplay();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+  </html>
