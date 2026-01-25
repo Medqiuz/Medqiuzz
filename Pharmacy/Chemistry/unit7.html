@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nucleic Acids & Purines Quiz - MedQuiz</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9ff;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 100, 0.15);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a5f7a 0%, #2a9d8f 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .quiz-info {
+            display: flex;
+            justify-content: space-around;
+            background-color: #e3f2fd;
+            padding: 20px 30px;
+            border-bottom: 2px solid #bbdefb;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            text-align: center;
+            padding: 10px;
+            min-width: 150px;
+        }
+        
+        .info-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1a5f7a;
+            margin-bottom: 5px;
+        }
+        
+        .info-label {
+            font-size: 0.95rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .quiz-container {
+            padding: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.6rem;
+            color: #1a5f7a;
+            border-bottom: 3px solid #2a9d8f;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 30px;
+            background-color: #2a9d8f;
+            margin-right: 15px;
+            border-radius: 2px;
+        }
+        
+        .question-card {
+            background-color: #f8fdff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 6px solid #4a90e2;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #4a90e2;
+            opacity: 0.3;
+        }
+        
+        .question-card.correct {
+            border-left-color: #27ae60;
+            background-color: #f0fff4;
+        }
+        
+        .question-card.correct::before {
+            background-color: #27ae60;
+        }
+        
+        .question-card.incorrect {
+            border-left-color: #e74c3c;
+            background-color: #fff5f5;
+        }
+        
+        .question-card.incorrect::before {
+            background-color: #e74c3c;
+        }
+        
+        .question-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .question-number {
+            background-color: #1a5f7a;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 18px;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+        }
+        
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            flex-grow: 1;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+        
+        .options-container {
+            padding-left: 54px;
+        }
+        
+        .option {
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .option:hover {
+            background-color: #f0f7ff;
+            border-color: #90caf9;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .option.selected {
+            border-color: #4a90e2;
+            background-color: #e8f4ff;
+        }
+        
+        .option.correct {
+            border-color: #27ae60;
+            background-color: #d5f4e6;
+        }
+        
+        .option.incorrect {
+            border-color: #e74c3c;
+            background-color: #ffeaea;
+        }
+        
+        .option-label {
+            display: inline-block;
+            width: 32px;
+            font-weight: bold;
+            color: #1a5f7a;
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 1rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .feedback.correct {
+            background-color: #e8f7e8;
+            border-left: 5px solid #27ae60;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background-color: #ffebee;
+            border-left: 5px solid #e74c3c;
+            display: block;
+        }
+        
+        .feedback-header {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feedback-header.correct {
+            color: #27ae60;
+        }
+        
+        .feedback-header.incorrect {
+            color: #e74c3c;
+        }
+        
+        .explanation {
+            color: #444;
+            line-height: 1.6;
+        }
+        
+        .true-false-container {
+            display: flex;
+            gap: 20px;
+            padding-left: 54px;
+        }
+        
+        .tf-option {
+            flex: 1;
+            text-align: center;
+            padding: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        
+        .true-option {
+            background-color: #e8f7e8;
+            border: 3px solid #c8e6c9;
+            color: #27ae60;
+        }
+        
+        .false-option {
+            background-color: #ffebee;
+            border: 3px solid #ffcdd2;
+            color: #e74c3c;
+        }
+        
+        .true-option:hover, .true-option.selected {
+            background-color: #c8e6c9;
+            border-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(39, 174, 96, 0.2);
+        }
+        
+        .false-option:hover, .false-option.selected {
+            background-color: #ffcdd2;
+            border-color: #e74c3c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(231, 76, 60, 0.2);
+        }
+        
+        .results-summary {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border-radius: 16px;
+            margin-top: 40px;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            border: 2px solid #bbdefb;
+        }
+        
+        .results-title {
+            font-size: 2rem;
+            color: #1a5f7a;
+            margin-bottom: 20px;
+        }
+        
+        .score-display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #2a9d8f;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .score-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .breakdown-item {
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            min-width: 150px;
+        }
+        
+        .breakdown-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1a5f7a;
+        }
+        
+        .breakdown-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .performance-text {
+            font-size: 1.2rem;
+            color: #444;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        .reset-btn {
+            background: linear-gradient(135deg, #2a9d8f 0%, #1a5f7a 100%);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(26, 95, 122, 0.3);
+        }
+        
+        .reset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(26, 95, 122, 0.4);
+        }
+        
+        .progress-bar-container {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 20px 0 30px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2a9d8f 0%, #1a5f7a 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+            background-color: #f8fdff;
+        }
+        
+        .quick-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .nav-btn:hover {
+            background-color: #bbdefb;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .info-item {
+                min-width: 100%;
+            }
+            
+            .true-false-container {
+                flex-direction: column;
+                padding-left: 0;
+            }
+            
+            .options-container {
+                padding-left: 0;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .question-number {
+                margin-bottom: 15px;
+            }
+            
+            .score-breakdown {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question-card {
+                padding: 20px;
+            }
+            
+            .score-display {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Nucleic Acids & Purines Quiz</h1>
+            <div class="subtitle">Test your knowledge of DNA, RNA, purine metabolism, and related pharmacology</div>
+        </header>
+        
+        <div class="quiz-info">
+            <div class="info-item">
+                <div class="info-value">40</div>
+                <div class="info-label">Multiple Choice</div>
+            </div>
+            <div class="info-item">
+                <div class="info-value">10</div>
+                <div class="info-label">True/False</div>
+            </div>
+            <div class="info-item">
+                <div class="info-value" id="score-display">0</div>
+                <div class="info-label">Score</div>
+            </div>
+            <div class="info-item">
+                <div class="info-value" id="progress-display">0%</div>
+                <div class="info-label">Progress</div>
+            </div>
+        </div>
+        
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <h2 class="section-title">Part A: Multiple Choice Questions (1-40)</h2>
+            
+            <!-- Questions 1-40 will be inserted here by JavaScript -->
+            <div id="multiple-choice-questions"></div>
+            
+            <h2 class="section-title">Part B: True/False Questions (41-50)</h2>
+            
+            <!-- Questions 41-50 will be inserted here by JavaScript -->
+            <div id="true-false-questions"></div>
+            
+            <div class="quick-nav" id="quick-nav">
+                <!-- Quick navigation buttons will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="results-summary" id="results-summary">
+                <h3 class="results-title">Quiz Complete!</h3>
+                <p>You've answered all questions. Here's your performance:</p>
+                <div class="score-display" id="final-score">0/50</div>
+                
+                <div class="score-breakdown">
+                    <div class="breakdown-item">
+                        <div class="breakdown-value" id="mcq-score">0/40</div>
+                        <div class="breakdown-label">MCQ Score</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="breakdown-value" id="tf-score">0/10</div>
+                        <div class="breakdown-label">True/False Score</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="breakdown-value" id="percentage">0%</div>
+                        <div class="breakdown-label">Percentage</div>
+                    </div>
+                </div>
+                
+                <p class="performance-text" id="performance-text">Keep studying to improve your knowledge of nucleic acids and purine metabolism!</p>
+                <button class="reset-btn" id="reset-btn">Restart Quiz</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Prepared by MedQuiz | Nucleic Acids Examination</p>
+            <p>Topics: DNA structure, RNA composition, purine metabolism, gout, and related drugs</p>
+        </footer>
+    </div>
+
+    <script>
+        // Quiz data - Multiple Choice Questions (1-40)
+        const mcQuestions = [
+            {
+                number: 1,
+                question: "The first isolation of DNA was done by:",
+                options: [
+                    { label: "A", text: "Watson", correct: false },
+                    { label: "B", text: "Crick", correct: false },
+                    { label: "C", text: "Johann Friedrich Miescher", correct: true },
+                    { label: "D", text: "Chargaff", correct: false }
+                ],
+                explanation: "Miescher isolated 'nuclein' from WBC nuclei in 1869."
+            },
+            {
+                number: 2,
+                question: "Nucleic acids are characterized by the presence of:",
+                options: [
+                    { label: "A", text: "Sulfur", correct: false },
+                    { label: "B", text: "Phosphorus", correct: true },
+                    { label: "C", text: "Iron", correct: false },
+                    { label: "D", text: "Calcium", correct: false }
+                ],
+                explanation: "Elemental analysis shows phosphorus but no sulfur."
+            },
+            {
+                number: 3,
+                question: "Complete hydrolysis of DNA yields all EXCEPT:",
+                options: [
+                    { label: "A", text: "Inorganic phosphate", correct: false },
+                    { label: "B", text: "2-deoxyribose", correct: false },
+                    { label: "C", text: "Adenine", correct: false },
+                    { label: "D", text: "Uracil", correct: true }
+                ],
+                explanation: "Uracil is found in RNA, not DNA."
+            },
+            {
+                number: 4,
+                question: "Purines are:",
+                options: [
+                    { label: "A", text: "Six-membered rings", correct: false },
+                    { label: "B", text: "Five-membered rings", correct: false },
+                    { label: "C", text: "Fused six- and five-membered rings", correct: true },
+                    { label: "D", text: "Aliphatic compounds", correct: false }
+                ],
+                explanation: "Purine consists of a pyrimidine ring fused to an imidazole ring."
+            },
+            {
+                number: 5,
+                question: "Which are purine bases?",
+                options: [
+                    { label: "A", text: "Cytosine and thymine", correct: false },
+                    { label: "B", text: "Adenine and guanine", correct: true },
+                    { label: "C", text: "Uracil and cytosine", correct: false },
+                    { label: "D", text: "Thymine and uracil", correct: false }
+                ],
+                explanation: "Adenine and guanine are purines."
+            },
+            {
+                number: 6,
+                question: "Pyrimidine bases in RNA include:",
+                options: [
+                    { label: "A", text: "Cytosine and thymine", correct: false },
+                    { label: "B", text: "Uracil and thymine", correct: false },
+                    { label: "C", text: "Cytosine and uracil", correct: true },
+                    { label: "D", text: "Adenine and uracil", correct: false }
+                ],
+                explanation: "RNA contains cytosine and uracil."
+            },
+            {
+                number: 7,
+                question: "Purine catabolism in humans ends with formation of:",
+                options: [
+                    { label: "A", text: "Allantoin", correct: false },
+                    { label: "B", text: "Urea", correct: false },
+                    { label: "C", text: "Ammonia", correct: false },
+                    { label: "D", text: "Uric acid", correct: true }
+                ],
+                explanation: "Humans lack urate oxidase, so uric acid is final product."
+            },
+            {
+                number: 8,
+                question: "Hypoxanthine and xanthine are:",
+                options: [
+                    { label: "A", text: "End products", correct: false },
+                    { label: "B", text: "Intermediates", correct: true },
+                    { label: "C", text: "Drugs", correct: false },
+                    { label: "D", text: "Vitamins", correct: false }
+                ],
+                explanation: "They are intermediates in purine degradation."
+            },
+            {
+                number: 9,
+                question: "Which enzyme converts hypoxanthine to xanthine?",
+                options: [
+                    { label: "A", text: "Adenosine deaminase", correct: false },
+                    { label: "B", text: "Nucleotidase", correct: false },
+                    { label: "C", text: "Xanthine oxidase", correct: true },
+                    { label: "D", text: "Purine phosphorylase", correct: false }
+                ],
+                explanation: "Xanthine oxidase catalyzes both steps to uric acid."
+            },
+            {
+                number: 10,
+                question: "Which methylxanthine is most abundant in coffee?",
+                options: [
+                    { label: "A", text: "Theophylline", correct: false },
+                    { label: "B", text: "Theobromine", correct: false },
+                    { label: "C", text: "Caffeine", correct: true },
+                    { label: "D", text: "Xanthine", correct: false }
+                ],
+                explanation: "Caffeine is 1–2% in coffee seeds."
+            },
+            {
+                number: 11,
+                question: "Theobromine is mainly obtained from:",
+                options: [
+                    { label: "A", text: "Tea", correct: false },
+                    { label: "B", text: "Coffee", correct: false },
+                    { label: "C", text: "Cocoa", correct: true },
+                    { label: "D", text: "Cola nut", correct: false }
+                ],
+                explanation: "Theobromine is the major alkaloid of cocoa beans."
+            },
+            {
+                number: 12,
+                question: "Theophylline is mainly associated with:",
+                options: [
+                    { label: "A", text: "Tea leaves", correct: true },
+                    { label: "B", text: "Cocoa", correct: false },
+                    { label: "C", text: "Coffee", correct: false },
+                    { label: "D", text: "Tobacco", correct: false }
+                ],
+                explanation: "Theophylline occurs naturally in tea leaves."
+            },
+            {
+                number: 13,
+                question: "Murexide test gives purple color due to formation of:",
+                options: [
+                    { label: "A", text: "Xanthine", correct: false },
+                    { label: "B", text: "Uric acid", correct: false },
+                    { label: "C", text: "Ammonium purpurate", correct: true },
+                    { label: "D", text: "Silver purine complex", correct: false }
+                ],
+                explanation: "Purple color indicates murexide formation."
+            },
+            {
+                number: 14,
+                question: "Silver nitrate test for purines results in:",
+                options: [
+                    { label: "A", text: "Red precipitate", correct: false },
+                    { label: "B", text: "Blue color", correct: false },
+                    { label: "C", text: "White precipitate", correct: true },
+                    { label: "D", text: "No reaction", correct: false }
+                ],
+                explanation: "Purines form white precipitate with Ag⁺."
+            },
+            {
+                number: 15,
+                question: "Dephosphorylation in purine catabolism is catalyzed by:",
+                options: [
+                    { label: "A", text: "Deaminase", correct: false },
+                    { label: "B", text: "Nucleotidase", correct: true },
+                    { label: "C", text: "Oxidase", correct: false },
+                    { label: "D", text: "Isomerase", correct: false }
+                ],
+                explanation: "Nucleotidase removes phosphate group."
+            },
+            {
+                number: 16,
+                question: "Conversion of adenosine to inosine occurs by:",
+                options: [
+                    { label: "A", text: "Oxidation", correct: false },
+                    { label: "B", text: "Phosphorylation", correct: false },
+                    { label: "C", text: "Deamination", correct: true },
+                    { label: "D", text: "Hydrolysis", correct: false }
+                ],
+                explanation: "Adenosine deaminase catalyzes this step."
+            },
+            {
+                number: 17,
+                question: "Glycosidic bond cleavage occurs between:",
+                options: [
+                    { label: "A", text: "N9 of base and C1′ of sugar", correct: true },
+                    { label: "B", text: "N1 and C5′", correct: false },
+                    { label: "C", text: "C2 and C3", correct: false },
+                    { label: "D", text: "N7 and C4", correct: false }
+                ],
+                explanation: "This bond is broken during base conversion."
+            },
+            {
+                number: 18,
+                question: "Normal uric acid range in adult males is:",
+                options: [
+                    { label: "A", text: "1–3 mg/dL", correct: false },
+                    { label: "B", text: "2–4 mg/dL", correct: false },
+                    { label: "C", text: "3.4–7.0 mg/dL", correct: true },
+                    { label: "D", text: "6–9 mg/dL", correct: false }
+                ],
+                explanation: "Given normal reference range."
+            },
+            {
+                number: 19,
+                question: "Hyperuricemia in men is defined as uric acid level above:",
+                options: [
+                    { label: "A", text: "5 mg/dL", correct: false },
+                    { label: "B", text: "6 mg/dL", correct: false },
+                    { label: "C", text: "7 mg/dL", correct: true },
+                    { label: "D", text: "8 mg/dL", correct: false }
+                ],
+                explanation: ">7 mg/dL in adult males."
+            },
+            {
+                number: 20,
+                question: "Main route of uric acid excretion is:",
+                options: [
+                    { label: "A", text: "Liver", correct: false },
+                    { label: "B", text: "Lung", correct: false },
+                    { label: "C", text: "Kidney", correct: true },
+                    { label: "D", text: "Skin", correct: false }
+                ],
+                explanation: "75% is excreted via kidneys."
+            },
+            {
+                number: 21,
+                question: "Gout is caused by deposition of:",
+                options: [
+                    { label: "A", text: "Calcium oxalate", correct: false },
+                    { label: "B", text: "Uric acid crystals", correct: true },
+                    { label: "C", text: "Cholesterol", correct: false },
+                    { label: "D", text: "Phosphate salts", correct: false }
+                ],
+                explanation: "Monosodium urate crystals deposit in joints."
+            },
+            {
+                number: 22,
+                question: "The joint commonly affected in gout is:",
+                options: [
+                    { label: "A", text: "Knee", correct: false },
+                    { label: "B", text: "Hip", correct: false },
+                    { label: "C", text: "Wrist", correct: false },
+                    { label: "D", text: "Base of big toe", correct: true }
+                ],
+                explanation: "Known as podagra."
+            },
+            {
+                number: 23,
+                question: "Humans lack which enzyme?",
+                options: [
+                    { label: "A", text: "Xanthine oxidase", correct: false },
+                    { label: "B", text: "Nucleotidase", correct: false },
+                    { label: "C", text: "Urate oxidase", correct: true },
+                    { label: "D", text: "Deaminase", correct: false }
+                ],
+                explanation: "Absence leads to uric acid accumulation."
+            },
+            {
+                number: 24,
+                question: "Uric acid also functions as:",
+                options: [
+                    { label: "A", text: "Hormone", correct: false },
+                    { label: "B", text: "Antioxidant", correct: true },
+                    { label: "C", text: "Enzyme", correct: false },
+                    { label: "D", text: "Vitamin", correct: false }
+                ],
+                explanation: "It acts as an antioxidant."
+            },
+            {
+                number: 25,
+                question: "DNA differs from RNA by presence of:",
+                options: [
+                    { label: "A", text: "Ribose", correct: false },
+                    { label: "B", text: "Uracil", correct: false },
+                    { label: "C", text: "2-Deoxyribose", correct: true },
+                    { label: "D", text: "Phosphate", correct: false }
+                ],
+                explanation: "DNA contains 2-deoxyribose."
+            },
+            {
+                number: 26,
+                question: "In RNA, thymine is replaced by:",
+                options: [
+                    { label: "A", text: "Cytosine", correct: false },
+                    { label: "B", text: "Guanine", correct: false },
+                    { label: "C", text: "Uracil", correct: true },
+                    { label: "D", text: "Adenine", correct: false }
+                ],
+                explanation: "RNA contains uracil instead of thymine."
+            },
+            {
+                number: 27,
+                question: "The glycosidic bond in nucleosides is:",
+                options: [
+                    { label: "A", text: "α-linkage", correct: false },
+                    { label: "B", text: "β-linkage", correct: true },
+                    { label: "C", text: "Peptide bond", correct: false },
+                    { label: "D", text: "Ester bond", correct: false }
+                ],
+                explanation: "N-glycosidic β-linkage."
+            },
+            {
+                number: 28,
+                question: "Phosphate group attaches to sugar at:",
+                options: [
+                    { label: "A", text: "C-1′", correct: false },
+                    { label: "B", text: "C-2′", correct: false },
+                    { label: "C", text: "C-3′", correct: false },
+                    { label: "D", text: "C-5′", correct: true }
+                ],
+                explanation: "The phosphate group attaches to the 5' carbon of the sugar."
+            },
+            {
+                number: 29,
+                question: "DNA has a molecular weight:",
+                options: [
+                    { label: "A", text: "Lower than RNA", correct: false },
+                    { label: "B", text: "Equal to RNA", correct: false },
+                    { label: "C", text: "Much higher than RNA", correct: true },
+                    { label: "D", text: "Constant", correct: false }
+                ],
+                explanation: "DNA molecules are typically much larger than RNA molecules."
+            },
+            {
+                number: 30,
+                question: "RNA is mainly found in:",
+                options: [
+                    { label: "A", text: "Only nucleus", correct: false },
+                    { label: "B", text: "Only cytoplasm", correct: false },
+                    { label: "C", text: "Nucleus and cytoplasm", correct: true },
+                    { label: "D", text: "Cell membrane", correct: false }
+                ],
+                explanation: "RNA is found in both the nucleus and cytoplasm."
+            },
+            {
+                number: 31,
+                question: "Nucleotide biosynthesis occurs via:",
+                options: [
+                    { label: "A", text: "Only salvage pathway", correct: false },
+                    { label: "B", text: "Only de novo pathway", correct: false },
+                    { label: "C", text: "De novo and salvage pathways", correct: true },
+                    { label: "D", text: "Glycolysis", correct: false }
+                ],
+                explanation: "Nucleotides can be synthesized by both de novo and salvage pathways."
+            },
+            {
+                number: 32,
+                question: "Salvage pathway is important because it:",
+                options: [
+                    { label: "A", text: "Produces ATP", correct: false },
+                    { label: "B", text: "Recycles bases", correct: true },
+                    { label: "C", text: "Forms proteins", correct: false },
+                    { label: "D", text: "Degrades DNA", correct: false }
+                ],
+                explanation: "The salvage pathway recycles purine and pyrimidine bases."
+            },
+            {
+                number: 33,
+                question: "Idoxuridine is used to treat:",
+                options: [
+                    { label: "A", text: "HIV", correct: false },
+                    { label: "B", text: "Influenza", correct: false },
+                    { label: "C", text: "Herpes keratitis", correct: true },
+                    { label: "D", text: "Malaria", correct: false }
+                ],
+                explanation: "Idoxuridine is an antiviral drug used for herpes keratitis."
+            },
+            {
+                number: 34,
+                question: "Zidovudine (AZT) is:",
+                options: [
+                    { label: "A", text: "Antibiotic", correct: false },
+                    { label: "B", text: "Antifungal", correct: false },
+                    { label: "C", text: "Antiviral", correct: true },
+                    { label: "D", text: "Antimalarial", correct: false }
+                ],
+                explanation: "AZT is an antiviral drug used in HIV treatment."
+            },
+            {
+                number: 35,
+                question: "Allopurinol is used in:",
+                options: [
+                    { label: "A", text: "Leukemia", correct: false },
+                    { label: "B", text: "Gout", correct: true },
+                    { label: "C", text: "Diabetes", correct: false },
+                    { label: "D", text: "Asthma", correct: false }
+                ],
+                explanation: "Allopurinol is used to treat gout and hyperuricemia."
+            },
+            {
+                number: 36,
+                question: "Allopurinol acts by inhibiting:",
+                options: [
+                    { label: "A", text: "Adenosine deaminase", correct: false },
+                    { label: "B", text: "Uricase", correct: false },
+                    { label: "C", text: "Xanthine oxidase", correct: true },
+                    { label: "D", text: "Nucleotidase", correct: false }
+                ],
+                explanation: "Allopurinol inhibits xanthine oxidase, reducing uric acid production."
+            },
+            {
+                number: 37,
+                question: "5-Fluorouracil is primarily used as:",
+                options: [
+                    { label: "A", text: "Antiviral", correct: false },
+                    { label: "B", text: "Antibacterial", correct: false },
+                    { label: "C", text: "Anticancer", correct: true },
+                    { label: "D", text: "Antifungal", correct: false }
+                ],
+                explanation: "5-Fluorouracil is an anticancer drug used in chemotherapy."
+            },
+            {
+                number: 38,
+                question: "Trimethoprim is classified as:",
+                options: [
+                    { label: "A", text: "Purine drug", correct: false },
+                    { label: "B", text: "Pyrimidine drug", correct: true },
+                    { label: "C", text: "Alkaloid", correct: false },
+                    { label: "D", text: "Terpene", correct: false }
+                ],
+                explanation: "Trimethoprim is a pyrimidine analogue antibacterial drug."
+            },
+            {
+                number: 39,
+                question: "Azathioprine is mainly used as:",
+                options: [
+                    { label: "A", text: "Anticancer", correct: false },
+                    { label: "B", text: "Immunosuppressant", correct: true },
+                    { label: "C", text: "Antiviral", correct: false },
+                    { label: "D", text: "Antimalarial", correct: false }
+                ],
+                explanation: "Azathioprine is an immunosuppressant used in organ transplantation."
+            },
+            {
+                number: 40,
+                question: "Capecitabine is a prodrug of:",
+                options: [
+                    { label: "A", text: "AZT", correct: false },
+                    { label: "B", text: "Cytarabine", correct: false },
+                    { label: "C", text: "5-Fluorouracil", correct: true },
+                    { label: "D", text: "Methotrexate", correct: false }
+                ],
+                explanation: "Capecitabine is metabolized to 5-fluorouracil in the body."
+            }
+        ];
+
+        // True/False Questions (41-50)
+        const tfQuestions = [
+            { number: 41, question: "DNA contains sulfur.", answer: false, explanation: "Nucleic acids lack sulfur." },
+            { number: 42, question: "Purine catabolism produces uric acid in humans.", answer: true, explanation: "Humans excrete uric acid as the end product of purine metabolism." },
+            { number: 43, question: "Hypoxanthine is the final product of purine metabolism.", answer: false, explanation: "Uric acid is the final product, not hypoxanthine." },
+            { number: 44, question: "Caffeine is a trimethylxanthine.", answer: true, explanation: "Caffeine is 1,3,7-trimethylxanthine." },
+            { number: 45, question: "Murexide test is specific for purine alkaloids.", answer: true, explanation: "The murexide test is used to detect purine alkaloids like caffeine and theobromine." },
+            { number: 46, question: "Hyperuricemia may result from decreased renal excretion.", answer: true, explanation: "Reduced renal excretion is a common cause of hyperuricemia." },
+            { number: 47, question: "Gout is a disorder of pyrimidine metabolism.", answer: false, explanation: "Gout is a disorder of purine metabolism." },
+            { number: 48, question: "RNA contains thymine.", answer: false, explanation: "RNA contains uracil instead of thymine." },
+            { number: 49, question: "Nucleotides contain base, sugar, and phosphate.", answer: true, explanation: "Nucleotides consist of a nitrogenous base, a pentose sugar, and phosphate groups." },
+            { number: 50, question: "Salvage pathway conserves cellular energy.", answer: true, explanation: "The salvage pathway is energy-efficient as it recycles bases." }
+        ];
+
+        // Track user answers and score
+        let userAnswers = {};
+        let score = 0;
+        let totalQuestions = mcQuestions.length + tfQuestions.length;
+
+        // Initialize the quiz
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMCQuestions();
+            renderTFQuestions();
+            renderQuickNav();
+            updateScoreDisplay();
+            updateProgress();
+            
+            // Add event listener for reset button
+            document.getElementById('reset-btn').addEventListener('click', resetQuiz);
+        });
+
+        // Render multiple choice questions
+        function renderMCQuestions() {
+            const mcContainer = document.getElementById('multiple-choice-questions');
+            mcContainer.innerHTML = '';
+            
+            mcQuestions.forEach(q => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.id = `q${q.number}`;
+                
+                let optionsHTML = '';
+                q.options.forEach(opt => {
+                    optionsHTML += `
+                        <div class="option" data-question="${q.number}" data-option="${opt.label}">
+                            <span class="option-label">${opt.label}</span>
+                            <span class="option-text">${opt.text}</span>
+                        </div>
+                    `;
+                });
+                
+                questionCard.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">${q.number}</div>
+                        <div class="question-text">${q.question}</div>
+                    </div>
+                    <div class="options-container">
+                        ${optionsHTML}
+                    </div>
+                    <div class="feedback" id="feedback-${q.number}">
+                        <div class="feedback-header"></div>
+                        <div class="explanation">${q.explanation}</div>
+                    </div>
+                `;
+                
+                mcContainer.appendChild(questionCard);
+                
+                // Add event listeners to options
+                const options = questionCard.querySelectorAll('.option');
+                options.forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        handleMCOptionClick(q.number, this.dataset.option);
+                    });
+                });
+            });
+        }
+
+        // Render true/false questions
+        function renderTFQuestions() {
+            const tfContainer = document.getElementById('true-false-questions');
+            tfContainer.innerHTML = '';
+            
+            tfQuestions.forEach(q => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.id = `q${q.number}`;
+                
+                questionCard.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">${q.number}</div>
+                        <div class="question-text">${q.question}</div>
+                    </div>
+                    <div class="true-false-container">
+                        <div class="tf-option true-option" data-question="${q.number}" data-answer="true">True</div>
+                        <div class="tf-option false-option" data-question="${q.number}" data-answer="false">False</div>
+                    </div>
+                    <div class="feedback" id="feedback-${q.number}">
+                        <div class="feedback-header"></div>
+                        <div class="explanation">${q.explanation}</div>
+                    </div>
+                `;
+                
+                tfContainer.appendChild(questionCard);
+                
+                // Add event listeners to true/false options
+                const trueOption = questionCard.querySelector('.true-option');
+                const falseOption = questionCard.querySelector('.false-option');
+                
+                trueOption.addEventListener('click', function() {
+                    handleTFOptionClick(q.number, true);
+                });
+                
+                falseOption.addEventListener('click', function() {
+                    handleTFOptionClick(q.number, false);
+                });
+            });
+        }
+
+        // Render quick navigation buttons
+        function renderQuickNav() {
+            const quickNav = document.getElementById('quick-nav');
+            quickNav.innerHTML = '';
+            
+            // Create buttons for each section
+            const sections = [
+                { label: "MCQs 1-10", start: 1, end: 10 },
+                { label: "MCQs 11-20", start: 11, end: 20 },
+                { label: "MCQs 21-30", start: 21, end: 30 },
+                { label: "MCQs 31-40", start: 31, end: 40 },
+                { label: "True/False 41-50", start: 41, end: 50 }
+            ];
+            
+            sections.forEach(section => {
+                const button = document.createElement('div');
+                button.className = 'nav-btn';
+                button.textContent = section.label;
+                button.addEventListener('click', function() {
+                    document.getElementById(`q${section.start}`).scrollIntoView({ behavior: 'smooth' });
+                });
+                quickNav.appendChild(button);
+            });
+        }
+
+        // Handle multiple choice option click
+        function handleMCOptionClick(questionNum, selectedOption) {
+            const question = mcQuestions.find(q => q.number === questionNum);
+            const questionCard = document.getElementById(`q${questionNum}`);
+            const feedback = document.getElementById(`feedback-${questionNum}`);
+            const feedbackHeader = feedback.querySelector('.feedback-header');
+            const allOptions = questionCard.querySelectorAll('.option');
+            
+            // Find correct option
+            const correctOption = question.options.find(opt => opt.correct);
+            
+            // Remove any existing selection
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            const selectedElement = questionCard.querySelector(`[data-option="${selectedOption}"]`);
+            selectedElement.classList.add('selected');
+            
+            // Check if answer is correct
+            const isCorrect = selectedOption === correctOption.label;
+            
+            // Update UI based on correctness
+            if (isCorrect) {
+                selectedElement.classList.add('correct');
+                questionCard.classList.add('correct');
+                questionCard.classList.remove('incorrect');
+                feedback.classList.add('correct');
+                feedback.classList.remove('incorrect');
+                feedbackHeader.className = 'feedback-header correct';
+                feedbackHeader.innerHTML = '<strong>✓ Correct!</strong>';
+                feedback.innerHTML = `<div class="feedback-header correct"><strong>✓ Correct!</strong></div><div class="explanation">${question.explanation}</div>`;
+            } else {
+                selectedElement.classList.add('incorrect');
+                questionCard.classList.add('incorrect');
+                questionCard.classList.remove('correct');
+                feedback.classList.add('incorrect');
+                feedback.classList.remove('correct');
+                feedbackHeader.className = 'feedback-header incorrect';
+                feedbackHeader.innerHTML = '<strong>✗ Incorrect</strong>';
+                feedback.innerHTML = `<div class="feedback-header incorrect"><strong>✗ Incorrect. The correct answer is ${correctOption.label}: ${correctOption.text}</strong></div><div class="explanation">${question.explanation}</div>`;
+                
+                // Also highlight the correct answer
+                const correctElement = questionCard.querySelector(`[data-option="${correctOption.label}"]`);
+                correctElement.classList.add('correct');
+            }
+            
+            // Store user answer
+            userAnswers[questionNum] = {
+                selected: selectedOption,
+                correct: correctOption.label,
+                isCorrect: isCorrect
+            };
+            
+            // Update score and progress
+            updateScore();
+            updateProgress();
+            checkQuizCompletion();
+        }
+
+        // Handle true/false option click
+        function handleTFOptionClick(questionNum, selectedAnswer) {
+            const question = tfQuestions.find(q => q.number === questionNum);
+            const questionCard = document.getElementById(`q${questionNum}`);
+            const feedback = document.getElementById(`feedback-${questionNum}`);
+            const feedbackHeader = feedback.querySelector('.feedback-header');
+            const trueOption = questionCard.querySelector('.true-option');
+            const falseOption = questionCard.querySelector('.false-option');
+            
+            // Remove any existing selection
+            trueOption.classList.remove('selected');
+            falseOption.classList.remove('selected');
+            
+            // Mark selected option
+            if (selectedAnswer) {
+                trueOption.classList.add('selected');
+            } else {
+                falseOption.classList.add('selected');
+            }
+            
+            // Check if answer is correct
+            const isCorrect = selectedAnswer === question.answer;
+            
+            // Update UI based on correctness
+            if (isCorrect) {
+                questionCard.classList.add('correct');
+                questionCard.classList.remove('incorrect');
+                feedback.classList.add('correct');
+                feedback.classList.remove('incorrect');
+                feedbackHeader.className = 'feedback-header correct';
+                feedbackHeader.innerHTML = '<strong>✓ Correct!</strong>';
+                feedback.innerHTML = `<div class="feedback-header correct"><strong>✓ Correct!</strong></div><div class="explanation">${question.explanation}</div>`;
+            } else {
+                questionCard.classList.add('incorrect');
+                questionCard.classList.remove('correct');
+                feedback.classList.add('incorrect');
+                feedback.classList.remove('correct');
+                feedbackHeader.className = 'feedback-header incorrect';
+                feedbackHeader.innerHTML = '<strong>✗ Incorrect</strong>';
+                const correctAnswerText = question.answer ? "True" : "False";
+                feedback.innerHTML = `<div class="feedback-header incorrect"><strong>✗ Incorrect. The correct answer is ${correctAnswerText}.</strong></div><div class="explanation">${question.explanation}</div>`;
+            }
+            
+            // Store user answer
+            userAnswers[questionNum] = {
+                selected: selectedAnswer,
+                correct: question.answer,
+                isCorrect: isCorrect
+            };
+            
+            // Update score and progress
+            updateScore();
+            updateProgress();
+            checkQuizCompletion();
+        }
+
+        // Update the score
+        function updateScore() {
+            score = 0;
+            for (const qNum in userAnswers) {
+                if (userAnswers[qNum].isCorrect) {
+                    score++;
+                }
+            }
+            updateScoreDisplay();
+        }
+
+        // Update the score display
+        function updateScoreDisplay() {
+            document.getElementById('score-display').textContent = score;
+        }
+
+        // Update progress bar and display
+        function updateProgress() {
+            const answeredCount = Object.keys(userAnswers).length;
+            const progressPercentage = Math.round((answeredCount / totalQuestions) * 100);
+            
+            document.getElementById('progress-display').textContent = `${progressPercentage}%`;
+            document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+        }
+
+        // Check if all questions are answered
+        function checkQuizCompletion() {
+            const answeredCount = Object.keys(userAnswers).length;
+            
+            if (answeredCount === totalQuestions) {
+                showResults();
+            }
+        }
+
+        // Show final results
+        function showResults() {
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const finalScoreElement = document.getElementById('final-score');
+            const performanceText = document.getElementById('performance-text');
+            
+            finalScoreElement.textContent = `${score}/${totalQuestions}`;
+            
+            // Calculate MCQ and TF scores
+            let mcqScore = 0;
+            let tfScore = 0;
+            
+            for (const qNum in userAnswers) {
+                const qNumInt = parseInt(qNum);
+                if (userAnswers[qNum].isCorrect) {
+                    if (qNumInt <= 40) {
+                        mcqScore++;
+                    } else {
+                        tfScore++;
+                    }
+                }
+            }
+            
+            document.getElementById('mcq-score').textContent = `${mcqScore}/40`;
+            document.getElementById('tf-score').textContent = `${tfScore}/10`;
+            document.getElementById('percentage').textContent = `${percentage}%`;
+            
+            // Set performance message based on score
+            let performanceMessage = '';
+            if (percentage >= 90) {
+                performanceMessage = "Outstanding! You have mastered nucleic acids and purine metabolism concepts.";
+            } else if (percentage >= 80) {
+                performanceMessage = "Excellent work! You have a strong understanding of nucleic acids and related topics.";
+            } else if (percentage >= 70) {
+                performanceMessage = "Good job! You have a solid foundation in nucleic acid concepts.";
+            } else if (percentage >= 60) {
+                performanceMessage = "Fair understanding. Review the explanations to strengthen your knowledge.";
+            } else {
+                performanceMessage = "Keep studying! Review the explanations and try again to improve your score.";
+            }
+            
+            performanceText.textContent = performanceMessage;
+            
+            // Show results summary
+            document.getElementById('results-summary').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('results-summary').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Reset the quiz
+        function resetQuiz() {
+            userAnswers = {};
+            score = 0;
+            
+            // Reset all question cards
+            const allQuestionCards = document.querySelectorAll('.question-card');
+            allQuestionCards.forEach(card => {
+                card.classList.remove('correct', 'incorrect');
+                
+                // Reset options
+                const options = card.querySelectorAll('.option, .tf-option');
+                options.forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Hide feedback
+                const feedback = card.querySelector('.feedback');
+                if (feedback) {
+                    feedback.classList.remove('correct', 'incorrect');
+                    feedback.style.display = 'none';
+                }
+            });
+            
+            // Hide results
+            document.getElementById('results-summary').style.display = 'none';
+            
+            // Update score display and progress
+            updateScoreDisplay();
+            updateProgress();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+  </html>
