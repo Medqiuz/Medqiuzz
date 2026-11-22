@@ -1,58 +1,93 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const DEVELOPMENT_MODE = true;
 
-    if (!window.authSystem) return;
+import { auth, db } from "./firebase.js";
 
-    const overlay = document.getElementById('protection-overlay');
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
-    if (!DEVELOPMENT_MODE) {
-        // Show overlay if user not logged in
-        if (!authSystem.isAuthenticated()) {
-            overlay.style.display = 'block';
-            return;
-        }
-    } else {
-        // Development mode: hide overlay
-        if (overlay) overlay.style.display = 'none';
-        console.log('Development mode ON: overlay disabled');
+import {
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("protection-overlay");
+  const logoutBtn = document.getElementById("logout-btn");
+
+  function showLogin() {
+    if (overlay) overlay.style.display = "flex";
+    const container = document.querySelector(".dashboard-container");
+    if (container) container.style.display = "none";
+  }
+
+  function showDashboard() {
+    if (overlay) overlay.style.display = "none";
+    const container = document.querySelector(".dashboard-container");
+    if (container) container.style.display = "";
+  }
+
+  function showError(message) {
+    if (overlay) {
+      overlay.style.display = "flex";
+      const paragraph = overlay.querySelector(".protection-modal > p");
+      if (paragraph) paragraph.textContent = message;
+    }
+  }
+
+  // Always hide protected content until Firebase verifies the session.
+  showLogin();
+
+  onAuthStateChanged(auth, async (firebaseUser) => {
+    if (!firebaseUser) {
+      showLogin();
+      return;
     }
 
-    // Load user info
-    const user = authSystem.getCurrentUser();
-    if (user) {
-        const nameEl = document.getElementById('user-name');
-        const deptEl = document.getElementById('user-department');
-        const yearEl = document.getElementById('user-year');
-        const uniEl = document.getElementById('user-university');
+    try {
+      const studentRef = doc(db, "students", firebaseUser.uid);
+      const studentSnapshot = await getDoc(studentRef);
 
-        if (nameEl) nameEl.textContent = user.fullName;
-        if (deptEl) deptEl.textContent = user.department;
-        if (yearEl) yearEl.textContent = user.year;
-        if (uniEl) uniEl.textContent = user.university;
+      if (!studentSnapshot.exists()) {
+        await signOut(auth);
+        window.location.replace("index.html");
+        return;
+      }
+
+      const user = studentSnapshot.data();
+
+      document.getElementById("user-name").textContent =
+        user.fullName || "Student";
+
+      document.getElementById("user-department").textContent =
+        user.department || "-";
+
+      document.getElementById("user-year").textContent =
+        user.year || "-";
+
+      document.getElementById("user-university").textContent =
+        user.university || "-";
+
+      showDashboard();
+
+    } catch (error) {
+      console.error("Dashboard authentication error:", error);
+      showError("Unable to verify your account. Check your internet connection and try again.");
     }
+  });
 
-    // Disable all department styles initially
-    disableDepartmentStyles();
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", async () => {
+      logoutBtn.disabled = true;
 
-    // Attach logout button
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => authSystem.logout());
-    }
+      try {
+        await signOut(auth);
+        window.location.replace("index.html");
+      } catch (error) {
+        console.error("Logout error:", error);
+        alert("Logout failed. Please try again.");
+        logoutBtn.disabled = false;
+      }
+    });
+  }
 });
-
-function disableDepartmentStyles() {
-    const pharmacyCSS = document.getElementById('pharmacy-css');
-    const year2CSS = document.getElementById('year2-css');
-    const session1CSS = document.getElementById('session1-css');
-
-    if (pharmacyCSS) pharmacyCSS.disabled = true;
-    if (year2CSS) year2CSS.disabled = true;
-    if (session1CSS) session1CSS.disabled = true;
-}
-
-function loadPharmacyStyles() {
-    const pharmacyCSS = document.getElementById('pharmacy-css');
-    if (pharmacyCSS) pharmacyCSS.disabled = false;
-    console.log('Pharmacy styles enabled');
-}
