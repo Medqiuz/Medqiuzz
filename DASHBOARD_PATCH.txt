@@ -1,0 +1,66 @@
+DASHBOARD INTEGRATION PATCH
+
+Your dashboard page currently expects a LOCAL access-code login. The new secure setup uses Firebase email + password. Make these edits in your existing Dashboard.html and script.js without deleting your navigation functions.
+
+1) In Dashboard.html, replace the login access-code input with:
+<input type="password" id="login-code" placeholder="Enter your account password" class="login-input" autocomplete="current-password">
+
+2) In Dashboard.html, change the auth.js script include to a module:
+<script type="module" src="auth.js"></script>
+
+Keep script.js and dashboard.js as separate files. Fix the malformed dashboard script tag to:
+<script src="dashboard.js"></script>
+
+3) Set DEVELOPMENT_MODE to false. Never publish with DEVELOPMENT_MODE = true because that bypasses the dashboard protection overlay.
+
+4) Remove onclick="logout()" from the logout button if script.js already attaches its own click listener. Do not call localStorage.clear(). Use window.authSystem.logout() for logout.
+
+5) In your existing script.js, replace the init() method with this version so the Firebase user profile has time to load:
+
+init() {
+    Promise.resolve(window.authReady).then(() => {
+        this.checkAuthentication();
+        this.setupEventListeners();
+        this.loadUserInfo();
+        this.loadDepartments();
+    }).catch(error => {
+        console.error('Firebase authentication initialization failed:', error);
+        this.showProtectionOverlay();
+    });
+}
+
+6) In your existing script.js, replace the attemptLogin() method with:
+
+async attemptLogin() {
+    if (!window.authSystem) {
+        this.showLoginError('Authentication system not loaded. Refresh and try again.');
+        return;
+    }
+    const email = document.getElementById('login-email')?.value?.trim();
+    const password = document.getElementById('login-code')?.value;
+    if (!email || !password) {
+        this.showLoginError('Enter your email and password.');
+        return;
+    }
+    try {
+        await window.authSystem.login(email, password);
+        this.hideProtectionOverlay();
+        this.loadUserInfo();
+        window.location.reload();
+    } catch (error) {
+        console.error('Login error:', error);
+        this.showLoginError(error.message || 'Login failed. Check your email and password.');
+    }
+}
+
+7) In the logout() method of your DashboardSystem class, use:
+
+logout() {
+    if (window.authSystem) {
+        window.authSystem.logout();
+    }
+}
+
+8) Remove or replace the old inline logout() function in Dashboard.html. Do not clear all localStorage. Also remove the old login logic that validates an access code in the browser.
+
+IMPORTANT: Your pasted script.js contained a placeholder comment saying some navigation methods were omitted. Keep those methods from your actual file; do not replace the entire script.js with the shortened chat version.

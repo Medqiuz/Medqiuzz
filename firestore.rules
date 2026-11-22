@@ -1,0 +1,101 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function studentPath(uid) {
+      return /databases/$(database)/documents/students/$(uid);
+    }
+
+    function accessCodePath(codeId) {
+      return /databases/$(database)/documents/accessCodes/$(codeId);
+    }
+
+    function validStudentFields(uid) {
+      return request.resource.data.keys().hasAll([
+          'uid', 'fullName', 'phone', 'university', 'department',
+          'year', 'section', 'email', 'redeemedCode', 'registrationDate'
+        ])
+        && request.resource.data.keys().hasOnly([
+          'uid', 'fullName', 'phone', 'university', 'department',
+          'year', 'section', 'email', 'redeemedCode', 'registrationDate'
+        ])
+        && request.resource.data.uid == uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.fullName is string
+        && request.resource.data.fullName.size() >= 2
+        && request.resource.data.fullName.size() <= 100
+        && request.resource.data.phone is string
+        && request.resource.data.phone.size() >= 5
+        && request.resource.data.phone.size() <= 25
+        && request.resource.data.university is string
+        && request.resource.data.university.size() >= 2
+        && request.resource.data.university.size() <= 120
+        && request.resource.data.department in [
+          'Medicine', 'Pharmacy', 'Nursing', 'Medical Laboratory',
+          'Public Health', 'Physiotherapy', 'Radiology', 'Nutrition', 'Other'
+        ]
+        && request.resource.data.year in ['1', '2', '3', '4', '5', '6', 'Postgraduate']
+        && request.resource.data.section in ['A', 'B', 'C']
+        && request.resource.data.redeemedCode is string
+        && request.resource.data.redeemedCode.size() == 12
+        && request.resource.data.registrationDate == request.time;
+    }
+
+    function codeIsRedeemedForStudent(codeId, uid) {
+      let code = getAfter(accessCodePath(codeId)).data;
+      return code.used == true
+        && code.uid == uid
+        && code.email == request.auth.token.email;
+    }
+
+    match /admins/{adminUid} {
+      allow get: if signedIn() && request.auth.uid == adminUid;
+      allow list, create, update, delete: if false;
+    }
+
+    match /accessCodes/{codeId} {
+      allow get: if isAdmin() || (signedIn() && resource.data.used == false);
+      allow list: if isAdmin();
+
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly(['used', 'createdAt'])
+        && request.resource.data.used == false
+        && request.resource.data.createdAt == request.time;
+
+      allow update: if isAdmin() || (
+        signedIn()
+        && resource.data.used == false
+        && request.resource.data.used == true
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.redeemedAt == request.time
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'used', 'uid', 'email', 'redeemedAt'
+        ])
+        && getAfter(studentPath(request.auth.uid)).data.redeemedCode == codeId
+      );
+
+      allow delete: if isAdmin();
+    }
+
+    match /students/{studentUid} {
+      allow get: if signedIn() && (request.auth.uid == studentUid || isAdmin());
+      allow list: if isAdmin();
+
+      allow create: if signedIn()
+        && request.auth.uid == studentUid
+        && validStudentFields(studentUid)
+        && codeIsRedeemedForStudent(request.resource.data.redeemedCode, studentUid);
+
+      allow update, delete: if isAdmin();
+    }
+  }
+}
