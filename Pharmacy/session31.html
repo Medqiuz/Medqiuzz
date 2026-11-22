@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="MedQuiz - Year 3 Pharmacy, Session 1 course materials.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Year 3 - Session 1 | MedQuiz</title>
+
+    <style>
+        /* ==============================
+           1. GLOBAL STYLES
+        ============================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2878c7;
+            --primary-dark: #1d4264;
+            --background: #f4f7fb;
+            --text: #263445;
+            --muted: #788797;
+            --white: #ffffff;
+            --border: #e5eaf0;
+            --success: #168653;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        /* ==============================
+           2. ACCESS PROTECTION
+        ============================== */
+        .protection-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 27, 42, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+
+        .protection-overlay[hidden] {
+            display: none;
+        }
+
+        .protection-modal {
+            background: var(--white);
+            padding: 35px 25px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        .lock-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .protection-modal h3 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .protection-modal p {
+            color: var(--muted);
+            margin-bottom: 22px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 11px 22px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn:focus-visible,
+        a:focus-visible {
+            outline: 3px solid #f2b84b;
+            outline-offset: 3px;
+        }
+
+        /* ==============================
+           3. HEADER
+        ============================== */
+        .dashboard-header {
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--primary-dark)
+            );
+            color: white;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-content h1 {
+            font-size: 1.45rem;
+            font-weight: 700;
+        }
+
+        .header-content p {
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 9px 17px;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        /* ==============================
+           4. MAIN CONTAINER
+        ============================== */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 35px auto;
+            padding: 0 22px;
+        }
+
+        /* ==============================
+           5. BREADCRUMB
+        ============================== */
+        .breadcrumb {
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            transition: 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .separator {
+            margin: 0 9px;
+            color: #aab4bf;
+        }
+
+        /* ==============================
+           6. CATEGORY TITLE
+        ============================== */
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .category-description {
+            color: var(--muted);
+            margin-bottom: 25px;
+        }
+
+        /* ==============================
+           7. COURSE GRID
+        ============================== */
+        .parts-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(min(100%, 260px), 1fr)
+            );
+            gap: 20px;
+        }
+
+        .part-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 23px;
+            border: 1px solid var(--border);
+            border-left: 5px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 115px;
+            color: var(--text);
+            box-shadow: 0 3px 12px rgba(30, 55, 80, 0.05);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .part-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 9px 22px rgba(30, 55, 80, 0.11);
+            border-left-color: var(--success);
+        }
+
+        .part-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .part-header h3 {
+            color: var(--primary-dark);
+            font-size: 1.08rem;
+            font-weight: 650;
+            line-height: 1.5;
+        }
+
+        .part-badge {
+            background: #e8f5ef;
+            color: var(--success);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* ==============================
+           8. DEVELOPMENT NOTICE
+        ============================== */
+        .debug-info {
+            margin-top: 40px;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-left: 4px solid #e4a238;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            color: var(--muted);
+        }
+
+        .debug-info strong {
+            color: var(--text);
+        }
+
+        .debug-info a {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* ==============================
+           9. FOOTER
+        ============================== */
+        .footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        /* ==============================
+           10. RESPONSIVE DESIGN
+        ============================== */
+        @media (max-width: 600px) {
+            .dashboard-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 22px 15px;
+            }
+
+            .header-content h1 {
+                font-size: 1.25rem;
+            }
+
+            .dashboard-container {
+                margin: 25px auto;
+                padding: 0 16px;
+            }
+
+            .category-title {
+                font-size: 1.5rem;
+            }
+
+            .parts-grid {
+                grid-template-columns: 1fr;
+                gap: 13px;
+            }
+
+            .part-card {
+                padding: 19px;
+            }
+
+            .part-header h3 {
+                font-size: 1rem;
+            }
+        }
+
+        /* ==============================
+           11. REDUCED MOTION
+        ============================== */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==============================
+         ACCESS PROTECTION OVERLAY
+    ============================== -->
+    <div
+        id="protection-overlay"
+        class="protection-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="protection-title"
+    >
+        <div class="protection-modal">
+
+            <div class="lock-icon" aria-hidden="true">🔒</div>
+
+            <h3 id="protection-title">Access Required</h3>
+
+            <p>Please log in to your MedQuiz account to access this content.</p>
+
+            <a href="../../dashboard.html" class="btn">
+                Go to Dashboard
+            </a>
+
+        </div>
+    </div>
+
+
+    <!-- Protected page content -->
+    <div id="protected-content" inert aria-hidden="true">
+
+        <!-- ==============================
+             HEADER
+        ============================== -->
+        <header class="dashboard-header">
+
+            <div class="header-content">
+
+                <h1>Year 3 - Session 1</h1>
+
+                <p>Pharmacy Department | MedQuiz</p>
+
+            </div>
+
+            <a href="../year3.html" class="back-btn">
+                ← Back to Year 3
+            </a>
+
+        </header>
+
+
+        <!-- ==============================
+             MAIN CONTENT
+        ============================== -->
+        <main class="dashboard-container">
+
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+
+                <a href="../../dashboard.html">Dashboard</a>
+
+                <span class="separator">›</span>
+
+                <a href="../year3.html">Year 3</a>
+
+                <span class="separator">›</span>
+
+                <span aria-current="page">Session 1</span>
+
+            </nav>
+
+
+            <!-- Category Title -->
+            <section>
+
+                <h2 class="category-title">
+                    Session 1 Courses
+                </h2>
+
+                <p class="category-description">
+                    Select a course to access its learning materials and quizzes.
+                </p>
+
+
+                <!-- ==============================
+                     COURSE CARDS
+                ============================== -->
+                <div class="parts-grid">
+
+                    <!-- 1. Integrated Physical Pharmacy -->
+                    <a
+                        href="Integrated physical pharmacy and pharmaceutics-II.html"
+                        class="part-card"
+                        aria-label="Open Integrated physical pharmacy and pharmaceutics-II"
+                    >
+                        <div class="part-header">
+                            <h3>
+                                Integrated physical pharmacy and pharmaceutics-II
+                            </h3>
+
+                            <span class="part-badge">Available</span>
+                        </div>
+                    </a>
+
+
+                    <!-- 2. Practical Integrated Physical Pharmacy -->
+                    <a
+                        href="Practical Integrated physical pharmacy and pharmaceutics-II.html"
+                        class="part-card"
+                        aria-label="Open Practical Integrated physical pharmacy and pharmaceutics-II"
+                    >
+                        <div class="part-header">
+                            <h3>
+                                Practical Integrated physical pharmacy and pharmaceutics-II
+                            </h3>
+
+                            <span class="part-badge">Available</span>
+                        </div>
+                    </a>
+
+
+                    <!-- 3. Pharmacology II -->
+                    <a
+                        href="Pharmacology II.html"
+                        class="part-card"
+                        aria-label="Open Pharmacology II"
+                    >
+                        <div class="part-header">
+                            <h3>Pharmacology II</h3>
+
+                            <span class="part-badge">Available</span>
+                        </div>
+                    </a>
+
+
+                    <!-- 4. Medicinal Chemistry II -->
+                    <a
+                        href="Medicinal chemistry-II.html"
+                        class="part-card"
+                        aria-label="Open Medicinal chemistry-II"
+                    >
+                        <div class="part-header">
+                            <h3>Medicinal chemistry-II</h3>
+
+                            <span class="part-badge">Available</span>
+                        </div>
+                    </a>
+
+
+                    <!-- 5. Pharmaceutical Analysis I -->
+                    <a
+                        href="Pharmaceutical Analysis-I.html"
+                        class="part-card"
+                        aria-label="Open Pharmaceutical Analysis-I"
+                    >
+                        <div class="part-header">
+                            <h3>Pharmaceutical Analysis-I</h3>
+
+                            <span class="part-badge">Available</span>
+                        </div>
+                    </a>
+
+
+                    <!-- 6. Integrated Therapeutics I -->
+                    <a
+                        href="Integrated therapeutics-I.html"
+                        class="part-card"
+                        aria-label="Open Integrated therapeutics-I"
+                    >
+                        <div class="part-header">
+                            <h3>Integrated therapeutics-I</h3>
+
+                            <span class="part-badge">Available</span>
+                        </div>
+                    </a>
+
+
+                    <!-- 7. Physical Assessment -->
+                    <a
+                        href="Physical assessment.html"
+                        class="part-card"
+                        aria-label="Open Physical assessment"
+                    >
+                        <div class="part-header">
+                            <h3>Physical assessment</h3>
+
+                            <span class="part-badge">Available</span>
+                        </div>
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==============================
+                 DEVELOPMENT NOTICE
+            ============================== -->
+            <section class="debug-info">
+
+                <p>
+                    <strong>Notice:</strong>
+                    Our website is currently under development and may have
+                    bugs or incomplete features.
+                </p>
+
+                <p>
+                    If you encounter any issues or errors, please report
+                    them to us via email:
+                    <a href="mailto:Medqiuz@gmail.com">
+                        Medqiuz@gmail.com
+                    </a>.
+                </p>
+
+                <p>
+                    We appreciate your patience and understanding as
+                    we continue to improve the site.
+                </p>
+
+            </section>
+
+        </main>
+
+
+        <!-- ==============================
+             FOOTER
+        ============================== -->
+        <footer class="footer">
+
+            <p>© 2026 MedQuiz. All rights reserved.</p>
+
+            <p>Year 3 Pharmacy | Session 1</p>
+
+        </footer>
+
+    </div>
+
+
+    <!-- ==============================
+         SECURITY & INITIALIZATION
+    ============================== -->
+    <script>
+        "use strict";
+
+        document.addEventListener("DOMContentLoaded", async function () {
+
+            const overlay = document.getElementById("protection-overlay");
+
+            const protectedContent = document.getElementById("protected-content");
+
+            /*
+             * IMPORTANT:
+             * Use your existing real authentication system.
+             * Do not replace this with a function that always returns true.
+             *
+             * If authSystem is missing, authentication fails by default.
+             */
+
+            async function checkAuthentication() {
+
+                try {
+
+                    if (
+                        !window.authSystem ||
+                        typeof window.authSystem.isAuthenticated !== "function"
+                    ) {
+                        return false;
+                    }
+
+                    const result = await window.authSystem.isAuthenticated();
+
+                    return result === true;
+
+                } catch (error) {
+
+                    // Deny access if authentication fails.
+                    return false;
+
+                }
+            }
+
+
+            // Initialize access protection.
+            const authenticated = await checkAuthentication();
+
+            if (authenticated) {
+
+                overlay.hidden = true;
+
+                protectedContent.inert = false;
+
+                protectedContent.removeAttribute("aria-hidden");
+
+            } else {
+
+                overlay.hidden = false;
+
+                protectedContent.inert = true;
+
+                protectedContent.setAttribute("aria-hidden", "true");
+
+            }
+
+
+            /*
+             * Validate course links.
+             * Only allow local relative HTML destinations.
+             * This prevents unexpected external navigation.
+             */
+
+            const courseLinks = document.querySelectorAll(
+                ".parts-grid .part-card"
+            );
+
+            courseLinks.forEach(function (link) {
+
+                const href = link.getAttribute("href");
+
+                const validLocalLink =
+                    href &&
+                    !href.startsWith("/") &&
+                    !href.startsWith("//") &&
+                    !href.includes("..") &&
+                    !href.includes("\\") &&
+                    href.toLowerCase().endsWith(".html");
+
+                if (!validLocalLink) {
+
+                    link.removeAttribute("href");
+
+                    link.setAttribute("aria-disabled", "true");
+
+                }
+
+            });
+
+        });
+    </script>
+
+</body>
+</html>
