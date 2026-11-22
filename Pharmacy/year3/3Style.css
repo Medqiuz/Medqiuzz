@@ -1,21 +1,30 @@
-/* Pharmacy Year 2 Specific Styles */
+/* ==========================================
+   MEDQUIZ - PHARMACY YEAR 3
+   File: 3Style.css
+   ========================================== */
+
+/* GLOBAL */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    background: linear-gradient(135deg, #512DA8, #311B92);
     min-height: 100vh;
 }
 
-/* Year 2 Header */
+/* HEADER */
 .year2-header {
-    background: white;
+    background: #fff;
     border-radius: 15px;
     padding: 20px;
     margin: 20px;
@@ -23,20 +32,21 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-left: 6px solid #2196F3;
+    gap: 20px;
+    border-left: 6px solid #673AB7;
 }
 
 .year2-logo {
     width: 60px;
     height: 60px;
+    min-width: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #2196F3, #1976D2);
+    background: linear-gradient(135deg, #7E57C2, #4527A0);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     font-size: 1.5rem;
-    font-weight: bold;
+    color: white;
 }
 
 .year2-header-content {
@@ -47,7 +57,7 @@ body {
 .year2-header-content span {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #1976D2;
+    color: #4527A0;
     display: block;
 }
 
@@ -59,7 +69,7 @@ body {
 }
 
 .year2-back-btn {
-    background: linear-gradient(135deg, #2196F3, #1976D2);
+    background: linear-gradient(135deg, #673AB7, #4527A0);
     color: white;
     border: none;
     padding: 12px 24px;
@@ -67,23 +77,24 @@ body {
     cursor: pointer;
     font-weight: 600;
     font-size: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+    transition: 0.3s ease;
+    white-space: nowrap;
 }
 
 .year2-back-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(103,58,183,0.35);
 }
 
-/* Year 2 Container */
+/* MAIN CONTAINER */
 .year2-container {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Year 2 Breadcrumb */
+/* BREADCRUMB */
 .year2-breadcrumb {
     background: white;
     border-radius: 10px;
@@ -91,18 +102,18 @@ body {
     margin-bottom: 25px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     font-size: 1rem;
-    border-left: 4px solid #2196F3;
+    border-left: 4px solid #673AB7;
+    overflow-wrap: anywhere;
 }
 
 .year2-breadcrumb a {
-    color: #2196F3;
+    color: #673AB7;
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease;
 }
 
 .year2-breadcrumb a:hover {
-    color: #1976D2;
+    color: #4527A0;
     text-decoration: underline;
 }
 
@@ -112,70 +123,7 @@ body {
     font-weight: bold;
 }
 
-/* Year 2 Overview */
-.year2-overview {
-    margin-bottom: 35px;
-}
-
-.year2-overview-card {
-    background: white;
-    border-radius: 15px;
-    padding: 35px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    border-left: 6px solid #2196F3;
-    text-align: center;
-}
-
-.year2-overview-card h2 {
-    color: #1976D2;
-    margin-bottom: 15px;
-    font-size: 2rem;
-}
-
-.year2-overview-card p {
-    color: #666;
-    font-size: 1.1rem;
-    margin-bottom: 25px;
-    line-height: 1.7;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Year 2 Stats */
-.year2-stats {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 30px 0;
-    flex-wrap: wrap;
-}
-
-.year2-stat {
-    text-align: center;
-    background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
-    padding: 25px 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
-    min-width: 140px;
-    border: 2px solid #90CAF9;
-}
-
-.year2-stat-number {
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: #1976D2;
-    margin-bottom: 8px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-}
-
-.year2-stat-label {
-    color: #1565C0;
-    font-size: 0.95rem;
-    font-weight: 600;
-}
-
-/* Sessions Section */
+/* SESSION SECTION */
 .year2-sessions-section {
     margin: 40px 0;
 }
@@ -193,13 +141,14 @@ body {
     margin-right: 12px;
 }
 
-/* Session Cards Grid */
+/* SESSION GRID */
 .year2-session-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 25px;
 }
 
+/* SESSION CARDS */
 .year2-session-card {
     display: block;
     text-decoration: none;
@@ -208,10 +157,11 @@ body {
     border-radius: 15px;
     padding: 30px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 3px solid transparent;
     position: relative;
     overflow: hidden;
+    min-width: 0;
 }
 
 .year2-session-card::before {
@@ -221,20 +171,20 @@ body {
     left: 0;
     right: 0;
     height: 5px;
-    background: linear-gradient(135deg, #2196F3, #1976D2);
+    background: linear-gradient(135deg, #673AB7, #4527A0);
 }
 
 .year2-session-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-6px);
     box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    border-color: #2196F3;
+    border-color: #673AB7;
     text-decoration: none;
     color: inherit;
 }
 
 .year2-session-card.featured {
-    border: 3px solid #FF9800;
-    background: linear-gradient(135deg, #FFF8E1, #FFFFFF);
+    border-color: #FF9800;
+    background: linear-gradient(135deg, #FFF8E1, #fff);
 }
 
 .year2-session-card.featured::before {
@@ -242,7 +192,7 @@ body {
 }
 
 .year2-session-card h4 {
-    color: #1976D2;
+    color: #4527A0;
     font-size: 1.5rem;
     margin-bottom: 12px;
     font-weight: 700;
@@ -266,17 +216,18 @@ body {
 
 .year2-session-card li {
     color: #555;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-size: 0.95rem;
+    overflow-wrap: anywhere;
 }
 
+/* STATUS BADGES */
 .year2-session-status {
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 600;
     display: inline-block;
-    box-shadow: 0 3px 10px rgba(33, 150, 243, 0.3);
 }
 
 .year2-session-status.available {
@@ -293,47 +244,53 @@ body {
     background: linear-gradient(135deg, #FF9800, #F57C00);
 }
 
-/* Quick Subjects Access */
+/* QUICK ACCESS */
 .year2-quick-access {
-    margin: 40px 0;
+    margin: 45px 0;
 }
 
-.year2-quick-grid {
+/* Both supported class names */
+.year2-quick-grid,
+.year3-quick-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
 }
 
 .year2-quick-card {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
     background: white;
     border-radius: 12px;
     padding: 25px;
     text-decoration: none;
     color: inherit;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    border-left: 4px solid #2196F3;
+    transition: 0.3s ease;
+    border-left: 4px solid #673AB7;
+    min-width: 0;
 }
 
 .year2-quick-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    text-decoration: none;
-    color: inherit;
 }
 
 .year2-quick-icon {
     font-size: 2.5rem;
-    color: #2196F3;
-    min-width: 60px;
+    color: #673AB7;
+    min-width: 50px;
+    text-align: center;
+}
+
+.year2-quick-content {
+    min-width: 0;
 }
 
 .year2-quick-content strong {
-    color: #1976D2;
-    font-size: 1.2rem;
+    color: #4527A0;
+    font-size: 1.1rem;
     display: block;
     margin-bottom: 5px;
 }
@@ -344,11 +301,10 @@ body {
     margin: 0;
 }
 
-/* Protection Overlay */
+/* PROTECTION OVERLAY */
 .year2-protection-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.9);
@@ -356,6 +312,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    padding: 15px;
 }
 
 .year2-protection-modal {
@@ -366,11 +323,11 @@ body {
     width: 90%;
     text-align: center;
     box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    border: 4px solid #2196F3;
+    border: 4px solid #673AB7;
 }
 
 .year2-protection-modal h3 {
-    color: #1976D2;
+    color: #4527A0;
     margin-bottom: 20px;
     font-size: 1.8rem;
 }
@@ -381,9 +338,9 @@ body {
     font-size: 1.1rem;
 }
 
-/* Year 2 Buttons */
+/* BUTTONS */
 .year2-btn {
-    background: linear-gradient(135deg, #2196F3, #1976D2);
+    background: linear-gradient(135deg, #673AB7, #4527A0);
     color: white;
     border: none;
     padding: 14px 28px;
@@ -391,37 +348,27 @@ body {
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+    transition: 0.3s ease;
 }
 
 .year2-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+    box-shadow: 0 8px 25px rgba(103,58,183,0.4);
 }
 
-.year2-btn-secondary {
-    background: linear-gradient(135deg, #4CAF50, #2E7D32);
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-}
-
-.year2-btn-secondary:hover {
-    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
-}
-
-/* Year 2 Footer */
+/* FOOTER */
 .year2-footer {
     background: rgba(255,255,255,0.15);
     border-radius: 15px;
     padding: 30px;
-    margin-top: 50px;
+    margin: 50px 20px 20px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.2);
 }
 
 .year2-footer-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 30px;
     margin-bottom: 20px;
 }
@@ -430,7 +377,6 @@ body {
     color: white;
     margin-bottom: 15px;
     font-size: 1.2rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
 .year2-footer-section p {
@@ -440,113 +386,151 @@ body {
 }
 
 .year2-footer-section a {
-    color: rgba(255,255,255,0.9);
+    color: white;
     text-decoration: none;
-    transition: color 0.3s ease;
 }
 
 .year2-footer-section a:hover {
-    color: #BBDEFB;
+    color: #D1C4E9;
     text-decoration: underline;
 }
 
 .year2-footer-bottom {
     text-align: center;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,0.85);
     padding-top: 20px;
     border-top: 1px solid rgba(255,255,255,0.3);
     font-size: 0.9rem;
 }
 
-/* Responsive Design */
+/* ACCESSIBILITY */
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid #FFCA28;
+    outline-offset: 4px;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+    .year2-quick-grid,
+    .year3-quick-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .year2-footer-content {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* MOBILE */
 @media (max-width: 768px) {
+
     .year2-header {
         flex-direction: column;
         gap: 15px;
         text-align: center;
         margin: 15px;
-        padding: 15px;
-    }
-    
-    .year2-container {
-        padding: 15px;
-    }
-    
-    .year2-session-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .year2-quick-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .year2-stats {
-        gap: 15px;
-    }
-    
-    .year2-stat {
-        min-width: 120px;
         padding: 20px 15px;
     }
-    
-    .year2-overview-card {
-        padding: 25px;
-    }
-    
-    .year2-protection-modal {
-        padding: 25px;
-    }
-    
-    .year2-quick-card {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-    }
-}
 
-@media (max-width: 480px) {
     .year2-header-content span {
         font-size: 1.5rem;
     }
-    
+
+    .year2-container {
+        padding: 15px;
+    }
+
+    .year2-session-grid,
+    .year2-quick-grid,
+    .year3-quick-grid {
+        grid-template-columns: 1fr;
+    }
+
     .year2-section-title {
         font-size: 1.6rem;
     }
-    
-    .year2-overview-card h2 {
-        font-size: 1.6rem;
+
+    .year2-session-card {
+        padding: 23px;
     }
-    
-    .year2-stats {
-        flex-direction: column;
-        align-items: center;
+
+    .year2-quick-card {
+        gap: 15px;
     }
-    
-    .year2-stat-number {
-        font-size: 2.2rem;
+
+    .year2-protection-modal {
+        padding: 25px;
+    }
+
+    .year2-footer-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .year2-footer {
+        margin: 30px 15px 15px;
     }
 }
 
-/* Animation for year 2 elements */
+/* SMALL MOBILE */
+@media (max-width: 400px) {
+
+    .year2-header-content span {
+        font-size: 1.3rem;
+    }
+
+    .year2-back-btn {
+        width: 100%;
+    }
+
+    .year2-breadcrumb {
+        padding: 12px;
+        font-size: 0.85rem;
+    }
+
+    .year2-session-card {
+        padding: 18px;
+    }
+
+    .year2-session-card h4 {
+        font-size: 1.3rem;
+    }
+
+    .year2-section-title {
+        font-size: 1.4rem;
+    }
+
+    .year2-quick-card {
+        padding: 18px;
+    }
+}
+
+/* ANIMATION */
 .year2-session-card,
-.year2-stat,
 .year2-quick-card {
-    animation: fadeInUp 0.6s ease-out;
+    animation: year3FadeIn 0.5s ease-out;
 }
 
-@keyframes fadeInUp {
+@keyframes year3FadeIn {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* Year 2 specific color scheme */
-.year2-primary { color: #2196F3; }
-.year2-primary-dark { color: #1976D2; }
-.year2-bg-light { background: #E3F2FD; }
-.year2-border { border-color: #2196F3; }
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
