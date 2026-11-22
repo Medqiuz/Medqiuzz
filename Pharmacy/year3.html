@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Year 3 | MedQuiz</title>
+    <link rel="stylesheet" href="3Style.css">
+</head>
+<body>
+    <!-- Protection Overlay -->
+    <div id="protection-overlay" class="year2-protection-overlay">
+        <div class="year2-protection-modal">
+            <h3>🔒 Access Required</h3>
+            <p>Please login to access Year 3 Pharmacy content</p>
+            <button onclick="window.location.href='../dashboard.html'" class="year2-btn">
+                Go to Dashboard
+            </button>
+        </div>
+    </div>
+
+    <header class="year2-header">
+        <div class="year2-logo">3️⃣</div>
+        <div class="year2-header-content">
+            <span>Pharmacy - Year 3</span>
+            <div class="year2-subtitle">Advanced Pharmaceutical &amp; Clinical Sciences</div>
+        </div>
+        <button onclick="goBackToPharmacy()" class="year2-back-btn">Back to Pharmacy</button>
+    </header>
+
+    <div class="year2-container">
+        <!-- Breadcrumb -->
+        <div class="year2-breadcrumb">
+            <a href="../dashboard.html">Dashboard</a>
+            <span class="year2-separator">></span>
+            <a href="pharmacy.html">Pharmacy</a>
+            <span class="year2-separator">></span>
+            <span>Year 3</span>
+        </div>
+
+        <!-- Sessions Section -->
+        <div class="year2-sessions-section">
+            <h2 class="year2-section-title">
+                <span>📖</span> Academic Sessions
+            </h2>
+
+            <div class="year2-session-grid">
+                <a href="session1.html" class="year2-session-card">
+                    <h4>Session 1</h4>
+                    <p>Semester I - Pharmaceutical &amp; Clinical Core</p>
+                    <ul>
+                        <li>⚗️ Integrated Physical Pharmacy and Pharmaceutics-II (Phar3121)</li>
+                        <li>🧴 Practical Integrated Physical Pharmacy and Pharmaceutics-II (Phar3122)</li>
+                        <li>💊 Pharmacology II (Phar3131)</li>
+                        <li>🧬 Medicinal Chemistry-II (Phar3141)</li>
+                        <li>🔬 Pharmaceutical Analysis-I (Phar3151)</li>
+                        <li>🩺 Integrated Therapeutics-I (Phar3162)</li>
+                        <li>🫀 Physical Assessment (Intm3161)</li>
+                    </ul>
+                    <div class="year2-session-status available">Available Now</div>
+                </a>
+
+                <a href="session2.html" class="year2-session-card featured">
+                    <h4>Session 2</h4>
+                    <p>Semester II - Advanced Pharmacy Practice</p>
+                    <ul>
+                        <li>📅 Courses will be announced soon</li>
+                    </ul>
+                    <div class="year2-session-status coming-soon">Coming Soon</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Access Section -->
+        <div class="year2-quick-access">
+            <h2 class="year2-section-title">
+                <span>🚀</span> Quick Access
+            </h2>
+
+            <div class="year2-quick-grid">
+                <a href="session1.html" class="year2-quick-card">
+                    <div class="year2-quick-icon">📚</div>
+                    <div class="year2-quick-content">
+                        <strong>Session 1 Subjects</strong>
+                        <p>Access all Year 3 Semester I pharmacy courses</p>
+                    </div>
+                </a>
+
+                <a href="pharmacology-II/pharmacology-II.html" class="year2-quick-card">
+                    <div class="year2-quick-icon">💊</div>
+                    <div class="year2-quick-content">
+                        <strong>Pharmacology II</strong>
+                        <p>Start with drug actions, mechanisms and therapeutic uses</p>
+                    </div>
+                </a>
+
+                <a href="pharmaceutical-analysis-I/pharmaceutical-analysis-I.html" class="year2-quick-card">
+                    <div class="year2-quick-icon">🔬</div>
+                    <div class="year2-quick-content">
+                        <strong>Pharmaceutical Analysis-I</strong>
+                        <p>Practice analytical methods and quality control</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="year2-footer">
+        <div class="year2-footer-content">
+            <div class="year2-footer-section">
+                <h4>Year 3 Pharmacy</h4>
+                <p>Advanced pharmaceutical and clinical curriculum</p>
+                <p>Bridging pharmaceutical sciences and patient care</p>
+            </div>
+            <div class="year2-footer-section">
+                <h4>Quick Links</h4>
+                <p><a href="session1.html">Session 1 Courses</a></p>
+                <p><a href="pharmacy.html">Pharmacy Department</a></p>
+                <p><a href="../dashboard.html">Main Dashboard</a></p>
+            </div>
+            <div class="year2-footer-section">
+                <h4>Progress</h4>
+                <p>Session 1: Available Now</p>
+                <p>Session 2: Coming Soon</p>
+            </div>
+        </div>
+        <div class="year2-footer-bottom">
+            © 2025 MedQuiz Pharmacy Year 3 | Building Clinical Competence
+        </div>
+    </footer>
+
+    <script src="../auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.authSystem || !window.authSystem.isAuthenticated()) {
+                document.getElementById('protection-overlay').style.display = 'flex';
+            } else {
+                document.getElementById('protection-overlay').style.display = 'none';
+            }
+        });
+
+        function goBackToPharmacy() {
+            window.location.href = 'pharmacy.html';
+        }
+    </script>
+</body>
+</html>
