@@ -3,145 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Pharmacy Year 3 | MedQuiz</title>
+
+    <!-- Year 3 Stylesheet -->
     <link rel="stylesheet" href="3Style.css">
 </head>
+
 <body>
+
     <!-- Protection Overlay -->
-    <div id="protection-overlay" class="year2-protection-overlay">
+    <div id="protection-overlay"
+         class="year2-protection-overlay"
+         style="display: none;">
+
         <div class="year2-protection-modal">
             <h3>🔒 Access Required</h3>
-            <p>Please login to access Year 3 Pharmacy content</p>
-            <button onclick="window.location.href='../dashboard.html'" class="year2-btn">
+
+            <p>Please login to your MedQuiz account to access Year 3 Pharmacy content.</p>
+
+            <button
+                type="button"
+                onclick="window.location.href='../../dashboard.html'"
+                class="year2-btn">
+
                 Go to Dashboard
             </button>
         </div>
     </div>
 
+
+    <!-- Header -->
     <header class="year2-header">
+
         <div class="year2-logo">3️⃣</div>
+
         <div class="year2-header-content">
             <span>Pharmacy - Year 3</span>
-            <div class="year2-subtitle">Advanced Pharmaceutical &amp; Clinical Sciences</div>
+
+            <div class="year2-subtitle">
+                Advanced Pharmaceutical &amp; Clinical Sciences
+            </div>
         </div>
-        <button onclick="goBackToPharmacy()" class="year2-back-btn">Back to Pharmacy</button>
+
+        <button
+            type="button"
+            onclick="goBackToPharmacy()"
+            class="year2-back-btn">
+
+            Back to Pharmacy
+        </button>
+
     </header>
 
-    <div class="year2-container">
+
+    <!-- Main Container -->
+    <main class="year2-container">
+
         <!-- Breadcrumb -->
-        <div class="year2-breadcrumb">
-            <a href="../dashboard.html">Dashboard</a>
-            <span class="year2-separator">></span>
-            <a href="pharmacy.html">Pharmacy</a>
-            <span class="year2-separator">></span>
-            <span>Year 3</span>
-        </div>
+        <nav class="year2-breadcrumb" aria-label="Breadcrumb">
+
+            <a href="../../dashboard.html">Dashboard</a>
+
+            <span class="year2-separator">&gt;</span>
+
+            <a href="../pharmacy.html">Pharmacy</a>
+
+            <span class="year2-separator">&gt;</span>
+
+            <span aria-current="page">Year 3</span>
+
+        </nav>
+
 
         <!-- Sessions Section -->
-        <div class="year2-sessions-section">
+        <section class="year2-sessions-section">
+
             <h2 class="year2-section-title">
                 <span>📖</span> Academic Sessions
             </h2>
 
+
             <div class="year2-session-grid">
-                <a href="session31.html" class="year2-session-card">
+
+                <!-- Session 1 -->
+                <a href="session31.html"
+                   class="year2-session-card">
+
                     <h4>Session 1</h4>
-                    <p>Semester I - Pharmaceutical &amp; Clinical Core</p>
+
+                    <p>
+                        Semester I - Pharmaceutical &amp; Clinical Core
+                    </p>
+
                     <ul>
                         <li>⚗️ Integrated Physical Pharmacy and Pharmaceutics-II (Phar3121)</li>
+
                         <li>🧴 Practical Integrated Physical Pharmacy and Pharmaceutics-II (Phar3122)</li>
+
                         <li>💊 Pharmacology II (Phar3131)</li>
+
                         <li>🧬 Medicinal Chemistry-II (Phar3141)</li>
+
                         <li>🔬 Pharmaceutical Analysis-I (Phar3151)</li>
+
                         <li>🩺 Integrated Therapeutics-I (Phar3162)</li>
+
                         <li>🫀 Physical Assessment (Intm3161)</li>
                     </ul>
-                    <div class="year2-session-status available">Available Now</div>
+
+                    <div class="year2-session-status available">
+                        Available Now
+                    </div>
+
                 </a>
 
-                
+
+                <!-- Session 2 -->
+                <div class="year2-session-card">
+
                     <h4>Session 2</h4>
-                    <p>Semester II - Advanced Pharmacy Practice</p>
+
+                    <p>
+                        Semester II - Advanced Pharmacy Practice
+                    </p>
+
                     <ul>
                         <li>📅 Courses will be announced soon</li>
                     </ul>
-                    <div class="year2-session-status coming-soon">Coming Soon</div>
-            
+
+                    <div class="year2-session-status coming-soon">
+                        Coming Soon
+                    </div>
+
+                </div>
+
             </div>
-        </div>
+
+        </section>
+
+
 
         <!-- Quick Access Section -->
-        <div class="year2-quick-access">
+        <section class="year2-quick-access">
+
             <h2 class="year2-section-title">
                 <span>🚀</span> Quick Access
             </h2>
 
-            <div class="year3-quick-grid">
-                <a href="#" class="year2-quick-card">
+
+            <div class="year2-quick-grid">
+
+
+                <!-- Session 1 Quick Access -->
+                <a href="session31.html"
+                   class="year2-quick-card">
+
                     <div class="year2-quick-icon">📚</div>
+
                     <div class="year2-quick-content">
+
                         <strong>Session 1 Subjects</strong>
-                        <p>Access all Year 3 Semester I pharmacy courses</p>
+
+                        <p>
+                            Access all Year 3 Semester I pharmacy courses
+                        </p>
+
                     </div>
+
                 </a>
 
-                <a href="pharmacology-II/pharmacology-II.html" class="year2-quick-card">
+
+
+                <!-- Pharmacology II -->
+                <a href="pharmacology-II/pharmacology-II.html"
+                   class="year2-quick-card">
+
                     <div class="year2-quick-icon">💊</div>
+
                     <div class="year2-quick-content">
+
                         <strong>Pharmacology II</strong>
-                        <p>Start with drug actions, mechanisms and therapeutic uses</p>
+
+                        <p>
+                            Start with drug actions, mechanisms and therapeutic uses
+                        </p>
+
                     </div>
+
                 </a>
 
-                <a href="pharmaceutical-analysis-I/pharmaceutical-analysis-I.html" class="year2-quick-card">
+
+
+                <!-- Pharmaceutical Analysis I -->
+                <a href="pharmaceutical-analysis-I/pharmaceutical-analysis-I.html"
+                   class="year2-quick-card">
+
                     <div class="year2-quick-icon">🔬</div>
+
                     <div class="year2-quick-content">
+
                         <strong>Pharmaceutical Analysis-I</strong>
-                        <p>Practice analytical methods and quality control</p>
+
+                        <p>
+                            Practice analytical methods and quality control
+                        </p>
+
                     </div>
+
                 </a>
+
+
             </div>
-        </div>
-    </div>
+
+        </section>
+
+    </main>
+
+
 
     <!-- Footer -->
     <footer class="year2-footer">
+
         <div class="year2-footer-content">
+
+
+            <!-- About -->
             <div class="year2-footer-section">
+
                 <h4>Year 3 Pharmacy</h4>
-                <p>Advanced pharmaceutical and clinical curriculum</p>
-                <p>Bridging pharmaceutical sciences and patient care</p>
+
+                <p>
+                    Advanced pharmaceutical and clinical curriculum
+                </p>
+
+                <p>
+                    Bridging pharmaceutical sciences and patient care
+                </p>
+
             </div>
+
+
+
+            <!-- Quick Links -->
             <div class="year2-footer-section">
+
                 <h4>Quick Links</h4>
-                <p><a href="session1.html">Session 1 Courses</a></p>
-                <p><a href="pharmacy.html">Pharmacy Department</a></p>
-                <p><a href="../dashboard.html">Main Dashboard</a></p>
+
+                <p>
+                    <a href="session31.html">
+                        Session 1 Courses
+                    </a>
+                </p>
+
+                <p>
+                    <a href="../pharmacy.html">
+                        Pharmacy Department
+                    </a>
+                </p>
+
+                <p>
+                    <a href="../../dashboard.html">
+                        Main Dashboard
+                    </a>
+                </p>
+
             </div>
+
+
+
+            <!-- Progress -->
             <div class="year2-footer-section">
+
                 <h4>Progress</h4>
+
                 <p>Session 1: Available Now</p>
+
                 <p>Session 2: Coming Soon</p>
+
             </div>
+
+
         </div>
+
+
         <div class="year2-footer-bottom">
-            © 2025 MedQuiz Pharmacy Year 3 | Building Clinical Competence
+
+            © 2026 MedQuiz Pharmacy Year 3 |
+            Building Clinical Competence
+
         </div>
+
     </footer>
 
+
+
+    <!-- Authentication System -->
     <script src="../auth.js"></script>
+
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (!window.authSystem || !window.authSystem.isAuthenticated()) {
-                document.getElementById('protection-overlay').style.display = 'flex';
+
+        // Back to Pharmacy
+        function goBackToPharmacy() {
+
+            window.location.href = '../pharmacy.html';
+
+        }
+
+
+        // Authentication Protection
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const protectionOverlay =
+                document.getElementById('protection-overlay');
+
+            // Check authentication system
+            const authenticated =
+                window.authSystem &&
+                typeof window.authSystem.isAuthenticated === 'function' &&
+                window.authSystem.isAuthenticated();
+
+            // Show protection if not authenticated
+            if (!authenticated) {
+
+                protectionOverlay.style.display = 'flex';
+
             } else {
-                document.getElementById('protection-overlay').style.display = 'none';
+
+                protectionOverlay.style.display = 'none';
+
             }
+
         });
 
-        function goBackToPharmacy() {
-            window.location.href = 'pharmacy.html';
-        }
     </script>
+
 </body>
 </html>
