@@ -1,125 +1,291 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a74da">
+
     <title>Pharmacy Department | MedQuiz</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <!-- Protection Overlay -->
-    <div id="protection-overlay" class="pharmacy-protection-overlay" style="display:none;">
+
+    <!-- Firebase Authentication Protection -->
+    <div id="protection-overlay"
+         class="pharmacy-protection-overlay"
+         style="display:flex;">
+
         <div class="pharmacy-protection-modal">
             <h3>🔒 Access Required</h3>
-            <p>Please login to access Pharmacy Department content</p>
-            <button onclick="window.location.href='../dashboard.html'" class="pharmacy-btn">
+
+            <p id="protection-message">
+                Verifying your MedQuiz account...
+            </p>
+
+            <button
+                type="button"
+                onclick="window.location.href='../index.html'"
+                class="pharmacy-btn"
+                id="login-button"
+                style="display:none;">
+                Login to MedQuiz
+            </button>
+
+            <button
+                type="button"
+                onclick="window.location.href='../dashboard.html'"
+                class="pharmacy-btn">
                 Go to Dashboard
             </button>
         </div>
     </div>
 
+    <!-- Pharmacy Header -->
     <header class="pharmacy-header">
+
         <div class="pharmacy-logo">💊</div>
+
         <div class="pharmacy-header-content">
             <span>Pharmacy Department</span>
-            <div class="pharmacy-subtitle">Comprehensive Pharmaceutical Education</div>
+
+            <div class="pharmacy-subtitle">
+                Comprehensive Pharmaceutical Education
+            </div>
         </div>
-        <button onclick="goBackToDashboard()" class="pharmacy-back-btn">Back to Dashboard</button>
+
+        <button
+            type="button"
+            onclick="goBackToDashboard()"
+            class="pharmacy-back-btn">
+            Back to Dashboard
+        </button>
+
     </header>
 
-    <div class="pharmacy-container" id="pharmacy-content" style="display:none;">
-        <!-- Breadcrumb -->
+    <!-- Protected Pharmacy Content -->
+    <main class="pharmacy-container"
+          id="pharmacy-content"
+          style="display:none;">
+
         <div class="pharmacy-breadcrumb">
             <a href="../dashboard.html">Dashboard</a>
-            <span class="pharmacy-separator">></span>
+            <span class="pharmacy-separator">&gt;</span>
             <span>Pharmacy Department</span>
         </div>
+
         <!-- Academic Years -->
-        <div class="pharmacy-years-section">
+        <section class="pharmacy-years-section">
+
             <h2 class="pharmacy-section-title">
-                <span>📚</span> Academic Years
+                <span>📚</span>
+                Academic Years
             </h2>
-<div class="pharmacy-year-card coming-soon">
+
+            <div class="pharmacy-year-grid">
+
+                <!-- Year 1 -->
+                <div class="pharmacy-year-card coming-soon">
                     <h4>Year 1</h4>
                     <p>Foundation Courses</p>
-                    <div class="pharmacy-course-count">Coming Soon</div>
-</div>
-            <div class="pharmacy-year-grid">
-                <a href="year2.html" class="pharmacy-year-card">
+                    <div class="pharmacy-course-count">
+                        Coming Soon
+                    </div>
+                </div>
+
+                <!-- Year 2 -->
+                <a href="year2.html"
+                   class="pharmacy-year-card">
+
                     <h4>Year 2</h4>
                     <p>Core Pharmaceutical Sciences</p>
-                    <div class="pharmacy-course-count">12 Subjects Available</div>
+
+                    <div class="pharmacy-course-count">
+                        12 Subjects Available
+                    </div>
+
                 </a>
 
-                
+                <!-- Year 3 -->
+                <a href="year3/year3.html"
+                   class="pharmacy-year-card">
 
-                <div class="pharmacy-year-grid">
-                    <a href="year3/year3.html" class="pharmacy-year-card">
                     <h4>Year 3</h4>
                     <p>Clinical Applications</p>
-                    <div class="pharmacy-course-count">Available</div>
-                </div>
-            </a>
 
+                    <div class="pharmacy-course-count">
+                        Available
+                    </div>
+
+                </a>
+
+                <!-- Year 4 -->
                 <div class="pharmacy-year-card coming-soon">
                     <h4>Year 4</h4>
                     <p>Advanced Practice</p>
-                    <div class="pharmacy-course-count">Coming Soon</div>
+
+                    <div class="pharmacy-course-count">
+                        Coming Soon
+                    </div>
                 </div>
 
+                <!-- Year 5 -->
                 <div class="pharmacy-year-card coming-soon">
                     <h4>Year 5</h4>
-                    <p>Internship & Specialization</p>
-                    <div class="pharmacy-course-count">Coming Soon</div>
+                    <p>Internship &amp; Specialization</p>
+
+                    <div class="pharmacy-course-count">
+                        Coming Soon
+                    </div>
                 </div>
 
+                <!-- Postgraduate -->
                 <div class="pharmacy-year-card coming-soon">
                     <h4>Postgraduate</h4>
                     <p>Specialized Training</p>
-                    <div class="pharmacy-course-count">Coming Soon</div>
+
+                    <div class="pharmacy-course-count">
+                        Coming Soon
+                    </div>
                 </div>
+
             </div>
-        </div>
-    </div>
+        </section>
+
+    </main>
 
     <!-- Footer -->
     <footer class="pharmacy-footer">
+
         <div class="pharmacy-footer-content">
+
             <div class="pharmacy-footer-section">
                 <h4>Pharmacy Department</h4>
-                <p>Comprehensive pharmaceutical education and training</p>
-                <p>Latest curriculum and exam preparation</p>
+
+                <p>
+                    Comprehensive pharmaceutical education and training
+                </p>
+
+                <p>
+                    Latest curriculum and exam preparation
+                </p>
             </div>
+
             <div class="pharmacy-footer-section">
                 <h4>Quick Links</h4>
-                <p><a href="year2.html">Year 2 Courses</a></p>
-                <p><a href="../dashboard.html">Main Dashboard</a></p>
+
+                <p>
+                    <a href="year2.html">Year 2 Courses</a>
+                </p>
+
+                <p>
+                    <a href="../dashboard.html">Main Dashboard</a>
+                </p>
             </div>
+
         </div>
+
         <div class="pharmacy-footer-bottom">
-            © 2025 MedQuiz Pharmacy | Practice Smart, Succeed Fast
+            © 2026 MedQuiz Pharmacy | Practice Smart, Succeed Fast
         </div>
+
     </footer>
 
-    <!-- Scripts -->
-    <script src="../auth.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (!window.authSystem || !window.authSystem.isAuthenticated()) {
-                // Show overlay if not logged in
-                document.getElementById('protection-overlay').style.display = 'flex';
-                document.getElementById('pharmacy-content').style.display = 'none';
-            } else {
-                // Show content if logged in
-                document.getElementById('protection-overlay').style.display = 'none';
-                document.getElementById('pharmacy-content').style.display = 'block';
-                console.log('Authenticated user:', authSystem.getCurrentUser());
+    <!-- Firebase Authentication -->
+    <script type="module">
+
+        import { auth, db } from "../firebase.js";
+
+        import {
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+        import {
+            doc,
+            getDoc
+        } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+
+        const overlay = document.getElementById("protection-overlay");
+        const content = document.getElementById("pharmacy-content");
+        const message = document.getElementById("protection-message");
+        const loginButton = document.getElementById("login-button");
+
+        function showProtectedMessage(text, showLogin = false) {
+
+            overlay.style.display = "flex";
+            content.style.display = "none";
+
+            message.textContent = text;
+
+            loginButton.style.display = showLogin ? "block" : "none";
+        }
+
+
+        // Keep content hidden until Firebase verifies the user.
+        onAuthStateChanged(auth, async (user) => {
+
+            if (!user) {
+
+                showProtectedMessage(
+                    "Please log in with your registered MedQuiz account.",
+                    true
+                );
+
+                return;
             }
+
+            try {
+
+                const studentRef = doc(db, "students", user.uid);
+
+                const studentSnapshot = await getDoc(studentRef);
+
+                if (!studentSnapshot.exists()) {
+
+                    showProtectedMessage(
+                        "Your student profile was not found. Please complete your registration.",
+                        true
+                    );
+
+                    return;
+                }
+
+                // Authenticated student with a registered profile.
+                overlay.style.display = "none";
+                content.style.display = "block";
+
+                console.log(
+                    "Firebase authenticated student:",
+                    studentSnapshot.data().fullName
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Pharmacy authentication error:",
+                    error
+                );
+
+                showProtectedMessage(
+                    "Unable to verify your account. Check your internet connection and refresh the page."
+                );
+
+            }
+
         });
 
-        function goBackToDashboard() {
-            window.location.href = '../dashboard.html';
-        }
+
+        // Return to main dashboard.
+        window.goBackToDashboard = function () {
+
+            window.location.href = "../dashboard.html";
+
+        };
+
     </script>
+
 </body>
 </html>
