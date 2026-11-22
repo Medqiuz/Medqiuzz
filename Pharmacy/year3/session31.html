@@ -1,18 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="description" content="MedQuiz - Year 3 Pharmacy, Session 1 course materials.">
     <meta name="robots" content="noindex, nofollow">
 
     <title>Year 3 - Session 1 | MedQuiz</title>
 
     <style>
-        /* ==============================
-           1. GLOBAL STYLES
-        ============================== */
         * {
             margin: 0;
             padding: 0;
@@ -42,13 +39,8 @@
             text-decoration: none;
         }
 
-        button {
-            font: inherit;
-        }
+        /* ACCESS PROTECTION */
 
-        /* ==============================
-           2. ACCESS PROTECTION
-        ============================== */
         .protection-overlay {
             position: fixed;
             inset: 0;
@@ -113,15 +105,10 @@
             outline-offset: 3px;
         }
 
-        /* ==============================
-           3. HEADER
-        ============================== */
+        /* HEADER */
+
         .dashboard-header {
-            background: linear-gradient(
-                135deg,
-                var(--primary),
-                var(--primary-dark)
-            );
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             padding: 20px 5%;
             display: flex;
@@ -162,18 +149,16 @@
             background: rgba(255, 255, 255, 0.28);
         }
 
-        /* ==============================
-           4. MAIN CONTAINER
-        ============================== */
+        /* MAIN CONTAINER */
+
         .dashboard-container {
             max-width: 1200px;
             margin: 35px auto;
             padding: 0 22px;
         }
 
-        /* ==============================
-           5. BREADCRUMB
-        ============================== */
+        /* BREADCRUMB */
+
         .breadcrumb {
             margin-bottom: 30px;
             font-size: 0.9rem;
@@ -194,9 +179,8 @@
             color: #aab4bf;
         }
 
-        /* ==============================
-           6. CATEGORY TITLE
-        ============================== */
+        /* CATEGORY TITLE */
+
         .category-title {
             font-size: 1.8rem;
             font-weight: 700;
@@ -209,15 +193,11 @@
             margin-bottom: 25px;
         }
 
-        /* ==============================
-           7. COURSE GRID
-        ============================== */
+        /* COURSE GRID */
+
         .parts-grid {
             display: grid;
-            grid-template-columns: repeat(
-                auto-fit,
-                minmax(min(100%, 260px), 1fr)
-            );
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
             gap: 20px;
         }
 
@@ -266,9 +246,8 @@
             white-space: nowrap;
         }
 
-        /* ==============================
-           8. DEVELOPMENT NOTICE
-        ============================== */
+        /* DEVELOPMENT NOTICE */
+
         .debug-info {
             margin-top: 40px;
             padding: 20px;
@@ -280,6 +259,14 @@
             color: var(--muted);
         }
 
+        .debug-info p {
+            margin-bottom: 8px;
+        }
+
+        .debug-info p:last-child {
+            margin-bottom: 0;
+        }
+
         .debug-info strong {
             color: var(--text);
         }
@@ -289,9 +276,8 @@
             font-weight: 600;
         }
 
-        /* ==============================
-           9. FOOTER
-        ============================== */
+        /* FOOTER */
+
         .footer {
             text-align: center;
             padding: 25px 15px;
@@ -299,9 +285,8 @@
             font-size: 0.85rem;
         }
 
-        /* ==============================
-           10. RESPONSIVE DESIGN
-        ============================== */
+        /* RESPONSIVE DESIGN */
+
         @media (max-width: 600px) {
             .dashboard-header {
                 flex-direction: column;
@@ -336,9 +321,6 @@
             }
         }
 
-        /* ==============================
-           11. REDUCED MOTION
-        ============================== */
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -353,9 +335,8 @@
 
 <body>
 
-    <!-- ==============================
-         ACCESS PROTECTION OVERLAY
-    ============================== -->
+    <!-- ACCESS PROTECTION -->
+
     <div
         id="protection-overlay"
         class="protection-overlay"
@@ -369,30 +350,26 @@
 
             <h3 id="protection-title">Access Required</h3>
 
-            <p>Please log in to your MedQuiz account to access this content.</p>
+            <p>Please login to your MedQuiz account to access Year 3 Pharmacy content.</p>
 
-            <a href="../../dashboard.html" class="btn">
+            <a href="../../Dashboard.html" class="btn">
                 Go to Dashboard
             </a>
 
         </div>
     </div>
 
+    <!-- PROTECTED CONTENT -->
 
-    <!-- Protected page content -->
     <div id="protected-content" inert aria-hidden="true">
 
-        <!-- ==============================
-             HEADER
-        ============================== -->
+        <!-- HEADER -->
+
         <header class="dashboard-header">
 
             <div class="header-content">
-
                 <h1>Year 3 - Session 1</h1>
-
                 <p>Pharmacy Department | MedQuiz</p>
-
             </div>
 
             <a href="year3.html" class="back-btn">
@@ -401,16 +378,15 @@
 
         </header>
 
+        <!-- MAIN CONTENT -->
 
-        <!-- ==============================
-             MAIN CONTENT
-        ============================== -->
         <main class="dashboard-container">
 
-            <!-- Breadcrumb -->
+            <!-- BREADCRUMB -->
+
             <nav class="breadcrumb" aria-label="Breadcrumb">
 
-                <a href="../../../dashboard.html">Dashboard</a>
+                <a href="../../Dashboard.html">Dashboard</a>
 
                 <span class="separator">›</span>
 
@@ -422,8 +398,8 @@
 
             </nav>
 
+            <!-- CATEGORY TITLE -->
 
-            <!-- Category Title -->
             <section>
 
                 <h2 class="category-title">
@@ -434,109 +410,57 @@
                     Select a course to access its learning materials and quizzes.
                 </p>
 
+                <!-- COURSE CARDS -->
 
-                <!-- ==============================
-                     COURSE CARDS
-                ============================== -->
                 <div class="parts-grid">
 
-                    <!-- 1. Integrated Physical Pharmacy -->
-                    <a
-                        href="Integrated physical pharmacy and pharmaceutics-II.html"
-                        class="part-card"
-                        aria-label="Open Integrated physical pharmacy and pharmaceutics-II"
-                    >
+                    <a href="Integrated physical pharmacy and pharmaceutics-II.html"
+                       class="part-card">
                         <div class="part-header">
-                            <h3>
-                                Integrated physical pharmacy and pharmaceutics-II
-                            </h3>
-
+                            <h3>Integrated physical pharmacy and pharmaceutics-II</h3>
                             <span class="part-badge">Available</span>
                         </div>
                     </a>
 
-
-                    <!-- 2. Practical Integrated Physical Pharmacy -->
-                    <a
-                        href="Practical Integrated physical pharmacy and pharmaceutics-II.html"
-                        class="part-card"
-                        aria-label="Open Practical Integrated physical pharmacy and pharmaceutics-II"
-                    >
+                    <a href="Practical Integrated physical pharmacy and pharmaceutics-II.html"
+                       class="part-card">
                         <div class="part-header">
-                            <h3>
-                                Practical Integrated physical pharmacy and pharmaceutics-II
-                            </h3>
-
+                            <h3>Practical Integrated physical pharmacy and pharmaceutics-II</h3>
                             <span class="part-badge">Available</span>
                         </div>
                     </a>
 
-
-                    <!-- 3. Pharmacology II -->
-                    <a
-                        href="Pharmacology2.html"
-                        class="part-card"
-                        aria-label="Open Pharmacology II"
-                    >
+                    <a href="Pharmacology2.html" class="part-card">
                         <div class="part-header">
                             <h3>Pharmacology II</h3>
-
                             <span class="part-badge">Available</span>
                         </div>
                     </a>
 
-
-                    <!-- 4. Medicinal Chemistry II -->
-                    <a
-                        href="Medicinalchemistry2.html"
-                        class="part-card"
-                        aria-label="Open Medicinal chemistry-II"
-                    >
+                    <a href="Medicinalchemistry2.html" class="part-card">
                         <div class="part-header">
-                            <h3>Medicinal chemistry-II</h3>
-
+                            <h3>Medicinal Chemistry II</h3>
                             <span class="part-badge">Available</span>
                         </div>
                     </a>
 
-
-                    <!-- 5. Pharmaceutical Analysis I -->
-                    <a
-                        href="PharmaceuticalAnalysis.html"
-                        class="part-card"
-                        aria-label="Open Pharmaceutical Analysis-I"
-                    >
+                    <a href="PharmaceuticalAnalysis.html" class="part-card">
                         <div class="part-header">
-                            <h3>Pharmaceutical Analysis-I</h3>
-
+                            <h3>Pharmaceutical Analysis I</h3>
                             <span class="part-badge">Available</span>
                         </div>
                     </a>
 
-
-                    <!-- 6. Integrated Therapeutics I -->
-                    <a
-                        href="IntegratedTherapeutics1.html"
-                        class="part-card"
-                        aria-label="Open Integrated therapeutics-I"
-                    >
+                    <a href="IntegratedTherapeutics1.html" class="part-card">
                         <div class="part-header">
-                            <h3>Integrated therapeutics-I</h3>
-
+                            <h3>Integrated Therapeutics I</h3>
                             <span class="part-badge">Available</span>
                         </div>
                     </a>
 
-
-                    <!-- 7. Physical Assessment -->
-                    <a
-                        href="PhysicalAssessment.html"
-                        class="part-card"
-                        aria-label="Open Physical assessment"
-                    >
+                    <a href="PhysicalAssessment.html" class="part-card">
                         <div class="part-header">
-                            <h3>Physical assessment</h3>
-
+                            <h3>Physical Assessment</h3>
                             <span class="part-badge">Available</span>
                         </div>
                     </a>
@@ -545,70 +469,52 @@
 
             </section>
 
+            <!-- DEVELOPMENT NOTICE -->
 
-            <!-- ==============================
-                 DEVELOPMENT NOTICE
-            ============================== -->
             <section class="debug-info">
 
                 <p>
                     <strong>Notice:</strong>
-                    Our website is currently under development and may have
-                    bugs or incomplete features.
+                    Our website is currently under development and may have bugs or incomplete features.
                 </p>
 
                 <p>
-                    If you encounter any issues or errors, please report
-                    them to us via email:
-                    <a href="mailto:Medqiuz@gmail.com">
-                        Medqiuz@gmail.com
-                    </a>.
+                    If you encounter any issues or errors, please report them via email:
+                    <a href="mailto:Medqiuz@gmail.com">Medqiuz@gmail.com</a>.
                 </p>
 
                 <p>
-                    We appreciate your patience and understanding as
-                    we continue to improve the site.
+                    We appreciate your patience and understanding as we continue to improve the site.
                 </p>
 
             </section>
 
         </main>
 
+        <!-- FOOTER -->
 
-        <!-- ==============================
-             FOOTER
-        ============================== -->
         <footer class="footer">
-
             <p>© 2026 MedQuiz. All rights reserved.</p>
-
             <p>Year 3 Pharmacy | Session 1</p>
-
         </footer>
 
     </div>
 
+    <!-- LOAD AUTHENTICATION FILE FROM PROJECT ROOT -->
 
-    <!-- ==============================
-         SECURITY & INITIALIZATION
-    ============================== -->
+    <script src="../../Auth.js"></script>
+
+    <!-- AUTHENTICATION AND PAGE INITIALIZATION -->
+
     <script>
         "use strict";
 
         document.addEventListener("DOMContentLoaded", async function () {
 
             const overlay = document.getElementById("protection-overlay");
-
             const protectedContent = document.getElementById("protected-content");
 
-            /*
-             * IMPORTANT:
-             * Use your existing real authentication system.
-             * Do not replace this with a function that always returns true.
-             *
-             * If authSystem is missing, authentication fails by default.
-             */
-
+            // Authentication check
             async function checkAuthentication() {
 
                 try {
@@ -617,6 +523,10 @@
                         !window.authSystem ||
                         typeof window.authSystem.isAuthenticated !== "function"
                     ) {
+                        console.error(
+                            "Authentication system not found. Check ../../Auth.js"
+                        );
+
                         return false;
                     }
 
@@ -626,18 +536,18 @@
 
                 } catch (error) {
 
-                    // Deny access if authentication fails.
-                    return false;
+                    console.error("Authentication error:", error);
 
+                    return false;
                 }
             }
 
-
-            // Initialize access protection.
+            // Check login status
             const authenticated = await checkAuthentication();
 
             if (authenticated) {
 
+                // User is authenticated
                 overlay.hidden = true;
 
                 protectedContent.inert = false;
@@ -646,21 +556,15 @@
 
             } else {
 
+                // User is not authenticated
                 overlay.hidden = false;
 
                 protectedContent.inert = true;
 
                 protectedContent.setAttribute("aria-hidden", "true");
-
             }
 
-
-            /*
-             * Validate course links.
-             * Only allow local relative HTML destinations.
-             * This prevents unexpected external navigation.
-             */
-
+            // Validate course links
             const courseLinks = document.querySelectorAll(
                 ".parts-grid .part-card"
             );
@@ -680,11 +584,9 @@
                 if (!validLocalLink) {
 
                     link.removeAttribute("href");
-
                     link.setAttribute("aria-disabled", "true");
 
                 }
-
             });
 
         });
