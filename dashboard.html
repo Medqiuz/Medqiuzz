@@ -1,201 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | MedQuiz Practice</title>
-    <!-- Main dashboard styles -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Department specific styles (loaded dynamically) -->
-    <link id="pharmacy-css" rel="stylesheet" href="pharmacy/pharmacy.css" disabled>
-    <link id="year2-css" rel="stylesheet" href="year2/year2.css" disabled>
-    <link id="session1-css" rel="stylesheet" href="session1/session1.css" disabled>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | MedQuiz Practice</title>
+  <link rel="stylesheet" href="style.css">
+  <link id="pharmacy-css" rel="stylesheet" href="pharmacy/pharmacy.css" disabled>
+  <link id="year2-css" rel="stylesheet" href="year2/year2.css" disabled>
+  <link id="session1-css" rel="stylesheet" href="session1/session1.css" disabled>
 </head>
 <body>
-    <!-- Protection Overlay -->
-    <div id="protection-overlay" class="protection-overlay" style="display:none;">
-        <div class="protection-modal">
-            <h3>🔒 Access Required</h3>
-            <p>You need to register first to access the dashboard.</p>
-            <div class="login-form">
-                <input type="email" id="login-email" placeholder="Enter your registered email" class="login-input">
-                <input type="text" id="login-code" placeholder="Enter your access code" class="login-input">
-                <button onclick="attemptLogin()" class="btn login-btn">Login</button>
-                <button onclick="redirectToRegistration()" class="btn secondary-btn">New Registration</button>
-            </div>
-            <div class="security-notice">
-                <p><strong>Don't have an access code?</strong></p>
-                <p>1. Join: <a href="https://t.me/yerotechno" target="_blank">https://t.me/yerotechno</a></p>
-                <p>2. Contact admin: <strong>@Goodlife61</strong> on Telegram</p>
-                <p>3. Complete payment to get your unique code</p>
-            </div>
-        </div>
+  <div id="protection-overlay" class="protection-overlay" style="display:none;">
+    <div class="protection-modal">
+      <h3>🔒 Access Required</h3>
+      <p>Please log in with your registered MedQuiz email and password.</p>
+      <div class="login-form">
+        <input type="email" id="login-email" placeholder="Registered email" class="login-input" autocomplete="username">
+        <input type="password" id="login-code" placeholder="Account password" class="login-input" autocomplete="current-password">
+        <button onclick="attemptLogin()" class="btn login-btn">Login</button>
+        <button onclick="redirectToRegistration()" class="btn secondary-btn">New Registration</button>
+      </div>
+      <div class="security-notice">
+        <p><strong>Need an access code?</strong></p>
+        <p>Contact MedQuiz support through <a href="https://t.me/yerotechno" target="_blank" rel="noopener">the Telegram channel</a>.</p>
+        <p>Never share your account password or access code.</p>
+      </div>
     </div>
+  </div>
 
-    <header>
+  <header>
     <div class="header-main">
-        <button id="logout-btn" class="logout-btn" onclick="logout()">Logout</button>
-        <div class="logo-wrapper">
-            <img src="989.jpg" alt="MedQuiz Logo" class="logo">
-        </div>
+      <button id="logout-btn" class="logout-btn" type="button">Logout</button>
+      <div class="logo-wrapper"><img src="989.jpg" alt="MedQuiz Logo" class="logo"></div>
     </div>
-    <div class="header-subtitle">
-        <span id="welcome-message">Master Medical Sciences Through Practice</span>
-    </div>
-    </header>
+    <div class="header-subtitle"><span id="welcome-message">Master Medical Sciences Through Practice</span></div>
+  </header>
 
-    <div class="dashboard-container">
-        <!-- User Welcome Section -->
-        <div id="user-welcome" class="user-welcome">
-            <div class="welcome-card">
-                <h3>Welcome, <span id="user-name">User</span>!</h3>
-                <p>Department: <span id="user-department">-</span> | Year: <span id="user-year">-</span></p>
-                <p>University: <span id="user-university">-</span></p>
-            </div>
-        </div>
-        <!-- Departments -->
-        <div class="category-title">
-            <span>🏥</span> Medical Departments
-        </div>
-
-        <div class="department-grid">
-            <!-- Medicine -->
-            <div class="department-card coming-soon">
-                <div class="department-icon">🏥</div>
-                <h3>Medicine</h3>
-              
-                <div class="status-badge coming-soon">Coming Soon</div>
-            </div>
-
-            <!-- Pharmacy -->
-            <a href="Pharmacy/pharmacy.html" class="department-card" onclick="loadPharmacyStyles()">
-                <div class="department-icon">💊</div>
-                <h3>Pharmacy</h3>
-                
-                <div class="status-badge available">Available</div>
-            </a>
-
-            <!-- Nursing -->
-                        <a href="Nursing/nursing.html" class="department-card" onclick="loadnursingStyles()">
-                <div class="department-icon">🩺</div>
-                <h3>Nursing</h3>
-            
-                <div class="status-badge available">Available</div>
-                        </a>
-
-            <!-- Medical Laboratory -->
-                        <a href="Mls/mls.html" class="department-card" onclick="loadmlspĺStyles()">
-                <div class="department-icon">🧬</div>
-                <h3>Medical Laboratory</h3>
-                <div class="status-badge available">Available</div>
-                        </a>
-
-            <!-- Health Officer -->
-            <div class="department-card coming-soon">
-                <div class="department-icon">🩺</div>
-                <h3>Health Officer</h3>
-               
-                <div class="status-badge available">Available</div>
-            </div>
-
-            <!-- Midwifery -->
-            <div class="department-card coming-soon">
-                <div class="department-icon">🤰</div>
-                <h3>Midwifery</h3>
-                <p>Maternal and child health care exam preparation</p>
-                <div class="status-badge coming-soon">Coming Soon</div>
-            </div>
-
-            <!-- Physiotherapy -->
-            <div class="department-card coming-soon">
-                <div class="department-icon">🦵</div>
-                <h3>Physiotherapy</h3>
-                <p>Physical therapy and rehabilitation exam preparation</p>
-                <div class="status-badge coming-soon">Coming Soon</div>
-            </div>
-
-            <!-- Radiology -->
-            <div class="department-card coming-soon">
-                <div class="department-icon">🩻</div>
-                <h3>Radiology</h3>
-                <p>Medical imaging and radiology exams</p>
-                <div class="status-badge coming-soon">Coming Soon</div>
-            </div>
-
-            <!-- Nutrition -->
-            <div class="department-card coming-soon">
-                <div class="department-icon">🥗</div>
-                <h3>Nutrition</h3>
-                <p>Clinical nutrition and dietetics exam preparation</p>
-                <div class="status-badge coming-soon">Coming Soon</div>
-            </div>
-        </div>
+  <div class="dashboard-container">
+    <div id="user-welcome" class="user-welcome">
+      <div class="welcome-card">
+        <h3>Welcome, <span id="user-name">User</span>!</h3>
+        <p>Department: <span id="user-department">-</span> | Year: <span id="user-year">-</span></p>
+        <p>University: <span id="user-university">-</span></p>
+      </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Contact Information</h4>
-                <p><strong>Telegram channel:</strong> <a href="https://t.me/yerotechno" target="_blank">MedQuiz</a></p>
-                <p><strong>email us:</strong> <a href="mailto:Medqiuz@gmail.com">Email MedQuiz</a><br>
-               <br>telelgram support <a href="https://t.me/@MedquizP" target="_blank">MedquizSupport</a></p>
-                <p><strong>Phone:</strong> +251718461632</p>
-            </div>
-            <div class="footer-section">
-                <h4>About MedQuiz</h4>
-                <p>Your trusted platform for medical education and exam preparation.</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            © 2025 MedQuiz | Practice Smart, Succeed Fast
-        </div>
-    </footer>
+    <div class="category-title"><span>🏥</span> Medical Departments</div>
+    <div class="department-grid">
+      <div class="department-card coming-soon"><div class="department-icon">🏥</div><h3>Medicine</h3><div class="status-badge coming-soon">Coming Soon</div></div>
+      <a href="Pharmacy/pharmacy.html" class="department-card" onclick="loadPharmacyStyles()"><div class="department-icon">💊</div><h3>Pharmacy</h3><div class="status-badge available">Available</div></a>
+      <a href="Nursing/nursing.html" class="department-card" onclick="loadnursingStyles()"><div class="department-icon">🩺</div><h3>Nursing</h3><div class="status-badge available">Available</div></a>
+      <a href="Mls/mls.html" class="department-card" onclick="loadmlsStyles()"><div class="department-icon">🧬</div><h3>Medical Laboratory</h3><div class="status-badge available">Available</div></a>
+      <div class="department-card coming-soon"><div class="department-icon">🩺</div><h3>Health Officer</h3><div class="status-badge coming-soon">Coming Soon</div></div>
+      <div class="department-card coming-soon"><div class="department-icon">🤰</div><h3>Midwifery</h3><p>Maternal and child health care exam preparation</p><div class="status-badge coming-soon">Coming Soon</div></div>
+      <div class="department-card coming-soon"><div class="department-icon">🦵</div><h3>Physiotherapy</h3><p>Physical therapy and rehabilitation exam preparation</p><div class="status-badge coming-soon">Coming Soon</div></div>
+      <div class="department-card coming-soon"><div class="department-icon">🩻</div><h3>Radiology</h3><p>Medical imaging and radiology exams</p><div class="status-badge coming-soon">Coming Soon</div></div>
+      <div class="department-card coming-soon"><div class="department-icon">🥗</div><h3>Nutrition</h3><p>Clinical nutrition and dietetics exam preparation</p><div class="status-badge coming-soon">Coming Soon</div></div>
+    </div>
+  </div>
 
-    <!-- JS Scripts -->
-    <script src="auth.js"></script>
-    <script src="script.js"></script>
-    <script src="dashboard.js>"
-    <script>
-        // Development mode: bypass protection overlay
-        const DEVELOPMENT_MODE = true;
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Contact Information</h4>
+        <p><strong>Telegram channel:</strong> <a href="https://t.me/yerotechno" target="_blank" rel="noopener">MedQuiz</a></p>
+        <p><strong>Email:</strong> <a href="mailto:Medqiuz@gmail.com">MedQuiz</a></p>
+        <p><strong>Telegram support:</strong> <a href="https://t.me/MedquizP" target="_blank" rel="noopener">MedQuiz Support</a></p>
+        <p><strong>Phone:</strong> +251718461632</p>
+      </div>
+      <div class="footer-section"><h4>About MedQuiz</h4><p>Your trusted platform for medical education and exam preparation.</p></div>
+    </div>
+    <div class="footer-bottom">© 2026 MedQuiz | Practice Smart, Succeed Fast</div>
+  </footer>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            if (DEVELOPMENT_MODE) {
-                document.getElementById('protection-overlay').style.display = 'none';
-                console.log('Development mode ON: overlay disabled');
-            } else {
-                // normal auth check from auth.js
-            }
-
-            // Ensure all department styles are disabled initially
-            disableDepartmentStyles();
-        });
-
-        function disableDepartmentStyles() {
-            const pharmacyCSS = document.getElementById('pharmacy-css');
-            const year2CSS = document.getElementById('year2-css');
-            const session1CSS = document.getElementById('session1-css');
-
-            if (pharmacyCSS) pharmacyCSS.disabled = true;
-            if (year2CSS) year2CSS.disabled = true;
-            if (session1CSS) session1CSS.disabled = true;
-        }
-
-
-        // Enable Pharmacy CSS when user clicks Pharmacy link
-        function loadPharmacyStyles() {
-            const pharmacyCSS = document.getElementById('pharmacy-css');
-            if (pharmacyCSS) pharmacyCSS.disabled = false;
-            console.log('Pharmacy styles enabled');
-        }
-
-        // Logout function
-        function logout() {
-            // clear localStorage/session and reload
-            localStorage.clear();
-            window.location.reload();
-        }
-    </script>
+  <script type="module" src="auth.js"></script>
+  <script defer src="script.js"></script>
+  <script defer src="dashboard.js"></script>
+  <script>
+    const DEVELOPMENT_MODE = false;
+    document.addEventListener('DOMContentLoaded', function () {
+      if (DEVELOPMENT_MODE) console.warn('Development mode must remain OFF in production.');
+      disableDepartmentStyles();
+    });
+    function disableDepartmentStyles() {
+      ['pharmacy-css', 'year2-css', 'session1-css'].forEach(id => {
+        const element = document.getElementById(id);
+        if (element) element.disabled = true;
+      });
+    }
+    function loadPharmacyStyles() {
+      const element = document.getElementById('pharmacy-css');
+      if (element) element.disabled = false;
+    }
+    function loadnursingStyles() {}
+    function loadmlsStyles() {}
+    function redirectToRegistration() { window.location.href = 'index.html'; }
+  </script>
 </body>
-  </html>
+</html>
