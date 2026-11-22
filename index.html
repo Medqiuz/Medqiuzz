@@ -53,208 +53,151 @@
     <div id="message" class="message" role="status" aria-live="polite"></div>
     <p class="note">Your password is handled by Firebase Authentication and is not saved in your student profile. Never share your password or access code. Need an access code? Contact the official MedQuiz administrator.</p>
   </main>
-<script>
-  
-class DashboardSystem {
-    constructor() {
-        this.initialized = false;
-        this.loginInProgress = false;
-        this.init();
+
+  <script type="module">
+    import { auth, db } from "./firebase.js";
+    import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+    import { collection, doc, getDoc, runTransaction, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+    const $ = (id) => document.getElementById(id);
+    const registerForm = $("register-form");
+    const loginForm = $("login-form");
+    const message = $("message");
+    let busy = false;
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = `message ${type}`;
     }
+    function setBusy(button, value, label) {
+      button.disabled = value;
+      button.textContent = value ? "Please wait…" : label;
+      busy = value;
+    }
+    function showTab(tab) {
+      const registering = tab === "register";
+      registerForm.classList.toggle("hidden", !registering);
+      loginForm.classList.toggle("hidden", registering);
+      $("show-register").classList.toggle("active", registering);
+      $("show-login").classList.toggle("active", !registering);
+      message.className = "message";
+    }
+    $("show-register").addEventListener("click", () => showTab("register"));
+    $("show-login").addEventListener("click", () => showTab("login"));
 
-    async init() {
-        this.setupEventListeners();
-
-        try {
-            if (window.authReady) {
-                await window.authReady;
-            }
-
-            this.updateDashboard();
-            this.initialized = true;
-        } catch (error) {
-            console.error("MedQuiz authentication error:", error);
-            this.showProtectionOverlay();
+    async function obtainAccount(email, password) {
+      if (auth.currentUser && auth.currentUser.email?.toLowerCase() === email) return auth.currentUser;
+      if (auth.currentUser) await signOut(auth);
+      try {
+        const credential = await createUserWithEmailAndPassword(auth, email, password);
+        return credential.user;
+      } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+          const credential = await signInWithEmailAndPassword(auth, email, password);
+          return credential.user;
         }
+        throw error;
+      }
     }
 
-    isAuthenticated() {
-        return Boolean(
-            window.authSystem &&
-            window.authSystem.isAuthenticated()
-        );
-    }
+    registerForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (busy || !registerForm.reportValidity()) return;
+      const button = $("register-btn");
+      setBusy(button, true, "Complete registration");
+      message.className = "message";
+      try {
+        const fullName = $("fullName").value.trim();
+        const phone = $("phone").value.trim();
+        const university = $("university").value.trim();
+        const department = $("department").value;
+        const year = $("year").value;
+        const section = $("section").value;
+        const email = $("register-email").value.trim().toLowerCase();
+        const password = $("register-password").value;
+        const code = $("code").value.trim().toUpperCase();
 
-    updateDashboard() {
-        if (this.isAuthenticated()) {
-            this.hideProtectionOverlay();
-            this.loadUserInfo();
-        } else {
-            this.showProtectionOverlay();
+        if (!/^[A-HJ-NP-Z2-9]{12}$/.test(code)) {
+          throw new Error("Access code must contain exactly 12 characters. Check the code and try again.");
         }
-    }
+        const user = await obtainAccount(email, password);
+        const studentRef = doc(db, "students", user.uid);
+        const codeRef = doc(db, "accessCodes", code);
 
-    setupEventListeners() {
-        const logoutButton = document.getElementById("logout-btn");
-
-        if (logoutButton) {
-            logoutButton.addEventListener("click", () => this.logout());
+        const existing = await getDoc(studentRef);
+        if (existing.exists()) {
+          showMessage("This account is already registered. Use the Login tab.", "error");
+          return;
         }
 
-        ["login-email", "login-code"].forEach(id => {
-            const input = document.getElementById(id);
-
-            if (input) {
-                input.addEventListener("keydown", event => {
-                    if (event.key === "Enter") {
-                        this.attemptLogin();
-                    }
-                });
-            }
+        await runTransaction(db, async (transaction) => {
+          const codeSnapshot = await transaction.get(codeRef);
+          if (!codeSnapshot.exists() || codeSnapshot.data().used !== false) {
+            throw new Error("Access code is invalid or has already been used.");
+          }
+          transaction.update(codeRef, {
+            used: true,
+            uid: user.uid,
+            email,
+            redeemedAt: serverTimestamp()
+          });
+          transaction.set(studentRef, {
+            uid: user.uid,
+            fullName,
+            phone,
+            university,
+            department,
+            year,
+            section,
+            email,
+            redeemedCode: code,
+            registrationDate: serverTimestamp()
+          });
         });
 
-        window.addEventListener("medquiz-auth-ready", () => {
-            if (this.initialized) {
-                this.updateDashboard();
-            }
-        });
-    }
-
-    showProtectionOverlay() {
-        const overlay = document.getElementById("protection-overlay");
-        const content = document.querySelector(".dashboard-container");
-        const footer = document.querySelector("footer");
-
-        if (overlay) overlay.style.display = "flex";
-        if (content) content.style.display = "none";
-        if (footer) footer.style.display = "none";
-    }
-
-    hideProtectionOverlay() {
-        const overlay = document.getElementById("protection-overlay");
-        const content = document.querySelector(".dashboard-container");
-        const footer = document.querySelector("footer");
-
-        if (overlay) overlay.style.display = "none";
-        if (content) content.style.display = "";
-        if (footer) footer.style.display = "";
-    }
-
-    loadUserInfo() {
-        const user = window.authSystem?.getCurrentUser();
-
-        if (!user) return;
-
-        const fields = {
-            "user-name": user.fullName || "Student",
-            "user-department": user.department || "-",
-            "user-year": `Year ${user.year || "-"}, Section ${user.section || "-"}`,
-            "user-university": user.university || "-",
-            "welcome-message": `Welcome back, ${user.fullName || "Student"}!`
+        showMessage("Registration successful. Opening your MedQuiz dashboard…", "success");
+        setTimeout(() => { window.location.href = "dashboard.html"; }, 900);
+      } catch (error) {
+        console.error("Registration error:", error);
+        const messages = {
+          "auth/weak-password": "Choose a password with at least 8 characters.",
+          "auth/invalid-email": "Enter a valid email address.",
+          "auth/invalid-credential": "This email already has an account. Check your password in the Login tab.",
+          "permission-denied": "Registration was blocked by database security rules. Check that the latest Firestore rules were published and that this access code is valid and unused."
         };
+        showMessage(messages[error.code] || error.message || "Registration failed. Please try again.", "error");
+      } finally {
+        setBusy(button, false, "Complete registration");
+      }
+    });
 
-        for (const [id, value] of Object.entries(fields)) {
-            const element = document.getElementById(id);
-            if (element) element.textContent = value;
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (busy || !loginForm.reportValidity()) return;
+      const button = $("login-btn");
+      setBusy(button, true, "Login");
+      message.className = "message";
+      try {
+        const email = $("login-email").value.trim().toLowerCase();
+        const password = $("login-password").value;
+        const credential = await signInWithEmailAndPassword(auth, email, password);
+        const profile = await getDoc(doc(db, "students", credential.user.uid));
+        if (!profile.exists()) {
+          showTab("register");
+          $("register-email").value = email;
+          showMessage("Your account exists, but registration is not complete. Fill in your student details and redeem a valid unused access code.", "error");
+          return;
         }
-    }
-
-    async attemptLogin() {
-        if (this.loginInProgress) return;
-
-        const email = document.getElementById("login-email")?.value.trim();
-        const password = document.getElementById("login-code")?.value;
-
-        if (!email || !password) {
-            this.showMessage("Enter your registered email and password.", "error");
-            return;
-        }
-
-        if (!window.authSystem) {
-            this.showMessage("Authentication is not ready. Refresh the page.", "error");
-            return;
-        }
-
-        this.loginInProgress = true;
-
-        const button = document.querySelector(".login-btn");
-        if (button) button.disabled = true;
-
-        try {
-            await window.authSystem.login(email, password);
-
-            this.hideProtectionOverlay();
-            this.loadUserInfo();
-
-            const passwordInput = document.getElementById("login-code");
-            if (passwordInput) passwordInput.value = "";
-
-            this.showMessage("Login successful!", "success");
-
-        } catch (error) {
-            console.error("MedQuiz login error:", error);
-
-            let message = error.message || "Login failed.";
-
-            if (error.code === "auth/invalid-credential") {
-                message = "Incorrect email or password.";
-            } else if (error.code === "auth/too-many-requests") {
-                message = "Too many attempts. Try again later.";
-            }
-
-            this.showMessage(message, "error");
-
-        } finally {
-            this.loginInProgress = false;
-            if (button) button.disabled = false;
-        }
-    }
-
-    showMessage(message, type) {
-        document.querySelector(".login-error")?.remove();
-        document.querySelector(".login-success")?.remove();
-
-        const element = document.createElement("div");
-        element.className = `message ${type}`;
-        element.textContent = message;
-
-        if (type === "error") {
-            element.classList.add("login-error");
-        } else {
-            element.classList.add("login-success");
-        }
-
-        const form = document.querySelector(".login-form");
-
-        if (form) {
-            form.appendChild(element);
-        } else {
-            alert(message);
-        }
-    }
-
-    async logout() {
-        try {
-            if (window.authSystem) {
-                await window.authSystem.logout();
-            } else {
-                window.location.href = "index.html";
-            }
-        } catch (error) {
-            console.error("Logout error:", error);
-            alert("Logout failed. Please try again.");
-        }
-    }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    window.dashboardSystem = new DashboardSystem();
-});
-
-function attemptLogin() {
-    window.dashboardSystem?.attemptLogin();
-}
+        showMessage("Login successful. Opening your dashboard…", "success");
+        setTimeout(() => { window.location.href = "dashboard.html"; }, 700);
+      } catch (error) {
+        console.error("Login error:", error);
+        const text = error.code === "auth/invalid-credential" ? "Incorrect email or password." : (error.message || "Login failed.");
+        showMessage(text, "error");
+      } finally {
+        setBusy(button, false, "Login");
+      }
+    });
   </script>
-
 </body>
 </html>
