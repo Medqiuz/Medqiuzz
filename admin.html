@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MedQuiz Admin | Students</title>
+<style>
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f3f6fb;margin:0;padding:18px;color:#172033}.wrap{max-width:1100px;margin:auto;background:white;padding:22px;border-radius:14px;box-shadow:0 5px 22px #0001}h1{color:#1769aa;margin-top:0}.row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}input{padding:12px;border:1px solid #ccd4df;border-radius:8px;font-size:16px;min-width:0;flex:1}button{padding:12px 16px;border:0;border-radius:8px;background:#1769aa;color:white;font-weight:bold}button:disabled{opacity:.6}#status{padding:12px;margin:12px 0;border-radius:8px;display:none}#table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:850px;font-size:14px}th,td{padding:10px;border-bottom:1px solid #e5eaf0;text-align:left}th{background:#eef4fa} .hidden{display:none!important}.small{color:#657286;font-size:13px}
+</style>
+</head>
+<body><main class="wrap">
+<h1>MedQuiz — Student Admin</h1>
+<p class="small">Only an account explicitly added to the Firestore admins collection can view this list.</p>
+<section id="login-panel">
+  <div class="row"><input id="email" type="email" placeholder="Admin email" autocomplete="username"><input id="password" type="password" placeholder="Admin password" autocomplete="current-password"></div>
+  <button id="login">Admin login</button>
+</section>
+<section id="dashboard" class="hidden">
+  <div class="row"><input id="search" type="search" placeholder="Search name, email, university, department"><button id="refresh">Refresh</button><button id="export">Export CSV</button><button id="logout">Logout</button></div>
+  <p id="count" class="small"></p>
+  <div id="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>University</th><th>Department</th><th>Year</th><th>Section</th><th>Registered</th></tr></thead><tbody id="students"></tbody></table></div>
+</section>
+<div id="status" role="status"></div>
+</main>
+<script type="module">
+import { auth, db } from './firebase.js';
+import { signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js';
+import { collection, doc, getDoc, getDocs } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js';
+const $=id=>document.getElementById(id);let allStudents=[];
+function status(text,ok=false){$('status').textContent=text;$('status').style.display='block';$('status').style.background=ok?'#e8f7ed':'#fff0f0';$('status').style.color=ok?'#155b2b':'#8b1e1e';}
+function escapeCsv(value){const s=String(value??'');return '"'+s.replaceAll('"','""')+'"';}
+function dateText(value){return value?.toDate?value.toDate().toLocaleString():'';}
+function render(){const term=$('search').value.trim().toLowerCase();const filtered=allStudents.filter(s=>[s.fullName,s.email,s.phone,s.university,s.department,s.year,s.section].some(v=>String(v??'').toLowerCase().includes(term)));$('students').replaceChildren();for(const s of filtered){const tr=document.createElement('tr');[s.fullName,s.email,s.phone,s.university,s.department,`Year ${s.year}`,s.section,dateText(s.registrationDate)].forEach(v=>{const td=document.createElement('td');td.textContent=String(v??'');tr.appendChild(td)});$('students').appendChild(tr)}$('count').textContent=`Showing ${filtered.length} of ${allStudents.length} registered students.`;}
+async function loadStudents(){const snap=await getDocs(collection(db,'students'));allStudents=snap.docs.map(d=>d.data()).sort((a,b)=>(b.registrationDate?.toMillis?.()??0)-(a.registrationDate?.toMillis?.()??0));render();}
+async function checkAdmin(user){const adminDoc=await getDoc(doc(db,'admins',user.uid));if(!adminDoc.exists())throw new Error('This account is not an administrator.');}
+$('login').addEventListener('click',async()=>{try{$('login').disabled=true;const cred=await signInWithEmailAndPassword(auth,$('email').value.trim().toLowerCase(),$('password').value);await checkAdmin(cred.user);$('login-panel').classList.add('hidden');$('dashboard').classList.remove('hidden');await loadStudents();status('Admin access granted.',true)}catch(e){console.error(e);if(auth.currentUser)await signOut(auth);status(e.message||'Admin login failed.')}finally{$('login').disabled=false}});
+$('refresh').addEventListener('click',()=>loadStudents().catch(e=>status(e.message)));
+$('search').addEventListener('input',render);
+$('export').addEventListener('click',()=>{const headers=['Name','Email','Phone','University','Department','Year','Section','Registration date'];const rows=allStudents.map(s=>[s.fullName,s.email,s.phone,s.university,s.department,s.year,s.section,dateText(s.registrationDate)]);const csv=[headers,...rows].map(r=>r.map(escapeCsv).join(',')).join('\r\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='medquiz-students.csv';a.click();URL.revokeObjectURL(url)});
+$('logout').addEventListener('click',async()=>{await signOut(auth);location.reload()});
+</script></body></html>
