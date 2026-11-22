@@ -1,182 +1,252 @@
 class DashboardSystem {
     constructor() {
         this.currentState = {
-            department: '',
-            year: '',
-            session: '',
-            level: 'departments'
+            department: "",
+            year: "",
+            session: "",
+            level: "departments"
         };
+
         this.init();
     }
 
-    init() {
-        setTimeout(() => {
-            this.checkAuthentication();
-            this.setupEventListeners();
-            this.loadUserInfo();
-            this.loadDepartments();
-        }, 100);
+    async init() {
+        this.setupEventListeners();
+
+        try {
+            // Wait until Firebase checks the current login session.
+            if (window.authReady) {
+                await window.authReady;
+            }
+
+            if (this.checkAuthentication()) {
+                this.loadUserInfo();
+                this.loadDepartments();
+            }
+        } catch (error) {
+            console.error("Dashboard initialization error:", error);
+            this.showProtectionOverlay();
+        }
     }
 
-    // Offline-aware authentication
     checkAuthentication() {
-        // Online auth
-        if (window.authSystem && window.authSystem.isAuthenticated()) {
+        const authenticated =
+            window.authSystem &&
+            window.authSystem.isAuthenticated();
+
+        if (authenticated) {
             this.hideProtectionOverlay();
             return true;
         }
 
-        // Offline auth from localStorage
-        const localUser = localStorage.getItem('dashboard_user');
-        if (localUser) {
-            this.hideProtectionOverlay();
-            return true;
-        }
-
-        // No auth
         this.showProtectionOverlay();
         return false;
     }
 
     showProtectionOverlay() {
-        const overlay = document.getElementById('protection-overlay');
-        const dashboardContent = document.querySelector('.dashboard-container');
-        const footer = document.querySelector('footer');
-        if (overlay) overlay.style.display = 'flex';
-        if (dashboardContent) dashboardContent.style.display = 'none';
-        if (footer) footer.style.display = 'none';
+        const overlay = document.getElementById("protection-overlay");
+        const content = document.querySelector(".dashboard-container");
+        const footer = document.querySelector("footer");
+
+        if (overlay) overlay.style.display = "flex";
+        if (content) content.style.display = "none";
+        if (footer) footer.style.display = "none";
     }
 
     hideProtectionOverlay() {
-        const overlay = document.getElementById('protection-overlay');
-        const dashboardContent = document.querySelector('.dashboard-container');
-        const footer = document.querySelector('footer');
-        if (overlay) overlay.style.display = 'none';
-        if (dashboardContent) dashboardContent.style.display = 'block';
-        if (footer) footer.style.display = 'block';
+        const overlay = document.getElementById("protection-overlay");
+        const content = document.querySelector(".dashboard-container");
+        const footer = document.querySelector("footer");
+
+        if (overlay) overlay.style.display = "none";
+        if (content) content.style.display = "block";
+        if (footer) footer.style.display = "block";
     }
 
     setupEventListeners() {
-        const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) logoutBtn.addEventListener('click', () => this.logout());
+        const logoutBtn = document.getElementById("logout-btn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", () => this.logout());
+        }
 
-        const loginCode = document.getElementById('login-code');
-        if (loginCode) loginCode.addEventListener('keypress', (e) => { if (e.key === 'Enter') this.attemptLogin(); });
+        const emailInput = document.getElementById("login-email");
+        const passwordInput = document.getElementById("login-code");
 
-        const loginEmail = document.getElementById('login-email');
-        if (loginEmail) loginEmail.addEventListener('keypress', (e) => { if (e.key === 'Enter') this.attemptLogin(); });
+        [emailInput, passwordInput].forEach((input) => {
+            if (input) {
+                input.addEventListener("keydown", (event) => {
+                    if (event.key === "Enter") {
+                        this.attemptLogin();
+                    }
+                });
+            }
+        });
     }
 
     loadUserInfo() {
-        let user = null;
-        if (window.authSystem && window.authSystem.getCurrentUser()) {
-            user = window.authSystem.getCurrentUser();
-        } else if (localStorage.getItem('dashboard_user')) {
-            user = JSON.parse(localStorage.getItem('dashboard_user'));
-        }
+        const user = window.authSystem?.getCurrentUser();
 
         if (!user) return;
 
-        const userNameElement = document.getElementById('user-name');
-        const userDepartmentElement = document.getElementById('user-department');
-        const userYearElement = document.getElementById('user-year');
-        const userUniversityElement = document.getElementById('user-university');
-        const welcomeMessageElement = document.getElementById('welcome-message');
+        const name = document.getElementById("user-name");
+        const department = document.getElementById("user-department");
+        const year = document.getElementById("user-year");
+        const university = document.getElementById("user-university");
+        const welcome = document.getElementById("welcome-message");
 
-        if (userNameElement) userNameElement.textContent = user.fullName;
-        if (userDepartmentElement) userDepartmentElement.textContent = user.department;
-        if (userYearElement) userYearElement.textContent = `Year ${user.year}, Section ${user.section}`;
-        if (userUniversityElement) userUniversityElement.textContent = user.university;
-
-        if (welcomeMessageElement) welcomeMessageElement.textContent = `Welcome back, ${user.fullName}!`;
+        if (name) name.textContent = user.fullName || "";
+        if (department) department.textContent = user.department || "";
+        if (year) {
+            year.textContent =
+                `Year ${user.year || ""}, Section ${user.section || ""}`;
+        }
+        if (university) university.textContent = user.university || "";
+        if (welcome) {
+            welcome.textContent = `Welcome back, ${user.fullName || "Student"}!`;
+        }
     }
 
-    attemptLogin() {
+    async attemptLogin() {
+        const emailInput = document.getElementById("login-email");
+        const passwordInput = document.getElementById("login-code");
+
+        const email = emailInput?.value.trim();
+        const password = passwordInput?.value;
+
+        if (!email || !password) {
+            this.showLoginError("Enter your email and account password.");
+            return;
+        }
+
         if (!window.authSystem) {
-            this.showLoginError('Auth system not loaded. Please refresh.');
+            this.showLoginError("Authentication system is not loaded. Refresh the page.");
             return;
         }
 
-        const email = document.getElementById('login-email')?.value;
-        const code = document.getElementById('login-code')?.value;
+        const loginButton = document.querySelector(
+            '.login-form button[onclick="attemptLogin()"]'
+        );
 
-        if (!email || !code) {
-            this.showLoginError('Please enter both email and access code');
-            return;
-        }
+        if (loginButton) loginButton.disabled = true;
 
         try {
-            const validation = window.authSystem.validateUser(email, code);
-            if (validation.valid) {
-                // Save locally for offline use
-                localStorage.setItem('dashboard_user', JSON.stringify(validation.user));
-                localStorage.setItem('dashboard_session_time', Date.now());
+            await window.authSystem.login(email, password);
 
-                window.authSystem.createUserSession(validation.user);
-                this.hideProtectionOverlay();
-                this.loadUserInfo();
-                this.showLoginSuccess('Login successful! You can now use the app offline.');
-                setTimeout(() => window.location.reload(), 1500);
-            } else {
-                this.showLoginError(validation.message);
-            }
+            this.hideProtectionOverlay();
+            this.loadUserInfo();
+
+            if (passwordInput) passwordInput.value = "";
+
+            this.showLoginSuccess("Login successful!");
+
         } catch (error) {
-            console.error('Login error:', error);
-            this.showLoginError('Login failed. Please try again.');
+            console.error("Login error:", error);
+
+            let message = "Login failed. Check your email and password.";
+
+            if (error.code === "auth/invalid-credential" ||
+                error.code === "auth/wrong-password" ||
+                error.code === "auth/user-not-found") {
+                message = "Incorrect email or password.";
+            } else if (error.code === "auth/too-many-requests") {
+                message = "Too many attempts. Please try again later.";
+            } else if (error.message) {
+                message = error.message;
+            }
+
+            this.showLoginError(message);
+
+        } finally {
+            if (loginButton) loginButton.disabled = false;
         }
     }
 
     showLoginError(message) {
-        const existingError = document.querySelector('.login-error');
-        if (existingError) existingError.remove();
+        document.querySelector(".login-error")?.remove();
 
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'login-error message error';
-        errorDiv.innerHTML = message;
+        const errorDiv = document.createElement("div");
+        errorDiv.className = "login-error message error";
+        errorDiv.textContent = message;
 
-        const loginForm = document.querySelector('.login-form');
-        if (loginForm) loginForm.appendChild(errorDiv);
+        const loginForm = document.querySelector(".login-form");
 
-        const loginCode = document.getElementById('login-code');
-        if (loginCode) loginCode.value = '';
+        if (loginForm) {
+            loginForm.appendChild(errorDiv);
+        } else {
+            alert(message);
+        }
+
+        const passwordInput = document.getElementById("login-code");
+        if (passwordInput) passwordInput.value = "";
     }
 
     showLoginSuccess(message) {
-        const successDiv = document.createElement('div');
-        successDiv.className = 'message success';
+        document.querySelector(".login-success")?.remove();
+
+        const successDiv = document.createElement("div");
+        successDiv.className = "login-success message success";
         successDiv.textContent = message;
-        successDiv.style.marginTop = '15px';
-        const protectionModal = document.querySelector('.protection-modal');
-        if (protectionModal) {
-            protectionModal.appendChild(successDiv);
-            setTimeout(() => { if (successDiv.parentNode) successDiv.remove(); }, 3000);
+        successDiv.style.marginTop = "15px";
+
+        const modal = document.querySelector(".protection-modal");
+
+        if (modal) {
+            modal.appendChild(successDiv);
+
+            setTimeout(() => {
+                successDiv.remove();
+            }, 3000);
         }
     }
 
-    logout() {
-        if (window.authSystem) window.authSystem.logout();
-        localStorage.removeItem('dashboard_user');
-        localStorage.removeItem('dashboard_session_time');
-        this.showProtectionOverlay();
-        window.location.href = 'index.html';
+    async logout() {
+        try {
+            if (window.authSystem) {
+                await window.authSystem.logout();
+            } else {
+                window.location.href = "index.html";
+            }
+        } catch (error) {
+            console.error("Logout error:", error);
+            alert("Could not log out. Please try again.");
+        }
     }
-
-    // Navigation functions (loadDepartments, loadYears, loadSessions, etc.)
-    // Keep all your original methods here without modification
-    // ...
 }
 
-// Initialize dashboard
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => { window.dashboardSystem = new DashboardSystem(); }, 100);
+// Start dashboard after the HTML is loaded.
+document.addEventListener("DOMContentLoaded", () => {
+    window.dashboardSystem = new DashboardSystem();
 });
 
-// Global functions
-function loadDepartments() { if (window.dashboardSystem) window.dashboardSystem.loadDepartments(); }
-function loadYears(department) { if (window.dashboardSystem) window.dashboardSystem.loadYears(department); }
-function loadSessions(year) { if (window.dashboardSystem) window.dashboardSystem.loadSessions(year); }
-function loadSubjects(session) { if (window.dashboardSystem) window.dashboardSystem.loadSubjects(session); }
-function loadFeaturedContent(session) { if (window.dashboardSystem) window.dashboardSystem.loadFeaturedContent(session); }
-function goToPart(subject, part) { if (window.dashboardSystem) window.dashboardSystem.goToPart(subject, part); }
-function goToFeatured(feature, part) { if (window.dashboardSystem) window.dashboardSystem.goToFeatured(feature, part); }
-function attemptLogin() { if (window.dashboardSystem) window.dashboardSystem.attemptLogin(); }
+// Global functions used by HTML onclick attributes.
+function loadDepartments() {
+    window.dashboardSystem?.loadDepartments?.();
+}
+
+function loadYears(department) {
+    window.dashboardSystem?.loadYears?.(department);
+}
+
+function loadSessions(year) {
+    window.dashboardSystem?.loadSessions?.(year);
+}
+
+function loadSubjects(session) {
+    window.dashboardSystem?.loadSubjects?.(session);
+}
+
+function loadFeaturedContent(session) {
+    window.dashboardSystem?.loadFeaturedContent?.(session);
+}
+
+function goToPart(subject, part) {
+    window.dashboardSystem?.goToPart?.(subject, part);
+}
+
+function goToFeatured(feature, part) {
+    window.dashboardSystem?.goToFeatured?.(feature, part);
+}
+
+function attemptLogin() {
+    window.dashboardSystem?.attemptLogin();
+}
